@@ -117,6 +117,9 @@ private :
     bool load_txt (std::string path);
 
 public :
+    void setType(const std::string &type);
+
+    Data() {}
     /**
      * \brief Data constructor to load a dataset from a file.
      * \param dataset (???) Path to the dataset to be loaded.
@@ -136,7 +139,7 @@ public :
      * \param pos_class String representing the positive class on the dataset.
      * \param neg_class String representing the negative class on the dataset.
      */
-    Data (const char* datasetType = "Classification");
+    Data (const char* dataset);
     
     /*********************************************
      *               Getters                     *

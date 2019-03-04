@@ -54,7 +54,7 @@ public :
      * \brief setParam Set the kernel parameter used in the kernel computations.
      * \param param parameter to be set.
      */
-    void setParam(double param);
+    void setParam(int param);
     /**
      * \brief getType Returns the kernel type used in the kernel computations.
      * \return int.

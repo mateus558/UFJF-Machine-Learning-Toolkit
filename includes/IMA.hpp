@@ -68,7 +68,6 @@ private:
 public:
     explicit IMADual(std::shared_ptr<Data< T > > samples = nullptr, Kernel *k = nullptr, double rate = 1, Solution *initial_solution = nullptr);
     bool train() override;
-    double evaluate(Point< T >  p) override;
     /**
      * \brief Get the indexes of support vectors.
      * \return std::vector<int> 

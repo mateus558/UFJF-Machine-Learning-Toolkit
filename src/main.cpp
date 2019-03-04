@@ -12,6 +12,7 @@
 
 #include "../includes/MLToolkit.hpp"
 #include "../includes/Perceptron.hpp"
+#include "../includes/LMS.hpp"
 #include "../includes/IMA.hpp"
 #include "../includes/SMO.hpp"
 #include "../includes/RFE.hpp"
@@ -48,6 +49,7 @@ void datasetMenu(void);
 void dataMenu(void);
 void VisualizationMenu(void);
 void classifiersMenu(void);
+void regressorsMenu(void);
 void featureSelectionMenu(void);
 void validationMenu(void);
 
@@ -58,6 +60,9 @@ void dataOption(int);
 void VisualizationOption(int);
 void classifiersOption(int);
 void featureSelectionOption(int);
+void regressorsOption(int);
+void primalRegressorsOption(int);
+void dualRegressorsOption(int);
 void primalClassifiersOption(int);
 void dualClassifiersOption(int);
 void validationOption(int);
@@ -67,6 +72,7 @@ int main(int argc, char* argv[]){
     if(argc > 1){
         data->load(string(argv[1]));
     }
+
     while (true) {
         if(sair) break;
         clear();
@@ -207,6 +213,7 @@ void mainMenu(){
     cout << "3 - Data Visualization" << endl;
     cout << "4 - Classifiers" << endl;
     cout << "5 - Feature Selection" << endl;
+    cout << "6 - Regressors" << endl;
     cout << "8 - Validation" << endl;
     cout << endl;
     cout << "9 - Set Verbose" << endl;
@@ -306,6 +313,21 @@ void featureSelectionMenu(){
     featureSelectionOption(option);
 }
 
+void regressorsMenu() {
+    int option;
+
+    clear();
+    header();
+
+    cout << "1 - Primal Regressors" << endl;
+    cout << "2 - Dual Regressors" << endl;
+    cout << endl;
+    cout << "0 - Back to the main menu" << endl;
+
+    option = selector();
+    regressorsOption(option);
+}
+
 void validationMenu(){
     int opt;
 
@@ -341,7 +363,7 @@ void mainOption(int option){
             featureSelectionMenu();
             break;
         case 6:
-            //genomicMenu();
+            regressorsMenu();
             break;
         case 7:
             //utilsMenu();
@@ -393,10 +415,11 @@ void datasetOption(int option){
                 cout << "Enter the negative class: ";
                 cin >> neg;*/
 
-                path = data_folder + files[stoin(sid)];
+                path = data_folder + files[Utils::stoin(sid)];
                 clock_t begin = clock();
                 //data->setClasses(pos, neg);
                 cout << "\n" << path << endl;
+                data->setType("Regression");
                 data->load(path);
                 clock_t end = clock();
 
@@ -1181,6 +1204,98 @@ void featureSelectionOption(int option){
     }
 }
 
+void regressorsOption(int option) {
+    int opt;
+    switch (option){
+        case 1:
+            clear();
+            header();
+
+            cout << "1 - Least Mean Squares Primal (LMS Primal)" << endl;
+            cout << endl;
+            cout << "0 - Back to regressors menu" << endl;
+            cout << "m - Back to main menu." << endl;
+
+            opt = selector();
+            primalRegressorsOption(opt);
+            break;
+        case 2:
+            clear();
+            header();
+
+            cout << "1 - Least Mean Squares Dual (LMS Dual)" << endl;
+            cout << endl;
+            cout << "0 - Back to regressors menu" << endl;
+            cout << "m - Back to main menu." << endl;
+
+            opt = selector();
+            dualRegressorsOption(opt);
+            break;
+        case 0:
+            mainMenu();
+            break;
+        default:
+            inva = true;
+            break;
+    }
+    regressorsMenu();
+}
+
+void primalRegressorsOption(int option) {
+    double eta = 0.5;
+
+    switch (option) {
+        case 1:
+            if(!data->isEmpty()){
+                std::cout << "Value of the learning rate: ";
+                std::cin >> eta;
+
+                LMSPrimal<double> lms(data, eta, 2);
+
+                lms.setMaxIterations(20);
+                lms.train();
+                sol = lms.getSolution();
+
+                waitUserAction();
+            }else{
+                cout << "Load a dataset first..." << endl;
+            }
+            break;
+        case 0:
+            regressorsMenu();
+            break;
+        case 109:
+            mainMenu();
+            break;
+        default:
+            inva = true;
+            break;
+    }
+    regressorsOption(1);
+}
+
+void dualRegressorsOption(int option) {
+    switch (option) {
+        case 1:
+            if(!data->isEmpty()){
+                waitUserAction();
+            }else{
+                cout << "Load a dataset first..." << endl;
+            }
+            break;
+        case 0:
+            regressorsMenu();
+            break;
+        case 109:
+            mainMenu();
+            break;
+        default:
+            inva = true;
+            break;
+    }
+    regressorsOption(2);
+}
+
 void validationOption(int option){
     int fold, qtde, kernel_type;
     int p, q, i, norm, flexible, svs;
@@ -1521,8 +1636,7 @@ void primalClassifiersOption(int option){
 }
 
 void dualClassifiersOption(int option){
-    int i, kernel_type = 0;
-    double kernel_param = 0.0;
+    int i, kernel_type = 0, kernel_param = 0;
     double rate;
     Kernel K;
 
@@ -1691,9 +1805,8 @@ void dualClassifiersOption(int option){
                     cin >> kernel_param;
                 }
 
-                K.setType(kernel_type);
                 K.setParam(kernel_param);
-                K.compute(data);
+                K.setType(kernel_type);
 
                 clock_t begin = clock();
                 SMO<double> smo(data, &K, verbose);

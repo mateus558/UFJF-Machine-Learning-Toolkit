@@ -1,4 +1,4 @@
-# Install script for directory: /home/mateus558/Documents/Machine-Learning-Toolkit
+# Install script for directory: /home/mateus558/Repositories/Machine-Learning-Toolkit
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/mateus558/Documents/Machine-Learning-Toolkit/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

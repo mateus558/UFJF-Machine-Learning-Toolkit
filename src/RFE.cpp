@@ -227,7 +227,7 @@ std::shared_ptr<Data< T > > RFE< T >::selectFeatures() {
             leveljump = level+this->jump;
 
         /*manutencao do w do pai para o IMA Primal*/
-        if(this->classifier->classifierType() == "Primal")
+        if(this->classifier->getFormulationString() == "Primal")
         {
             for(j = 0; j < stmp->getDim(); ++j)
                 for(i = level; i < leveljump; ++i)

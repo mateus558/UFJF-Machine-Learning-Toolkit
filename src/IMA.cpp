@@ -74,7 +74,7 @@ bool IMAp< T >::train() {
         for (min = DBL_MAX, max = -DBL_MAX, i = 0; i < size; ++i) {
             y = points[i]->y;
             for (func[i] = 0, j = 0; j < dim; ++j)
-                func[i] += this->solution.w[j] * points[i]->x[j];
+                func[i] += this->w[j] * points[i]->x[j];
             if (y == 1 && func[i] < min) min = func[i];
             else if (y == -1 && func[i] > max) max = func[i];
         }
@@ -138,8 +138,6 @@ bool IMAp< T >::train() {
     stime = this->timer.Elapsed();
     imapFixMargin.setStartTime(stime);
     *imapFixMargin.getFlagNot1aDim() = flagNao1aDim;
-    imapFixMargin.setSolution(this->solution);
-    imapFixMargin.setW(this->solution.w);
 
     while(imapFixMargin.train())
     {
@@ -588,23 +586,6 @@ bool IMADual< T >::train() {
     return true;
 }
 
-template < typename T >
-double IMADual< T >::evaluate(Point< T > p) {
-    double func, bias = this->solution.bias, fk = 0.0, lambda;
-    size_t size = this->samples->getSize(), dim = this->samples->getDim(), r;
-    auto po = make_shared<Point< T > >(p);
-
-    if(p.x.size() != dim){
-        cerr << "The point must have the same dimension of the feature set!" << endl;
-        return 0;
-    }
-
-    for(func = bias, r = 0; r < size; ++r){
-        fk = this->kernel->function(po, (*this->samples)[r], dim);
-        func  += (*this->samples)[r]->alpha * (*this->samples)[r]->y * fk;
-    }
-    return (func >= 0)?1:-1;
-}
 
 template class IMAp<int>;
 template class IMAp<double>;

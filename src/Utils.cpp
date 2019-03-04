@@ -13,6 +13,9 @@
 
 using namespace std;
 
+namespace Utils
+{
+
 bool is_number(string str){
     int i = 0, size = str.size();
 
@@ -48,7 +51,7 @@ int stoin(string str){
     return (sign) ? num * -1 : num;
 }
 
-double atof(char s[])
+double atod(const char* s)
 {
     double val, power;
     int i, sign;
@@ -229,4 +232,6 @@ double min(double a, double b){
 
 double max(double a, double b){
     return (a > b)?a:b;
+}
+
 }

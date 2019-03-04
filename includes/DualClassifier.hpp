@@ -20,7 +20,24 @@ protected:
     /// Object for kernel computations.
     Kernel *kernel = nullptr;
 public:
-    inline std::string classifierType() override { return "Dual"; }
+
+    double evaluate(Point< T > p) override {
+        double func, bias = this->solution.bias, fk = 0.0, lambda;
+        size_t size = this->samples->getSize(), dim = this->samples->getDim(), r;
+        auto po = std::make_shared<Point< T > >(p);
+
+        if(p.x.size() != dim){
+            std::cerr << "The point must have the same dimension of the feature set!" << std::endl;
+            return 0;
+        }
+
+        for(func = bias, r = 0; r < size; ++r){
+            fk = this->kernel->function(po, (*this->samples)[r], dim);
+            func  += (*this->samples)[r]->alpha * (*this->samples)[r]->y * fk;
+        }
+
+        return (func >= 0)?1:-1;
+    }
 
     /*********************************************
      *               Setters                     *
@@ -45,6 +62,8 @@ public:
     /*********************************************
      *               Getters                     *
      *********************************************/
+
+    std::string getFormulationString() override { return "Dual"; }
 
     /**
      * \brief Get the parameter of the kernel.

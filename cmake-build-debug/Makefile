@@ -48,10 +48,10 @@ RM = /usr/local/clion/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mateus558/Documents/Machine-Learning-Toolkit
+CMAKE_SOURCE_DIR = /home/mateus558/Repositories/Machine-Learning-Toolkit
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mateus558/Documents/Machine-Learning-Toolkit/cmake-build-debug
+CMAKE_BINARY_DIR = /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mateus558/Documents/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles /home/mateus558/Documents/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mateus558/Documents/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -284,6 +284,33 @@ src/Kernel.s: src/Kernel.cpp.s
 src/Kernel.cpp.s:
 	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/Kernel.cpp.s
 .PHONY : src/Kernel.cpp.s
+
+src/LMS.o: src/LMS.cpp.o
+
+.PHONY : src/LMS.o
+
+# target to build an object file
+src/LMS.cpp.o:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/LMS.cpp.o
+.PHONY : src/LMS.cpp.o
+
+src/LMS.i: src/LMS.cpp.i
+
+.PHONY : src/LMS.i
+
+# target to preprocess a source file
+src/LMS.cpp.i:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/LMS.cpp.i
+.PHONY : src/LMS.cpp.i
+
+src/LMS.s: src/LMS.cpp.s
+
+.PHONY : src/LMS.s
+
+# target to generate assembly for a file
+src/LMS.cpp.s:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/LMS.cpp.s
+.PHONY : src/LMS.cpp.s
 
 src/Perceptron.o: src/Perceptron.cpp.o
 
@@ -555,6 +582,9 @@ help:
 	@echo "... src/Kernel.o"
 	@echo "... src/Kernel.i"
 	@echo "... src/Kernel.s"
+	@echo "... src/LMS.o"
+	@echo "... src/LMS.i"
+	@echo "... src/LMS.s"
 	@echo "... src/Perceptron.o"
 	@echo "... src/Perceptron.i"
 	@echo "... src/Perceptron.s"

@@ -21,18 +21,21 @@
 using namespace std;
 
 template < typename T >
-Data< T >::Data(const char* datasetType){
-    this->type = string(datasetType);
+Data< T >::Data(const char* dataset){
+    if(!load(string(dataset))){
+        cerr << "Couldn't read the dataset." << endl;
+    }
 }
 
 template < typename T >
 Data< T >::Data(const char* dataset, const char* datasetType, const char* pos_class, const char* neg_class){
-    if(!load(string(dataset))){
-        cerr << "Couldn't read the dataset." << endl;
-    }
     this->pos_class = string(pos_class);
     this->neg_class = string(neg_class);
     this->type = string(datasetType);
+
+    if(!load(string(dataset))) {
+        cerr << "Couldn't read the dataset." << endl;
+    }
 }
 
 template < typename T >
@@ -131,7 +134,7 @@ bool Data< T >::load_csv(string path){
 
         while(getline(ss, item, deli)){
             //check for invalid feature or class
-            if(!is_number(item) && (item != pos_class || item != neg_class)){
+            if(!Utils::is_number(item) && (item != pos_class || item != neg_class)){
                 clog << "Warning: point[" << size  << "] " << dim+1 << " feature is not a number." << endl;
                 dim--;
             }
@@ -194,13 +197,13 @@ bool Data< T >::load_csv(string path){
                 cond = !(dim == -1);
 
             if(cond){
-                if(is_number(item))
-                    new_point->x[(!atEnd)?dim:dim+1] = atof(item.c_str());
+                if(Utils::is_number(item))
+                    new_point->x[(!atEnd)?dim:dim+1] = Utils::atod(item.c_str());
             }else{
                 double c;
-                if(is_number(item)){
+                if(Utils::is_number(item)){
                     if(type == "Classification") c = (item == pos_class)?1:-1;
-                    else c = atof(item.c_str());
+                    else c = Utils::atod(item.c_str());
                 }else{
                     if(type == "Classification") {
                         c = (item == pos_class) ? 1 : -1;
@@ -209,7 +212,7 @@ bool Data< T >::load_csv(string path){
                             c = 0;
                         }
                     }else{
-                        c = atof(item.c_str());
+                        c = Utils::atod(item.c_str());
                     }
                 }
                 if(type == "Classification")
@@ -253,7 +256,7 @@ bool Data< T >::load_data(string path){
         ss.clear();
 
         while(getline(ss, item, ' ')){
-            if(!is_number(item)){
+            if(!Utils::is_number(item)){
                 clog << "Warning: point[" << size  << "] " << dim+1 << " feature is not a number." << endl;
                 dim--;
             }
@@ -327,7 +330,7 @@ bool Data< T >::load_data(string path){
                         }else if(flag){
                             buffer.push_back(i);
                         }else if(i == ':' && i > 0 && this->size == 0){	//Get features names in the first running
-                            fnames[dim] = stoin(buffer);
+                            fnames[dim] = Utils::stoin(buffer);
                             flag = true;
                             buffer.clear();
                         }else if(i == ':'){
@@ -336,13 +339,13 @@ bool Data< T >::load_data(string path){
                         }
                     }
                 }
-                if(is_number(buffer)){
-                    new_point->x[(atEnd)?dim:dim-1] = atof(buffer.c_str());
+                if(Utils::is_number(buffer)){
+                    new_point->x[(atEnd)?dim:dim-1] = Utils::atod(buffer.c_str());
                     dim++;
                 }
             }else{
                 if(type == "Classification") c = (item == pos_class)?1:-1;
-                else c = atof(item.c_str());
+                else c = Utils::atod(item.c_str());
                 new_point->y = c;
                 if(c == -1) stats.n_neg++; else stats.n_pos++;
 
@@ -383,7 +386,7 @@ bool Data< T >::load_arff(string path){
 
         while(getline(ss, item, ',')){
             //check for invalid feature or class
-            if(!is_number(item) && (item != pos_class || item != neg_class)){
+            if(!Utils::is_number(item) && (item != pos_class || item != neg_class)){
                 clog << "Warning: point[" << size  << "] " << dim+1 << " feature is not a number." << endl;
                 dim--;
             }
@@ -447,13 +450,13 @@ bool Data< T >::load_arff(string path){
                 cond = !(dim == 0);
 
             if(cond){
-                if(is_number(item)){
-                    new_point->x[dim + 1] = atof(item.c_str());
+                if(Utils::is_number(item)){
+                    new_point->x[dim + 1] = Utils::atod(item.c_str());
                 }
 
             }else{
-                if(is_number(item)){
-                    c = (stoin(item) == stoin(pos_class))?1:-1;
+                if(Utils::is_number(item)){
+                    c = (Utils::stoin(item) == Utils::stoin(pos_class))?1:-1;
                 }else{
                     c = (item == pos_class)?1:-1;
                     if(item != pos_class){
@@ -545,8 +548,8 @@ bool Data< T >::load_txt(string path){
         //read features from line
         while(getline(ss, item, ' ')){
             if(n >= 2){
-                if(is_number(item))
-                    new_point->x[n - 2] = atof(item.c_str());
+                if(Utils::is_number(item))
+                    new_point->x[n - 2] = Utils::atod(item.c_str());
                 else{ clog << "Warning: point[" << size  << "] " << n-2 << " feature is not a number." << endl; }
                 new_point->y = 0;
             }
@@ -610,19 +613,24 @@ void Data< T >::write(string fname, string ext){
     }
 
     for(i = 0; i < size; i++){
-        outstream << points[i]->y << " ";
-
         if(ext == "plt"){
+            outstream << points[i]->y << " ";
             for(j = 0; j < dim-1; j++){
                 outstream << points[i]->x[j] << " ";
             }
             outstream << points[i]->x[j] << endl;
         }else if(ext == "data"){
-
+            outstream << points[i]->y << " ";
             for(j = 0; j < dim-1; j++){
                 outstream << fnames[j] << ":" << points[i]->x[j] << " ";
             }
             outstream << fnames[j] << ":" << points[i]->x[j] << "\n";
+        }else if(ext == "csv"){
+            outstream << points[i]->y << ",";
+            for(j = 0; j < dim-1; j++){
+                outstream << points[i]->x[j] << ",";
+            }
+            outstream << points[i]->x[j] << "\n";
         }
     }
 
@@ -1078,6 +1086,11 @@ Data<T>::Data(size_t size, size_t dim, T val) {
     this->size = size;
     this->dim = dim;
     this->is_empty = false;
+}
+
+template<typename T>
+void Data<T>::setType(const string &type) {
+    Data::type = type;
 }
 
 template class Data<int>;

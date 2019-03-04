@@ -24,15 +24,27 @@ protected:
     double alpha_aprox = 0.0;
 public:
 
+    double evaluate(Point< T > p) override {
+        double func = 0.0;
+        size_t i, dim = this->solution.w.size();
+
+        if(p.x.size() != dim){
+            std::cerr << "The point must have the same dimension of the feature set!" << std::endl;
+            return 0;
+        }
+
+        for(func = this->solution.bias, i = 0; i < dim; i++){
+            func += this->solution.w[i] * p[i];
+        }
+
+        return (func >= 0)?1:-1;
+    }
+
     /*********************************************
      *               Getters                     *
      *********************************************/
 
-    /**
-     * \brief classifierType Return the type of the classifier (Primal or Dual).
-     * \return std::string
-     */
-    inline std::string classifierType() override { return "Primal"; }
+    std::string getFormulationString() override { return "Primal"; }
     /**
      * \brief GetP Return the value of the p norm.
      * \return double

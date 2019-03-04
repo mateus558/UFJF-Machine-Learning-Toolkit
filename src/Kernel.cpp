@@ -23,7 +23,7 @@ void Kernel::setType(int type){
     this->type = type;
 }
 
-void Kernel::setParam(double param){
+void Kernel::setParam(int param){
     this->param = param;
 }
 

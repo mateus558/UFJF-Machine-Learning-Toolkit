@@ -276,7 +276,7 @@ void AOS<T>::mainLoop() {
     double leave_oo = -1;
     AOS<T>::select_gamma *gtmp = nullptr;
     AOS<T>::select_weight *weight = nullptr;
-    bool isPrimal = this->classifier->classifierType() == "Primal";
+    bool isPrimal = this->classifier->getFormulationString() == "Primal";
 
     size_t dim = this->samples->getDim();
     size_t size = this->samples->getSize();
@@ -540,7 +540,7 @@ double AOS<T>::lookAhead(std::vector<int> fnames_orig, std::vector<double> w_ori
     int svcount = 0;
     int count = 0;
     int feat = 0;
-    bool isPrimal = this->classifier->classifierType() == "Primal";
+    bool isPrimal = this->classifier->getFormulationString() == "Primal";
     std::vector<int> features((unsigned int)look_ahead_depth+1);
     double min = 0;
     double margin = 0;

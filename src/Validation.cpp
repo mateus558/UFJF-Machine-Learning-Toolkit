@@ -80,7 +80,7 @@ double Validation< T > ::kFold (int fold, int seed){
     unique_ptr<Data< T > > sample_pos(make_unique<Data< T > > ()), sample_neg(make_unique<Data< T > > ()), test_sample(make_unique<Data< T > > ());
     shared_ptr<Data< T > >  train_sample(make_shared<Data< T > > ());
     vector<std::unique_ptr<Data< T > > > vet_sample_pos(fold), vet_sample_neg(fold), vet_sample_final(fold);
-    bool isPrimal = classifier->classifierType() == "Primal";
+    bool isPrimal = classifier->getFormulationString() == "Primal";
 
     Random::init(seed);
 
@@ -269,7 +269,7 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
     size_t fp = 0, fn = 0, tp = 0, tn = 0;
     double error = 0, errocross = 0, func = 0.0, margin = 0, bias;
     vector<double> w;
-    bool isPrimal = (classifier->classifierType() == "Primal");
+    bool isPrimal = (classifier->getFormulationString() == "Primal");
 
     sample = train_sample;
 

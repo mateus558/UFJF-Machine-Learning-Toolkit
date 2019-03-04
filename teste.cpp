@@ -1,25 +1,28 @@
 #include <iostream>
 #include <memory>
 #include "includes/Data.hpp"
-#include "includes/Visualization.hpp"
-#include "includes/Perceptron.hpp"
+//#include "includes/Visualization.hpp"
+#include "includes/SMO.hpp"
+#include "includes/Kernel.hpp"
 
 using namespace std;
 
 int main(){
     size_t i;
     Data<double> data("iris.data");
-    PerceptronPrimal<double> perc(std::make_shared<Data<double> >
-    (data));
-	Visualization<double> plot(&data);
+    Kernel k;
+    k.setType(1);
+    SMO<double> smo(std::make_shared<Data<double> > (data), &k);
+//	Visualization<double> plot(&data);
     Solution sol;
 
-	plot.plot3D(1,2,3);
-    perc.setMaxIterations(100);
-    perc.setLearningRate(1.0);
-    perc.train();
+    std::cout << data << std::endl;
 
-    sol = perc.getSolution();
+//	plot.plot3D(1,2,3);
+    
+    smo.train();
+
+    sol = smo.getSolution();
 
     std::cout << "Weights: ";
     for(i = 0; i < data.getDim()-1; i++){
@@ -27,9 +30,8 @@ int main(){
     }
     std::cout << sol.w[i] << "\n";
     std::cout << "bias: " << sol.bias << std::endl;
+    cout << smo.evaluate(*data[0]) << endl;
+	//plot.plot3DwithHyperplane(1,2,3,sol);
 
-	plot.plot3DwithHyperplane(1,2,3,sol);
-
-	while(true);
+	//while(true);
 }
-

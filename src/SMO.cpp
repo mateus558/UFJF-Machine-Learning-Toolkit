@@ -21,7 +21,7 @@ SMO<T>::SMO(shared_ptr<Data<T> > samples, Kernel *k, int verbose) {
     this->samples = samples;
     this->verbose = verbose;
     this->kernel = k;
-    //if(k == nullptr) this->kernel = new Kernel(); else this->kernel = k;
+    if(this->kernel == nullptr) this->kernel = new Kernel();
     this->head = nullptr;
 }
 
@@ -52,7 +52,7 @@ bool SMO<T>::train() {
 
     this->timer.Reset();
     this->kernel->compute(this->samples);
-   
+
     /*run training algorithm*/
     ret = training_routine();
 
@@ -98,10 +98,6 @@ bool SMO<T>::train() {
     return ret;
 }
 
-template<typename T>
-double SMO<T>::evaluate(Point<T> p) {
-    return 0;
-}
 
 template<typename T>
 bool SMO<T>::examine_example(int i1) {
@@ -245,13 +241,13 @@ int SMO<T>::take_step(int i1, int i2) {
     /*compute min and max*/
     if(s == -1)
     {
-        min_val = max(0, alpha2 - alpha1);
-        max_val = min(this->C, this->C + alpha2 - alpha1);
+        min_val = Utils::max(0, alpha2 - alpha1);
+        max_val = Utils::min(this->C, this->C + alpha2 - alpha1);
     }
     else
     {
-        min_val = max(0, alpha2 + alpha1 - this->C);
-        max_val = min(this->C, alpha1 + alpha2);
+        min_val = Utils::max(0, alpha2 + alpha1 - this->C);
+        max_val = Utils::min(this->C, alpha1 + alpha2);
     }
     if(min_val == max_val){ if(this->verbose>2) cout << "return0 2\n"; return false;}
 
@@ -395,7 +391,7 @@ bool SMO<T>::training_routine() {
     int k           = 0;
     int num_changed = 0;
     int tot_changed = 0;
-    bool examine_all = true;
+    bool examine_all = 1;
 
     /*initialize variables*/
     this->solution.bias = 0;
@@ -413,20 +409,17 @@ bool SMO<T>::training_routine() {
         if(epoch > this->MAX_EPOCH) return 0;
 
         num_changed = 0;
-        if(examine_all) {
-            for (k = 0; k < size; ++k) {
+        if(examine_all)
+            for(k = 0; k < size; ++k) {
                 num_changed += examine_example(k);
             }
-        }else {
-            for (k = 0; k < size; ++k)
-                if ((*this->samples)[k]->alpha > 0 && (*this->samples)[k]->alpha < C) {
+        else
+            for(k = 0; k < size; ++k)
+                if((*this->samples)[k]->alpha > 0 && (*this->samples)[k]->alpha < C)
                     num_changed += examine_example(k);
-                }
-
-        }
 
         if(examine_all) examine_all = false;
-        else if(num_changed == 0) examine_all = true;
+        else if(num_changed == 0) examine_all = 1;
         tot_changed += num_changed;
         ++epoch;
     }

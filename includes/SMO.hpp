@@ -60,7 +60,6 @@ private:
 public:
     explicit SMO(std::shared_ptr<Data< T > > samples = nullptr, Kernel *k = nullptr, int verbose = 0);
     bool train() override ;
-    double evaluate(Point< T > p);
     ~SMO();
 };
 

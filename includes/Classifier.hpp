@@ -23,11 +23,6 @@ protected :
     
     // Operations
 public :
-    /**
-     * \brief Returns the type of the classifier.
-     * \return std::string
-     */
-    virtual std::string classifierType() = 0;
 
     /*********************************************
      *               Getters                     *

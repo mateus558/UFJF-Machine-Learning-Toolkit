@@ -55,6 +55,12 @@ public:
      *********************************************/
 
     /**
+     * \brief getFormulationString Returns a string that represents the formulation of the learner (Primal or Dual).
+     * \return std::string
+     */
+    virtual std::string getFormulationString() = 0;
+
+    /**
     * \brief Get the elapsed time in the training phase of the Learner.
     * \return double
     */

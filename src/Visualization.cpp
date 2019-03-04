@@ -139,7 +139,7 @@ void Visualization< T >::removeTempFiles(){
 
 template < typename T >
 void Visualization< T >::plot2D(int x, int y){
-    string dims = itos(x) + ":" + itos(y);
+    string dims = Utils::itos(x) + ":" + Utils::itos(y);
     string cmd = "plot 'temp/pos.plt' using " + dims + " title '+1' with points, 'temp/neg.plt' using " + dims + " title '-1' with points";
     createPosNegTemps();
 #ifdef __unix__
@@ -154,7 +154,7 @@ void Visualization< T >::plot2D(int x, int y){
 
 template < typename T >
 void Visualization< T >::plot3D(int x, int y, int z){
-    string dims = itos(x) + ":" + itos(y) + ":" + itos(z);
+    string dims = Utils::itos(x) + ":" + Utils::itos(y) + ":" + Utils::itos(z);
     string cmd = "splot 'temp/pos.plt' using " + dims + " title '+1' with points, 'temp/neg.plt' using " + dims + " title '-1' with points";
     createPosNegTemps();
 #ifdef __unix__
@@ -170,10 +170,10 @@ template < typename T >
 void Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s){
     if(s.norm != s.norm) s.norm = 0.0;
 
-    string feats = itos(x) + ":" + itos(y);
-    string fx = "f(x) = "+dtoa(s.w[x-1]/-s.w[y-1])+"*x + "+dtoa(s.bias/-s.w[y-1]);
-    string gx = "g(x) = "+dtoa(s.w[x-1]/-s.w[y-1])+"*x + "+dtoa((s.bias + s.margin*s.norm)/-s.w[y-1]);
-    string hx = "h(x) = "+dtoa(s.w[x-1]/-s.w[y-1])+"*x + "+dtoa((s.bias - s.margin*s.norm)/-s.w[y-1]);
+    string feats = Utils::itos(x) + ":" + Utils::itos(y);
+    string fx = "f(x) = "+Utils::dtoa(s.w[x-1]/-s.w[y-1])+"*x + "+Utils::dtoa(s.bias/-s.w[y-1]);
+    string gx = "g(x) = "+Utils::dtoa(s.w[x-1]/-s.w[y-1])+"*x + "+Utils::dtoa((s.bias + s.margin*s.norm)/-s.w[y-1]);
+    string hx = "h(x) = "+Utils::dtoa(s.w[x-1]/-s.w[y-1])+"*x + "+Utils::dtoa((s.bias - s.margin*s.norm)/-s.w[y-1]);
     string cmd = fx + "; "+ gx +"; "+ hx +"; plot 'temp/pos.plt' using "+feats+" title '+1' with points, 'temp/neg.plt' using "+feats+" title '-1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
 
     createPosNegTemps();
@@ -190,10 +190,10 @@ void Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s){
 
 template < typename T >
 void Visualization< T >::plot3DwithHyperplane(int x, int y, int z, Solution s){
-    string feats = itos(x) + ":" + itos(y) + ":" + itos(z);
-    //string hxy = "h(x,y) = "+dtoa((s.w[x-1] - s.margin)/-s.w[y-1])+"*x + "+dtoa((s.w[y-1] - s.margin)/-s.w[z-1])+"*y +"+dtoa((s.bias - s.margin)/-s.w[y-1]);
-    //string gxy = "g(x,y) = "+dtoa((s.w[x-1] + s.margin)/-s.w[y-1])+"*x + "+dtoa((s.w[y-1] + s.margin)/-s.w[z-1])+"*y +" +dtoa((s.bias + s.margin)/-s.w[y-1]);
-    string fxy = "f(x,y) = "+dtoa(s.w[x-1]/-s.w[z-1])+"*x + "+dtoa(s.w[y-1]/-s.w[z-1])+"*y + "+dtoa(s.bias/-s.w[z-1]);
+    string feats = Utils::itos(x) + ":" + Utils::itos(y) + ":" + Utils::itos(z);
+    //string hxy = "h(x,y) = "+Utils::dtoa((s.w[x-1] - s.margin)/-s.w[y-1])+"*x + "+Utils::dtoa((s.w[y-1] - s.margin)/-s.w[z-1])+"*y +"+Utils::dtoa((s.bias - s.margin)/-s.w[y-1]);
+    //string gxy = "g(x,y) = "+Utils::dtoa((s.w[x-1] + s.margin)/-s.w[y-1])+"*x + "+Utils::dtoa((s.w[y-1] + s.margin)/-s.w[z-1])+"*y +" +Utils::dtoa((s.bias + s.margin)/-s.w[y-1]);
+    string fxy = "f(x,y) = "+Utils::dtoa(s.w[x-1]/-s.w[z-1])+"*x + "+Utils::dtoa(s.w[y-1]/-s.w[z-1])+"*y + "+Utils::dtoa(s.bias/-s.w[z-1]);
     //string cmd = fxy + "; " + gxy + "; " + hxy + "; " + "splot 'temp/pos.plt' using "+ feats +" title '+1' with points, 'temp/neg.plt' using "+ feats +" title '-1' with points, f(x,y) notitle with lines ls 1, g(x,y) notitle with lines ls 2, h(x,y) notitle with lines ls 2";
 	string cmd = fxy + "; splot 'temp/pos.plt' using "+ feats +" title '+1' with points, 'temp/neg.plt' using "+ feats +" title '-1' with points, f(x,y) notitle with lines ls 1";
     createPosNegTemps();
