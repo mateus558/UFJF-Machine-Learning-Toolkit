@@ -17,6 +17,9 @@ template<typename T>
 AOS<T>::AOS(std::shared_ptr<Data< T > > samples, Classifier< T > *classifier, typename Validation< T >::CrossValidation *cv,
             int breadth, int depth, double bonus, int cut, int look_ahead_depth, int skip,
             int startover, double g_margin, int doleave_oo, int sorting_shape, int choice_shape, int verbose) {
+    if(cv == nullptr){
+        this->cv = new typename Validation<T>::CrossValidation;
+    }
     this->samples = samples;
     this->classifier = classifier;
     this->cv = cv;

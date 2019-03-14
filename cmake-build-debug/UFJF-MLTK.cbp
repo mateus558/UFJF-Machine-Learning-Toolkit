@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug"/>
+				<Option working_dir="/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug"/>
+				<Option working_dir="/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug"/>
+				<Option working_dir="/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="UFJF-MLTK">
-				<Option output="/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/UFJF-MLTK" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug"/>
+				<Option output="/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/UFJF-MLTK" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -54,15 +54,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 UFJF-MLTK"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 UFJF-MLTK"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="UFJF-MLTK/fast">
-				<Option output="/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/UFJF-MLTK" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug"/>
+				<Option output="/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/UFJF-MLTK" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -77,143 +77,143 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 UFJF-MLTK/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 UFJF-MLTK/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/AOS.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/AOS.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Classifier.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Classifier.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Data.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Data.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/DualClassifier.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/DualClassifier.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/FeatureSelection.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/FeatureSelection.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Fisher.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Fisher.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Golub.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Golub.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/IMA.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/IMA.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Kernel.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Kernel.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/LMS.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/LMS.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Learner.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Learner.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/MLToolkit.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/MLToolkit.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Perceptron.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Perceptron.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Point.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Point.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/PrimalClassifier.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/PrimalClassifier.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/PrimalRegressor.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/PrimalRegressor.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/RFE.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/RFE.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Random.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Random.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Regressor.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Regressor.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/SMO.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/SMO.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Solution.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Solution.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Statistics.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Statistics.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Timer.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Timer.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Utils.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Utils.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Validation.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Validation.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/Visualization.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Visualization.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/includes/gnuplot_i.hpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/gnuplot_i.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/AOS.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/AOS.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/Data.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Data.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/Fisher.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Fisher.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/Golub.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Golub.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/IMA.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/IMA.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/Kernel.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Kernel.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/LMS.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/LMS.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/Perceptron.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Perceptron.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/RFE.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/RFE.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/SMO.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/SMO.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/Statistics.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Statistics.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/Utils.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Utils.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/Validation.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Validation.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/Visualization.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Visualization.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/gnuplot_i.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/gnuplot_i.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/src/main.cpp">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/main.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/Machine-Learning-Toolkit/CMakeLists.txt">
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

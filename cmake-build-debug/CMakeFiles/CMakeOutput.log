@@ -1,4 +1,4 @@
-The system is: Linux - 4.15.0-43-generic - x86_64
+The system is: Linux - 4.15.0-46-generic - x86_64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
 Compiler: /usr/bin/cc 
 Build flags: 
@@ -10,7 +10,7 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
 
-The C compiler identification is GNU, found in "/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/3.12.3/CompilerIdC/a.out"
+The C compiler identification is GNU, found in "/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/3.12.3/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
 Compiler: /usr/bin/c++ 
@@ -23,33 +23,33 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is GNU, found in "/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/3.12.3/CompilerIdCXX/a.out"
+The CXX compiler identification is GNU, found in "/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/3.12.3/CompilerIdCXX/a.out"
 
 Determining if the C compiler works passed with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_59ea8/fast"
-/usr/bin/make -f CMakeFiles/cmTC_59ea8.dir/build.make CMakeFiles/cmTC_59ea8.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_59ea8.dir/testCCompiler.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_59ea8.dir/testCCompiler.c.o   -c /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_59ea8
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_59ea8.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_59ea8.dir/testCCompiler.c.o  -o cmTC_59ea8 
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_f6f85/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f6f85.dir/build.make CMakeFiles/cmTC_f6f85.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f6f85.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_f6f85.dir/testCCompiler.c.o   -c /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_f6f85
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f6f85.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_f6f85.dir/testCCompiler.c.o  -o cmTC_f6f85 
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_8365a/fast"
-/usr/bin/make -f CMakeFiles/cmTC_8365a.dir/build.make CMakeFiles/cmTC_8365a.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_8365a.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_8365a.dir/CMakeCCompilerABI.c.o   -c /usr/local/clion/bin/cmake/linux/share/cmake-3.12/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_8365a
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8365a.dir/link.txt --verbose=1
-/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_8365a.dir/CMakeCCompilerABI.c.o  -o cmTC_8365a 
+Run Build Command:"/usr/bin/make" "cmTC_bd6f8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_bd6f8.dir/build.make CMakeFiles/cmTC_bd6f8.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bd6f8.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_bd6f8.dir/CMakeCCompilerABI.c.o   -c /usr/local/clion/bin/cmake/linux/share/cmake-3.12/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_bd6f8
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bd6f8.dir/link.txt --verbose=1
+/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_bd6f8.dir/CMakeCCompilerABI.c.o  -o cmTC_bd6f8 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
@@ -61,24 +61,24 @@ Thread model: posix
 gcc version 7.3.0 (Ubuntu 7.3.0-27ubuntu1~18.04) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_8365a' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc6z229V.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_8365a /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_8365a.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_8365a' '-mtune=generic' '-march=x86-64'
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_bd6f8' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJeWCSy.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_bd6f8 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_bd6f8.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_bd6f8' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_8365a/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_8365a.dir/build.make CMakeFiles/cmTC_8365a.dir/build]
-  ignore line: [make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_8365a.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_8365a.dir/CMakeCCompilerABI.c.o   -c /usr/local/clion/bin/cmake/linux/share/cmake-3.12/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_8365a]
-  ignore line: [/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8365a.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_8365a.dir/CMakeCCompilerABI.c.o  -o cmTC_8365a ]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_bd6f8/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_bd6f8.dir/build.make CMakeFiles/cmTC_bd6f8.dir/build]
+  ignore line: [make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_bd6f8.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_bd6f8.dir/CMakeCCompilerABI.c.o   -c /usr/local/clion/bin/cmake/linux/share/cmake-3.12/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_bd6f8]
+  ignore line: [/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bd6f8.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_bd6f8.dir/CMakeCCompilerABI.c.o  -o cmTC_bd6f8 ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
@@ -90,13 +90,13 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 7.3.0 (Ubuntu 7.3.0-27ubuntu1~18.04) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_8365a' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc6z229V.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_8365a /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_8365a.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_bd6f8' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJeWCSy.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_bd6f8 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_bd6f8.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/cc6z229V.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccJeWCSy.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -116,7 +116,7 @@ Parsed C implicit link information from above output:
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_8365a] ==> ignore
+    arg [cmTC_bd6f8] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
@@ -128,7 +128,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_8365a.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_bd6f8.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
@@ -158,17 +158,17 @@ Parsed C implicit link information from above output:
 
 
 Detecting C [-std=c11] compiler features compiled with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_9ea12/fast"
-/usr/bin/make -f CMakeFiles/cmTC_9ea12.dir/build.make CMakeFiles/cmTC_9ea12.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_9ea12.dir/feature_tests.c.o
-/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_9ea12.dir/feature_tests.c.o   -c /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/feature_tests.c
-Linking C executable cmTC_9ea12
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9ea12.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_9ea12.dir/feature_tests.c.o  -o cmTC_9ea12 
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_012a3/fast"
+/usr/bin/make -f CMakeFiles/cmTC_012a3.dir/build.make CMakeFiles/cmTC_012a3.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_012a3.dir/feature_tests.c.o
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_012a3.dir/feature_tests.c.o   -c /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/feature_tests.c
+Linking C executable cmTC_012a3
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_012a3.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_012a3.dir/feature_tests.c.o  -o cmTC_012a3 
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -178,17 +178,17 @@ make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolki
 
 
 Detecting C [-std=c99] compiler features compiled with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_d3f93/fast"
-/usr/bin/make -f CMakeFiles/cmTC_d3f93.dir/build.make CMakeFiles/cmTC_d3f93.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_d3f93.dir/feature_tests.c.o
-/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_d3f93.dir/feature_tests.c.o   -c /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/feature_tests.c
-Linking C executable cmTC_d3f93
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d3f93.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_d3f93.dir/feature_tests.c.o  -o cmTC_d3f93 
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_b236b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b236b.dir/build.make CMakeFiles/cmTC_b236b.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b236b.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_b236b.dir/feature_tests.c.o   -c /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/feature_tests.c
+Linking C executable cmTC_b236b
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b236b.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_b236b.dir/feature_tests.c.o  -o cmTC_b236b 
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -198,17 +198,17 @@ make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolki
 
 
 Detecting C [-std=c90] compiler features compiled with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_ec1b3/fast"
-/usr/bin/make -f CMakeFiles/cmTC_ec1b3.dir/build.make CMakeFiles/cmTC_ec1b3.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_ec1b3.dir/feature_tests.c.o
-/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_ec1b3.dir/feature_tests.c.o   -c /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/feature_tests.c
-Linking C executable cmTC_ec1b3
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ec1b3.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_ec1b3.dir/feature_tests.c.o  -o cmTC_ec1b3 
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_5e4a0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_5e4a0.dir/build.make CMakeFiles/cmTC_5e4a0.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5e4a0.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_5e4a0.dir/feature_tests.c.o   -c /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/feature_tests.c
+Linking C executable cmTC_5e4a0
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5e4a0.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_5e4a0.dir/feature_tests.c.o  -o cmTC_5e4a0 
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -216,30 +216,30 @@ make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolki
     Feature record: C_FEATURE:0c_static_assert
     Feature record: C_FEATURE:0c_variadic_macros
 Determining if the CXX compiler works passed with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_a3e52/fast"
-/usr/bin/make -f CMakeFiles/cmTC_a3e52.dir/build.make CMakeFiles/cmTC_a3e52.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_a3e52.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_a3e52.dir/testCXXCompiler.cxx.o -c /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_a3e52
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a3e52.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_a3e52.dir/testCXXCompiler.cxx.o  -o cmTC_a3e52 
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_8f5bf/fast"
+/usr/bin/make -f CMakeFiles/cmTC_8f5bf.dir/build.make CMakeFiles/cmTC_8f5bf.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_8f5bf.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_8f5bf.dir/testCXXCompiler.cxx.o -c /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_8f5bf
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8f5bf.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_8f5bf.dir/testCXXCompiler.cxx.o  -o cmTC_8f5bf 
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_9959b/fast"
-/usr/bin/make -f CMakeFiles/cmTC_9959b.dir/build.make CMakeFiles/cmTC_9959b.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_9959b.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++     -o CMakeFiles/cmTC_9959b.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/clion/bin/cmake/linux/share/cmake-3.12/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_9959b
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9959b.dir/link.txt --verbose=1
-/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_9959b.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_9959b 
+Run Build Command:"/usr/bin/make" "cmTC_2b603/fast"
+/usr/bin/make -f CMakeFiles/cmTC_2b603.dir/build.make CMakeFiles/cmTC_2b603.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_2b603.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTC_2b603.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/clion/bin/cmake/linux/share/cmake-3.12/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_2b603
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2b603.dir/link.txt --verbose=1
+/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_2b603.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_2b603 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper
@@ -251,24 +251,24 @@ Thread model: posix
 gcc version 7.3.0 (Ubuntu 7.3.0-27ubuntu1~18.04) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_9959b' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccaEBkZQ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_9959b /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_9959b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_9959b' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2b603' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJkMGdP.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_2b603 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_2b603.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2b603' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_9959b/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_9959b.dir/build.make CMakeFiles/cmTC_9959b.dir/build]
-  ignore line: [make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_9959b.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_9959b.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/clion/bin/cmake/linux/share/cmake-3.12/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_9959b]
-  ignore line: [/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9959b.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_9959b.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_9959b ]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_2b603/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_2b603.dir/build.make CMakeFiles/cmTC_2b603.dir/build]
+  ignore line: [make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_2b603.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_2b603.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/clion/bin/cmake/linux/share/cmake-3.12/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_2b603]
+  ignore line: [/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2b603.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_2b603.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_2b603 ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
@@ -280,13 +280,13 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 7.3.0 (Ubuntu 7.3.0-27ubuntu1~18.04) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_9959b' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccaEBkZQ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_9959b /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_9959b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_2b603' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJkMGdP.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_2b603 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_2b603.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccaEBkZQ.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccJkMGdP.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -306,7 +306,7 @@ Parsed CXX implicit link information from above output:
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_9959b] ==> ignore
+    arg [cmTC_2b603] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
@@ -318,7 +318,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_9959b.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_2b603.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -344,17 +344,17 @@ Parsed CXX implicit link information from above output:
 
 
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_946b1/fast"
-/usr/bin/make -f CMakeFiles/cmTC_946b1.dir/build.make CMakeFiles/cmTC_946b1.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_946b1.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_946b1.dir/feature_tests.cxx.o -c /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_946b1
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_946b1.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_946b1.dir/feature_tests.cxx.o  -o cmTC_946b1 
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_4fa0c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4fa0c.dir/build.make CMakeFiles/cmTC_4fa0c.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_4fa0c.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_4fa0c.dir/feature_tests.cxx.o -c /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_4fa0c
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4fa0c.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_4fa0c.dir/feature_tests.cxx.o  -o cmTC_4fa0c 
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -417,17 +417,17 @@ make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolki
 
 
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_bd72f/fast"
-/usr/bin/make -f CMakeFiles/cmTC_bd72f.dir/build.make CMakeFiles/cmTC_bd72f.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_bd72f.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_bd72f.dir/feature_tests.cxx.o -c /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_bd72f
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bd72f.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_bd72f.dir/feature_tests.cxx.o  -o cmTC_bd72f 
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_d9cdc/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d9cdc.dir/build.make CMakeFiles/cmTC_d9cdc.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_d9cdc.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_d9cdc.dir/feature_tests.cxx.o -c /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_d9cdc
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d9cdc.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_d9cdc.dir/feature_tests.cxx.o  -o cmTC_d9cdc 
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -490,17 +490,17 @@ make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolki
 
 
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_746d9/fast"
-/usr/bin/make -f CMakeFiles/cmTC_746d9.dir/build.make CMakeFiles/cmTC_746d9.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_746d9.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_746d9.dir/feature_tests.cxx.o -c /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_746d9
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_746d9.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_746d9.dir/feature_tests.cxx.o  -o cmTC_746d9 
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_7d4e8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7d4e8.dir/build.make CMakeFiles/cmTC_7d4e8.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_7d4e8.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_7d4e8.dir/feature_tests.cxx.o -c /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_7d4e8
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7d4e8.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_7d4e8.dir/feature_tests.cxx.o  -o cmTC_7d4e8 
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
@@ -563,17 +563,17 @@ make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolki
 
 
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
-Change Dir: /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_d2bf8/fast"
-/usr/bin/make -f CMakeFiles/cmTC_d2bf8.dir/build.make CMakeFiles/cmTC_d2bf8.dir/build
-make[1]: Entering directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_d2bf8.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_d2bf8.dir/feature_tests.cxx.o -c /home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_d2bf8
-/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d2bf8.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_d2bf8.dir/feature_tests.cxx.o  -o cmTC_d2bf8 
-make[1]: Leaving directory '/home/mateus558/Repositories/Machine-Learning-Toolkit/cmake-build-debug/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_10013/fast"
+/usr/bin/make -f CMakeFiles/cmTC_10013.dir/build.make CMakeFiles/cmTC_10013.dir/build
+make[1]: Entering directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_10013.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_10013.dir/feature_tests.cxx.o -c /home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_10013
+/usr/local/clion/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_10013.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_10013.dir/feature_tests.cxx.o  -o cmTC_10013 
+make[1]: Leaving directory '/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
