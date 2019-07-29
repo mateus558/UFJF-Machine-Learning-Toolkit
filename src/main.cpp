@@ -868,7 +868,7 @@ void classifiersOption(int option){
 
 void featureSelectionOption(int option){
     double p, q, alpha_aprox, kernel_param;
-    int opt, flex, kernel_type, ddim, jump;
+    int opt, flex, kernel_type, ddim, jump, branching, branch_form, choice_form, prof_look_ahead, cut;
     Timer time;
     IMAp<double> imap(data);
     IMADual<double> imadual(data);
@@ -1098,7 +1098,7 @@ void featureSelectionOption(int option){
                 cout << "Load a dataset first..." << endl;
             }
             waitUserAction();
-            featureSelectionOption(2);
+            featureSelectionMenu();
             break;
         case 3:
             if(!data->isEmpty()) {
@@ -1196,7 +1196,7 @@ void featureSelectionOption(int option){
                 cout << "Load a dataset first..." << endl;
             }
             waitUserAction();
-            featureSelectionOption(3);
+            featureSelectionMenu();
             break;
         case 4:
 
@@ -1277,29 +1277,47 @@ void featureSelectionOption(int option){
                         featureSelectionOption(4);
                         break;
                 }
+
+                cout << endl;
+                cout << "Desired dimension (max. " << data->getDim() << "): ";
+                cin >> ddim;
+                cout << "Branching factor (max. " << data->getDim() << "): ";
+                cin >> branching;
+                cout << endl;
+                cout << "Branching sorting: (1)W (2)W/center (3)W*radius/center (4)W*radius (5)W*Golub (6)W*Fisher: ";
+                cin >> branch_form;
+                cout << "Choice: (1)Margin (2)Margin*Dist.Centers: ";
+                cin >> choice_form;
+                cout << "Look-Ahead depth: ";
+                cin >> prof_look_ahead;
+                cout << "Cut depth: ";
+                cin >> cut;
+
+                aos.setVerbose(verbose);
+                aos.setFinalDimension(ddim);
+                aos.setSamples(data);
+                aos.setCrossValidation(&cv);
+                aos.setBreadth(branching);
+                aos.setChoiceShape(choice_form);
+                aos.setSortingShape(branch_form);
+                aos.setLookAheadDepth(prof_look_ahead);
+                aos.setCut(cut);
+
                 clear();
+                time.Reset();
+                res = aos.selectFeatures();
+
+                data.reset();
+                data = res;
+
+                cout << time.Elapsed()/1000 << " seconds to compute.\n";
+
             }else{
                 cout << "Load a dataset first..." << endl;
             }
 
-            cout << endl;
-            cout << "Desired dimension (max. " << data->getDim() << "): ";
-            cin >> ddim;
-            aos.setVerbose(verbose);
-            aos.setFinalDimension(ddim);
-            aos.setSamples(data);
-            aos.setCrossValidation(&cv);
-            clear();
-            time.Reset();
-            res = aos.selectFeatures();
-
-            data.reset();
-            data = res;
-
-            cout << time.Elapsed()/1000 << " seconds to compute.\n";
-
             waitUserAction();
-            featureSelectionOption(4);
+            featureSelectionMenu();
             break;
         case 0:
             mainMenu();

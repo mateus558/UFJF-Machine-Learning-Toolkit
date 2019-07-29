@@ -16,7 +16,7 @@
 template<typename T>
 AOS<T>::AOS(std::shared_ptr<Data< T > > samples, Classifier< T > *classifier, typename Validation< T >::CrossValidation *cv,
             int breadth, int depth, double bonus, int cut, int look_ahead_depth, int skip,
-            int startover, double g_margin, int doleave_oo, int sorting_shape, int choice_shape, int verbose) {
+            int startover, double g_margin, bool doleave_oo, int sorting_shape, int choice_shape, int verbose) {
     if(cv == nullptr){
         this->cv = new typename Validation<T>::CrossValidation;
     }
@@ -35,6 +35,8 @@ AOS<T>::AOS(std::shared_ptr<Data< T > > samples, Classifier< T > *classifier, ty
     this->sorting_shape = sorting_shape;
     this->choice_shape = choice_shape;
     this->verbose = verbose;
+    if(classifier)
+        classifier->setVerbose(0);
 }
 
 
@@ -49,10 +51,10 @@ std::shared_ptr<Data<T>> AOS<T>::selectFeatures() {
     std::vector<int> fnames;
     int ftime    = 1;
     int lool     = 0;    /*leave one out level*/
-    double g_margin = 0, tempo_parcial, margem_parcial;
-    int dim_parcial, svs_parcial;
+    double g_margin = 0;
     Data<T> stmp;
     max_time_orig = this->max_time;
+    this->startdim = dim;
 
     int parcial = 0; //verifica se �ltima solu��o � uma solu��o recuperada (parcial)
 
@@ -86,17 +88,18 @@ std::shared_ptr<Data<T>> AOS<T>::selectFeatures() {
             /*quit end of heap found*/
             if (ftime == 0) /*first time = false -- nao eh a primeira vez, o processo falhou!*/
             {
-                std::cout << "Final do Heap, recuperando ultima dimensao...\n\n";
+                std::cout << "End of Heap, recovering last dimension...\n\n";
 
                 /*pegar os dados do ultimo lool, uma vez que foi a ultima dimensao fechada*/
                 std::cout << "---------------\n :: FINAL :: \n---------------\n";
-                std::cout << "Features Escolhidas: ";
+                std::cout << "Chosen Features: ";
                 std::vector<int> fnamesp = this->stmp_partial->getFeaturesNames();
                 for (i = 0; i < this->stmp_partial->getDim() - 1; ++i)
                     std::cout << fnamesp[i] << ", ";
                 std::cout << fnamesp[i] << std::endl;
 
                 Validation<T> validation(this->stmp_partial, this->classifier);
+                validation.setVerbose(0);
 
                 if (this->cv->qtde > 0) {
                     if (level % this->cv->jump != 0) {
@@ -105,27 +108,27 @@ std::shared_ptr<Data<T>> AOS<T>::selectFeatures() {
                         }
                         this->kfolderror = this->cv->actual_error / this->cv->qtde;
                     }
-                    std::cout << "Dim: " << dim_parcial << ", Margem: " << margem_parcial << ", SVs: " << svs_parcial
-                              << ", Erro " << this->cv->fold << "-fold: " << this->kfolderror << "%\n";
+                    std::cout << "Dim: " << this->partial_dim << ", Margin: " << this->partial_margin << ", SVs: " << this->partial_svs
+                              << ", Error " << this->cv->fold << "-fold: " << this->kfolderror << "%\n";
                 } else {
-                    std::cout << "Dim: " << dim_parcial << ", Margem: -" << margem_parcial << ", SVs: " << svs_parcial
+                    std::cout << "Dim: " << this->partial_dim << ", Margin: -" << this->partial_margin << ", SVs: " << this->partial_svs
                               << std::endl;
                 }
-                std::cout << "Total de insercoes no Heap: " << this->contheap_parcial << std::endl;
-                std::cout << "Total de reinsercoes no Heap: " << this->contheapreins_parcial << std::endl;
-                std::cout << "Tamanho maximo do Heap: " << this->maxheapsize_parcial << std::endl;
-                std::cout << "Total de podas no Heap: " << this->contprooning_parcial << std::endl;
-                std::cout << "Nodos expandidos: " << this->contexpandidos_parcial << std::endl;
-                std::cout << "Nao inseridos no Heap: " << this->contnaoheap_parcial << std::endl;
-                std::cout << "Total de projecoes: " << this->contprojetados_parcial << std::endl;
-                std::cout << "Total de projecoes treinadas: " << this->contprojtreinados_parcial << std::endl;
-                std::cout << "Total de projecoes nao treinadas: " << this->contprojetados_parcial
+                std::cout << "Total insertions in Heap: " << this->contheap_parcial << std::endl;
+                std::cout << "Total reinsertions in Heap: " << this->contheapreins_parcial << std::endl;
+                std::cout << "Max size of the Heap: " << this->maxheapsize_parcial << std::endl;
+                std::cout << "Total prunes in the Heap: " << this->contprooning_parcial << std::endl;
+                std::cout << "Expanded nodes: " << this->contexpandidos_parcial << std::endl;
+                std::cout << "Not inserted in Heap: " << this->contnaoheap_parcial << std::endl;
+                std::cout << "Total of projections: " << this->contprojetados_parcial << std::endl;
+                std::cout << "Total of trained projections: " << this->contprojtreinados_parcial << std::endl;
+                std::cout << "Total of non-trained projections: " << this->contprojetados_parcial
                                                                      - this->contprojtreinados_parcial << std::endl;
                 //printf("Sobra de projecoes no Heap: %d\n", sobraprojecoes_parcial);
-                std::cout << "Nodos iguais no Hash que nao entraram no Heap: " << this->conthashnaoheap_parcial
+                std::cout << "Equal nodes in Hash that didn't entered in the Heap: " << this->conthashnaoheap_parcial
                           << std::endl;
-                std::cout << "Tamanho do Hash: " << this->conthash_parcial << std::endl;
-                std::cout << "Tempo total: " << tempo_parcial << std::endl;
+                std::cout << "Hash size: " << this->conthash_parcial << std::endl;
+                std::cout << "Total time: " << this->partial_time << std::endl;
                 parcial = 1;
                 /*Save data to file*/
 
@@ -133,17 +136,13 @@ std::shared_ptr<Data<T>> AOS<T>::selectFeatures() {
                 break;
             }
             /*check breadth*/
-            tbreadth = this->breadth;
-            if (tbreadth > dim) tbreadth = dim;
+            if (this->breadth > dim) this->breadth = dim;
 
             /*run select*/
             this->mainLoop();
-            /*aos_select_feature_main_loop(sample, &heap, &hash, train,
-                                         tbreadth, bonus, &lool, startdim, look_ahead_depth,
-                                         &g_margin, cut, skip, startover, doleave_oo, depth,
-                                         forma_ordenacao, forma_escolha, ftime, this->cv, verbose);*/
+            std::cout << this->heap->getSize() << std::endl;
             if (this->heap->getSize() == 0) {
-                std::cout << "Treinamento inicial falhou!!!\n\n";
+                std::cout << "Initial training failed!!!\n\n";
                 break;
             }
             ftime = 0;
@@ -165,46 +164,47 @@ std::shared_ptr<Data<T>> AOS<T>::selectFeatures() {
             if(this->samples->getDim() == dim-this->depth && this->heap->getElements()[1]->rgamma > 0)
             {
                 std::cout << "---------------\n :: FINAL :: \n---------------\n";
-                std::cout << "Features Escolhidas: ";
+                std::cout << "Chosen Features: ";
                 std::vector<int> fnamesp = stmp.getFeaturesNames();
                 for(i = 0; i < stmp.getDim()-1; ++i)
                     std::cout << fnamesp[i] << ",";
                 std::cout << fnamesp[i] << std::endl;
 
-                std::cout << "---------------\nFeatures Eliminadas: ";
+                std::cout << "---------------\nRemoved Features: ";
                 for(i = 0; i < this->samples->getDim()-stmp.getDim()-1; ++i)
                     std::cout << this->heap->getElements()[1]->fnames[i] << ", ";
                 std::cout << this->heap->getElements()[1]->fnames[i] << std::endl;
 
                 Validation<T> validation(std::make_shared<Data<T> >(stmp), this->classifier);
+                validation.setVerbose(0);
 
                 if(this->cv->qtde > 0)
                 {
                     for(this->cv->actual_error = 0, i = 0; i < this->cv->qtde; i++)
                         this->cv->actual_error += validation.kFold(this->cv->fold, this->cv->seed[i]);
                     this->kfolderror = this->cv->actual_error / this->cv->qtde;
-                    std::cout << "Dim: " << stmp.getDim() << ", Margem: " << this->heap->getElements()[1]->rgamma
-                              << ", SVs: " << this->heap->getElements()[1]->sv << ", Erro " << this->cv->fold
+                    std::cout << "Dim: " << stmp.getDim() << ", Margin: " << this->heap->getElements()[1]->rgamma
+                              << ", SVs: " << this->heap->getElements()[1]->sv << ", Error " << this->cv->fold
                               << "-fold: " << this->kfolderror << "%\n";
                 }
                 else{
-                    std::cout << "Dim: " << stmp.getDim() << ", Margem: " << this->heap->getElements()[1]->rgamma
+                    std::cout << "Dim: " << stmp.getDim() << ", Margin: " << this->heap->getElements()[1]->rgamma
                               << ", SVs: " << this->heap->getElements()[1]->sv << "\n";
                 }
-                std::cout << "Total de insercoes no Heap: " << this->heap->getContheap() << std::endl;
-                std::cout << "Total de reinsercoes no Heap: " <<  this->heap->getContheapreins() << std::endl;
-                std::cout << "Tamanho maximo do Heap: " << this->heap->getMaxheapsize() << std::endl;
-                std::cout << "Total de podas no Heap: " << this->heap->getContprooning() << std::endl;
-                std::cout << "Nodos expandidos: " << this->contexpanded << std::endl;
-                std::cout << "Nao inseridos no Heap: " << this->contnotheap << std::endl;
-                std::cout << "Total de projecoes: " << this->contprojected << std::endl;
-                std::cout << "Total de projecoes treinadas: " << this->contprojtrained << std::endl;
-                std::cout << "Total de projecoes nao treinadas: " << this->contprojected - this->contprojtrained
+                std::cout << "Total insertions in the Heap: " << this->heap->getContheap() << std::endl;
+                std::cout << "Total reinsertions in the  Heap: " <<  this->heap->getContheapreins() << std::endl;
+                std::cout << "Max size of the Heap: " << this->heap->getMaxheapsize() << std::endl;
+                std::cout << "Total prune in the Heap: " << this->heap->getContprooning() << std::endl;
+                std::cout << "Expanded nodes: " << this->contexpanded << std::endl;
+                std::cout << "Not inserted in Heap: " << this->contnotheap << std::endl;
+                std::cout << "Total of projections: " << this->contprojected << std::endl;
+                std::cout << "Total of trained projections: " << this->contprojtrained << std::endl;
+                std::cout << "Total of trained projections: " << this->contprojected - this->contprojtrained
                           << std::endl;
                 //printf("Sobra de projecoes no Heap: %d\n", aos_select_heap_projected(heap));
-                std::cout << "Nodos iguais no Hash que nao entraram no Heap: " << this->conthashnotheap << std::endl;
-                std::cout << "Tamanho do Hash: " << this->hash->getConthash() << std::endl;
-                std::cout << "Tempo total: " << (((100.0f*clock()/CLOCKS_PER_SEC)-this->initial_time)/100.0f) << std::endl;
+                std::cout << "Equal nodes in Hash that didn't entered in the Heap: " << this->conthashnotheap << std::endl;
+                std::cout << "Hash size: " << this->hash->getConthash() << std::endl;
+                std::cout << "Total time: " << (((100.0f*clock()/CLOCKS_PER_SEC)-this->initial_time)/100.0f) << std::endl;
 
                 /*Save data to file*/
                 stmp.write(this->filename, "data");
@@ -214,7 +214,7 @@ std::shared_ptr<Data<T>> AOS<T>::selectFeatures() {
             /*some verbose*/
             if(this->verbose && level <= 50)
             {
-                std::cout << "-- Testando o nodo - Features (";
+                std::cout << "-- Testing node - Features (";
                 for(i = 0; i < level-1; ++i)
                     std::cout << fnames[i] << ",";
                 std::cout << fnames[i] << ")\n";
@@ -302,7 +302,7 @@ void AOS<T>::mainLoop() {
 
                 if (!smo.train()) {
                     //if (!smo_train(sample, &w, &margin, &svcount, 0)) {
-                    if (this->verbose > 1) std::cout << "Treinamento falhou!\n";
+                    if (this->verbose > 1) std::cout << "Training failed!\n";
                     return;
                 }
 
@@ -330,7 +330,7 @@ void AOS<T>::mainLoop() {
             SMO<T> smo(this->samples, &K, 0);
             if (!smo.train()) {
                 //if (!smo_train(sample, &w, &margin, &svcount, 0)) {
-                if (this->verbose > 1) std::cout << "Treinamento falhou!\n";
+                if (this->verbose > 1) std::cout << "Training failed!\n";
                 return;
             }
 
@@ -341,7 +341,7 @@ void AOS<T>::mainLoop() {
             svcount = sol.svs;
         } else {
             if (!this->classifier->train()) {
-                if (this->verbose > 1) std::cout << "Treinamento falhou!\n";
+                if (this->verbose > 1) std::cout << "Training failed!\n";
                 return;
             }
 
@@ -377,7 +377,7 @@ void AOS<T>::mainLoop() {
             if(!this->classifier->train())
             {   /*training failed, remove this option*/
                 gtmp = nullptr;
-                if (this->verbose > 1) std::cout << "Treinamento falhou!\n";
+                if (this->verbose > 1) std::cout << "Training failed!\n";
                 return;
             }
 
@@ -419,11 +419,11 @@ void AOS<T>::mainLoop() {
     if(this->verbose)
         if(level > 0)
         {
-            std::cout << "-> Expandindo as features (";
+            std::cout << "-> Expanding features (";
             for(i = 0; i < level-1; ++i)
                 std::cout << ofnames[i] << ",";
             std::cout << ofnames[i];
-            std::cout << ") -- Margem: " << margin << ", pMargem: " << omargin << ", Nivel: " << level << "\n";
+            std::cout << ") -- Margin: " << margin << ", pMargin: " << omargin << ", Level: " << level << "\n";
         }
 
     /*calculating leave one out, if it's the first to hit this level*/
@@ -433,6 +433,7 @@ void AOS<T>::mainLoop() {
         if(this->cv->qtde > 0)
         {
             Validation<T> validation(this->samples, this->classifier);
+            validation.setVerbose(0);
 
             if(level == 0)
             {
@@ -451,23 +452,24 @@ void AOS<T>::mainLoop() {
         if(this->doleave_oo)
         {
             //leave_oo = utils_leave_one_out(sample, train, skip, 0);
-            std::cout << "Leave One Out -- Dim: " << this->startdim-level << ", Margem: " << margin << ", LeaveOO: "
-            << leave_oo << ", SVs: " << svcount << ", Tempo: " << ((100.0f*clock()/CLOCKS_PER_SEC)-this->initial_time)/100.0f << "\n";
+            std::cout << "Leave One Out -- Dim: " << this->startdim-level << ", Margin: " << margin << ", LeaveOO: "
+            << leave_oo << ", SVs: " << svcount << ", Time: " << ((100.0f*clock()/CLOCKS_PER_SEC)-this->initial_time)/100.0f << "\n";
         }
         else
         {
+            std::cout << this->startdim << " " << level << std::endl;
             leave_oo = -1;
             std::cout << "--- --- --- --- --- --- --- ---\n";
             if(this->cv->qtde > 0 && level % this->cv->jump == 0)
-                std::cout << "Dim: " << (this->startdim-level) << ", Margem: " << margin << ", SVs: " << svcount
-                << ", Erro " << this->cv->fold << "-fold: " << this->kfolderror << ", Tempo: "
+                std::cout << "Dim: " << (this->startdim-level) << ", Margin: " << margin << ", SVs: " << svcount
+                << ", Error " << this->cv->fold << "-fold: " << this->kfolderror << ", Time: "
                 << ((100.0f*clock()/CLOCKS_PER_SEC)-this->initial_time)/100.0f;
             else
-                std::cout << "Dim: " << (this->startdim-level) << ", Margem: " << margin << ", SVs: " << svcount
-                << ", Tempo: " << ((100.0f*clock()/CLOCKS_PER_SEC)-this->initial_time)/100.0f;
+                std::cout << "Dim: " << (this->startdim-level) << ", Margin: " << margin << ", SVs: " << svcount
+                << ", Time: " << ((100.0f*clock()/CLOCKS_PER_SEC)-this->initial_time)/100.0f;
             if(level > 0)
             {
-                std::cout << " - Features eliminadas: ";
+                std::cout << " - Removed features: ";
                 for(j = 0; j < level-1; j++)
                     std::cout << ofnames[j] << ",";
                 std::cout << ofnames[j] << std::endl;
@@ -692,6 +694,31 @@ double AOS<T>::lookAhead(std::vector<int> fnames_orig, std::vector<double> w_ori
     if(*stmp != *this->samples) stmp.reset();
 
     return 0;
+}
+
+template<typename T>
+void AOS<T>::setBreadth(int breadth) {
+    AOS::breadth = breadth;
+}
+
+template<typename T>
+void AOS<T>::setCut(int cut) {
+    AOS::cut = cut;
+}
+
+template<typename T>
+void AOS<T>::setSortingShape(int sortingShape) {
+    sorting_shape = sortingShape;
+}
+
+template<typename T>
+void AOS<T>::setChoiceShape(int choiceShape) {
+    choice_shape = choiceShape;
+}
+
+template<typename T>
+void AOS<T>::setLookAheadDepth(int lookAheadDepth) {
+    look_ahead_depth = lookAheadDepth;
 }
 
 /***********************************************************
@@ -970,7 +997,7 @@ bool AOS<T>::Heap::insert(AOS<T>::select_gamma *tok, int cont) {
         else return false;
     }
     else i = ++(this->size);
-
+    std::cout << this->size << std::endl;
     val = (this->elements[i/2] != nullptr) ? this->elements[i/2]->value : 0;
 
     while(i > 1 && val < tok->value)

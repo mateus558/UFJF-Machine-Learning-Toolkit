@@ -47,68 +47,78 @@ public:
 
 
     class Hash {
-    private:
-        size_t length = 0, width = 0, conthash = 0;
-        AOS::select_gamma ***elements;
+        private:
+            size_t length = 0, width = 0, conthash = 0;
+            AOS::select_gamma ***elements;
 
-    public:
-        Hash(size_t length, size_t  width);
+        public:
+            Hash(size_t length, size_t  width);
 
-        bool add(AOS::select_gamma *elmt);
+            bool add(AOS::select_gamma *elmt);
 
-        void set_null(AOS::select_gamma *elmt);
+            void set_null(AOS::select_gamma *elmt);
 
-        void print(int dim);
+            void print(int dim);
 
-        size_t getLength() const;
+            size_t getLength() const;
 
-        void setLength(size_t length);
+            void setLength(size_t length);
 
-        unsigned int getWidth() const;
+            unsigned int getWidth() const;
 
-        void setWidth(size_t width);
+            void setWidth(size_t width);
 
-        unsigned int getConthash() const;
+            unsigned int getConthash() const;
 
-        void setConthash(size_t conthash);
+            void setConthash(size_t conthash);
 
-        ~Hash();
+            ~Hash();
     };
 
     class Heap{
-    private:
-        size_t size = 0, contheap = 0, contheapreins = 0, maxheapsize = 0, contprooning = 0;
-        AOS::select_gamma **elements;
+        private:
+            size_t size = 0, contheap = 0, contheapreins = 0, maxheapsize = 0, contprooning = 0;
+            AOS::select_gamma **elements;
 
-    public:
-        Heap();
+        public:
+            Heap();
 
-        select_gamma **getElements() const;
+            select_gamma **getElements() const;
 
-        size_t getMaxheapsize() const;
+            size_t getMaxheapsize() const;
 
-        size_t getContheap() const;
+            size_t getContheap() const;
 
-        size_t getContheapreins() const;
+            size_t getContheapreins() const;
 
-        size_t getContprooning() const;
+            size_t getContprooning() const;
 
-        size_t getSize() const;
+            size_t getSize() const;
 
-        bool insert(AOS::select_gamma *tok, int cont);
+            bool insert(AOS::select_gamma *tok, int cont);
 
-        AOS::select_gamma* pop();
+            AOS::select_gamma* pop();
 
-        void print();
+            void print();
 
-        size_t projected();
+            size_t projected();
 
-        void percolate(size_t i);
+            void percolate(size_t i);
 
-        void cut(std::unique_ptr<AOS::Hash> hash, int levelat, int cut, double g_margin, int verbose);
+            void cut(std::unique_ptr<AOS::Hash> hash, int levelat, int cut, double g_margin, int verbose);
 
-        ~Heap();
+            ~Heap();
     };
+
+    void setBreadth(int breadth);
+
+    void setCut(int cut);
+
+    void setSortingShape(int sortingShape);
+
+    void setChoiceShape(int choiceShape);
+
+    void setLookAheadDepth(int lookAheadDepth);
 
 private:
     const size_t HASH_SIZE = 161387, HASH_WIDTH = 100;
@@ -121,7 +131,7 @@ private:
     double bonus = 0.0, n0 = 1, max_time = 0, kfolderror = 0, g_margin = 0;
     double partial_margin, partial_svs, partial_time, partial_dim;
     double START_TIME, initial_time, max_time_orig;
-    bool doleave_oo;
+    bool doleave_oo = false;
 
     std::string filename;
     std::unique_ptr<Heap> heap;
@@ -131,7 +141,7 @@ private:
 public:
     AOS(std::shared_ptr<Data< T > > samples = nullptr, Classifier< T > *classifier = nullptr, typename Validation< T >::CrossValidation *cv = nullptr,
         int breadth = 0, int depth = 0, double bonus = 0, int cut = 0, int look_ahead_depth = 0, int skip = 0,
-        int startover = 0, double g_margin = 0, int doleave_oo = 0, int sorting_shape = 0, int choice_shape = 0, int verbose = 0);
+        int startover = 0, double g_margin = 0, bool doleave_oo = 0, int sorting_shape = 0, int choice_shape = 0, int verbose = 0);
     std::shared_ptr<Data< T > > selectFeatures() override;
     void mainLoop();
     double lookAhead(std::vector<int> fnames_orig, std::vector<double> w_orig, int level_orig);

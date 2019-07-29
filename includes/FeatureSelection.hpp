@@ -66,7 +66,7 @@ public:
      * \brief setClassifier Set the classifier used for the FeatureSelection.
      * \param classifier Reference to the classifier to be used.
      */
-    void setClassifier(Classifier< T > *classifier) { this->classifier = classifier; }
+    void setClassifier(Classifier< T > *classifier) { this->classifier = classifier; this->classifier->setVerbose(0); }
     /**
      * \brief setFinalDimension Set the classifier used for the FeatureSelection.
      * \param final_dim The final number of dimensions.
