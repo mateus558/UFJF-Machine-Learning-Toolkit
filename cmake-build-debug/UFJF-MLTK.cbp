@@ -84,12 +84,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/Ensemble.cpp">
-			<Option target="UFJF-MLTK"/>
-		</Unit>
-		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/Ensemble.h">
-			<Option target="UFJF-MLTK"/>
-		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/AOS.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
@@ -100,6 +94,9 @@
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/DualClassifier.hpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Ensemble.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/FeatureSelection.hpp">
@@ -133,6 +130,12 @@
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/PrimalClassifier.hpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/PrimalCommittee.hpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/PrimalPercCommittee.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/PrimalRegressor.hpp">
@@ -193,6 +196,12 @@
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Perceptron.cpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/PrimalCommittee.cpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/PrimalPercCommittee.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/RFE.cpp">

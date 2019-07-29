@@ -109,6 +109,29 @@ CMakeFiles/UFJF-MLTK.dir/src/Perceptron.cpp.o
  /home/mateus558/Repositories/UFJF-MLTK/includes/Visualization.hpp
  /home/mateus558/Repositories/UFJF-MLTK/includes/gnuplot_i.hpp
  /home/mateus558/Repositories/UFJF-MLTK/src/Perceptron.cpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.o
+ /home/mateus558/Repositories/UFJF-MLTK/src/PrimalCommittee.cpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Classifier.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Data.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/DualClassifier.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Ensemble.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Kernel.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Learner.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/MLToolkit.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Perceptron.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Point.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/PrimalClassifier.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/PrimalCommittee.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/PrimalPercCommittee.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Solution.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Statistics.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Timer.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Utils.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Validation.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/Visualization.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/includes/gnuplot_i.hpp
+ /home/mateus558/Repositories/UFJF-MLTK/src/PrimalPercCommittee.cpp
 CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o
  /home/mateus558/Repositories/UFJF-MLTK/includes/Classifier.hpp
  /home/mateus558/Repositories/UFJF-MLTK/includes/Data.hpp

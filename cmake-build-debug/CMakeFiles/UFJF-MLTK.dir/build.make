@@ -161,9 +161,35 @@ CMakeFiles/UFJF-MLTK.dir/src/Perceptron.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UFJF-MLTK.dir/src/Perceptron.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mateus558/Repositories/UFJF-MLTK/src/Perceptron.cpp -o CMakeFiles/UFJF-MLTK.dir/src/Perceptron.cpp.s
 
+CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
+CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.o: ../src/PrimalCommittee.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/src/PrimalCommittee.cpp
+
+CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mateus558/Repositories/UFJF-MLTK/src/PrimalCommittee.cpp > CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.i
+
+CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mateus558/Repositories/UFJF-MLTK/src/PrimalCommittee.cpp -o CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.s
+
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../src/PrimalPercCommittee.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/src/PrimalPercCommittee.cpp
+
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mateus558/Repositories/UFJF-MLTK/src/PrimalPercCommittee.cpp > CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.i
+
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mateus558/Repositories/UFJF-MLTK/src/PrimalPercCommittee.cpp -o CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.s
+
 CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
 CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o: ../src/RFE.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/src/RFE.cpp
 
 CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.i: cmake_force
@@ -176,7 +202,7 @@ CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.s: cmake_force
 
 CMakeFiles/UFJF-MLTK.dir/src/SMO.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
 CMakeFiles/UFJF-MLTK.dir/src/SMO.cpp.o: ../src/SMO.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/SMO.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/SMO.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/src/SMO.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/src/SMO.cpp
 
 CMakeFiles/UFJF-MLTK.dir/src/SMO.cpp.i: cmake_force
@@ -189,7 +215,7 @@ CMakeFiles/UFJF-MLTK.dir/src/SMO.cpp.s: cmake_force
 
 CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
 CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.o: ../src/Statistics.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/src/Statistics.cpp
 
 CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.i: cmake_force
@@ -202,7 +228,7 @@ CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.s: cmake_force
 
 CMakeFiles/UFJF-MLTK.dir/src/Utils.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
 CMakeFiles/UFJF-MLTK.dir/src/Utils.cpp.o: ../src/Utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/Utils.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/Utils.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/src/Utils.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/src/Utils.cpp
 
 CMakeFiles/UFJF-MLTK.dir/src/Utils.cpp.i: cmake_force
@@ -215,7 +241,7 @@ CMakeFiles/UFJF-MLTK.dir/src/Utils.cpp.s: cmake_force
 
 CMakeFiles/UFJF-MLTK.dir/src/Validation.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
 CMakeFiles/UFJF-MLTK.dir/src/Validation.cpp.o: ../src/Validation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/Validation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/Validation.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/src/Validation.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/src/Validation.cpp
 
 CMakeFiles/UFJF-MLTK.dir/src/Validation.cpp.i: cmake_force
@@ -228,7 +254,7 @@ CMakeFiles/UFJF-MLTK.dir/src/Validation.cpp.s: cmake_force
 
 CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
 CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o: ../src/Visualization.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/src/Visualization.cpp
 
 CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.i: cmake_force
@@ -241,7 +267,7 @@ CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.s: cmake_force
 
 CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
 CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o: ../src/gnuplot_i.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/src/gnuplot_i.cpp
 
 CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.i: cmake_force
@@ -254,7 +280,7 @@ CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.s: cmake_force
 
 CMakeFiles/UFJF-MLTK.dir/src/main.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
 CMakeFiles/UFJF-MLTK.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/UFJF-MLTK.dir/src/main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/src/main.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/src/main.cpp
 
 CMakeFiles/UFJF-MLTK.dir/src/main.cpp.i: cmake_force
@@ -264,19 +290,6 @@ CMakeFiles/UFJF-MLTK.dir/src/main.cpp.i: cmake_force
 CMakeFiles/UFJF-MLTK.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UFJF-MLTK.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mateus558/Repositories/UFJF-MLTK/src/main.cpp -o CMakeFiles/UFJF-MLTK.dir/src/main.cpp.s
-
-CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.o: CMakeFiles/UFJF-MLTK.dir/flags.make
-CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.o: ../Ensemble.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.o -c /home/mateus558/Repositories/UFJF-MLTK/Ensemble.cpp
-
-CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mateus558/Repositories/UFJF-MLTK/Ensemble.cpp > CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.i
-
-CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mateus558/Repositories/UFJF-MLTK/Ensemble.cpp -o CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.s
 
 # Object files for target UFJF-MLTK
 UFJF__MLTK_OBJECTS = \
@@ -288,6 +301,8 @@ UFJF__MLTK_OBJECTS = \
 "CMakeFiles/UFJF-MLTK.dir/src/Kernel.cpp.o" \
 "CMakeFiles/UFJF-MLTK.dir/src/LMS.cpp.o" \
 "CMakeFiles/UFJF-MLTK.dir/src/Perceptron.cpp.o" \
+"CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.o" \
+"CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o" \
 "CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o" \
 "CMakeFiles/UFJF-MLTK.dir/src/SMO.cpp.o" \
 "CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.o" \
@@ -295,8 +310,7 @@ UFJF__MLTK_OBJECTS = \
 "CMakeFiles/UFJF-MLTK.dir/src/Validation.cpp.o" \
 "CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o" \
 "CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o" \
-"CMakeFiles/UFJF-MLTK.dir/src/main.cpp.o" \
-"CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.o"
+"CMakeFiles/UFJF-MLTK.dir/src/main.cpp.o"
 
 # External object files for target UFJF-MLTK
 UFJF__MLTK_EXTERNAL_OBJECTS =
@@ -309,6 +323,8 @@ UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/IMA.cpp.o
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/Kernel.cpp.o
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/LMS.cpp.o
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/Perceptron.cpp.o
+UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.o
+UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/SMO.cpp.o
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.o
@@ -317,10 +333,9 @@ UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/Validation.cpp.o
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/src/main.cpp.o
-UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.o
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/build.make
 UFJF-MLTK: CMakeFiles/UFJF-MLTK.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX executable UFJF-MLTK"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX executable UFJF-MLTK"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/UFJF-MLTK.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

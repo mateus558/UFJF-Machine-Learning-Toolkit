@@ -109,6 +109,29 @@ CMakeFiles/UFJF-MLTK.dir/src/Perceptron.cpp.o: ../includes/Visualization.hpp
 CMakeFiles/UFJF-MLTK.dir/src/Perceptron.cpp.o: ../includes/gnuplot_i.hpp
 CMakeFiles/UFJF-MLTK.dir/src/Perceptron.cpp.o: ../src/Perceptron.cpp
 
+CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.o: ../src/PrimalCommittee.cpp
+
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Classifier.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Data.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/DualClassifier.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Ensemble.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Kernel.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Learner.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/MLToolkit.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Perceptron.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Point.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/PrimalClassifier.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/PrimalCommittee.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/PrimalPercCommittee.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Solution.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Statistics.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Timer.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Utils.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Validation.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/Visualization.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../includes/gnuplot_i.hpp
+CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o: ../src/PrimalPercCommittee.cpp
+
 CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o: ../includes/Classifier.hpp
 CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o: ../includes/Data.hpp
 CMakeFiles/UFJF-MLTK.dir/src/RFE.cpp.o: ../includes/FeatureSelection.hpp

@@ -11,6 +11,10 @@ template <typename T>
 class Ensemble: public Learner< T > {
     // Attributes
 protected:
+    /// Committee size.
+    size_t c_size;
+    /// Pointer to base learner used by the ensemble method.
+    Learner< T > *learner;
     /// Ensemble solution.
     Solution solution;
 public:
@@ -32,6 +36,24 @@ public:
     /*********************************************
      *               Setters                     *
      *********************************************/
+
+    /**
+     * \brief setLearner Set the base learner to be used by the ensemble method. Make sure to set the base learner
+     * parameters before setting it.
+     * \return void
+     */
+    void setLearner(Learner<T> *learner) {
+        Ensemble::learner = learner;
+    }
+
+    /**
+     * \brief setCommitteeSize Set the learner committee size.
+     * \return void
+     */
+    void setCommitteeSize(size_t c_size) {
+        Ensemble::c_size = c_size;
+    }
+
 };
 
 

@@ -123,33 +123,6 @@ UFJF-MLTK/fast:
 	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/build
 .PHONY : UFJF-MLTK/fast
 
-Ensemble.o: Ensemble.cpp.o
-
-.PHONY : Ensemble.o
-
-# target to build an object file
-Ensemble.cpp.o:
-	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.o
-.PHONY : Ensemble.cpp.o
-
-Ensemble.i: Ensemble.cpp.i
-
-.PHONY : Ensemble.i
-
-# target to preprocess a source file
-Ensemble.cpp.i:
-	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.i
-.PHONY : Ensemble.cpp.i
-
-Ensemble.s: Ensemble.cpp.s
-
-.PHONY : Ensemble.s
-
-# target to generate assembly for a file
-Ensemble.cpp.s:
-	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.s
-.PHONY : Ensemble.cpp.s
-
 src/AOS.o: src/AOS.cpp.o
 
 .PHONY : src/AOS.o
@@ -365,6 +338,60 @@ src/Perceptron.s: src/Perceptron.cpp.s
 src/Perceptron.cpp.s:
 	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/Perceptron.cpp.s
 .PHONY : src/Perceptron.cpp.s
+
+src/PrimalCommittee.o: src/PrimalCommittee.cpp.o
+
+.PHONY : src/PrimalCommittee.o
+
+# target to build an object file
+src/PrimalCommittee.cpp.o:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.o
+.PHONY : src/PrimalCommittee.cpp.o
+
+src/PrimalCommittee.i: src/PrimalCommittee.cpp.i
+
+.PHONY : src/PrimalCommittee.i
+
+# target to preprocess a source file
+src/PrimalCommittee.cpp.i:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.i
+.PHONY : src/PrimalCommittee.cpp.i
+
+src/PrimalCommittee.s: src/PrimalCommittee.cpp.s
+
+.PHONY : src/PrimalCommittee.s
+
+# target to generate assembly for a file
+src/PrimalCommittee.cpp.s:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/PrimalCommittee.cpp.s
+.PHONY : src/PrimalCommittee.cpp.s
+
+src/PrimalPercCommittee.o: src/PrimalPercCommittee.cpp.o
+
+.PHONY : src/PrimalPercCommittee.o
+
+# target to build an object file
+src/PrimalPercCommittee.cpp.o:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.o
+.PHONY : src/PrimalPercCommittee.cpp.o
+
+src/PrimalPercCommittee.i: src/PrimalPercCommittee.cpp.i
+
+.PHONY : src/PrimalPercCommittee.i
+
+# target to preprocess a source file
+src/PrimalPercCommittee.cpp.i:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.i
+.PHONY : src/PrimalPercCommittee.cpp.i
+
+src/PrimalPercCommittee.s: src/PrimalPercCommittee.cpp.s
+
+.PHONY : src/PrimalPercCommittee.s
+
+# target to generate assembly for a file
+src/PrimalPercCommittee.cpp.s:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/PrimalPercCommittee.cpp.s
+.PHONY : src/PrimalPercCommittee.cpp.s
 
 src/RFE.o: src/RFE.cpp.o
 
@@ -591,9 +618,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... UFJF-MLTK"
 	@echo "... edit_cache"
-	@echo "... Ensemble.o"
-	@echo "... Ensemble.i"
-	@echo "... Ensemble.s"
 	@echo "... src/AOS.o"
 	@echo "... src/AOS.i"
 	@echo "... src/AOS.s"
@@ -618,6 +642,12 @@ help:
 	@echo "... src/Perceptron.o"
 	@echo "... src/Perceptron.i"
 	@echo "... src/Perceptron.s"
+	@echo "... src/PrimalCommittee.o"
+	@echo "... src/PrimalCommittee.i"
+	@echo "... src/PrimalCommittee.s"
+	@echo "... src/PrimalPercCommittee.o"
+	@echo "... src/PrimalPercCommittee.i"
+	@echo "... src/PrimalPercCommittee.s"
 	@echo "... src/RFE.o"
 	@echo "... src/RFE.i"
 	@echo "... src/RFE.s"

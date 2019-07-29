@@ -66,7 +66,6 @@ bool PerceptronPrimal< T >::train(){
     return (e == 0);
 }
 
-
 template < typename T >
 PerceptronFixedMarginPrimal< T >::PerceptronFixedMarginPrimal(std::shared_ptr<Data< T > > samples, double gamma, double q, double rate, Solution *initial_solution){
     this->samples = samples;
