@@ -15,6 +15,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o"
   "CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o"
   "CMakeFiles/UFJF-MLTK.dir/src/main.cpp.o"
+  "CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.o"
   "UFJF-MLTK.pdb"
   "UFJF-MLTK"
 )

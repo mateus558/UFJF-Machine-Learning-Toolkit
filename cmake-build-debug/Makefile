@@ -123,6 +123,33 @@ UFJF-MLTK/fast:
 	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/build
 .PHONY : UFJF-MLTK/fast
 
+Ensemble.o: Ensemble.cpp.o
+
+.PHONY : Ensemble.o
+
+# target to build an object file
+Ensemble.cpp.o:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.o
+.PHONY : Ensemble.cpp.o
+
+Ensemble.i: Ensemble.cpp.i
+
+.PHONY : Ensemble.i
+
+# target to preprocess a source file
+Ensemble.cpp.i:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.i
+.PHONY : Ensemble.cpp.i
+
+Ensemble.s: Ensemble.cpp.s
+
+.PHONY : Ensemble.s
+
+# target to generate assembly for a file
+Ensemble.cpp.s:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/Ensemble.cpp.s
+.PHONY : Ensemble.cpp.s
+
 src/AOS.o: src/AOS.cpp.o
 
 .PHONY : src/AOS.o
@@ -564,6 +591,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... UFJF-MLTK"
 	@echo "... edit_cache"
+	@echo "... Ensemble.o"
+	@echo "... Ensemble.i"
+	@echo "... Ensemble.s"
 	@echo "... src/AOS.o"
 	@echo "... src/AOS.i"
 	@echo "... src/AOS.s"
