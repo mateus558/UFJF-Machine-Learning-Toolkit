@@ -17,8 +17,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o"
   "CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o"
   "CMakeFiles/UFJF-MLTK.dir/src/main.cpp.o"
-  "UFJF-MLTK.pdb"
   "UFJF-MLTK"
+  "UFJF-MLTK.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
