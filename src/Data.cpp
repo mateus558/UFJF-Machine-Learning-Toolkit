@@ -138,15 +138,16 @@ bool Data< T >::load_csv(string path){
                 clog << "Warning: point[" << size  << "] " << dim+1 << " feature is not a number." << endl;
                 dim--;
             }
-
-            if(dim == -1 && !flag){
-                if(!((item == pos_class) || (item == neg_class))){
-                    atEnd = true;
-                    flag = true;
-                }
-            }else if(ss.eof() && !flag){
-                if(!((item == pos_class) || (item == neg_class))){
-                    flag = true;
+            if(type == "Classification") {
+                if (dim == -1 && !flag) {
+                    if (!((item == pos_class) || (item == neg_class))) {
+                        atEnd = true;
+                        flag = true;
+                    }
+                } else if (ss.eof() && !flag) {
+                    if (!((item == pos_class) || (item == neg_class))) {
+                        flag = true;
+                    }
                 }
             }
             dim++;
@@ -247,7 +248,6 @@ bool Data< T >::load_data(string path){
     }
     dim = ldim = size = c = 0;
     flag = false;
-
     //get dimension of the points
     while(getline(input, str)){
         dim = -1;
@@ -261,14 +261,16 @@ bool Data< T >::load_data(string path){
                 dim--;
             }
             //Verify if the class is at the beggining or at the end
-            if(dim == -1 && !flag){
-                if(!((item == pos_class) || (item == neg_class))){
-                    atEnd = true;
-                    flag = true;
-                }
-            }else if(ss.eof() && !flag){
-                if(!((item == pos_class) || (item == neg_class))){
-                    flag = true;
+            if(type == "Classification") {
+                if (dim == -1 && !flag) {
+                    if (!((item == pos_class) || (item == neg_class))) {
+                        atEnd = true;
+                        flag = true;
+                    }
+                } else if (ss.eof() && !flag) {
+                    if (!((item == pos_class) || (item == neg_class))) {
+                        flag = true;
+                    }
                 }
             }
 
@@ -308,7 +310,7 @@ bool Data< T >::load_data(string path){
         ss.str(str);
         ss.clear();
         dim = 0;
-        new_point->x.resize(this->dim, 0.0);
+        new_point->x.resize(this->dim+1, 0.0);
 
         //Read features from line
         while(getline(ss, item, ' ')){
@@ -316,7 +318,7 @@ bool Data< T >::load_data(string path){
             if(atEnd)
                 cond = (!ss.eof() && atEnd);
             else
-                cond = !(dim == 0);
+                cond = dim != 0;
 
             if(cond){
                 buffer.clear();
@@ -344,18 +346,19 @@ bool Data< T >::load_data(string path){
                     dim++;
                 }
             }else{
-                if(type == "Classification") c = (item == pos_class)?1:-1;
-                else c = Utils::atod(item.c_str());
+                if(type == "Classification") {
+                    c = (item == pos_class) ? 1 : -1;
+                }else{
+                    c = Utils::atod(item.c_str());
+                }
                 new_point->y = c;
                 if(c == -1) stats.n_neg++; else stats.n_pos++;
 
                 if(!atEnd) dim++;
             }
         }
-        //cout << points[150] << endl;
         points[size++] = std::move(new_point);
         points[size-1]->id = size;
-
     }
 
     input.close();
@@ -390,16 +393,17 @@ bool Data< T >::load_arff(string path){
                 clog << "Warning: point[" << size  << "] " << dim+1 << " feature is not a number." << endl;
                 dim--;
             }
-
-            if(dim == 0 && !flag){
-                if(!((item == pos_class) || (item == neg_class))){
-                    atEnd = true;
-                    flag = true;
-                }
-            }else if(ss.eof() && !flag){
-                if(!((item == pos_class) || (item == neg_class))){
-                    atBegin = true;
-                    flag = true;
+            if(type == "Classification") {
+                if (dim == 0 && !flag) {
+                    if (!((item == pos_class) || (item == neg_class))) {
+                        atEnd = true;
+                        flag = true;
+                    }
+                } else if (ss.eof() && !flag) {
+                    if (!((item == pos_class) || (item == neg_class))) {
+                        atBegin = true;
+                        flag = true;
+                    }
                 }
             }
             dim++;
@@ -1090,7 +1094,8 @@ Data<T>::Data(size_t size, size_t dim, T val) {
 
 template<typename T>
 void Data<T>::setType(const string &type) {
-    Data::type = type;
+    this->type = type;
+    cout << this->type << endl;
 }
 
 template class Data<int>;

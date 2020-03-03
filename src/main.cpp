@@ -406,22 +406,24 @@ void datasetOption(int option){
         case 1:
             if(data->isEmpty()){
                 string pos, neg;
+                string isReg;
                 string sid, path;
 
                 files = list_datasets(true);
                 cout << endl;
                 cout << "Enter the number of the DB (must be in the DB folder): ";
                 cin >> sid;
-                /*cout << "Enter the positive class: ";
-                cin >> pos;
-                cout << "Enter the negative class: ";
-                cin >> neg;*/
+                cout << "Is this a regression dataset? ([y]es/[n]o): ";
+                cin >> isReg;
+
+                if(isReg == "y"){
+                    data->setType("Regression");
+                }
 
                 path = data_folder + files[Utils::stoin(sid)];
                 clock_t begin = clock();
                 //data->setClasses(pos, neg);
                 cout << "\n" << path << endl;
-                data->setType("Regression");
                 data->load(path);
                 clock_t end = clock();
 
