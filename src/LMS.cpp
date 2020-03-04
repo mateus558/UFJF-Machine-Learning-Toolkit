@@ -22,23 +22,23 @@ LMSPrimal<T>::LMSPrimal(std::shared_ptr<Data<T>> samples, double rate, int verbo
 template<typename T>
 bool LMSPrimal< T >::train() {
     size_t j = 0, k = 0, size = this->samples->getSize(), dim = this->samples->getDim();
-    double bias = 0.0, error = 0.0, diff = 0.0, diffAnt = 0.0, temp = 0.0;
+    double bias = 0.0, error = 0.0, diff = 0.0, diffAnt = 0.0, temp = 0.0, cost_func = 0.0;
     std::vector<double> func(size, 0.0);
 
     this->timer.Reset();
     for(this->steps = 0; this->steps < this->MAX_IT; this->steps++){
+        cost_func = 0;
         for(j = 0; j < size; j++){
-            auto input = (*this->samples)[j];
+        auto input = (*this->samples)[j];
             //Compute function
             for(func[j] = bias, k = 0; k < dim; k++){
                 func[j] += (*input)[k] * this->solution.w[k];
             }
+            cost_func += (func[j] - input->y) * (func[j] - input->y);
 
             //Verify if the point is a error
             if(input->y != func[j]){
-                error = input->y - func[j];
-                diffAnt = diff;
-                diff = 0.0;
+                error = (input->y - func[j]) * (*input)[j];
                 //Update weights
                 for(k = 0; k < dim; k++) {
                     temp = this->solution.w[k];
@@ -48,7 +48,11 @@ bool LMSPrimal< T >::train() {
                 ++this->ctot;
             }
         }
-        if(fabs(diff-diffAnt) <= this->EPS || this->timer.Elapsed() >= this->max_time) break;
+        cost_func *= 0.5;
+        std::cout << cost_func << std::endl;
+
+        if(fabs(diff-diffAnt) <= this->EPS) break;
+        diffAnt = diff;
     }
     if(this->verbose >= 1){
         std::cout << "Number of steps through data: " << this->steps << std::endl;

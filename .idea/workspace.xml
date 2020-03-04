@@ -12,45 +12,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9eea91d-a2f6-4d09-8da1-f359c4134af7" name="Default Changelist" comment="Regression dataset airfoil added and data load addapted for regression.">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB/airfoil.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB/test_reg.data" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.3/CMakeCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.3/CMakeCXXCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.3/CMakeSystem.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.3/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.3/CompilerIdC/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.3/CompilerIdCXX/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/reg_test.data" beforeDir="false" afterPath="$PROJECT_DIR$/DB/reg_test.data" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/depend.internal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/flags.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Data.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Data.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Fisher.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Fisher.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Kernel.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Kernel.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Statistics.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Utils.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Utils.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/Visualization.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.cxx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/UFJF-MLTK" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/UFJF-MLTK" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/temp/neg.plt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/temp/neg.plt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/temp/pos.plt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/temp/pos.plt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/temp/und.plt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/temp/und.plt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/Data.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/includes/Data.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/Point.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/includes/Point.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Data.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Data.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LMS.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/LMS.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Visualization.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Visualization.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,49 +40,6 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>tbreadth</find>
-      <find>size</find>
-      <find>Init</find>
-      <find>Initi</find>
-      <find>leave_oo</find>
-      <find>dol</find>
-      <find>Leave One</find>
-      <find>aos.</find>
-      <find>dim_par</find>
-      <find>dim_parcia</find>
-      <find>svs_parcial</find>
-      <find>margem_par</find>
-      <find>margem_parcial</find>
-      <find>tempo_parcial</find>
-      <find>mainLo</find>
-      <find>partial_time</find>
-      <find>vali</find>
-      <find>set</find>
-      <find>setC</find>
-      <find>Dim:</find>
-      <find>Initial tr</find>
-      <find>start</find>
-      <find>dim</find>
-      <find>mainLoo</find>
-      <find>this-&gt;hea</find>
-      <find>this-&gt;heap-&gt;insert</find>
-      <find>::add</find>
-      <find>add</find>
-      <find>AOS</find>
-      <find>PerceptronFixedMarginDual</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>partial_dim</replace>
-      <replace>partial_svs</replace>
-      <replace>partial_margi</replace>
-      <replace>this-&gt;partial_margin</replace>
-      <replace>this-&gt;partial_time</replace>
-      <replace>PrimalCommittee</replace>
-      <replace>PrimalPercCommittee</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
@@ -129,7 +64,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -161,6 +96,8 @@
       <workItem from="1564417086884" duration="9329000" />
       <workItem from="1583238984001" duration="237000" />
       <workItem from="1583239963526" duration="5342000" />
+      <workItem from="1583279984434" duration="5125000" />
+      <workItem from="1583331333960" duration="4357000" />
     </task>
     <task id="LOCAL-00001" summary="Fixes to AOS algorithm and UI menu.">
       <created>1564417343503</created>
@@ -191,53 +128,73 @@
     <option name="LAST_COMMIT_MESSAGE" value="Regression dataset airfoil added and data load addapted for regression." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="245" y="28" width="865" height="740" key="CommitChangelistDialog2" timestamp="1583247534909">
+    <state x="491" y="84" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1583325969897">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state x="245" y="28" width="865" height="740" key="CommitChangelistDialog2/0.28.1366.740@0.28.1366.740" timestamp="1583247534909" />
-    <state width="1320" height="172" key="GridCell.Tab.0.bottom" timestamp="1583246144675">
+    <state x="491" y="84" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/0.28.1366.740@0.28.1366.740" timestamp="1583325969897" />
+    <state x="245" y="28" width="865" height="740" key="CommitChangelistDialog2" timestamp="1583247592100">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state width="1320" height="172" key="GridCell.Tab.0.bottom/0.28.1366.740@0.28.1366.740" timestamp="1583246144675" />
-    <state width="1320" height="172" key="GridCell.Tab.0.center" timestamp="1583246144675">
+    <state x="245" y="28" width="865" height="740" key="CommitChangelistDialog2/0.28.1366.740@0.28.1366.740" timestamp="1583247592100" />
+    <state width="1320" height="192" key="GridCell.Tab.0.bottom" timestamp="1583335637977">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state width="1320" height="172" key="GridCell.Tab.0.center/0.28.1366.740@0.28.1366.740" timestamp="1583246144675" />
-    <state width="1320" height="172" key="GridCell.Tab.0.left" timestamp="1583246144673">
+    <state width="1320" height="192" key="GridCell.Tab.0.bottom/0.28.1366.740@0.28.1366.740" timestamp="1583335637977" />
+    <state width="1320" height="192" key="GridCell.Tab.0.center" timestamp="1583335637977">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state width="1320" height="172" key="GridCell.Tab.0.left/0.28.1366.740@0.28.1366.740" timestamp="1583246144673" />
-    <state width="1320" height="172" key="GridCell.Tab.0.right" timestamp="1583246144675">
+    <state width="1320" height="192" key="GridCell.Tab.0.center/0.28.1366.740@0.28.1366.740" timestamp="1583335637977" />
+    <state width="1320" height="192" key="GridCell.Tab.0.left" timestamp="1583335637976">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state width="1320" height="172" key="GridCell.Tab.0.right/0.28.1366.740@0.28.1366.740" timestamp="1583246144675" />
-    <state width="1320" height="173" key="GridCell.Tab.1.bottom" timestamp="1583246098413">
+    <state width="1320" height="192" key="GridCell.Tab.0.left/0.28.1366.740@0.28.1366.740" timestamp="1583335637976" />
+    <state width="1320" height="192" key="GridCell.Tab.0.right" timestamp="1583335637977">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state width="1320" height="173" key="GridCell.Tab.1.bottom/0.28.1366.740@0.28.1366.740" timestamp="1583246098413" />
-    <state width="1320" height="173" key="GridCell.Tab.1.center" timestamp="1583246098412">
+    <state width="1320" height="192" key="GridCell.Tab.0.right/0.28.1366.740@0.28.1366.740" timestamp="1583335637977" />
+    <state width="1320" height="309" key="GridCell.Tab.1.bottom" timestamp="1583335617527">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state width="1320" height="173" key="GridCell.Tab.1.center/0.28.1366.740@0.28.1366.740" timestamp="1583246098412" />
-    <state width="1320" height="173" key="GridCell.Tab.1.left" timestamp="1583246098412">
+    <state width="1320" height="309" key="GridCell.Tab.1.bottom/0.28.1366.740@0.28.1366.740" timestamp="1583335617527" />
+    <state width="1320" height="309" key="GridCell.Tab.1.center" timestamp="1583335617522">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state width="1320" height="173" key="GridCell.Tab.1.left/0.28.1366.740@0.28.1366.740" timestamp="1583246098412" />
-    <state width="1320" height="173" key="GridCell.Tab.1.right" timestamp="1583246098413">
+    <state width="1320" height="309" key="GridCell.Tab.1.center/0.28.1366.740@0.28.1366.740" timestamp="1583335617522" />
+    <state width="1320" height="309" key="GridCell.Tab.1.left" timestamp="1583335617521">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state width="1320" height="173" key="GridCell.Tab.1.right/0.28.1366.740@0.28.1366.740" timestamp="1583246098413" />
-    <state x="172" y="28" width="1153" height="737" key="SettingsEditor" timestamp="1583239199421">
+    <state width="1320" height="309" key="GridCell.Tab.1.left/0.28.1366.740@0.28.1366.740" timestamp="1583335617521" />
+    <state width="1320" height="309" key="GridCell.Tab.1.right" timestamp="1583335617524">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state x="172" y="28" width="1153" height="737" key="SettingsEditor/0.28.1366.740@0.28.1366.740" timestamp="1583239199421" />
-    <state x="278" y="90" width="800" height="558" key="Vcs.Push.Dialog.v2" timestamp="1583247456533">
+    <state width="1320" height="309" key="GridCell.Tab.1.right/0.28.1366.740@0.28.1366.740" timestamp="1583335617524" />
+    <state x="172" y="28" width="1153" height="737" key="SettingsEditor" timestamp="1583325722046">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state x="278" y="90" width="800" height="558" key="Vcs.Push.Dialog.v2/0.28.1366.740@0.28.1366.740" timestamp="1583247456533" />
-    <state x="339" y="207" key="com.intellij.ide.util.TipDialog" timestamp="1583239966504">
+    <state x="172" y="28" width="1153" height="737" key="SettingsEditor/0.28.1366.740@0.28.1366.740" timestamp="1583325722046" />
+    <state x="278" y="90" width="800" height="558" key="Vcs.Push.Dialog.v2" timestamp="1583247553201">
       <screen x="0" y="28" width="1366" height="740" />
     </state>
-    <state x="339" y="207" key="com.intellij.ide.util.TipDialog/0.28.1366.740@0.28.1366.740" timestamp="1583239966504" />
+    <state x="278" y="90" width="800" height="558" key="Vcs.Push.Dialog.v2/0.28.1366.740@0.28.1366.740" timestamp="1583247553201" />
+    <state x="339" y="207" key="com.intellij.ide.util.TipDialog" timestamp="1583331334929">
+      <screen x="0" y="28" width="1366" height="740" />
+    </state>
+    <state x="339" y="207" key="com.intellij.ide.util.TipDialog/0.28.1366.740@0.28.1366.740" timestamp="1583331334929" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/LMS.cpp</url>
+          <line>28</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Visualization.cpp</url>
+          <line>35</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

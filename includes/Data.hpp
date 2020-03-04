@@ -83,6 +83,10 @@ private :
     Statistics< T > stats;
     /// Dataset type.
     std::string type = "Classification";
+public:
+    const std::string &getType() const;
+
+private:
 
     // Private Operations
     /**

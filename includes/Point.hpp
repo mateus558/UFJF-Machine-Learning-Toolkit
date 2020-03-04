@@ -110,7 +110,7 @@ std::ostream &operator<<( std::ostream &output, const Point< T > &p ) {
     int i, dim = p.x.size();
 
     output << p.id << ":[";
-    for(i = 0; i < dim-1; ++i){
+    for(i = 0; i < dim; ++i){
         output << p.x[i] << ", ";
     }
     output << p.y << "]";

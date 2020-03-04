@@ -310,7 +310,7 @@ bool Data< T >::load_data(string path){
         ss.str(str);
         ss.clear();
         dim = 0;
-        new_point->x.resize(this->dim+1, 0.0);
+        new_point->x.resize(this->dim, 0.0);
 
         //Read features from line
         while(getline(ss, item, ' ')){
@@ -348,11 +348,11 @@ bool Data< T >::load_data(string path){
             }else{
                 if(type == "Classification") {
                     c = (item == pos_class) ? 1 : -1;
+                    if(c == -1) stats.n_neg++; else stats.n_pos++;
                 }else{
                     c = Utils::atod(item.c_str());
                 }
                 new_point->y = c;
-                if(c == -1) stats.n_neg++; else stats.n_pos++;
 
                 if(!atEnd) dim++;
             }
@@ -1096,6 +1096,11 @@ template<typename T>
 void Data<T>::setType(const string &type) {
     this->type = type;
     cout << this->type << endl;
+}
+
+template<typename T>
+const string &Data<T>::getType() const {
+    return type;
 }
 
 template class Data<int>;

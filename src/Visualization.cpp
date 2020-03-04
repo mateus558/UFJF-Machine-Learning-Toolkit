@@ -34,29 +34,42 @@ void Visualization< T >::setStyle(string style){
 template < typename T >
 void Visualization< T >::createPosNegTemps(){
     size_t i, j, size = samples->getSize(), dim = samples->getDim();
-    ofstream neg_file("temp/neg.plt"), pos_file("temp/pos.plt"), und_file("temp/und.plt");
+    if(samples->getType() == "Classification") {
+        ofstream neg_file("temp/neg.plt"), pos_file("temp/pos.plt"), und_file("temp/und.plt");
 
-    for(i = 0; i < size; i++){
-        if(samples->getPoint(i)->y == 1){
-            for(j = 0; j < dim-1; j++){
-                pos_file << (double)(samples->getPoint(i)->x[j]) << " ";
+        for (i = 0; i < size; i++) {
+            if (samples->getPoint(i)->y == 1) {
+                for (j = 0; j < dim - 1; j++) {
+                    pos_file << (double) (samples->getPoint(i)->x[j]) << " ";
+                }
+                pos_file << (double) (samples->getPoint(i)->x[j]) << endl;
+            } else if (samples->getPoint(i)->y == -1) {
+                for (j = 0; j < dim - 1; j++) {
+                    neg_file << (double) (samples->getPoint(i)->x[j]) << " ";
+                }
+                neg_file << (double) (samples->getPoint(i)->x[j]) << endl;
+            } else {
+                for (j = 0; j < dim - 1; j++) {
+                    und_file << (double) (samples->getPoint(i)->x[j]) << " ";
+                }
+                und_file << (double) (samples->getPoint(i)->x[j]) << endl;
             }
-            pos_file << (double)(samples->getPoint(i)->x[j]) << endl;
-        }else if(samples->getPoint(i)->y == -1){
-            for(j = 0; j < dim-1; j++){
-                neg_file << (double)(samples->getPoint(i)->x[j]) << " ";
-            }
-            neg_file << (double)(samples->getPoint(i)->x[j]) << endl;
-        }else{
-            for(j = 0; j < dim-1; j++){
-                und_file << (double)(samples->getPoint(i)->x[j]) << " ";
-            }
-            und_file << (double)(samples->getPoint(i)->x[j]) << endl;
         }
+        pos_file.close();
+        neg_file.close();
+        und_file.close();
+    } else{
+        ofstream samples_file("temp/samples.plt");
+
+        for (i = 0; i < size; i++) {
+            for (j = 0; j < dim - 1; j++) {
+                samples_file << (double) (samples->getPoint(i)->x[j]) << " ";
+            }
+            samples_file << (double) (samples->getPoint(i)->x[j]) << endl;
+        }
+
+        samples_file.close();
     }
-    pos_file.close();
-    neg_file.close();
-    und_file.close();
 }
 
 template < typename T >
@@ -140,7 +153,12 @@ void Visualization< T >::removeTempFiles(){
 template < typename T >
 void Visualization< T >::plot2D(int x, int y){
     string dims = Utils::itos(x) + ":" + Utils::itos(y);
-    string cmd = "plot 'temp/pos.plt' using " + dims + " title '+1' with points, 'temp/neg.plt' using " + dims + " title '-1' with points";
+    string cmd;
+    if(samples->getType() == "Classification"){
+        cmd = "plot 'temp/pos.plt' using " + dims + " title '+1' with points, 'temp/neg.plt' using " + dims + " title '-1' with points";
+    }else{
+        cmd = "plot 'temp/samples.plt' using " + dims + " with points";
+    }
     createPosNegTemps();
 #ifdef __unix__
     cmd = "set terminal qt; " + cmd;
@@ -155,7 +173,12 @@ void Visualization< T >::plot2D(int x, int y){
 template < typename T >
 void Visualization< T >::plot3D(int x, int y, int z){
     string dims = Utils::itos(x) + ":" + Utils::itos(y) + ":" + Utils::itos(z);
-    string cmd = "splot 'temp/pos.plt' using " + dims + " title '+1' with points, 'temp/neg.plt' using " + dims + " title '-1' with points";
+    string cmd;
+    if(samples->getType() == "Classification"){
+        cmd = "splot 'temp/pos.plt' using " + dims + " title '+1' with points, 'temp/neg.plt' using " + dims + " title '-1' with points";
+    }else if(samples->getType() == "Regression"){
+        cmd = "splot 'temp/samples.plt' using " + dims + " with points";
+    }
     createPosNegTemps();
 #ifdef __unix__
     cmd = "set terminal qt; " + cmd;
@@ -171,11 +194,24 @@ void Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s){
     if(s.norm != s.norm) s.norm = 0.0;
 
     string feats = Utils::itos(x) + ":" + Utils::itos(y);
-    string fx = "f(x) = "+Utils::dtoa(s.w[x-1]/-s.w[y-1])+"*x + "+Utils::dtoa(s.bias/-s.w[y-1]);
-    string gx = "g(x) = "+Utils::dtoa(s.w[x-1]/-s.w[y-1])+"*x + "+Utils::dtoa((s.bias + s.margin*s.norm)/-s.w[y-1]);
-    string hx = "h(x) = "+Utils::dtoa(s.w[x-1]/-s.w[y-1])+"*x + "+Utils::dtoa((s.bias - s.margin*s.norm)/-s.w[y-1]);
-    string cmd = fx + "; "+ gx +"; "+ hx +"; plot 'temp/pos.plt' using "+feats+" title '+1' with points, 'temp/neg.plt' using "+feats+" title '-1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+    string fx, gx, hx, cmd;
+    if(s.bias != 0) {
+        fx = "f(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " + Utils::dtoa(s.bias / -s.w[y - 1]);
+        gx = "g(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
+                    Utils::dtoa((s.bias + s.margin * s.norm) / -s.w[y - 1]);
+        hx = "h(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
+                    Utils::dtoa((s.bias - s.margin * s.norm) / -s.w[y - 1]);
+    }else{
+        fx = "f(x) = " + Utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
+        gx = "g(x) = " + Utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
+        hx = "h(x) = " + Utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
+    }
 
+    if(samples->getType() == "Classification"){
+        cmd = fx + "; "+ gx +"; "+ hx +"; plot 'temp/pos.plt' using "+feats+" title '+1' with points, 'temp/neg.plt' using "+feats+" title '-1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+    }else if(samples->getType() == "Regression"){
+        cmd = fx + "; "+ gx +"; "+ hx +"; plot 'temp/samples.plt' using "+feats+" title '+1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+    }
     createPosNegTemps();
 
 #ifdef __unix__

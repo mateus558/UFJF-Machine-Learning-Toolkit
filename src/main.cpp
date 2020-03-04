@@ -454,11 +454,12 @@ void datasetOption(int option){
                 cout << data->getDim() << endl;
                 cout << "Number of samples: ";
                 cout << data->getSize() << endl;
-                cout << "Negative points: ";
-                cout << data->getNumberNegativePoints() << endl;
-                cout << "Positive points: ";
-                cout << data->getNumberPositivePoints() << endl;
-
+                if(data->getType() == "Classification") {
+                    cout << "Negative points: ";
+                    cout << data->getNumberNegativePoints() << endl;
+                    cout << "Positive points: ";
+                    cout << data->getNumberPositivePoints() << endl;
+                }
                 if(!test_sample.isEmpty()){
                     cout << "\n\nTest sample information\n\n";
                     cout << "Number of features: ";
