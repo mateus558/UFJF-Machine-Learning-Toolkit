@@ -227,11 +227,18 @@ void Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s){
 template < typename T >
 void Visualization< T >::plot3DwithHyperplane(int x, int y, int z, Solution s){
     string feats = Utils::itos(x) + ":" + Utils::itos(y) + ":" + Utils::itos(z);
-    //string hxy = "h(x,y) = "+Utils::dtoa((s.w[x-1] - s.margin)/-s.w[y-1])+"*x + "+Utils::dtoa((s.w[y-1] - s.margin)/-s.w[z-1])+"*y +"+Utils::dtoa((s.bias - s.margin)/-s.w[y-1]);
-    //string gxy = "g(x,y) = "+Utils::dtoa((s.w[x-1] + s.margin)/-s.w[y-1])+"*x + "+Utils::dtoa((s.w[y-1] + s.margin)/-s.w[z-1])+"*y +" +Utils::dtoa((s.bias + s.margin)/-s.w[y-1]);
-    string fxy = "f(x,y) = "+Utils::dtoa(s.w[x-1]/-s.w[z-1])+"*x + "+Utils::dtoa(s.w[y-1]/-s.w[z-1])+"*y + "+Utils::dtoa(s.bias/-s.w[z-1]);
-    //string cmd = fxy + "; " + gxy + "; " + hxy + "; " + "splot 'temp/pos.plt' using "+ feats +" title '+1' with points, 'temp/neg.plt' using "+ feats +" title '-1' with points, f(x,y) notitle with lines ls 1, g(x,y) notitle with lines ls 2, h(x,y) notitle with lines ls 2";
-	string cmd = fxy + "; splot 'temp/pos.plt' using "+ feats +" title '+1' with points, 'temp/neg.plt' using "+ feats +" title '-1' with points, f(x,y) notitle with lines ls 1";
+    string fxy;
+    string cmd;
+
+    if(samples->getType() == "Classification"){
+        fxy = "f(x,y) = "+Utils::dtoa(s.w[x-1]/-s.w[z-1])+"*x + "+Utils::dtoa(s.w[y-1]/-s.w[z-1])+"*y + "+Utils::dtoa(s.bias/-s.w[z-1]);
+        cmd = fxy + "; splot 'temp/pos.plt' using "+ feats +" title '+1' with points, 'temp/neg.plt' using "+ feats +" title '-1' with points, f(x,y) notitle with lines ls 1";
+    }else if(samples->getType() == "Regression"){
+        std::cout << s.w[x-1] << " " << s.w[y-1] << " " << s.w[z-1] << std::endl;
+        fxy = "f(x,y) = "+Utils::dtoa(-s.w[x-1]/s.w[z-1])+"*x + "+Utils::dtoa(-s.w[y-1]/s.w[z-1])+"*y + " + Utils::dtoa(s.bias/-s.w[z-1]);
+        cmd = fxy + "; splot 'temp/samples.plt' using "+ feats +" with points, f(x,y) notitle with lines ls 1";
+    }
+
     createPosNegTemps();
 
 #ifdef __unix__
