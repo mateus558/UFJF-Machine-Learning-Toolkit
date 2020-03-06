@@ -1,3 +1,0 @@
-/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/UFJF-MLTK.dir
-/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/CMakeFiles/edit_cache.dir

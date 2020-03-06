@@ -1,2 +1,6 @@
+DB
 cmake-build-debug/CMakeFiles
+cmake-build-debug/temp/*
+cmake-build-debug/UFJF-MLTK
+.idea
 scripts
