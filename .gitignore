@@ -3,4 +3,7 @@ cmake-build-debug/CMakeFiles
 cmake-build-debug/temp/*
 cmake-build-debug/UFJF-MLTK
 .idea
+count.sh
+teste.cpp
+CMakeLists.txt
 scripts
