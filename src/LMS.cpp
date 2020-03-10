@@ -113,8 +113,8 @@ bool KLMS<T>::train() {
 
             //Checking if the point is a mistake
             if(y * func[i] <= 0.0){
-                error = y - alpha[i-1]
-                this->alpha[i] += this->alpha[i-1] + this->rate*;
+                error = y;
+                this->alpha[i] += this->alpha[i-1] + this->rate;
                 bias += this->rate * y;
                 ++this->ctot, ++e;
             }else if(this->steps > 0 && e > 1) break;
