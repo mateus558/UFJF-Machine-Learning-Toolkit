@@ -123,33 +123,6 @@ UFJF-MLTK/fast:
 	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/build
 .PHONY : UFJF-MLTK/fast
 
-DualRegressor.o: DualRegressor.cpp.o
-
-.PHONY : DualRegressor.o
-
-# target to build an object file
-DualRegressor.cpp.o:
-	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/DualRegressor.cpp.o
-.PHONY : DualRegressor.cpp.o
-
-DualRegressor.i: DualRegressor.cpp.i
-
-.PHONY : DualRegressor.i
-
-# target to preprocess a source file
-DualRegressor.cpp.i:
-	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/DualRegressor.cpp.i
-.PHONY : DualRegressor.cpp.i
-
-DualRegressor.s: DualRegressor.cpp.s
-
-.PHONY : DualRegressor.s
-
-# target to generate assembly for a file
-DualRegressor.cpp.s:
-	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/DualRegressor.cpp.s
-.PHONY : DualRegressor.cpp.s
-
 src/AOS.o: src/AOS.cpp.o
 
 .PHONY : src/AOS.o
@@ -645,9 +618,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... UFJF-MLTK"
 	@echo "... edit_cache"
-	@echo "... DualRegressor.o"
-	@echo "... DualRegressor.i"
-	@echo "... DualRegressor.s"
 	@echo "... src/AOS.o"
 	@echo "... src/AOS.i"
 	@echo "... src/AOS.s"

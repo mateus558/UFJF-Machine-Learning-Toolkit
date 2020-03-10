@@ -92,9 +92,7 @@ template<typename T>
 bool KLMS<T>::train() {
     size_t y, e, i, j, idx, r, size = this->samples->getSize(), dim = this->samples->getDim();
     double norm = this->solution.norm, time = this->start_time+this->max_time;
-    double bias = this->solution.bias, f;
-    const double sqrate = this->rate * this->rate;
-    const double tworate = 2 * this->rate;
+    double bias = this->solution.bias, f, error = 0;
     std::vector<double> func(size, 0.0), Kv;
     auto points = this->samples->getPoints();
     dMatrix *K = this->kernel->getKernelMatrixPointer();
@@ -111,12 +109,12 @@ bool KLMS<T>::train() {
 
             //Calculating function
             for(func[i] = bias, r = 0; r < size; ++r)
-                func[i] += this->alpha[r] * points[r]->y*(*K)[i][r]];
+                func[i] += this->alpha[r] * points[r]->y*(*K)[i][r];
 
             //Checking if the point is a mistake
             if(y * func[i] <= 0.0){
-                norm = sqrt(norm * norm + tworate*points[i]->y*func[i] - bias + sqrate*(*K)[i][i]);
-                this->alpha[i] += this->rate;
+                error = y - alpha[i-1]
+                this->alpha[i] += this->alpha[i-1] + this->rate*;
                 bias += this->rate * y;
                 ++this->ctot, ++e;
             }else if(this->steps > 0 && e > 1) break;

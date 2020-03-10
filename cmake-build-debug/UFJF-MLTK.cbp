@@ -84,12 +84,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/DualRegressor.cpp">
-			<Option target="UFJF-MLTK"/>
-		</Unit>
-		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/DualRegressor.hpp">
-			<Option target="UFJF-MLTK"/>
-		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/AOS.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
@@ -100,6 +94,9 @@
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/DualClassifier.hpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/DualRegressor.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Ensemble.hpp">
