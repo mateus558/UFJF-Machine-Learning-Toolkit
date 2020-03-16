@@ -7,6 +7,7 @@
 #include <cmath>
 #include <cstring>
 #include <sstream>
+#include <algorithm>
 #include "../includes/Utils.hpp"
 #define PRECISION 1E-9
 #define MAX_NUMBER_STRING_SIZE 32
@@ -16,19 +17,9 @@ using namespace std;
 namespace Utils
 {
 
-bool is_number(string str){
-    int i = 0, size = str.size();
-
-    if(int(str[i]) == 13) return false;
-
-    for(i = 0; i < size; ++i){
-        if(int(str[i]) < int('0') && int(str[i]) > int('9')){
-            if(str[i] != '.' && str[i] != '-')
-                return false;
-        }
-    }
-
-    return true;
+bool is_number(string s){
+    return !s.empty() && std::find_if(s.begin(),
+                                      s.end(), [](unsigned char c) { return !(std::isdigit(c) || c == '.'); }) == s.end();
 }
 
 int stoin(string str){

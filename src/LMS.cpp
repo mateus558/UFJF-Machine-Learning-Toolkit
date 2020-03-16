@@ -34,37 +34,39 @@ bool LMSPrimal< T >::train() {
     }
 
     this->timer.Reset();
-    while(this->timer.Elapsed() - time <= 0) {
-        for (this->steps = 0; this->steps < this->MAX_IT; this->steps++) {
-            cost_func = 0;
-            for (j = 0; j < size; j++) {
-                auto input = (*this->samples)[j];
-                //Compute function
-                for (func[j] = this->solution.bias, k = 0; k < dim; k++) {
-                    func[j] += (*input)[k] * this->solution.w[k];
-                }
-                cost_func += (func[j] - input->y) * (func[j] - input->y);
 
-                //Verify if the point is a error
-                if (input->y != func[j]) {
-                    error = (input->y - func[j]) * (*input)[j];
-                    //Update weights
-                    for (k = 0; k < dim; k++) {
-                        temp = this->solution.w[k];
-                        this->solution.w[k] += this->rate * error * (*input)[k];
-                        diff += fabs(this->solution.w[k] - temp);
-                    }
-                    ++this->ctot;
-                }
+    for (this->steps = 0; this->steps < this->MAX_IT; this->steps++) {
+        cost_func = 0;
+        for (j = 0; j < size; j++) {
+            auto input = (*this->samples)[j];
+            //Compute function
+            for (func[j] = this->solution.bias, k = 0; k < dim; k++) {
+                func[j] += (*input)[k] * this->solution.w[k];
             }
-            cost_func *= 0.5;
-            double secs = this->timer.Elapsed() / 1000;
-            if (this->verbose)
-                std::cout << " " << this->steps << "           " << this->ctot << "                   " << cost_func
-                          << "            " << diff << "           " << secs << "\n";
-            if (fabs(diff - diffAnt) <= this->EPS) break;
-            diffAnt = diff;
+            cost_func += (func[j] - input->y) * (func[j] - input->y);
+
+            //Verify if the point is a error
+            if (input->y != func[j]) {
+                error = (input->y - func[j]) * (*input)[j];
+                //Update weights
+                for (k = 0; k < dim; k++) {
+                    temp = this->solution.w[k];
+                    this->solution.w[k] += this->rate * error * (*input)[k];
+                    //diff += fabs(this->solution.w[k] - temp);
+                    diff = cost_func;
+                }
+                ++this->ctot;
+            }
         }
+        cost_func *= 0.5;
+        double secs = this->timer.Elapsed();
+        if (this->verbose)
+            std::cout << " " << this->steps << "           " << this->ctot << "                   " << cost_func
+                      << "            " << diff << "           " << secs << "\n";
+        if(fabs(diff - diffAnt) <= this->EPS) break;
+        diffAnt = diff;
+
+        if(time -this->timer.Elapsed()*1000 <= 0) break;
     }
     if(this->verbose >= 1){
         std::cout << "Number of steps through data: " << this->steps << std::endl;
@@ -78,7 +80,7 @@ bool LMSPrimal< T >::train() {
 
     return false;
 }
-
+/*
 template<typename T>
 KLMS<T>::KLMS(std::shared_ptr<Data<T>> samples, double rate, Kernel *K, int verbose, Solution *initial_solution) {
     this->samples = samples;
@@ -141,7 +143,7 @@ bool KLMS<T>::train() {
 
     return (e == 0);
 }
-
+*/
 template class LMSPrimal<int>;
 template class LMSPrimal<double>;
 template class LMSPrimal<float>;
@@ -153,7 +155,7 @@ template class LMSPrimal<long double>;
 template class LMSPrimal<unsigned char>;
 template class LMSPrimal<unsigned int>;
 template class LMSPrimal<unsigned short int>;
-
+/*
 template class KLMS<int>;
 template class KLMS<double>;
 template class KLMS<float>;
@@ -167,3 +169,4 @@ template class KLMS<unsigned int>;
 template class KLMS<unsigned short int>;
 
 
+*/

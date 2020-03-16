@@ -7,16 +7,13 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
-#include <sstream>
 #include <iterator>
-#include <fstream>
 #include <utility>
-#include <ctime>
 #include <cmath>
 #include <cstdio>
+#include <cstring>
 
 #include "../includes/Data.hpp"
-#include "../includes/Utils.hpp"
 
 using namespace std;
 
@@ -207,11 +204,7 @@ bool Data< T >::load_csv(string path){
                     else c = Utils::atod(item.c_str());
                 }else{
                     if(type == "Classification") {
-                        c = (item == pos_class) ? 1 : -1;
-                        if (item != pos_class) {
-                            clog << "Warning: point " << size << " class is not a number and it's not defined." << endl;
-                            c = 0;
-                        }
+                        c = process_class(item);
                     }else{
                         c = Utils::atod(item.c_str());
                     }
@@ -237,18 +230,17 @@ template < typename T >
 bool Data< T >::load_data(string path){
     ifstream input(path.c_str());
     string str, item, buffer;
-    stringstream ss;
+    stringstream ss, ss1;
     int dim, ldim, size;
     double c;
-    bool flag, atEnd = false, cond;
+    bool is_feature, type_detect = false;
 
     if(!input){
         cout << "File could not be opened!" << endl;
         return false;
     }
     dim = ldim = size = c = 0;
-    flag = false;
-    //get dimension of the points
+    //get dimension of the points and do error check
     while(getline(input, str)){
         dim = -1;
 
@@ -256,29 +248,31 @@ bool Data< T >::load_data(string path){
         ss.clear();
 
         while(getline(ss, item, ' ')){
-            if(!Utils::is_number(item)){
-                clog << "Warning: point[" << size  << "] " << dim+1 << " feature is not a number." << endl;
-                dim--;
-            }
-            //Verify if the class is at the beggining or at the end
-            if(type == "Classification") {
-                if (dim == -1 && !flag) {
-                    if (!((item == pos_class) || (item == neg_class))) {
-                        atEnd = true;
-                        flag = true;
-                    }
-                } else if (ss.eof() && !flag) {
-                    if (!((item == pos_class) || (item == neg_class))) {
-                        flag = true;
-                    }
-                }
+            const char * pch = strchr(item.c_str(), ':');
+            dim++;
+            if(size > 0 && dim < ldim && pch == nullptr){
+                std::cerr << "Error (line: " << size << ", dim: "<< dim <<"): file isn't in the .data format." << std::endl;
+                return false;
             }
 
-            dim++;
+            ss1.str(item);
+            ss1.clear();
+            while(size > 0 && getline(ss1, item, ':')) {
+                if(dim == ldim && !type_detect){
+                    if(strchr(item.c_str(), '.')){
+                        this->type = "Regression";
+                    }else{
+                        this->type = "Classification";
+                    }
+                    type_detect = true;
+                }else if(dim < ldim && !Utils::is_number(item)){
+                    clog << "Warning (line: " << size << "): feature " << dim << " is not a number." << endl;
+                }
+            }
         }
 
         if(ldim != dim && ldim != 0){
-            cerr << "All the samples must have the same dimension!" << endl;
+            cerr << "Error (line: " << size << "): all the samples must have the same dimension! (dim: " << dim << ", last_dim: " << ldim << ")" << endl;
             return false;
         }
 
@@ -315,46 +309,29 @@ bool Data< T >::load_data(string path){
         //Read features from line
         while(getline(ss, item, ' ')){
             //Verify if the class is at the beggining or at the end
-            if(atEnd)
-                cond = (!ss.eof() && atEnd);
-            else
-                cond = dim != 0;
-
-            if(cond){
-                buffer.clear();
-
-                flag = false; //Verify if it's including value or fname
-
-                for(char i: item){	//Get feature name and value
-                    if(i != ' ' && i != '\n'){
-                        if(i != ':' && !flag){
-                            buffer.push_back(i);
-                        }else if(flag){
-                            buffer.push_back(i);
-                        }else if(i == ':' && i > 0 && this->size == 0){	//Get features names in the first running
-                            fnames[dim] = Utils::stoin(buffer);
-                            flag = true;
-                            buffer.clear();
-                        }else if(i == ':'){
-                            buffer.clear();
-                            flag = true;
+            if(!ss.eof()){
+                is_feature = false; //Verify if it's including value or fname
+                ss1.str(item);
+                ss1.clear();
+                //Get feature name and value
+                while(getline(ss1, item, ':')){
+                    if(!is_feature){
+                        fnames[dim] = Utils::stoin(item);
+                        is_feature = true;
+                    }else{
+                        if(Utils::is_number(item)){
+                            new_point->x[dim] = Utils::atod(item.c_str());
+                            dim++;
                         }
                     }
                 }
-                if(Utils::is_number(buffer)){
-                    new_point->x[(atEnd)?dim:dim-1] = Utils::atod(buffer.c_str());
-                    dim++;
-                }
             }else{
                 if(type == "Classification") {
-                    c = (item == pos_class) ? 1 : -1;
-                    if(c == -1) stats.n_neg++; else stats.n_pos++;
+                    c = process_class(item);
                 }else{
                     c = Utils::atod(item.c_str());
                 }
                 new_point->y = c;
-
-                if(!atEnd) dim++;
             }
         }
         points[size++] = std::move(new_point);
@@ -459,16 +436,9 @@ bool Data< T >::load_arff(string path){
                 }
 
             }else{
-                if(Utils::is_number(item)){
-                    c = (Utils::stoin(item) == Utils::stoin(pos_class))?1:-1;
-                }else{
-                    c = (item == pos_class)?1:-1;
-                    if(item != pos_class){
-                        clog << "Warning: point " << size << " class is not a number and it's not defined." << endl;
-                        c = 0;
-                    }
+                if(type == "Classification"){
+                    c = process_class(item);
                 }
-                if(c == -1) stats.n_neg++; else stats.n_pos++;
                 new_point->y = c;
             }
             dim++;
@@ -1095,12 +1065,58 @@ Data<T>::Data(size_t size, size_t dim, T val) {
 template<typename T>
 void Data<T>::setType(const string &type) {
     this->type = type;
-    cout << this->type << endl;
 }
 
 template<typename T>
 const string &Data<T>::getType() const {
     return type;
+}
+
+template<typename T>
+int Data<T>::process_class(std::string item) {
+    int c;
+    if(item == pos_class){
+        c = 1;
+        stats.n_pos++;
+    }else if(item == neg_class){
+        c = -1;
+        stats.n_neg++;
+    }else{
+        if(Utils::is_number(item)) {
+            c = std::stoi(item);
+        }else{
+            size_t i;
+            for(i = 0; i < class_names.size(); i++){
+                if(class_names[i] == item){
+                    this->class_distribution[i]++;
+                    break;
+                }
+            }
+            if(i == class_names.size()){
+                class_names.push_back(item);
+                this->class_distribution.push_back(1);
+            }
+            c = i+1;
+        }
+    }
+    size_t i;
+    for(i = 0; i < classes.size(); i++){
+        if(classes[i] == c){
+            break;
+        }
+    }
+    if(i == classes.size()) classes.push_back(c);
+    return c;
+}
+
+template<typename T>
+std::vector<std::string> Data<T>::getClassNames() {
+    return this->class_names;
+}
+
+template<typename T>
+std::vector<size_t> Data<T>::getClassesDistribution() {
+    return this->class_distribution;
 }
 
 template class Data<int>;

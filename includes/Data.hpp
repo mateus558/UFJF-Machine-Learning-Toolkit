@@ -67,6 +67,9 @@ private :
     std::vector<int> fnames;
     /// Points indexes.
     std::vector<int> index;
+    std::vector<std::string> class_names;
+    std::vector<int> classes;
+    std::vector<size_t> class_distribution;
     /// Number of points in the dataset.
     size_t size = 0;
     /// Dataset points dimension.
@@ -89,6 +92,7 @@ public:
 private:
 
     // Private Operations
+    int process_class(std::string item);
     /**
      * \brief Returns the type of the file.
      * \param file (???) Path to the file.
@@ -170,6 +174,8 @@ public :
      * \return std::vector<Point< T > >
      */
     std::shared_ptr<Point< T > > getPoint (int index);
+    std::vector<size_t> getClassesDistribution();
+    std::vector<std::string> getClassNames();
     /**
      * \brief Returns the features names.
      * \return std::vector<int>

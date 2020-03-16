@@ -398,7 +398,7 @@ void mainOption(int option){
 }
 
 void datasetOption(int option){
-    int i = 0;
+    size_t i = 0;
     bool list = false;
     vector<string> files;
 
@@ -413,12 +413,6 @@ void datasetOption(int option){
                 cout << endl;
                 cout << "Enter the number of the DB (must be in the DB folder): ";
                 cin >> sid;
-                cout << "Is this a regression dataset? ([y]es/[n]o): ";
-                cin >> isReg;
-
-                if(isReg == "y"){
-                    data->setType("Regression");
-                }
 
                 path = data_folder + files[Utils::stoin(sid)];
                 clock_t begin = clock();
@@ -450,38 +444,37 @@ void datasetOption(int option){
             break;
         case 2:
             if(!data->isEmpty()){
-                cout << "Number of features: ";
-                cout << data->getDim() << endl;
-                cout << "Number of samples: ";
-                cout << data->getSize() << endl;
+                cout << "Dataset type: " << data->getType() << endl;
+                cout << "Number of features: " << data->getDim() << endl;
+                cout << "Number of samples: " << data->getSize() << endl;
+                vector<string> class_names = data->getClassNames();
+                vector<size_t> class_frequency = data->getClassesDistribution();
                 if(data->getType() == "Classification") {
-                    cout << "Negative points: ";
-                    cout << data->getNumberNegativePoints() << endl;
-                    cout << "Positive points: ";
-                    cout << data->getNumberPositivePoints() << endl;
+                    if(class_names.size() == 2) {
+                        cout << "Negative points: " << data->getNumberNegativePoints() << endl;
+                        cout << "Positive points: " << data->getNumberPositivePoints() << endl;
+                    }else {
+                        cout << "Class names and frequency [name - freq]: \n[";
+                        for (i = 0; i < class_names.size() - 1; i++) {
+                            cout << class_names[i] << " - "<< class_frequency[i] << ", ";
+                        }
+                        cout << class_names[i] << " - "<< class_frequency[i] << "]\n";
+                    }
                 }
                 if(!test_sample.isEmpty()){
                     cout << "\n\nTest sample information\n\n";
-                    cout << "Number of features: ";
-                    cout << test_sample.getDim() << endl;
-                    cout << "Number of samples: ";
-                    cout << test_sample.getSize() << endl;
-                    cout << "Negative points: ";
-                    cout << test_sample.getNumberNegativePoints() << endl;
-                    cout << "Positive points: ";
-                    cout << test_sample.getNumberPositivePoints() << endl;
+                    cout << "Number of features: " << test_sample.getDim() << endl;
+                    cout << "Number of samples: " << test_sample.getSize() << endl;
+                    cout << "Negative points: " << test_sample.getNumberNegativePoints() << endl;
+                    cout << "Positive points: " << test_sample.getNumberPositivePoints() << endl;
                 }
 
                 if(!train_sample.isEmpty()){
                     cout << "\n\nTrain sample information\n\n";
-                    cout << "Number of features: ";
-                    cout << train_sample.getDim() << endl;
-                    cout << "Number of samples: ";
-                    cout << train_sample.getSize() << endl;
-                    cout << "Negative points: ";
-                    cout << train_sample.getNumberNegativePoints() << endl;
-                    cout << "Positive points: ";
-                    cout << train_sample.getNumberPositivePoints() << endl;
+                    cout << "Number of features: " << train_sample.getDim() << endl;
+                    cout << "Number of samples: " << train_sample.getSize() << endl;
+                    cout << "Negative points: " << train_sample.getNumberNegativePoints() << endl;
+                    cout << "Positive points: " << train_sample.getNumberPositivePoints() << endl;
                 }
             }else cout << "Load a dataset first...\n\n";
 
