@@ -21,9 +21,9 @@ class Kernel {
     // Attributes
 private :
     /// Kernel type and parameter.
-    int type;
+    int type{};
     /// Kernel parameter.
-    double param;
+    double param{};
     /// Kernel matrix.
     dMatrix K;
     /// H matrix.
@@ -54,7 +54,7 @@ public :
      * \brief setParam Set the kernel parameter used in the kernel computations.
      * \param param parameter to be set.
      */
-    void setParam(int param);
+    void setParam(double param);
     /**
      * \brief getType Returns the kernel type used in the kernel computations.
      * \return int.

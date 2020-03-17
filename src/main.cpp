@@ -84,7 +84,7 @@ int main(int argc, char* argv[]){
 }
 
 bool valid_file(string file){
-    int i;
+    size_t i;
     bool flag = false;
     string ext;
 
@@ -116,7 +116,7 @@ vector<string> list_datasets(bool list){
     string path = "./" + data_folder;
 
     dpdf = opendir(path.c_str());
-    if(dpdf != NULL){
+    if(dpdf != nullptr){
         while((epdf = readdir(dpdf))){
             string file = string(epdf->d_name);
             if(valid_file(file) && !file.empty()){
@@ -151,7 +151,7 @@ vector<string> list_datasets(bool list){
     return files;
 }
 
-void clear(void){
+void clear(){
 #ifdef __unix__
     system("clear");
 #elif _WIN32
@@ -163,17 +163,17 @@ void clear(void){
 #endif
 }
 
-void exitProgram(void){
+void exitProgram(){
     exit(0);
 }
 
-void waitUserAction(void){
+void waitUserAction(){
     cout << "\nPress ENTER to continue..." << endl;
     cin.ignore(numeric_limits<streamsize>::max(),'\n');
     cin.get();
 }
 
-void header(void){
+void header(){
     cout << "         *----------------------------------------------------------* " << endl;
     cout << "         *                 Machine Learning Toolkit                 * " << endl;
     cout << "         *----------------------------------------------------------* " << endl;
@@ -181,7 +181,7 @@ void header(void){
     cout << "Select an option:\n" << endl;
 }
 
-int selector(void){
+int selector(){
     int o;
     string opt;
 
@@ -227,7 +227,7 @@ void mainMenu(){
     mainOption(option);
 }
 
-void datasetMenu(void){
+void datasetMenu(){
     int option;
 
     clear();
@@ -245,7 +245,7 @@ void datasetMenu(void){
     datasetOption(option);
 }
 
-void dataMenu(void){
+void dataMenu(){
     int option;
 
     clear();
@@ -266,7 +266,7 @@ void dataMenu(void){
     dataOption(option);
 }
 
-void VisualizationMenu(void){
+void VisualizationMenu(){
     int option;
 
     clear();
@@ -806,7 +806,7 @@ void VisualizationOption(int opt){
             plot.plot3D(x, y, z);
             break;
         case 3:
-            if(sol.w.size() == 0){
+            if(sol.w.empty()){
                 cout << "Run a classifier in the data first." << endl;
                 waitUserAction();
                 break;
@@ -819,7 +819,7 @@ void VisualizationOption(int opt){
             plot.plot2DwithHyperplane(x, y, sol);
             break;
         case 4:
-            if(sol.w.size() == 0){
+            if(sol.w.empty()){
                 cout << "Run a classifier in the data first." << endl;
                 waitUserAction();
                 break;
@@ -887,7 +887,7 @@ void classifiersOption(int option){
 }
 
 void featureSelectionOption(int option){
-    double p, q, alpha_aprox, kernel_param;
+    double p, q, alpha_aprox, kernel_param = 0;
     int opt, flex, kernel_type, ddim, jump, branching, branch_form, choice_form, prof_look_ahead, cut;
     Timer time;
     IMAp<double> imap(data);
@@ -1444,8 +1444,8 @@ void dualRegressorsOption(int option) {
 void validationOption(int option){
     int fold, qtde, kernel_type;
     int p, q, i, norm, flexible, svs;
-    double rate, gamma, alpha_prox, kernel_param;
-    ValidationSolution sol;
+    double rate, gamma, alpha_prox, kernel_param = 0;
+    ValidationSolution val_sol;
 
     switch(option){
         case 1:
@@ -1467,7 +1467,7 @@ void validationOption(int option){
                     if(p == 1.0){
                         q = -1.0;
                     }else{
-                        q = p/(p-1.0);
+                        q = (int)(p/(p-1.0));
                     }
                 }else{
                     cout << "q-norm value: ";
@@ -1477,7 +1477,7 @@ void validationOption(int option){
                     }else if(q == 1.0){
                         p = 100.0;
                     }else{
-                        p = q/(q-1.0);
+                        p = (int)(q/(q-1.0));
                     }
                 }
                 cout << endl;
@@ -1501,13 +1501,13 @@ void validationOption(int option){
 
                 validate.setVerbose(verbose);
                 validate.partTrainTest(fold);
-                sol = validate.validation(fold, qtde);
+                val_sol = validate.validation(fold, qtde);
                 clock_t end = clock();
 
                 cout << "\n\n   " << fold << "-Fold Cross Validation stats:" << endl;
-                cout << "\nAccuracy: "<< sol.accuracy << endl;
-                cout << "Precision: "<< sol.precision << endl;
-                cout << "Recall: "<< sol.recall << endl;
+                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
+                cout << "Precision: "<< val_sol.precision << endl;
+                cout << "Recall: "<< val_sol.recall << endl;
                 cout << endl;
 
                 double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
@@ -1552,12 +1552,12 @@ void validationOption(int option){
 
                 validate.setVerbose(verbose);
                 validate.partTrainTest(fold);
-                sol = validate.validation(fold, qtde);
+                val_sol = validate.validation(fold, qtde);
                 clock_t end = clock();
 
-                cout << "\nAccuracy: "<< sol.accuracy << endl;
-                cout << "Precision: "<< sol.precision << endl;
-                cout << "Recall: "<< sol.recall << endl;
+                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
+                cout << "Precision: "<< val_sol.precision << endl;
+                cout << "Recall: "<< val_sol.recall << endl;
                 cout << endl;
 
                 double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
@@ -1600,12 +1600,12 @@ void validationOption(int option){
 
                 validate.setVerbose(verbose);
                 validate.partTrainTest(fold);
-                sol = validate.validation(fold, qtde);
+                val_sol = validate.validation(fold, qtde);
                 clock_t end = clock();
 
-                cout << "\nAccuracy: "<< sol.accuracy << endl;
-                cout << "Precision: "<< sol.precision << endl;
-                cout << "Recall: "<< sol.recall << endl;
+                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
+                cout << "Precision: "<< val_sol.precision << endl;
+                cout << "Recall: "<< val_sol.recall << endl;
                 cout << endl;
 
                 double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
@@ -1616,10 +1616,7 @@ void validationOption(int option){
             }
             waitUserAction();
             break;
-        case 0:
-            mainMenu();
-            break;
-        case 109:
+        case 0: case 109:
             mainMenu();
             break;
         default:
@@ -1728,7 +1725,7 @@ void primalClassifiersOption(int option){
                     }else if(q == 1.0){
                         p = 100.0;
                     }else{
-                        p = q/(q-1.0);
+                        p = (int)(q/(q-1.0));
                     }
                 }
                 cout << endl;
@@ -1936,8 +1933,6 @@ void dualClassifiersOption(int option){
             break;
         case 4:
             if(!data->isEmpty()){
-                Kernel K;
-
                 cout << "Kernel [0]Inner Product [1]Polynomial [2]Gaussian: ";
                 cin >> kernel_type;
 

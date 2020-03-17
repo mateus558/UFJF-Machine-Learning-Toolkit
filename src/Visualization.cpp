@@ -7,8 +7,7 @@
 using namespace std;
 
 template < typename T >
-Visualization< T >::Visualization(){
-}
+Visualization< T >::Visualization()= default;
 
 template < typename T >
 Visualization< T >::Visualization(Data< T > *sample){

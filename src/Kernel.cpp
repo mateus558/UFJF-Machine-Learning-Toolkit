@@ -1,5 +1,7 @@
 #include "../includes/Kernel.hpp"
 
+#include <utility>
+
 using namespace std;
 
 Kernel::Kernel(int type, double param){
@@ -19,16 +21,16 @@ double Kernel::getParam(){
     return param;
 }
 
-void Kernel::setType(int type){
-    this->type = type;
+void Kernel::setType(int _type){
+    this->type = _type;
 }
 
-void Kernel::setParam(int param){
-    this->param = param;
+void Kernel::setParam(double _param){
+    this->param = _param;
 }
 
-void Kernel::setKernelMatrix(dMatrix K){
-    this->K = K;
+void Kernel::setKernelMatrix(dMatrix _K){
+    this->K = std::move(_K);
 }
 
 dMatrix Kernel::getKernelMatrix(){
