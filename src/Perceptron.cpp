@@ -18,14 +18,14 @@ PerceptronPrimal< T >::PerceptronPrimal(std::shared_ptr<Data< T > > samples, dou
 template < typename T >
 bool PerceptronPrimal< T >::train(){
     size_t size = this->samples->getSize(), dim = this->samples->getDim();
-    int i, j, e, idx;
-    double norm, y, time = this->start_time + this->max_time, bias = 0;
+    int i, j, e = 0, idx;
+    double norm = 0, y, time = this->start_time + this->max_time, bias = 0;
     bool cond;
     vector<double> func(size, 0), w(dim, 0);
     vector< T > x;
     vector<int> index = this->samples->getIndex();
 
-    if(w.size() == 0) w.resize(dim);
+    if(w.empty()) w.resize(dim);
 
     this->timer.Reset();
     while(this->timer.Elapsed() - time <= 0){
@@ -89,8 +89,8 @@ bool PerceptronFixedMarginPrimal< T >::train(){
     vector<int> index = this->samples->getIndex();
     shared_ptr<Point< T > > p;
 
-    if(func.size() == 0) func.resize(size);
-    if(w.size() == 0) w.resize(dim);
+    if(func.empty()) func.resize(size);
+    if(w.empty()) w.resize(dim);
     e = s = 0;
 
     while(this->timer.Elapsed() - time <= 0){
@@ -107,7 +107,7 @@ bool PerceptronFixedMarginPrimal< T >::train(){
 
             //Checking if the point is a mistake
             if(y*func[idx] <= this->gamma*norm - this->samples->getPoint(idx)->alpha*this->flexible){
-                lambda = (norm) ? (1-this->rate*this->gamma/norm) : 1;
+                lambda = (norm != 0.0) ? (1-this->rate*this->gamma/norm) : 1;
                 for(r = 0; r < size; ++r){
                     shared_ptr<Point< T > > b = this->samples->getPoint(r);
                     b->alpha *= lambda;
@@ -231,7 +231,7 @@ bool PerceptronDual< T > ::train(){
     vector<shared_ptr<Point< T > > > points = this->samples->getPoints();
     dMatrix *K = this->kernel->getKernelMatrixPointer();
 
-    if(this->alpha.size() == 0){
+    if(this->alpha.empty()){
         this->alpha.assign(size, 0.0);
     }
 
@@ -306,7 +306,7 @@ bool PerceptronFixedMarginDual< T >::train(){
     vector<double> func = this->solution.func, Kv;
     dMatrix *K = this->kernel->getKernelMatrixPointer();
 
-    if(func.size() == 0){ func.resize(size);}
+    if(func.empty()){ func.resize(size);}
     e = 1, s = 0;
     this->timer.Reset();
 

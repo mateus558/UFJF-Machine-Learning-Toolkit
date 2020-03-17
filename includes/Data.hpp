@@ -75,7 +75,7 @@ private :
     /// Dataset points dimension.
     size_t dim = 0;
     /// Time multiplier
-    double time_mult;
+    double time_mult = 0.0;
     /// Positive and negative classes. (1, -1 are the default classes)
     std::string pos_class = std::string("1"), neg_class = std::string("-1");
     /// Verify if there's some data loaded.
@@ -104,25 +104,25 @@ private:
      * \param path (???) Path to csv file.
      * \return bool
      */
-    bool load_csv (std::string path);
+    bool load_csv (const std::string& path);
     /**
      * \brief Load a dataset from a arff file.
      * \param path (???) Path to arff file.
      * \return bool
      */
-    bool load_arff (std::string path);
+    bool load_arff (const std::string& path);
     /**
      * \brief Load a dataset from a data file.
      * \param path (???) Path to data file.
      * \return bool
      */
-    bool load_data (std::string path);
+    bool load_data (const std::string& path);
     /**
      * \brief Load a dataset from a txt file.
      * \param path (???) Path to txt file.
      * \return bool
      */
-    bool load_txt (std::string path);
+    bool load_txt (const std::string& path);
 
 public :
     void setType(const std::string &type);
@@ -251,13 +251,13 @@ public :
      * \param file (???) Path to dataset file.
      * \return bool
      */
-    bool load (std::string file);
+    bool load (const std::string& file);
     /**
      * \brief write Write the data to a file with the given extention.
      * \param fname Name of the file.
      * \param ext   Extention of the file.
      */
-    void write(std::string fname, std::string ext);
+    void write(const std::string& fname, std::string ext);
     /**
      * \brief Returns if there's a dataset loaded.
      * \return bool
@@ -355,7 +355,7 @@ public :
 
     std::shared_ptr<Point< T > > & operator[](size_t i) {return points[i];}
 
-    void operator=(const Data< T >&);
+    Data< T >& operator=(const Data< T >&);
 
     bool operator==(const Data< T > &rhs) const;
 

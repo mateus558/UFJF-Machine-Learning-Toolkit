@@ -219,11 +219,12 @@ void Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s){
     temp_files_names = createTempFiles();
 
     if(s.bias != 0) {
-        fx = "f(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " + Utils::dtoa(s.bias / -s.w[y - 1]);
+        fx = "f(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
+                        Utils::dtoa(s.bias / -s.w[y - 1]);
         gx = "g(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
-                    Utils::dtoa((s.bias + s.margin * s.norm) / -s.w[y - 1]);
+                        Utils::dtoa((s.bias + s.margin * s.norm) / -s.w[y - 1]);
         hx = "h(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
-                    Utils::dtoa((s.bias - s.margin * s.norm) / -s.w[y - 1]);
+                        Utils::dtoa((s.bias - s.margin * s.norm) / -s.w[y - 1]);
     }else{
         fx = "f(x) = " + Utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
         gx = "g(x) = " + Utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
@@ -253,8 +254,7 @@ void Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s){
 template < typename T >
 void Visualization< T >::plot3DwithHyperplane(int x, int y, int z, Solution s){
     string feats = Utils::itos(x) + ":" + Utils::itos(y) + ":" + Utils::itos(z);
-    string fxy;
-    string cmd;
+    string fxy, cmd;
     vector<string> temp_files_names, class_names = samples->getClassNames();
     size_t i;
 
