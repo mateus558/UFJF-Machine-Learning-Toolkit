@@ -19,7 +19,7 @@ namespace Utils
 
 bool is_number(string s){
     return !s.empty() && std::find_if(s.begin(),
-                                      s.end(), [](unsigned char c) { return !(std::isdigit(c) || c == '.'); }) == s.end();
+                                      s.end(), [](unsigned char c) { return !(std::isdigit(c) || c == '.' || c == '-' || c == '+' || c == 'e'); }) == s.end();
 }
 
 int stoin(string str){

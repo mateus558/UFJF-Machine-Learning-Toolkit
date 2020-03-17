@@ -224,7 +224,7 @@ public :
      * \brief setFeaturesNames Set the name of the features of the data.
      * \param fnames (???) Name of the features.
      */
-    void setFeaturesNames(std::vector<int> fnames);
+    void setFeaturesNames(const std::vector<int>& fnames);
     /**
      * \brief Set the index vector for the data.
      * \param index Index vector.
@@ -240,7 +240,7 @@ public :
      * \param pos   Positive class.
      * \param neg   Negative class.
      */
-    void setClasses(std::string pos, std::string neg);
+    void setClasses(std::string pos, const std::string& neg);
 
     /*********************************************
      *              Other operations             *

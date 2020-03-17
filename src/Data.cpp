@@ -342,6 +342,16 @@ bool Data< T >::load_data(const string& path){
         points[_size - 1]->id = _size;
     }
 
+    if(classes.size() == 2){
+        for(size_t i = 0; i < 2; i++){
+            if(class_names[i] == "-1"){
+                this->stats.n_neg = this->class_distribution[i];
+            }else{
+                this->stats.n_pos = this->class_distribution[i];
+            }
+        }
+    }
+
     input.close();
     is_empty = false;
     return true;
@@ -923,7 +933,7 @@ vector<int> Data< T >::getFeaturesNames(){
 }
 
 template < typename T >
-void Data< T >::setFeaturesNames(std::vector<int> _fnames){
+void Data< T >::setFeaturesNames(const std::vector<int>& _fnames){
     this->fnames = _fnames;
 }
 
@@ -953,7 +963,7 @@ Statistics< T > Data< T >::getStatistics(){
 }
 
 template < typename T >
-void Data< T >::setClasses(string _pos, string _neg){
+void Data< T >::setClasses(string _pos, const string& _neg){
     pos_class = _pos;
     neg_class = _neg;
 }
@@ -1081,39 +1091,32 @@ const string &Data<T>::getType() const {
 template<typename T>
 int Data<T>::process_class(std::string item) {
     int c;
-    if(item == pos_class){
-        c = 1;
-        stats.n_pos++;
-        class_names.emplace_back(pos_class);
-    }else if(item == neg_class){
-        c = -1;
-        stats.n_neg++;
-        class_names.emplace_back(neg_class);
-    }else{
-        if(Utils::is_number(item)) {
-            c = std::stoi(item);
-        }else{
-            size_t i;
-            for(i = 0; i < class_names.size(); i++){
-                if(class_names[i] == item){
-                    this->class_distribution[i]++;
-                    break;
-                }
-            }
-            if(i == class_names.size()){
-                class_names.push_back(item);
-                this->class_distribution.push_back(1);
-            }
-            c = (int)i+1;
-        }
-    }
     size_t i;
+    if(Utils::is_number(item)) {
+        c = std::stoi(item);
+    }else{
+        for(i = 0; i < class_names.size(); i++){
+            if(class_names[i] == item){
+                break;
+            }
+        }
+        if(i == class_names.size()){
+            class_names.push_back(item);
+        }
+        c = (int)i+1;
+    }
+
     for(i = 0; i < classes.size(); i++){
         if(classes[i] == c){
+            this->class_distribution[i]++;
             break;
         }
     }
-    if(i == classes.size()) classes.push_back(c);
+    if(i == classes.size()){
+        classes.push_back(c);
+        if(Utils::is_number(item)) class_names.push_back(to_string(c));
+        this->class_distribution.push_back(1);
+    }
     return c;
 }
 
