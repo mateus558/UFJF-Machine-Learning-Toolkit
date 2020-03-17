@@ -32,32 +32,36 @@ void Visualization< T >::setStyle(string style){
 }
 
 template < typename T >
-void Visualization< T >::createPosNegTemps(){
-    size_t i, j, size = samples->getSize(), dim = samples->getDim();
+vector<string> Visualization< T >::createTempFiles(){
+    size_t i, j, k, size = samples->getSize(), dim = samples->getDim();
+    vector<string> file_names;
     if(samples->getType() == "Classification") {
-        ofstream neg_file("temp/neg.plt"), pos_file("temp/pos.plt"), und_file("temp/und.plt");
+        vector<std::string> class_names = samples->getClassNames();
+        vector<int> classes = samples->getClasses();
+        vector<ofstream> temp_files(class_names.size());
 
-        for (i = 0; i < size; i++) {
-            if (samples->getPoint(i)->y == 1) {
-                for (j = 0; j < dim - 1; j++) {
-                    pos_file << (double) (samples->getPoint(i)->x[j]) << " ";
-                }
-                pos_file << (double) (samples->getPoint(i)->x[j]) << endl;
-            } else if (samples->getPoint(i)->y == -1) {
-                for (j = 0; j < dim - 1; j++) {
-                    neg_file << (double) (samples->getPoint(i)->x[j]) << " ";
-                }
-                neg_file << (double) (samples->getPoint(i)->x[j]) << endl;
-            } else {
-                for (j = 0; j < dim - 1; j++) {
-                    und_file << (double) (samples->getPoint(i)->x[j]) << " ";
-                }
-                und_file << (double) (samples->getPoint(i)->x[j]) << endl;
+        for(i = 0; i < class_names.size(); i++){
+            std::string file_name = std::string("temp/")+class_names[i]+std::string(".plt");
+            temp_files[i].open(file_name);
+            if(!temp_files[i].is_open()){
+                std::cerr << "Error opening the file " + file_name + "." << std::endl;
+            }else{
+                file_names.push_back(file_name);
             }
         }
-        pos_file.close();
-        neg_file.close();
-        und_file.close();
+        for (i = 0; i < size; i++) {
+            for(j = 0; j < classes.size(); j++){
+                if (samples->getPoint(i)->y == classes[j]) {
+                    for (k = 0; k < dim - 1; k++) {
+                        temp_files[j] << (double) (samples->getPoint(i)->x[k]) << " ";
+                    }
+                    temp_files[j] << (double) (samples->getPoint(i)->x[k]) << endl;
+                }
+            }
+        }
+        for(i = 0; i < temp_files.size(); i++){
+            temp_files[i].close();
+        }
     } else{
         ofstream samples_file("temp/samples.plt");
 
@@ -69,7 +73,9 @@ void Visualization< T >::createPosNegTemps(){
         }
 
         samples_file.close();
+        file_names.emplace_back("temp/samples.plt");
     }
+    return file_names;
 }
 
 template < typename T >
@@ -104,7 +110,7 @@ vector<string> Visualization< T >::getTempFilesNames(){
     string path = string("temp");
 
     dpdf = opendir(path.c_str());
-    if(dpdf != NULL){
+    if(dpdf != nullptr){
         while((epdf = readdir(dpdf))){
             string file = string(epdf->d_name);
             if(valid_file(file) && !file.empty()){
@@ -145,21 +151,27 @@ void Visualization< T >::removeTempFiles(){
     temps = getTempFilesNames();
 
     for(string file : temps){
-        path = file;
-        remove(path.c_str());
+        remove(string("temp/" + file).c_str());
     }
 }
 
 template < typename T >
 void Visualization< T >::plot2D(int x, int y){
     string dims = Utils::itos(x) + ":" + Utils::itos(y);
-    string cmd;
+    string cmd("plot ");
+    vector<string> temp_files_names, class_names = samples->getClassNames();
+    size_t i;
+
+    temp_files_names = createTempFiles();
+
     if(samples->getType() == "Classification"){
-        cmd = "plot 'temp/pos.plt' using " + dims + " title '+1' with points, 'temp/neg.plt' using " + dims + " title '-1' with points";
+        for(i = 0; i < class_names.size() - 1; i++){
+            cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + class_names[i] + "\' with points, ";
+        }
+        cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + class_names[i] + "\' with points";
     }else{
         cmd = "plot 'temp/samples.plt' using " + dims + " with points";
     }
-    createPosNegTemps();
 #ifdef __unix__
     cmd = "set terminal qt; " + cmd;
     g.cmd(cmd);
@@ -173,13 +185,20 @@ void Visualization< T >::plot2D(int x, int y){
 template < typename T >
 void Visualization< T >::plot3D(int x, int y, int z){
     string dims = Utils::itos(x) + ":" + Utils::itos(y) + ":" + Utils::itos(z);
-    string cmd;
+    string cmd("splot ");
+    vector<string> temp_files_names, class_names = samples->getClassNames();
+    size_t i;
+
+    temp_files_names = createTempFiles();
+
     if(samples->getType() == "Classification"){
-        cmd = "splot 'temp/pos.plt' using " + dims + " title '+1' with points, 'temp/neg.plt' using " + dims + " title '-1' with points";
+        for(i = 0; i < class_names.size() - 1; i++){
+            cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + class_names[i] + "\' with points, ";
+        }
+        cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + class_names[i] + "\' with points";
     }else if(samples->getType() == "Regression"){
         cmd = "splot 'temp/samples.plt' using " + dims + " with points";
     }
-    createPosNegTemps();
 #ifdef __unix__
     cmd = "set terminal qt; " + cmd;
     g.cmd(cmd);
@@ -195,6 +214,11 @@ void Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s){
 
     string feats = Utils::itos(x) + ":" + Utils::itos(y);
     string fx, gx, hx, cmd;
+    vector<string> temp_files_names, class_names = samples->getClassNames();
+    size_t i;
+
+    temp_files_names = createTempFiles();
+
     if(s.bias != 0) {
         fx = "f(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " + Utils::dtoa(s.bias / -s.w[y - 1]);
         gx = "g(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
@@ -207,13 +231,16 @@ void Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s){
         hx = "h(x) = " + Utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
     }
 
-    if(samples->getType() == "Classification"){
-        cmd = fx + "; "+ gx +"; "+ hx +"; plot 'temp/pos.plt' using "+feats+" title '+1' with points, 'temp/neg.plt' using "+feats+" title '-1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
-    }else if(samples->getType() == "Regression"){
-        cmd = fx + "; "+ gx +"; "+ hx +"; plot 'temp/samples.plt' using "+feats+" title '+1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
-    }
-    createPosNegTemps();
+    cmd = fx + "; "+ gx +"; "+ hx +"; plot ";
 
+    if(samples->getType() == "Classification"){
+        for(i = 0; i < class_names.size() - 1; i++){
+            cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, ";
+        }
+        cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+    }else if(samples->getType() == "Regression"){
+        cmd += "'temp/samples.plt' using "+feats+" title '+1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+    }
 #ifdef __unix__
     cmd = "set terminal qt; " + cmd;
     g.cmd(cmd);
@@ -229,18 +256,22 @@ void Visualization< T >::plot3DwithHyperplane(int x, int y, int z, Solution s){
     string feats = Utils::itos(x) + ":" + Utils::itos(y) + ":" + Utils::itos(z);
     string fxy;
     string cmd;
+    vector<string> temp_files_names, class_names = samples->getClassNames();
+    size_t i;
+
+    temp_files_names = createTempFiles();
+    fxy = "f(x,y) = "+Utils::dtoa(s.w[x-1]/-s.w[z-1])+"*x + "+Utils::dtoa(s.w[y-1]/-s.w[z-1])+"*y + "+Utils::dtoa(s.bias/-s.w[z-1]);
+    cmd = fxy + "; splot ";
 
     if(samples->getType() == "Classification"){
-        fxy = "f(x,y) = "+Utils::dtoa(s.w[x-1]/-s.w[z-1])+"*x + "+Utils::dtoa(s.w[y-1]/-s.w[z-1])+"*y + "+Utils::dtoa(s.bias/-s.w[z-1]);
-        cmd = fxy + "; splot 'temp/pos.plt' using "+ feats +" title '+1' with points, 'temp/neg.plt' using "+ feats +" title '-1' with points, f(x,y) notitle with lines ls 1";
+        for(i = 0; i < class_names.size() - 1; i++){
+            cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, ";
+        }
+        cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, f(x,y) notitle with lines ls 1";
+
     }else if(samples->getType() == "Regression"){
-        std::cout << s.w[x-1] << " " << s.w[y-1] << " " << s.w[z-1] << std::endl;
-        fxy = "f(x,y) = "+Utils::dtoa(-s.w[x-1]/s.w[z-1])+"*x + "+Utils::dtoa(-s.w[y-1]/s.w[z-1])+"*y + " + Utils::dtoa(s.bias/-s.w[z-1]);
-        cmd = fxy + "; splot 'temp/samples.plt' using "+ feats +" with points, f(x,y) notitle with lines ls 1";
+        cmd += "'temp/samples.plt' using "+ feats +" with points, f(x,y) notitle with lines ls 1";
     }
-
-    createPosNegTemps();
-
 #ifdef __unix__
     cmd = "set terminal qt; " + cmd;
     g.cmd(cmd);

@@ -168,6 +168,9 @@ public :
      * \return std::vector<std::shared_ptr<Point< T > > >
      */
     std::vector<std::shared_ptr<Point< T > > > getPoints ();
+
+    const std::vector<int> &getClasses() const;
+
     /**
      * \brief Returns a shared pointer to the point with the given index.
      * \param index    Position of a point in the points array.

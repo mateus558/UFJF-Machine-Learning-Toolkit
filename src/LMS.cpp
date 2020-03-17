@@ -23,7 +23,7 @@ template<typename T>
 bool LMSPrimal< T >::train() {
     size_t j = 0, k = 0, size = this->samples->getSize(), dim = this->samples->getDim();
     size_t time = this->start_time+this->max_time;
-    double error = 0.0, diff = 0.0, diffAnt = 0.0, temp = 0.0, cost_func = 0.0;
+    double error = 0.0, diff = 0.0, diffAnt = 0.0, cost_func = 0.0;
     std::vector<double> func(size, 0.0);
 
     if(this->verbose)
@@ -33,6 +33,7 @@ bool LMSPrimal< T >::train() {
         std::cout << "------------------------------------------------------------------------------------\n";
     }
 
+    this->solution.w.assign(dim, 0.0);
     this->timer.Reset();
 
     for (this->steps = 0; this->steps < this->MAX_IT; this->steps++) {
@@ -44,28 +45,24 @@ bool LMSPrimal< T >::train() {
                 func[j] += (*input)[k] * this->solution.w[k];
             }
             cost_func += (func[j] - input->y) * (func[j] - input->y);
-
             //Verify if the point is a error
-            if (input->y != func[j]) {
-                error = (input->y - func[j]) * (*input)[j];
-                //Update weights
+            error = (input->y - func[j]) * (*input)[j];
+            if (error > this->EPS) {
                 for (k = 0; k < dim; k++) {
-                    temp = this->solution.w[k];
                     this->solution.w[k] += this->rate * error * (*input)[k];
-                    //diff += fabs(this->solution.w[k] - temp);
-                    diff = cost_func;
                 }
                 ++this->ctot;
             }
         }
         cost_func *= 0.5;
         double secs = this->timer.Elapsed();
-        if (this->verbose)
+        if (this->verbose) {
+            diff = fabs(cost_func - diffAnt);
             std::cout << " " << this->steps << "           " << this->ctot << "                   " << cost_func
                       << "            " << diff << "           " << secs << "\n";
-        if(fabs(diff - diffAnt) <= this->EPS) break;
-        diffAnt = diff;
-
+        }
+        if(fabs(cost_func - diffAnt) <= this->EPS) break;
+        diffAnt = cost_func;
         if(time -this->timer.Elapsed()*1000 <= 0) break;
     }
     if(this->verbose >= 1){

@@ -36,7 +36,7 @@ private :
      * \brief Create temporary files to plot the negative and positive samples.
      * \return void
      */
-    void createPosNegTemps();
+    std::vector<std::string> createTempFiles();
     /**
      * \brief valid_file Returns if a given file name is valid.
      * \param file  Name of the file.

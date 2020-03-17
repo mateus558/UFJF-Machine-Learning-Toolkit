@@ -447,9 +447,9 @@ void datasetOption(int option){
                 cout << "Dataset type: " << data->getType() << endl;
                 cout << "Number of features: " << data->getDim() << endl;
                 cout << "Number of samples: " << data->getSize() << endl;
-                vector<string> class_names = data->getClassNames();
-                vector<size_t> class_frequency = data->getClassesDistribution();
                 if(data->getType() == "Classification") {
+                    vector<string> class_names = data->getClassNames();
+                    vector<size_t> class_frequency = data->getClassesDistribution();
                     if(class_names.size() == 2) {
                         cout << "Negative points: " << data->getNumberNegativePoints() << endl;
                         cout << "Positive points: " << data->getNumberPositivePoints() << endl;
@@ -465,16 +465,40 @@ void datasetOption(int option){
                     cout << "\n\nTest sample information\n\n";
                     cout << "Number of features: " << test_sample.getDim() << endl;
                     cout << "Number of samples: " << test_sample.getSize() << endl;
-                    cout << "Negative points: " << test_sample.getNumberNegativePoints() << endl;
-                    cout << "Positive points: " << test_sample.getNumberPositivePoints() << endl;
+                    if(data->getType() == "Classification") {
+                        vector<string> class_names = data->getClassNames();
+                        vector<size_t> class_frequency = data->getClassesDistribution();
+                        if(class_names.size() == 2) {
+                            cout << "Negative points: " << data->getNumberNegativePoints() << endl;
+                            cout << "Positive points: " << data->getNumberPositivePoints() << endl;
+                        }else {
+                            cout << "Class names and frequency [name - freq]: \n[";
+                            for (i = 0; i < class_names.size() - 1; i++) {
+                                cout << class_names[i] << " - "<< class_frequency[i] << ", ";
+                            }
+                            cout << class_names[i] << " - "<< class_frequency[i] << "]\n";
+                        }
+                    }
                 }
 
                 if(!train_sample.isEmpty()){
                     cout << "\n\nTrain sample information\n\n";
                     cout << "Number of features: " << train_sample.getDim() << endl;
                     cout << "Number of samples: " << train_sample.getSize() << endl;
-                    cout << "Negative points: " << train_sample.getNumberNegativePoints() << endl;
-                    cout << "Positive points: " << train_sample.getNumberPositivePoints() << endl;
+                    if(data->getType() == "Classification") {
+                        vector<string> class_names = data->getClassNames();
+                        vector<size_t> class_frequency = data->getClassesDistribution();
+                        if(class_names.size() == 2) {
+                            cout << "Negative points: " << data->getNumberNegativePoints() << endl;
+                            cout << "Positive points: " << data->getNumberPositivePoints() << endl;
+                        }else {
+                            cout << "Class names and frequency [name - freq]: \n[";
+                            for (i = 0; i < class_names.size() - 1; i++) {
+                                cout << class_names[i] << " - "<< class_frequency[i] << ", ";
+                            }
+                            cout << class_names[i] << " - "<< class_frequency[i] << "]\n";
+                        }
+                    }
                 }
             }else cout << "Load a dataset first...\n\n";
 
@@ -1373,6 +1397,7 @@ void primalRegressorsOption(int option) {
                 LMSPrimal<double> lms(data, eta, 2);
 
                 lms.setMaxIterations(20);
+                lms.setMaxTime(max_time);
                 lms.train();
                 sol = lms.getSolution();
 

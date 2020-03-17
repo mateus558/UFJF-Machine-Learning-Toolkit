@@ -1078,9 +1078,11 @@ int Data<T>::process_class(std::string item) {
     if(item == pos_class){
         c = 1;
         stats.n_pos++;
+        class_names.emplace_back(pos_class);
     }else if(item == neg_class){
         c = -1;
         stats.n_neg++;
+        class_names.emplace_back(neg_class);
     }else{
         if(Utils::is_number(item)) {
             c = std::stoi(item);
@@ -1117,6 +1119,11 @@ std::vector<std::string> Data<T>::getClassNames() {
 template<typename T>
 std::vector<size_t> Data<T>::getClassesDistribution() {
     return this->class_distribution;
+}
+
+template<typename T>
+const vector<int> &Data<T>::getClasses() const {
+    return classes;
 }
 
 template class Data<int>;
