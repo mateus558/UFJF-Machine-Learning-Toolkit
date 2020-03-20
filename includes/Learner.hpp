@@ -37,6 +37,7 @@ protected:
     int verbose = 1;
     /// Timer used to measure the time elapsed in the execution of a Learner.
     Timer timer = Timer();
+
 public:
     /**
      * \brief Function that execute the training phase of a Learner.
@@ -65,6 +66,7 @@ public:
     * \return double
     */
     inline double getElapsedTime() const { return timer.Elapsed(); }
+
     /**
     * \brief Get the total number of updates of the Learner.
     * \return int

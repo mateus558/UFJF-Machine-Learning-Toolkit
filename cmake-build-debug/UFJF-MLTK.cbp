@@ -90,6 +90,9 @@
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Classifier.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Clusterer.hpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Data.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
@@ -177,6 +180,9 @@
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/gnuplot_i.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/kNN.hpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/AOS.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
@@ -226,6 +232,9 @@
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/gnuplot_i.cpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/kNN.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/main.cpp">

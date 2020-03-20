@@ -20,6 +20,7 @@
 #include "../includes/Fisher.hpp"
 #include "../includes/AOS.hpp"
 #include "../includes/Timer.hpp"
+#include "../includes/kNN.hpp"
 
 using namespace std;
 
@@ -34,25 +35,25 @@ Solution sol;
 Visualization<double> plot(&(*data));
 
 //Menus utilities
-void clear(void);
+void clear();
 vector<string> list_datasets(bool list);
 bool valid_file(string file);
-void waitUserAction(void);
-void exitProgram(void);
+void waitUserAction();
+void exitProgram();
 
 //Prints that are common in all menus
-void header(void);
-int selector(void);
+void header();
+int selector();
 
 //Functions to show menus options
-void mainMenu(void);
-void datasetMenu(void);
-void dataMenu(void);
-void VisualizationMenu(void);
-void classifiersMenu(void);
-void regressorsMenu(void);
-void featureSelectionMenu(void);
-void validationMenu(void);
+void mainMenu();
+void datasetMenu();
+void dataMenu();
+void VisualizationMenu();
+void classifiersMenu();
+void regressorsMenu();
+void featureSelectionMenu();
+void validationMenu();
 
 //Functions to call the execution of the menus options
 void mainOption(int);
@@ -854,6 +855,7 @@ void classifiersOption(int option){
             cout << "1 - Perceptron Primal" << endl;
             cout << "2 - Perceptron Primal with fixed margin" << endl;
             cout << "3 - Incremental Margin Algorithm Primal (IMAp)" << endl;
+            cout << "4 - K-nearest neighbors" << endl;
             cout << endl;
             cout << "0 - Back to classifiers menu" << endl;
             cout << "m - Back to main menu." << endl;
@@ -1764,6 +1766,34 @@ void primalClassifiersOption(int option){
                 cout << "Load a dataset first..." << endl;
             }
             break;
+        case 4:
+            if(!data->isEmpty()) {
+                size_t k;
+                cout << "k value: ";
+                cin >> k;
+                cout << "Enter a point to evaluate:" << endl;
+                vector<double> feats(data->getDim());
+                for(size_t i = 0; i < data->getDim(); i++){
+                    cout << "Dim " << i << ": ";
+                    cin >> feats[i];
+                }
+                cout << endl;
+
+                kNN<double> knn(data, k);
+                int _class = knn.evaluate(Point<double>(feats));
+                vector<string> class_names = data->getClassNames();
+                vector<int> classes = data->getClasses();
+                string _class_name;
+                for(i = 0; i < classes.size(); i++){
+                    if(classes[i] == _class){
+                        _class_name = class_names[i];
+                        break;
+                    }
+                }
+                cout << "Evaluated class: " << _class_name << " (" << _class << ")" << endl;
+            }else{
+                cout << "Load a dataset first..." << endl;
+            }
         case 0:
             classifiersMenu();
             break;

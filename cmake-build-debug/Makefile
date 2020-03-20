@@ -582,6 +582,33 @@ src/gnuplot_i.cpp.s:
 	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.s
 .PHONY : src/gnuplot_i.cpp.s
 
+src/kNN.o: src/kNN.cpp.o
+
+.PHONY : src/kNN.o
+
+# target to build an object file
+src/kNN.cpp.o:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/kNN.cpp.o
+.PHONY : src/kNN.cpp.o
+
+src/kNN.i: src/kNN.cpp.i
+
+.PHONY : src/kNN.i
+
+# target to preprocess a source file
+src/kNN.cpp.i:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/kNN.cpp.i
+.PHONY : src/kNN.cpp.i
+
+src/kNN.s: src/kNN.cpp.s
+
+.PHONY : src/kNN.s
+
+# target to generate assembly for a file
+src/kNN.cpp.s:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/kNN.cpp.s
+.PHONY : src/kNN.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -669,6 +696,9 @@ help:
 	@echo "... src/gnuplot_i.o"
 	@echo "... src/gnuplot_i.i"
 	@echo "... src/gnuplot_i.s"
+	@echo "... src/kNN.o"
+	@echo "... src/kNN.i"
+	@echo "... src/kNN.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -33,6 +33,7 @@ public :
     // Operations
     explicit Point();
     explicit Point(int dim, T val = T(), size_t id = 0);
+    Point(std::vector<T> _x);
     /**
      * \brief Computes the dot product with a vector.
      * \param p (???)
@@ -70,6 +71,11 @@ template< typename T >
 Point< T >::Point(int dim, T val, size_t id){
     this->id = id;
     x.resize(dim, val);
+}
+
+template< typename T >
+Point< T >::Point(std::vector<T> _x){
+    x = _x;
 }
 
 template< typename T >
