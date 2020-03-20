@@ -34,20 +34,27 @@ double kNN< T >::evaluate(Point<T> p) {
         return distances[i1] < distances[i2];
     });
 
+    bool is_classification = this->samples->getType() == "Classification";
+    double sum = 0.0;
+
     // find the most frequent class in the k nearest neighbors
     for(size_t j = 0; j < this->n_clusters; j++){
         size_t id = idx[j];
-        for(i = 0; i < classes.size(); i++){
-            if(classes[i] == points[id]->y){
-                freq[i]++;
-                if(freq[i] > max_freq){
-                    max_freq = freq[i];
-                    max_index = i;
+        if(is_classification){
+            for (i = 0; i < classes.size(); i++) {
+                if (classes[i] == points[id]->y) {
+                    freq[i]++;
+                    if (freq[i] > max_freq) {
+                        max_freq = freq[i];
+                        max_index = i;
+                    }
                 }
             }
+        }else{
+            sum += points[id]->y;
         }
     }
-    return classes[max_index];
+    return (is_classification)?classes[max_index]:(sum/this->n_clusters);
 }
 
 template<typename T>
@@ -57,7 +64,7 @@ bool kNN<T>::train() {
 
 template<typename T>
 std::string kNN<T>::getFormulationString() {
-    return std::string();
+    return "Clusterer";
 }
 
 template class kNN<int>;

@@ -1358,6 +1358,7 @@ void regressorsOption(int option) {
             header();
 
             cout << "1 - Least Mean Squares Primal (LMS Primal)" << endl;
+            cout << "2 - K-nearest neighbors (KNN)" << endl;
             cout << endl;
             cout << "0 - Back to regressors menu" << endl;
             cout << "m - Back to main menu." << endl;
@@ -1404,6 +1405,27 @@ void primalRegressorsOption(int option) {
                 sol = lms.getSolution();
 
                 waitUserAction();
+            }else{
+                cout << "Load a dataset first..." << endl;
+            }
+            break;
+        case 2:
+            if(!data->isEmpty()) {
+                size_t k, i;
+                cout << "k value: ";
+                cin >> k;
+                cout << "Enter a point to evaluate:" << endl;
+                vector<double> feats(data->getDim());
+                for(size_t i = 0; i < data->getDim(); i++){
+                    cout << "Dim " << i << ": ";
+                    cin >> feats[i];
+                }
+                cout << endl;
+
+                kNN<double> knn(data, k);
+                double value = knn.evaluate(Point<double>(feats));
+
+                cout << "Evaluated value: " << value << endl;
             }else{
                 cout << "Load a dataset first..." << endl;
             }
