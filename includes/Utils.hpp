@@ -16,6 +16,8 @@ enum NormType {NORM_LINF = 0, NORM_L1 = 1, NORM_L2 = 2};
 typedef std::vector<std::vector<double> > dMatrix;
 
 namespace Utils {
+
+    void printConfusionMatrix(std::vector<int> &classes, std::vector<std::vector<size_t> > &confusion_m);
 /**
  * \brief Verify if the string is a number.
  * \param str   String to be tested.

@@ -274,7 +274,6 @@ bool Data< T >::load_data(const string& path){
                 }
             }
         }
-
         if(ldim != _dim && ldim != 0){
             cerr << "Error (line: " << _size << "): all the samples must have the same dimension! (_dim: " << _dim << ", last_dim: " << ldim << ")" << endl;
             return false;
@@ -996,6 +995,8 @@ void Data< T >::clear(){
     points.clear();
     fnames.clear();
     index.clear();
+    classes.clear();
+    class_names.clear();
     size = 0;
     dim = 0;
     stats.n_neg = 0;

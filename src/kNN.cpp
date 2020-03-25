@@ -20,15 +20,13 @@ double kNN< T >::evaluate(Point<T> p) {
     std::vector<int> classes = this->samples->getClasses();
     std::vector<size_t> idx(distances.size()), freq(classes.size());
     auto p0 = std::make_shared<Point< T > >(p);
-
     // fill the index vector
     std::iota(idx.begin(), idx.end(), 0);
 
     // compute the distance from the sample to be evaluated to the samples vector
-    std::transform(points.begin(), points.end(), distances.begin(), [p0, this](std::shared_ptr<Point< T > > q){
+    std::transform(points.begin(), points.end(), distances.begin(), [p0, &i, this](const std::shared_ptr<Point< T > > q){
         return this->dist_function(p0, q);
     });
-
     // sort the index vector by the distance from the sample to be evaluated
     std::stable_sort(idx.begin(), idx.end(), [&distances](size_t i1, size_t i2){
         return distances[i1] < distances[i2];

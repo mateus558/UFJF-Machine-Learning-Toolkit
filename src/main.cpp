@@ -9,6 +9,7 @@
 #include <sstream>
 #include <ctime>
 #include <memory>
+#include <iomanip>
 
 #include "../includes/MLToolkit.hpp"
 #include "../includes/Perceptron.hpp"
@@ -1426,6 +1427,7 @@ void primalRegressorsOption(int option) {
                 double value = knn.evaluate(Point<double>(feats));
 
                 cout << "Evaluated value: " << value << endl;
+
             }else{
                 cout << "Load a dataset first..." << endl;
             }
@@ -1793,26 +1795,17 @@ void primalClassifiersOption(int option){
                 size_t k;
                 cout << "k value: ";
                 cin >> k;
-                cout << "Enter a point to evaluate:" << endl;
-                vector<double> feats(data->getDim());
-                for(size_t i = 0; i < data->getDim(); i++){
-                    cout << "Dim " << i << ": ";
-                    cin >> feats[i];
-                }
                 cout << endl;
 
                 kNN<double> knn(data, k);
-                int _class = knn.evaluate(Point<double>(feats));
                 vector<string> class_names = data->getClassNames();
                 vector<int> classes = data->getClasses();
-                string _class_name;
-                for(i = 0; i < classes.size(); i++){
-                    if(classes[i] == _class){
-                        _class_name = class_names[i];
-                        break;
-                    }
-                }
-                cout << "Evaluated class: " << _class_name << " (" << _class << ")" << endl;
+
+                auto conf_matrix = Validation<double>::generateConfusionMatrix(knn, *data);
+                size_t n_classes = conf_matrix.size();
+                cout << "Confusion Matrix: " << endl;
+                Utils::printConfusionMatrix(classes, conf_matrix);
+                waitUserAction();
             }else{
                 cout << "Load a dataset first..." << endl;
             }

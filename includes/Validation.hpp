@@ -88,6 +88,7 @@ public :
      */
     explicit Validation (std::shared_ptr<Data< T > > sample = std::make_shared<Data< T > >(), Classifier< T >  *classifier = nullptr, unsigned int seed = 666);
 
+    static std::vector<std::vector<size_t> > generateConfusionMatrix(Learner< T > &learner, Data< T > &samples);
     /**
      * \brief Divide the samples in training and test.
      * \param fold Number of folds.
