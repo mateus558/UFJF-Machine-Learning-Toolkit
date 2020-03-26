@@ -20,6 +20,7 @@
 #include "../includes/Fisher.hpp"
 #include "../includes/AOS.hpp"
 #include "../includes/KNN.hpp"
+#include "../includes/KMeans.hpp"
 
 using namespace std;
 
@@ -854,7 +855,8 @@ void classifiersOption(int option){
             cout << "1 - Perceptron Primal" << endl;
             cout << "2 - Perceptron Primal with fixed margin" << endl;
             cout << "3 - Incremental Margin Algorithm Primal (IMAp)" << endl;
-            cout << "4 - K-nearest neighbors" << endl;
+            cout << "4 - K-nearest neighbors (KNN)" << endl;
+            cout << "5 - K-means " << endl;
             cout << endl;
             cout << "0 - Back to classifiers menu" << endl;
             cout << "m - Back to main menu." << endl;
@@ -1800,7 +1802,24 @@ void primalClassifiersOption(int option){
                 vector<int> classes = data->getClasses();
 
                 auto conf_matrix = Validation<double>::generateConfusionMatrix(knn, *data);
-                size_t n_classes = conf_matrix.size();
+                cout << "Confusion Matrix: " << endl;
+                Utils::printConfusionMatrix(classes, conf_matrix);
+                waitUserAction();
+            }else{
+                cout << "Load a dataset first..." << endl;
+            }
+        case 5:
+            if(!data->isEmpty()) {
+                size_t k;
+                cout << "k value: ";
+                cin >> k;
+                cout << endl;
+
+                KMeans<double> kmeans(data, k);
+                vector<string> class_names = data->getClassNames();
+                vector<int> classes = data->getClasses();
+
+                auto conf_matrix = Validation<double>::generateConfusionMatrix(kmeans, *data);
                 cout << "Confusion Matrix: " << endl;
                 Utils::printConfusionMatrix(classes, conf_matrix);
                 waitUserAction();
