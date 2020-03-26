@@ -402,9 +402,10 @@ std::vector<std::vector<size_t> > Validation<T>::generateConfusionMatrix(Learner
     auto classes = samples.getClasses();
     size_t size = samples.getSize(), i, j, idp, idy, n_classes = classes.size();
     std::vector<std::vector<size_t> > confusion_m(n_classes, std::vector<size_t>(n_classes, 0));
+    double acc = 0.0;
 
     for(i = 0; i < size; i++){
-        size_t pred = (learner.getFormulationString() == "Clusterer")?learner.evaluate(*(samples[i]))+1:learner.evaluate(*(samples[i]));
+        size_t pred = learner.evaluate(*(samples[i]));
         for(j = 0, idp = 0, idy = 0; j < n_classes; j++){
             if(classes[j] == pred){
                 idp = j;
@@ -416,6 +417,11 @@ std::vector<std::vector<size_t> > Validation<T>::generateConfusionMatrix(Learner
         }
         confusion_m[idp][idy]++;
     }
+
+    for(i = 0; i < confusion_m.size(); i++){
+        acc += *std::max_element(confusion_m[i].begin(), confusion_m[i].end());
+    }
+    std::cout << "Purity: " << acc / size << std::endl;
     return confusion_m;
 }
 

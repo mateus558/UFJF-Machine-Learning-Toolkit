@@ -1010,9 +1010,7 @@ void Data< T >::clear(){
 
 template < typename T >
 Data< T >::~Data(){
-    this->points.clear();
-    this->index.clear();
-    this->fnames.clear();
+    this->clear();
 }
 
 template < typename T >
@@ -1134,6 +1132,11 @@ std::vector<size_t> Data<T>::getClassesDistribution() {
 template<typename T>
 const vector<int> &Data<T>::getClasses() const {
     return classes;
+}
+
+template<typename T>
+void Data<T>::setClasses1(const vector<int> &classes) {
+    Data::classes = classes;
 }
 
 template class Data<int>;

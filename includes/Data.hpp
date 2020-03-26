@@ -152,6 +152,7 @@ public :
     /*********************************************
      *               Getters                     *
      *********************************************/
+    void setClasses1(const std::vector<int> &classes);
 
     /**
      * \brief Returns the size of the dataset.

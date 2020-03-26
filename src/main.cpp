@@ -1811,20 +1811,27 @@ void primalClassifiersOption(int option){
         case 5:
             if(!data->isEmpty()) {
                 size_t k;
+                size_t initialization;
                 cout << "k value: ";
                 cin >> k;
                 cout << endl;
-
-                KMeans<double> kmeans(data, k, "random");
-
+                cout << "Initialization [0 - random; 1 - kmeanspp]: ";
+                cin >> initialization;
+                KMeans<double> kmeans(data, k, (initialization == 0)?"random":"kmeanspp");
+                kmeans.setMaxTime(max_time);
                 kmeans.train();
+                auto conf_m = Validation<double>::generateConfusionMatrix(kmeans, *data);
 
-                vector<string> class_names = data->getClassNames();
-                vector<int> classes = data->getClasses();
-
-                auto conf_matrix = Validation<double>::generateConfusionMatrix(kmeans, *data);
-                cout << "Confusion Matrix: " << endl;
-                Utils::printConfusionMatrix(classes, conf_matrix);
+                for(size_t i = 0; i < data->getSize(); i++){
+                    auto point = (*data)[i];
+                    point->y = kmeans.evaluate(*point);
+                }
+                Visualization<double> vis(data.get());
+                vector<int> classes(data->getClasses().size());
+                iota(classes.begin(), classes.end(), 1);
+                data->setClasses1(classes);
+                Utils::printConfusionMatrix(classes, conf_m);
+                vis.plot3D(1,2,3);
                 waitUserAction();
             }else{
                 cout << "Load a dataset first..." << endl;

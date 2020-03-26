@@ -7,13 +7,16 @@
 
 template<typename T>
 bool KMeans<T>::train() {
-    double cost = 0.0, ant_cost = 0.0;
+    double cost = 0.0, old_cost = 0.0;
     size_t dim = this->samples->getDim(), size = this->samples->getSize();
+    size_t time = this->start_time+this->max_time;
     auto points = this->samples->getPoints();
-    bool has_converged = false;
+    bool has_converged = true;
     std::random_device rnd_device;
     std::mt19937 mersenne_engine {rnd_device()};
     std::uniform_int_distribution<size_t> dist {0, this->samples->getSize()};
+
+    std::shuffle(points.begin(), points.end(), std::mt19937(std::random_device()()));
 
     if(initialization == "random"){
         std::vector<size_t> centers_ids(this->n_clusters);
@@ -30,15 +33,21 @@ bool KMeans<T>::train() {
         });
     }else if(initialization == "kmeanspp"){
         // choose the first center randomly
-        this->centers[0] = (*this->samples)[dist(mersenne_engine)]->x;
+        this->centers[0] = points[dist(mersenne_engine)]->x;
         // choose the next cluster in points with a probability directly proportional to the distance from the
         // last chosen cluster.
         for(size_t i = 1; i < this->centers.size(); i++){
+            double sum_d = 0.0;
             std::vector<double> distances(points.size(), 0.0);
             //compute the distances from the points to the last cluster
-            std::transform(points.begin(), points.end(), distances.begin(), [&i, this](const std::shared_ptr<Point< T > > q){
-                return this->dist_function(std::make_shared<Point<T> >(this->centers[i-1]), q);
+            std::transform(points.begin(), points.end(), distances.begin(), [&i, &sum_d, this](const std::shared_ptr<Point< T > > q){
+                double d = this->dist_function(std::make_shared<Point<T> >(this->centers[i-1]), q);
+                sum_d += d;
+                return d;
             });
+            for(double & distance : distances){
+                distance /= sum_d;
+            }
             // use the distances as a probability distribution
             std::discrete_distribution<size_t> _dist(distances.begin(), distances.end());
             // generate the id for the next cluster
@@ -47,7 +56,15 @@ bool KMeans<T>::train() {
         }
     }
 
+    if(this->verbose){
+        std::cout << "------------------------------------------------------------------------------------\n";
+        std::cout << " steps     updates              cost_function              diff          secs\n";
+        std::cout << "------------------------------------------------------------------------------------\n";
+    }
+    this->timer.Reset();
     do{
+        old_cost = cost;
+        cost = 0.0; has_converged = true;
         for(size_t i = 0; i < this->n_clusters; i++){
             this->clusters[i].erase(this->clusters[i].begin(), this->clusters[i].end());
         }
@@ -58,49 +75,46 @@ bool KMeans<T>::train() {
             size_t min_cluster = 0;
 
             for(size_t c = 0; c < this->n_clusters; c++){
-                distances[c] = this->dist_function(std::make_shared<Point<T> >(this->centers[c]), points[i]);
-                if(distances[c] < min_value) {
-                    min_value = distances[c];
-                    min_cluster = c;
-                }
-            }
-            this->clusters[min_cluster].push_back(i);
-        }
-        // update the centers of the clusters
-        for(size_t c = 0; c < this->n_clusters; c++){
-            size_t cluster_size = this->clusters[c].size();
-            this->centers[c] = std::vector<T>(dim, T());
-            for(size_t e = 0; e < cluster_size; e++){
-                for(size_t j = 0; j < dim; j++) {
-                    this->centers[c][j] += points[e]->x[j];
-                }
-            }
-
-            for(size_t i = 0; i < dim; i++){
-                this->centers[c][i] /= cluster_size;
-            }
-        }
-
-        std::vector<double> costs(this->n_clusters);
-
-        ant_cost = cost;
-        for(size_t i = 0; i < this->n_clusters; i++){
-            for(auto c: this->clusters[i]){
-                auto point = (*this->samples)[c]->x;
-                auto center = this->centers[i];
+                auto point = (*this->samples)[i]->x;
+                auto center = this->centers[c];
                 std::vector< T > diff(dim);
                 // compute the difference between the pointer in a cluster to it's center
                 for(size_t j = 0; j < dim; j++){
                     diff[j] = point[j] - center[j];
                 }
-                // compute the norm of the point and finally accumulate to the cost
-                double norm = std::sqrt((double)std::inner_product(diff.begin(), diff.end(), diff.begin(), 0.0));
-                costs[i] += norm * norm;
+                distances[c] = std::sqrt((double)std::inner_product(diff.begin(), diff.end(), diff.begin(), 0.0));
+                if(distances[c] < min_value) {
+                    min_value = distances[c];
+                    min_cluster = c;
+                }
+            }
+            cost += distances[min_cluster]*distances[min_cluster];
+            this->clusters[min_cluster].push_back(i);
+        }
+
+        // update the centers of the clusters
+        for(size_t c = 0; c < this->n_clusters; c++){
+            size_t cluster_size = this->clusters[c].size();
+            this->centers[c].assign(dim, T());
+            for(size_t e = 0; e < cluster_size; e++){
+                for(size_t j = 0; j < dim; j++) {
+                    this->centers[c][j] += points[e]->x[j];
+                }
+            }
+            for(size_t j = 0; j < dim; j++){
+                this->centers[c][j] /= cluster_size;
             }
         }
-        // the total cost is the sum of the costs of all clusters
-        cost =  std::accumulate(costs.begin(), costs.end(), 0.0);
-        has_converged = std::fabs(cost - ant_cost) <= this->EPS;
+
+        this->steps++;
+        double secs = this->timer.Elapsed();
+        if (this->verbose) {
+            auto diff = fabs(cost - old_cost);
+            std::cout << " " << this->steps << "           " << this->ctot << "                   " << cost
+                      << "            " << diff << "           " << secs << "\n";
+        }
+        if(time -this->timer.Elapsed()*1000 <= 0) break;
+        has_converged = fabs(cost - old_cost) <= this->EPS;
     }while(!has_converged);
 
     return true;
@@ -109,11 +123,20 @@ bool KMeans<T>::train() {
 template<typename T>
 double KMeans<T>::evaluate(Point<T> p) {
     std::vector<double> distances(this->n_clusters, 0.0);
-    size_t min_value = std::numeric_limits<size_t>::max();
+    double min_value = std::numeric_limits<double>::max();
     size_t min_cluster = 0;
+    size_t dim = p.x.size();
 
     for(size_t c = 0; c < this->n_clusters; c++){
-        distances[c] = this->dist_function(std::make_shared<Point<T> >(this->centers[c]), std::make_shared<Point<T> >(p));
+        auto point = p.x;
+        auto center = this->centers[c];
+        std::vector< T > diff(dim);
+        // compute the difference between the pointer in a cluster to it's center
+        for(size_t j = 0; j < dim; j++){
+            diff[j] = point[j] - center[j];
+        }
+        double norm = std::sqrt((double)std::inner_product(diff.begin(), diff.end(), diff.begin(), 0.0));
+        distances[c] = norm;
         if(distances[c] < min_value){
             min_value = distances[c];
             min_cluster = c;
