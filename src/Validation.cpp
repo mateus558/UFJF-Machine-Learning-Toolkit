@@ -404,7 +404,7 @@ std::vector<std::vector<size_t> > Validation<T>::generateConfusionMatrix(Learner
     std::vector<std::vector<size_t> > confusion_m(n_classes, std::vector<size_t>(n_classes, 0));
 
     for(i = 0; i < size; i++){
-        size_t pred = learner.evaluate(*(samples[i]));
+        size_t pred = (learner.getFormulationString() == "Clusterer")?learner.evaluate(*(samples[i]))+1:learner.evaluate(*(samples[i]));
         for(j = 0, idp = 0, idy = 0; j < n_classes; j++){
             if(classes[j] == pred){
                 idp = j;

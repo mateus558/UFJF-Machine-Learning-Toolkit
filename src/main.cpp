@@ -1815,7 +1815,10 @@ void primalClassifiersOption(int option){
                 cin >> k;
                 cout << endl;
 
-                KMeans<double> kmeans(data, k);
+                KMeans<double> kmeans(data, k, "random");
+
+                kmeans.train();
+
                 vector<string> class_names = data->getClassNames();
                 vector<int> classes = data->getClasses();
 
