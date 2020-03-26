@@ -11,7 +11,6 @@
 #include <memory>
 #include <iomanip>
 
-#include "../includes/MLToolkit.hpp"
 #include "../includes/Perceptron.hpp"
 #include "../includes/LMS.hpp"
 #include "../includes/IMA.hpp"
@@ -20,8 +19,7 @@
 #include "../includes/Golub.hpp"
 #include "../includes/Fisher.hpp"
 #include "../includes/AOS.hpp"
-#include "../includes/Timer.hpp"
-#include "../includes/kNN.hpp"
+#include "../includes/KNN.hpp"
 
 using namespace std;
 
@@ -1412,7 +1410,7 @@ void primalRegressorsOption(int option) {
             break;
         case 2:
             if(!data->isEmpty()) {
-                size_t k, i;
+                size_t k;
                 cout << "k value: ";
                 cin >> k;
                 cout << "Enter a point to evaluate:" << endl;
@@ -1423,7 +1421,7 @@ void primalRegressorsOption(int option) {
                 }
                 cout << endl;
 
-                kNN<double> knn(data, k);
+                KNNRegressor<double> knn(data, k);
                 double value = knn.evaluate(Point<double>(feats));
 
                 cout << "Evaluated value: " << value << endl;
@@ -1797,7 +1795,7 @@ void primalClassifiersOption(int option){
                 cin >> k;
                 cout << endl;
 
-                kNN<double> knn(data, k);
+                KNN<double> knn(data, k);
                 vector<string> class_names = data->getClassNames();
                 vector<int> classes = data->getClasses();
 

@@ -400,7 +400,7 @@ void Validation< T > ::setSeed(unsigned int seed) {
 template<typename T>
 std::vector<std::vector<size_t> > Validation<T>::generateConfusionMatrix(Learner<T> &learner, Data<T> &samples) {
     auto classes = samples.getClasses();
-    size_t size = samples.getSize(), i, j, idp = 0, idy = 0, n_classes = classes.size();
+    size_t size = samples.getSize(), i, j, idp, idy, n_classes = classes.size();
     std::vector<std::vector<size_t> > confusion_m(n_classes, std::vector<size_t>(n_classes, 0));
 
     for(i = 0; i < size; i++){

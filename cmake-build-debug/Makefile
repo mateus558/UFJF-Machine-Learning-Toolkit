@@ -258,6 +258,60 @@ src/IMA.cpp.s:
 	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/IMA.cpp.s
 .PHONY : src/IMA.cpp.s
 
+src/KMeans.o: src/KMeans.cpp.o
+
+.PHONY : src/KMeans.o
+
+# target to build an object file
+src/KMeans.cpp.o:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/KMeans.cpp.o
+.PHONY : src/KMeans.cpp.o
+
+src/KMeans.i: src/KMeans.cpp.i
+
+.PHONY : src/KMeans.i
+
+# target to preprocess a source file
+src/KMeans.cpp.i:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/KMeans.cpp.i
+.PHONY : src/KMeans.cpp.i
+
+src/KMeans.s: src/KMeans.cpp.s
+
+.PHONY : src/KMeans.s
+
+# target to generate assembly for a file
+src/KMeans.cpp.s:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/KMeans.cpp.s
+.PHONY : src/KMeans.cpp.s
+
+src/KNN.o: src/KNN.cpp.o
+
+.PHONY : src/KNN.o
+
+# target to build an object file
+src/KNN.cpp.o:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/KNN.cpp.o
+.PHONY : src/KNN.cpp.o
+
+src/KNN.i: src/KNN.cpp.i
+
+.PHONY : src/KNN.i
+
+# target to preprocess a source file
+src/KNN.cpp.i:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/KNN.cpp.i
+.PHONY : src/KNN.cpp.i
+
+src/KNN.s: src/KNN.cpp.s
+
+.PHONY : src/KNN.s
+
+# target to generate assembly for a file
+src/KNN.cpp.s:
+	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/KNN.cpp.s
+.PHONY : src/KNN.cpp.s
+
 src/Kernel.o: src/Kernel.cpp.o
 
 .PHONY : src/Kernel.o
@@ -582,33 +636,6 @@ src/gnuplot_i.cpp.s:
 	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/gnuplot_i.cpp.s
 .PHONY : src/gnuplot_i.cpp.s
 
-src/kNN.o: src/kNN.cpp.o
-
-.PHONY : src/kNN.o
-
-# target to build an object file
-src/kNN.cpp.o:
-	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/kNN.cpp.o
-.PHONY : src/kNN.cpp.o
-
-src/kNN.i: src/kNN.cpp.i
-
-.PHONY : src/kNN.i
-
-# target to preprocess a source file
-src/kNN.cpp.i:
-	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/kNN.cpp.i
-.PHONY : src/kNN.cpp.i
-
-src/kNN.s: src/kNN.cpp.s
-
-.PHONY : src/kNN.s
-
-# target to generate assembly for a file
-src/kNN.cpp.s:
-	$(MAKE) -f CMakeFiles/UFJF-MLTK.dir/build.make CMakeFiles/UFJF-MLTK.dir/src/kNN.cpp.s
-.PHONY : src/kNN.cpp.s
-
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -660,6 +687,12 @@ help:
 	@echo "... src/IMA.o"
 	@echo "... src/IMA.i"
 	@echo "... src/IMA.s"
+	@echo "... src/KMeans.o"
+	@echo "... src/KMeans.i"
+	@echo "... src/KMeans.s"
+	@echo "... src/KNN.o"
+	@echo "... src/KNN.i"
+	@echo "... src/KNN.s"
 	@echo "... src/Kernel.o"
 	@echo "... src/Kernel.i"
 	@echo "... src/Kernel.s"
@@ -696,9 +729,6 @@ help:
 	@echo "... src/gnuplot_i.o"
 	@echo "... src/gnuplot_i.i"
 	@echo "... src/gnuplot_i.s"
-	@echo "... src/kNN.o"
-	@echo "... src/kNN.i"
-	@echo "... src/kNN.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -117,6 +117,12 @@
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/IMA.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/KMeans.hpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/KNN.hpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/Kernel.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
@@ -180,9 +186,6 @@
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/gnuplot_i.hpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
-		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/includes/kNN.hpp">
-			<Option target="UFJF-MLTK"/>
-		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/AOS.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
@@ -196,6 +199,12 @@
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/IMA.cpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/KMeans.cpp">
+			<Option target="UFJF-MLTK"/>
+		</Unit>
+		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/KNN.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/Kernel.cpp">
@@ -232,9 +241,6 @@
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/gnuplot_i.cpp">
-			<Option target="UFJF-MLTK"/>
-		</Unit>
-		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/kNN.cpp">
 			<Option target="UFJF-MLTK"/>
 		</Unit>
 		<Unit filename="/home/mateus558/Repositories/UFJF-MLTK/src/main.cpp">

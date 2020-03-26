@@ -12,9 +12,12 @@
 template < typename T >
 class Clusterer: public Learner< T > {
 protected:
-    std::function<double(std::shared_ptr<Point< T > >, std::shared_ptr<Point< T > >) > dist_function;
-    size_t n_clusters;
+    using Function = std::function<double(std::shared_ptr<Point< T > >, std::shared_ptr<Point< T > >)>;
 
+    Function dist_function;
+    size_t n_clusters;
+    std::vector<std::vector<T> > centers;
+    std::vector<std::vector<size_t> > clusters;
 };
 
 
