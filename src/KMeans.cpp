@@ -12,11 +12,10 @@ bool KMeans<T>::train() {
     auto points = this->samples->getPoints();
     std::random_device rnd_device;
     std::mt19937 mersenne_engine {rnd_device()};
+    std::uniform_int_distribution<size_t> dist {0, this->samples->getSize()};
 
     if(initialization == "random"){
         std::vector<size_t> centers_ids(this->n_clusters);
-
-        std::uniform_int_distribution<size_t> dist {0, this->samples->getSize()};
 
         // create a random number generator function
         auto gen = [&dist, &mersenne_engine](){
@@ -29,8 +28,6 @@ bool KMeans<T>::train() {
             return (*this->samples)[center_id]->x;
         });
     }else if(initialization == "kmeanspp"){
-        std::uniform_int_distribution<size_t> dist {0, this->samples->getSize()};
-
         // choose the first center randomly
         this->centers[0] = (*this->samples)[dist(mersenne_engine)]->x;
         // choose the next cluster in points with a probability directly proportional to the distance from the
@@ -112,7 +109,18 @@ bool KMeans<T>::train() {
 
 template<typename T>
 double KMeans<T>::evaluate(Point<T> p) {
-    return 0;
+    std::vector<double> distances(this->n_clusters, 0.0);
+    size_t min_value = std::numeric_limits<size_t>::max();
+    size_t min_cluster = 0;
+
+    for(size_t c = 0; c < this->n_clusters; c++){
+        distances[c] = this->dist_function(std::make_shared<Point<T> >(this->centers[c]), std::make_shared<Point<T> >(p));
+        if(distances[c] < min_value){
+            min_value = distances[c];
+            min_cluster = c;
+        }
+    }
+    return min_cluster;
 }
 
 template<typename T>
