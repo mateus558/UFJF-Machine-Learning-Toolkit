@@ -841,8 +841,28 @@ void Data< T >::setPoint(int _index, shared_ptr<Point< T > > p){
 }
 
 template < typename T >
-Data< T > Data< T >::copy(){
-    return *this;
+void Data< T >::copy(const Data<T> &_data){
+    size_t _size = _data.getSize();
+    this->points.resize(_size);
+    for(size_t i = 0; i < _size; i++){
+        this->points[i] = std::make_shared<Point< T > >();
+        this->points[i]->x = _data[i]->x;
+        this->points[i]->y = _data[i]->y;
+        this->points[i]->alpha = _data[i]->alpha;
+        this->points[i]->id = _data[i]->id;
+    }
+    this->fnames = _data.getFeaturesNames();
+    this->size = _data.getSize();
+    this->classes = _data.getClasses();
+    this->class_names = _data.getClassNames();
+    this->class_distribution = _data.getClassesDistribution();
+    this->stats = _data.getStatistics();
+    this->dim = _data.getDim();
+    this->type = _data.getType();
+    this->index = _data.getIndex();
+    this->is_empty = _data.isEmpty();
+    this->normalized = _data.isNormalized();
+    this->time_mult = _data.getTime_mult();
 }
 
 template < typename T >
@@ -927,7 +947,7 @@ void Data< T >::setDim(size_t _dim){
 }
 
 template < typename T >
-vector<int> Data< T >::getFeaturesNames(){
+vector<int> Data< T >::getFeaturesNames() const{
     return fnames;
 }
 
@@ -942,7 +962,7 @@ vector<shared_ptr<Point< T > > > Data< T >::getPoints(){
 }
 
 template < typename T >
-vector<int> Data< T >::getIndex(){
+vector<int> Data< T >::getIndex() const{
     return index;
 }
 
@@ -957,18 +977,12 @@ int Data< T >::getNumberPositivePoints(){
 }
 
 template < typename T >
-Statistics< T > Data< T >::getStatistics(){
+Statistics< T > Data< T >::getStatistics() const{
     return stats;
 }
 
 template < typename T >
-void Data< T >::setClasses(string _pos, const string& _neg){
-    pos_class = _pos;
-    neg_class = _neg;
-}
-
-template < typename T >
-bool Data< T >::isEmpty(){
+bool Data< T >::isEmpty() const{
     return is_empty;
 }
 
@@ -1120,12 +1134,12 @@ int Data<T>::process_class(std::string item) {
 }
 
 template<typename T>
-std::vector<std::string> Data<T>::getClassNames() {
+std::vector<std::string> Data<T>::getClassNames() const{
     return this->class_names;
 }
 
 template<typename T>
-std::vector<size_t> Data<T>::getClassesDistribution() {
+std::vector<size_t> Data<T>::getClassesDistribution() const{
     return this->class_distribution;
 }
 
@@ -1135,7 +1149,7 @@ const vector<int> &Data<T>::getClasses() const {
 }
 
 template<typename T>
-void Data<T>::setClasses1(const vector<int> &classes) {
+void Data<T>::setClasses(const vector<int> &classes) {
     Data::classes = classes;
 }
 

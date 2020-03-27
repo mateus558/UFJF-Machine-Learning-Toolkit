@@ -32,7 +32,7 @@ std::shared_ptr<Data<double> > data(std::make_shared<Data<double> >());
 Data<double> test_sample;
 Data<double> train_sample;
 Solution sol;
-Visualization<double> plot(&(*data));
+Visualization<double> plot(*data);
 
 //Menus utilities
 void clear();
@@ -52,6 +52,7 @@ void dataMenu();
 void VisualizationMenu();
 void classifiersMenu();
 void regressorsMenu();
+void clusterersMenu();
 void featureSelectionMenu();
 void validationMenu();
 
@@ -63,6 +64,7 @@ void VisualizationOption(int);
 void classifiersOption(int);
 void featureSelectionOption(int);
 void regressorsOption(int);
+void clusterersOption(int);
 void primalRegressorsOption(int);
 void dualRegressorsOption(int);
 void primalClassifiersOption(int);
@@ -216,6 +218,7 @@ void mainMenu(){
     cout << "4 - Classifiers" << endl;
     cout << "5 - Feature Selection" << endl;
     cout << "6 - Regressors" << endl;
+    cout << "7 - Clusteres" << endl;
     cout << "8 - Validation" << endl;
     cout << endl;
     cout << "9 - Set Verbose" << endl;
@@ -331,6 +334,20 @@ void regressorsMenu() {
     regressorsOption(option);
 }
 
+void clusterersMenu(){
+    int option;
+
+    clear();
+    header();
+
+    cout << "1 - K-means" << endl;
+    cout << endl;
+    cout << "0 - Back to the main menu" << endl;
+
+    option = selector();
+    clusterersOption(option);
+}
+
 void validationMenu(){
     int opt;
 
@@ -369,7 +386,7 @@ void mainOption(int option){
             regressorsMenu();
             break;
         case 7:
-            //utilsMenu();
+            clusterersMenu();
             break;
         case 8:
             validationMenu();
@@ -406,7 +423,6 @@ void datasetOption(int option){
     switch(option){
         case 1:
             if(data->isEmpty()){
-                string pos, neg;
                 string isReg;
                 string sid, path;
 
@@ -417,7 +433,6 @@ void datasetOption(int option){
 
                 path = data_folder + files[Utils::stoin(sid)];
                 clock_t begin = clock();
-                //data->setClasses(pos, neg);
                 cout << "\n" << path << endl;
                 data->load(path);
                 clock_t end = clock();
@@ -1389,6 +1404,55 @@ void regressorsOption(int option) {
     regressorsMenu();
 }
 
+void clusterersOption(int option){
+    switch (option){
+        case 1:
+            if(!data->isEmpty()) {
+                size_t k;
+                size_t initialization;
+                cout << "k value: ";
+                cin >> k;
+                cout << endl;
+                cout << "Initialization [0 - random; 1 - kmeanspp]: ";
+                cin >> initialization;
+                KMeans<double> kmeans(data, k, (initialization == 0)?"random":"kmeanspp");
+                kmeans.setMaxTime(max_time);
+                kmeans.train();
+                auto conf_m = Validation<double>::generateConfusionMatrix(kmeans, *data);
+
+                Data<double> _data;
+                _data.copy(*data);
+                for(size_t i = 0; i < _data.getSize(); i++){
+                    auto point = _data[i];
+                    point->y = kmeans.evaluate(*point);
+                }
+                Visualization<double> vis(_data);
+                vector<int> classes(_data.getClasses().size());
+                iota(classes.begin(), classes.end(), 1);
+                _data.setClasses(classes);
+                cout << endl;
+                Utils::printConfusionMatrix(classes, conf_m);
+                if(_data.getDim() >= 3 )
+                    vis.plot3D(1,2,3);
+                if(_data.getDim() == 2)
+                    vis.plot2D(1, 2);
+                waitUserAction();
+            }else{
+                cout << "Load a dataset first..." << endl;
+            }
+            break;
+        case 0:
+            clusterersMenu();
+            break;
+        case 109:
+            mainMenu();
+            break;
+        default:
+            inva = true;
+            break;
+    }
+}
+
 void primalRegressorsOption(int option) {
     double eta = 0.5;
 
@@ -1808,34 +1872,7 @@ void primalClassifiersOption(int option){
             }else{
                 cout << "Load a dataset first..." << endl;
             }
-        case 5:
-            if(!data->isEmpty()) {
-                size_t k;
-                size_t initialization;
-                cout << "k value: ";
-                cin >> k;
-                cout << endl;
-                cout << "Initialization [0 - random; 1 - kmeanspp]: ";
-                cin >> initialization;
-                KMeans<double> kmeans(data, k, (initialization == 0)?"random":"kmeanspp");
-                kmeans.setMaxTime(max_time);
-                kmeans.train();
-                auto conf_m = Validation<double>::generateConfusionMatrix(kmeans, *data);
-
-                for(size_t i = 0; i < data->getSize(); i++){
-                    auto point = (*data)[i];
-                    point->y = kmeans.evaluate(*point);
-                }
-                Visualization<double> vis(data.get());
-                vector<int> classes(data->getClasses().size());
-                iota(classes.begin(), classes.end(), 1);
-                data->setClasses1(classes);
-                Utils::printConfusionMatrix(classes, conf_m);
-                vis.plot3D(1,2,3);
-                waitUserAction();
-            }else{
-                cout << "Load a dataset first..." << endl;
-            }
+            break;
         case 0:
             classifiersMenu();
             break;

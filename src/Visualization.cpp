@@ -10,8 +10,8 @@ template < typename T >
 Visualization< T >::Visualization()= default;
 
 template < typename T >
-Visualization< T >::Visualization(Data< T > *sample){
-    samples = sample;
+Visualization< T >::Visualization(Data<T> &sample){
+    samples = &sample;
 }
 
 template < typename T >

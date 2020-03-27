@@ -107,8 +107,8 @@ shared_ptr<Data<T>> Fisher<T>::selectFeatures() {
 
     sort(scores.begin(), scores.end(), fisher_select_compare_score_greater);
 
-    *stmp_partial = this->samples->copy();
-    *stmp = this->samples->copy();
+    stmp_partial->copy(*this->samples);
+    stmp->copy(*this->samples);
 
     for(i = 0; i < (dim-this->number); ++i)
     {
@@ -138,7 +138,7 @@ shared_ptr<Data<T>> Fisher<T>::selectFeatures() {
         }
         stmp_partial.reset();
         stmp_partial = make_shared<Data< T > >();
-        *stmp_partial = stmp->copy();
+        stmp_partial->copy(*stmp);
     }
 
     if(partial)

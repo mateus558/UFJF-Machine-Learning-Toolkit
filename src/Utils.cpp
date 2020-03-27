@@ -228,12 +228,12 @@ namespace Utils
 
     void printConfusionMatrix(std::vector<int> &classes, std::vector<std::vector<size_t> > &confusion_m) {
         size_t i, j, n_classes = classes.size();
-        cout << "\t";
+        cout << "    ";
         for(i = 0; i < n_classes; i++){
             cout << classes[i] << "\t";
         }
         cout << endl;
-        cout << "\t";
+        cout << "    ";
         for(i = 0; i < n_classes; i++){
             cout << "----";
         }

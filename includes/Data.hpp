@@ -148,22 +148,22 @@ public :
      * \param neg_class String representing the negative class on the dataset.
      */
     Data (const char* dataset);
-    
+
     /*********************************************
      *               Getters                     *
      *********************************************/
-    void setClasses1(const std::vector<int> &classes);
+    void setClasses(const std::vector<int> &classes);
 
     /**
      * \brief Returns the size of the dataset.
      * \return int
      */
-    inline size_t getSize (){ return size;}
+    size_t getSize() const{ return size;};
     /**
      * \brief Returns the dimension of the dataset.
      * \return int
      */
-    inline size_t getDim (){ return dim; }
+    size_t getDim () const{ return dim; }
     /**
      * \brief Returns a shared pointer to the vector of Points of the sample.
      * \return std::vector<std::shared_ptr<Point< T > > >
@@ -178,23 +178,23 @@ public :
      * \return std::vector<Point< T > >
      */
     std::shared_ptr<Point< T > > getPoint (int index);
-    std::vector<size_t> getClassesDistribution();
-    std::vector<std::string> getClassNames();
+    std::vector<size_t> getClassesDistribution() const ;
+    std::vector<std::string> getClassNames() const;
     /**
      * \brief Returns the features names.
      * \return std::vector<int>
      */
-    std::vector<int> getFeaturesNames ();
+    std::vector<int> getFeaturesNames() const;
     /**
      * \brief Returns a class with the statistics info of the sample.
      * \return Statistics
      */
-    Statistics< T > getStatistics ();
+    Statistics< T > getStatistics () const;
     /**
      * \brief Returns the vector of indexes.
      * \return std::vector<int>
      */
-    std::vector<int> getIndex();
+    std::vector<int> getIndex() const;
     /**
      * \brief Return the number of positive points.
      * \return int
@@ -236,12 +236,6 @@ public :
      * \param dim (???) Dimension to be set.
      */
     void setDim(size_t dim);
-    /**
-     * \brief setClasses Set the classes of the dataset.
-     * \param pos   Positive class.
-     * \param neg   Negative class.
-     */
-    void setClasses(std::string pos, const std::string& neg);
 
     /*********************************************
      *              Other operations             *
@@ -263,12 +257,12 @@ public :
      * \brief Returns if there's a dataset loaded.
      * \return bool
      */
-    bool isEmpty ();
+    bool isEmpty () const;
     /**
      * \brief Returns if the dataset is normalized.
      * \return bool
      */
-    inline bool isNormalized(){ return normalized; }
+    bool isNormalized() const{ return normalized; };
     /**
      * \brief clear Clear the data.
      */
@@ -277,7 +271,7 @@ public :
      * \brief Returns a copy of the data.
      * \return Data
      */
-    Data< T > copy ();
+    void copy (const Data< T > &_data);
     /**
      * \brief Returns a copy of the data with zero points.
      * \return Data

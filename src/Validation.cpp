@@ -172,7 +172,7 @@ double Validation< T > ::kFold (int fold, int seed){
 
     //Start cross-validation
     for(fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){
-        *test_sample = vet_sample_final[j]->copy();
+        test_sample->copy(*vet_sample_final[j]);
         train_sample->copyZero(*sample);
 
         for(i = 0; i < fold; ++i){

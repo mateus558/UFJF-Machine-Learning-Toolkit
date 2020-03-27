@@ -55,7 +55,7 @@ private :
     // Operations
 public :
     Visualization ();
-    Visualization (Data< T > *sample);
+    Visualization (Data<T> &sample);
 
     /*********************************************
      *               Setters                     *

@@ -38,7 +38,7 @@ std::shared_ptr<Data< T > > RFE< T >::selectFeatures() {
     double START_TIME = 100.0f * clock() / CLOCKS_PER_SEC;
     double n0 = 1;
 
-    *stmp = (*this->samples).copy();
+    stmp->copy(*this->samples);
     /*error check*/
     if(this->depth < 1 || this->depth >= dim){
         cerr << "Invalid depth!\n";
@@ -119,7 +119,7 @@ std::shared_ptr<Data< T > > RFE< T >::selectFeatures() {
 
         stmp_partial.reset();
         stmp_partial = make_shared<Data< T > >();
-        *stmp_partial = (*this->samples).copy();
+        stmp_partial->copy(*this->samples);
 
         partial_features.clear();
 

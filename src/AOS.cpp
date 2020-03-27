@@ -152,7 +152,7 @@ std::shared_ptr<Data<T>> AOS<T>::selectFeatures() {
             /*create new data struct*/
             level  = this->heap->getElements()[1]->level;
             fnames = this->heap->getElements()[1]->fnames;
-            stmp = this->samples->copy();
+            stmp.copy(*this->samples);
             stmp.removeFeatures(fnames);
 
             if(level == 1)
@@ -501,8 +501,7 @@ void AOS<T>::mainLoop() {
         this->contprojtreinados_parcial = this->contprojtrained;
         //sobraprojecoes_parcial = aos_select_heap_projected(heap);
         this->stmp_partial.reset();
-        this->stmp_partial = std::make_shared<Data<T> >(this->samples->copy());
-
+        this->stmp_partial->copy(*this->samples);
         if(look_ahead_depth > 0)
         {
             if(isPrimal)
