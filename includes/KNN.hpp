@@ -32,8 +32,6 @@ public:
 
     bool train() override;
 
-    std::string getFormulationString() override;
-
     double evaluate(Point<T> p) override;
 };
 

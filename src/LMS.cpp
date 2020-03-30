@@ -75,72 +75,9 @@ bool LMSPrimal< T >::train() {
         }
     }
 
-    return false;
-}
-/*
-template<typename T>
-KLMS<T>::KLMS(std::shared_ptr<Data<T>> samples, double rate, Kernel *K, int verbose, Solution *initial_solution) {
-    this->samples = samples;
-    this->rate = rate;
-    this->kernel = K;
-    this->verbose = verbose;
-    this->solution = *initial_solution;
+    return true;
 }
 
-template<typename T>
-bool KLMS<T>::train() {
-    size_t y, e, i, j, idx, r, size = this->samples->getSize(), dim = this->samples->getDim();
-    double norm = this->solution.norm, time = this->start_time+this->max_time;
-    double bias = this->solution.bias, f, error = 0;
-    std::vector<double> func(size, 0.0), Kv;
-    auto points = this->samples->getPoints();
-    dMatrix *K = this->kernel->getKernelMatrixPointer();
-
-    if(this->alpha.size() == 0){
-        this->alpha.assign(size, 0.0);
-    }
-
-    e = 1;
-
-    while(this->timer.Elapsed() - time <= 0){
-        for(e = 0, i = 0; i < size; ++i){
-            y = points[i]->y;
-
-            //Calculating function
-            for(func[i] = bias, r = 0; r < size; ++r)
-                func[i] += this->alpha[r] * points[r]->y*(*K)[i][r];
-
-            //Checking if the point is a mistake
-            if(y * func[i] <= 0.0){
-                error = y;
-                this->alpha[i] += this->alpha[i-1] + this->rate;
-                bias += this->rate * y;
-                ++this->ctot, ++e;
-            }else if(this->steps > 0 && e > 1) break;
-        }
-        ++this->steps;
-
-        //stop criterion
-        if(e == 0)	   break;
-        if(this->steps > this->MAX_IT) break;
-        if(this->ctot > this->MAX_UP) break;
-    }
-
-    this->solution.bias = bias;
-    this->solution.norm = norm;
-    this->solution.alpha = this->alpha;
-    this->solution.margin = 0.0;
-    this->solution.w.resize(dim);
-
-    for(i = 0; i < dim; i++){
-        for(j = 0; j < size; j++){
-            this->solution.w[i] += this->alpha[j]*points[j]->y*points[j]->x[i];
-        }
-    }
-
-    return (e == 0);
-}
-*/
 template class LMSPrimal<int>;
 template class LMSPrimal<double>;
 template class LMSPrimal<float>;
@@ -152,18 +89,3 @@ template class LMSPrimal<long double>;
 template class LMSPrimal<unsigned char>;
 template class LMSPrimal<unsigned int>;
 template class LMSPrimal<unsigned short int>;
-/*
-template class KLMS<int>;
-template class KLMS<double>;
-template class KLMS<float>;
-template class KLMS<int8_t>;
-template class KLMS<char>;
-template class KLMS<long long int>;
-template class KLMS<short int>;
-template class KLMS<long double>;
-template class KLMS<unsigned char>;
-template class KLMS<unsigned int>;
-template class KLMS<unsigned short int>;
-
-
-*/

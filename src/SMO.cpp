@@ -11,7 +11,6 @@
 //
 
 #include "../includes/SMO.hpp"
-#include "../includes/Utils.hpp"
 #include <cmath>
 
 using namespace std;
@@ -68,10 +67,9 @@ bool SMO<T>::train() {
     }
 
     this->solution.w = w_saved;
-
     this->solution.margin = 1.0/norm;
-
     this->solution.svs = 0;
+
     for(i = 0; i < size; ++i)
     {
         if((*this->samples)[i]->alpha > 0) ++this->solution.svs;

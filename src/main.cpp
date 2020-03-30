@@ -870,8 +870,7 @@ void classifiersOption(int option){
             cout << "1 - Perceptron Primal" << endl;
             cout << "2 - Perceptron Primal with fixed margin" << endl;
             cout << "3 - Incremental Margin Algorithm Primal (IMAp)" << endl;
-            cout << "4 - K-nearest neighbors (KNN)" << endl;
-            cout << "5 - K-means " << endl;
+            cout << "4 - K-Nearest Neighbors (KNN)" << endl;
             cout << endl;
             cout << "0 - Back to classifiers menu" << endl;
             cout << "m - Back to main menu." << endl;

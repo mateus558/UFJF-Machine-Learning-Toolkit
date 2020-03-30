@@ -268,7 +268,7 @@ public :
      */
     void clear();
     /**
-     * \brief Returns a copy of the data.
+     * \brief Makes a deep copy from another data object.
      * \return Data
      */
     void copy (const Data< T > &_data);

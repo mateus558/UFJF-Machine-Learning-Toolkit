@@ -1,4 +1,4 @@
-# Install script for directory: /home/mateus558/Repositories/UFJF-MLTK
+# Install script for directory: /home/mateus/Repositories/UFJF-MLTK
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/mateus558/Repositories/UFJF-MLTK/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/mateus/Repositories/UFJF-MLTK/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

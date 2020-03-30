@@ -53,21 +53,10 @@ bool KNN<T>::train() {
 }
 
 template<typename T>
-std::string KNN<T>::getFormulationString() {
-    return "PrimalClassifier";
-}
-
-
-template<typename T>
 KNNRegressor<T>::KNNRegressor(std::shared_ptr<Data<T>> _samples, size_t _k, KNNRegressor::function _dist_function) {
     this->samples = _samples;
     this->k = _k;
     this->dist_function = _dist_function;
-}
-
-template<typename T>
-bool KNNRegressor<T>::train() {
-    return false;
 }
 
 template<typename T>
@@ -101,6 +90,11 @@ double KNNRegressor<T>::evaluate(Point<T> p) {
         sum += points[idx[j]]->y;
     }
     return sum/this->k;
+}
+
+template<typename T>
+bool KNNRegressor<T>::train() {
+    return false;
 }
 
 

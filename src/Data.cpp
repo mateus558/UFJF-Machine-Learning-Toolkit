@@ -10,7 +10,6 @@
 #include <iterator>
 #include <utility>
 #include <cmath>
-#include <cstdio>
 #include <cstring>
 
 #include "../includes/Data.hpp"

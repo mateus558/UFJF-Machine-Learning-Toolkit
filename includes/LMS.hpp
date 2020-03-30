@@ -18,14 +18,4 @@ public:
     bool train() override;
 };
 
-/**
- * \brief Wrapper for the implementation of the Kernel Least Mean Square algorithm.
- */
-/*template < typename T >
-class KLMS: public DualRegressor< T > {
-public:
-    explicit KLMS(std::shared_ptr<Data< T > > samples = nullptr, double rate = 0.5, Kernel *K = nullptr, int verbose = 0, Solution *initial_solution = nullptr);
-    bool train() override;
-};
-*/
 #endif //UFJF_MLTK_LMS_H
