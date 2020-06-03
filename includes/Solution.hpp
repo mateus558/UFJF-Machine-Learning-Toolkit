@@ -7,7 +7,7 @@
 #define SOLUTION__HPP
 
 #include <vector>
-#include "../includes/Kernel.hpp"
+#include "Kernel.hpp"
 
 class Solution {
     // Attributes

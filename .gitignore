@@ -3,8 +3,12 @@ DB
 cmake-build-debug/CMakeFiles
 cmake-build-debug/temp/*
 cmake-build-debug/UFJF-MLTK
+cmake-build-debug/*.so
+cmake-build-debug/install_manifest*
+.ipynb_checkpoints
 .idea
 count.sh
 teste.cpp
 CMakeLists.txt
 scripts
+notebooks

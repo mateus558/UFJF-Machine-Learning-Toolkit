@@ -2,7 +2,7 @@
 // Created by mateus558 on 20/03/2020.
 //
 
-#include "../includes/KNN.hpp"
+#include "KNN.hpp"
 #include <memory>
 
 template <typename T >

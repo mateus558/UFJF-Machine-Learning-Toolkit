@@ -11,16 +11,16 @@
 #include <memory>
 #include <iomanip>
 
-#include "../includes/Perceptron.hpp"
-#include "../includes/LMS.hpp"
-#include "../includes/IMA.hpp"
-#include "../includes/SMO.hpp"
-#include "../includes/RFE.hpp"
-#include "../includes/Golub.hpp"
-#include "../includes/Fisher.hpp"
-#include "../includes/AOS.hpp"
-#include "../includes/KNN.hpp"
-#include "../includes/KMeans.hpp"
+#include "Perceptron.hpp"
+#include "LMS.hpp"
+#include "IMA.hpp"
+#include "SMO.hpp"
+#include "RFE.hpp"
+#include "Golub.hpp"
+#include "Fisher.hpp"
+#include "AOS.hpp"
+#include "KNN.hpp"
+#include "KMeans.hpp"
 
 using namespace std;
 

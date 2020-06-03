@@ -10,7 +10,7 @@
 #include <vector>
 #include <cmath>
 
-#include "../includes/Utils.hpp"
+#include "Utils.hpp"
 
 /**
  * \brief Class of a Point of doubles in a space of n dimensions.

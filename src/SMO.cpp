@@ -10,7 +10,7 @@
 // Adapted by Mateus Coutinho Marim on 7/28/2018.
 //
 
-#include "../includes/SMO.hpp"
+#include "SMO.hpp"
 #include <cmath>
 
 using namespace std;

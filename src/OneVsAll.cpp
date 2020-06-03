@@ -2,7 +2,7 @@
 // Created by mateus558 on 30/03/2020.
 //
 
-#include "../includes/OneVsAll.hpp"
+#include "OneVsAll.hpp"
 
 
 template< typename T, template <typename > class ClassifierT>
@@ -18,7 +18,6 @@ bool OneVsAll<T, ClassifierT>::train() {
     size_t i, j, n_classes = classes.size(), size = this->samples->getSize();
 
     for(i = 0; i < n_classes; i++){
-        ClassifierT< T > classifier;
         auto temp_samples = this->samples->copy();
         temp_samples.setClasses(new_classes);
 
@@ -36,6 +35,8 @@ bool OneVsAll<T, ClassifierT>::train() {
 
         weights.push_back(classifier.getSolutionRef()->w);
         biases.push_back(classifier.getSolutionRef()->bias);
+        classifier.getSolutionRef()->w.clear();
+        classifier.getSolutionRef()->bias = 0;
     }
 
     return true;
@@ -48,5 +49,5 @@ double OneVsAll<T, ClassifierT>::evaluate(Point<T> p) {
 
 template< typename T, template <typename > class ClassifierT>
 std::string OneVsAll<T, ClassifierT>::getFormulationString() {
-    return std::string();
+    return classifier.getFormulationString();
 }

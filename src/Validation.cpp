@@ -1,12 +1,12 @@
 #include <memory>
 
-#include "../includes/DualClassifier.hpp"
-#include "../includes/Validation.hpp"
-#include "../includes/Data.hpp"
-#include "../includes/Utils.hpp"
-#include "../includes/Point.hpp"
-#include "../includes/Random.hpp"
-#include "../includes/Kernel.hpp"
+#include "DualClassifier.hpp"
+#include "Validation.hpp"
+#include "Data.hpp"
+#include "Utils.hpp"
+#include "Point.hpp"
+#include "Random.hpp"
+#include "Kernel.hpp"
 
 using namespace std;
 

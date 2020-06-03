@@ -2,7 +2,7 @@
 #include <ctime>
 #include <cmath>
 
-#include "../includes/Perceptron.hpp"
+#include "Perceptron.hpp"
 
 using namespace std;
 

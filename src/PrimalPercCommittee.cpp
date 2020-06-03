@@ -2,8 +2,8 @@
 // Created by mateus558 on 29/07/19.
 //
 
-#include "../includes/PrimalPercCommittee.hpp"
-#include "../includes/Perceptron.hpp"
+#include "PrimalPercCommittee.hpp"
+#include "Perceptron.hpp"
 
 template <typename T>
 PrimalPercCommittee< T >::PrimalPercCommittee(std::shared_ptr<Data<T>> samples, size_t committee_size, PerceptronPrimal< T > *perc) {

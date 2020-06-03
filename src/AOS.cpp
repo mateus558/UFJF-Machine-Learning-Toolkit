@@ -4,10 +4,10 @@
 
 #include <algorithm>
 #include <functional>
-#include "../includes/AOS.hpp"
-#include "../includes/Validation.hpp"
-#include "../includes/PrimalClassifier.hpp"
-#include "../includes/SMO.hpp"
+#include "AOS.hpp"
+#include "Validation.hpp"
+#include "PrimalClassifier.hpp"
+#include "SMO.hpp"
 
 #define MAX_HEAP 500000
 #define NUM_ERROR_EPS 0.05

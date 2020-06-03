@@ -2,7 +2,7 @@
 // Created by Mateus Coutinho Mari on 7/27/2018.
 //
 
-#include "../includes/Fisher.hpp"
+#include "Fisher.hpp"
 #include <algorithm>
 #include <cmath>
 

@@ -3,7 +3,7 @@
 //
 
 #include <random>
-#include "../includes/KMeans.hpp"
+#include "KMeans.hpp"
 
 template<typename T>
 bool KMeans<T>::train() {

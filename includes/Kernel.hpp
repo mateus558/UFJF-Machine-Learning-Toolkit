@@ -148,7 +148,7 @@ void Kernel::compute(const std::shared_ptr<Data< T > > samples){
 
 template < typename T >
 dMatrix* Kernel::generateMatrixH(const std::shared_ptr<Data< T > > samples) {
-    register int i = 0, j = 0;
+    int i = 0, j = 0;
     size_t size = samples->getSize(), dim = samples->getDim();
 
     H.resize(size, std::vector<double>(size));
@@ -167,7 +167,7 @@ dMatrix* Kernel::generateMatrixH(const std::shared_ptr<Data< T > > samples) {
 
 template < typename T >
 dMatrix* Kernel::generateMatrixHwithoutDim(const std::shared_ptr<Data< T > > samples, int dim) {
-    register int i = 0, j = 0;
+    int i = 0, j = 0;
     size_t size = samples->getSize();
 
     HwithoutDim.resize(size, std::vector<double>(size));

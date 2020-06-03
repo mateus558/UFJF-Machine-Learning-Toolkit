@@ -1,4 +1,4 @@
-#include "../includes/Visualization.hpp"
+#include "Visualization.hpp"
 #include <cstdio>
 #include <string>
 #include <sstream>

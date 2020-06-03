@@ -2,7 +2,7 @@
 // Created by mateus558 on 03/01/19.
 //
 
-#include "../includes/LMS.hpp"
+#include "LMS.hpp"
 
 
 template<typename T>

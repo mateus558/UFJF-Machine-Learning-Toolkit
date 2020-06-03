@@ -6,9 +6,9 @@
 #include <cmath>
 #include <ctime>
 #include <float.h>
-#include "../includes/IMA.hpp"
-#include "../includes/Timer.hpp"
-#include "../includes/Perceptron.hpp"
+#include "IMA.hpp"
+#include "Timer.hpp"
+#include "Perceptron.hpp"
 
 using namespace std;
 

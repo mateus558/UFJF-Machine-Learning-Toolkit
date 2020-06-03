@@ -12,7 +12,7 @@
 #include <cmath>
 #include <cstring>
 
-#include "../includes/Data.hpp"
+#include "Data.hpp"
 
 using namespace std;
 

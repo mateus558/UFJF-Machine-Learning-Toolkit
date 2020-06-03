@@ -10,6 +10,7 @@
 template< typename T, template <typename > class ClassifierT>
 class OneVsAll: public Classifier< T > {
 private:
+    ClassifierT< T > classifier;
     std::vector<std::vector<double> > weights;
     std::vector<double> biases;
 

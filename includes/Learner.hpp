@@ -5,9 +5,9 @@
 #ifndef UFJF_MLTK_LEARNER_H
 #define UFJF_MLTK_LEARNER_H
 
-#include "../includes/Solution.hpp"
-#include "../includes/Data.hpp"
-#include "../includes/Timer.hpp"
+#include "Solution.hpp"
+#include "Data.hpp"
+#include "Timer.hpp"
 
 template < typename T >
 class Learner {
