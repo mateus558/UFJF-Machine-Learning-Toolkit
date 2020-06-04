@@ -1,10 +1,6 @@
 papers
 DB
-cmake-build-debug/CMakeFiles
-cmake-build-debug/temp/*
-cmake-build-debug/UFJF-MLTK
-cmake-build-debug/*.so
-cmake-build-debug/install_manifest*
+cmake-build-debug
 .ipynb_checkpoints
 .idea
 count.sh
