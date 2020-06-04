@@ -5,6 +5,5 @@ cmake-build-debug
 .idea
 count.sh
 teste.cpp
-CMakeLists.txt
 scripts
 notebooks
