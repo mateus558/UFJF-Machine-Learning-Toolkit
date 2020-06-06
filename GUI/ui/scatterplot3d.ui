@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ScatterPlot3D</class>
+ <widget class="VisualizationBase" name="ScatterPlot3D">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>640</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout"/>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+<customwidgets>
+ <customwidget>
+  <class>VisualizationBase</class>
+  <extends>QWidget</extends>
+  <header>visualizationbase.h</header>
+  <container>1</container>
+ </customwidget>
+</customwidgets>
+ <resources/>
+ <connections/>
+</ui>
