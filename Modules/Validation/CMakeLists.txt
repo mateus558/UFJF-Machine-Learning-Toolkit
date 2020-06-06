@@ -1,0 +1,20 @@
+add_library(${LIBVALIDATION} SHARED
+    src/Validation.cpp
+)
+
+set_target_properties(${LIBVALIDATION} PROPERTIES PUBLIC_HEADER "include/Validation.hpp")
+
+target_include_directories(${LIBVALIDATION} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(${LIBVALIDATION} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_compile_definitions(${LIBVALIDATION} PUBLIC LIBVALIDATION_VERSION=1.0)
+target_compile_features(${LIBVALIDATION} PRIVATE cxx_std_14)
+target_link_libraries(${LIBVALIDATION} ${LIBCORE} ${LIBCLASSIFIER})
+
+include(GNUInstallDirs)
+
+install(TARGETS ${LIBVALIDATION}
+        LIBRARY DESTINATION
+            ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}
+        PUBLIC_HEADER DESTINATION
+            ${CMAKE_INSTALL_INCLUDEDIR}/${LIBVALIDATION}
+        )

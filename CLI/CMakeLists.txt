@@ -1,0 +1,13 @@
+set(EXECNAME ufjf-mltk-cli)
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}")
+
+add_executable(${EXECNAME} main.cpp)
+set_target_properties(${EXECNAME} PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+target_link_libraries(${EXECNAME} ${LIBCORE} ${LIBCLASSIFIER} ${LIBREGRESSOR} ${LIBCLUSTERER} ${LIBFEATSELECT} ${LIBVALIDATION} ${LIBVISUALIZE})
+
+include(GNUInstallDirs)
+
+install(TARGETS ${EXECNAME}
+        RUNTIME DESTINATION
+            ${CMAKE_INSTALL_BINDIR}
+        )

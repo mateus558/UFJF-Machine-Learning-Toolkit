@@ -11,6 +11,7 @@
 #include <memory>
 #include <iomanip>
 
+#include "Visualization.hpp"
 #include "Perceptron.hpp"
 #include "LMS.hpp"
 #include "IMA.hpp"
@@ -20,6 +21,7 @@
 #include "Fisher.hpp"
 #include "AOS.hpp"
 #include "KNN.hpp"
+#include "KNNRegressor.hpp"
 #include "KMeans.hpp"
 
 using namespace std;
