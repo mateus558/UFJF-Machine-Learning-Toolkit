@@ -22,7 +22,6 @@ set(LIBVALIDATION validation)
 message(STATUS "UFJF-MLTK Version: ${PROJECT_VERSION}")
 
 add_subdirectory(Modules)
-add_subdirectory(Exec)
 
 if(BUILD_CLI)
     add_subdirectory(CLI)
