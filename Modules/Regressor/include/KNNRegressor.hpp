@@ -1,5 +1,5 @@
-#ifndef UFJF_MLTK_KNN_HPP
-#define UFJF_MLTK_KNN_HPP
+#ifndef UFJF_MLTK_KNNREGRESSOR_HPP
+#define UFJF_MLTK_KNNREGRESSOR_HPP
 
 
 #include "PrimalRegressor.hpp"

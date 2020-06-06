@@ -15,4 +15,5 @@ message(STATUS "UFJF-MLTK Version: ${PROJECT_VERSION}")
 
 add_subdirectory(Modules)
 add_subdirectory(Exec)
+add_subdirectory(CLI)
 add_subdirectory(GUI)
