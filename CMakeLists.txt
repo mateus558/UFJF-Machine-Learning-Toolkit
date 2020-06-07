@@ -21,6 +21,12 @@ set(LIBVALIDATION validation)
 
 message(STATUS "UFJF-MLTK Version: ${PROJECT_VERSION}")
 
+if(WIN32)
+    set(RUNTIME_DIR bin)
+else()
+    set(RUNTIME_DIR lib)
+endif()
+
 add_subdirectory(Modules)
 
 if(BUILD_CLI)

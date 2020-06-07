@@ -25,6 +25,8 @@ if(GNUPLOT_FOUND)
             EXPORT ${PROJECT_NAME}_${LIBVISUALIZE}-targets
             LIBRARY DESTINATION
                 ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}
+            RUNTIME DESTINATION
+                ${RUNTIME_DIR}
             PUBLIC_HEADER DESTINATION
                 ${CMAKE_INSTALL_INCLUDEDIR}/${LIBVISUALIZE}
             )
