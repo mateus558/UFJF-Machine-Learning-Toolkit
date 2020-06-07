@@ -9,8 +9,12 @@ if(GNUPLOT_FOUND)
 
     set_target_properties(${LIBVISUALIZE} PROPERTIES PUBLIC_HEADER "include/Visualization.hpp")
 
-    target_include_directories(${LIBVISUALIZE} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-    target_include_directories(${LIBVISUALIZE} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    target_include_directories(${LIBVISUALIZE} PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+            $<INSTALL_INTERFACE:include>)
+    target_include_directories(${LIBVISUALIZE} PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+            $<INSTALL_INTERFACE:src>)
     target_compile_definitions(${LIBVISUALIZE} PUBLIC LIBVISUALIZE_VERSION=1.1)
     target_compile_features(${LIBVISUALIZE} PRIVATE cxx_std_14)
     target_link_libraries(${LIBVISUALIZE} ${LIBCORE})
