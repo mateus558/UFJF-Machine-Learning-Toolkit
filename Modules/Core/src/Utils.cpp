@@ -218,13 +218,13 @@ namespace Utils
         return elems;
     }
 
-    double min(double a, double b){
+    /*double min(double a, double b){
         return (a < b)?a:b;
     }
 
     double max(double a, double b){
         return (a > b)?a:b;
-    }
+    }*/
 
     void printConfusionMatrix(std::vector<int> &classes, std::vector<std::vector<size_t> > &confusion_m) {
         size_t i, j, n_classes = classes.size();

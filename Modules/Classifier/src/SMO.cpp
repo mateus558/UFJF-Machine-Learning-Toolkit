@@ -12,6 +12,7 @@
 
 #include "SMO.hpp"
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -239,13 +240,13 @@ int SMO<T>::take_step(int i1, int i2) {
     /*compute min and max*/
     if(s == -1)
     {
-        min_val = Utils::max(0, alpha2 - alpha1);
-        max_val = Utils::min(this->C, this->C + alpha2 - alpha1);
+        min_val = std::max(0.0, alpha2 - alpha1);
+        max_val = std::min(double(this->C), this->C + alpha2 - alpha1);
     }
     else
     {
-        min_val = Utils::max(0, alpha2 + alpha1 - this->C);
-        max_val = Utils::min(this->C, alpha1 + alpha2);
+        min_val = std::max(0.0, alpha2 + alpha1 - this->C);
+        max_val = std::min(double(this->C), alpha1 + alpha2);
     }
     if(min_val == max_val){ if(this->verbose>2) cout << "return0 2\n"; return false;}
 
