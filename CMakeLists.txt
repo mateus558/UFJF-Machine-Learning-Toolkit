@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 project(UFJF-mltk VERSION 1.0.0)
 
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
+
 option(BUILD_GUI "Tells if the Qt GUI application must be built." OFF)
 option(BUILD_CLI "Tells if the console application must be built." ON)
 option(BUILD_LIBVISUALIZE "Tells if the visualization module must be built." ON)
