@@ -20,11 +20,15 @@ Modules
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
-
-.. toctree::
-   :maxdepth: 2
    :caption: Getting Started
    :hidden:
    
    getting_started/installation
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contribute
+   :hidden:
+   
+   codeconduct
+   
