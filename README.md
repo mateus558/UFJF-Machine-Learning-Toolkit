@@ -1,8 +1,14 @@
 # UFJF - MLTK (Machine Learning Toolkit)
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Last Commit](https://img.shields.io/github/last-commit/DCC-UFJF/UFJF-MLTK/develop)]
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+![GitHub last commit](https://img.shields.io/github/last-commit/mateus558/UFJF-MLTK)
+[![Build Status](https://travis-ci.org/mateus558/UFJF-MLTK.svg?branch=develop)](https://travis-ci.org/mateus558/UFJF-MLTK)
+[![Documentation Status](https://readthedocs.org/projects/ufjf-mltk/badge/?version=documentation)](https://ufjf-mltk.readthedocs.io/en/documentation/?badge=documentation)
+
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) 
+
+
 ## Objective
 This project aims to provide researchers and developers basic tools for manipulation of datasets, implementation and test of ML algorithms
 and some already implemented methods.<br />
@@ -20,7 +26,7 @@ These are the requirements to build the project:
 
 * Data visualization [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 * Classifiers (Primal and Dual) [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
-* Validation (K-Fold Cross-Validation) [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
+* Validation (K-Fold Cross-Validation) [![Generic badge](https://img.shields.io/badge/status-WIP-yellow.svg)](https://shields.io/)
 * Feature Selection [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 
 ## Documentation
