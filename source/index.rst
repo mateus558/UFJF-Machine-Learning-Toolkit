@@ -16,7 +16,7 @@ set of algorithms and tools for machine learning researchers and enthusiasts in 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
 
 
 .. toctree::
