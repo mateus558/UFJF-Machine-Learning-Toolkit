@@ -1,11 +1,12 @@
 # UFJF - MLTK (Machine Learning Toolkit)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Build Status](https://travis-ci.org/mateus558/UFJF-MLTK.svg?branch=develop)](https://travis-ci.org/mateus558/UFJF-MLTK)
+[![Documentation Status](https://readthedocs.org/projects/ufjf-mltk/badge/?version=documentation)](https://ufjf-mltk.readthedocs.io/en/documentation/?badge=documentation)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mateus558/UFJF-MLTK)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) 
 
-[![Build Status](https://travis-ci.org/mateus558/UFJF-MLTK.svg?branch=develop)](https://travis-ci.org/mateus558/UFJF-MLTK)
-[![Documentation Status](https://readthedocs.org/projects/ufjf-mltk/badge/?version=documentation)](https://ufjf-mltk.readthedocs.io/en/documentation/?badge=documentation)
 
 ## Objective
 This project aims to provide researchers and developers basic tools for manipulation of datasets, implementation and test of ML algorithms
