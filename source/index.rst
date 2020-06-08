@@ -14,7 +14,7 @@ clustering, feature selection, and ensemble learning. It aims to provide an alwa
 set of algorithms and tools for machine learning experts and enthusiasts in its projects.
 
 Modules
-========
+-------
 
 
 
