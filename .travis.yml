@@ -8,6 +8,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
+      - gnuplot
 
 script:
   - export CC=gcc-7
