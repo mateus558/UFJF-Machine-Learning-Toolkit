@@ -1,0 +1,33 @@
+add_subdirectory(Core)
+
+if (BUILD_LIBVISUALIZE OR BUILD_CLI OR BUILD_GUI)
+    add_subdirectory(Visualize)
+endif ()
+if (BUILD_LIBCLASSIFIER OR BUILD_LIBVALIDATION OR BUILD_LIBFEATSELECT OR BUILD_CLI OR BUILD_GUI)
+    add_subdirectory(Classifier)
+endif ()
+if (BUILD_LIBREGRESSOR OR BUILD_CLI OR BUILD_GUI)
+    add_subdirectory(Regressor)
+endif ()
+if (BUILD_LIBCLUSTERER OR BUILD_CLI OR BUILD_GUI)
+    add_subdirectory(Clusterer)
+endif ()
+if (BUILD_LIBFEATSELECT OR BUILD_CLI OR BUILD_GUI)
+    add_subdirectory(FeatureSelection)
+endif ()
+if (BUILD_LIBVALIDATION OR BUILD_LIBFEATSELECT OR BUILD_CLI OR BUILD_GUI)
+    add_subdirectory(Validation)
+endif ()
+
+# function to generate the GUI executable in the future
+# function(ufjf_mltk_gui teste)
+#     foreach(arg IN LISTS ARGN)
+#         message(STATUS "ufjf_mltk_gui test on arg1: ${arg}")
+#     endforeach()
+#     foreach(arg IN LISTS ARGV)
+#         message(STATUS "ufjf_mltk_gui test on arg1: ${arg}")
+#     endforeach()
+# endfunction()
+
+# ufjf_mltk_gui("teste" 1 2 3)
+
