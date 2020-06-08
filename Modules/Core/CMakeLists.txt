@@ -13,18 +13,7 @@ target_include_directories(${LIBCORE} PUBLIC
 target_include_directories(${LIBCORE} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
         $<INSTALL_INTERFACE:src>)
-target_compile_definitions(${LIBCORE} PUBLIC CORE_VERSION=1.1)
+target_compile_definitions(${LIBCORE} PUBLIC LIBCORE_VERSION=1.1)
 target_compile_features(${LIBCORE} PRIVATE cxx_std_14)
 
-include(GNUInstallDirs)
-
-install(TARGETS ${LIBCORE}
-        EXPORT ${PROJECT_NAME}_${LIBCORE}-targets
-        LIBRARY DESTINATION
-            ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}
-        RUNTIME DESTINATION
-            ${RUNTIME_DIR}
-        PUBLIC_HEADER DESTINATION
-            ${CMAKE_INSTALL_INCLUDEDIR}/${LIBCORE}
-        )
-install(EXPORT ${PROJECT_NAME}_${LIBCORE}-targets DESTINATION ${CMAKE_INSTALL_DIR}/cmake/${LIBCORE})
+install_lib(${LIBCORE})

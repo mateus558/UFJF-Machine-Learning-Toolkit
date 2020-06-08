@@ -19,19 +19,9 @@ if(GNUPLOT_FOUND)
     target_compile_features(${LIBVISUALIZE} PRIVATE cxx_std_14)
     target_link_libraries(${LIBVISUALIZE} ${LIBCORE})
 
-    include(GNUInstallDirs)
+    install_lib(${LIBVISUALIZE})
 
-    install(TARGETS ${LIBVISUALIZE}
-            EXPORT ${PROJECT_NAME}_${LIBVISUALIZE}-targets
-            LIBRARY DESTINATION
-                ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}
-            RUNTIME DESTINATION
-                ${RUNTIME_DIR}
-            PUBLIC_HEADER DESTINATION
-                ${CMAKE_INSTALL_INCLUDEDIR}/${LIBVISUALIZE}
-            )
-
-    install(EXPORT ${PROJECT_NAME}_${LIBVISUALIZE}-targets DESTINATION ${CMAKE_INSTALL_DIR}/cmake/${LIBVISUALIZE})
+    set(OBJECTS "${OBJECTS} $<TARGET_OBJECTS:${LIBVISUALIZE}> ")
 else()
     message(WARNING "Gnuplot not found: The Visualization module will not be compiled.")
 endif()

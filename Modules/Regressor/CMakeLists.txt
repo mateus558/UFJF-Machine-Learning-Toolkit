@@ -17,16 +17,4 @@ target_compile_definitions(${LIBREGRESSOR} PUBLIC LIBREGRESSOR_VERSION=1.0)
 target_compile_features(${LIBREGRESSOR} PRIVATE cxx_std_14)
 target_link_libraries(${LIBREGRESSOR} ${LIBCORE})
 
-include(GNUInstallDirs)
-
-install(TARGETS ${LIBREGRESSOR}
-        EXPORT ${PROJECT_NAME}_${LIBREGRESSOR}-targets
-        LIBRARY DESTINATION
-            ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}
-        RUNTIME DESTINATION
-            ${RUNTIME_DIR}
-        PUBLIC_HEADER DESTINATION
-            ${CMAKE_INSTALL_INCLUDEDIR}/${LIBREGRESSOR}
-        )
-
-install(EXPORT ${PROJECT_NAME}_${LIBREGRESSOR}-targets DESTINATION ${CMAKE_INSTALL_DIR}/cmake/${LIBREGRESSOR})
+install_lib(${LIBREGRESSOR})

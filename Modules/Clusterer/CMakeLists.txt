@@ -14,16 +14,4 @@ target_compile_definitions(${LIBCLUSTERER} PUBLIC LIBCLUSTERER_VERSION=1.0)
 target_compile_features(${LIBCLUSTERER} PRIVATE cxx_std_14)
 target_link_libraries(${LIBCLUSTERER} ${LIBCORE})
 
-include(GNUInstallDirs)
-
-install(TARGETS ${LIBCLUSTERER}
-        EXPORT ${PROJECT_NAME}_${LIBCLUSTERER}-targets
-        LIBRARY DESTINATION
-            ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}
-        RUNTIME DESTINATION
-            ${RUNTIME_DIR}
-        PUBLIC_HEADER DESTINATION
-            ${CMAKE_INSTALL_INCLUDEDIR}/${LIBCLUSTERER}
-        )
-
-install(EXPORT ${PROJECT_NAME}_${LIBCLUSTERER}-targets DESTINATION ${CMAKE_INSTALL_DIR}/cmake/${LIBCLUSTERER})
+install_lib(${LIBCLUSTERER})

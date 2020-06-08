@@ -18,16 +18,4 @@ target_compile_definitions(${LIBCLASSIFIER} PUBLIC LIBCLASSIFIER_VERSION=1.0)
 target_compile_features(${LIBCLASSIFIER} PRIVATE cxx_std_14)
 target_link_libraries(${LIBCLASSIFIER} ${LIBCORE})
 
-include(GNUInstallDirs)
-
-install(TARGETS ${LIBCLASSIFIER}
-        EXPORT ${PROJECT_NAME}_${LIBCLASSIFIER}-targets
-        LIBRARY DESTINATION
-            ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}
-        RUNTIME DESTINATION
-            ${RUNTIME_DIR}
-        PUBLIC_HEADER DESTINATION
-            ${CMAKE_INSTALL_INCLUDEDIR}/${LIBCLASSIFIER}
-        )
-
-install(EXPORT ${PROJECT_NAME}_${LIBCLASSIFIER}-targets DESTINATION ${CMAKE_INSTALL_DIR}/cmake/${LIBCLASSIFIER})
+install_lib(${LIBCLASSIFIER})
