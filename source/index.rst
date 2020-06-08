@@ -13,14 +13,11 @@ classification,  several types of learning problems such as classification, regr
 clustering, feature selection, and ensemble learning. It aims to provide an always growing 
 set of algorithms and tools for machine learning researchers and enthusiasts in its projects.
 
-Modules
--------
-
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   
+
 
 .. toctree::
    :maxdepth: 2
