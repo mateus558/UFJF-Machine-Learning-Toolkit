@@ -14,4 +14,4 @@ target_compile_definitions(${LIBVALIDATION} PUBLIC LIBVALIDATION_VERSION=1.0)
 target_compile_features(${LIBVALIDATION} PRIVATE cxx_std_14)
 target_link_libraries(${LIBVALIDATION} ${LIBCORE} ${LIBCLASSIFIER})
 
-install_lib(${LIBVALIDATION})
+install_lib(${LIBVALIDATION} Validation)

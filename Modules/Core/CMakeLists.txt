@@ -16,4 +16,4 @@ target_include_directories(${LIBCORE} PUBLIC
 target_compile_definitions(${LIBCORE} PUBLIC LIBCORE_VERSION=1.1)
 target_compile_features(${LIBCORE} PRIVATE cxx_std_14)
 
-install_lib(${LIBCORE})
+install_lib(${LIBCORE} Core)

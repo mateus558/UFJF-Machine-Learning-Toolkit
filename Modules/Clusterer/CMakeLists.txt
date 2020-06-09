@@ -14,4 +14,4 @@ target_compile_definitions(${LIBCLUSTERER} PUBLIC LIBCLUSTERER_VERSION=1.0)
 target_compile_features(${LIBCLUSTERER} PRIVATE cxx_std_14)
 target_link_libraries(${LIBCLUSTERER} ${LIBCORE})
 
-install_lib(${LIBCLUSTERER})
+install_lib(${LIBCLUSTERER} Clusterer)

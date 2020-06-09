@@ -19,7 +19,7 @@ if(GNUPLOT_FOUND)
     target_compile_features(${LIBVISUALIZE} PRIVATE cxx_std_14)
     target_link_libraries(${LIBVISUALIZE} ${LIBCORE})
 
-    install_lib(${LIBVISUALIZE})
+    install_lib(${LIBVISUALIZE} Visualize)
 
     set(OBJECTS "${OBJECTS} $<TARGET_OBJECTS:${LIBVISUALIZE}> ")
 else()

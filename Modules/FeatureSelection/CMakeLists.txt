@@ -17,4 +17,4 @@ target_compile_definitions(${LIBFEATSELECT} PUBLIC LIBFEATSELECT_VERSION=1.0)
 target_compile_features(${LIBFEATSELECT} PRIVATE cxx_std_14)
 target_link_libraries(${LIBFEATSELECT} ${LIBCORE} ${LIBCLASSIFIER} ${LIBVALIDATION})
 
-install_lib(${LIBFEATSELECT})
+install_lib(${LIBFEATSELECT} FeatureSelection)

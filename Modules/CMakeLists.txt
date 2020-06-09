@@ -1,6 +1,7 @@
-function(install_lib LIBTARGET)
-    include(GNUInstallDirs)
+include(GNUInstallDirs)
 
+# Function to install a library in the system
+function(install_lib LIBTARGET INCLUDE_FOLDER)
     install(TARGETS ${LIBTARGET}
             EXPORT ${PROJECT_NAME}_${LIBTARGET}-targets
             LIBRARY DESTINATION
@@ -8,7 +9,7 @@ function(install_lib LIBTARGET)
             RUNTIME DESTINATION
                 ${RUNTIME_DIR}
             PUBLIC_HEADER DESTINATION
-                ${CMAKE_INSTALL_INCLUDEDIR}/${LIBTARGET}
+                ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/${INCLUDE_FOLDER}
             )
 
     install(EXPORT ${PROJECT_NAME}_${LIBTARGET}-targets DESTINATION ${CMAKE_INSTALL_DIR}/cmake/${LIBTARGET})
@@ -41,8 +42,6 @@ if (BUILD_LIBVALIDATION OR BUILD_LIBFEATSELECT OR BUILD_CLI OR BUILD_GUI)
     set(OBJECTS ${OBJECTS} $<TARGET_OBJECTS:${LIBVALIDATION}> )
 endif ()
 
-add_library(${LIBMAIN} SHARED 
-    ${OBJECTS}
-)
-
-install_lib(${LIBMAIN})
+# link all built libraries to the main library
+add_library(${LIBMAIN} SHARED ${OBJECTS})
+install_lib(${LIBMAIN} UFJF-MLTK)

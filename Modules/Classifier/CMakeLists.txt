@@ -18,4 +18,4 @@ target_compile_definitions(${LIBCLASSIFIER} PUBLIC LIBCLASSIFIER_VERSION=1.0)
 target_compile_features(${LIBCLASSIFIER} PRIVATE cxx_std_14)
 target_link_libraries(${LIBCLASSIFIER} ${LIBCORE})
 
-install_lib(${LIBCLASSIFIER})
+install_lib(${LIBCLASSIFIER} Classifier)
