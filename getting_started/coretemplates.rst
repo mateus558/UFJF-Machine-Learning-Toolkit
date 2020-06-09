@@ -5,7 +5,8 @@ Core templates
 All the framework is composed of templates that make the development and use of ML (Machine Learning) algorithms easy and allow to the user to select the best available data type for the points of the data features.
 
 The user can represent the data in the following data types:
-.. code-block:: cpp
+
+.. highlight:: cpp
     int, int8_t, short int, unsigned int, unsigned short int, long long int;
     float, double, long double;
     char, unsigned char;
@@ -53,18 +54,18 @@ You can access the features values of a point accessing the elemens of the **x**
 
 The Data template
 =================
-As we're normally dealing with datasets we have multiple points to work, so there's the necessity to have a class to wrap all the information about this dataset and the operations that we can apply to these data. <br />
-<br />
+As we're normally dealing with datasets we have multiple points to work, so there's the necessity to have a class to wrap all the information about this dataset and the operations that we can apply to these data. 
+
 These are the supported formats:
-* arff
-* csv
-* data
-* txt (Embrapa datasets format) 
+- arff
+- csv
+- data
+- txt (Embrapa datasets format) 
 
 Memory sharing between Data objects
 ------------------------------------
-Sometimes we need to run several algorithms in the same dataset, if we'll not transform the feature space of the variables, copy all the data to each algorithm that we'll run can be a waste of memory and at sometimes a simple computer cant handle the memory consumption. <br /><br />
-Thinking in that the Data class was developed using smart pointers, a tool introduced at C++11 that handles the sharing of memory between objects with almost the same speed of raw pointers, but memory safe. <br /><br />
+Sometimes we need to run several algorithms in the same dataset, if we'll not transform the feature space of the variables, copy all the data to each algorithm that we'll run can be a waste of memory and at sometimes a simple computer cant handle the memory consumption. 
+Thinking in that the Data class was developed using smart pointers, a tool introduced at C++11 that handles the sharing of memory between objects with almost the same speed of raw pointers, but memory safe.
 Because of that an array of points in the data class is defined as, with T as one of allowed data types:
 .. code-block:: cpp
     std::vector<std::shared_ptr<Point< T > > > points;
@@ -105,7 +106,7 @@ After the data is loaded into the memory, we can get some useful information abo
 
 Scanning through the data points
 --------------------------------
-Though the smart pointers are intended to be preferred in the place of the raw pointers, they work almost the same way as we are used with the classic pointers, so there's no much difference in this. <br />
+Though the smart pointers are intended to be preferred in the place of the raw pointers, they work almost the same way as we are used with the classic pointers, so there's no much difference in this. 
 In this example we'll see how we can print each point of the dataset:
 
 .. code-block:: cpp
