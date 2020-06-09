@@ -21,7 +21,7 @@ if(GNUPLOT_FOUND)
 
     install_lib(${LIBVISUALIZE} Visualize)
 
-    set(OBJECTS "${OBJECTS} $<TARGET_OBJECTS:${LIBVISUALIZE}> ")
+    set(OBJECTS ${OBJECTS} $<TARGET_OBJECTS:${LIBVISUALIZE}> )
 else()
     message(WARNING "Gnuplot not found: The Visualization module will not be compiled.")
 endif()
