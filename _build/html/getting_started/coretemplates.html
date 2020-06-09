@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Core templates &mdash; UFJF-MLTK 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributor Covenant Code of Conduct" href="../contribute/codeconduct.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> UFJF-MLTK
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Core templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-point-template">The Point template</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-simple-usage-of-a-point">A simple usage of a point</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-data-template">The Data template</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#memory-sharing-between-data-objects">Memory sharing between Data objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-a-dataset-to-a-data-object">Loading a dataset to a Data object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-information-about-the-dataset">Getting information about the dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scanning-through-the-data-points">Scanning through the data points</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/codeconduct.html">Contributor Covenant Code of Conduct</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">UFJF-MLTK</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Core templates</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/getting_started/coretemplates.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="core-templates">
+<h1>Core templates<a class="headerlink" href="#core-templates" title="Permalink to this headline">¶</a></h1>
+<p>All the framework is composed of templates that make the development and use of ML (Machine Learning) algorithms easy and allow to the user to select the best available data type for the points of the data features.</p>
+<p>The user can represent the data in the following data types:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">,</span> <span class="kt">int8_t</span><span class="p">,</span> <span class="kt">short</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">short</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span><span class="p">;</span>
+<span class="kt">float</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">double</span><span class="p">;</span>
+<span class="kt">char</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">char</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>In all the examples we’ll be using the double data type as default, but you can substitute by one of the above.</p>
+<div class="section" id="the-point-template">
+<h2>The Point template<a class="headerlink" href="#the-point-template" title="Permalink to this headline">¶</a></h2>
+<p>This class is a wrapper for the n-dimension variables of the dataset in the feature space, it also includes along with the features values <strong>X</strong>, the target function <strong>Y</strong> and the _alpha_ weight associated to each point used in dual versions of ML algorithms.</p>
+<div class="section" id="a-simple-usage-of-a-point">
+<h3>A simple usage of a point<a class="headerlink" href="#a-simple-usage-of-a-point" title="Permalink to this headline">¶</a></h3>
+<p>Let’s see a simple Point initialization. First we need to instantiate an object from the Point class.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+<span class="n">Point</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+
+<span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">p</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">p</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>With that we initialized a 3 dimensional point with the feature values set as zero, target function equal to one, alpha value zero and id 5.
+As we are working in a normed space, there are the p-norm and dot product already associated to the Point class.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Point</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">other</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+
+<span class="n">p</span><span class="p">.</span><span class="n">norm</span><span class="p">();</span>
+<span class="n">p</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">other</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We can also print the point content using the stream overload operator.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">p</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>You can access the features values of a point accessing the elemens of the <strong>x</strong> vector member or by treating the point as a container:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-data-template">
+<h2>The Data template<a class="headerlink" href="#the-data-template" title="Permalink to this headline">¶</a></h2>
+<p>As we’re normally dealing with datasets we have multiple points to work, so there’s the necessity to have a class to wrap all the information about this dataset and the operations that we can apply to these data.</p>
+<p>These are the supported formats:</p>
+<ul class="simple">
+<li><p>arff</p></li>
+<li><p>csv</p></li>
+<li><p>data</p></li>
+<li><p>txt (Embrapa datasets format)</p></li>
+</ul>
+<div class="section" id="memory-sharing-between-data-objects">
+<h3>Memory sharing between Data objects<a class="headerlink" href="#memory-sharing-between-data-objects" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes we need to run several algorithms in the same dataset, if we’ll not transform the feature space of the variables, copy all the data to each algorithm that we’ll run can be a waste of memory and at sometimes a simple computer cant handle the memory consumption.
+Thinking in that the Data class was developed using smart pointers, a tool introduced at C++11 that handles the sharing of memory between objects with almost the same speed of raw pointers, but memory safe.
+Because of that an array of points in the data class is defined as, with T as one of allowed data types:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&lt;</span> <span class="n">T</span> <span class="o">&gt;</span> <span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">points</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>So if you use the = operator with other data object, they will be point to the same memory space, to copy the content of an object to another you’ll have to use the <code class="docutils literal notranslate"><span class="pre">`copy()`</span></code> method.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">other</span><span class="p">;</span>
+
+<span class="n">other</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-a-dataset-to-a-data-object">
+<h3>Loading a dataset to a Data object<a class="headerlink" href="#loading-a-dataset-to-a-data-object" title="Permalink to this headline">¶</a></h3>
+<p>This can be easily done with the Data class initialization, accomplished with only one line of code.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">(</span><span class="s">&quot;wine.csv&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Or if you want the data object initially empty.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
+
+<span class="n">data</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;wine.csv&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Note that in all formats the target function must be at the beginning or at the end of each line of the file.</p>
+</div>
+<div class="section" id="getting-information-about-the-dataset">
+<h3>Getting information about the dataset<a class="headerlink" href="#getting-information-about-the-dataset" title="Permalink to this headline">¶</a></h3>
+<p>After the data is loaded into the memory, we can get some useful information about the data.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Dataset information: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of points&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">.</span><span class="n">getSize</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Dimension&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">.</span><span class="n">getDim</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Positive points&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">.</span><span class="n">getNumberPositivePoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Negative points&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">.</span><span class="n">getNumberNegativePoints</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scanning-through-the-data-points">
+<h3>Scanning through the data points<a class="headerlink" href="#scanning-through-the-data-points" title="Permalink to this headline">¶</a></h3>
+<p>Though the smart pointers are intended to be preferred in the place of the raw pointers, they work almost the same way as we are used with the classic pointers, so there’s no much difference in this.
+In this example we’ll see how we can print each point of the dataset:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">getSize</span><span class="p">(),</span> <span class="n">dim</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">getDim</span><span class="p">();</span>
+
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">p</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Treating the Data object as a container:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">data[i]</span></code> returns a shared pointer to the i-th point of the dataset.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../contribute/codeconduct.html" class="btn btn-neutral float-right" title="Contributor Covenant Code of Conduct" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Mateus Coutinho Marim
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

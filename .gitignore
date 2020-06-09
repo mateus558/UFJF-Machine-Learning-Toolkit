@@ -18,4 +18,5 @@ docs/doxyoutput
 # wherever you told Exhale containmentFolder is
 docs/api
 GUI
+_build
 CLI
