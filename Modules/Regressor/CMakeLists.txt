@@ -17,4 +17,4 @@ target_compile_definitions(${LIBREGRESSOR} PUBLIC LIBREGRESSOR_VERSION=1.0)
 target_compile_features(${LIBREGRESSOR} PRIVATE cxx_std_14)
 target_link_libraries(${LIBREGRESSOR} ${LIBCORE})
 
-install_lib(${LIBREGRESSOR} Regressor)
+install_lib(${LIBREGRESSOR} Regressor 1.0)

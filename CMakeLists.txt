@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.17)
 project(UFJF-MLTK VERSION 1.0.0)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)

@@ -1,9 +1,10 @@
 include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 
 # Function to install a library in the system
-function(install_lib LIBTARGET INCLUDE_FOLDER)
+function(install_lib LIBTARGET INCLUDE_FOLDER LIBVERSION)
     install(TARGETS ${LIBTARGET}
-            EXPORT ${PROJECT_NAME}_${LIBTARGET}-targets
+            EXPORT ${LIBTARGET}Targets
             LIBRARY DESTINATION
                 ${CMAKE_INSTALL_LIBDIR}
             RUNTIME DESTINATION
@@ -12,7 +13,17 @@ function(install_lib LIBTARGET INCLUDE_FOLDER)
                 ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/${INCLUDE_FOLDER}
             )
 
-    install(EXPORT ${PROJECT_NAME}_${LIBTARGET}-targets DESTINATION ${CMAKE_INSTALL_DIR}/cmake/${LIBTARGET})
+    write_basic_package_version_file(${LIBTARGET}ConfigVersion.cmake
+        VERSION {${LIBVERSION}}
+        COMPATIBILITY SameMajorVersion
+    )
+    export(TARGETS
+            ${LIBTARGET}
+        FILE "${CMAKE_CURRENT_BINARY_DIR}/${LIBTARGET}Config.cmake"
+    )
+    #install(EXPORT ${LIBTARGET}Config DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBTARGET})
+    install(EXPORT ${LIBTARGET}Targets FILE ${LIBTARGET}Targets.cmake DESTINATION  ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBTARGET})
+    #install(FILES ${LIBTARGET}ConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${LIBTARGET})
 endfunction()
 
 add_subdirectory(Core)
@@ -44,4 +55,4 @@ endif ()
 
 # link all built libraries to the main library
 add_library(${LIBMAIN} SHARED ${OBJECTS})
-install_lib(${LIBMAIN} UFJF-MLTK)
+install_lib(${LIBMAIN} UFJF-MLTK ${PROJECT_VERSION})
