@@ -12,7 +12,7 @@ clustering, feature selection, and ensemble learning. It aims to provide an alwa
 set of algorithms and tools for machine learning researchers and enthusiasts in its projects.
 
 API Reference
-~~~~~~~~~~~~~
+#############
 
 You can find the API Reference at our repository `Gihub Pages`__.
 
