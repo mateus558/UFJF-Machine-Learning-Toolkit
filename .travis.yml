@@ -2,6 +2,7 @@ language: cpp
 compiler: gcc
 
 os: linux
+dist: bionic
 addons:
   apt:
     sources:
@@ -9,7 +10,8 @@ addons:
     packages:
       - g++-7
       - gnuplot
-
+      - cmake
+       
 script:
   - export CC=gcc-7
   - export CXX=g++-7
