@@ -6,7 +6,7 @@ All the framework is composed of templates that make the development and use of 
 
 The user can represent the data in the following data types:
 
-.. highlight:: cpp
+.. code-block:: cpp
     int, int8_t, short int, unsigned int, unsigned short int, long long int;
     float, double, long double;
     char, unsigned char;
