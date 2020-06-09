@@ -18,8 +18,9 @@ The Point template
 ===================
 This class is a wrapper for the n-dimension variables of the dataset in the feature space, it also includes along with the features values **X**, the target function **Y** and the _alpha_ weight associated to each point used in dual versions of ML algorithms.
 
+.. _pointusage:
 A simple usage of a point
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 
 Let's see a simple Point initialization. First we need to instantiate an object from the Point class.
 
@@ -69,8 +70,9 @@ These are the supported formats:
 - data
 - txt (Embrapa datasets format) 
 
+.. _datamemorysharing:
 Memory sharing between Data objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------
 
 Sometimes we need to run several algorithms in the same dataset, if we'll not transform the feature space of the variables, copy all the data to each algorithm that we'll run can be a waste of memory and at sometimes a simple computer cant handle the memory consumption. 
 Thinking in that the Data class was developed using smart pointers, a tool introduced at C++11 that handles the sharing of memory between objects with almost the same speed of raw pointers, but memory safe.
@@ -88,9 +90,9 @@ So if you use the = operator with other data object, they will be point to the s
 
     other = data.copy()
 
-
+.. _loadingdataset:
 Loading a dataset to a Data object
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 
 This can be easily done with the Data class initialization, accomplished with only one line of code.
 
@@ -109,8 +111,9 @@ Or if you want the data object initially empty.
 
 Note that in all formats the target function must be at the beginning or at the end of each line of the file.
 
+.. _datasetinformation:
 Getting information about the dataset
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------
 
 After the data is loaded into the memory, we can get some useful information about the data.
 
@@ -122,9 +125,9 @@ After the data is loaded into the memory, we can get some useful information abo
     std::cout << "Positive points" << data.getNumberPositivePoints() << std::endl;
     std::cout << "Negative points" << data.getNumberNegativePoints() << std::endl;
 
-
+.. _scanningpoints:
 Scanning through the data points
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------
 
 Though the smart pointers are intended to be preferred in the place of the raw pointers, they work almost the same way as we are used with the classic pointers, so there's no much difference in this. 
 In this example we'll see how we can print each point of the dataset:
