@@ -27,6 +27,7 @@ __ apipage_
    :hidden:
    
    getting_started/installation
+   getting_started/coretemplates
 
 .. toctree::
    :maxdepth: 2
