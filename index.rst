@@ -2,7 +2,7 @@
    sphinx-quickstart on Mon Jun  8 00:10:01 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
-
+================================
 UFJF - Machine Learning Toolkit
 ================================
 
@@ -11,9 +11,8 @@ usage of machine learning algorithms, addresses several types of learning proble
 clustering, feature selection, and ensemble learning. It aims to provide an always growing 
 set of algorithms and tools for machine learning researchers and enthusiasts in its projects.
 
-.. _apireference:
 API Reference
--------------
+~~~~~~~~~~~~~
 
 You can find the API Reference at our repository `Gihub Pages`__.
 
