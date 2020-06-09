@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structValidation_1_1CrossValidation" kind="struct" language="C++" prot="public">
+    <compoundname>Validation::CrossValidation</compoundname>
+    <includes refid="Validation_8hpp" local="no">Validation.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structValidation_1_1CrossValidation_1a1390b0775383e95347b9d502376b028a" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t Validation&lt; T &gt;::CrossValidation::qtde</definition>
+        <argsstring></argsstring>
+        <name>qtde</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" line="69" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structValidation_1_1CrossValidation_1a24522e62bed86b222427793059358453" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Validation&lt; T &gt;::CrossValidation::fold</definition>
+        <argsstring></argsstring>
+        <name>fold</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" line="70" column="13" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structValidation_1_1CrossValidation_1aaa216ea500fc18c08d5b2b6ecfa2d6b5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Validation&lt; T &gt;::CrossValidation::jump</definition>
+        <argsstring></argsstring>
+        <name>jump</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" line="71" column="13" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structValidation_1_1CrossValidation_1aeb6948b8c37587338ffd32de2cd7c488" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; unsigned int &gt;</type>
+        <definition>std::vector&lt;unsigned int&gt; Validation&lt; T &gt;::CrossValidation::seed</definition>
+        <argsstring></argsstring>
+        <name>seed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" line="72" column="21" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structValidation_1_1CrossValidation_1acdccfcf784001cd120096263fe27e03d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Validation&lt; T &gt;::CrossValidation::initial_error</definition>
+        <argsstring></argsstring>
+        <name>initial_error</name>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" line="74" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structValidation_1_1CrossValidation_1a58b86e73f6085890ec4cf4b755bb5ab0" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Validation&lt; T &gt;::CrossValidation::actual_error</definition>
+        <argsstring></argsstring>
+        <name>actual_error</name>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" line="75" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structValidation_1_1CrossValidation_1af6298877a122a8e4bcd447277476677b" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Validation&lt; T &gt;::CrossValidation::limit_error</definition>
+        <argsstring></argsstring>
+        <name>limit_error</name>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" line="76" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to manage a cross validation. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" line="68" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp" bodystart="68" bodyend="77"/>
+    <listofallmembers>
+      <member refid="structValidation_1_1CrossValidation_1a58b86e73f6085890ec4cf4b755bb5ab0" prot="public" virt="non-virtual"><scope>Validation::CrossValidation</scope><name>actual_error</name></member>
+      <member refid="structValidation_1_1CrossValidation_1a24522e62bed86b222427793059358453" prot="public" virt="non-virtual"><scope>Validation::CrossValidation</scope><name>fold</name></member>
+      <member refid="structValidation_1_1CrossValidation_1acdccfcf784001cd120096263fe27e03d" prot="public" virt="non-virtual"><scope>Validation::CrossValidation</scope><name>initial_error</name></member>
+      <member refid="structValidation_1_1CrossValidation_1aaa216ea500fc18c08d5b2b6ecfa2d6b5" prot="public" virt="non-virtual"><scope>Validation::CrossValidation</scope><name>jump</name></member>
+      <member refid="structValidation_1_1CrossValidation_1af6298877a122a8e4bcd447277476677b" prot="public" virt="non-virtual"><scope>Validation::CrossValidation</scope><name>limit_error</name></member>
+      <member refid="structValidation_1_1CrossValidation_1a1390b0775383e95347b9d502376b028a" prot="public" virt="non-virtual"><scope>Validation::CrossValidation</scope><name>qtde</name></member>
+      <member refid="structValidation_1_1CrossValidation_1aeb6948b8c37587338ffd32de2cd7c488" prot="public" virt="non-virtual"><scope>Validation::CrossValidation</scope><name>seed</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

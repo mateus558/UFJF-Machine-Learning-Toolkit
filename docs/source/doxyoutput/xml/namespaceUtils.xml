@@ -1,0 +1,351 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespaceUtils" kind="namespace" language="C++">
+    <compoundname>Utils</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="Utils_8hpp_1a0dfec1afda76ed3c97cb6eb2403a87ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Utils::printConfusionMatrix</definition>
+        <argsstring>(std::vector&lt; int &gt; &amp;classes, std::vector&lt; std::vector&lt; size_t &gt; &gt; &amp;confusion_m)</argsstring>
+        <name>printConfusionMatrix</name>
+        <param>
+          <type>std::vector&lt; int &gt; &amp;</type>
+          <declname>classes</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::vector&lt; size_t &gt; &gt; &amp;</type>
+          <declname>confusion_m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" line="229" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" bodystart="229" bodyend="248" declfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" declline="20" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8hpp_1af9834e74b99cfa451d68a2842efc409f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Utils::is_number</definition>
+        <argsstring>(std::string str)</argsstring>
+        <name>is_number</name>
+        <param>
+          <type>std::string</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Verify if the string is a number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String to be tested. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" line="26" column="10" declfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" declline="26" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8hpp_1a8fd9cf373e557233447320fff85f0b75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Utils::stoin</definition>
+        <argsstring>(std::string str)</argsstring>
+        <name>stoin</name>
+        <param>
+          <type>std::string</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Converts the string to an integer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String to be converted. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The integer resulted from the conversion. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" line="33" column="9" declfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" declline="33" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8hpp_1ab57e1cd647521bc3149ae54cb7fbf3a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Utils::atod</definition>
+        <argsstring>(const char *str)</argsstring>
+        <name>atod</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Converts the string to a double. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The string to be converted. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The double resulted from the conversion. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" line="46" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" bodystart="46" bodyend="64" declfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" declline="40" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8hpp_1a064dd32742fbf39c7d7b7d6fade03713" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>double</type>
+        <definition>double Utils::maxAbsElement</definition>
+        <argsstring>(std::vector&lt; T &gt; x)</argsstring>
+        <name>maxAbsElement</name>
+        <param>
+          <type>std::vector&lt; T &gt;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Returns the max absolute element. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The vector used to obtain the max element. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The max absolute element found. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" line="48" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" bodystart="48" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8hpp_1a3dcff8f030040bdd63f2b9556c7f2b39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>string Utils::itos</definition>
+        <argsstring>(int n)</argsstring>
+        <name>itos</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>itos Integer to string conversion. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer to be converted. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" line="66" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" bodystart="66" bodyend="98" declfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" declline="67" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8hpp_1a700c78d2db129cf738b3c82274d7a99b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>string Utils::dtoa</definition>
+        <argsstring>(double n)</argsstring>
+        <name>dtoa</name>
+        <param>
+          <type>double</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>dtoa Double to string conversion. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Double to be converted. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" line="131" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" bodystart="131" bodyend="203" declfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" declline="74" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8hpp_1ae468d0c710c36e05a0de9f04b9e96920" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Out</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Utils::split</definition>
+        <argsstring>(const std::string &amp;s, char delim, Out result)</argsstring>
+        <name>split</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>delim</declname>
+        </param>
+        <param>
+          <type>Out</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" line="207" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" bodystart="207" bodyend="213" declfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" declline="77" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8hpp_1a04eb58f493219287850c60f04b2e7488" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt; std::string &gt; Utils::split</definition>
+        <argsstring>(const std::string &amp;s, char delim)</argsstring>
+        <name>split</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>delim</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" line="215" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" bodystart="215" bodyend="219" declfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" declline="79" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8cpp_1ad41ebcfda6074134e5ac2d51c1398b9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Utils::is_number</definition>
+        <argsstring>(string s)</argsstring>
+        <name>is_number</name>
+        <param>
+          <type>string</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" line="21" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" bodystart="21" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8cpp_1a90a7f5d5780621efbf1e87675342ee2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Utils::stoin</definition>
+        <argsstring>(string str)</argsstring>
+        <name>stoin</name>
+        <param>
+          <type>string</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" line="26" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" bodystart="26" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8cpp_1a12582d8ae2edd1610b2264c222016164" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Utils::reverse</definition>
+        <argsstring>(char *str, int len)</argsstring>
+        <name>reverse</name>
+        <param>
+          <type>char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" line="100" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" bodystart="100" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="Utils_8cpp_1afc341b32907cf8c3cfa5e162c1a67d36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Utils::intToStr</definition>
+        <argsstring>(int x, char str[], int d)</argsstring>
+        <name>intToStr</name>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>str</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" line="112" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Utils.cpp" bodystart="112" bodyend="129"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Utils.hpp" line="18" column="1"/>
+  </compounddef>
+</doxygen>

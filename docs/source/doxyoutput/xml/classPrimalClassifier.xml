@@ -1,0 +1,435 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classPrimalClassifier" kind="class" language="C++" prot="public">
+    <compoundname>PrimalClassifier</compoundname>
+    <basecompoundref refid="classClassifier" prot="public" virt="non-virtual">Classifier&lt; T &gt;</basecompoundref>
+    <derivedcompoundref refid="classIMAp" prot="public" virt="non-virtual">IMAp&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classIMApFixedMargin" prot="public" virt="non-virtual">IMApFixedMargin&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classKNN" prot="public" virt="non-virtual">KNN&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classPerceptronFixedMarginPrimal" prot="public" virt="non-virtual">PerceptronFixedMarginPrimal&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classPerceptronPrimal" prot="public" virt="non-virtual">PerceptronPrimal&lt; T &gt;</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classPrimalClassifier_1a6191919f25a037b6a61d00ebda18f41e" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; PrimalClassifier&lt; T &gt;::w</definition>
+        <argsstring></argsstring>
+        <name>w</name>
+        <briefdescription>
+<para>Weights vector. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="16" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPrimalClassifier_1ae30c00c25bce4b1623baa54b5e2812b4" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double PrimalClassifier&lt; T &gt;::q</definition>
+        <argsstring></argsstring>
+        <name>q</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+<para>Norm used in the classification. (Euclidean Norm is the default) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="18" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPrimalClassifier_1ac5b59dafe749376fb067ceda690f405d" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double PrimalClassifier&lt; T &gt;::p</definition>
+        <argsstring></argsstring>
+        <name>p</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="18" column="15" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPrimalClassifier_1a5d41554dc1158ede39d387fecf73c96e" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double PrimalClassifier&lt; T &gt;::flexible</definition>
+        <argsstring></argsstring>
+        <name>flexible</name>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+<para>Flexibility. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="22" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPrimalClassifier_1a2668546ac4a39e10f72cbd2e865c41a7" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double PrimalClassifier&lt; T &gt;::alpha_aprox</definition>
+        <argsstring></argsstring>
+        <name>alpha_aprox</name>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+<para>Percentage of aproximation of the result. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="24" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPrimalClassifier_1a3d6ff7dd172d7632e597cb0a76d53a80" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>double</type>
+        <definition>double PrimalClassifier&lt; T &gt;::evaluate</definition>
+        <argsstring>(Point&lt; T &gt; p) override</argsstring>
+        <name>evaluate</name>
+        <reimplements refid="classLearner_1a670e6615c6bad54ba2139a3a3e718b98">evaluate</reimplements>
+        <param>
+          <type><ref refid="classPoint" kindref="compound">Point</ref>&lt; T &gt;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Returns the class of a feature point based on the trained <ref refid="classLearner" kindref="compound">Learner</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Point&lt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>T &gt; x (???) Features point to be evaluated. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="27" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="27" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classPrimalClassifier_1a73f82851a3b2c54803d56fa92cc42a8b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string PrimalClassifier&lt; T &gt;::getFormulationString</definition>
+        <argsstring>() override</argsstring>
+        <name>getFormulationString</name>
+        <reimplements refid="classLearner_1a2982992c0b4b00af9f9addec78d89d8d">getFormulationString</reimplements>
+        <briefdescription>
+<para>getFormulationString Returns a string that represents the formulation of the learner (Primal or Dual). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>std::string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="47" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classPrimalClassifier_1a43de98b120ea5b096d254db8d48ebe45" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double PrimalClassifier&lt; T &gt;::getP</definition>
+        <argsstring>() const</argsstring>
+        <name>getP</name>
+        <briefdescription>
+<para>GetP Return the value of the p norm. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="52" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classPrimalClassifier_1a3efea418c124ff9cf24bfefc54959ff9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double PrimalClassifier&lt; T &gt;::getQ</definition>
+        <argsstring>() const</argsstring>
+        <name>getQ</name>
+        <briefdescription>
+<para>GetQ Return the value of the q norm. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="57" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classPrimalClassifier_1a7e6953c01b190e6ef968b75bd578ad7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PrimalClassifier&lt; T &gt;::setqNorm</definition>
+        <argsstring>(double q)</argsstring>
+        <name>setqNorm</name>
+        <param>
+          <type>double</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+<para>setqNorm Set the q norm used by the classifier. (Euclidean norm is the default) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Norm that will be used by the classifier. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="67" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classPrimalClassifier_1ad0c3b7577b6c11da7394105dd2002f1d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PrimalClassifier&lt; T &gt;::setpNorm</definition>
+        <argsstring>(double p)</argsstring>
+        <name>setpNorm</name>
+        <param>
+          <type>double</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>setpNorm Set the p norm used by the classifier. (Euclidean norm is the default) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Norm that will be used by the classifier. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="72" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classPrimalClassifier_1a7e5c459cb4a377c794502cd9831ee095" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PrimalClassifier&lt; T &gt;::setFlexible</definition>
+        <argsstring>(double flexible)</argsstring>
+        <name>setFlexible</name>
+        <param>
+          <type>double</type>
+          <declname>flexible</declname>
+        </param>
+        <briefdescription>
+<para>Set flexibity of the classifier. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>flexible</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>flexibility. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="77" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classPrimalClassifier_1a049f4814d38b456c80c40cee5595502b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PrimalClassifier&lt; T &gt;::setAlphaAprox</definition>
+        <argsstring>(double alpha_aprox)</argsstring>
+        <name>setAlphaAprox</name>
+        <param>
+          <type>double</type>
+          <declname>alpha_aprox</declname>
+        </param>
+        <briefdescription>
+<para>Set the percentage of the aproximation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>alpha_aprox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Aproximation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="82" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="82" bodyend="82"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+      </node>
+      <node id="8">
+        <label>PerceptronPrimal&lt; T &gt;</label>
+        <link refid="classPerceptronPrimal"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Classifier&lt; T &gt;</label>
+        <link refid="classClassifier"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>KNN&lt; T &gt;</label>
+        <link refid="classKNN"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>PrimalClassifier&lt; T &gt;</label>
+        <link refid="classPrimalClassifier"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IMAp&lt; T &gt;</label>
+        <link refid="classIMAp"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>PerceptronFixedMarginPrimal&lt; T &gt;</label>
+        <link refid="classPerceptronFixedMarginPrimal"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IMApFixedMargin&lt; T &gt;</label>
+        <link refid="classIMApFixedMargin"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="5">
+        <label>Solution</label>
+        <link refid="classSolution"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>K</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>timer</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Kernel</label>
+        <link refid="classKernel"/>
+      </node>
+      <node id="2">
+        <label>Classifier&lt; T &gt;</label>
+        <link refid="classClassifier"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>solution</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>PrimalClassifier&lt; T &gt;</label>
+        <link refid="classPrimalClassifier"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Timer</label>
+        <link refid="classTimer"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" line="12" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp" bodystart="12" bodyend="83"/>
+    <listofallmembers>
+      <member refid="classPrimalClassifier_1a2668546ac4a39e10f72cbd2e865c41a7" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>alpha_aprox</name></member>
+      <member refid="classLearner_1aae507dee9ebc0b63edacf7b447ec4247" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>ctot</name></member>
+      <member refid="classLearner_1ad314cec3c154c884d7c49e0f85d7a51d" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>EPS</name></member>
+      <member refid="classPrimalClassifier_1a3d6ff7dd172d7632e597cb0a76d53a80" prot="public" virt="virtual"><scope>PrimalClassifier</scope><name>evaluate</name></member>
+      <member refid="classPrimalClassifier_1a5d41554dc1158ede39d387fecf73c96e" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>flexible</name></member>
+      <member refid="classClassifier_1ae7598910eeb47894579ca29718c9fa9c" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>gamma</name></member>
+      <member refid="classLearner_1afa6aca31b2b69b3dcb5cecd8d20fcb9c" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>getCtot</name></member>
+      <member refid="classLearner_1a2ebba060740ea935e0ddaf78725b3d41" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>getElapsedTime</name></member>
+      <member refid="classPrimalClassifier_1a73f82851a3b2c54803d56fa92cc42a8b" prot="public" virt="virtual"><scope>PrimalClassifier</scope><name>getFormulationString</name></member>
+      <member refid="classLearner_1a1cc77e06a25ecdad21444e10ec3aa92f" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>getMaxTime</name></member>
+      <member refid="classPrimalClassifier_1a43de98b120ea5b096d254db8d48ebe45" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>getP</name></member>
+      <member refid="classPrimalClassifier_1a3efea418c124ff9cf24bfefc54959ff9" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>getQ</name></member>
+      <member refid="classClassifier_1a015ba93eb1d31d36b336245f1dac9ce5" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>getSolution</name></member>
+      <member refid="classClassifier_1a4845fd932adb55becf78bfa4fccbea59" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>getSolutionRef</name></member>
+      <member refid="classLearner_1ab5e62cb073d7b4637e32ad35f9a9a7b9" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>getSteps</name></member>
+      <member refid="classLearner_1ab20cbef3868c739f2430b900726cf70d" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>getUpdates</name></member>
+      <member refid="classClassifier_1a914e488b477b9237cf991ff0b485c6c7" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>hasInitialSolution</name></member>
+      <member refid="classLearner_1af60abe634ca6d9159ed7ec451447a494" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>MAX_EPOCH</name></member>
+      <member refid="classLearner_1a9e3cad489e7679477669213e50a5df5c" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>MAX_IT</name></member>
+      <member refid="classLearner_1af4fb070de2058385845e66d0a0e8fb09" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>max_time</name></member>
+      <member refid="classLearner_1a169d884352da54047fd016ddcaca0065" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>MAX_UP</name></member>
+      <member refid="classLearner_1ab38efea8ba4da2e994a7927395361f0f" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>MIN_INC</name></member>
+      <member refid="classPrimalClassifier_1ac5b59dafe749376fb067ceda690f405d" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>p</name></member>
+      <member refid="classPrimalClassifier_1ae30c00c25bce4b1623baa54b5e2812b4" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>q</name></member>
+      <member refid="classLearner_1a6192264b814185c1b415f3dfb3b0a4f6" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>rate</name></member>
+      <member refid="classLearner_1af4a6ca1441fca4f90d6112beaa01e5de" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>samples</name></member>
+      <member refid="classPrimalClassifier_1a049f4814d38b456c80c40cee5595502b" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setAlphaAprox</name></member>
+      <member refid="classLearner_1a3614c6cafcbcad8783da92cf086eda54" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setCtot</name></member>
+      <member refid="classLearner_1a5cb560c8a0254686b69eb4149bb0bd6c" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setEPS</name></member>
+      <member refid="classPrimalClassifier_1a7e5c459cb4a377c794502cd9831ee095" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setFlexible</name></member>
+      <member refid="classClassifier_1a8ce9a9a19a9deceb12e39e54ef595650" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setGamma</name></member>
+      <member refid="classLearner_1a95d1b5eccfd4feff76a714c7405b5de4" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setLearningRate</name></member>
+      <member refid="classLearner_1abd5f07bd2c8cdda82ad7fcbbd9958f62" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setMaxIterations</name></member>
+      <member refid="classLearner_1a35444c62a2aeee7135896e5fec57f037" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setMaxTime</name></member>
+      <member refid="classLearner_1a37b07c6208eba4523a97dbcb696f8636" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setMaxUpdates</name></member>
+      <member refid="classPrimalClassifier_1ad0c3b7577b6c11da7394105dd2002f1d" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setpNorm</name></member>
+      <member refid="classPrimalClassifier_1a7e6953c01b190e6ef968b75bd578ad7d" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setqNorm</name></member>
+      <member refid="classLearner_1a28bb4fb9e638f0c492a08066c83f5ec7" prot="public" virt="virtual"><scope>PrimalClassifier</scope><name>setSamples</name></member>
+      <member refid="classClassifier_1a2eb8d760224eba3091c108155996d3d9" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setSolution</name></member>
+      <member refid="classLearner_1a3e08bfc154384761a04db7eb3ccdee7c" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setStartTime</name></member>
+      <member refid="classLearner_1a8758f2746d78feceec69659d437d291b" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setSteps</name></member>
+      <member refid="classLearner_1a5d10a524aa355eb39a4d1c54c0088e17" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setTimer</name></member>
+      <member refid="classLearner_1acd19fec7aaab48b29c758e90e847ec4f" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setVerbose</name></member>
+      <member refid="classClassifier_1acaf16d789bccb6772a801be5318acb3e" prot="public" virt="non-virtual"><scope>PrimalClassifier</scope><name>setW</name></member>
+      <member refid="classClassifier_1adecdc97505c2911a66e240ad0fefd9ea" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>solution</name></member>
+      <member refid="classLearner_1af82f6266dd06f362990b8258dcc3b001" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>start_time</name></member>
+      <member refid="classLearner_1abeebc91cde8ea55cf02cd5445798316f" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>steps</name></member>
+      <member refid="classClassifier_1ae8695222e93f7fea1a1e585d4c126f7d" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>svs</name></member>
+      <member refid="classLearner_1a024aa7ff99eb0e329e3118771782d47d" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>timer</name></member>
+      <member refid="classLearner_1a405ff5ebcd1d34f1d0bd7e1acc1d7165" prot="public" virt="pure-virtual"><scope>PrimalClassifier</scope><name>train</name></member>
+      <member refid="classLearner_1ae16fcef6dec8ef7bff3fad12ea383622" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>verbose</name></member>
+      <member refid="classPrimalClassifier_1a6191919f25a037b6a61d00ebda18f41e" prot="protected" virt="non-virtual"><scope>PrimalClassifier</scope><name>w</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

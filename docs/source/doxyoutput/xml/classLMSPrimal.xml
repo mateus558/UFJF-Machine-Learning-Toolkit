@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classLMSPrimal" kind="class" language="C++" prot="public">
+    <compoundname>LMSPrimal</compoundname>
+    <basecompoundref refid="classPrimalRegressor" prot="public" virt="non-virtual">PrimalRegressor&lt; T &gt;</basecompoundref>
+    <includes refid="LMS_8hpp" local="no">LMS.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLMSPrimal_1a1c4e7d77b3ca8a01325ff5c66dae0315" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>LMSPrimal&lt; T &gt;::LMSPrimal</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; samples=nullptr, double rate=0.5, int verbose=0, Solution *initial_solution=nullptr)</argsstring>
+        <name>LMSPrimal</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>samples</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>rate</declname>
+          <defval>0.5</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>verbose</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type><ref refid="classSolution" kindref="compound">Solution</ref> *</type>
+          <declname>initial_solution</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/LMS.hpp" line="17" column="14" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/src/LMS.cpp" bodystart="9" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classLMSPrimal_1aaba08885c7f03db41ea9735c2d0e1c92" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool LMSPrimal&lt; T &gt;::train</definition>
+        <argsstring>() override</argsstring>
+        <name>train</name>
+        <reimplements refid="classLearner_1a405ff5ebcd1d34f1d0bd7e1acc1d7165">train</reimplements>
+        <briefdescription>
+<para>Function that execute the training phase of a <ref refid="classLearner" kindref="compound">Learner</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>void </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/LMS.hpp" line="18" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/src/LMS.cpp" bodystart="23" bodyend="79"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Wrapper for the implementation of the Least Mean Square primal algorithm. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>LMSPrimal&lt; T &gt;</label>
+        <link refid="classLMSPrimal"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+      </node>
+      <node id="3">
+        <label>Regressor&lt; T &gt;</label>
+        <link refid="classRegressor"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>PrimalRegressor&lt; T &gt;</label>
+        <link refid="classPrimalRegressor"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>LMSPrimal&lt; T &gt;</label>
+        <link refid="classLMSPrimal"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Solution</label>
+        <link refid="classSolution"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>K</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>timer</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Kernel</label>
+        <link refid="classKernel"/>
+      </node>
+      <node id="3">
+        <label>Regressor&lt; T &gt;</label>
+        <link refid="classRegressor"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>solution</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Timer</label>
+        <link refid="classTimer"/>
+      </node>
+      <node id="2">
+        <label>PrimalRegressor&lt; T &gt;</label>
+        <link refid="classPrimalRegressor"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/LMS.hpp" line="15" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/LMS.hpp" bodystart="15" bodyend="19"/>
+    <listofallmembers>
+      <member refid="classLearner_1aae507dee9ebc0b63edacf7b447ec4247" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>ctot</name></member>
+      <member refid="classLearner_1ad314cec3c154c884d7c49e0f85d7a51d" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>EPS</name></member>
+      <member refid="classPrimalRegressor_1a60f80029e57c91829484dff815dd5116" prot="public" virt="virtual"><scope>LMSPrimal</scope><name>evaluate</name></member>
+      <member refid="classLearner_1afa6aca31b2b69b3dcb5cecd8d20fcb9c" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>getCtot</name></member>
+      <member refid="classLearner_1a2ebba060740ea935e0ddaf78725b3d41" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>getElapsedTime</name></member>
+      <member refid="classPrimalRegressor_1a78977adebe161730080c88849253d65b" prot="public" virt="virtual"><scope>LMSPrimal</scope><name>getFormulationString</name></member>
+      <member refid="classLearner_1a1cc77e06a25ecdad21444e10ec3aa92f" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>getMaxTime</name></member>
+      <member refid="classRegressor_1abe07f279284c94a02faf640f7e2e3a74" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>getSolution</name></member>
+      <member refid="classRegressor_1a1182860a22d0b3987fa0be9e30af26e2" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>getSolutionRef</name></member>
+      <member refid="classLearner_1ab5e62cb073d7b4637e32ad35f9a9a7b9" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>getSteps</name></member>
+      <member refid="classLearner_1ab20cbef3868c739f2430b900726cf70d" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>getUpdates</name></member>
+      <member refid="classLMSPrimal_1a1c4e7d77b3ca8a01325ff5c66dae0315" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>LMSPrimal</name></member>
+      <member refid="classLearner_1af60abe634ca6d9159ed7ec451447a494" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>MAX_EPOCH</name></member>
+      <member refid="classLearner_1a9e3cad489e7679477669213e50a5df5c" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>MAX_IT</name></member>
+      <member refid="classLearner_1af4fb070de2058385845e66d0a0e8fb09" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>max_time</name></member>
+      <member refid="classLearner_1a169d884352da54047fd016ddcaca0065" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>MAX_UP</name></member>
+      <member refid="classLearner_1ab38efea8ba4da2e994a7927395361f0f" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>MIN_INC</name></member>
+      <member refid="classLearner_1a6192264b814185c1b415f3dfb3b0a4f6" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>rate</name></member>
+      <member refid="classLearner_1af4a6ca1441fca4f90d6112beaa01e5de" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>samples</name></member>
+      <member refid="classLearner_1a3614c6cafcbcad8783da92cf086eda54" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setCtot</name></member>
+      <member refid="classLearner_1a5cb560c8a0254686b69eb4149bb0bd6c" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setEPS</name></member>
+      <member refid="classLearner_1a95d1b5eccfd4feff76a714c7405b5de4" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setLearningRate</name></member>
+      <member refid="classLearner_1abd5f07bd2c8cdda82ad7fcbbd9958f62" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setMaxIterations</name></member>
+      <member refid="classLearner_1a35444c62a2aeee7135896e5fec57f037" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setMaxTime</name></member>
+      <member refid="classLearner_1a37b07c6208eba4523a97dbcb696f8636" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setMaxUpdates</name></member>
+      <member refid="classLearner_1a28bb4fb9e638f0c492a08066c83f5ec7" prot="public" virt="virtual"><scope>LMSPrimal</scope><name>setSamples</name></member>
+      <member refid="classRegressor_1a25a419ea756e24a879ba54be36cd4892" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setSolution</name></member>
+      <member refid="classLearner_1a3e08bfc154384761a04db7eb3ccdee7c" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setStartTime</name></member>
+      <member refid="classLearner_1a8758f2746d78feceec69659d437d291b" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setSteps</name></member>
+      <member refid="classLearner_1a5d10a524aa355eb39a4d1c54c0088e17" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setTimer</name></member>
+      <member refid="classLearner_1acd19fec7aaab48b29c758e90e847ec4f" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setVerbose</name></member>
+      <member refid="classRegressor_1a09ce511d75b5a7287fc2498cd43e21fe" prot="public" virt="non-virtual"><scope>LMSPrimal</scope><name>setW</name></member>
+      <member refid="classRegressor_1adbf15bdd985feee17d8e8dac31fa6641" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>solution</name></member>
+      <member refid="classLearner_1af82f6266dd06f362990b8258dcc3b001" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>start_time</name></member>
+      <member refid="classLearner_1abeebc91cde8ea55cf02cd5445798316f" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>steps</name></member>
+      <member refid="classLearner_1a024aa7ff99eb0e329e3118771782d47d" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>timer</name></member>
+      <member refid="classLMSPrimal_1aaba08885c7f03db41ea9735c2d0e1c92" prot="public" virt="virtual"><scope>LMSPrimal</scope><name>train</name></member>
+      <member refid="classLearner_1ae16fcef6dec8ef7bff3fad12ea383622" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>verbose</name></member>
+      <member refid="classPrimalRegressor_1a2beda8db0c789cd731d54e08e6393f2f" prot="protected" virt="non-virtual"><scope>LMSPrimal</scope><name>w</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

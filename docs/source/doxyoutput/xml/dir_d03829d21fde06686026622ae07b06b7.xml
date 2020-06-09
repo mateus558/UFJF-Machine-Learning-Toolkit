@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_d03829d21fde06686026622ae07b06b7" kind="dir">
+    <compoundname>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/src</compoundname>
+    <innerfile refid="KNNRegressor_8cpp">KNNRegressor.cpp</innerfile>
+    <innerfile refid="LMS_8cpp">LMS.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/src/"/>
+  </compounddef>
+</doxygen>

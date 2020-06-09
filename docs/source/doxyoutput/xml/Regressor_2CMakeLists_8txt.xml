@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="Regressor_2CMakeLists_8txt" kind="file" language="C++">
+    <compoundname>CMakeLists.txt</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="Regressor_2CMakeLists_8txt_1af6f8088716e0587665d7e08a9b93554f" prot="public" static="no" mutable="no">
+        <type>PROPERTIES PUBLIC_HEADER include <ref refid="classRegressor" kindref="compound">Regressor</ref></type>
+        <definition>include LMS hpp</definition>
+        <argsstring></argsstring>
+        <name>hpp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt" line="7" column="25" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="Regressor_2CMakeLists_8txt_1a8eb8c178cab98276373ee33327aaf083" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>add_library</definition>
+        <argsstring>(${LIBREGRESSOR} SHARED src/LMS.cpp src/KNNRegressor.cpp) set_target_properties($</argsstring>
+        <name>add_library</name>
+        <param>
+          <declname>${LIBREGRESSOR} SHARED src/LMS.cpp src/KNNRegressor.</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt" line="1" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt" bodystart="1" bodyend="6"/>
+      </memberdef>
+      <memberdef kind="function" id="Regressor_2CMakeLists_8txt_1a649eca0c99f884d1a1eea6785c9c35d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>include <ref refid="classKNNRegressor" kindref="compound">KNNRegressor</ref> hpp</type>
+        <definition>include KNNRegressor hpp target_include_directories</definition>
+        <argsstring>(${LIBREGRESSOR} PUBLIC $&lt; BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include &gt; $&lt; INSTALL_INTERFACE:include &gt;) target_include_directories($</argsstring>
+        <name>target_include_directories</name>
+        <param>
+          <declname>${LIBREGRESSOR} PUBLIC $&lt; BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include &gt; $&lt; INSTALL_INTERFACE:include &gt;</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt" line="10" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt" bodystart="10" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="Regressor_2CMakeLists_8txt_1ac7cd85bb9a2d274d88179be02d26c277" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>PUBLIC&lt; BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src &gt;&lt; INSTALL_INTERFACE:src &gt;</type>
+        <definition>PUBLIC&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src&gt;&lt;INSTALL_INTERFACE:src&gt; target_compile_definitions</definition>
+        <argsstring>(${LIBREGRESSOR} PUBLIC LIBREGRESSOR_VERSION=1.0) target_compile_features($</argsstring>
+        <name>target_compile_definitions</name>
+        <param>
+          <declname>${LIBREGRESSOR} PUBLIC</declname>
+          <defval>1.0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt" line="16" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt" bodystart="16" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="Regressor_2CMakeLists_8txt_1ae7418a9d8d485acb501b27d378cb8e1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>PRIVATE cxx_std_14</type>
+        <definition>PRIVATE cxx_std_14 target_link_libraries</definition>
+        <argsstring>(${LIBREGRESSOR} ${LIBCORE}) install_lib($</argsstring>
+        <name>target_link_libraries</name>
+        <param>
+          <declname>${LIBREGRESSOR} ${LIBCORE}</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt" line="18" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt" bodystart="18" bodyend="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">add_library(${LIBREGRESSOR}<sp/>SHARED</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"><sp/><sp/><sp/><sp/>src/LMS.cpp</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><sp/><sp/><sp/><sp/>src/<ref refid="classKNNRegressor" kindref="compound">KNNRegressor</ref>.cpp</highlight></codeline>
+<codeline lineno="4"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">set_target_properties(${LIBREGRESSOR}<sp/>PROPERTIES<sp/>PUBLIC_HEADER</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;include/Regressor.hpp;include/PrimalRegressor.hpp;include/DualRegressor.hpp;include/LMS.hpp;include/KNNRegressor.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal">target_include_directories(${LIBREGRESSOR}<sp/>PUBLIC</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include&gt;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$&lt;INSTALL_INTERFACE:include&gt;)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">target_include_directories(${LIBREGRESSOR}<sp/>PUBLIC</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src&gt;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$&lt;INSTALL_INTERFACE:src&gt;)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">target_compile_definitions(${LIBREGRESSOR}<sp/>PUBLIC<sp/>LIBREGRESSOR_VERSION=1.0)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">target_compile_features(${LIBREGRESSOR}<sp/>PRIVATE<sp/>cxx_std_14)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">target_link_libraries(${LIBREGRESSOR}<sp/>${LIBCORE})</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">install_lib(${LIBREGRESSOR}<sp/><ref refid="classRegressor" kindref="compound">Regressor</ref>)</highlight></codeline>
+    </programlisting>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

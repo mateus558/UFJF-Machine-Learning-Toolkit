@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structAOS_1_1select__gamma" kind="struct" language="C++" prot="public">
+    <compoundname>AOS::select_gamma</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a222c1003d8a16dc20155bb983b5263a9" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; AOS&lt; T &gt;::select_gamma::fnames</definition>
+        <argsstring></argsstring>
+        <name>fnames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="31" column="21" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a2f42319e383e9289672a7192271152bc" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::select_gamma::level</definition>
+        <argsstring></argsstring>
+        <name>level</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="32" column="13" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a76ae58919d898355e15b571d9ed662f3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::select_gamma::sv</definition>
+        <argsstring></argsstring>
+        <name>sv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="33" column="13" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a96c02e9f0c43e4ed85c0bf41ff3f38a0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::select_gamma::train</definition>
+        <argsstring></argsstring>
+        <name>train</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="34" column="13" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1aef5dcc549822fe98c5b1c303ccf7e8d2" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::select_gamma::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="35" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1af6c92e1e5c64122f24b57052ef3ddaf1" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::select_gamma::pgamma</definition>
+        <argsstring></argsstring>
+        <name>pgamma</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="36" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a3ee107ec2c4fd828e08a927bc300c40d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::select_gamma::rgamma</definition>
+        <argsstring></argsstring>
+        <name>rgamma</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="37" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a4bc8b618dda2655958d89ba4d2971f58" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::select_gamma::radius</definition>
+        <argsstring></argsstring>
+        <name>radius</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="38" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a6d8e0a8cfbb23c4869caba4bed734dd7" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::select_gamma::dcents</definition>
+        <argsstring></argsstring>
+        <name>dcents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="39" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a8adddb05731280489ed19a09e1701cf7" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::select_gamma::golub</definition>
+        <argsstring></argsstring>
+        <name>golub</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="40" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a89fa4748ec462fa2279d71eec31302a7" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::select_gamma::fisher</definition>
+        <argsstring></argsstring>
+        <name>fisher</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="41" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a98dc24eba623345f82ed99603935834c" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; AOS&lt; T &gt;::select_gamma::w</definition>
+        <argsstring></argsstring>
+        <name>w</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="42" column="21" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structAOS_1_1select__gamma_1a3c8eeece3f82d52fe253b7bc3d75db68" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::select_gamma::bias</definition>
+        <argsstring></argsstring>
+        <name>bias</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="43" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structAOS_1_1select__gamma_1ac3b2bdee09c879626d7b78122d09c334" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AOS&lt; T &gt;::select_gamma::operator==</definition>
+        <argsstring>(AOS::select_gamma other) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type><ref refid="structAOS_1_1select__gamma" kindref="compound">AOS::select_gamma</ref></type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="45" column="14" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src/AOS.cpp" bodystart="944" bodyend="957"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="29" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="30" bodyend="46"/>
+    <listofallmembers>
+      <member refid="structAOS_1_1select__gamma_1a3c8eeece3f82d52fe253b7bc3d75db68" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>bias</name></member>
+      <member refid="structAOS_1_1select__gamma_1a6d8e0a8cfbb23c4869caba4bed734dd7" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>dcents</name></member>
+      <member refid="structAOS_1_1select__gamma_1a89fa4748ec462fa2279d71eec31302a7" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>fisher</name></member>
+      <member refid="structAOS_1_1select__gamma_1a222c1003d8a16dc20155bb983b5263a9" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>fnames</name></member>
+      <member refid="structAOS_1_1select__gamma_1a8adddb05731280489ed19a09e1701cf7" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>golub</name></member>
+      <member refid="structAOS_1_1select__gamma_1a2f42319e383e9289672a7192271152bc" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>level</name></member>
+      <member refid="structAOS_1_1select__gamma_1ac3b2bdee09c879626d7b78122d09c334" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>operator==</name></member>
+      <member refid="structAOS_1_1select__gamma_1af6c92e1e5c64122f24b57052ef3ddaf1" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>pgamma</name></member>
+      <member refid="structAOS_1_1select__gamma_1a4bc8b618dda2655958d89ba4d2971f58" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>radius</name></member>
+      <member refid="structAOS_1_1select__gamma_1a3ee107ec2c4fd828e08a927bc300c40d" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>rgamma</name></member>
+      <member refid="structAOS_1_1select__gamma_1a76ae58919d898355e15b571d9ed662f3" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>sv</name></member>
+      <member refid="structAOS_1_1select__gamma_1a96c02e9f0c43e4ed85c0bf41ff3f38a0" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>train</name></member>
+      <member refid="structAOS_1_1select__gamma_1aef5dcc549822fe98c5b1c303ccf7e8d2" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>value</name></member>
+      <member refid="structAOS_1_1select__gamma_1a98dc24eba623345f82ed99603935834c" prot="public" virt="non-virtual"><scope>AOS::select_gamma</scope><name>w</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

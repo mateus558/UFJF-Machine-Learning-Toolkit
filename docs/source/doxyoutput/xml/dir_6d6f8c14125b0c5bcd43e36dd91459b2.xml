@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_6d6f8c14125b0c5bcd43e36dd91459b2" kind="dir">
+    <compoundname>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src</compoundname>
+    <innerfile refid="Data_8cpp">Data.cpp</innerfile>
+    <innerfile refid="Kernel_8cpp">Kernel.cpp</innerfile>
+    <innerfile refid="Statistics_8cpp">Statistics.cpp</innerfile>
+    <innerfile refid="Utils_8cpp">Utils.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/"/>
+  </compounddef>
+</doxygen>

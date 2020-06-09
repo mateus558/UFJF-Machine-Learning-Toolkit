@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structSMO_1_1smo__learning__data" kind="struct" language="C++" prot="private">
+    <compoundname>SMO::smo_learning_data</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structSMO_1_1smo__learning__data_1a065b073fa2a26801115813d996fd7f57" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double SMO&lt; T &gt;::smo_learning_data::error</definition>
+        <argsstring></argsstring>
+        <name>error</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="34" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSMO_1_1smo__learning__data_1ae5e1005bc99aae6fbc6727bd7eb6dd58" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool SMO&lt; T &gt;::smo_learning_data::done</definition>
+        <argsstring></argsstring>
+        <name>done</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="35" column="14" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSMO_1_1smo__learning__data_1a2dbdfe786b1c05238521666287b1f699" prot="public" static="no" mutable="no">
+        <type><ref refid="structint__dll" kindref="compound">int_dll</ref> *</type>
+        <definition>int_dll* SMO&lt; T &gt;::smo_learning_data::sv</definition>
+        <argsstring></argsstring>
+        <name>sv</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="36" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structSMO_1_1smo__learning__data_1a578b38a15a3de3bd63c3f4648af124a4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SMO&lt; T &gt;::smo_learning_data::smo_learning_data</definition>
+        <argsstring>()</argsstring>
+        <name>smo_learning_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="38" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" bodystart="38" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>SMO&lt; T &gt;::smo_learning_data</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>sv</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>int_dll</label>
+        <link refid="structint__dll"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="32" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" bodystart="33" bodyend="43"/>
+    <listofallmembers>
+      <member refid="structSMO_1_1smo__learning__data_1ae5e1005bc99aae6fbc6727bd7eb6dd58" prot="public" virt="non-virtual"><scope>SMO::smo_learning_data</scope><name>done</name></member>
+      <member refid="structSMO_1_1smo__learning__data_1a065b073fa2a26801115813d996fd7f57" prot="public" virt="non-virtual"><scope>SMO::smo_learning_data</scope><name>error</name></member>
+      <member refid="structSMO_1_1smo__learning__data_1a578b38a15a3de3bd63c3f4648af124a4" prot="public" virt="non-virtual"><scope>SMO::smo_learning_data</scope><name>smo_learning_data</name></member>
+      <member refid="structSMO_1_1smo__learning__data_1a2dbdfe786b1c05238521666287b1f699" prot="public" virt="non-virtual"><scope>SMO::smo_learning_data</scope><name>sv</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

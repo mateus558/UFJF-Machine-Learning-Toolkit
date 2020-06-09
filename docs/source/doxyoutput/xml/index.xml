@@ -1,0 +1,925 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.18">
+  <compound refid="classAOS" kind="class"><name>AOS</name>
+    <member refid="classAOS_1a115862604f4d66a62f7a9c3081843c2f" kind="variable"><name>HASH_SIZE</name></member>
+    <member refid="classAOS_1ab25fdd229bc83e4c904547703c06c411" kind="variable"><name>HASH_WIDTH</name></member>
+    <member refid="classAOS_1a6365b49feee16be637478b1b0d7b9234" kind="variable"><name>breadth</name></member>
+    <member refid="classAOS_1a9405d6b818936fca3413bba7c1858b1a" kind="variable"><name>cut</name></member>
+    <member refid="classAOS_1a254767c485833fff26ec43235e13a8fa" kind="variable"><name>sorting_shape</name></member>
+    <member refid="classAOS_1ac0e7c3e58f07a19d792a231a42353c8f" kind="variable"><name>choice_shape</name></member>
+    <member refid="classAOS_1a209a24083d2329dd8199c0dd16c4ef34" kind="variable"><name>startover</name></member>
+    <member refid="classAOS_1a01fc416025f020defca1fe7d88ba4d97" kind="variable"><name>look_ahead_depth</name></member>
+    <member refid="classAOS_1a424bb5b31ba5cb727017a5623d5b9b0f" kind="variable"><name>ftime</name></member>
+    <member refid="classAOS_1a2b94c3c927ec05a83929cffe03085187" kind="variable"><name>lool</name></member>
+    <member refid="classAOS_1ac0a353b5d46ee74703a22bd9ecebaf0a" kind="variable"><name>dim_orig</name></member>
+    <member refid="classAOS_1aba69b08c7603ced877ae17acdee911db" kind="variable"><name>startdim</name></member>
+    <member refid="classAOS_1a1ab64d6c77c52efd890d720ef2163c93" kind="variable"><name>contheap_parcial</name></member>
+    <member refid="classAOS_1ae25e289bfc794cccddecb5dbdfaa5506" kind="variable"><name>contheapreins_parcial</name></member>
+    <member refid="classAOS_1a5b1045b698582ec6c48a6952f1712f21" kind="variable"><name>conthash_parcial</name></member>
+    <member refid="classAOS_1a21cd95482b88624ac4ab9c409613bf91" kind="variable"><name>contprooning_parcial</name></member>
+    <member refid="classAOS_1a521f8a188cc6a662a886dada71a62b8d" kind="variable"><name>maxheapsize_parcial</name></member>
+    <member refid="classAOS_1a26c8cf8f95eff343a496ff644507ec5e" kind="variable"><name>contnaoheap_parcial</name></member>
+    <member refid="classAOS_1a8e49e1573acd9ec83bb5f9993ad40ac9" kind="variable"><name>conthashnaoheap_parcial</name></member>
+    <member refid="classAOS_1aff9de66a13567bee4e24a4f105e9cec9" kind="variable"><name>contexpandidos_parcial</name></member>
+    <member refid="classAOS_1a11991c3f3e77b1e611c3f81a08008d82" kind="variable"><name>contprojetados_parcial</name></member>
+    <member refid="classAOS_1a5d5c730e0af1217c8155c405a03f9e93" kind="variable"><name>contprojtreinados_parcial</name></member>
+    <member refid="classAOS_1ac66538067487002b33dc91ceaf5bf586" kind="variable"><name>sobraprojecoes_parcial</name></member>
+    <member refid="classAOS_1a382dafc774869213bc0a31636effd138" kind="variable"><name>contexpanded</name></member>
+    <member refid="classAOS_1ad2acafa51102caa459c49e0d5f7f6089" kind="variable"><name>contnotheap</name></member>
+    <member refid="classAOS_1a6e25e005fe57b496100403515cc2f2de" kind="variable"><name>contprojected</name></member>
+    <member refid="classAOS_1a8eae1e0edaeaab354a410361ab431252" kind="variable"><name>contprojtrained</name></member>
+    <member refid="classAOS_1a4ca4ea4d988632aa90e376433296c9b2" kind="variable"><name>conthashnotheap</name></member>
+    <member refid="classAOS_1a201116f9112393d60c2905ec3a3a2f0e" kind="variable"><name>bonus</name></member>
+    <member refid="classAOS_1a057a0e9f8819e7915306163cb8fdae66" kind="variable"><name>n0</name></member>
+    <member refid="classAOS_1ab95339f9394a836d673315ab2a78318d" kind="variable"><name>max_time</name></member>
+    <member refid="classAOS_1a04f0f3605b00b834a49c621dba2d65ac" kind="variable"><name>kfolderror</name></member>
+    <member refid="classAOS_1a9583bd54a3515e7f47fa27a42f215abf" kind="variable"><name>g_margin</name></member>
+    <member refid="classAOS_1a0ab0c0f3b1f80f3e6e5d66d0ed18734e" kind="variable"><name>partial_margin</name></member>
+    <member refid="classAOS_1a7c410821312cdaaff7f90c541d19f7a8" kind="variable"><name>partial_svs</name></member>
+    <member refid="classAOS_1af88bb647692d227842d14ee9ccacab9f" kind="variable"><name>partial_time</name></member>
+    <member refid="classAOS_1a14aaab20934dcb4c05f77d8be7a5ee80" kind="variable"><name>partial_dim</name></member>
+    <member refid="classAOS_1a13ad8b1a7de699b8e95007124803adc6" kind="variable"><name>START_TIME</name></member>
+    <member refid="classAOS_1a6dfa075c65ac19d4c126ec3deed8f42b" kind="variable"><name>initial_time</name></member>
+    <member refid="classAOS_1ab7521e9a919a31fde21704454d2d8b5a" kind="variable"><name>max_time_orig</name></member>
+    <member refid="classAOS_1a8e204acfff113a5165516fdc717aa7db" kind="variable"><name>doleave_oo</name></member>
+    <member refid="classAOS_1a9762e6b945891b13b76751a61d1cb119" kind="variable"><name>filename</name></member>
+    <member refid="classAOS_1ac59f503cc040d26782d2df30ea69daeb" kind="variable"><name>heap</name></member>
+    <member refid="classAOS_1ae0b86891c57aa27858014c745005a70b" kind="variable"><name>hash</name></member>
+    <member refid="classAOS_1a34f76f2092ec62e4dd9cee9ed79aa8c1" kind="variable"><name>stmp_partial</name></member>
+    <member refid="classAOS_1a43235b841385f05638cbf020b6d21c64" kind="function"><name>setBreadth</name></member>
+    <member refid="classAOS_1a694b503e49045ffb6bf8c69345c17467" kind="function"><name>setCut</name></member>
+    <member refid="classAOS_1a12a55d522bc25dd70b96c13de5dd2452" kind="function"><name>setSortingShape</name></member>
+    <member refid="classAOS_1a2d33d4f64aa5a54382a4d5aeb14f41e4" kind="function"><name>setChoiceShape</name></member>
+    <member refid="classAOS_1a329f8d66c7a0191990d106d39380ccff" kind="function"><name>setLookAheadDepth</name></member>
+    <member refid="classAOS_1a77089d6fbdbc1149efde37130598b50b" kind="function"><name>AOS</name></member>
+    <member refid="classAOS_1a855c463e121f6b190f42ea1950c6d2dd" kind="function"><name>selectFeatures</name></member>
+    <member refid="classAOS_1a50610d3191840fc2d61526bef977b0e5" kind="function"><name>mainLoop</name></member>
+    <member refid="classAOS_1a74c6062db30a6ec953f681826e4f053b" kind="function"><name>lookAhead</name></member>
+  </compound>
+  <compound refid="classClassifier" kind="class"><name>Classifier</name>
+    <member refid="classClassifier_1a914e488b477b9237cf991ff0b485c6c7" kind="variable"><name>hasInitialSolution</name></member>
+    <member refid="classClassifier_1ae8695222e93f7fea1a1e585d4c126f7d" kind="variable"><name>svs</name></member>
+    <member refid="classClassifier_1adecdc97505c2911a66e240ad0fefd9ea" kind="variable"><name>solution</name></member>
+    <member refid="classClassifier_1ae7598910eeb47894579ca29718c9fa9c" kind="variable"><name>gamma</name></member>
+    <member refid="classClassifier_1a015ba93eb1d31d36b336245f1dac9ce5" kind="function"><name>getSolution</name></member>
+    <member refid="classClassifier_1a4845fd932adb55becf78bfa4fccbea59" kind="function"><name>getSolutionRef</name></member>
+    <member refid="classClassifier_1a8ce9a9a19a9deceb12e39e54ef595650" kind="function"><name>setGamma</name></member>
+    <member refid="classClassifier_1acaf16d789bccb6772a801be5318acb3e" kind="function"><name>setW</name></member>
+    <member refid="classClassifier_1a2eb8d760224eba3091c108155996d3d9" kind="function"><name>setSolution</name></member>
+  </compound>
+  <compound refid="classClusterer" kind="class"><name>Clusterer</name>
+    <member refid="classClusterer_1a23eccc707357792d78c5f7993e9510f1" kind="typedef"><name>Function</name></member>
+    <member refid="classClusterer_1a32629c53c18d551e4549adba885b54e5" kind="variable"><name>dist_function</name></member>
+    <member refid="classClusterer_1a03e8cc0eb5574db896a19cc9c789ddf2" kind="variable"><name>n_clusters</name></member>
+    <member refid="classClusterer_1ad20c2b926a6bd0b00af9d235e8e7ac15" kind="variable"><name>centers</name></member>
+    <member refid="classClusterer_1aea67764991813314217a844793fcadb4" kind="variable"><name>clusters</name></member>
+  </compound>
+  <compound refid="structValidation_1_1CrossValidation" kind="struct"><name>Validation::CrossValidation</name>
+    <member refid="structValidation_1_1CrossValidation_1a1390b0775383e95347b9d502376b028a" kind="variable"><name>qtde</name></member>
+    <member refid="structValidation_1_1CrossValidation_1a24522e62bed86b222427793059358453" kind="variable"><name>fold</name></member>
+    <member refid="structValidation_1_1CrossValidation_1aaa216ea500fc18c08d5b2b6ecfa2d6b5" kind="variable"><name>jump</name></member>
+    <member refid="structValidation_1_1CrossValidation_1aeb6948b8c37587338ffd32de2cd7c488" kind="variable"><name>seed</name></member>
+    <member refid="structValidation_1_1CrossValidation_1acdccfcf784001cd120096263fe27e03d" kind="variable"><name>initial_error</name></member>
+    <member refid="structValidation_1_1CrossValidation_1a58b86e73f6085890ec4cf4b755bb5ab0" kind="variable"><name>actual_error</name></member>
+    <member refid="structValidation_1_1CrossValidation_1af6298877a122a8e4bcd447277476677b" kind="variable"><name>limit_error</name></member>
+  </compound>
+  <compound refid="classData" kind="class"><name>Data</name>
+    <member refid="classData_1a118a4e50f167a1282b0f5ab73745b26f" kind="variable"><name>points</name></member>
+    <member refid="classData_1acbfd1143bd9818ba722255b715ce8ce1" kind="variable"><name>fnames</name></member>
+    <member refid="classData_1a107bf7f29c0b82de3dfce24583a4ee16" kind="variable"><name>index</name></member>
+    <member refid="classData_1afdf2af373b7a018bc661c44defa0abb1" kind="variable"><name>class_names</name></member>
+    <member refid="classData_1a33f12f3e6702357db5827ac0b97b1566" kind="variable"><name>classes</name></member>
+    <member refid="classData_1a0c42edfa7de1cc3ab10879477080e982" kind="variable"><name>class_distribution</name></member>
+    <member refid="classData_1a3d422dce669ebe5a6b369cfbe7d7595e" kind="variable"><name>size</name></member>
+    <member refid="classData_1a1ffa5bb950bd17483f93341394f6bc71" kind="variable"><name>dim</name></member>
+    <member refid="classData_1ab9dd83552956ea701ce85ce5a56e1b26" kind="variable"><name>time_mult</name></member>
+    <member refid="classData_1a068c37682b2169d164284a17010591b4" kind="variable"><name>pos_class</name></member>
+    <member refid="classData_1a76e59efb3f0ee57af98a8742b31c4eb6" kind="variable"><name>neg_class</name></member>
+    <member refid="classData_1ab43cb1c4408ad9cc4ca7b45a65061e0a" kind="variable"><name>is_empty</name></member>
+    <member refid="classData_1a54cb186eb4303683d2be17221dc71987" kind="variable"><name>normalized</name></member>
+    <member refid="classData_1af772e1d03a094a3a3e3b2cf9d088c21d" kind="variable"><name>stats</name></member>
+    <member refid="classData_1a09935fe48bb516a37577b6693a33e421" kind="variable"><name>type</name></member>
+    <member refid="classData_1a6d0c583f43b39c8c4b25a983164749b3" kind="function"><name>getType</name></member>
+    <member refid="classData_1aff6b5580701e08a0ebecee967deceb07" kind="function"><name>setType</name></member>
+    <member refid="classData_1ab37beb31b788e0c806211af241b86bba" kind="function"><name>Data</name></member>
+    <member refid="classData_1ad6253528544ca7f4318a1534c6c2e54c" kind="function"><name>Data</name></member>
+    <member refid="classData_1aff3a6a7e9ff8073fbadbbd948eee3963" kind="function"><name>Data</name></member>
+    <member refid="classData_1aee3781b2b9523c7cd5fae46c43cd07cc" kind="function"><name>Data</name></member>
+    <member refid="classData_1acf0ada1cb7eb6ccc963f21c17238d922" kind="function"><name>setClasses</name></member>
+    <member refid="classData_1a34fdd056f6b8b948deb1682b5d5a03d2" kind="function"><name>getSize</name></member>
+    <member refid="classData_1ae0d17b1d8da42012ea1ebbbff6646f35" kind="function"><name>getDim</name></member>
+    <member refid="classData_1a63a36fcbe42e0956d602f11af0d2009e" kind="function"><name>getPoints</name></member>
+    <member refid="classData_1a76608aaa7e6a1499bdd3d4e0a8f65754" kind="function"><name>getClasses</name></member>
+    <member refid="classData_1a482efc1083d4871758ddd05b11bb90ea" kind="function"><name>getPoint</name></member>
+    <member refid="classData_1ae98aabfcd6c547efdb9e66a44148be2a" kind="function"><name>getClassesDistribution</name></member>
+    <member refid="classData_1aeb61517c2b9a796b578df6d6e495e91b" kind="function"><name>getClassNames</name></member>
+    <member refid="classData_1a8e89a9539d3840ad44b9a0e758303523" kind="function"><name>getFeaturesNames</name></member>
+    <member refid="classData_1a47463f0afc2ea4052801d4e1dd708a08" kind="function"><name>getStatistics</name></member>
+    <member refid="classData_1a5d74885955fa842704ce33a0be87815e" kind="function"><name>getIndex</name></member>
+    <member refid="classData_1a627911f72bc1ccc3a096b531772ccb8c" kind="function"><name>getNumberPositivePoints</name></member>
+    <member refid="classData_1a9494572e8a2bc92fb4c10087cf35e4be" kind="function"><name>getNumberNegativePoints</name></member>
+    <member refid="classData_1ab13d49c84377160673c5c38cb15d18ba" kind="function"><name>getTime_mult</name></member>
+    <member refid="classData_1ade1a5caf2f463a894e1d348f728b56cf" kind="function"><name>setPoint</name></member>
+    <member refid="classData_1ab79f76bd6f8ee5b80cddbb3c5d66e2d0" kind="function"><name>setFeaturesNames</name></member>
+    <member refid="classData_1a3e03ebfa95d7d90d4ee3b024af7b18de" kind="function"><name>setIndex</name></member>
+    <member refid="classData_1ad6e602802e593e4700b3746de55f890b" kind="function"><name>setDim</name></member>
+    <member refid="classData_1a18890ae15d959bc70148bffb0703d03e" kind="function"><name>load</name></member>
+    <member refid="classData_1ac28fb4ceb55d4b92e8fddf38b3966066" kind="function"><name>write</name></member>
+    <member refid="classData_1a5e62e69b57de5e9de6c517b9fc4b3119" kind="function"><name>isEmpty</name></member>
+    <member refid="classData_1a3451eade784a3f934cdb14ced3e3f5c7" kind="function"><name>isNormalized</name></member>
+    <member refid="classData_1a3fc15f7a8c270b72af86951d6955608d" kind="function"><name>clear</name></member>
+    <member refid="classData_1a1883cc58a60fcb17c50e020d234f69c1" kind="function"><name>copy</name></member>
+    <member refid="classData_1ad94f8c8227a298b5cc0a862658f8cb99" kind="function"><name>copyZero</name></member>
+    <member refid="classData_1abf57674d356299c2be916331791e8f12" kind="function"><name>join</name></member>
+    <member refid="classData_1a2357782011d11c06500b1d752b9428c6" kind="function"><name>insertPoint</name></member>
+    <member refid="classData_1a709cae94a533608e61a5e1e5039b0b35" kind="function"><name>insertPoint</name></member>
+    <member refid="classData_1ae5a3ca86bedc35bef909aac993439827" kind="function"><name>removePoints</name></member>
+    <member refid="classData_1a92ad77892fa46016d890d4ef4954ef2f" kind="function"><name>removePoint</name></member>
+    <member refid="classData_1adfd307ae8437b7b2da4372eb604a2c43" kind="function"><name>insertFeatures</name></member>
+    <member refid="classData_1a574b881ce5042c5a13d79c187aa3f923" kind="function"><name>removeFeatures</name></member>
+    <member refid="classData_1a9cf86608e6a02b80c9755646d7cb55fb" kind="function"><name>changeXVector</name></member>
+    <member refid="classData_1a3271dd8204296537222ed74c5aab1a03" kind="function"><name>normalize</name></member>
+    <member refid="classData_1aae060f1a0ce3448b8e9b9f63d9ee4bbc" kind="function"><name>resetIndex</name></member>
+    <member refid="classData_1a17808dfc737024d7765f88bd6fa2c67a" kind="function"><name>operator[]</name></member>
+    <member refid="classData_1ad2271c70b41bd9bab92a5f342fb1ea38" kind="function"><name>operator[]</name></member>
+    <member refid="classData_1a683edce454eee5d9fedfaa0435259495" kind="function"><name>operator=</name></member>
+    <member refid="classData_1a67b4eb14ee534c26b115e35ac9537baa" kind="function"><name>operator==</name></member>
+    <member refid="classData_1a36bc3fedaadbe06283b6796018381e2c" kind="function"><name>operator!=</name></member>
+    <member refid="classData_1aa5e287f616f4982a7cb75b99bd2eb248" kind="function"><name>~Data</name></member>
+    <member refid="classData_1a8c8ce22647c4bc3125a381b3b12d2043" kind="function"><name>process_class</name></member>
+    <member refid="classData_1abbc70a3d0ba42d4935ad1923bed55322" kind="function"><name>identifyFileType</name></member>
+    <member refid="classData_1a17fe1439f00b0c4d3ece42547f990eba" kind="function"><name>load_csv</name></member>
+    <member refid="classData_1a4be3a9ff4ac2784a2e41adfc45125c7e" kind="function"><name>load_arff</name></member>
+    <member refid="classData_1afa6db0509dd3be0bd111b517e4d770a8" kind="function"><name>load_data</name></member>
+    <member refid="classData_1a30d6c28a75c57a2002dafa2f73636804" kind="function"><name>load_txt</name></member>
+    <member refid="classData_1a11440c71d8f4dc4f4c064c06c0ae1b4e" kind="function"><name>normalize</name></member>
+    <member refid="classData_1a6e0fbda87f04e3f9960f8f2a818e2f9d" kind="friend"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="classDualClassifier" kind="class"><name>DualClassifier</name>
+    <member refid="classDualClassifier_1a204d0e925be1450c97dd8635b8c9f3e9" kind="variable"><name>alpha</name></member>
+    <member refid="classDualClassifier_1a40c32ed2991c8545d50ef5fe57611c28" kind="variable"><name>kernel</name></member>
+    <member refid="classDualClassifier_1a4db588ff3339bb016cdabf7eb27b576f" kind="function"><name>evaluate</name></member>
+    <member refid="classDualClassifier_1a4f4cc830f9f9723592dc92957aec5d48" kind="function"><name>setKernel</name></member>
+    <member refid="classDualClassifier_1abe138aa8f388a11475773155961911be" kind="function"><name>setKernelType</name></member>
+    <member refid="classDualClassifier_1a1eaa47dfe556a9c0ecb05cd82324c337" kind="function"><name>setKernelParam</name></member>
+    <member refid="classDualClassifier_1a85d9b58aabf399c4d5beb5250a926a64" kind="function"><name>getFormulationString</name></member>
+    <member refid="classDualClassifier_1ad5cc383587a3388bfc370879d76b8cf6" kind="function"><name>getKernelParam</name></member>
+    <member refid="classDualClassifier_1ae15bdcaa9b46e1084aa2df7170a0217f" kind="function"><name>getKernelType</name></member>
+    <member refid="classDualClassifier_1a9ce7228ddbdf6886782e2d1abf9bb0a9" kind="function"><name>getAlphaVector</name></member>
+    <member refid="classDualClassifier_1ae4e8931fb65d75009b9c92ae5c30c6b2" kind="function"><name>getWeight</name></member>
+    <member refid="classDualClassifier_1a179729f872fe280d752089c571187fbf" kind="function"><name>getDualWeight</name></member>
+    <member refid="classDualClassifier_1a2780174d195acdfc2d3c9777c48e818c" kind="function"><name>getDualWeightProdInt</name></member>
+  </compound>
+  <compound refid="classDualRegressor" kind="class"><name>DualRegressor</name>
+    <member refid="classDualRegressor_1a9447c794c67addbde9c210c7c4257521" kind="variable"><name>alpha</name></member>
+    <member refid="classDualRegressor_1af953065ed5d5cb1e8c05b274d1f594eb" kind="variable"><name>kernel</name></member>
+    <member refid="classDualRegressor_1a0c42472d654d796078e59f4cbced7c09" kind="function"><name>evaluate</name></member>
+    <member refid="classDualRegressor_1abadf4a42fd5c40b9cbfde3ebd7c2d4b9" kind="function"><name>getFormulationString</name></member>
+  </compound>
+  <compound refid="classEnsemble" kind="class"><name>Ensemble</name>
+    <member refid="classEnsemble_1a38cacde8ec796a149ecd95cce24e6b96" kind="variable"><name>c_size</name></member>
+    <member refid="classEnsemble_1a15011ec228f8c184d3a2ff586e725633" kind="variable"><name>learner</name></member>
+    <member refid="classEnsemble_1a9f09be390a265b53990d49f1f2207e54" kind="variable"><name>solution</name></member>
+    <member refid="classEnsemble_1ab1e8692d6fbf550641f5a581dc8833d9" kind="function"><name>getSolution</name></member>
+    <member refid="classEnsemble_1a3d5743518fb2dbdc5965f1734691785f" kind="function"><name>getSolutionRef</name></member>
+    <member refid="classEnsemble_1aa2d89e2df685730464be90ed35e7afcb" kind="function"><name>setLearner</name></member>
+    <member refid="classEnsemble_1a2e85d5d9e7ad9e977b8135ea5fed0740" kind="function"><name>setCommitteeSize</name></member>
+  </compound>
+  <compound refid="classFeatureSelection" kind="class"><name>FeatureSelection</name>
+    <member refid="classFeatureSelection_1a428e8264a956c55b02fb9437953a7880" kind="variable"><name>samples</name></member>
+    <member refid="classFeatureSelection_1aac04d4fa957487262829637876665934" kind="variable"><name>classifier</name></member>
+    <member refid="classFeatureSelection_1a2898e23abf3d2155c94d29823474c336" kind="variable"><name>cv</name></member>
+    <member refid="classFeatureSelection_1ae974d2a985a2d4409e5863e425c372fe" kind="variable"><name>solution</name></member>
+    <member refid="classFeatureSelection_1a80781a87519a53646c2bc8c5cd603672" kind="variable"><name>timer</name></member>
+    <member refid="classFeatureSelection_1a10e73a5516dd42635a932a44de03bfb8" kind="variable"><name>MAX_DEPTH</name></member>
+    <member refid="classFeatureSelection_1a77002ab25336a16dbbace6b8afcb76b1" kind="variable"><name>MAX_BREATH</name></member>
+    <member refid="classFeatureSelection_1ab05ba3be9c292b10b1116e354b181233" kind="variable"><name>NUM_ERROR_EPS</name></member>
+    <member refid="classFeatureSelection_1a97b36bdc01446e1a6ceaac46046bd06e" kind="variable"><name>depth</name></member>
+    <member refid="classFeatureSelection_1a3dfd3eaf77946767f8c876020cb9ed54" kind="variable"><name>final_dim</name></member>
+    <member refid="classFeatureSelection_1ae90bf3293a6aa1a236409d263564363b" kind="variable"><name>jump</name></member>
+    <member refid="classFeatureSelection_1a6b6fd8245fa5ae5e2587fa22aa9809ca" kind="variable"><name>skip</name></member>
+    <member refid="classFeatureSelection_1ae6a8f3c4e5359e418f06c37bbe5f0ee8" kind="variable"><name>leave_one_out</name></member>
+    <member refid="classFeatureSelection_1af809cef8f77afb941d4f8a76c5970fd7" kind="variable"><name>verbose</name></member>
+    <member refid="classFeatureSelection_1a0ddf4542498dd85ecc0b8dadbc9d136b" kind="function"><name>selectFeatures</name></member>
+    <member refid="classFeatureSelection_1ac436e6b71800ab1156440c77106ca68d" kind="function"><name>setSamples</name></member>
+    <member refid="classFeatureSelection_1aeb59d20a8711f4894f3773e78bd9b18e" kind="function"><name>setClassifier</name></member>
+    <member refid="classFeatureSelection_1a2754140eede1f7689967e5361417499c" kind="function"><name>setFinalDimension</name></member>
+    <member refid="classFeatureSelection_1ac3e6bd57a2883295c5be6f53f739a184" kind="function"><name>setDepth</name></member>
+    <member refid="classFeatureSelection_1a1c639f188436bb7594bca5985d6421d0" kind="function"><name>setJump</name></member>
+    <member refid="classFeatureSelection_1a773f89aad5b7158ca81e43da5a276918" kind="function"><name>setSkip</name></member>
+    <member refid="classFeatureSelection_1a62033d3b22ae88f45be6458116d9d304" kind="function"><name>setVerbose</name></member>
+    <member refid="classFeatureSelection_1a5a46969cc8ae83c7281dd71eb5bf3876" kind="function"><name>setCrossValidation</name></member>
+  </compound>
+  <compound refid="classFisher" kind="class"><name>Fisher</name>
+    <member refid="classFisher_1a91b6b8a69a1a971dd8c1fb79e91bf07f" kind="variable"><name>number</name></member>
+    <member refid="classFisher_1a9006ab7ea5c59dd51567bffda906482a" kind="function"><name>fisher_select_compare_score_greater</name></member>
+    <member refid="classFisher_1a82199cdf79e62403fab00a1aa1cf2223" kind="function"><name>Fisher</name></member>
+    <member refid="classFisher_1a485fea921a67d9219ec8ea4953b0b8ed" kind="function"><name>selectFeatures</name></member>
+  </compound>
+  <compound refid="structFisher_1_1fisher__select__score" kind="struct"><name>Fisher::fisher_select_score</name>
+    <member refid="structFisher_1_1fisher__select__score_1abf3133ca2bd5ce8fb57650092a1e90ad" kind="variable"><name>fname</name></member>
+    <member refid="structFisher_1_1fisher__select__score_1a33cafafa9a6ee3f2a32af922cc2c4dfd" kind="variable"><name>score</name></member>
+  </compound>
+  <compound refid="classGnuplot" kind="class"><name>Gnuplot</name>
+    <member refid="classGnuplot_1a93e59138d3e192ffa2a4f0d7c310d61d" kind="variable"><name>gnucmd</name></member>
+    <member refid="classGnuplot_1a0155f4026915ed9b05b18c1e89ba9757" kind="variable"><name>valid</name></member>
+    <member refid="classGnuplot_1a871efce13e856022b3ba36caaa10ea33" kind="variable"><name>two_dim</name></member>
+    <member refid="classGnuplot_1acceb0a453297bb0ec7b26ec1dafbcec2" kind="variable"><name>nplots</name></member>
+    <member refid="classGnuplot_1a418930ab9ec992bcf1b9257e4c2bf6a9" kind="variable"><name>pstyle</name></member>
+    <member refid="classGnuplot_1a492b77047e8a79ef760e54ceb89de539" kind="variable"><name>smooth</name></member>
+    <member refid="classGnuplot_1a7b9f721714ffb6aff0d374fcf1c8c90f" kind="variable"><name>tmpfile_list</name></member>
+    <member refid="classGnuplot_1acfc7e1f0bc2e131abb9844bdbe7fc01c" kind="variable"><name>tmpfile_num</name></member>
+    <member refid="classGnuplot_1ae71e004ab7266f34d270cf76ea143e2b" kind="variable"><name>m_sGNUPlotFileName</name></member>
+    <member refid="classGnuplot_1a3c5949b04c54833eb685c30322c816e6" kind="variable"><name>m_sGNUPlotPath</name></member>
+    <member refid="classGnuplot_1ad763c98e6b2f51bef05f0b2da522fef4" kind="variable"><name>terminal_std</name></member>
+    <member refid="classGnuplot_1a08d1e4ec069ec1cb82bb96427d1e0d7f" kind="function"><name>init</name></member>
+    <member refid="classGnuplot_1a8ced9e766e0677b938178dafe9264ff7" kind="function"><name>create_tmpfile</name></member>
+    <member refid="classGnuplot_1a3ceb471d375865fccd412105cb587dd1" kind="function"><name>file_available</name></member>
+    <member refid="classGnuplot_1a3a769e47861d74fa713070ecd857dd17" kind="function"><name>get_program_path</name></member>
+    <member refid="classGnuplot_1abc0f1d75cb78804a5b8efdfa4df582cd" kind="function"><name>file_exists</name></member>
+    <member refid="classGnuplot_1a67cae885c26ced821e335d98986f1967" kind="function"><name>set_GNUPlotPath</name></member>
+    <member refid="classGnuplot_1a21feba7a3916708b742c3dc25850ab2f" kind="function"><name>set_terminal_std</name></member>
+    <member refid="classGnuplot_1a187eb517b362cf379492fe7f1621ee50" kind="function"><name>Gnuplot</name></member>
+    <member refid="classGnuplot_1a8ceac5808e42665c1dee305ae7ea9070" kind="function"><name>Gnuplot</name></member>
+    <member refid="classGnuplot_1a24327b6116c71acdc195eadf665c67cb" kind="function"><name>Gnuplot</name></member>
+    <member refid="classGnuplot_1a14191e89154f2716608f6907975cc012" kind="function"><name>Gnuplot</name></member>
+    <member refid="classGnuplot_1a78a68f621caa87d1f34324fcd093c7bd" kind="function"><name>~Gnuplot</name></member>
+    <member refid="classGnuplot_1a07607803ede8dd5416906df0a1924fc5" kind="function"><name>cmd</name></member>
+    <member refid="classGnuplot_1afb69631c7a498077e378a3cbb56f38c8" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="classGnuplot_1a356d2faaa79f08d13fec9718b776b28d" kind="function"><name>showonscreen</name></member>
+    <member refid="classGnuplot_1a032072c7c01b508a7535a17fb08562b1" kind="function"><name>savetops</name></member>
+    <member refid="classGnuplot_1acfdcda292650775ebed4683e8e1515b5" kind="function"><name>set_style</name></member>
+    <member refid="classGnuplot_1aa18386919da2ec4c994f1f9c7195d384" kind="function"><name>set_smooth</name></member>
+    <member refid="classGnuplot_1ad9dfbccd66dece1dbe5803605c6ab08c" kind="function"><name>unset_smooth</name></member>
+    <member refid="classGnuplot_1a95ec1636a871447dfe99463b769339c7" kind="function"><name>set_pointsize</name></member>
+    <member refid="classGnuplot_1a5416c8e81f1b9945b9631fa85a8d4f47" kind="function"><name>set_grid</name></member>
+    <member refid="classGnuplot_1a53183e1487bc6977f0d46bf75d19b4d3" kind="function"><name>unset_grid</name></member>
+    <member refid="classGnuplot_1a67efc4d4dc46b6100d14ba2f7366ef11" kind="function"><name>set_multiplot</name></member>
+    <member refid="classGnuplot_1aad76cdec16cfb5fdf82f45ed2786f4d8" kind="function"><name>unset_multiplot</name></member>
+    <member refid="classGnuplot_1a671cbe7b18a267ea59f532c83a0035f6" kind="function"><name>set_samples</name></member>
+    <member refid="classGnuplot_1ab810fa4c02fb49ae197786c305b78702" kind="function"><name>set_isosamples</name></member>
+    <member refid="classGnuplot_1a891f9800705eddc3f73886f265c009b8" kind="function"><name>set_hidden3d</name></member>
+    <member refid="classGnuplot_1ab8688182047f746090e1e5f2a8c11c9e" kind="function"><name>unset_hidden3d</name></member>
+    <member refid="classGnuplot_1af845efc728a90d7e10de764eff0b2423" kind="function"><name>set_contour</name></member>
+    <member refid="classGnuplot_1a0b8522cb81e46dd4f5a22b7b48f977b1" kind="function"><name>unset_contour</name></member>
+    <member refid="classGnuplot_1a9825bd26500e30ca88404c4807e6607a" kind="function"><name>set_surface</name></member>
+    <member refid="classGnuplot_1a4ebddacbec61aa3e7bc4b89f508ad621" kind="function"><name>unset_surface</name></member>
+    <member refid="classGnuplot_1ad64a717dac18167f656c4f09239973f8" kind="function"><name>set_legend</name></member>
+    <member refid="classGnuplot_1ace901a18ab1a459213afd3ee0233b5ce" kind="function"><name>unset_legend</name></member>
+    <member refid="classGnuplot_1a4f93bac0e69dd83806652ca7226c6b3b" kind="function"><name>set_title</name></member>
+    <member refid="classGnuplot_1aca0aeb1dc0ac8d7e68ba6a15a977be28" kind="function"><name>unset_title</name></member>
+    <member refid="classGnuplot_1afcb311938827f8718f19ed52d66bad7c" kind="function"><name>set_ylabel</name></member>
+    <member refid="classGnuplot_1aa93589a95aeab869ba731e2583843ae4" kind="function"><name>set_xlabel</name></member>
+    <member refid="classGnuplot_1ab3206e715d20f05cc0dd1eec89ce8b07" kind="function"><name>set_zlabel</name></member>
+    <member refid="classGnuplot_1a4b8d96018f2d2d4e2922d4df153d6a84" kind="function"><name>set_xrange</name></member>
+    <member refid="classGnuplot_1a461271b7bfd4f84bdfc0055457226f28" kind="function"><name>set_yrange</name></member>
+    <member refid="classGnuplot_1a7273f6a48024117b4d234d0251106e78" kind="function"><name>set_zrange</name></member>
+    <member refid="classGnuplot_1a11a62a04c203f01607c3c21a727e318d" kind="function"><name>set_xautoscale</name></member>
+    <member refid="classGnuplot_1a5b9e1a4e68f94d418a8e9194f168b448" kind="function"><name>set_yautoscale</name></member>
+    <member refid="classGnuplot_1aef3e84e793836158e1ddd773d1465c37" kind="function"><name>set_zautoscale</name></member>
+    <member refid="classGnuplot_1aff546fad227d93babeb5d2cc9f047b89" kind="function"><name>set_xlogscale</name></member>
+    <member refid="classGnuplot_1a201a802d2f27fece0d39809c4eb3bce0" kind="function"><name>set_ylogscale</name></member>
+    <member refid="classGnuplot_1a1da3838163b0dbde8809b55c5b5c56b1" kind="function"><name>set_zlogscale</name></member>
+    <member refid="classGnuplot_1a7b178184260f1498cd0c11a197ea0ac2" kind="function"><name>unset_xlogscale</name></member>
+    <member refid="classGnuplot_1a9217543dd49c4802b1194d42c5e10b6d" kind="function"><name>unset_ylogscale</name></member>
+    <member refid="classGnuplot_1afa67f022ca344593b054d7f2e3406c7e" kind="function"><name>unset_zlogscale</name></member>
+    <member refid="classGnuplot_1a2228f5ab4cce2da463fc90383076a598" kind="function"><name>set_cbrange</name></member>
+    <member refid="classGnuplot_1a4fc34218cdfdd27a65b92eea1f1f9e84" kind="function"><name>plotfile_x</name></member>
+    <member refid="classGnuplot_1a80f3b2baae2bceff78ad005d9c3ec3fb" kind="function"><name>plot_x</name></member>
+    <member refid="classGnuplot_1a10e1fc7344bd726faa2d70cd5ced5e5e" kind="function"><name>plotfile_xy</name></member>
+    <member refid="classGnuplot_1a0514a7391de6b42e79732ce746c310f7" kind="function"><name>plot_xy</name></member>
+    <member refid="classGnuplot_1afe9d44ba12f617188111ab915010f3ab" kind="function"><name>plotfile_xy_err</name></member>
+    <member refid="classGnuplot_1a3c5d382eba33f92b26ba85f201bc7dea" kind="function"><name>plot_xy_err</name></member>
+    <member refid="classGnuplot_1a9dbde2a91eb816481657f3a22c9b0046" kind="function"><name>plotfile_xyz</name></member>
+    <member refid="classGnuplot_1af89cb366fa7d09ffc1c351516ae54df5" kind="function"><name>plot_xyz</name></member>
+    <member refid="classGnuplot_1a51ea5105eb87285820bb93910f8d346c" kind="function"><name>plot_slope</name></member>
+    <member refid="classGnuplot_1a42dfb8c9d4636745c7be277ed818e849" kind="function"><name>plot_equation</name></member>
+    <member refid="classGnuplot_1a79aed3a6927f7d1d3497cba441e8a943" kind="function"><name>plot_equation3d</name></member>
+    <member refid="classGnuplot_1aae22c0470a6fbbc1f5e84dec8d023381" kind="function"><name>plot_image</name></member>
+    <member refid="classGnuplot_1a34c1b3e877d246a841a29f857a29f502" kind="function"><name>replot</name></member>
+    <member refid="classGnuplot_1a6797761712d3c311e3685bcccba65dd4" kind="function"><name>reset_plot</name></member>
+    <member refid="classGnuplot_1a9aedfe8371083a1a3ac2b9493810049c" kind="function"><name>reset_all</name></member>
+    <member refid="classGnuplot_1a2e449552587b0055f40f4ee079d62a8d" kind="function"><name>remove_tmpfiles</name></member>
+    <member refid="classGnuplot_1a3135ffebb308b50c4f3178a62b23ab03" kind="function"><name>is_valid</name></member>
+  </compound>
+  <compound refid="classGnuplotException" kind="class"><name>GnuplotException</name>
+    <member refid="classGnuplotException_1a8b324a9ef4d3f75079d41ecd61c62d44" kind="function"><name>GnuplotException</name></member>
+  </compound>
+  <compound refid="classGolub" kind="class"><name>Golub</name>
+    <member refid="classGolub_1ac82fc77fc104866032b3ad94d5139824" kind="variable"><name>number</name></member>
+    <member refid="classGolub_1af123ba156a85b17f14493e28ccbdcfe3" kind="function"><name>golub_select_compare_score_greater</name></member>
+    <member refid="classGolub_1a55382af98ac102971f85d851f2e3244e" kind="function"><name>Golub</name></member>
+    <member refid="classGolub_1a0193ef2214b1e751a7923902523db16d" kind="function"><name>selectFeatures</name></member>
+  </compound>
+  <compound refid="structGolub_1_1golub__select__score" kind="struct"><name>Golub::golub_select_score</name>
+    <member refid="structGolub_1_1golub__select__score_1a28d8cf9bb0a532028b2fb9aa4224d420" kind="variable"><name>fname</name></member>
+    <member refid="structGolub_1_1golub__select__score_1a341b778f3479dffdaa66b2edb259d87d" kind="variable"><name>score</name></member>
+  </compound>
+  <compound refid="classAOS_1_1Hash" kind="class"><name>AOS::Hash</name>
+    <member refid="classAOS_1_1Hash_1abb88d2899adb4f2b2699fdf6e43eb48b" kind="variable"><name>length</name></member>
+    <member refid="classAOS_1_1Hash_1ac84ddc9051ac08935e7e234bc4115272" kind="variable"><name>width</name></member>
+    <member refid="classAOS_1_1Hash_1a7ed7b38a2b10a619d03241fa773e7cdd" kind="variable"><name>conthash</name></member>
+    <member refid="classAOS_1_1Hash_1aa439d9154cd98af4f24557083591f091" kind="variable"><name>elements</name></member>
+    <member refid="classAOS_1_1Hash_1a2b42708176fc4140f3d6be0dbc7cb345" kind="function"><name>Hash</name></member>
+    <member refid="classAOS_1_1Hash_1a94189bea99a709d7c1f5d5c9f0548a92" kind="function"><name>add</name></member>
+    <member refid="classAOS_1_1Hash_1a10f9386cce8fe718afa0d7281476e9dd" kind="function"><name>set_null</name></member>
+    <member refid="classAOS_1_1Hash_1ad89d5ed945274c02d1a700f89a5f7251" kind="function"><name>print</name></member>
+    <member refid="classAOS_1_1Hash_1aa7091126dab3bd19ad8402ca130f96c9" kind="function"><name>getLength</name></member>
+    <member refid="classAOS_1_1Hash_1abc9df2aa3aadb979862b82a179b05ed4" kind="function"><name>setLength</name></member>
+    <member refid="classAOS_1_1Hash_1abe3fc7d3b1d110dc3015e8dc23e09378" kind="function"><name>getWidth</name></member>
+    <member refid="classAOS_1_1Hash_1a925380101dd0e5ed75b6260da86eefc4" kind="function"><name>setWidth</name></member>
+    <member refid="classAOS_1_1Hash_1af4f3f7bdd704ad5b47d948ce3df30449" kind="function"><name>getConthash</name></member>
+    <member refid="classAOS_1_1Hash_1a4774969a84a0a183beb80e4da9640575" kind="function"><name>setConthash</name></member>
+    <member refid="classAOS_1_1Hash_1a5cfe565202502a319ed4e206c4588e24" kind="function"><name>~Hash</name></member>
+  </compound>
+  <compound refid="classAOS_1_1Heap" kind="class"><name>AOS::Heap</name>
+    <member refid="classAOS_1_1Heap_1aca3046ee4efb76430d22041dbb0c541e" kind="variable"><name>size</name></member>
+    <member refid="classAOS_1_1Heap_1ab15cf6db7595b73d486620fd35ce6f50" kind="variable"><name>contheap</name></member>
+    <member refid="classAOS_1_1Heap_1a642a11f2aaf8cee61907e95316cf2446" kind="variable"><name>contheapreins</name></member>
+    <member refid="classAOS_1_1Heap_1a6f4745144b1743edcff96409456ba52b" kind="variable"><name>maxheapsize</name></member>
+    <member refid="classAOS_1_1Heap_1a7492d82cfe6332ee015b8f1087a223d1" kind="variable"><name>contprooning</name></member>
+    <member refid="classAOS_1_1Heap_1aec1fdd4fab324d4b1dc36bd60ddf49d4" kind="variable"><name>elements</name></member>
+    <member refid="classAOS_1_1Heap_1a803f87a017a282618130920f6326212b" kind="function"><name>Heap</name></member>
+    <member refid="classAOS_1_1Heap_1ac6c8e121445603e6dbfac9aa35c065e8" kind="function"><name>getElements</name></member>
+    <member refid="classAOS_1_1Heap_1a8b41aaae9617f6bccb0852e5fadae2b5" kind="function"><name>getMaxheapsize</name></member>
+    <member refid="classAOS_1_1Heap_1ab56ba9b8d65c78e83e3734332957d876" kind="function"><name>getContheap</name></member>
+    <member refid="classAOS_1_1Heap_1ac1460b3030640248fb81d7d2f9d098f1" kind="function"><name>getContheapreins</name></member>
+    <member refid="classAOS_1_1Heap_1ae2c7f9a827e712679378cfb44d375e21" kind="function"><name>getContprooning</name></member>
+    <member refid="classAOS_1_1Heap_1a8fdc90a166f381c04be3ac05ebb4d65a" kind="function"><name>getSize</name></member>
+    <member refid="classAOS_1_1Heap_1ae9ae92823a868b8706a07e04394afb98" kind="function"><name>insert</name></member>
+    <member refid="classAOS_1_1Heap_1a24fd8b64238207c1640e26d2f0e02731" kind="function"><name>pop</name></member>
+    <member refid="classAOS_1_1Heap_1aef03684f057896828e59dfbddfb23822" kind="function"><name>print</name></member>
+    <member refid="classAOS_1_1Heap_1a0e1a24a3f3d167e60520325d9a2935b8" kind="function"><name>projected</name></member>
+    <member refid="classAOS_1_1Heap_1a6c17990b0f5617835dfa7530a345593a" kind="function"><name>percolate</name></member>
+    <member refid="classAOS_1_1Heap_1a06c418f27c39b03c03d28d0c14d0500e" kind="function"><name>cut</name></member>
+    <member refid="classAOS_1_1Heap_1a4362559bf2fcd7658895e2702508aec1" kind="function"><name>~Heap</name></member>
+  </compound>
+  <compound refid="classIMADual" kind="class"><name>IMADual</name>
+    <member refid="classIMADual_1aeab0a8f41a8f512016eeb8bdbfced698" kind="variable"><name>margin</name></member>
+    <member refid="classIMADual_1ad1b28104eba0290271787de52e8476d5" kind="variable"><name>svs</name></member>
+    <member refid="classIMADual_1a22a5cf72fe88fd8bb846cf1b5758d61c" kind="function"><name>IMADual</name></member>
+    <member refid="classIMADual_1aff820af6454ceeef4d23af48476d7218" kind="function"><name>train</name></member>
+    <member refid="classIMADual_1aa8e4e1d6e34c2e67d752c6b5f111ce35" kind="function"><name>getSupportVectors</name></member>
+  </compound>
+  <compound refid="classIMAp" kind="class"><name>IMAp</name>
+    <member refid="classIMAp_1a966220ad6ee33cf727b21543153e905e" kind="variable"><name>margin</name></member>
+    <member refid="classIMAp_1a8d6ad84485d023730d0851ffb018cc4d" kind="variable"><name>svs</name></member>
+    <member refid="classIMAp_1a54d31e0bcbb062d224a40fdb3a9fcdcd" kind="function"><name>IMAp</name></member>
+    <member refid="classIMAp_1aa8bf6b0d21a76d388fe81ee516b627e4" kind="function"><name>train</name></member>
+    <member refid="classIMAp_1a41b0739cdc486e3f21e7927f1ad429a8" kind="function"><name>evaluate</name></member>
+    <member refid="classIMAp_1a87adda768f1c48c0e4fcdf66f3145ae9" kind="function"><name>getSupportVectors</name></member>
+  </compound>
+  <compound refid="classIMApFixedMargin" kind="class"><name>IMApFixedMargin</name>
+    <member refid="classIMApFixedMargin_1aaeaa77372e32c4800d3940a53428eefd" kind="variable"><name>n</name></member>
+    <member refid="classIMApFixedMargin_1abb50320288ff76d0378c73d1f0d0d1f2" kind="variable"><name>maiorn</name></member>
+    <member refid="classIMApFixedMargin_1a8f1405172ba81d2255a11c44d868b291" kind="variable"><name>flagNao1aDim</name></member>
+    <member refid="classIMApFixedMargin_1a4566a0965e7fea0e0bd8e8fafd29c098" kind="variable"><name>margin</name></member>
+    <member refid="classIMApFixedMargin_1ad096bc6b663f3ffb3e07ea488a8d497b" kind="variable"><name>maiorw</name></member>
+    <member refid="classIMApFixedMargin_1a9a942a18a1b92f8ecaf376bd4ebcd2c8" kind="variable"><name>tMax</name></member>
+    <member refid="classIMApFixedMargin_1a3729c9cd54989854d96e4f7789d0b567" kind="variable"><name>svs</name></member>
+    <member refid="classIMApFixedMargin_1a90724da378b06629c891dea9fa49e379" kind="function"><name>IMApFixedMargin</name></member>
+    <member refid="classIMApFixedMargin_1a4d99742be5fe5a21b8ae6f99547a98c8" kind="function"><name>train</name></member>
+    <member refid="classIMApFixedMargin_1a909eb58c78c20780494598b478f8846f" kind="function"><name>evaluate</name></member>
+    <member refid="classIMApFixedMargin_1ac928b3c55da2171adce3231223f85d42" kind="function"><name>getFlagNot1aDim</name></member>
+    <member refid="classIMApFixedMargin_1a90bd97bde25c511399400a85a5f786e2" kind="function"><name>gettMax</name></member>
+  </compound>
+  <compound refid="structint__dll" kind="struct"><name>int_dll</name>
+    <member refid="structint__dll_1a030ada1e8c880f004a9f24c344db865d" kind="variable"><name>index</name></member>
+    <member refid="structint__dll_1ae28694ea05071da9cfd20dd706b66796" kind="variable"><name>prev</name></member>
+    <member refid="structint__dll_1a281d29ffa8eef8f8d57c6132159757db" kind="variable"><name>next</name></member>
+    <member refid="structint__dll_1a6e333c30817e203198c2504febd83547" kind="function"><name>int_dll</name></member>
+    <member refid="structint__dll_1a8d611f90311979c0352c30376ba58131" kind="function"><name>remove</name></member>
+    <member refid="structint__dll_1abce585889a684a6d1e58d35065fe1138" kind="function"><name>append</name></member>
+    <member refid="structint__dll_1a2be6e5c17ca34a98793968d1300d1035" kind="function"><name>free</name></member>
+  </compound>
+  <compound refid="classKernel" kind="class"><name>Kernel</name>
+    <member refid="classKernel_1a36e782d6feb496fc25d252756b87c3d4" kind="variable"><name>type</name></member>
+    <member refid="classKernel_1a7d5d259c98d94fa0a51d628144874135" kind="variable"><name>param</name></member>
+    <member refid="classKernel_1aab3d0d8ccef388d4ab78a8c5c93b1654" kind="variable"><name>K</name></member>
+    <member refid="classKernel_1a5f3eedf60637a672575c5c8623792481" kind="variable"><name>H</name></member>
+    <member refid="classKernel_1a6d2913d400e9ae537cf31ef56f58686e" kind="variable"><name>HwithoutDim</name></member>
+    <member refid="classKernel_1ae60e072c58cdc16842a239bdd0761590" kind="function"><name>Kernel</name></member>
+    <member refid="classKernel_1a4dc45b11849fada00d52060cee27730b" kind="function"><name>getKernelMatrixPointer</name></member>
+    <member refid="classKernel_1adf23c1567adb8ddb5757931587320871" kind="function"><name>Kernel</name></member>
+    <member refid="classKernel_1ad01e209470accf44ea240078f39fb127" kind="function"><name>setType</name></member>
+    <member refid="classKernel_1a60d2e4be6d2d2619377e677021178aa4" kind="function"><name>setParam</name></member>
+    <member refid="classKernel_1a5a2cb0fce0eda6c67a2325f6c8958da8" kind="function"><name>getType</name></member>
+    <member refid="classKernel_1a838e2cc5018fa702e59c52a3bf8ef813" kind="function"><name>getParam</name></member>
+    <member refid="classKernel_1a3801cee0d86f25f1500d202f43a84b65" kind="function"><name>setKernelMatrix</name></member>
+    <member refid="classKernel_1a5e398c63fee5f0e30b6dfb735c75e41a" kind="function"><name>getKernelMatrix</name></member>
+    <member refid="classKernel_1a214aeb35c89e67cf7677c61f7b0a843f" kind="function"><name>compute</name></member>
+    <member refid="classKernel_1a126dcd1fa57f69af243ca678170288b6" kind="function"><name>generateMatrixH</name></member>
+    <member refid="classKernel_1a32f8639c734692862062817efaeead64" kind="function"><name>generateMatrixHwithoutDim</name></member>
+    <member refid="classKernel_1ae7ecba4a0a702141eba9ff29e24ea236" kind="function"><name>function</name></member>
+    <member refid="classKernel_1aae7563927691a73b6f20b0194087c035" kind="function"><name>functionWithoutDim</name></member>
+    <member refid="classKernel_1a686e3cd96a93d7742226dedd5beb9da7" kind="function"><name>norm</name></member>
+    <member refid="classKernel_1a3f9176d4d29d272923b07f2f817e398a" kind="function"><name>featureSpaceNorm</name></member>
+  </compound>
+  <compound refid="classKMeans" kind="class"><name>KMeans</name>
+    <member refid="classKMeans_1ad91e62a6d51a9acbfe9038ce45897c86" kind="typedef"><name>Function</name></member>
+    <member refid="classKMeans_1a87b0650888fccabf54e7ac92c7538f73" kind="variable"><name>initialization</name></member>
+    <member refid="classKMeans_1a0a5bdba9a9f468baf0a3d744e1c4ecd9" kind="function"><name>KMeans</name></member>
+    <member refid="classKMeans_1a8b7c27540112bb3152419aa8c9547520" kind="function"><name>train</name></member>
+    <member refid="classKMeans_1aef98b5110438d700f30458f682ee0f7a" kind="function"><name>evaluate</name></member>
+    <member refid="classKMeans_1a6fdb0e7b62d9de82b5ac21e28a3ffbde" kind="function"><name>getFormulationString</name></member>
+  </compound>
+  <compound refid="classKNN" kind="class"><name>KNN</name>
+    <member refid="classKNN_1a8a0111a9797a164d1e1606a60e3cd299" kind="typedef"><name>function</name></member>
+    <member refid="classKNN_1a363b50a634b88cf810b2882c0fbf3f6a" kind="variable"><name>k</name></member>
+    <member refid="classKNN_1a3ac1c31a60802db08e61b2779ab9ebb4" kind="variable"><name>dist_function</name></member>
+    <member refid="classKNN_1ae00788843c0ba2e9898bf2fa8e387f16" kind="function"><name>KNN</name></member>
+    <member refid="classKNN_1a06c93c89ec228db3d0dbd1b67044363e" kind="function"><name>train</name></member>
+    <member refid="classKNN_1a07602b02d2d242981a1a512f865b3d78" kind="function"><name>evaluate</name></member>
+  </compound>
+  <compound refid="classKNNRegressor" kind="class"><name>KNNRegressor</name>
+    <member refid="classKNNRegressor_1ac62a292036ad341585682fd71598d799" kind="typedef"><name>function</name></member>
+    <member refid="classKNNRegressor_1a8d6943f9ac67e87fde0e58981cbe9156" kind="variable"><name>k</name></member>
+    <member refid="classKNNRegressor_1a6195b4865422671992ee0e018db8c7bf" kind="variable"><name>dist_function</name></member>
+    <member refid="classKNNRegressor_1a66e1d4e031aff3b3385e876f885767c7" kind="function"><name>KNNRegressor</name></member>
+    <member refid="classKNNRegressor_1a839693f6846b1db777be98d00abec907" kind="function"><name>train</name></member>
+    <member refid="classKNNRegressor_1aaf75241beb2aa876107f167c4b322b62" kind="function"><name>getFormulationString</name></member>
+    <member refid="classKNNRegressor_1a0508c2503319c4ed8e37745815e70dec" kind="function"><name>evaluate</name></member>
+  </compound>
+  <compound refid="classLearner" kind="class"><name>Learner</name>
+    <member refid="classLearner_1af4a6ca1441fca4f90d6112beaa01e5de" kind="variable"><name>samples</name></member>
+    <member refid="classLearner_1a6192264b814185c1b415f3dfb3b0a4f6" kind="variable"><name>rate</name></member>
+    <member refid="classLearner_1af82f6266dd06f362990b8258dcc3b001" kind="variable"><name>start_time</name></member>
+    <member refid="classLearner_1af4fb070de2058385845e66d0a0e8fb09" kind="variable"><name>max_time</name></member>
+    <member refid="classLearner_1abeebc91cde8ea55cf02cd5445798316f" kind="variable"><name>steps</name></member>
+    <member refid="classLearner_1aae507dee9ebc0b63edacf7b447ec4247" kind="variable"><name>ctot</name></member>
+    <member refid="classLearner_1ad314cec3c154c884d7c49e0f85d7a51d" kind="variable"><name>EPS</name></member>
+    <member refid="classLearner_1ab38efea8ba4da2e994a7927395361f0f" kind="variable"><name>MIN_INC</name></member>
+    <member refid="classLearner_1a9e3cad489e7679477669213e50a5df5c" kind="variable"><name>MAX_IT</name></member>
+    <member refid="classLearner_1a169d884352da54047fd016ddcaca0065" kind="variable"><name>MAX_UP</name></member>
+    <member refid="classLearner_1af60abe634ca6d9159ed7ec451447a494" kind="variable"><name>MAX_EPOCH</name></member>
+    <member refid="classLearner_1ae16fcef6dec8ef7bff3fad12ea383622" kind="variable"><name>verbose</name></member>
+    <member refid="classLearner_1a024aa7ff99eb0e329e3118771782d47d" kind="variable"><name>timer</name></member>
+    <member refid="classLearner_1a405ff5ebcd1d34f1d0bd7e1acc1d7165" kind="function"><name>train</name></member>
+    <member refid="classLearner_1a670e6615c6bad54ba2139a3a3e718b98" kind="function"><name>evaluate</name></member>
+    <member refid="classLearner_1a2982992c0b4b00af9f9addec78d89d8d" kind="function"><name>getFormulationString</name></member>
+    <member refid="classLearner_1a2ebba060740ea935e0ddaf78725b3d41" kind="function"><name>getElapsedTime</name></member>
+    <member refid="classLearner_1afa6aca31b2b69b3dcb5cecd8d20fcb9c" kind="function"><name>getCtot</name></member>
+    <member refid="classLearner_1ab5e62cb073d7b4637e32ad35f9a9a7b9" kind="function"><name>getSteps</name></member>
+    <member refid="classLearner_1ab20cbef3868c739f2430b900726cf70d" kind="function"><name>getUpdates</name></member>
+    <member refid="classLearner_1a1cc77e06a25ecdad21444e10ec3aa92f" kind="function"><name>getMaxTime</name></member>
+    <member refid="classLearner_1a28bb4fb9e638f0c492a08066c83f5ec7" kind="function"><name>setSamples</name></member>
+    <member refid="classLearner_1a5d10a524aa355eb39a4d1c54c0088e17" kind="function"><name>setTimer</name></member>
+    <member refid="classLearner_1a8758f2746d78feceec69659d437d291b" kind="function"><name>setSteps</name></member>
+    <member refid="classLearner_1a3614c6cafcbcad8783da92cf086eda54" kind="function"><name>setCtot</name></member>
+    <member refid="classLearner_1acd19fec7aaab48b29c758e90e847ec4f" kind="function"><name>setVerbose</name></member>
+    <member refid="classLearner_1a3e08bfc154384761a04db7eb3ccdee7c" kind="function"><name>setStartTime</name></member>
+    <member refid="classLearner_1a35444c62a2aeee7135896e5fec57f037" kind="function"><name>setMaxTime</name></member>
+    <member refid="classLearner_1a5cb560c8a0254686b69eb4149bb0bd6c" kind="function"><name>setEPS</name></member>
+    <member refid="classLearner_1abd5f07bd2c8cdda82ad7fcbbd9958f62" kind="function"><name>setMaxIterations</name></member>
+    <member refid="classLearner_1a37b07c6208eba4523a97dbcb696f8636" kind="function"><name>setMaxUpdates</name></member>
+    <member refid="classLearner_1a95d1b5eccfd4feff76a714c7405b5de4" kind="function"><name>setLearningRate</name></member>
+  </compound>
+  <compound refid="classLMSPrimal" kind="class"><name>LMSPrimal</name>
+    <member refid="classLMSPrimal_1a1c4e7d77b3ca8a01325ff5c66dae0315" kind="function"><name>LMSPrimal</name></member>
+    <member refid="classLMSPrimal_1aaba08885c7f03db41ea9735c2d0e1c92" kind="function"><name>train</name></member>
+  </compound>
+  <compound refid="classOneVsAll" kind="class"><name>OneVsAll</name>
+    <member refid="classOneVsAll_1a9e49fece3d3bb099ed51b8086b5c65b9" kind="variable"><name>classifier</name></member>
+    <member refid="classOneVsAll_1a89af17935f58c46538a1ce69c0a71180" kind="variable"><name>weights</name></member>
+    <member refid="classOneVsAll_1a3166913854dcfba392861e523224e8e9" kind="variable"><name>biases</name></member>
+    <member refid="classOneVsAll_1a1a8a1b178a3dcafb8167dcb808c39152" kind="function"><name>OneVsAll</name></member>
+    <member refid="classOneVsAll_1ad6bf2ed111dab5b04240360bbf31a7c8" kind="function"><name>train</name></member>
+    <member refid="classOneVsAll_1a38891b9c0ab5cfab69c687ea981030bb" kind="function"><name>evaluate</name></member>
+    <member refid="classOneVsAll_1a9d35697d92b3a1440a12b42490826709" kind="function"><name>getFormulationString</name></member>
+  </compound>
+  <compound refid="classPerceptronDual" kind="class"><name>PerceptronDual</name>
+    <member refid="classPerceptronDual_1a09289b10cd42be37fe50a7733f2a83e4" kind="function"><name>PerceptronDual</name></member>
+    <member refid="classPerceptronDual_1ac5e6aac8184fdf8f9d39d8d183d49190" kind="function"><name>train</name></member>
+  </compound>
+  <compound refid="classPerceptronFixedMarginDual" kind="class"><name>PerceptronFixedMarginDual</name>
+    <member refid="classPerceptronFixedMarginDual_1ac1397a3a17a88769befdf64f83573895" kind="function"><name>PerceptronFixedMarginDual</name></member>
+    <member refid="classPerceptronFixedMarginDual_1a58a5acdd6afaedff53fab23779f01486" kind="function"><name>train</name></member>
+  </compound>
+  <compound refid="classPerceptronFixedMarginPrimal" kind="class"><name>PerceptronFixedMarginPrimal</name>
+    <member refid="classPerceptronFixedMarginPrimal_1ac0352938dd986cda1b44c45040a2d46f" kind="function"><name>PerceptronFixedMarginPrimal</name></member>
+    <member refid="classPerceptronFixedMarginPrimal_1a6d4a14b9f39a4fef45de201edfeabce0" kind="function"><name>train</name></member>
+    <member refid="classPerceptronFixedMarginPrimal_1a5bfe0f03533361017b594c3fe67f0905" kind="function"><name>evaluate</name></member>
+  </compound>
+  <compound refid="classPerceptronPrimal" kind="class"><name>PerceptronPrimal</name>
+    <member refid="classPerceptronPrimal_1ae0fac9ce6fde7a106b8194bb08104418" kind="function"><name>PerceptronPrimal</name></member>
+    <member refid="classPerceptronPrimal_1ac6cafe7a8fabfb607761024ce60a6861" kind="function"><name>train</name></member>
+  </compound>
+  <compound refid="classPoint" kind="class"><name>Point</name>
+    <member refid="classPoint_1a8b8cc26f89935fdc83ed464c053c0476" kind="variable"><name>x</name></member>
+    <member refid="classPoint_1abd1a56102bc430eb08fc37dac9aa4c0b" kind="variable"><name>y</name></member>
+    <member refid="classPoint_1aa852a1c045d196abd841a6e1e87c27d8" kind="variable"><name>alpha</name></member>
+    <member refid="classPoint_1af7d6dfc3296421e9f10311d29720aa3b" kind="variable"><name>id</name></member>
+    <member refid="classPoint_1aea76b1130f1a203722d8f2254ced8e66" kind="function"><name>Point</name></member>
+    <member refid="classPoint_1afdeade42a64c353308d40ec646d26661" kind="function"><name>Point</name></member>
+    <member refid="classPoint_1a7ef5c7ed90d2b109215adb46e77af566" kind="function"><name>Point</name></member>
+    <member refid="classPoint_1ab1a74677723b3774be565d88af2187f8" kind="function"><name>dot</name></member>
+    <member refid="classPoint_1a399e38f00c2bb383ba6291b2318e7207" kind="function"><name>norm</name></member>
+    <member refid="classPoint_1aba7138253ab56cbf55b531b9893f52c6" kind="function"><name>operator[]</name></member>
+    <member refid="classPoint_1a36b981edbfca0b989ea90f4de6877f76" kind="function"><name>operator[]</name></member>
+    <member refid="classPoint_1a612545df2153b095b9013da5a14f495f" kind="function"><name>operator==</name></member>
+    <member refid="classPoint_1a6d43c8a1405f87422a02645d400a6c01" kind="function"><name>operator!=</name></member>
+    <member refid="classPoint_1a958ecc6c4f20dc77fbaaf12498e61653" kind="function"><name>~Point</name></member>
+    <member refid="classPoint_1ae01781a3264312efb15b109d37fceb38" kind="friend"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="classPrimalClassifier" kind="class"><name>PrimalClassifier</name>
+    <member refid="classPrimalClassifier_1a6191919f25a037b6a61d00ebda18f41e" kind="variable"><name>w</name></member>
+    <member refid="classPrimalClassifier_1ae30c00c25bce4b1623baa54b5e2812b4" kind="variable"><name>q</name></member>
+    <member refid="classPrimalClassifier_1ac5b59dafe749376fb067ceda690f405d" kind="variable"><name>p</name></member>
+    <member refid="classPrimalClassifier_1a5d41554dc1158ede39d387fecf73c96e" kind="variable"><name>flexible</name></member>
+    <member refid="classPrimalClassifier_1a2668546ac4a39e10f72cbd2e865c41a7" kind="variable"><name>alpha_aprox</name></member>
+    <member refid="classPrimalClassifier_1a3d6ff7dd172d7632e597cb0a76d53a80" kind="function"><name>evaluate</name></member>
+    <member refid="classPrimalClassifier_1a73f82851a3b2c54803d56fa92cc42a8b" kind="function"><name>getFormulationString</name></member>
+    <member refid="classPrimalClassifier_1a43de98b120ea5b096d254db8d48ebe45" kind="function"><name>getP</name></member>
+    <member refid="classPrimalClassifier_1a3efea418c124ff9cf24bfefc54959ff9" kind="function"><name>getQ</name></member>
+    <member refid="classPrimalClassifier_1a7e6953c01b190e6ef968b75bd578ad7d" kind="function"><name>setqNorm</name></member>
+    <member refid="classPrimalClassifier_1ad0c3b7577b6c11da7394105dd2002f1d" kind="function"><name>setpNorm</name></member>
+    <member refid="classPrimalClassifier_1a7e5c459cb4a377c794502cd9831ee095" kind="function"><name>setFlexible</name></member>
+    <member refid="classPrimalClassifier_1a049f4814d38b456c80c40cee5595502b" kind="function"><name>setAlphaAprox</name></member>
+  </compound>
+  <compound refid="classPrimalCommittee" kind="class"><name>PrimalCommittee</name>
+    <member refid="classPrimalCommittee_1a13d0eae30a98bf56947e310cfddffe86" kind="variable"><name>w</name></member>
+    <member refid="classPrimalCommittee_1a465ce2f3a94a0d2896cd17fb6690551d" kind="variable"><name>bias</name></member>
+    <member refid="classPrimalCommittee_1ae24b185f5a2f041a40484502610294e5" kind="variable"><name>permutation</name></member>
+    <member refid="classPrimalCommittee_1a710ab1fc503c2fb50fddf81fe537e558" kind="variable"><name>similarity</name></member>
+    <member refid="classPrimalCommittee_1a4cd658fe8ede34773c06c5c6e8488046" kind="function"><name>evaluate</name></member>
+  </compound>
+  <compound refid="classPrimalPercCommittee" kind="class"><name>PrimalPercCommittee</name>
+    <member refid="classPrimalPercCommittee_1adc9be033253ce6147a4878510e66bcf4" kind="variable"><name>perc</name></member>
+    <member refid="classPrimalPercCommittee_1a8cfb22d50b4d000ada1609b7f80fa461" kind="function"><name>PrimalPercCommittee</name></member>
+    <member refid="classPrimalPercCommittee_1ae374dd8eb3dff8fd685f69beee54b7f3" kind="function"><name>train</name></member>
+  </compound>
+  <compound refid="classPrimalRegressor" kind="class"><name>PrimalRegressor</name>
+    <member refid="classPrimalRegressor_1a2beda8db0c789cd731d54e08e6393f2f" kind="variable"><name>w</name></member>
+    <member refid="classPrimalRegressor_1a60f80029e57c91829484dff815dd5116" kind="function"><name>evaluate</name></member>
+    <member refid="classPrimalRegressor_1a78977adebe161730080c88849253d65b" kind="function"><name>getFormulationString</name></member>
+  </compound>
+  <compound refid="classRegressor" kind="class"><name>Regressor</name>
+    <member refid="classRegressor_1adbf15bdd985feee17d8e8dac31fa6641" kind="variable"><name>solution</name></member>
+    <member refid="classRegressor_1abe07f279284c94a02faf640f7e2e3a74" kind="function"><name>getSolution</name></member>
+    <member refid="classRegressor_1a1182860a22d0b3987fa0be9e30af26e2" kind="function"><name>getSolutionRef</name></member>
+    <member refid="classRegressor_1a09ce511d75b5a7287fc2498cd43e21fe" kind="function"><name>setW</name></member>
+    <member refid="classRegressor_1a25a419ea756e24a879ba54be36cd4892" kind="function"><name>setSolution</name></member>
+  </compound>
+  <compound refid="classRFE" kind="class"><name>RFE</name>
+    <member refid="classRFE_1ae6113323f92a908fdc477361417f6672" kind="function"><name>compare_weight_greater</name></member>
+    <member refid="classRFE_1ab39c2ffb2732777d18a919a2410cfe5a" kind="function"><name>RFE</name></member>
+    <member refid="classRFE_1a70cacdcf90cc1f6921f39fc58f03a63f" kind="function"><name>selectFeatures</name></member>
+  </compound>
+  <compound refid="structAOS_1_1select__gamma" kind="struct"><name>AOS::select_gamma</name>
+    <member refid="structAOS_1_1select__gamma_1a222c1003d8a16dc20155bb983b5263a9" kind="variable"><name>fnames</name></member>
+    <member refid="structAOS_1_1select__gamma_1a2f42319e383e9289672a7192271152bc" kind="variable"><name>level</name></member>
+    <member refid="structAOS_1_1select__gamma_1a76ae58919d898355e15b571d9ed662f3" kind="variable"><name>sv</name></member>
+    <member refid="structAOS_1_1select__gamma_1a96c02e9f0c43e4ed85c0bf41ff3f38a0" kind="variable"><name>train</name></member>
+    <member refid="structAOS_1_1select__gamma_1aef5dcc549822fe98c5b1c303ccf7e8d2" kind="variable"><name>value</name></member>
+    <member refid="structAOS_1_1select__gamma_1af6c92e1e5c64122f24b57052ef3ddaf1" kind="variable"><name>pgamma</name></member>
+    <member refid="structAOS_1_1select__gamma_1a3ee107ec2c4fd828e08a927bc300c40d" kind="variable"><name>rgamma</name></member>
+    <member refid="structAOS_1_1select__gamma_1a4bc8b618dda2655958d89ba4d2971f58" kind="variable"><name>radius</name></member>
+    <member refid="structAOS_1_1select__gamma_1a6d8e0a8cfbb23c4869caba4bed734dd7" kind="variable"><name>dcents</name></member>
+    <member refid="structAOS_1_1select__gamma_1a8adddb05731280489ed19a09e1701cf7" kind="variable"><name>golub</name></member>
+    <member refid="structAOS_1_1select__gamma_1a89fa4748ec462fa2279d71eec31302a7" kind="variable"><name>fisher</name></member>
+    <member refid="structAOS_1_1select__gamma_1a98dc24eba623345f82ed99603935834c" kind="variable"><name>w</name></member>
+    <member refid="structAOS_1_1select__gamma_1a3c8eeece3f82d52fe253b7bc3d75db68" kind="variable"><name>bias</name></member>
+    <member refid="structAOS_1_1select__gamma_1ac3b2bdee09c879626d7b78122d09c334" kind="function"><name>operator==</name></member>
+  </compound>
+  <compound refid="structRFE_1_1select__weight" kind="struct"><name>RFE::select_weight</name>
+    <member refid="structRFE_1_1select__weight_1aa4f03e299b421e03ff7c44610301676d" kind="variable"><name>w</name></member>
+    <member refid="structRFE_1_1select__weight_1a60559e09614a88dce8fbff77606ba051" kind="variable"><name>val</name></member>
+    <member refid="structRFE_1_1select__weight_1a8e4dfc85a18c7137e5331d2508139567" kind="variable"><name>fname</name></member>
+  </compound>
+  <compound refid="structAOS_1_1select__weight" kind="struct"><name>AOS::select_weight</name>
+    <member refid="structAOS_1_1select__weight_1ad830d00d8a3e3337a067fbc77bbb2376" kind="variable"><name>fname</name></member>
+    <member refid="structAOS_1_1select__weight_1a89228e5545ec1540c79e2b9b78782ff9" kind="variable"><name>indice</name></member>
+    <member refid="structAOS_1_1select__weight_1a6000795196238d62ec53bf6166ae707e" kind="variable"><name>w</name></member>
+    <member refid="structAOS_1_1select__weight_1a022196777c16bd8f81f21e5e82daf122" kind="variable"><name>val</name></member>
+    <member refid="structAOS_1_1select__weight_1a9e2b57d251ee6f1bffd4974d41ab7a27" kind="variable"><name>pmargin</name></member>
+    <member refid="structAOS_1_1select__weight_1aadd475ac18f0b8e0d9756fe7b382ed63" kind="variable"><name>radius</name></member>
+    <member refid="structAOS_1_1select__weight_1ab674a1325b629c8e62fd8a2b52aa0a12" kind="variable"><name>dcents</name></member>
+    <member refid="structAOS_1_1select__weight_1a5ca05428a84d8951260b6b927782f42a" kind="variable"><name>golub</name></member>
+    <member refid="structAOS_1_1select__weight_1ab9f41e76568146a2b7160be53ab9373d" kind="variable"><name>fisher</name></member>
+    <member refid="structAOS_1_1select__weight_1a4e6330e7b946c47151d037eabf3c42d2" kind="function"><name>operator==</name></member>
+  </compound>
+  <compound refid="classSMO" kind="class"><name>SMO</name>
+    <member refid="classSMO_1a90fd154865e22f01623ae95f186019f4" kind="variable"><name>C</name></member>
+    <member refid="classSMO_1a28478e421feaae684ba30a38a896babd" kind="variable"><name>TOL</name></member>
+    <member refid="classSMO_1a0f8d8073ebf036fd5048e5baa017aa2c" kind="variable"><name>l_data</name></member>
+    <member refid="classSMO_1a907bb5f26fe2ca7402182d5e602b3cc9" kind="variable"><name>head</name></member>
+    <member refid="classSMO_1af182db5dfda878e4a3e2ebf958148334" kind="function"><name>examine_example</name></member>
+    <member refid="classSMO_1afc01d94f8b7a3616d9a969325cf462a8" kind="function"><name>max_errors</name></member>
+    <member refid="classSMO_1a44ca75e3cc5d97b9078489f1adf80b7a" kind="function"><name>iterate_non_bound</name></member>
+    <member refid="classSMO_1aa8c937afcbf7cd6714c1967986c94df1" kind="function"><name>iterate_all_set</name></member>
+    <member refid="classSMO_1a6907735ace93e6f36bd2e3788df7a3e9" kind="function"><name>take_step</name></member>
+    <member refid="classSMO_1a9ca1f8b5b56e8157df6dfa27dbf62387" kind="function"><name>function</name></member>
+    <member refid="classSMO_1aac6bff738ce45a80ce47eb3837747e81" kind="function"><name>training_routine</name></member>
+    <member refid="classSMO_1ae7040f25f489a8f23872ae425e5cc91e" kind="function"><name>test_learning</name></member>
+    <member refid="classSMO_1a197e340e9d1e82d973f89b14ba86f597" kind="function"><name>train_matrix</name></member>
+    <member refid="classSMO_1af56f3abb690daa6b75efe65a2d20c20b" kind="function"><name>SMO</name></member>
+    <member refid="classSMO_1af786da7154d3025293875a43faca8819" kind="function"><name>train</name></member>
+    <member refid="classSMO_1a978c9a0ac7f7da04984b763f3ca304ed" kind="function"><name>~SMO</name></member>
+  </compound>
+  <compound refid="structSMO_1_1smo__learning__data" kind="struct"><name>SMO::smo_learning_data</name>
+    <member refid="structSMO_1_1smo__learning__data_1a065b073fa2a26801115813d996fd7f57" kind="variable"><name>error</name></member>
+    <member refid="structSMO_1_1smo__learning__data_1ae5e1005bc99aae6fbc6727bd7eb6dd58" kind="variable"><name>done</name></member>
+    <member refid="structSMO_1_1smo__learning__data_1a2dbdfe786b1c05238521666287b1f699" kind="variable"><name>sv</name></member>
+    <member refid="structSMO_1_1smo__learning__data_1a578b38a15a3de3bd63c3f4648af124a4" kind="function"><name>smo_learning_data</name></member>
+  </compound>
+  <compound refid="classSolution" kind="class"><name>Solution</name>
+    <member refid="classSolution_1a736054c66aab1014bba4a71de293ad2f" kind="variable"><name>w</name></member>
+    <member refid="classSolution_1accce51041163c77add5f736214c5bb35" kind="variable"><name>func</name></member>
+    <member refid="classSolution_1af63bb12412227102794729af7491e9db" kind="variable"><name>K</name></member>
+    <member refid="classSolution_1ab764f08c5e77a03f709dd56529cbf830" kind="variable"><name>alpha</name></member>
+    <member refid="classSolution_1ac0a589a77d238aecf14c91f55d1b8daa" kind="variable"><name>bias</name></member>
+    <member refid="classSolution_1a86d40d16bfa9e7dbe476a62008431987" kind="variable"><name>fnames</name></member>
+    <member refid="classSolution_1a3580af26a22d86e44df701f654165e0f" kind="variable"><name>margin</name></member>
+    <member refid="classSolution_1acbc0610c1c2e2d7bb5c39af33b7eb99c" kind="variable"><name>norm</name></member>
+    <member refid="classSolution_1ae9f64bc0520b7c42d3c395f48748eca5" kind="variable"><name>svs</name></member>
+    <member refid="classSolution_1a8da0e412cdefa6e44c35fc5a8b96ee02" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="classStatistics" kind="class"><name>Statistics</name>
+    <member refid="classStatistics_1a51b30b6248fac4c53524437ace868c08" kind="friend"><name>Data&lt; T &gt;</name></member>
+    <member refid="classStatistics_1abc5a7f2c15bca7f7048aa2ceec665eeb" kind="variable"><name>centroid</name></member>
+    <member refid="classStatistics_1aa34106529ec06cf6e9b960a73f21f5a8" kind="variable"><name>pos_centroid</name></member>
+    <member refid="classStatistics_1a090cdda94ea1d0f9df34df5e255ad7cb" kind="variable"><name>neg_centroid</name></member>
+    <member refid="classStatistics_1a9802f93041096c6bf293e1023783480b" kind="variable"><name>n_pos</name></member>
+    <member refid="classStatistics_1afd497f851f616d4dd21ca1c591f6d2b5" kind="variable"><name>n_neg</name></member>
+    <member refid="classStatistics_1a31b289c3dc142cc7bc1cafbe10ca99ca" kind="function"><name>Statistics</name></member>
+    <member refid="classStatistics_1a5c3639c37f312703cdebfe179a3c5180" kind="function"><name>mean</name></member>
+    <member refid="classStatistics_1aed57f80ae94ffde832e3561c6cbf74ba" kind="function"><name>getFeatureMean</name></member>
+    <member refid="classStatistics_1a4c323761a6c8704bf25d68d7818fe7c5" kind="function"><name>variance</name></member>
+    <member refid="classStatistics_1ac62a4051e736099b45e1d0cd13ba7446" kind="function"><name>variance</name></member>
+    <member refid="classStatistics_1accf969226645d2fe2cb16ab24c3eeb33" kind="function"><name>stdev</name></member>
+    <member refid="classStatistics_1a9030f1c777e9237e90697e7d294cfc5f" kind="function"><name>getFeatureStdev</name></member>
+    <member refid="classStatistics_1a0b14915d97827cba05894fdc8662573d" kind="function"><name>getRadius</name></member>
+    <member refid="classStatistics_1a711d9dc0287ad32e933ccdb396eab2be" kind="function"><name>getDistCenters</name></member>
+    <member refid="classStatistics_1a80d125d17668b8459a111bbc2c675804" kind="function"><name>getDistCentersWithoutFeats</name></member>
+  </compound>
+  <compound refid="classTimer" kind="class"><name>Timer</name>
+    <member refid="classTimer_1a286123da47758ec8a5c1b97a562fdb4d" kind="variable"><name>start</name></member>
+    <member refid="classTimer_1a79efc7af82502472c536771a9d86323c" kind="variable"><name>duration</name></member>
+    <member refid="classTimer_1a5f16e8da27d2a5a5242dead46de05d97" kind="function"><name>Timer</name></member>
+    <member refid="classTimer_1ae7c0c1e7d12de4b8a6e7c64e451cdd2a" kind="function"><name>Reset</name></member>
+    <member refid="classTimer_1a23ceb8d8848ca88a46a5df2b07e27516" kind="function"><name>Elapsed</name></member>
+  </compound>
+  <compound refid="classValidation" kind="class"><name>Validation</name>
+    <member refid="classValidation_1acef5bf5ceb4a6100aa1958872ab31fc2" kind="variable"><name>classifier</name></member>
+    <member refid="classValidation_1a4b503b272218fdcd02799b956db1a3f5" kind="variable"><name>sample</name></member>
+    <member refid="classValidation_1a99e65b01abe3018fb9535274538ed903" kind="variable"><name>train_sample</name></member>
+    <member refid="classValidation_1a1e41d7a202896d96b29307f97c215d87" kind="variable"><name>test_sample</name></member>
+    <member refid="classValidation_1aff06171cffc5fa6e78bf71283a947dde" kind="variable"><name>initial_error</name></member>
+    <member refid="classValidation_1aac75860efc15eeddef21151ea0baca1c" kind="variable"><name>limit_error</name></member>
+    <member refid="classValidation_1ab98e596a6cb2d9c363abc9d42108bc80" kind="variable"><name>actual_error</name></member>
+    <member refid="classValidation_1a4df5cfc82e26dcb8f75055c98f75d3ab" kind="variable"><name>kernel_param</name></member>
+    <member refid="classValidation_1aa1ed6d6cf86c2edab4daa6e143e325fc" kind="variable"><name>kernel_type</name></member>
+    <member refid="classValidation_1a1820b66db1007766e8e4619caaec3d86" kind="variable"><name>verbose</name></member>
+    <member refid="classValidation_1a87660ed8c62f2dde75edf439c54a5578" kind="variable"><name>seed</name></member>
+    <member refid="classValidation_1afd54733c31abfbd038a8294470c46b39" kind="variable"><name>solution</name></member>
+    <member refid="classValidation_1a8421390022d90bebecf761d23533c72e" kind="function"><name>Validation</name></member>
+    <member refid="classValidation_1a91399f8b544cb22de02b85618ef5b0cc" kind="function"><name>Validation</name></member>
+    <member refid="classValidation_1a1e9580697a164d4bfbe721f2f1589c57" kind="function"><name>partTrainTest</name></member>
+    <member refid="classValidation_1a1a5825e2dd051a72aaffd423a0df55f1" kind="function"><name>kFold</name></member>
+    <member refid="classValidation_1aa7f79be36229a955f67a29556152f373" kind="function"><name>validation</name></member>
+    <member refid="classValidation_1a2370445658f5e86e39e8c18fc8b971d0" kind="function"><name>getTestSample</name></member>
+    <member refid="classValidation_1a11cf518681b25799f231ce973ad45095" kind="function"><name>getTrainSample</name></member>
+    <member refid="classValidation_1a2dc480e3008a6a228ae3092e1e93651c" kind="function"><name>setSamples</name></member>
+    <member refid="classValidation_1adddf2e9eb960b7636e6615ecbd9783bb" kind="function"><name>setVerbose</name></member>
+    <member refid="classValidation_1a26fec6a8582bded0583a4754cdba0009" kind="function"><name>setSeed</name></member>
+    <member refid="classValidation_1a4c863a5c9486ef6afb60b4aa8fb65889" kind="function"><name>generateConfusionMatrix</name></member>
+  </compound>
+  <compound refid="structValidationSolution" kind="struct"><name>ValidationSolution</name>
+    <member refid="structValidationSolution_1a00e68fd11f322fdc4058bba59efd3db5" kind="variable"><name>accuracy</name></member>
+    <member refid="structValidationSolution_1a967e6a3839a1ac883d41e5b935eb2137" kind="variable"><name>precision</name></member>
+    <member refid="structValidationSolution_1a5ce08ec45f0c352164f9d6301f3edbaf" kind="variable"><name>recall</name></member>
+    <member refid="structValidationSolution_1a5164f744e7e5b3e4b8d27ac5a0e584b5" kind="variable"><name>tnrate</name></member>
+    <member refid="structValidationSolution_1aa13f916ba0d0513c62f6c3183f33d4f4" kind="variable"><name>tprate</name></member>
+    <member refid="structValidationSolution_1a936e73dc0d14121304e7031593bd842f" kind="variable"><name>falsePositive</name></member>
+    <member refid="structValidationSolution_1a654bec4c5a19b8474e784f0bf609c5b8" kind="variable"><name>falseNegative</name></member>
+    <member refid="structValidationSolution_1aa074673534cfc23d82a06e82576f836f" kind="variable"><name>trueNegative</name></member>
+    <member refid="structValidationSolution_1a84e59f55bf7e2b296eb21977828d9f07" kind="variable"><name>truePositive</name></member>
+  </compound>
+  <compound refid="classVisualization" kind="class"><name>Visualization</name>
+    <member refid="classVisualization_1a2f20aecd3dafc58a6c6196df7ef05c09" kind="variable"><name>samples</name></member>
+    <member refid="classVisualization_1af16022e3370a7e8d451d2eb8ed5dd392" kind="function"><name>createTempFiles</name></member>
+    <member refid="classVisualization_1afd88141e3a1e5f9f7021d1eb04a2ae94" kind="function"><name>valid_file</name></member>
+    <member refid="classVisualization_1a62b6ee6691a1f55e10036c2aa24d0a3f" kind="function"><name>getTempFilesNames</name></member>
+    <member refid="classVisualization_1a89fa800d98fccef520412d0e6e49a5b0" kind="function"><name>removeTempFiles</name></member>
+    <member refid="classVisualization_1aaea1caba6dc0125a7f80bc7df078184f" kind="function"><name>Visualization</name></member>
+    <member refid="classVisualization_1a26327b3a98378ecc865f95b0b5f024e1" kind="function"><name>Visualization</name></member>
+    <member refid="classVisualization_1a9101e00cd9ea32ad9770ab78fe51593f" kind="function"><name>setSample</name></member>
+    <member refid="classVisualization_1a7ceccc8ea12972f66a6e39d3f2c2cb86" kind="function"><name>setTitle</name></member>
+    <member refid="classVisualization_1a8fb84b9d912b645311329a77c44f3301" kind="function"><name>setStyle</name></member>
+    <member refid="classVisualization_1a3aa4e2d24528629a5e28eeb4b1cde57c" kind="function"><name>plot2D</name></member>
+    <member refid="classVisualization_1aa4de991872471f8628151610e674c6aa" kind="function"><name>plot3D</name></member>
+    <member refid="classVisualization_1a84789ed07fbc542c027ab43faa51b6c6" kind="function"><name>plot2DwithHyperplane</name></member>
+    <member refid="classVisualization_1a1c667677812cb6b3381ee271a674bcad" kind="function"><name>plot3DwithHyperplane</name></member>
+    <member refid="classVisualization_1acf23d7bc2c9dbfc1830bab4a0c9e0a44" kind="function"><name>~Visualization</name></member>
+  </compound>
+  <compound refid="namespaceRandom" kind="namespace"><name>Random</name>
+    <member refid="namespaceRandom_1aacd664e02f96dd6df8a91ad18d47139e" kind="variable"><name>m_gen</name></member>
+    <member refid="namespaceRandom_1afb7dc062df38f99a2e878bfef6109d4c" kind="variable"><name>m_seed</name></member>
+    <member refid="namespaceRandom_1ad8b845768c2e5f049eb7ae06955bdd77" kind="function"><name>init</name></member>
+    <member refid="namespaceRandom_1a0fecb2ca9c3ca82f87c35ceed7146ffe" kind="function"><name>intInRange</name></member>
+    <member refid="namespaceRandom_1ac99d2b48fd9c53d096da24b17227c0a3" kind="function"><name>floatInRange</name></member>
+    <member refid="namespaceRandom_1a928dacbcc057819706ba38bc20046035" kind="function"><name>getSeed</name></member>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="namespaceUtils" kind="namespace"><name>Utils</name>
+    <member refid="Utils_8hpp_1a0dfec1afda76ed3c97cb6eb2403a87ad" kind="function"><name>printConfusionMatrix</name></member>
+    <member refid="Utils_8hpp_1af9834e74b99cfa451d68a2842efc409f" kind="function"><name>is_number</name></member>
+    <member refid="Utils_8hpp_1a8fd9cf373e557233447320fff85f0b75" kind="function"><name>stoin</name></member>
+    <member refid="Utils_8hpp_1ab57e1cd647521bc3149ae54cb7fbf3a9" kind="function"><name>atod</name></member>
+    <member refid="Utils_8hpp_1a064dd32742fbf39c7d7b7d6fade03713" kind="function"><name>maxAbsElement</name></member>
+    <member refid="Utils_8hpp_1a3dcff8f030040bdd63f2b9556c7f2b39" kind="function"><name>itos</name></member>
+    <member refid="Utils_8hpp_1a700c78d2db129cf738b3c82274d7a99b" kind="function"><name>dtoa</name></member>
+    <member refid="Utils_8hpp_1ae468d0c710c36e05a0de9f04b9e96920" kind="function"><name>split</name></member>
+    <member refid="Utils_8hpp_1a04eb58f493219287850c60f04b2e7488" kind="function"><name>split</name></member>
+    <member refid="Utils_8cpp_1ad41ebcfda6074134e5ac2d51c1398b9c" kind="function"><name>is_number</name></member>
+    <member refid="Utils_8cpp_1a90a7f5d5780621efbf1e87675342ee2b" kind="function"><name>stoin</name></member>
+    <member refid="Utils_8cpp_1a12582d8ae2edd1610b2264c222016164" kind="function"><name>reverse</name></member>
+    <member refid="Utils_8cpp_1afc341b32907cf8c3cfa5e162c1a67d36" kind="function"><name>intToStr</name></member>
+  </compound>
+  <compound refid="Classifier_8hpp" kind="file"><name>Classifier.hpp</name>
+  </compound>
+  <compound refid="DualClassifier_8hpp" kind="file"><name>DualClassifier.hpp</name>
+  </compound>
+  <compound refid="IMA_8hpp" kind="file"><name>IMA.hpp</name>
+  </compound>
+  <compound refid="KNN_8hpp" kind="file"><name>KNN.hpp</name>
+  </compound>
+  <compound refid="OneVsAll_8hpp" kind="file"><name>OneVsAll.hpp</name>
+  </compound>
+  <compound refid="Perceptron_8hpp" kind="file"><name>Perceptron.hpp</name>
+  </compound>
+  <compound refid="PrimalClassifier_8hpp" kind="file"><name>PrimalClassifier.hpp</name>
+  </compound>
+  <compound refid="SMO_8hpp" kind="file"><name>SMO.hpp</name>
+    <member refid="SMO_8hpp_1a80b651b2814c6e1b6b97056be0ddaf7a" kind="typedef"><name>int_dll</name></member>
+  </compound>
+  <compound refid="IMA_8cpp" kind="file"><name>IMA.cpp</name>
+  </compound>
+  <compound refid="KNN_8cpp" kind="file"><name>KNN.cpp</name>
+  </compound>
+  <compound refid="OneVsAll_8cpp" kind="file"><name>OneVsAll.cpp</name>
+  </compound>
+  <compound refid="Perceptron_8cpp" kind="file"><name>Perceptron.cpp</name>
+  </compound>
+  <compound refid="SMO_8cpp" kind="file"><name>SMO.cpp</name>
+  </compound>
+  <compound refid="Clusterer_8hpp" kind="file"><name>Clusterer.hpp</name>
+  </compound>
+  <compound refid="KMeans_8hpp" kind="file"><name>KMeans.hpp</name>
+  </compound>
+  <compound refid="KMeans_8cpp" kind="file"><name>KMeans.cpp</name>
+  </compound>
+  <compound refid="Data_8hpp" kind="file"><name>Data.hpp</name>
+    <member refid="Data_8hpp_1a1d1cfd8ffb84e947f82999c682b666a7" kind="enum"><name>Type</name></member>
+    <member refid="Data_8hpp_1a1d1cfd8ffb84e947f82999c682b666a7afeec3d92b10ebeaa68bbb56e4d08691c" kind="enumvalue"><name>TYPE_INVALID</name></member>
+    <member refid="Data_8hpp_1a1d1cfd8ffb84e947f82999c682b666a7ac731049dbbf7536acbb7f99f6d702b15" kind="enumvalue"><name>TYPE_DATA</name></member>
+    <member refid="Data_8hpp_1a1d1cfd8ffb84e947f82999c682b666a7ab1c45945a4a215e52f4df0eb87e49bf0" kind="enumvalue"><name>TYPE_CSV</name></member>
+    <member refid="Data_8hpp_1a1d1cfd8ffb84e947f82999c682b666a7adf94aaf8671663c048053485ea1a83e1" kind="enumvalue"><name>TYPE_ARFF</name></member>
+    <member refid="Data_8hpp_1a1d1cfd8ffb84e947f82999c682b666a7aac1537aa1027000ca9321af93a3128da" kind="enumvalue"><name>TYPE_TXT</name></member>
+    <member refid="Data_8hpp_1a9d01b95085725dff8f1cde4dfb6af78c" kind="variable"><name>types</name></member>
+    <member refid="Data_8hpp_1a1fa9a2ea41259b813f122e0d8bb47bca" kind="function"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="Kernel_8hpp" kind="file"><name>Kernel.hpp</name>
+  </compound>
+  <compound refid="Learner_8hpp" kind="file"><name>Learner.hpp</name>
+  </compound>
+  <compound refid="MLToolkit_8hpp" kind="file"><name>MLToolkit.hpp</name>
+  </compound>
+  <compound refid="Point_8hpp" kind="file"><name>Point.hpp</name>
+    <member refid="Point_8hpp_1a564df17cacf8f33717f80004503b3aa3" kind="function"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="Random_8hpp" kind="file"><name>Random.hpp</name>
+  </compound>
+  <compound refid="Solution_8hpp" kind="file"><name>Solution.hpp</name>
+  </compound>
+  <compound refid="Statistics_8hpp" kind="file"><name>Statistics.hpp</name>
+  </compound>
+  <compound refid="Timer_8hpp" kind="file"><name>Timer.hpp</name>
+  </compound>
+  <compound refid="Utils_8hpp" kind="file"><name>Utils.hpp</name>
+    <member refid="Utils_8hpp_1a12c2040f25d8e3a7b9e1c2024c618cb6" kind="define"><name>INF</name></member>
+    <member refid="Utils_8hpp_1ad4bb8dabdbf8ad75e34220cc666b59ca" kind="enum"><name>NormType</name></member>
+    <member refid="Utils_8hpp_1ad4bb8dabdbf8ad75e34220cc666b59caaac9626d7e8dda3b4934bfeed8581cfe7" kind="enumvalue"><name>NORM_LINF</name></member>
+    <member refid="Utils_8hpp_1ad4bb8dabdbf8ad75e34220cc666b59caa5b47b59c8bcf8bac3603236652a05970" kind="enumvalue"><name>NORM_L1</name></member>
+    <member refid="Utils_8hpp_1ad4bb8dabdbf8ad75e34220cc666b59caad3dec0c98f8c4250faa45129da273854" kind="enumvalue"><name>NORM_L2</name></member>
+    <member refid="Utils_8hpp_1a5b939e9afe8dd07c1182ecede20c61b1" kind="typedef"><name>dMatrix</name></member>
+  </compound>
+  <compound refid="Data_8cpp" kind="file"><name>Data.cpp</name>
+  </compound>
+  <compound refid="Kernel_8cpp" kind="file"><name>Kernel.cpp</name>
+  </compound>
+  <compound refid="Statistics_8cpp" kind="file"><name>Statistics.cpp</name>
+  </compound>
+  <compound refid="Utils_8cpp" kind="file"><name>Utils.cpp</name>
+    <member refid="Utils_8cpp_1a9c7b069fee3c8184e14a7de8e5da2dc6" kind="define"><name>PRECISION</name></member>
+    <member refid="Utils_8cpp_1a7873e5175e32a7777d5f4761791b0126" kind="define"><name>MAX_NUMBER_STRING_SIZE</name></member>
+  </compound>
+  <compound refid="Ensemble_8hpp" kind="file"><name>Ensemble.hpp</name>
+  </compound>
+  <compound refid="PrimalCommittee_8cpp" kind="file"><name>PrimalCommittee.cpp</name>
+  </compound>
+  <compound refid="PrimalCommittee_8hpp" kind="file"><name>PrimalCommittee.hpp</name>
+  </compound>
+  <compound refid="PrimalPercCommittee_8cpp" kind="file"><name>PrimalPercCommittee.cpp</name>
+  </compound>
+  <compound refid="PrimalPercCommittee_8hpp" kind="file"><name>PrimalPercCommittee.hpp</name>
+  </compound>
+  <compound refid="AOS_8hpp" kind="file"><name>AOS.hpp</name>
+  </compound>
+  <compound refid="FeatureSelection_8hpp" kind="file"><name>FeatureSelection.hpp</name>
+  </compound>
+  <compound refid="Fisher_8hpp" kind="file"><name>Fisher.hpp</name>
+  </compound>
+  <compound refid="Golub_8hpp" kind="file"><name>Golub.hpp</name>
+  </compound>
+  <compound refid="RFE_8hpp" kind="file"><name>RFE.hpp</name>
+  </compound>
+  <compound refid="AOS_8cpp" kind="file"><name>AOS.cpp</name>
+    <member refid="AOS_8cpp_1abbeb121d44260375bbedb804aa56bdc0" kind="define"><name>MAX_HEAP</name></member>
+    <member refid="AOS_8cpp_1a3e83f95df675a316937eaec2eed44286" kind="define"><name>NUM_ERROR_EPS</name></member>
+    <member refid="AOS_8cpp_1acfa32acb996c4d58791e720341227488" kind="define"><name>FIRST_DECAY</name></member>
+  </compound>
+  <compound refid="Fisher_8cpp" kind="file"><name>Fisher.cpp</name>
+  </compound>
+  <compound refid="Golub_8cpp" kind="file"><name>Golub.cpp</name>
+  </compound>
+  <compound refid="RFE_8cpp" kind="file"><name>RFE.cpp</name>
+    <member refid="RFE_8cpp_1ac3ca2fa624b3636c3b30a4f4abd7d51b" kind="define"><name>first_decay</name></member>
+  </compound>
+  <compound refid="DualRegressor_8hpp" kind="file"><name>DualRegressor.hpp</name>
+  </compound>
+  <compound refid="KNNRegressor_8hpp" kind="file"><name>KNNRegressor.hpp</name>
+  </compound>
+  <compound refid="LMS_8hpp" kind="file"><name>LMS.hpp</name>
+  </compound>
+  <compound refid="PrimalRegressor_8hpp" kind="file"><name>PrimalRegressor.hpp</name>
+  </compound>
+  <compound refid="Regressor_8hpp" kind="file"><name>Regressor.hpp</name>
+  </compound>
+  <compound refid="KNNRegressor_8cpp" kind="file"><name>KNNRegressor.cpp</name>
+  </compound>
+  <compound refid="LMS_8cpp" kind="file"><name>LMS.cpp</name>
+  </compound>
+  <compound refid="Validation_8hpp" kind="file"><name>Validation.hpp</name>
+  </compound>
+  <compound refid="Validation_8cpp" kind="file"><name>Validation.cpp</name>
+  </compound>
+  <compound refid="gnuplot__i_8hpp" kind="file"><name>gnuplot_i.hpp</name>
+  </compound>
+  <compound refid="Visualization_8hpp" kind="file"><name>Visualization.hpp</name>
+  </compound>
+  <compound refid="gnuplot__i_8cpp" kind="file"><name>gnuplot_i.cpp</name>
+    <member refid="gnuplot__i_8cpp_1a999b660e008a191d56b4c01a09a38f45" kind="function"><name>stringtok</name></member>
+  </compound>
+  <compound refid="Visualization_8cpp" kind="file"><name>Visualization.cpp</name>
+  </compound>
+  <compound refid="dir_88da5b1c86dac6f1ee4b755ffff3ad8e" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier</name>
+  </compound>
+  <compound refid="dir_ba087f27bd4c343b9151b1989891c15d" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Clusterer</name>
+  </compound>
+  <compound refid="dir_1fcae67130d3141726b72ad847686247" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core</name>
+  </compound>
+  <compound refid="dir_64da4ef6b109c5725a2af9214358721c" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Ensemble</name>
+  </compound>
+  <compound refid="dir_9c47ea916d201b04c022357a419fa8ec" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection</name>
+  </compound>
+  <compound refid="dir_d253b61f1f4d09df78c049028e7a5fe6" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include</name>
+  </compound>
+  <compound refid="dir_d9b34904e03225a5d33108c62a972f47" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include</name>
+  </compound>
+  <compound refid="dir_ddde81b5e730b8283261ba9b0b4830b5" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include</name>
+  </compound>
+  <compound refid="dir_642e0f69053d1ae40effcc12e7a6847b" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Visualize/include</name>
+  </compound>
+  <compound refid="dir_a2673ca61de042f68d1b7350a22b950b" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include</name>
+  </compound>
+  <compound refid="dir_8d278239092b2d0fb96894adafcba6cc" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Clusterer/include</name>
+  </compound>
+  <compound refid="dir_7c96a0e71354b9fab84cf69bd3c632a5" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include</name>
+  </compound>
+  <compound refid="dir_f2541a3b18981391fa76fac5599e978a" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules</name>
+  </compound>
+  <compound refid="dir_a82a3981ac3573619b197e2d20b8997b" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor</name>
+  </compound>
+  <compound refid="dir_94fc0453319fb3c88208e3f84e477cb3" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Ensemble/src</name>
+  </compound>
+  <compound refid="dir_be9d4c579ab120fde2f70ec0e9a62c2e" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/src</name>
+  </compound>
+  <compound refid="dir_6d6f8c14125b0c5bcd43e36dd91459b2" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src</name>
+  </compound>
+  <compound refid="dir_d03829d21fde06686026622ae07b06b7" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/src</name>
+  </compound>
+  <compound refid="dir_9577305e561c3e0249805d10095e023b" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src</name>
+  </compound>
+  <compound refid="dir_09a4d63fefd25e97289b6bbd10dcd7e0" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src</name>
+  </compound>
+  <compound refid="dir_ca97fd5c25459e209d375926e4b92fdc" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Visualize/src</name>
+  </compound>
+  <compound refid="dir_47995ba8118d9e588ad6ecae60508f0f" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Clusterer/src</name>
+  </compound>
+  <compound refid="dir_e81efb72b0fd8f9e3e8d159dd0e129f5" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation</name>
+  </compound>
+  <compound refid="dir_7760698109a31bf180984c5110cf1f47" kind="dir"><name>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Visualize</name>
+  </compound>
+</doxygenindex>

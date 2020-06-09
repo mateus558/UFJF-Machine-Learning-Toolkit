@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_7c96a0e71354b9fab84cf69bd3c632a5" kind="dir">
+    <compoundname>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include</compoundname>
+    <innerfile refid="AOS_8hpp">AOS.hpp</innerfile>
+    <innerfile refid="FeatureSelection_8hpp">FeatureSelection.hpp</innerfile>
+    <innerfile refid="Fisher_8hpp">Fisher.hpp</innerfile>
+    <innerfile refid="Golub_8hpp">Golub.hpp</innerfile>
+    <innerfile refid="RFE_8hpp">RFE.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/"/>
+  </compounddef>
+</doxygen>

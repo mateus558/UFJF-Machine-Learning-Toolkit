@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structRFE_1_1select__weight" kind="struct" language="C++" prot="private">
+    <compoundname>RFE::select_weight</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structRFE_1_1select__weight_1aa4f03e299b421e03ff7c44610301676d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double RFE&lt; T &gt;::select_weight::w</definition>
+        <argsstring></argsstring>
+        <name>w</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/RFE.hpp" line="14" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/RFE.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRFE_1_1select__weight_1a60559e09614a88dce8fbff77606ba051" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double RFE&lt; T &gt;::select_weight::val</definition>
+        <argsstring></argsstring>
+        <name>val</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/RFE.hpp" line="15" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/RFE.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRFE_1_1select__weight_1a8e4dfc85a18c7137e5331d2508139567" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double RFE&lt; T &gt;::select_weight::fname</definition>
+        <argsstring></argsstring>
+        <name>fname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/RFE.hpp" line="16" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/RFE.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/RFE.hpp" line="13" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/RFE.hpp" bodystart="13" bodyend="17"/>
+    <listofallmembers>
+      <member refid="structRFE_1_1select__weight_1a8e4dfc85a18c7137e5331d2508139567" prot="public" virt="non-virtual"><scope>RFE::select_weight</scope><name>fname</name></member>
+      <member refid="structRFE_1_1select__weight_1a60559e09614a88dce8fbff77606ba051" prot="public" virt="non-virtual"><scope>RFE::select_weight</scope><name>val</name></member>
+      <member refid="structRFE_1_1select__weight_1aa4f03e299b421e03ff7c44610301676d" prot="public" virt="non-virtual"><scope>RFE::select_weight</scope><name>w</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

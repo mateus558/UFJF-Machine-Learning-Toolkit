@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structFisher_1_1fisher__select__score" kind="struct" language="C++" prot="private">
+    <compoundname>Fisher::fisher_select_score</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structFisher_1_1fisher__select__score_1abf3133ca2bd5ce8fb57650092a1e90ad" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Fisher&lt; T &gt;::fisher_select_score::fname</definition>
+        <argsstring></argsstring>
+        <name>fname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Fisher.hpp" line="17" column="13" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Fisher.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structFisher_1_1fisher__select__score_1a33cafafa9a6ee3f2a32af922cc2c4dfd" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Fisher&lt; T &gt;::fisher_select_score::score</definition>
+        <argsstring></argsstring>
+        <name>score</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Fisher.hpp" line="18" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Fisher.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Fisher.hpp" line="15" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Fisher.hpp" bodystart="16" bodyend="19"/>
+    <listofallmembers>
+      <member refid="structFisher_1_1fisher__select__score_1abf3133ca2bd5ce8fb57650092a1e90ad" prot="public" virt="non-virtual"><scope>Fisher::fisher_select_score</scope><name>fname</name></member>
+      <member refid="structFisher_1_1fisher__select__score_1a33cafafa9a6ee3f2a32af922cc2c4dfd" prot="public" virt="non-virtual"><scope>Fisher::fisher_select_score</scope><name>score</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

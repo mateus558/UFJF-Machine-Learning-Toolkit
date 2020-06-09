@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="Timer_8hpp" kind="file" language="C++">
+    <compoundname>Timer.hpp</compoundname>
+    <includes local="no">cstdio</includes>
+    <includes local="no">ctime</includes>
+    <includedby refid="IMA_8cpp" local="yes">/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/IMA.cpp</includedby>
+    <includedby refid="Learner_8hpp" local="yes">/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Learner.hpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>cstdio</label>
+      </node>
+      <node id="3">
+        <label>ctime</label>
+      </node>
+      <node id="1">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Timer.hpp</label>
+        <link refid="Timer_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="21">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Ensemble/src/PrimalCommittee.hpp</label>
+        <link refid="PrimalCommittee_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Golub.hpp</label>
+        <link refid="Golub_8hpp_source"/>
+      </node>
+      <node id="11">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/OneVsAll.hpp</label>
+        <link refid="OneVsAll_8hpp_source"/>
+      </node>
+      <node id="20">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Ensemble/src/Ensemble.hpp</label>
+        <link refid="Ensemble_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/LMS.hpp</label>
+        <link refid="LMS_8hpp_source"/>
+      </node>
+      <node id="19">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Clusterer/include/KMeans.hpp</label>
+        <link refid="KMeans_8hpp_source"/>
+      </node>
+      <node id="13">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp</label>
+        <link refid="AOS_8hpp_source"/>
+      </node>
+      <node id="3">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/Classifier.hpp</label>
+        <link refid="Classifier_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/KNNRegressor.hpp</label>
+        <link refid="KNNRegressor_8hpp_source"/>
+      </node>
+      <node id="7">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Ensemble/src/PrimalPercCommittee.hpp</label>
+        <link refid="PrimalPercCommittee_8hpp_source"/>
+      </node>
+      <node id="9">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/PrimalClassifier.hpp</label>
+        <link refid="PrimalClassifier_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp</label>
+        <link refid="SMO_8hpp_source"/>
+      </node>
+      <node id="14">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Fisher.hpp</label>
+        <link refid="Fisher_8hpp_source"/>
+      </node>
+      <node id="12">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/FeatureSelection.hpp</label>
+        <link refid="FeatureSelection_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp</label>
+        <link refid="IMA_8hpp"/>
+      </node>
+      <node id="10">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp</label>
+        <link refid="KNN_8hpp_source"/>
+      </node>
+      <node id="4">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/DualClassifier.hpp</label>
+        <link refid="DualClassifier_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/DualRegressor.hpp</label>
+        <link refid="DualRegressor_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Timer.hpp</label>
+        <link refid="Timer_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/RFE.hpp</label>
+        <link refid="RFE_8hpp_source"/>
+      </node>
+      <node id="22">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp</label>
+        <link refid="Regressor_8hpp_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Clusterer/include/Clusterer.hpp</label>
+        <link refid="Clusterer_8hpp_source"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/PrimalRegressor.hpp</label>
+        <link refid="PrimalRegressor_8hpp_source"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/Perceptron.hpp</label>
+        <link refid="Perceptron_8hpp"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Learner.hpp</label>
+        <link refid="Learner_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Validation/include/Validation.hpp</label>
+        <link refid="Validation_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classTimer" prot="public">Timer</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="classTimer" kindref="compound">Timer</ref> class</para>
+<para><simplesect kind="author"><para>Mateus Coutinho Marim </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="6"><highlight class="preprocessor">#ifndef<sp/>TIMER_H_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TIMER_H_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdio&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ctime&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="classTimer" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classTimer" kindref="compound">Timer</ref><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="20" refid="classTimer_1a5f16e8da27d2a5a5242dead46de05d97" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classTimer_1a5f16e8da27d2a5a5242dead46de05d97" kindref="member">Timer</ref>()<sp/>{start<sp/>=<sp/>std::clock();}</highlight></codeline>
+<codeline lineno="24" refid="classTimer_1ae7c0c1e7d12de4b8a6e7c64e451cdd2a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classTimer_1ae7c0c1e7d12de4b8a6e7c64e451cdd2a" kindref="member">Reset</ref>(){<sp/>start<sp/>=<sp/>std::clock();<sp/>}</highlight></codeline>
+<codeline lineno="29" refid="classTimer_1a23ceb8d8848ca88a46a5df2b07e27516" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classTimer_1a23ceb8d8848ca88a46a5df2b07e27516" kindref="member">Elapsed</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>100.0f*(<sp/>std::clock()<sp/>-<sp/>start<sp/>)<sp/>/<sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<sp/>CLOCKS_PER_SEC;<sp/>}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>std::clock_t<sp/>start;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>duration;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Timer.hpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classKNN" kind="class" language="C++" prot="public">
+    <compoundname>KNN</compoundname>
+    <basecompoundref refid="classPrimalClassifier" prot="public" virt="non-virtual">PrimalClassifier&lt; T &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classKNN_1a8a0111a9797a164d1e1606a60e3cd299" prot="private" static="no">
+        <type>std::function&lt; double(std::shared_ptr&lt; <ref refid="classPoint" kindref="compound">Point</ref>&lt; T &gt; &gt;, std::shared_ptr&lt; <ref refid="classPoint" kindref="compound">Point</ref>&lt; T &gt; &gt;)&gt;</type>
+        <definition>typedef std::function&lt;double(std::shared_ptr&lt;Point&lt; T &gt; &gt;, std::shared_ptr&lt;Point&lt; T &gt; &gt;)&gt; KNN&lt; T &gt;::function</definition>
+        <argsstring></argsstring>
+        <name>function</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" line="15" column="27" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classKNN_1a363b50a634b88cf810b2882c0fbf3f6a" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t KNN&lt; T &gt;::k</definition>
+        <argsstring></argsstring>
+        <name>k</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" line="17" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classKNN_1a3ac1c31a60802db08e61b2779ab9ebb4" prot="private" static="no" mutable="no">
+        <type>function</type>
+        <definition>function KNN&lt; T &gt;::dist_function</definition>
+        <argsstring></argsstring>
+        <name>dist_function</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" line="18" column="14" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classKNN_1ae00788843c0ba2e9898bf2fa8e387f16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>KNN&lt; T &gt;::KNN</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; _samples, size_t _k, function _dist_function=[](const std::shared_ptr&lt; Point&lt; T &gt; &gt; p, const std::shared_ptr&lt; Point&lt; T &gt; &gt; q){ const size_t _dimp=p-&gt;x.size();size_t i;double dist=0;for(i=0;i&lt; _dimp;i++){ dist+=(p-&gt;x[i] - q-&gt;x[i]) *(p-&gt;x[i] - q-&gt;x[i]);} return sqrt(dist);})</argsstring>
+        <name>KNN</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>_samples</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_k</declname>
+        </param>
+        <param>
+          <type>function</type>
+          <declname>_dist_function</declname>
+          <defval>[](const std::shared_ptr&lt; <ref refid="classPoint" kindref="compound">Point</ref>&lt; T &gt; &gt; p, const std::shared_ptr&lt; <ref refid="classPoint" kindref="compound">Point</ref>&lt; T &gt; &gt; <ref refid="classPrimalClassifier_1ae30c00c25bce4b1623baa54b5e2812b4" kindref="member">q</ref>){ const size_t _dimp=p-&gt;x.size();size_t i;double dist=0;for(i=0;i&lt; _dimp;i++){ dist+=(p-&gt;x[i] - <ref refid="classPrimalClassifier_1ae30c00c25bce4b1623baa54b5e2812b4" kindref="member">q</ref>-&gt;x[i]) *(p-&gt;x[i] - <ref refid="classPrimalClassifier_1ae30c00c25bce4b1623baa54b5e2812b4" kindref="member">q</ref>-&gt;x[i]);} return sqrt(dist);}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" line="21" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/KNN.cpp" bodystart="9" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classKNN_1a06c93c89ec228db3d0dbd1b67044363e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool KNN&lt; T &gt;::train</definition>
+        <argsstring>() override</argsstring>
+        <name>train</name>
+        <reimplements refid="classLearner_1a405ff5ebcd1d34f1d0bd7e1acc1d7165">train</reimplements>
+        <briefdescription>
+<para>Function that execute the training phase of a <ref refid="classLearner" kindref="compound">Learner</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>void </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" line="32" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/KNN.cpp" bodystart="51" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classKNN_1a07602b02d2d242981a1a512f865b3d78" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>double</type>
+        <definition>double KNN&lt; T &gt;::evaluate</definition>
+        <argsstring>(Point&lt; T &gt; p) override</argsstring>
+        <name>evaluate</name>
+        <reimplements refid="classLearner_1a670e6615c6bad54ba2139a3a3e718b98">evaluate</reimplements>
+        <param>
+          <type><ref refid="classPoint" kindref="compound">Point</ref>&lt; T &gt;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Returns the class of a feature point based on the trained <ref refid="classLearner" kindref="compound">Learner</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Point&lt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>T &gt; x (???) Features point to be evaluated. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" line="34" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/KNN.cpp" bodystart="16" bodyend="48"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+      </node>
+      <node id="3">
+        <label>Classifier&lt; T &gt;</label>
+        <link refid="classClassifier"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>KNN&lt; T &gt;</label>
+        <link refid="classKNN"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>PrimalClassifier&lt; T &gt;</label>
+        <link refid="classPrimalClassifier"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="6">
+        <label>Solution</label>
+        <link refid="classSolution"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>K</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>timer</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Kernel</label>
+        <link refid="classKernel"/>
+      </node>
+      <node id="3">
+        <label>Classifier&lt; T &gt;</label>
+        <link refid="classClassifier"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>solution</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>KNN&lt; T &gt;</label>
+        <link refid="classKNN"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>PrimalClassifier&lt; T &gt;</label>
+        <link refid="classPrimalClassifier"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Timer</label>
+        <link refid="classTimer"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" line="13" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/KNN.hpp" bodystart="13" bodyend="35"/>
+    <listofallmembers>
+      <member refid="classPrimalClassifier_1a2668546ac4a39e10f72cbd2e865c41a7" prot="protected" virt="non-virtual"><scope>KNN</scope><name>alpha_aprox</name></member>
+      <member refid="classLearner_1aae507dee9ebc0b63edacf7b447ec4247" prot="protected" virt="non-virtual"><scope>KNN</scope><name>ctot</name></member>
+      <member refid="classKNN_1a3ac1c31a60802db08e61b2779ab9ebb4" prot="private" virt="non-virtual"><scope>KNN</scope><name>dist_function</name></member>
+      <member refid="classLearner_1ad314cec3c154c884d7c49e0f85d7a51d" prot="protected" virt="non-virtual"><scope>KNN</scope><name>EPS</name></member>
+      <member refid="classKNN_1a07602b02d2d242981a1a512f865b3d78" prot="public" virt="virtual"><scope>KNN</scope><name>evaluate</name></member>
+      <member refid="classPrimalClassifier_1a5d41554dc1158ede39d387fecf73c96e" prot="protected" virt="non-virtual"><scope>KNN</scope><name>flexible</name></member>
+      <member refid="classKNN_1a8a0111a9797a164d1e1606a60e3cd299" prot="private" virt="non-virtual"><scope>KNN</scope><name>function</name></member>
+      <member refid="classClassifier_1ae7598910eeb47894579ca29718c9fa9c" prot="protected" virt="non-virtual"><scope>KNN</scope><name>gamma</name></member>
+      <member refid="classLearner_1afa6aca31b2b69b3dcb5cecd8d20fcb9c" prot="public" virt="non-virtual"><scope>KNN</scope><name>getCtot</name></member>
+      <member refid="classLearner_1a2ebba060740ea935e0ddaf78725b3d41" prot="public" virt="non-virtual"><scope>KNN</scope><name>getElapsedTime</name></member>
+      <member refid="classPrimalClassifier_1a73f82851a3b2c54803d56fa92cc42a8b" prot="public" virt="virtual"><scope>KNN</scope><name>getFormulationString</name></member>
+      <member refid="classLearner_1a1cc77e06a25ecdad21444e10ec3aa92f" prot="public" virt="non-virtual"><scope>KNN</scope><name>getMaxTime</name></member>
+      <member refid="classPrimalClassifier_1a43de98b120ea5b096d254db8d48ebe45" prot="public" virt="non-virtual"><scope>KNN</scope><name>getP</name></member>
+      <member refid="classPrimalClassifier_1a3efea418c124ff9cf24bfefc54959ff9" prot="public" virt="non-virtual"><scope>KNN</scope><name>getQ</name></member>
+      <member refid="classClassifier_1a015ba93eb1d31d36b336245f1dac9ce5" prot="public" virt="non-virtual"><scope>KNN</scope><name>getSolution</name></member>
+      <member refid="classClassifier_1a4845fd932adb55becf78bfa4fccbea59" prot="public" virt="non-virtual"><scope>KNN</scope><name>getSolutionRef</name></member>
+      <member refid="classLearner_1ab5e62cb073d7b4637e32ad35f9a9a7b9" prot="public" virt="non-virtual"><scope>KNN</scope><name>getSteps</name></member>
+      <member refid="classLearner_1ab20cbef3868c739f2430b900726cf70d" prot="public" virt="non-virtual"><scope>KNN</scope><name>getUpdates</name></member>
+      <member refid="classClassifier_1a914e488b477b9237cf991ff0b485c6c7" prot="protected" virt="non-virtual"><scope>KNN</scope><name>hasInitialSolution</name></member>
+      <member refid="classKNN_1a363b50a634b88cf810b2882c0fbf3f6a" prot="private" virt="non-virtual"><scope>KNN</scope><name>k</name></member>
+      <member refid="classKNN_1ae00788843c0ba2e9898bf2fa8e387f16" prot="public" virt="non-virtual"><scope>KNN</scope><name>KNN</name></member>
+      <member refid="classLearner_1af60abe634ca6d9159ed7ec451447a494" prot="protected" virt="non-virtual"><scope>KNN</scope><name>MAX_EPOCH</name></member>
+      <member refid="classLearner_1a9e3cad489e7679477669213e50a5df5c" prot="protected" virt="non-virtual"><scope>KNN</scope><name>MAX_IT</name></member>
+      <member refid="classLearner_1af4fb070de2058385845e66d0a0e8fb09" prot="protected" virt="non-virtual"><scope>KNN</scope><name>max_time</name></member>
+      <member refid="classLearner_1a169d884352da54047fd016ddcaca0065" prot="protected" virt="non-virtual"><scope>KNN</scope><name>MAX_UP</name></member>
+      <member refid="classLearner_1ab38efea8ba4da2e994a7927395361f0f" prot="protected" virt="non-virtual"><scope>KNN</scope><name>MIN_INC</name></member>
+      <member refid="classPrimalClassifier_1ac5b59dafe749376fb067ceda690f405d" prot="protected" virt="non-virtual"><scope>KNN</scope><name>p</name></member>
+      <member refid="classPrimalClassifier_1ae30c00c25bce4b1623baa54b5e2812b4" prot="protected" virt="non-virtual"><scope>KNN</scope><name>q</name></member>
+      <member refid="classLearner_1a6192264b814185c1b415f3dfb3b0a4f6" prot="protected" virt="non-virtual"><scope>KNN</scope><name>rate</name></member>
+      <member refid="classLearner_1af4a6ca1441fca4f90d6112beaa01e5de" prot="protected" virt="non-virtual"><scope>KNN</scope><name>samples</name></member>
+      <member refid="classPrimalClassifier_1a049f4814d38b456c80c40cee5595502b" prot="public" virt="non-virtual"><scope>KNN</scope><name>setAlphaAprox</name></member>
+      <member refid="classLearner_1a3614c6cafcbcad8783da92cf086eda54" prot="public" virt="non-virtual"><scope>KNN</scope><name>setCtot</name></member>
+      <member refid="classLearner_1a5cb560c8a0254686b69eb4149bb0bd6c" prot="public" virt="non-virtual"><scope>KNN</scope><name>setEPS</name></member>
+      <member refid="classPrimalClassifier_1a7e5c459cb4a377c794502cd9831ee095" prot="public" virt="non-virtual"><scope>KNN</scope><name>setFlexible</name></member>
+      <member refid="classClassifier_1a8ce9a9a19a9deceb12e39e54ef595650" prot="public" virt="non-virtual"><scope>KNN</scope><name>setGamma</name></member>
+      <member refid="classLearner_1a95d1b5eccfd4feff76a714c7405b5de4" prot="public" virt="non-virtual"><scope>KNN</scope><name>setLearningRate</name></member>
+      <member refid="classLearner_1abd5f07bd2c8cdda82ad7fcbbd9958f62" prot="public" virt="non-virtual"><scope>KNN</scope><name>setMaxIterations</name></member>
+      <member refid="classLearner_1a35444c62a2aeee7135896e5fec57f037" prot="public" virt="non-virtual"><scope>KNN</scope><name>setMaxTime</name></member>
+      <member refid="classLearner_1a37b07c6208eba4523a97dbcb696f8636" prot="public" virt="non-virtual"><scope>KNN</scope><name>setMaxUpdates</name></member>
+      <member refid="classPrimalClassifier_1ad0c3b7577b6c11da7394105dd2002f1d" prot="public" virt="non-virtual"><scope>KNN</scope><name>setpNorm</name></member>
+      <member refid="classPrimalClassifier_1a7e6953c01b190e6ef968b75bd578ad7d" prot="public" virt="non-virtual"><scope>KNN</scope><name>setqNorm</name></member>
+      <member refid="classLearner_1a28bb4fb9e638f0c492a08066c83f5ec7" prot="public" virt="virtual"><scope>KNN</scope><name>setSamples</name></member>
+      <member refid="classClassifier_1a2eb8d760224eba3091c108155996d3d9" prot="public" virt="non-virtual"><scope>KNN</scope><name>setSolution</name></member>
+      <member refid="classLearner_1a3e08bfc154384761a04db7eb3ccdee7c" prot="public" virt="non-virtual"><scope>KNN</scope><name>setStartTime</name></member>
+      <member refid="classLearner_1a8758f2746d78feceec69659d437d291b" prot="public" virt="non-virtual"><scope>KNN</scope><name>setSteps</name></member>
+      <member refid="classLearner_1a5d10a524aa355eb39a4d1c54c0088e17" prot="public" virt="non-virtual"><scope>KNN</scope><name>setTimer</name></member>
+      <member refid="classLearner_1acd19fec7aaab48b29c758e90e847ec4f" prot="public" virt="non-virtual"><scope>KNN</scope><name>setVerbose</name></member>
+      <member refid="classClassifier_1acaf16d789bccb6772a801be5318acb3e" prot="public" virt="non-virtual"><scope>KNN</scope><name>setW</name></member>
+      <member refid="classClassifier_1adecdc97505c2911a66e240ad0fefd9ea" prot="protected" virt="non-virtual"><scope>KNN</scope><name>solution</name></member>
+      <member refid="classLearner_1af82f6266dd06f362990b8258dcc3b001" prot="protected" virt="non-virtual"><scope>KNN</scope><name>start_time</name></member>
+      <member refid="classLearner_1abeebc91cde8ea55cf02cd5445798316f" prot="protected" virt="non-virtual"><scope>KNN</scope><name>steps</name></member>
+      <member refid="classClassifier_1ae8695222e93f7fea1a1e585d4c126f7d" prot="protected" virt="non-virtual"><scope>KNN</scope><name>svs</name></member>
+      <member refid="classLearner_1a024aa7ff99eb0e329e3118771782d47d" prot="protected" virt="non-virtual"><scope>KNN</scope><name>timer</name></member>
+      <member refid="classKNN_1a06c93c89ec228db3d0dbd1b67044363e" prot="public" virt="virtual"><scope>KNN</scope><name>train</name></member>
+      <member refid="classLearner_1ae16fcef6dec8ef7bff3fad12ea383622" prot="protected" virt="non-virtual"><scope>KNN</scope><name>verbose</name></member>
+      <member refid="classPrimalClassifier_1a6191919f25a037b6a61d00ebda18f41e" prot="protected" virt="non-virtual"><scope>KNN</scope><name>w</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

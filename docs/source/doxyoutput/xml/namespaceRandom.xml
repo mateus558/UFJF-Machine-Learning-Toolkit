@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespaceRandom" kind="namespace" language="C++">
+    <compoundname>Random</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceRandom_1aacd664e02f96dd6df8a91ad18d47139e" prot="public" static="no" mutable="no">
+        <type>std::mt19937</type>
+        <definition>std::mt19937 Random::m_gen</definition>
+        <argsstring></argsstring>
+        <name>m_gen</name>
+        <briefdescription>
+<para>Mersenne twister generator object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" line="21" column="18" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceRandom_1afb7dc062df38f99a2e878bfef6109d4c" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Random::m_seed</definition>
+        <argsstring></argsstring>
+        <name>m_seed</name>
+        <briefdescription>
+<para>Seed used. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" line="23" column="18" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceRandom_1ad8b845768c2e5f049eb7ae06955bdd77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto Random::init</definition>
+        <argsstring>(unsigned int seed=666)</argsstring>
+        <name>init</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>seed</declname>
+          <defval>666</defval>
+        </param>
+        <briefdescription>
+<para>Initialize the mersenne twister pseudorandom number generator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seed used to generate the numbers. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>unsigned int </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" line="30" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" bodystart="30" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceRandom_1a0fecb2ca9c3ca82f87c35ceed7146ffe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Random::intInRange</definition>
+        <argsstring>(int low, int high)</argsstring>
+        <name>intInRange</name>
+        <param>
+          <type>int</type>
+          <declname>low</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>high</declname>
+        </param>
+        <briefdescription>
+<para>Returns a integer between low and high. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>low</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lowest possible integer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>high</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Highest possible integer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" line="42" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" bodystart="42" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceRandom_1ac99d2b48fd9c53d096da24b17227c0a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float Random::floatInRange</definition>
+        <argsstring>(float low, float high)</argsstring>
+        <name>floatInRange</name>
+        <param>
+          <type>float</type>
+          <declname>low</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>high</declname>
+        </param>
+        <briefdescription>
+<para>Returns a float between low and high. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>low</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lowest possible float. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>high</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Highest possible float. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>float </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" line="53" column="11" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" bodystart="53" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceRandom_1a928dacbcc057819706ba38bc20046035" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto Random::getSeed</definition>
+        <argsstring>()</argsstring>
+        <name>getSeed</name>
+        <briefdescription>
+<para>Get the seed used in the mersenne twister. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>unsigned int </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" line="62" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" bodystart="62" bodyend="64"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Namespace for random number generation (Mersenne Twister pseudorandom generator). </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Random.hpp" line="19" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+.. _exhale_define_Utils_8cpp_1a7873e5175e32a7777d5f4761791b0126:
+
+Define MAX_NUMBER_STRING_SIZE
+=============================
+
+- Defined in :ref:`file__home_mateuscmarim_Repositories_UFJF-MLTK_Modules_Core_src_Utils.cpp`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: MAX_NUMBER_STRING_SIZE
