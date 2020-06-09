@@ -19,6 +19,9 @@ You can find the API Reference at our repository `Gihub Pages`__.
 .. _apipage: https://mateus558.github.io/UFJF-MLTK/
 __ apipage_
 
+. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
 .. toctree::
    :maxdepth: 2
