@@ -10,8 +10,8 @@ addons:
     packages:
       - g++-7
       - gnuplot
-      - cmake
-       
+      - cmake-3.16
+
 script:
   - export CC=gcc-7
   - export CXX=g++-7
