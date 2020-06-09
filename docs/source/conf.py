@@ -35,13 +35,10 @@ release = '1.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-<<<<<<< HEAD:source/conf.py
-'sphinx_rtd_theme',
-'recommonmark'
-=======
+    'sphinx_rtd_theme',
+    'recommonmark',
     'breathe',
     'exhale'
->>>>>>> api_reference:docs/source/conf.py
 ]
 
 breathe_projects = {
