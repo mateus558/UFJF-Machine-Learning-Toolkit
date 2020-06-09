@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classRegressor" kind="class" language="C++" prot="public">
+    <compoundname>Regressor</compoundname>
+    <basecompoundref refid="classLearner" prot="public" virt="non-virtual">Learner&lt; T &gt;</basecompoundref>
+    <derivedcompoundref refid="classDualRegressor" prot="public" virt="non-virtual">DualRegressor&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classPrimalRegressor" prot="public" virt="non-virtual">PrimalRegressor&lt; T &gt;</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classRegressor_1adbf15bdd985feee17d8e8dac31fa6641" prot="protected" static="no" mutable="no">
+        <type><ref refid="classSolution" kindref="compound">Solution</ref></type>
+        <definition>Solution Regressor&lt; T &gt;::solution</definition>
+        <argsstring></argsstring>
+        <name>solution</name>
+        <briefdescription>
+<para><ref refid="classRegressor" kindref="compound">Regressor</ref> solution. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" line="16" column="14" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRegressor_1abe07f279284c94a02faf640f7e2e3a74" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classSolution" kindref="compound">Solution</ref></type>
+        <definition>Solution Regressor&lt; T &gt;::getSolution</definition>
+        <argsstring>() const</argsstring>
+        <name>getSolution</name>
+        <briefdescription>
+<para>getSolution Returns the solution of the regressor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="classSolution" kindref="compound">Solution</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" line="26" column="14" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegressor_1a1182860a22d0b3987fa0be9e30af26e2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classSolution" kindref="compound">Solution</ref> *</type>
+        <definition>Solution* Regressor&lt; T &gt;::getSolutionRef</definition>
+        <argsstring>()</argsstring>
+        <name>getSolutionRef</name>
+        <briefdescription>
+<para>getSolution Returns a reference to the solution of the regressor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="classSolution" kindref="compound">Solution</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" line="31" column="14" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegressor_1a09ce511d75b5a7287fc2498cd43e21fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Regressor&lt; T &gt;::setW</definition>
+        <argsstring>(std::vector&lt; double &gt; w)</argsstring>
+        <name>setW</name>
+        <param>
+          <type>std::vector&lt; double &gt;</type>
+          <declname>w</declname>
+        </param>
+        <briefdescription>
+<para>setW Set the weights vector of the regressor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>weights vector. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" line="41" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegressor_1a25a419ea756e24a879ba54be36cd4892" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Regressor&lt; T &gt;::setSolution</definition>
+        <argsstring>(Solution solution)</argsstring>
+        <name>setSolution</name>
+        <param>
+          <type><ref refid="classSolution" kindref="compound">Solution</ref></type>
+          <declname>solution</declname>
+        </param>
+        <briefdescription>
+<para>setSolution Set a solution for the regressor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>solution</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classSolution" kindref="compound">Solution</ref> to be set. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" line="46" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" bodystart="46" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="6">
+        <label>LMSPrimal&lt; T &gt;</label>
+        <link refid="classLMSPrimal"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+      </node>
+      <node id="1">
+        <label>Regressor&lt; T &gt;</label>
+        <link refid="classRegressor"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>KNNRegressor&lt; T &gt;</label>
+        <link refid="classKNNRegressor"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>PrimalRegressor&lt; T &gt;</label>
+        <link refid="classPrimalRegressor"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DualRegressor&lt; T &gt;</label>
+        <link refid="classDualRegressor"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>Solution</label>
+        <link refid="classSolution"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>K</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>timer</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Kernel</label>
+        <link refid="classKernel"/>
+      </node>
+      <node id="1">
+        <label>Regressor&lt; T &gt;</label>
+        <link refid="classRegressor"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>solution</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Timer</label>
+        <link refid="classTimer"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" line="13" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/Regressor.hpp" bodystart="13" bodyend="47"/>
+    <listofallmembers>
+      <member refid="classLearner_1aae507dee9ebc0b63edacf7b447ec4247" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>ctot</name></member>
+      <member refid="classLearner_1ad314cec3c154c884d7c49e0f85d7a51d" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>EPS</name></member>
+      <member refid="classLearner_1a670e6615c6bad54ba2139a3a3e718b98" prot="public" virt="pure-virtual"><scope>Regressor</scope><name>evaluate</name></member>
+      <member refid="classLearner_1afa6aca31b2b69b3dcb5cecd8d20fcb9c" prot="public" virt="non-virtual"><scope>Regressor</scope><name>getCtot</name></member>
+      <member refid="classLearner_1a2ebba060740ea935e0ddaf78725b3d41" prot="public" virt="non-virtual"><scope>Regressor</scope><name>getElapsedTime</name></member>
+      <member refid="classLearner_1a2982992c0b4b00af9f9addec78d89d8d" prot="public" virt="pure-virtual"><scope>Regressor</scope><name>getFormulationString</name></member>
+      <member refid="classLearner_1a1cc77e06a25ecdad21444e10ec3aa92f" prot="public" virt="non-virtual"><scope>Regressor</scope><name>getMaxTime</name></member>
+      <member refid="classRegressor_1abe07f279284c94a02faf640f7e2e3a74" prot="public" virt="non-virtual"><scope>Regressor</scope><name>getSolution</name></member>
+      <member refid="classRegressor_1a1182860a22d0b3987fa0be9e30af26e2" prot="public" virt="non-virtual"><scope>Regressor</scope><name>getSolutionRef</name></member>
+      <member refid="classLearner_1ab5e62cb073d7b4637e32ad35f9a9a7b9" prot="public" virt="non-virtual"><scope>Regressor</scope><name>getSteps</name></member>
+      <member refid="classLearner_1ab20cbef3868c739f2430b900726cf70d" prot="public" virt="non-virtual"><scope>Regressor</scope><name>getUpdates</name></member>
+      <member refid="classLearner_1af60abe634ca6d9159ed7ec451447a494" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>MAX_EPOCH</name></member>
+      <member refid="classLearner_1a9e3cad489e7679477669213e50a5df5c" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>MAX_IT</name></member>
+      <member refid="classLearner_1af4fb070de2058385845e66d0a0e8fb09" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>max_time</name></member>
+      <member refid="classLearner_1a169d884352da54047fd016ddcaca0065" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>MAX_UP</name></member>
+      <member refid="classLearner_1ab38efea8ba4da2e994a7927395361f0f" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>MIN_INC</name></member>
+      <member refid="classLearner_1a6192264b814185c1b415f3dfb3b0a4f6" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>rate</name></member>
+      <member refid="classLearner_1af4a6ca1441fca4f90d6112beaa01e5de" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>samples</name></member>
+      <member refid="classLearner_1a3614c6cafcbcad8783da92cf086eda54" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setCtot</name></member>
+      <member refid="classLearner_1a5cb560c8a0254686b69eb4149bb0bd6c" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setEPS</name></member>
+      <member refid="classLearner_1a95d1b5eccfd4feff76a714c7405b5de4" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setLearningRate</name></member>
+      <member refid="classLearner_1abd5f07bd2c8cdda82ad7fcbbd9958f62" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setMaxIterations</name></member>
+      <member refid="classLearner_1a35444c62a2aeee7135896e5fec57f037" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setMaxTime</name></member>
+      <member refid="classLearner_1a37b07c6208eba4523a97dbcb696f8636" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setMaxUpdates</name></member>
+      <member refid="classLearner_1a28bb4fb9e638f0c492a08066c83f5ec7" prot="public" virt="virtual"><scope>Regressor</scope><name>setSamples</name></member>
+      <member refid="classRegressor_1a25a419ea756e24a879ba54be36cd4892" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setSolution</name></member>
+      <member refid="classLearner_1a3e08bfc154384761a04db7eb3ccdee7c" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setStartTime</name></member>
+      <member refid="classLearner_1a8758f2746d78feceec69659d437d291b" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setSteps</name></member>
+      <member refid="classLearner_1a5d10a524aa355eb39a4d1c54c0088e17" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setTimer</name></member>
+      <member refid="classLearner_1acd19fec7aaab48b29c758e90e847ec4f" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setVerbose</name></member>
+      <member refid="classRegressor_1a09ce511d75b5a7287fc2498cd43e21fe" prot="public" virt="non-virtual"><scope>Regressor</scope><name>setW</name></member>
+      <member refid="classRegressor_1adbf15bdd985feee17d8e8dac31fa6641" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>solution</name></member>
+      <member refid="classLearner_1af82f6266dd06f362990b8258dcc3b001" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>start_time</name></member>
+      <member refid="classLearner_1abeebc91cde8ea55cf02cd5445798316f" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>steps</name></member>
+      <member refid="classLearner_1a024aa7ff99eb0e329e3118771782d47d" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>timer</name></member>
+      <member refid="classLearner_1a405ff5ebcd1d34f1d0bd7e1acc1d7165" prot="public" virt="pure-virtual"><scope>Regressor</scope><name>train</name></member>
+      <member refid="classLearner_1ae16fcef6dec8ef7bff3fad12ea383622" prot="protected" virt="non-virtual"><scope>Regressor</scope><name>verbose</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

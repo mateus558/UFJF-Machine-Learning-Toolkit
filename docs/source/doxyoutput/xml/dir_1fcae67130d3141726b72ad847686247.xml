@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_1fcae67130d3141726b72ad847686247" kind="dir">
+    <compoundname>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core</compoundname>
+    <innerdir refid="dir_d9b34904e03225a5d33108c62a972f47">/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include</innerdir>
+    <innerdir refid="dir_6d6f8c14125b0c5bcd43e36dd91459b2">/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/"/>
+  </compounddef>
+</doxygen>

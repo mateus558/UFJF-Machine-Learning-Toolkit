@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classSolution" kind="class" language="C++" prot="public">
+    <compoundname>Solution</compoundname>
+    <derivedcompoundref refid="structValidationSolution" prot="public" virt="non-virtual">ValidationSolution</derivedcompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classSolution_1a736054c66aab1014bba4a71de293ad2f" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; Solution::w</definition>
+        <argsstring></argsstring>
+        <name>w</name>
+        <briefdescription>
+<para>Weights vector. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="16" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSolution_1accce51041163c77add5f736214c5bb35" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; Solution::func</definition>
+        <argsstring></argsstring>
+        <name>func</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="16" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSolution_1af63bb12412227102794729af7491e9db" prot="public" static="no" mutable="no">
+        <type><ref refid="classKernel" kindref="compound">Kernel</ref></type>
+        <definition>Kernel Solution::K</definition>
+        <argsstring></argsstring>
+        <name>K</name>
+        <briefdescription>
+<para><ref refid="classKernel" kindref="compound">Kernel</ref> for Dual methods. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="18" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSolution_1ab764f08c5e77a03f709dd56529cbf830" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; Solution::alpha</definition>
+        <argsstring></argsstring>
+        <name>alpha</name>
+        <briefdescription>
+<para>Alpha Vector for Dual methods. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="20" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSolution_1ac0a589a77d238aecf14c91f55d1b8daa" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Solution::bias</definition>
+        <argsstring></argsstring>
+        <name>bias</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Bias of the solution. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="22" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSolution_1a86d40d16bfa9e7dbe476a62008431987" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; Solution::fnames</definition>
+        <argsstring></argsstring>
+        <name>fnames</name>
+        <briefdescription>
+<para>Features names of the resulting solution. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="24" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSolution_1a3580af26a22d86e44df701f654165e0f" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Solution::margin</definition>
+        <argsstring></argsstring>
+        <name>margin</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Margin generated from the classifier that generated the solution. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="26" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSolution_1acbc0610c1c2e2d7bb5c39af33b7eb99c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Solution::norm</definition>
+        <argsstring></argsstring>
+        <name>norm</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Norm of the solution. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="28" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSolution_1ae9f64bc0520b7c42d3c395f48748eca5" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Solution::svs</definition>
+        <argsstring></argsstring>
+        <name>svs</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Number of support Vectors. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="30" column="18" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSolution_1a8da0e412cdefa6e44c35fc5a8b96ee02" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classSolution" kindref="compound">Solution</ref> &amp;</type>
+        <definition>Solution&amp; Solution::operator=</definition>
+        <argsstring>(const Solution &amp;other)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classSolution" kindref="compound">Solution</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="32" column="14" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="32" bodyend="44"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Solution</label>
+        <link refid="classSolution"/>
+      </node>
+      <node id="2">
+        <label>ValidationSolution</label>
+        <link refid="structValidationSolution"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Solution</label>
+        <link refid="classSolution"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>K</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Kernel</label>
+        <link refid="classKernel"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" line="12" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Solution.hpp" bodystart="12" bodyend="45"/>
+    <listofallmembers>
+      <member refid="classSolution_1ab764f08c5e77a03f709dd56529cbf830" prot="public" virt="non-virtual"><scope>Solution</scope><name>alpha</name></member>
+      <member refid="classSolution_1ac0a589a77d238aecf14c91f55d1b8daa" prot="public" virt="non-virtual"><scope>Solution</scope><name>bias</name></member>
+      <member refid="classSolution_1a86d40d16bfa9e7dbe476a62008431987" prot="public" virt="non-virtual"><scope>Solution</scope><name>fnames</name></member>
+      <member refid="classSolution_1accce51041163c77add5f736214c5bb35" prot="public" virt="non-virtual"><scope>Solution</scope><name>func</name></member>
+      <member refid="classSolution_1af63bb12412227102794729af7491e9db" prot="public" virt="non-virtual"><scope>Solution</scope><name>K</name></member>
+      <member refid="classSolution_1a3580af26a22d86e44df701f654165e0f" prot="public" virt="non-virtual"><scope>Solution</scope><name>margin</name></member>
+      <member refid="classSolution_1acbc0610c1c2e2d7bb5c39af33b7eb99c" prot="public" virt="non-virtual"><scope>Solution</scope><name>norm</name></member>
+      <member refid="classSolution_1a8da0e412cdefa6e44c35fc5a8b96ee02" prot="public" virt="non-virtual"><scope>Solution</scope><name>operator=</name></member>
+      <member refid="classSolution_1ae9f64bc0520b7c42d3c395f48748eca5" prot="public" virt="non-virtual"><scope>Solution</scope><name>svs</name></member>
+      <member refid="classSolution_1a736054c66aab1014bba4a71de293ad2f" prot="public" virt="non-virtual"><scope>Solution</scope><name>w</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

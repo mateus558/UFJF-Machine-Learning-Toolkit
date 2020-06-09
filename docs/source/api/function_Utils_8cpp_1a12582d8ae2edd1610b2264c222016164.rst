@@ -1,0 +1,13 @@
+.. _exhale_function_Utils_8cpp_1a12582d8ae2edd1610b2264c222016164:
+
+Function Utils::reverse
+=======================
+
+- Defined in :ref:`file__home_mateuscmarim_Repositories_UFJF-MLTK_Modules_Core_src_Utils.cpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: Utils::reverse(char *, int)

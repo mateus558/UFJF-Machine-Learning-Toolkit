@@ -1,0 +1,13 @@
+.. _exhale_function_Utils_8hpp_1a04eb58f493219287850c60f04b2e7488:
+
+Function Utils::split(const std::string&, char)
+===============================================
+
+- Defined in :ref:`file__home_mateuscmarim_Repositories_UFJF-MLTK_Modules_Core_src_Utils.cpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: Utils::split(const std::string&, char)

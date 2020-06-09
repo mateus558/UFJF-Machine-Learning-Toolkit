@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classGnuplotException" kind="class" language="C++" prot="public">
+    <compoundname>GnuplotException</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">runtime_error</basecompoundref>
+    <includes refid="gnuplot__i_8hpp" local="no">gnuplot_i.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGnuplotException_1a8b324a9ef4d3f75079d41ecd61c62d44" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>GnuplotException::GnuplotException</definition>
+        <argsstring>(const std::string &amp;msg)</argsstring>
+        <name>GnuplotException</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Visualize/include/gnuplot_i.hpp" line="64" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Visualize/include/gnuplot_i.hpp" bodystart="64" bodyend="64"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A C++ interface to gnuplot. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The interface uses pipes and so won&apos;t run on a system that doesn&apos;t have POSIX pipe support Tested on Windows (MinGW and Visual C++) and Linux (GCC)</para>
+<para>Version history: 0. C interface by N. Devillard (27/01/03)<orderedlist>
+<listitem><para>C++ interface: direct translation from the C interface by Rajarshi Guha (07/03/03)</para>
+</listitem><listitem><para>corrections for Win32 compatibility by V. Chyzhdzenka (20/05/03)</para>
+</listitem><listitem><para>some member functions added, corrections for Win32 and Linux compatibility by M. Burgis (10/03/08)</para>
+</listitem><listitem><para>Move function definition into gnuplot_i.cpp by X. BROQUERE (25/10/11)</para>
+</listitem></orderedlist>
+</para>
+<para>Requirements:<itemizedlist>
+<listitem><para>gnuplot has to be installed (<ulink url="http://www.gnuplot.info/download.html">http://www.gnuplot.info/download.html</ulink>)</para>
+</listitem><listitem><para>for Windows: set Path-Variable for <ref refid="classGnuplot" kindref="compound">Gnuplot</ref> path (e.g. C:/program files/gnuplot/bin) or set <ref refid="classGnuplot" kindref="compound">Gnuplot</ref> path with: <ref refid="classGnuplot_1a67cae885c26ced821e335d98986f1967" kindref="member">Gnuplot::set_GNUPlotPath(const std::string &amp;path)</ref>; </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="1">
+        <label>GnuplotException</label>
+        <link refid="classGnuplotException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="1">
+        <label>GnuplotException</label>
+        <link refid="classGnuplotException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Visualize/include/gnuplot_i.hpp" line="61" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Visualize/include/gnuplot_i.hpp" bodystart="62" bodyend="65"/>
+    <listofallmembers>
+      <member refid="classGnuplotException_1a8b324a9ef4d3f75079d41ecd61c62d44" prot="public" virt="non-virtual"><scope>GnuplotException</scope><name>GnuplotException</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

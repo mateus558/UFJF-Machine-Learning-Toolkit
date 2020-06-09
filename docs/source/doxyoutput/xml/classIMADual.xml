@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classIMADual" kind="class" language="C++" prot="public">
+    <compoundname>IMADual</compoundname>
+    <basecompoundref refid="classDualClassifier" prot="public" virt="non-virtual">DualClassifier&lt; T &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classIMADual_1aeab0a8f41a8f512016eeb8bdbfced698" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double IMADual&lt; T &gt;::margin</definition>
+        <argsstring></argsstring>
+        <name>margin</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp" line="65" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classIMADual_1ad1b28104eba0290271787de52e8476d5" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; IMADual&lt; T &gt;::svs</definition>
+        <argsstring></argsstring>
+        <name>svs</name>
+        <briefdescription>
+<para>Support vector. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp" line="67" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classIMADual_1a22a5cf72fe88fd8bb846cf1b5758d61c" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>IMADual&lt; T &gt;::IMADual</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; samples=nullptr, Kernel *k=nullptr, double rate=1, Solution *initial_solution=nullptr)</argsstring>
+        <name>IMADual</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>samples</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classKernel" kindref="compound">Kernel</ref> *</type>
+          <declname>k</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>rate</declname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type><ref refid="classSolution" kindref="compound">Solution</ref> *</type>
+          <declname>initial_solution</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp" line="69" column="14" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/IMA.cpp" bodystart="430" bodyend="446"/>
+      </memberdef>
+      <memberdef kind="function" id="classIMADual_1aff820af6454ceeef4d23af48476d7218" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool IMADual&lt; T &gt;::train</definition>
+        <argsstring>() override</argsstring>
+        <name>train</name>
+        <reimplements refid="classLearner_1a405ff5ebcd1d34f1d0bd7e1acc1d7165">train</reimplements>
+        <briefdescription>
+<para>Function that execute the training phase of a <ref refid="classLearner" kindref="compound">Learner</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>void </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp" line="70" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/IMA.cpp" bodystart="449" bodyend="587"/>
+      </memberdef>
+      <memberdef kind="function" id="classIMADual_1aa8e4e1d6e34c2e67d752c6b5f111ce35" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; IMADual&lt; T &gt;::getSupportVectors</definition>
+        <argsstring>()</argsstring>
+        <name>getSupportVectors</name>
+        <briefdescription>
+<para>Get the indexes of support vectors. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>std::vector&lt;int&gt; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp" line="75" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp" bodystart="75" bodyend="75"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+      </node>
+      <node id="3">
+        <label>Classifier&lt; T &gt;</label>
+        <link refid="classClassifier"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DualClassifier&lt; T &gt;</label>
+        <link refid="classDualClassifier"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>IMADual&lt; T &gt;</label>
+        <link refid="classIMADual"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="6">
+        <label>Solution</label>
+        <link refid="classSolution"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>K</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>timer</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Kernel</label>
+        <link refid="classKernel"/>
+      </node>
+      <node id="3">
+        <label>Classifier&lt; T &gt;</label>
+        <link refid="classClassifier"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>solution</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DualClassifier&lt; T &gt;</label>
+        <link refid="classDualClassifier"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>kernel</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Timer</label>
+        <link refid="classTimer"/>
+      </node>
+      <node id="1">
+        <label>IMADual&lt; T &gt;</label>
+        <link refid="classIMADual"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp" line="63" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/IMA.hpp" bodystart="63" bodyend="76"/>
+    <listofallmembers>
+      <member refid="classDualClassifier_1a204d0e925be1450c97dd8635b8c9f3e9" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>alpha</name></member>
+      <member refid="classLearner_1aae507dee9ebc0b63edacf7b447ec4247" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>ctot</name></member>
+      <member refid="classLearner_1ad314cec3c154c884d7c49e0f85d7a51d" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>EPS</name></member>
+      <member refid="classDualClassifier_1a4db588ff3339bb016cdabf7eb27b576f" prot="public" virt="virtual"><scope>IMADual</scope><name>evaluate</name></member>
+      <member refid="classClassifier_1ae7598910eeb47894579ca29718c9fa9c" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>gamma</name></member>
+      <member refid="classDualClassifier_1a9ce7228ddbdf6886782e2d1abf9bb0a9" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getAlphaVector</name></member>
+      <member refid="classLearner_1afa6aca31b2b69b3dcb5cecd8d20fcb9c" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getCtot</name></member>
+      <member refid="classDualClassifier_1a179729f872fe280d752089c571187fbf" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getDualWeight</name></member>
+      <member refid="classDualClassifier_1a2780174d195acdfc2d3c9777c48e818c" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getDualWeightProdInt</name></member>
+      <member refid="classLearner_1a2ebba060740ea935e0ddaf78725b3d41" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getElapsedTime</name></member>
+      <member refid="classDualClassifier_1a85d9b58aabf399c4d5beb5250a926a64" prot="public" virt="virtual"><scope>IMADual</scope><name>getFormulationString</name></member>
+      <member refid="classDualClassifier_1ad5cc383587a3388bfc370879d76b8cf6" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getKernelParam</name></member>
+      <member refid="classDualClassifier_1ae15bdcaa9b46e1084aa2df7170a0217f" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getKernelType</name></member>
+      <member refid="classLearner_1a1cc77e06a25ecdad21444e10ec3aa92f" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getMaxTime</name></member>
+      <member refid="classClassifier_1a015ba93eb1d31d36b336245f1dac9ce5" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getSolution</name></member>
+      <member refid="classClassifier_1a4845fd932adb55becf78bfa4fccbea59" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getSolutionRef</name></member>
+      <member refid="classLearner_1ab5e62cb073d7b4637e32ad35f9a9a7b9" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getSteps</name></member>
+      <member refid="classIMADual_1aa8e4e1d6e34c2e67d752c6b5f111ce35" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getSupportVectors</name></member>
+      <member refid="classLearner_1ab20cbef3868c739f2430b900726cf70d" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getUpdates</name></member>
+      <member refid="classDualClassifier_1ae4e8931fb65d75009b9c92ae5c30c6b2" prot="public" virt="non-virtual"><scope>IMADual</scope><name>getWeight</name></member>
+      <member refid="classClassifier_1a914e488b477b9237cf991ff0b485c6c7" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>hasInitialSolution</name></member>
+      <member refid="classIMADual_1a22a5cf72fe88fd8bb846cf1b5758d61c" prot="public" virt="non-virtual"><scope>IMADual</scope><name>IMADual</name></member>
+      <member refid="classDualClassifier_1a40c32ed2991c8545d50ef5fe57611c28" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>kernel</name></member>
+      <member refid="classIMADual_1aeab0a8f41a8f512016eeb8bdbfced698" prot="private" virt="non-virtual"><scope>IMADual</scope><name>margin</name></member>
+      <member refid="classLearner_1af60abe634ca6d9159ed7ec451447a494" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>MAX_EPOCH</name></member>
+      <member refid="classLearner_1a9e3cad489e7679477669213e50a5df5c" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>MAX_IT</name></member>
+      <member refid="classLearner_1af4fb070de2058385845e66d0a0e8fb09" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>max_time</name></member>
+      <member refid="classLearner_1a169d884352da54047fd016ddcaca0065" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>MAX_UP</name></member>
+      <member refid="classLearner_1ab38efea8ba4da2e994a7927395361f0f" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>MIN_INC</name></member>
+      <member refid="classLearner_1a6192264b814185c1b415f3dfb3b0a4f6" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>rate</name></member>
+      <member refid="classLearner_1af4a6ca1441fca4f90d6112beaa01e5de" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>samples</name></member>
+      <member refid="classLearner_1a3614c6cafcbcad8783da92cf086eda54" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setCtot</name></member>
+      <member refid="classLearner_1a5cb560c8a0254686b69eb4149bb0bd6c" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setEPS</name></member>
+      <member refid="classClassifier_1a8ce9a9a19a9deceb12e39e54ef595650" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setGamma</name></member>
+      <member refid="classDualClassifier_1a4f4cc830f9f9723592dc92957aec5d48" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setKernel</name></member>
+      <member refid="classDualClassifier_1a1eaa47dfe556a9c0ecb05cd82324c337" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setKernelParam</name></member>
+      <member refid="classDualClassifier_1abe138aa8f388a11475773155961911be" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setKernelType</name></member>
+      <member refid="classLearner_1a95d1b5eccfd4feff76a714c7405b5de4" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setLearningRate</name></member>
+      <member refid="classLearner_1abd5f07bd2c8cdda82ad7fcbbd9958f62" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setMaxIterations</name></member>
+      <member refid="classLearner_1a35444c62a2aeee7135896e5fec57f037" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setMaxTime</name></member>
+      <member refid="classLearner_1a37b07c6208eba4523a97dbcb696f8636" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setMaxUpdates</name></member>
+      <member refid="classLearner_1a28bb4fb9e638f0c492a08066c83f5ec7" prot="public" virt="virtual"><scope>IMADual</scope><name>setSamples</name></member>
+      <member refid="classClassifier_1a2eb8d760224eba3091c108155996d3d9" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setSolution</name></member>
+      <member refid="classLearner_1a3e08bfc154384761a04db7eb3ccdee7c" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setStartTime</name></member>
+      <member refid="classLearner_1a8758f2746d78feceec69659d437d291b" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setSteps</name></member>
+      <member refid="classLearner_1a5d10a524aa355eb39a4d1c54c0088e17" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setTimer</name></member>
+      <member refid="classLearner_1acd19fec7aaab48b29c758e90e847ec4f" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setVerbose</name></member>
+      <member refid="classClassifier_1acaf16d789bccb6772a801be5318acb3e" prot="public" virt="non-virtual"><scope>IMADual</scope><name>setW</name></member>
+      <member refid="classClassifier_1adecdc97505c2911a66e240ad0fefd9ea" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>solution</name></member>
+      <member refid="classLearner_1af82f6266dd06f362990b8258dcc3b001" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>start_time</name></member>
+      <member refid="classLearner_1abeebc91cde8ea55cf02cd5445798316f" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>steps</name></member>
+      <member refid="classIMADual_1ad1b28104eba0290271787de52e8476d5" prot="private" virt="non-virtual"><scope>IMADual</scope><name>svs</name></member>
+      <member refid="classLearner_1a024aa7ff99eb0e329e3118771782d47d" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>timer</name></member>
+      <member refid="classIMADual_1aff820af6454ceeef4d23af48476d7218" prot="public" virt="virtual"><scope>IMADual</scope><name>train</name></member>
+      <member refid="classLearner_1ae16fcef6dec8ef7bff3fad12ea383622" prot="protected" virt="non-virtual"><scope>IMADual</scope><name>verbose</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

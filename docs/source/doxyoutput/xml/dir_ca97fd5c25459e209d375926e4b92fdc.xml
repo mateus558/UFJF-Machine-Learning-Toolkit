@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_ca97fd5c25459e209d375926e4b92fdc" kind="dir">
+    <compoundname>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Visualize/src</compoundname>
+    <innerfile refid="gnuplot__i_8cpp">gnuplot_i.cpp</innerfile>
+    <innerfile refid="Visualization_8cpp">Visualization.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Visualize/src/"/>
+  </compounddef>
+</doxygen>

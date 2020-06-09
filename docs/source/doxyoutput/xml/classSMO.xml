@@ -1,0 +1,432 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classSMO" kind="class" language="C++" prot="public">
+    <compoundname>SMO</compoundname>
+    <basecompoundref refid="classDualClassifier" prot="public" virt="non-virtual">DualClassifier&lt; T &gt;</basecompoundref>
+    <innerclass refid="structSMO_1_1smo__learning__data" prot="private">SMO::smo_learning_data</innerclass>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classSMO_1a90fd154865e22f01623ae95f186019f4" prot="private" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int SMO&lt; T &gt;::C</definition>
+        <argsstring></argsstring>
+        <name>C</name>
+        <initializer>= 9999</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="45" column="15" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSMO_1a28478e421feaae684ba30a38a896babd" prot="private" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double SMO&lt; T &gt;::TOL</definition>
+        <argsstring></argsstring>
+        <name>TOL</name>
+        <initializer>= 0.0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="46" column="18" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSMO_1a0f8d8073ebf036fd5048e5baa017aa2c" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; smo_learning_data &gt;</type>
+        <definition>std::vector&lt;smo_learning_data&gt; SMO&lt; T &gt;::l_data</definition>
+        <argsstring></argsstring>
+        <name>l_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="47" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSMO_1a907bb5f26fe2ca7402182d5e602b3cc9" prot="private" static="no" mutable="no">
+        <type><ref refid="structint__dll" kindref="compound">int_dll</ref> *</type>
+        <definition>int_dll* SMO&lt; T &gt;::head</definition>
+        <argsstring></argsstring>
+        <name>head</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="48" column="13" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classSMO_1af182db5dfda878e4a3e2ebf958148334" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SMO&lt; T &gt;::examine_example</definition>
+        <argsstring>(int i1)</argsstring>
+        <name>examine_example</name>
+        <param>
+          <type>int</type>
+          <declname>i1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="50" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="102" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classSMO_1afc01d94f8b7a3616d9a969325cf462a8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SMO&lt; T &gt;::max_errors</definition>
+        <argsstring>(int i1, double e1)</argsstring>
+        <name>max_errors</name>
+        <param>
+          <type>int</type>
+          <declname>i1</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>e1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="51" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="136" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="classSMO_1a44ca75e3cc5d97b9078489f1adf80b7a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SMO&lt; T &gt;::iterate_non_bound</definition>
+        <argsstring>(int i1)</argsstring>
+        <name>iterate_non_bound</name>
+        <param>
+          <type>int</type>
+          <declname>i1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="52" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="165" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="classSMO_1aa8c937afcbf7cd6714c1967986c94df1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SMO&lt; T &gt;::iterate_all_set</definition>
+        <argsstring>(int i1)</argsstring>
+        <name>iterate_all_set</name>
+        <param>
+          <type>int</type>
+          <declname>i1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="53" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="185" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="classSMO_1a6907735ace93e6f36bd2e3788df7a3e9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SMO&lt; T &gt;::take_step</definition>
+        <argsstring>(int i1, int i2)</argsstring>
+        <name>take_step</name>
+        <param>
+          <type>int</type>
+          <declname>i1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="54" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="208" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="classSMO_1a9ca1f8b5b56e8157df6dfa27dbf62387" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double SMO&lt; T &gt;::function</definition>
+        <argsstring>(int index)</argsstring>
+        <name>function</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="55" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="368" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="classSMO_1aac6bff738ce45a80ce47eb3837747e81" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SMO&lt; T &gt;::training_routine</definition>
+        <argsstring>()</argsstring>
+        <name>training_routine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="56" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="387" bodyend="434"/>
+      </memberdef>
+      <memberdef kind="function" id="classSMO_1ae7040f25f489a8f23872ae425e5cc91e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SMO&lt; T &gt;::test_learning</definition>
+        <argsstring>()</argsstring>
+        <name>test_learning</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="57" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="437" bodyend="441"/>
+      </memberdef>
+      <memberdef kind="function" id="classSMO_1a197e340e9d1e82d973f89b14ba86f597" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SMO&lt; T &gt;::train_matrix</definition>
+        <argsstring>(Kernel *matrix)</argsstring>
+        <name>train_matrix</name>
+        <param>
+          <type><ref refid="classKernel" kindref="compound">Kernel</ref> *</type>
+          <declname>matrix</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="58" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="444" bodyend="473"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSMO_1af56f3abb690daa6b75efe65a2d20c20b" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>SMO&lt; T &gt;::SMO</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; samples=nullptr, Kernel *k=nullptr, int verbose=0)</argsstring>
+        <name>SMO</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>samples</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classKernel" kindref="compound">Kernel</ref> *</type>
+          <declname>k</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>verbose</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="61" column="14" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="20" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classSMO_1af786da7154d3025293875a43faca8819" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool SMO&lt; T &gt;::train</definition>
+        <argsstring>() override</argsstring>
+        <name>train</name>
+        <reimplements refid="classLearner_1a405ff5ebcd1d34f1d0bd7e1acc1d7165">train</reimplements>
+        <briefdescription>
+<para>Function that execute the training phase of a <ref refid="classLearner" kindref="compound">Learner</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>void </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="62" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="38" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classSMO_1a978c9a0ac7f7da04984b763f3ca304ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>SMO&lt; T &gt;::~SMO</definition>
+        <argsstring>()</argsstring>
+        <name>~SMO</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="63" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/src/SMO.cpp" bodystart="29" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+      </node>
+      <node id="1">
+        <label>SMO&lt; T &gt;</label>
+        <link refid="classSMO"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Classifier&lt; T &gt;</label>
+        <link refid="classClassifier"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DualClassifier&lt; T &gt;</label>
+        <link refid="classDualClassifier"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="6">
+        <label>Solution</label>
+        <link refid="classSolution"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>K</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Learner&lt; T &gt;</label>
+        <link refid="classLearner"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>timer</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>SMO&lt; T &gt;</label>
+        <link refid="classSMO"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Kernel</label>
+        <link refid="classKernel"/>
+      </node>
+      <node id="3">
+        <label>Classifier&lt; T &gt;</label>
+        <link refid="classClassifier"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>solution</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DualClassifier&lt; T &gt;</label>
+        <link refid="classDualClassifier"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>kernel</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Timer</label>
+        <link refid="classTimer"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" line="30" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Classifier/include/SMO.hpp" bodystart="30" bodyend="64"/>
+    <listofallmembers>
+      <member refid="classDualClassifier_1a204d0e925be1450c97dd8635b8c9f3e9" prot="protected" virt="non-virtual"><scope>SMO</scope><name>alpha</name></member>
+      <member refid="classSMO_1a90fd154865e22f01623ae95f186019f4" prot="private" virt="non-virtual"><scope>SMO</scope><name>C</name></member>
+      <member refid="classLearner_1aae507dee9ebc0b63edacf7b447ec4247" prot="protected" virt="non-virtual"><scope>SMO</scope><name>ctot</name></member>
+      <member refid="classLearner_1ad314cec3c154c884d7c49e0f85d7a51d" prot="protected" virt="non-virtual"><scope>SMO</scope><name>EPS</name></member>
+      <member refid="classDualClassifier_1a4db588ff3339bb016cdabf7eb27b576f" prot="public" virt="virtual"><scope>SMO</scope><name>evaluate</name></member>
+      <member refid="classSMO_1af182db5dfda878e4a3e2ebf958148334" prot="private" virt="non-virtual"><scope>SMO</scope><name>examine_example</name></member>
+      <member refid="classSMO_1a9ca1f8b5b56e8157df6dfa27dbf62387" prot="private" virt="non-virtual"><scope>SMO</scope><name>function</name></member>
+      <member refid="classClassifier_1ae7598910eeb47894579ca29718c9fa9c" prot="protected" virt="non-virtual"><scope>SMO</scope><name>gamma</name></member>
+      <member refid="classDualClassifier_1a9ce7228ddbdf6886782e2d1abf9bb0a9" prot="public" virt="non-virtual"><scope>SMO</scope><name>getAlphaVector</name></member>
+      <member refid="classLearner_1afa6aca31b2b69b3dcb5cecd8d20fcb9c" prot="public" virt="non-virtual"><scope>SMO</scope><name>getCtot</name></member>
+      <member refid="classDualClassifier_1a179729f872fe280d752089c571187fbf" prot="public" virt="non-virtual"><scope>SMO</scope><name>getDualWeight</name></member>
+      <member refid="classDualClassifier_1a2780174d195acdfc2d3c9777c48e818c" prot="public" virt="non-virtual"><scope>SMO</scope><name>getDualWeightProdInt</name></member>
+      <member refid="classLearner_1a2ebba060740ea935e0ddaf78725b3d41" prot="public" virt="non-virtual"><scope>SMO</scope><name>getElapsedTime</name></member>
+      <member refid="classDualClassifier_1a85d9b58aabf399c4d5beb5250a926a64" prot="public" virt="virtual"><scope>SMO</scope><name>getFormulationString</name></member>
+      <member refid="classDualClassifier_1ad5cc383587a3388bfc370879d76b8cf6" prot="public" virt="non-virtual"><scope>SMO</scope><name>getKernelParam</name></member>
+      <member refid="classDualClassifier_1ae15bdcaa9b46e1084aa2df7170a0217f" prot="public" virt="non-virtual"><scope>SMO</scope><name>getKernelType</name></member>
+      <member refid="classLearner_1a1cc77e06a25ecdad21444e10ec3aa92f" prot="public" virt="non-virtual"><scope>SMO</scope><name>getMaxTime</name></member>
+      <member refid="classClassifier_1a015ba93eb1d31d36b336245f1dac9ce5" prot="public" virt="non-virtual"><scope>SMO</scope><name>getSolution</name></member>
+      <member refid="classClassifier_1a4845fd932adb55becf78bfa4fccbea59" prot="public" virt="non-virtual"><scope>SMO</scope><name>getSolutionRef</name></member>
+      <member refid="classLearner_1ab5e62cb073d7b4637e32ad35f9a9a7b9" prot="public" virt="non-virtual"><scope>SMO</scope><name>getSteps</name></member>
+      <member refid="classLearner_1ab20cbef3868c739f2430b900726cf70d" prot="public" virt="non-virtual"><scope>SMO</scope><name>getUpdates</name></member>
+      <member refid="classDualClassifier_1ae4e8931fb65d75009b9c92ae5c30c6b2" prot="public" virt="non-virtual"><scope>SMO</scope><name>getWeight</name></member>
+      <member refid="classClassifier_1a914e488b477b9237cf991ff0b485c6c7" prot="protected" virt="non-virtual"><scope>SMO</scope><name>hasInitialSolution</name></member>
+      <member refid="classSMO_1a907bb5f26fe2ca7402182d5e602b3cc9" prot="private" virt="non-virtual"><scope>SMO</scope><name>head</name></member>
+      <member refid="classSMO_1aa8c937afcbf7cd6714c1967986c94df1" prot="private" virt="non-virtual"><scope>SMO</scope><name>iterate_all_set</name></member>
+      <member refid="classSMO_1a44ca75e3cc5d97b9078489f1adf80b7a" prot="private" virt="non-virtual"><scope>SMO</scope><name>iterate_non_bound</name></member>
+      <member refid="classDualClassifier_1a40c32ed2991c8545d50ef5fe57611c28" prot="protected" virt="non-virtual"><scope>SMO</scope><name>kernel</name></member>
+      <member refid="classSMO_1a0f8d8073ebf036fd5048e5baa017aa2c" prot="private" virt="non-virtual"><scope>SMO</scope><name>l_data</name></member>
+      <member refid="classLearner_1af60abe634ca6d9159ed7ec451447a494" prot="protected" virt="non-virtual"><scope>SMO</scope><name>MAX_EPOCH</name></member>
+      <member refid="classSMO_1afc01d94f8b7a3616d9a969325cf462a8" prot="private" virt="non-virtual"><scope>SMO</scope><name>max_errors</name></member>
+      <member refid="classLearner_1a9e3cad489e7679477669213e50a5df5c" prot="protected" virt="non-virtual"><scope>SMO</scope><name>MAX_IT</name></member>
+      <member refid="classLearner_1af4fb070de2058385845e66d0a0e8fb09" prot="protected" virt="non-virtual"><scope>SMO</scope><name>max_time</name></member>
+      <member refid="classLearner_1a169d884352da54047fd016ddcaca0065" prot="protected" virt="non-virtual"><scope>SMO</scope><name>MAX_UP</name></member>
+      <member refid="classLearner_1ab38efea8ba4da2e994a7927395361f0f" prot="protected" virt="non-virtual"><scope>SMO</scope><name>MIN_INC</name></member>
+      <member refid="classLearner_1a6192264b814185c1b415f3dfb3b0a4f6" prot="protected" virt="non-virtual"><scope>SMO</scope><name>rate</name></member>
+      <member refid="classLearner_1af4a6ca1441fca4f90d6112beaa01e5de" prot="protected" virt="non-virtual"><scope>SMO</scope><name>samples</name></member>
+      <member refid="classLearner_1a3614c6cafcbcad8783da92cf086eda54" prot="public" virt="non-virtual"><scope>SMO</scope><name>setCtot</name></member>
+      <member refid="classLearner_1a5cb560c8a0254686b69eb4149bb0bd6c" prot="public" virt="non-virtual"><scope>SMO</scope><name>setEPS</name></member>
+      <member refid="classClassifier_1a8ce9a9a19a9deceb12e39e54ef595650" prot="public" virt="non-virtual"><scope>SMO</scope><name>setGamma</name></member>
+      <member refid="classDualClassifier_1a4f4cc830f9f9723592dc92957aec5d48" prot="public" virt="non-virtual"><scope>SMO</scope><name>setKernel</name></member>
+      <member refid="classDualClassifier_1a1eaa47dfe556a9c0ecb05cd82324c337" prot="public" virt="non-virtual"><scope>SMO</scope><name>setKernelParam</name></member>
+      <member refid="classDualClassifier_1abe138aa8f388a11475773155961911be" prot="public" virt="non-virtual"><scope>SMO</scope><name>setKernelType</name></member>
+      <member refid="classLearner_1a95d1b5eccfd4feff76a714c7405b5de4" prot="public" virt="non-virtual"><scope>SMO</scope><name>setLearningRate</name></member>
+      <member refid="classLearner_1abd5f07bd2c8cdda82ad7fcbbd9958f62" prot="public" virt="non-virtual"><scope>SMO</scope><name>setMaxIterations</name></member>
+      <member refid="classLearner_1a35444c62a2aeee7135896e5fec57f037" prot="public" virt="non-virtual"><scope>SMO</scope><name>setMaxTime</name></member>
+      <member refid="classLearner_1a37b07c6208eba4523a97dbcb696f8636" prot="public" virt="non-virtual"><scope>SMO</scope><name>setMaxUpdates</name></member>
+      <member refid="classLearner_1a28bb4fb9e638f0c492a08066c83f5ec7" prot="public" virt="virtual"><scope>SMO</scope><name>setSamples</name></member>
+      <member refid="classClassifier_1a2eb8d760224eba3091c108155996d3d9" prot="public" virt="non-virtual"><scope>SMO</scope><name>setSolution</name></member>
+      <member refid="classLearner_1a3e08bfc154384761a04db7eb3ccdee7c" prot="public" virt="non-virtual"><scope>SMO</scope><name>setStartTime</name></member>
+      <member refid="classLearner_1a8758f2746d78feceec69659d437d291b" prot="public" virt="non-virtual"><scope>SMO</scope><name>setSteps</name></member>
+      <member refid="classLearner_1a5d10a524aa355eb39a4d1c54c0088e17" prot="public" virt="non-virtual"><scope>SMO</scope><name>setTimer</name></member>
+      <member refid="classLearner_1acd19fec7aaab48b29c758e90e847ec4f" prot="public" virt="non-virtual"><scope>SMO</scope><name>setVerbose</name></member>
+      <member refid="classClassifier_1acaf16d789bccb6772a801be5318acb3e" prot="public" virt="non-virtual"><scope>SMO</scope><name>setW</name></member>
+      <member refid="classSMO_1af56f3abb690daa6b75efe65a2d20c20b" prot="public" virt="non-virtual"><scope>SMO</scope><name>SMO</name></member>
+      <member refid="classClassifier_1adecdc97505c2911a66e240ad0fefd9ea" prot="protected" virt="non-virtual"><scope>SMO</scope><name>solution</name></member>
+      <member refid="classLearner_1af82f6266dd06f362990b8258dcc3b001" prot="protected" virt="non-virtual"><scope>SMO</scope><name>start_time</name></member>
+      <member refid="classLearner_1abeebc91cde8ea55cf02cd5445798316f" prot="protected" virt="non-virtual"><scope>SMO</scope><name>steps</name></member>
+      <member refid="classClassifier_1ae8695222e93f7fea1a1e585d4c126f7d" prot="protected" virt="non-virtual"><scope>SMO</scope><name>svs</name></member>
+      <member refid="classSMO_1a6907735ace93e6f36bd2e3788df7a3e9" prot="private" virt="non-virtual"><scope>SMO</scope><name>take_step</name></member>
+      <member refid="classSMO_1ae7040f25f489a8f23872ae425e5cc91e" prot="private" virt="non-virtual"><scope>SMO</scope><name>test_learning</name></member>
+      <member refid="classLearner_1a024aa7ff99eb0e329e3118771782d47d" prot="protected" virt="non-virtual"><scope>SMO</scope><name>timer</name></member>
+      <member refid="classSMO_1a28478e421feaae684ba30a38a896babd" prot="private" virt="non-virtual"><scope>SMO</scope><name>TOL</name></member>
+      <member refid="classSMO_1af786da7154d3025293875a43faca8819" prot="public" virt="virtual"><scope>SMO</scope><name>train</name></member>
+      <member refid="classSMO_1a197e340e9d1e82d973f89b14ba86f597" prot="private" virt="non-virtual"><scope>SMO</scope><name>train_matrix</name></member>
+      <member refid="classSMO_1aac6bff738ce45a80ce47eb3837747e81" prot="private" virt="non-virtual"><scope>SMO</scope><name>training_routine</name></member>
+      <member refid="classLearner_1ae16fcef6dec8ef7bff3fad12ea383622" prot="protected" virt="non-virtual"><scope>SMO</scope><name>verbose</name></member>
+      <member refid="classSMO_1a978c9a0ac7f7da04984b763f3ca304ed" prot="public" virt="non-virtual"><scope>SMO</scope><name>~SMO</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

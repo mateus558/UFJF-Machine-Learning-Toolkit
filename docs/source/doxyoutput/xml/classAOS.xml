@@ -1,0 +1,984 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classAOS" kind="class" language="C++" prot="public">
+    <compoundname>AOS</compoundname>
+    <basecompoundref refid="classFeatureSelection" prot="public" virt="non-virtual">FeatureSelection&lt; T &gt;</basecompoundref>
+    <innerclass refid="classAOS_1_1Hash" prot="public">AOS::Hash</innerclass>
+    <innerclass refid="classAOS_1_1Heap" prot="public">AOS::Heap</innerclass>
+    <innerclass refid="structAOS_1_1select__gamma" prot="public">AOS::select_gamma</innerclass>
+    <innerclass refid="structAOS_1_1select__weight" prot="public">AOS::select_weight</innerclass>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classAOS_1a115862604f4d66a62f7a9c3081843c2f" prot="private" static="no" mutable="no">
+        <type>const size_t</type>
+        <definition>const size_t AOS&lt; T &gt;::HASH_SIZE</definition>
+        <argsstring></argsstring>
+        <name>HASH_SIZE</name>
+        <initializer>= 161387</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="124" column="18" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1ab25fdd229bc83e4c904547703c06c411" prot="private" static="no" mutable="no">
+        <type>const size_t</type>
+        <definition>const size_t AOS&lt; T &gt;::HASH_WIDTH</definition>
+        <argsstring></argsstring>
+        <name>HASH_WIDTH</name>
+        <initializer>= 100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="124" column="29" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a6365b49feee16be637478b1b0d7b9234" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::breadth</definition>
+        <argsstring></argsstring>
+        <name>breadth</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="125" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a9405d6b818936fca3413bba7c1858b1a" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::cut</definition>
+        <argsstring></argsstring>
+        <name>cut</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="125" column="18" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a254767c485833fff26ec43235e13a8fa" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::sorting_shape</definition>
+        <argsstring></argsstring>
+        <name>sorting_shape</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="125" column="23" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1ac0e7c3e58f07a19d792a231a42353c8f" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::choice_shape</definition>
+        <argsstring></argsstring>
+        <name>choice_shape</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="125" column="38" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a209a24083d2329dd8199c0dd16c4ef34" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::startover</definition>
+        <argsstring></argsstring>
+        <name>startover</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="125" column="52" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a01fc416025f020defca1fe7d88ba4d97" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::look_ahead_depth</definition>
+        <argsstring></argsstring>
+        <name>look_ahead_depth</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="125" column="63" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a424bb5b31ba5cb727017a5623d5b9b0f" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::ftime</definition>
+        <argsstring></argsstring>
+        <name>ftime</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="125" column="81" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a2b94c3c927ec05a83929cffe03085187" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::lool</definition>
+        <argsstring></argsstring>
+        <name>lool</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="125" column="88" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1ac0a353b5d46ee74703a22bd9ecebaf0a" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::dim_orig</definition>
+        <argsstring></argsstring>
+        <name>dim_orig</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="126" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1aba69b08c7603ced877ae17acdee911db" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::startdim</definition>
+        <argsstring></argsstring>
+        <name>startdim</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="126" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a1ab64d6c77c52efd890d720ef2163c93" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contheap_parcial</definition>
+        <argsstring></argsstring>
+        <name>contheap_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="127" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1ae25e289bfc794cccddecb5dbdfaa5506" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contheapreins_parcial</definition>
+        <argsstring></argsstring>
+        <name>contheapreins_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="127" column="26" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a5b1045b698582ec6c48a6952f1712f21" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::conthash_parcial</definition>
+        <argsstring></argsstring>
+        <name>conthash_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="127" column="48" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a21cd95482b88624ac4ab9c409613bf91" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contprooning_parcial</definition>
+        <argsstring></argsstring>
+        <name>contprooning_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="127" column="65" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a521f8a188cc6a662a886dada71a62b8d" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::maxheapsize_parcial</definition>
+        <argsstring></argsstring>
+        <name>maxheapsize_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="127" column="86" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a26c8cf8f95eff343a496ff644507ec5e" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contnaoheap_parcial</definition>
+        <argsstring></argsstring>
+        <name>contnaoheap_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="128" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a8e49e1573acd9ec83bb5f9993ad40ac9" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::conthashnaoheap_parcial</definition>
+        <argsstring></argsstring>
+        <name>conthashnaoheap_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="128" column="29" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1aff9de66a13567bee4e24a4f105e9cec9" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contexpandidos_parcial</definition>
+        <argsstring></argsstring>
+        <name>contexpandidos_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="128" column="53" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a11991c3f3e77b1e611c3f81a08008d82" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contprojetados_parcial</definition>
+        <argsstring></argsstring>
+        <name>contprojetados_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="128" column="76" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a5d5c730e0af1217c8155c405a03f9e93" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contprojtreinados_parcial</definition>
+        <argsstring></argsstring>
+        <name>contprojtreinados_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="129" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1ac66538067487002b33dc91ceaf5bf586" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::sobraprojecoes_parcial</definition>
+        <argsstring></argsstring>
+        <name>sobraprojecoes_parcial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="129" column="35" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a382dafc774869213bc0a31636effd138" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contexpanded</definition>
+        <argsstring></argsstring>
+        <name>contexpanded</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="130" column="9" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1ad2acafa51102caa459c49e0d5f7f6089" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contnotheap</definition>
+        <argsstring></argsstring>
+        <name>contnotheap</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="130" column="23" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a6e25e005fe57b496100403515cc2f2de" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contprojected</definition>
+        <argsstring></argsstring>
+        <name>contprojected</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="130" column="36" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a8eae1e0edaeaab354a410361ab431252" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::contprojtrained</definition>
+        <argsstring></argsstring>
+        <name>contprojtrained</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="130" column="51" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a4ca4ea4d988632aa90e376433296c9b2" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int AOS&lt; T &gt;::conthashnotheap</definition>
+        <argsstring></argsstring>
+        <name>conthashnotheap</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="130" column="68" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a201116f9112393d60c2905ec3a3a2f0e" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::bonus</definition>
+        <argsstring></argsstring>
+        <name>bonus</name>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="131" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a057a0e9f8819e7915306163cb8fdae66" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::n0</definition>
+        <argsstring></argsstring>
+        <name>n0</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="131" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1ab95339f9394a836d673315ab2a78318d" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::max_time</definition>
+        <argsstring></argsstring>
+        <name>max_time</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="131" column="23" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a04f0f3605b00b834a49c621dba2d65ac" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::kfolderror</definition>
+        <argsstring></argsstring>
+        <name>kfolderror</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="131" column="33" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a9583bd54a3515e7f47fa27a42f215abf" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::g_margin</definition>
+        <argsstring></argsstring>
+        <name>g_margin</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="131" column="45" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a0ab0c0f3b1f80f3e6e5d66d0ed18734e" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::partial_margin</definition>
+        <argsstring></argsstring>
+        <name>partial_margin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="132" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a7c410821312cdaaff7f90c541d19f7a8" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::partial_svs</definition>
+        <argsstring></argsstring>
+        <name>partial_svs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="132" column="27" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1af88bb647692d227842d14ee9ccacab9f" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::partial_time</definition>
+        <argsstring></argsstring>
+        <name>partial_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="132" column="39" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a14aaab20934dcb4c05f77d8be7a5ee80" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::partial_dim</definition>
+        <argsstring></argsstring>
+        <name>partial_dim</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="132" column="52" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a13ad8b1a7de699b8e95007124803adc6" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::START_TIME</definition>
+        <argsstring></argsstring>
+        <name>START_TIME</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="133" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a6dfa075c65ac19d4c126ec3deed8f42b" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::initial_time</definition>
+        <argsstring></argsstring>
+        <name>initial_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="133" column="23" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1ab7521e9a919a31fde21704454d2d8b5a" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::max_time_orig</definition>
+        <argsstring></argsstring>
+        <name>max_time_orig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="133" column="36" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a8e204acfff113a5165516fdc717aa7db" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool AOS&lt; T &gt;::doleave_oo</definition>
+        <argsstring></argsstring>
+        <name>doleave_oo</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="134" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a9762e6b945891b13b76751a61d1cb119" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string AOS&lt; T &gt;::filename</definition>
+        <argsstring></argsstring>
+        <name>filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="136" column="17" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1ac59f503cc040d26782d2df30ea69daeb" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classAOS_1_1Heap" kindref="compound">Heap</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Heap&gt; AOS&lt; T &gt;::heap</definition>
+        <argsstring></argsstring>
+        <name>heap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="137" column="21" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1ae0b86891c57aa27858014c745005a70b" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classAOS_1_1Hash" kindref="compound">Hash</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Hash&gt; AOS&lt; T &gt;::hash</definition>
+        <argsstring></argsstring>
+        <name>hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="138" column="21" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAOS_1a34f76f2092ec62e4dd9cee9ed79aa8c1" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+        <definition>std::shared_ptr&lt;Data&lt; T &gt; &gt; AOS&lt; T &gt;::stmp_partial</definition>
+        <argsstring></argsstring>
+        <name>stmp_partial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="139" column="21" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAOS_1a43235b841385f05638cbf020b6d21c64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AOS&lt; T &gt;::setBreadth</definition>
+        <argsstring>(int breadth)</argsstring>
+        <name>setBreadth</name>
+        <param>
+          <type>int</type>
+          <declname>breadth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="113" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src/AOS.cpp" bodystart="699" bodyend="701"/>
+      </memberdef>
+      <memberdef kind="function" id="classAOS_1a694b503e49045ffb6bf8c69345c17467" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AOS&lt; T &gt;::setCut</definition>
+        <argsstring>(int cut)</argsstring>
+        <name>setCut</name>
+        <param>
+          <type>int</type>
+          <declname>cut</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="115" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src/AOS.cpp" bodystart="704" bodyend="706"/>
+      </memberdef>
+      <memberdef kind="function" id="classAOS_1a12a55d522bc25dd70b96c13de5dd2452" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AOS&lt; T &gt;::setSortingShape</definition>
+        <argsstring>(int sortingShape)</argsstring>
+        <name>setSortingShape</name>
+        <param>
+          <type>int</type>
+          <declname>sortingShape</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="117" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src/AOS.cpp" bodystart="709" bodyend="711"/>
+      </memberdef>
+      <memberdef kind="function" id="classAOS_1a2d33d4f64aa5a54382a4d5aeb14f41e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AOS&lt; T &gt;::setChoiceShape</definition>
+        <argsstring>(int choiceShape)</argsstring>
+        <name>setChoiceShape</name>
+        <param>
+          <type>int</type>
+          <declname>choiceShape</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="119" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src/AOS.cpp" bodystart="714" bodyend="716"/>
+      </memberdef>
+      <memberdef kind="function" id="classAOS_1a329f8d66c7a0191990d106d39380ccff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AOS&lt; T &gt;::setLookAheadDepth</definition>
+        <argsstring>(int lookAheadDepth)</argsstring>
+        <name>setLookAheadDepth</name>
+        <param>
+          <type>int</type>
+          <declname>lookAheadDepth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="121" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src/AOS.cpp" bodystart="719" bodyend="721"/>
+      </memberdef>
+      <memberdef kind="function" id="classAOS_1a77089d6fbdbc1149efde37130598b50b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>AOS&lt; T &gt;::AOS</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; samples=nullptr, Classifier&lt; T &gt; *classifier=nullptr, typename Validation&lt; T &gt;::CrossValidation *cv=nullptr, int breadth=0, int depth=0, double bonus=0, int cut=0, int look_ahead_depth=0, int skip=0, int startover=0, double g_margin=0, bool doleave_oo=0, int sorting_shape=0, int choice_shape=0, int verbose=0)</argsstring>
+        <name>AOS</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>samples</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="classClassifier" kindref="compound">Classifier</ref>&lt; T &gt; *</type>
+          <declname>classifier</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>typename <ref refid="classValidation" kindref="compound">Validation</ref>&lt; T &gt;::CrossValidation *</type>
+          <declname>cv</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>breadth</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>depth</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>bonus</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>cut</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>look_ahead_depth</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>skip</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>startover</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>g_margin</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>doleave_oo</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>sorting_shape</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>choice_shape</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>verbose</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="142" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src/AOS.cpp" bodystart="17" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classAOS_1a855c463e121f6b190f42ea1950c6d2dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+        <definition>std::shared_ptr&lt; Data&lt; T &gt; &gt; AOS&lt; T &gt;::selectFeatures</definition>
+        <argsstring>() override</argsstring>
+        <name>selectFeatures</name>
+        <reimplements refid="classFeatureSelection_1a0ddf4542498dd85ecc0b8dadbc9d136b">selectFeatures</reimplements>
+        <briefdescription>
+<para>Function that executes the feature selection phase. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>void std::shared_ptr&lt;Data&lt; T &gt; &gt; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="145" column="21" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src/AOS.cpp" bodystart="45" bodyend="260"/>
+      </memberdef>
+      <memberdef kind="function" id="classAOS_1a50610d3191840fc2d61526bef977b0e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AOS&lt; T &gt;::mainLoop</definition>
+        <argsstring>()</argsstring>
+        <name>mainLoop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="146" column="10" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src/AOS.cpp" bodystart="267" bodyend="534"/>
+      </memberdef>
+      <memberdef kind="function" id="classAOS_1a74c6062db30a6ec953f681826e4f053b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double AOS&lt; T &gt;::lookAhead</definition>
+        <argsstring>(std::vector&lt; int &gt; fnames_orig, std::vector&lt; double &gt; w_orig, int level_orig)</argsstring>
+        <name>lookAhead</name>
+        <param>
+          <type>std::vector&lt; int &gt;</type>
+          <declname>fnames_orig</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; double &gt;</type>
+          <declname>w_orig</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>level_orig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="147" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/src/AOS.cpp" bodystart="541" bodyend="696"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>FeatureSelection&lt; T &gt;</label>
+        <link refid="classFeatureSelection"/>
+      </node>
+      <node id="1">
+        <label>AOS&lt; T &gt;</label>
+        <link refid="classAOS"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>Solution</label>
+        <link refid="classSolution"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>K</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Kernel</label>
+        <link refid="classKernel"/>
+      </node>
+      <node id="2">
+        <label>FeatureSelection&lt; T &gt;</label>
+        <link refid="classFeatureSelection"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>solution</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>timer</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Timer</label>
+        <link refid="classTimer"/>
+      </node>
+      <node id="1">
+        <label>AOS&lt; T &gt;</label>
+        <link refid="classAOS"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" line="12" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/AOS.hpp" bodystart="12" bodyend="148"/>
+    <listofallmembers>
+      <member refid="classAOS_1a77089d6fbdbc1149efde37130598b50b" prot="public" virt="non-virtual"><scope>AOS</scope><name>AOS</name></member>
+      <member refid="classAOS_1a201116f9112393d60c2905ec3a3a2f0e" prot="private" virt="non-virtual"><scope>AOS</scope><name>bonus</name></member>
+      <member refid="classAOS_1a6365b49feee16be637478b1b0d7b9234" prot="private" virt="non-virtual"><scope>AOS</scope><name>breadth</name></member>
+      <member refid="classAOS_1ac0e7c3e58f07a19d792a231a42353c8f" prot="private" virt="non-virtual"><scope>AOS</scope><name>choice_shape</name></member>
+      <member refid="classFeatureSelection_1aac04d4fa957487262829637876665934" prot="protected" virt="non-virtual"><scope>AOS</scope><name>classifier</name></member>
+      <member refid="classAOS_1a382dafc774869213bc0a31636effd138" prot="private" virt="non-virtual"><scope>AOS</scope><name>contexpanded</name></member>
+      <member refid="classAOS_1aff9de66a13567bee4e24a4f105e9cec9" prot="private" virt="non-virtual"><scope>AOS</scope><name>contexpandidos_parcial</name></member>
+      <member refid="classAOS_1a5b1045b698582ec6c48a6952f1712f21" prot="private" virt="non-virtual"><scope>AOS</scope><name>conthash_parcial</name></member>
+      <member refid="classAOS_1a8e49e1573acd9ec83bb5f9993ad40ac9" prot="private" virt="non-virtual"><scope>AOS</scope><name>conthashnaoheap_parcial</name></member>
+      <member refid="classAOS_1a4ca4ea4d988632aa90e376433296c9b2" prot="private" virt="non-virtual"><scope>AOS</scope><name>conthashnotheap</name></member>
+      <member refid="classAOS_1a1ab64d6c77c52efd890d720ef2163c93" prot="private" virt="non-virtual"><scope>AOS</scope><name>contheap_parcial</name></member>
+      <member refid="classAOS_1ae25e289bfc794cccddecb5dbdfaa5506" prot="private" virt="non-virtual"><scope>AOS</scope><name>contheapreins_parcial</name></member>
+      <member refid="classAOS_1a26c8cf8f95eff343a496ff644507ec5e" prot="private" virt="non-virtual"><scope>AOS</scope><name>contnaoheap_parcial</name></member>
+      <member refid="classAOS_1ad2acafa51102caa459c49e0d5f7f6089" prot="private" virt="non-virtual"><scope>AOS</scope><name>contnotheap</name></member>
+      <member refid="classAOS_1a6e25e005fe57b496100403515cc2f2de" prot="private" virt="non-virtual"><scope>AOS</scope><name>contprojected</name></member>
+      <member refid="classAOS_1a11991c3f3e77b1e611c3f81a08008d82" prot="private" virt="non-virtual"><scope>AOS</scope><name>contprojetados_parcial</name></member>
+      <member refid="classAOS_1a8eae1e0edaeaab354a410361ab431252" prot="private" virt="non-virtual"><scope>AOS</scope><name>contprojtrained</name></member>
+      <member refid="classAOS_1a5d5c730e0af1217c8155c405a03f9e93" prot="private" virt="non-virtual"><scope>AOS</scope><name>contprojtreinados_parcial</name></member>
+      <member refid="classAOS_1a21cd95482b88624ac4ab9c409613bf91" prot="private" virt="non-virtual"><scope>AOS</scope><name>contprooning_parcial</name></member>
+      <member refid="classAOS_1a9405d6b818936fca3413bba7c1858b1a" prot="private" virt="non-virtual"><scope>AOS</scope><name>cut</name></member>
+      <member refid="classFeatureSelection_1a2898e23abf3d2155c94d29823474c336" prot="protected" virt="non-virtual"><scope>AOS</scope><name>cv</name></member>
+      <member refid="classFeatureSelection_1a97b36bdc01446e1a6ceaac46046bd06e" prot="protected" virt="non-virtual"><scope>AOS</scope><name>depth</name></member>
+      <member refid="classAOS_1ac0a353b5d46ee74703a22bd9ecebaf0a" prot="private" virt="non-virtual"><scope>AOS</scope><name>dim_orig</name></member>
+      <member refid="classAOS_1a8e204acfff113a5165516fdc717aa7db" prot="private" virt="non-virtual"><scope>AOS</scope><name>doleave_oo</name></member>
+      <member refid="classAOS_1a9762e6b945891b13b76751a61d1cb119" prot="private" virt="non-virtual"><scope>AOS</scope><name>filename</name></member>
+      <member refid="classFeatureSelection_1a3dfd3eaf77946767f8c876020cb9ed54" prot="protected" virt="non-virtual"><scope>AOS</scope><name>final_dim</name></member>
+      <member refid="classAOS_1a424bb5b31ba5cb727017a5623d5b9b0f" prot="private" virt="non-virtual"><scope>AOS</scope><name>ftime</name></member>
+      <member refid="classAOS_1a9583bd54a3515e7f47fa27a42f215abf" prot="private" virt="non-virtual"><scope>AOS</scope><name>g_margin</name></member>
+      <member refid="classAOS_1ae0b86891c57aa27858014c745005a70b" prot="private" virt="non-virtual"><scope>AOS</scope><name>hash</name></member>
+      <member refid="classAOS_1a115862604f4d66a62f7a9c3081843c2f" prot="private" virt="non-virtual"><scope>AOS</scope><name>HASH_SIZE</name></member>
+      <member refid="classAOS_1ab25fdd229bc83e4c904547703c06c411" prot="private" virt="non-virtual"><scope>AOS</scope><name>HASH_WIDTH</name></member>
+      <member refid="classAOS_1ac59f503cc040d26782d2df30ea69daeb" prot="private" virt="non-virtual"><scope>AOS</scope><name>heap</name></member>
+      <member refid="classAOS_1a6dfa075c65ac19d4c126ec3deed8f42b" prot="private" virt="non-virtual"><scope>AOS</scope><name>initial_time</name></member>
+      <member refid="classFeatureSelection_1ae90bf3293a6aa1a236409d263564363b" prot="protected" virt="non-virtual"><scope>AOS</scope><name>jump</name></member>
+      <member refid="classAOS_1a04f0f3605b00b834a49c621dba2d65ac" prot="private" virt="non-virtual"><scope>AOS</scope><name>kfolderror</name></member>
+      <member refid="classFeatureSelection_1ae6a8f3c4e5359e418f06c37bbe5f0ee8" prot="protected" virt="non-virtual"><scope>AOS</scope><name>leave_one_out</name></member>
+      <member refid="classAOS_1a01fc416025f020defca1fe7d88ba4d97" prot="private" virt="non-virtual"><scope>AOS</scope><name>look_ahead_depth</name></member>
+      <member refid="classAOS_1a74c6062db30a6ec953f681826e4f053b" prot="public" virt="non-virtual"><scope>AOS</scope><name>lookAhead</name></member>
+      <member refid="classAOS_1a2b94c3c927ec05a83929cffe03085187" prot="private" virt="non-virtual"><scope>AOS</scope><name>lool</name></member>
+      <member refid="classAOS_1a50610d3191840fc2d61526bef977b0e5" prot="public" virt="non-virtual"><scope>AOS</scope><name>mainLoop</name></member>
+      <member refid="classFeatureSelection_1a77002ab25336a16dbbace6b8afcb76b1" prot="protected" virt="non-virtual"><scope>AOS</scope><name>MAX_BREATH</name></member>
+      <member refid="classFeatureSelection_1a10e73a5516dd42635a932a44de03bfb8" prot="protected" virt="non-virtual"><scope>AOS</scope><name>MAX_DEPTH</name></member>
+      <member refid="classAOS_1ab95339f9394a836d673315ab2a78318d" prot="private" virt="non-virtual"><scope>AOS</scope><name>max_time</name></member>
+      <member refid="classAOS_1ab7521e9a919a31fde21704454d2d8b5a" prot="private" virt="non-virtual"><scope>AOS</scope><name>max_time_orig</name></member>
+      <member refid="classAOS_1a521f8a188cc6a662a886dada71a62b8d" prot="private" virt="non-virtual"><scope>AOS</scope><name>maxheapsize_parcial</name></member>
+      <member refid="classAOS_1a057a0e9f8819e7915306163cb8fdae66" prot="private" virt="non-virtual"><scope>AOS</scope><name>n0</name></member>
+      <member refid="classFeatureSelection_1ab05ba3be9c292b10b1116e354b181233" prot="protected" virt="non-virtual"><scope>AOS</scope><name>NUM_ERROR_EPS</name></member>
+      <member refid="classAOS_1a14aaab20934dcb4c05f77d8be7a5ee80" prot="private" virt="non-virtual"><scope>AOS</scope><name>partial_dim</name></member>
+      <member refid="classAOS_1a0ab0c0f3b1f80f3e6e5d66d0ed18734e" prot="private" virt="non-virtual"><scope>AOS</scope><name>partial_margin</name></member>
+      <member refid="classAOS_1a7c410821312cdaaff7f90c541d19f7a8" prot="private" virt="non-virtual"><scope>AOS</scope><name>partial_svs</name></member>
+      <member refid="classAOS_1af88bb647692d227842d14ee9ccacab9f" prot="private" virt="non-virtual"><scope>AOS</scope><name>partial_time</name></member>
+      <member refid="classFeatureSelection_1a428e8264a956c55b02fb9437953a7880" prot="protected" virt="non-virtual"><scope>AOS</scope><name>samples</name></member>
+      <member refid="classAOS_1a855c463e121f6b190f42ea1950c6d2dd" prot="public" virt="virtual"><scope>AOS</scope><name>selectFeatures</name></member>
+      <member refid="classAOS_1a43235b841385f05638cbf020b6d21c64" prot="public" virt="non-virtual"><scope>AOS</scope><name>setBreadth</name></member>
+      <member refid="classAOS_1a2d33d4f64aa5a54382a4d5aeb14f41e4" prot="public" virt="non-virtual"><scope>AOS</scope><name>setChoiceShape</name></member>
+      <member refid="classFeatureSelection_1aeb59d20a8711f4894f3773e78bd9b18e" prot="public" virt="non-virtual"><scope>AOS</scope><name>setClassifier</name></member>
+      <member refid="classFeatureSelection_1a5a46969cc8ae83c7281dd71eb5bf3876" prot="public" virt="non-virtual"><scope>AOS</scope><name>setCrossValidation</name></member>
+      <member refid="classAOS_1a694b503e49045ffb6bf8c69345c17467" prot="public" virt="non-virtual"><scope>AOS</scope><name>setCut</name></member>
+      <member refid="classFeatureSelection_1ac3e6bd57a2883295c5be6f53f739a184" prot="public" virt="non-virtual"><scope>AOS</scope><name>setDepth</name></member>
+      <member refid="classFeatureSelection_1a2754140eede1f7689967e5361417499c" prot="public" virt="non-virtual"><scope>AOS</scope><name>setFinalDimension</name></member>
+      <member refid="classFeatureSelection_1a1c639f188436bb7594bca5985d6421d0" prot="public" virt="non-virtual"><scope>AOS</scope><name>setJump</name></member>
+      <member refid="classAOS_1a329f8d66c7a0191990d106d39380ccff" prot="public" virt="non-virtual"><scope>AOS</scope><name>setLookAheadDepth</name></member>
+      <member refid="classFeatureSelection_1ac436e6b71800ab1156440c77106ca68d" prot="public" virt="non-virtual"><scope>AOS</scope><name>setSamples</name></member>
+      <member refid="classFeatureSelection_1a773f89aad5b7158ca81e43da5a276918" prot="public" virt="non-virtual"><scope>AOS</scope><name>setSkip</name></member>
+      <member refid="classAOS_1a12a55d522bc25dd70b96c13de5dd2452" prot="public" virt="non-virtual"><scope>AOS</scope><name>setSortingShape</name></member>
+      <member refid="classFeatureSelection_1a62033d3b22ae88f45be6458116d9d304" prot="public" virt="non-virtual"><scope>AOS</scope><name>setVerbose</name></member>
+      <member refid="classFeatureSelection_1a6b6fd8245fa5ae5e2587fa22aa9809ca" prot="protected" virt="non-virtual"><scope>AOS</scope><name>skip</name></member>
+      <member refid="classAOS_1ac66538067487002b33dc91ceaf5bf586" prot="private" virt="non-virtual"><scope>AOS</scope><name>sobraprojecoes_parcial</name></member>
+      <member refid="classFeatureSelection_1ae974d2a985a2d4409e5863e425c372fe" prot="protected" virt="non-virtual"><scope>AOS</scope><name>solution</name></member>
+      <member refid="classAOS_1a254767c485833fff26ec43235e13a8fa" prot="private" virt="non-virtual"><scope>AOS</scope><name>sorting_shape</name></member>
+      <member refid="classAOS_1a13ad8b1a7de699b8e95007124803adc6" prot="private" virt="non-virtual"><scope>AOS</scope><name>START_TIME</name></member>
+      <member refid="classAOS_1aba69b08c7603ced877ae17acdee911db" prot="private" virt="non-virtual"><scope>AOS</scope><name>startdim</name></member>
+      <member refid="classAOS_1a209a24083d2329dd8199c0dd16c4ef34" prot="private" virt="non-virtual"><scope>AOS</scope><name>startover</name></member>
+      <member refid="classAOS_1a34f76f2092ec62e4dd9cee9ed79aa8c1" prot="private" virt="non-virtual"><scope>AOS</scope><name>stmp_partial</name></member>
+      <member refid="classFeatureSelection_1a80781a87519a53646c2bc8c5cd603672" prot="protected" virt="non-virtual"><scope>AOS</scope><name>timer</name></member>
+      <member refid="classFeatureSelection_1af809cef8f77afb941d4f8a76c5970fd7" prot="protected" virt="non-virtual"><scope>AOS</scope><name>verbose</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

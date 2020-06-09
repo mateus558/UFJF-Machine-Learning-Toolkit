@@ -1,0 +1,508 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classStatistics" kind="class" language="C++" prot="public">
+    <compoundname>Statistics</compoundname>
+    <includes refid="Statistics_8hpp" local="no">Statistics.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classStatistics_1a51b30b6248fac4c53524437ace868c08" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class Data&lt; T &gt;</definition>
+        <argsstring></argsstring>
+        <name>Data&lt; T &gt;</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="1" column="0" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classStatistics_1abc5a7f2c15bca7f7048aa2ceec665eeb" prot="private" static="no" mutable="no">
+        <type><ref refid="classPoint" kindref="compound">Point</ref>&lt; T &gt;</type>
+        <definition>Point&lt; T &gt; Statistics&lt; T &gt;::centroid</definition>
+        <argsstring></argsstring>
+        <name>centroid</name>
+        <briefdescription>
+<para>Centroid of all the dataset. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="27" column="11" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classStatistics_1aa34106529ec06cf6e9b960a73f21f5a8" prot="private" static="no" mutable="no">
+        <type><ref refid="classPoint" kindref="compound">Point</ref>&lt; T &gt;</type>
+        <definition>Point&lt; T &gt; Statistics&lt; T &gt;::pos_centroid</definition>
+        <argsstring></argsstring>
+        <name>pos_centroid</name>
+        <briefdescription>
+<para>Centroid of the positive points. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="29" column="11" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classStatistics_1a090cdda94ea1d0f9df34df5e255ad7cb" prot="private" static="no" mutable="no">
+        <type><ref refid="classPoint" kindref="compound">Point</ref>&lt; T &gt;</type>
+        <definition>Point&lt; T &gt; Statistics&lt; T &gt;::neg_centroid</definition>
+        <argsstring></argsstring>
+        <name>neg_centroid</name>
+        <briefdescription>
+<para>Centroid of the negative points. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="31" column="11" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classStatistics_1a9802f93041096c6bf293e1023783480b" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t Statistics&lt; T &gt;::n_pos</definition>
+        <argsstring></argsstring>
+        <name>n_pos</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Number of positive points. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="33" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classStatistics_1afd497f851f616d4dd21ca1c591f6d2b5" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t Statistics&lt; T &gt;::n_neg</definition>
+        <argsstring></argsstring>
+        <name>n_neg</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Number of negative points. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="35" column="12" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classStatistics_1a31b289c3dc142cc7bc1cafbe10ca99ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Statistics&lt; T &gt;::Statistics</definition>
+        <argsstring>()</argsstring>
+        <name>Statistics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="38" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" bodystart="38" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classStatistics_1a5c3639c37f312703cdebfe179a3c5180" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Statistics&lt; T &gt;::mean</definition>
+        <argsstring>(std::vector&lt; T &gt; p)</argsstring>
+        <name>mean</name>
+        <param>
+          <type>std::vector&lt; T &gt;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Compute the mean (average) of a vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(???) <ref refid="classPoint" kindref="compound">Point</ref> to compute the mean. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="44" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Statistics.cpp" bodystart="6" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classStatistics_1aed57f80ae94ffde832e3561c6cbf74ba" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Statistics&lt; T &gt;::getFeatureMean</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; data, int index)</argsstring>
+        <name>getFeatureMean</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Computes the mean of a feature in the sample. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(???) Sample where the feature is located. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(???) Index of the feature to compute the mean. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="51" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Statistics.cpp" bodystart="18" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classStatistics_1a4c323761a6c8704bf25d68d7818fe7c5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>static double Statistics&lt; T &gt;::variance</definition>
+        <argsstring>(std::vector&lt; T &gt; p)</argsstring>
+        <name>variance</name>
+        <param>
+          <type>std::vector&lt; T &gt;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Compute the variance of a vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(???) Vector to compute the variance. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="57" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classStatistics_1ac62a4051e736099b45e1d0cd13ba7446" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Statistics&lt; T &gt;::variance</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; data, int index)</argsstring>
+        <name>variance</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Compute the variance of a sample. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(???) Sample to compute the variance. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(???) Index of the feature to be ignored. (-1 dont ignore any feature) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="64" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Statistics.cpp" bodystart="47" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classStatistics_1accf969226645d2fe2cb16ab24c3eeb33" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Statistics&lt; T &gt;::stdev</definition>
+        <argsstring>(std::vector&lt; T &gt; p)</argsstring>
+        <name>stdev</name>
+        <param>
+          <type>std::vector&lt; T &gt;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Compute the standard deviation of a vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(???) <ref refid="classPoint" kindref="compound">Point</ref> to compute stdev. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="70" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Statistics.cpp" bodystart="82" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="classStatistics_1a9030f1c777e9237e90697e7d294cfc5f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Statistics&lt; T &gt;::getFeatureStdev</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; data, int index)</argsstring>
+        <name>getFeatureStdev</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Computes the standard deviation of a feature. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(???) Sample where the feature is located. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(???) Index of teh feature to compute the standard deviation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="77" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Statistics.cpp" bodystart="87" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classStatistics_1a0b14915d97827cba05894fdc8662573d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Statistics&lt; T &gt;::getRadius</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; data, int index, double q)</argsstring>
+        <name>getRadius</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+<para>Returns radius of the ball that circ. the data. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dataset to compute the radius. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Feature to be ignored (-1 uses all features). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lp-Norm to be used. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="85" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Statistics.cpp" bodystart="104" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classStatistics_1a711d9dc0287ad32e933ccdb396eab2be" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Statistics&lt; T &gt;::getDistCenters</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; data, int index)</argsstring>
+        <name>getDistCenters</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Returns distance of centers of the classes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dataset to compute the distance. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Feature to be ignored (-1 uses all features). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="92" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Statistics.cpp" bodystart="148" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classStatistics_1a80d125d17668b8459a111bbc2c675804" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Statistics&lt; T &gt;::getDistCentersWithoutFeats</definition>
+        <argsstring>(std::shared_ptr&lt; Data&lt; T &gt; &gt; data, std::vector&lt; int &gt; feats, int index)</argsstring>
+        <name>getDistCentersWithoutFeats</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classData" kindref="compound">Data</ref>&lt; T &gt; &gt;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; int &gt;</type>
+          <declname>feats</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>Returns distance of centers of the classes without given features. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dataset to compute the distance. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>feats</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Features to be excluded from the computation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Feature to be ignored (-1 uses all features). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Statistics.hpp" line="100" column="19" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/src/Statistics.cpp" bodystart="182" bodyend="215"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class with methods for statistical computations. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Data.hpp" line="53" column="1" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Core/include/Data.hpp" bodystart="53" bodyend="-1"/>
+    <listofallmembers>
+      <member refid="classStatistics_1abc5a7f2c15bca7f7048aa2ceec665eeb" prot="private" virt="non-virtual"><scope>Statistics</scope><name>centroid</name></member>
+      <member refid="classStatistics_1a51b30b6248fac4c53524437ace868c08" prot="private" virt="non-virtual"><scope>Statistics</scope><name>Data&lt; T &gt;</name></member>
+      <member refid="classStatistics_1a711d9dc0287ad32e933ccdb396eab2be" prot="public" virt="non-virtual"><scope>Statistics</scope><name>getDistCenters</name></member>
+      <member refid="classStatistics_1a80d125d17668b8459a111bbc2c675804" prot="public" virt="non-virtual"><scope>Statistics</scope><name>getDistCentersWithoutFeats</name></member>
+      <member refid="classStatistics_1aed57f80ae94ffde832e3561c6cbf74ba" prot="public" virt="non-virtual"><scope>Statistics</scope><name>getFeatureMean</name></member>
+      <member refid="classStatistics_1a9030f1c777e9237e90697e7d294cfc5f" prot="public" virt="non-virtual"><scope>Statistics</scope><name>getFeatureStdev</name></member>
+      <member refid="classStatistics_1a0b14915d97827cba05894fdc8662573d" prot="public" virt="non-virtual"><scope>Statistics</scope><name>getRadius</name></member>
+      <member refid="classStatistics_1a5c3639c37f312703cdebfe179a3c5180" prot="public" virt="non-virtual"><scope>Statistics</scope><name>mean</name></member>
+      <member refid="classStatistics_1afd497f851f616d4dd21ca1c591f6d2b5" prot="private" virt="non-virtual"><scope>Statistics</scope><name>n_neg</name></member>
+      <member refid="classStatistics_1a9802f93041096c6bf293e1023783480b" prot="private" virt="non-virtual"><scope>Statistics</scope><name>n_pos</name></member>
+      <member refid="classStatistics_1a090cdda94ea1d0f9df34df5e255ad7cb" prot="private" virt="non-virtual"><scope>Statistics</scope><name>neg_centroid</name></member>
+      <member refid="classStatistics_1aa34106529ec06cf6e9b960a73f21f5a8" prot="private" virt="non-virtual"><scope>Statistics</scope><name>pos_centroid</name></member>
+      <member refid="classStatistics_1a31b289c3dc142cc7bc1cafbe10ca99ca" prot="public" virt="non-virtual"><scope>Statistics</scope><name>Statistics</name></member>
+      <member refid="classStatistics_1accf969226645d2fe2cb16ab24c3eeb33" prot="public" virt="non-virtual"><scope>Statistics</scope><name>stdev</name></member>
+      <member refid="classStatistics_1a4c323761a6c8704bf25d68d7818fe7c5" prot="public" virt="non-virtual"><scope>Statistics</scope><name>variance</name></member>
+      <member refid="classStatistics_1ac62a4051e736099b45e1d0cd13ba7446" prot="public" virt="non-virtual"><scope>Statistics</scope><name>variance</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

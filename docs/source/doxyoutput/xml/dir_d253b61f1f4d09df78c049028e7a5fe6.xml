@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_d253b61f1f4d09df78c049028e7a5fe6" kind="dir">
+    <compoundname>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include</compoundname>
+    <innerfile refid="DualRegressor_8hpp">DualRegressor.hpp</innerfile>
+    <innerfile refid="KNNRegressor_8hpp">KNNRegressor.hpp</innerfile>
+    <innerfile refid="LMS_8hpp">LMS.hpp</innerfile>
+    <innerfile refid="PrimalRegressor_8hpp">PrimalRegressor.hpp</innerfile>
+    <innerfile refid="Regressor_8hpp">Regressor.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include/"/>
+  </compounddef>
+</doxygen>

@@ -1,4 +1,3 @@
-docs
 papers
 DB
 cmake-build-debug
@@ -9,9 +8,14 @@ teste.cpp
 scripts
 notebooks
 figs
-Doc
 .github
 Others
 Exec
 build
-docs
+docs/build
+# wherever you told breathe_projects to look
+docs/doxyoutput
+# wherever you told Exhale containmentFolder is
+docs/api
+GUI
+CLI

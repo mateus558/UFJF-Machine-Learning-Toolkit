@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structGolub_1_1golub__select__score" kind="struct" language="C++" prot="private">
+    <compoundname>Golub::golub_select_score</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structGolub_1_1golub__select__score_1a28d8cf9bb0a532028b2fb9aa4224d420" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Golub&lt; T &gt;::golub_select_score::fname</definition>
+        <argsstring></argsstring>
+        <name>fname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Golub.hpp" line="17" column="13" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Golub.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structGolub_1_1golub__select__score_1a341b778f3479dffdaa66b2edb259d87d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Golub&lt; T &gt;::golub_select_score::score</definition>
+        <argsstring></argsstring>
+        <name>score</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Golub.hpp" line="18" column="16" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Golub.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Golub.hpp" line="15" column="5" bodyfile="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/FeatureSelection/include/Golub.hpp" bodystart="16" bodyend="19"/>
+    <listofallmembers>
+      <member refid="structGolub_1_1golub__select__score_1a28d8cf9bb0a532028b2fb9aa4224d420" prot="public" virt="non-virtual"><scope>Golub::golub_select_score</scope><name>fname</name></member>
+      <member refid="structGolub_1_1golub__select__score_1a341b778f3479dffdaa66b2edb259d87d" prot="public" virt="non-virtual"><scope>Golub::golub_select_score</scope><name>score</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_a82a3981ac3573619b197e2d20b8997b" kind="dir">
+    <compoundname>/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor</compoundname>
+    <innerdir refid="dir_d253b61f1f4d09df78c049028e7a5fe6">/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/include</innerdir>
+    <innerdir refid="dir_d03829d21fde06686026622ae07b06b7">/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/mateuscmarim/Repositories/UFJF-MLTK/Modules/Regressor/"/>
+  </compounddef>
+</doxygen>
