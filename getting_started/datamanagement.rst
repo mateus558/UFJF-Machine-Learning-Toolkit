@@ -1,6 +1,6 @@
-==============
-Core templates
-==============
+===============
+Data management
+===============
 
 All the framework is composed of templates that make the development and use of ML (Machine Learning) algorithms easy and allow to the user to select the best available data type for the points of the data features.
 
