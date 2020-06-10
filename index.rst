@@ -47,9 +47,9 @@ __ paper_
 
 **Authors**
 
-Mateus Coutinho Marim
-Saulo Moraes Villela
-Alessandreia Oliveira
+* Mateus Coutinho Marim
+* Saulo Moraes Villela
+* Alessandreia Oliveira
 
 **Contact**
 
