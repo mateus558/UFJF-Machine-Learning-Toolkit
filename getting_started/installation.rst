@@ -44,10 +44,10 @@ Build on any system
 The project can be compiled using the same commands in any system, the only difference is that on
 ``Windows`` you'll need to make sure that the folder containing UFJF-MLTK is in your include path, so
 you can use include statements as ``#include <UFJF-MLTK/Core/Data.hpp>``. For the standart instalation
-you only need to execute the following commands:
+you only need to execute the following commands on the project folder:
 
 .. code-block:: cpp
-
+    
     mkdir build
     cd build
     cmake ..
