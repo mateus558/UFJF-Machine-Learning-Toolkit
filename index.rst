@@ -16,9 +16,12 @@ set of algorithms and tools for machine learning researchers and enthusiasts in 
 
 You can find the API Reference at our repository `Gihub Pages`__.
 
+.. _apipage: https://mateus558.github.io/UFJF-MLTK/
+__ apipage_
+
 **Cite us**
 
-If you use our project in your research, you can cite our paper by adding the bibtex from the `project paper`__.
+If you use our project in your research, you can cite us by adding the bibtex from the `project paper`__.
 
 .. code-block:: cpp
 
@@ -40,7 +43,7 @@ If you use our project in your research, you can cite our paper by adding the bi
    }
 
 .. _paper: https://www.researchgate.net/publication/333406079_UFJF-MLTK_a_framework_for_machine_learning_algorithms
-__ paper__
+__ paper_
 
 **Authors**
 
@@ -51,9 +54,6 @@ Alessandreia Oliveira
 **Contact**
 
 Feel free to contact me at any time to clear doubts that you could have and if you want to contribute to the development of the framework. You can contact me at my e-mail address at mateus.marim@ice.ufjf.br.
-
-.. _apipage: https://mateus558.github.io/UFJF-MLTK/
-__ apipage_
 
 .. toctree::
    :maxdepth: 2
