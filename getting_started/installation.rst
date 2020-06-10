@@ -2,9 +2,7 @@
 Installation
 ============
 
-As one of the main pourposes of UFJF-MLTK is the easy of use, the compilation and installation
-can't be different, for that the project was made using ``cmake`` as most of the known open source
-projects.
+As one of the main pourposes of UFJF-MLTK is the easy of use, the compilation and installation can't be different, for that the project was made using the cross-platform build management tool ``cmake`` as most of the known C++ open source projects.
 
 Requirements
 ------------
