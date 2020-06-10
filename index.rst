@@ -64,9 +64,11 @@ Feel free to contact me at any time to clear doubts that you could have and if y
    :caption: Getting Started
    :hidden:
    
+   getting_started/overview
    getting_started/installation
    getting_started/datamanagement
-
+   getting_started/classification
+   
 .. toctree::
    :maxdepth: 2
    :caption: Contribute
