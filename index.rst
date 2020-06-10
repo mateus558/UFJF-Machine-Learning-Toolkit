@@ -2,6 +2,7 @@
    sphinx-quickstart on Mon Jun  8 00:10:01 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
+
 ================================
 UFJF - Machine Learning Toolkit
 ================================
@@ -38,11 +39,4 @@ __ apipage_
    
    contribute/codeconduct
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 

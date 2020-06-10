@@ -20,6 +20,7 @@ The Point template
 This class is a wrapper for the n-dimension variables of the dataset in the feature space, it also includes along with the features values **X**, the target function **Y** and the _alpha_ weight associated to each point used in dual versions of ML algorithms.
 
 .. _pointusage:
+
 A simple usage of a point
 -------------------------
 
@@ -72,6 +73,7 @@ These are the supported formats:
 - txt (Embrapa datasets format) 
 
 .. _datamemorysharing:
+
 Memory sharing between Data objects
 -----------------------------------
 
@@ -92,6 +94,7 @@ So if you use the = operator with other data object, they will be point to the s
     other = data.copy()
 
 .. _loadingdataset:
+
 Loading a dataset to a Data object
 ----------------------------------
 
@@ -110,9 +113,11 @@ Or if you want the data object initially empty.
 
     data.load("wine.csv");
 
+
 Note that in all formats the target function must be at the beginning or at the end of each line of the file.
 
 .. _datasetinformation:
+
 Getting information about the dataset
 -------------------------------------
 
@@ -127,6 +132,7 @@ After the data is loaded into the memory, we can get some useful information abo
     std::cout << "Negative points" << data.getNumberNegativePoints() << std::endl;
 
 .. _scanningpoints:
+
 Scanning through the data points
 --------------------------------
 
