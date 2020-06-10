@@ -65,7 +65,7 @@ Feel free to contact me at any time to clear doubts that you could have and if y
    :hidden:
    
    getting_started/installation
-   getting_started/coretemplates
+   getting_started/datamanagement
 
 .. toctree::
    :maxdepth: 2
