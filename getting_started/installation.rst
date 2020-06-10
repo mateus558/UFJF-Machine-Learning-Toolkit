@@ -92,4 +92,4 @@ flag ``-lufjfmltk``, as follows:
 
     g++ foo.cpp -o foo -lufjfmltk
 
-
+With these steps complete, everything is set up and ready to use! 
