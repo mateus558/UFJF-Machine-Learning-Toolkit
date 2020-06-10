@@ -53,7 +53,7 @@ __ paper_
 
 **Contact**
 
-Feel free to contact me at any time to clear doubts that you could have and if you want to contribute to the development of the framework. You can contact me at my e-mail address at mateus.marim@ice.ufjf.br.
+Feel free to contact me at any time to clear doubts that you could have and if you want to contribute to the development of the framework. You can contact me at my e-mail address mateus.marim@ice.ufjf.br.
 
 .. toctree::
    :maxdepth: 2
