@@ -39,7 +39,7 @@ If you use our project in your research, you can cite our paper by adding the bi
       series = {SBSI’19}
    }
 
-.. _paper:
+.. _paper: https://www.researchgate.net/publication/333406079_UFJF-MLTK_a_framework_for_machine_learning_algorithms
 __ paper__
 
 **Authors**
