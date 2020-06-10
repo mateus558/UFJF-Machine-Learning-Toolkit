@@ -15,7 +15,7 @@ Requirements
 
 Command to install all necessary CLI dependencies on Arch linux:
 
-.. code-block:: 
+.. code-block:: cpp
 
     sudo pacman -Sy gnuplot
 
@@ -33,7 +33,7 @@ Requirements for the graphical interface (Optional)
 
 Command to install all necessary GUI dependencies on Arch linux:
 
-.. code-block:: 
+.. code-block:: cpp
 
     sudo pacman -Sy qt5-base qt5-charts qt5-datavis3d qt5-svg
 
@@ -46,7 +46,7 @@ The project can be compiled using the same commands in any system, the only diff
 you can use include statements as ``#include <UFJF-MLTK/Core/Data.hpp>``. For the standart instalation
 you only need to execute the following commands:
 
-.. code-block:: 
+.. code-block:: cpp
 
     mkdir build
     cd build
