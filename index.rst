@@ -12,11 +12,11 @@ usage of machine learning algorithms, addresses several types of learning proble
 clustering, feature selection, and ensemble learning. It aims to provide an always growing 
 set of algorithms and tools for machine learning researchers and enthusiasts in its projects.
 
-*API Reference*
+**API Reference**
 
 You can find the API Reference at our repository `Gihub Pages`__.
 
-*Contact*
+**Contact**
 
 Feel free to contact me at any time to clear doubts that you could have and if you want to contribute to the development of the framework. You can contact me at my e-mail address at mateus.marim@ice.ufjf.br.
 
