@@ -86,10 +86,7 @@ for another module to be compiled. The available options to be set on cmake are 
 With the libraries compiled and installed on the system you only need to add the UFJF-MLTK flag to
 the compiler to link the libraries to your program. Supose that we want to compile a source called
 ``foo.cpp`` containing a main function, to compile it on the command line, you just need to add the
-flag ``-lufjfmltk``, as follows:
-
-.. code-block:: 
-
-    g++ foo.cpp -o foo -lufjfmltk
+flag ``-lufjfmltk``, for example, ``g++ foo.cpp -o foo -lufjfmltk``.
+    
 
 With these steps complete, everything is set up and ready to use! 
