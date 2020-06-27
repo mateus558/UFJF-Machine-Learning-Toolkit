@@ -1,7 +1,6 @@
 add_library(${LIBCLASSIFIER} SHARED
     src/IMA.cpp
     src/KNN.cpp
-    src/OneVsAll.cpp
     src/Perceptron.cpp
     src/SMO.cpp
 )

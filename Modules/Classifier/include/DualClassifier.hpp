@@ -6,7 +6,7 @@
 #ifndef DUALCLASSIFIER__HPP
 #define DUALCLASSIFIER__HPP
 
-#include "Kernel.hpp"
+#include "UFJF-MLTK/Core/Kernel.hpp"
 #include "Classifier.hpp"
 #include <vector>
 

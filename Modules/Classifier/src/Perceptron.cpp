@@ -19,13 +19,15 @@ template < typename T >
 bool PerceptronPrimal< T >::train(){
     size_t size = this->samples->getSize(), dim = this->samples->getDim();
     int i, j, e = 0, idx;
-    double norm = 0, y, time = this->start_time + this->max_time, bias = 0;
+    double y, time = this->start_time + this->max_time;
     bool cond;
-    vector<double> func(size, 0), w(dim, 0);
+    vector<double> func(size, 0);
     vector< T > x;
     vector<int> index = this->samples->getIndex();
 
-    if(w.empty()) w.resize(dim);
+    if(this->solution.w.empty()) this->solution.w.resize(dim);
+    this->solution.bias = 0;
+    this->solution.norm = 0.0;
 
     this->timer.Reset();
     while(this->timer.Elapsed() - time <= 0){
@@ -36,17 +38,17 @@ bool PerceptronPrimal< T >::train(){
             y = p->y;
 
             //calculating function
-            for(func[idx] = bias, j = 0; j < dim; ++j)
-                func[idx] += w[j] * x[j];
+            for(func[idx] = this->solution.bias, j = 0; j < dim; ++j)
+                func[idx] += this->solution.w[j] * x[j];
 
             //Checking if the point is a mistake
             if(y*func[idx] <= 0.0){
-                for(norm = 0.0, j = 0; j < dim; ++j){
-                    w[j] += this->rate * y * x[j];
-                    norm += w[j] * w[j];
+                for(this->solution.norm = 0.0, j = 0; j < dim; ++j){
+                    this->solution.w[j] += this->rate * y * x[j];
+                    this->solution.norm += this->solution.w[j] * this->solution.w[j];
                 }
-                norm = sqrt(norm);
-                bias += this->rate * y;
+                this->solution.norm = sqrt(this->solution.norm);
+                this->solution.bias += this->rate * y;
                 this->ctot++; e++;
             }
             else if(this->steps > 0 && e > 1) break;
@@ -59,11 +61,12 @@ bool PerceptronPrimal< T >::train(){
         if(this->ctot > this->MAX_UP)	break;
     }
 
-    this->solution.bias = bias;
-    this->solution.w = w;
-    this->solution.norm = norm;
-
     return (e == 0);
+}
+
+template<typename T>
+double PerceptronPrimal<T>::evaluate(Point<T> p) {
+    return PrimalClassifier<T>::evaluate(p);
 }
 
 template < typename T >

@@ -8,7 +8,7 @@
 
 #include "PrimalClassifier.hpp"
 #include "DualClassifier.hpp"
-#include "MLToolkit.hpp"
+#include "UFJF-MLTK/Core/MLToolkit.hpp"
 
 /**
  * \brief Wrapper for the implementation of the Perceptron primal algorithm.
@@ -18,6 +18,7 @@ class PerceptronPrimal : public PrimalClassifier< T >  {
 public:
     explicit PerceptronPrimal(std::shared_ptr<Data< T > > samples = nullptr, double q = 2, double rate = 0.5, Solution *initial_solution = nullptr);
     bool train() override;
+    double evaluate(Point< T > p) override;
 };
 
 /**

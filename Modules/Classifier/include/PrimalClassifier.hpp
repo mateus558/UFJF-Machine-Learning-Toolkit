@@ -29,7 +29,7 @@ public:
         size_t i, dim = this->solution.w.size();
 
         if(p.x.size() != dim){
-            std::cerr << "The point must have the same dimension of the feature set!" << std::endl;
+            std::cerr << "The point must have the same dimension of the feature set! (" << p.x.size() << ", " << dim <<")" << std::endl;
             return 0;
         }
 
