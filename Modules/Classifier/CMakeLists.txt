@@ -3,6 +3,7 @@ add_library(${LIBCLASSIFIER} SHARED
     src/KNN.cpp
     src/Perceptron.cpp
     src/SMO.cpp
+        include/OneVsAll.hpp
 )
 
 set_target_properties(${LIBCLASSIFIER} PROPERTIES PUBLIC_HEADER "include/Classifier.hpp;include/DualClassifier.hpp;include/PrimalClassifier.hpp;include/IMA.hpp;include/KNN.hpp;include/OneVsAll.hpp;include/Perceptron.hpp;include/SMO.hpp")

@@ -31,7 +31,6 @@ OneVsAll<T, ClassifierT>::OneVsAll(std::shared_ptr<Data< T > > _samples, int _ve
 template< typename T, template <typename > class ClassifierT>
 bool OneVsAll<T, ClassifierT>::train() {
     auto classes = this->samples->getClasses();
-    std::vector<int> new_classes = {-1, 1};
     size_t i = 0, j, n_classes = classes.size(), size = this->samples->getSize();
 
     base_learners.resize(n_classes);
@@ -44,11 +43,10 @@ bool OneVsAll<T, ClassifierT>::train() {
         learner.setVerbose(this->verbose);
 
         temp_samples.copy(*this->samples);
+        temp_samples.setClasses({-1, 1});
         for(j = 0; j < size; j++) {
             temp_samples[j]->y = (temp_samples[j]->y == classes[i]) ? 1 : -1;
         }
-
-        temp_samples.setClasses(new_classes);
         learner.setSamples(std::make_shared<Data< T > >(temp_samples));
         learner.train();
         i++;
