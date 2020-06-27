@@ -3,11 +3,10 @@ find_package(Gnuplot)
 if(GNUPLOT_FOUND)
     add_library(${LIBVISUALIZE} SHARED 
         src/gnuplot_i.cpp
-        include/gnuplot_i.hpp
         src/Visualization.cpp
     )
 
-    set_target_properties(${LIBVISUALIZE} PROPERTIES PUBLIC_HEADER "include/Visualization.hpp")
+    set_target_properties(${LIBVISUALIZE} PROPERTIES PUBLIC_HEADER "include/Visualization.hpp;include/gnuplot_i.hpp" )
 
     target_include_directories(${LIBVISUALIZE} PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

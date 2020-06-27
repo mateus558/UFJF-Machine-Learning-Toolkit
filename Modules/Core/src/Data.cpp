@@ -130,10 +130,6 @@ bool Data< T >::load_csv(const string& path){
 
         while(getline(ss, item, deli)){
             //check for invalid feature or class
-            if(!Utils::is_number(item) && (item != pos_class || item != neg_class)){
-                clog << "Warning: point[" << _size << "] " << _dim + 1 << " feature is not a number." << endl;
-                _dim--;
-            }
             if(type == "Classification") {
                 if (_dim == -1 && !flag) {
                     if (!((item == pos_class) || (item == neg_class))) {
@@ -175,7 +171,7 @@ bool Data< T >::load_csv(const string& path){
     //reserve memory for points array
     points.resize(_size);
     _size = 0;
-
+    atEnd = false;
     //Read sample (line) from file
     while(getline(input, str)){
         auto new_point = make_shared<Point< T > >();
@@ -198,15 +194,11 @@ bool Data< T >::load_csv(const string& path){
                     new_point->x[(!atEnd) ? _dim : _dim + 1] = Utils::atod(item.c_str());
             }else{
                 double c;
-                if(Utils::is_number(item)){
-                    if(type == "Classification") c = (item == pos_class)?1:-1;
-                    else c = Utils::atod(item.c_str());
+
+                if(type == "Classification") {
+                    c = process_class(item);
                 }else{
-                    if(type == "Classification") {
-                        c = process_class(item);
-                    }else{
-                        c = Utils::atod(item.c_str());
-                    }
+                    c = Utils::atod(item.c_str());
                 }
                 if(type == "Classification")
                     if(c == -1){
@@ -1104,17 +1096,20 @@ template<typename T>
 int Data<T>::process_class(std::string item) {
     int c;
     size_t i;
+
+    for(i = 0; i < class_names.size(); i++){
+        if(class_names[i] == item){
+            break;
+        }
+    }
+    if(i == class_names.size()){
+        std::cout << item << "i " << i << " size " << class_names.size() << std::endl;
+        class_names.push_back(item);
+    }
+
     if(Utils::is_number(item)) {
         c = std::stoi(item);
     }else{
-        for(i = 0; i < class_names.size(); i++){
-            if(class_names[i] == item){
-                break;
-            }
-        }
-        if(i == class_names.size()){
-            class_names.push_back(item);
-        }
         c = (int)i+1;
     }
 
@@ -1126,7 +1121,6 @@ int Data<T>::process_class(std::string item) {
     }
     if(i == classes.size()){
         classes.push_back(c);
-        if(Utils::is_number(item)) class_names.push_back(to_string(c));
         this->class_distribution.push_back(1);
     }
     return c;

@@ -38,7 +38,6 @@ vector<string> Visualization< T >::createTempFiles(){
         vector<std::string> class_names = samples->getClassNames();
         vector<int> classes = samples->getClasses();
         vector<ofstream> temp_files(class_names.size());
-
         for(i = 0; i < class_names.size(); i++){
             std::string file_name = std::string("temp/")+class_names[i]+std::string(".plt");
             temp_files[i].open(file_name);
@@ -179,6 +178,7 @@ void Visualization< T >::plot2D(int x, int y){
     cmd = "echo " + cmd + " | gnuplot -persist";
         system(cmd.c_str());
 #endif
+    std::cout << cmd << std::endl;
 }
 
 template < typename T >
