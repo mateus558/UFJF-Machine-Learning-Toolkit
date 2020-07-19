@@ -7,7 +7,7 @@
 
 #include <functional>
 
-#include "Learner.hpp"
+#include "../../Core/include/Learner.hpp"
 
 template < typename T >
 class Clusterer: public Learner< T > {

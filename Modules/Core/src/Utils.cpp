@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <iostream>
 #include "Utils.hpp"
+
 #define PRECISION 1E-9
 #define MAX_NUMBER_STRING_SIZE 32
 

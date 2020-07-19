@@ -13,7 +13,7 @@
 #include <vector>
 #include "PrimalClassifier.hpp"
 #include "DualClassifier.hpp"
-#include "MLToolkit.hpp"
+#include "../../Core/include/MLToolkit.hpp"
 
 /**
  * \brief Wrapper for the implementation of the Incremental Margin Algorithm primal.

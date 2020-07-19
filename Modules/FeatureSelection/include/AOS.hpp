@@ -6,7 +6,7 @@
 #define UFJF_MLTK_AOS_H
 
 #include "FeatureSelection.hpp"
-#include "Validation.hpp"
+#include "../../Validation/include/Validation.hpp"
 
 template < typename T >
 class AOS: public FeatureSelection< T >{

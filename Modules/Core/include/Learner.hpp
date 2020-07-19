@@ -2,8 +2,8 @@
 // Created by Mateus Coutinho Mari on 9/7/2018.
 //
 
-#ifndef UFJF_MLTK_LEARNER_H
-#define UFJF_MLTK_LEARNER_H
+#ifndef LEARNER_HPP
+#define LEARNER_HPP
 
 #include "Solution.hpp"
 #include "Data.hpp"

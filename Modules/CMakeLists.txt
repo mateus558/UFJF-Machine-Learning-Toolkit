@@ -11,7 +11,7 @@ function(install_lib LIBTARGET INCLUDE_FOLDER LIBVERSION)
                 RUNTIME DESTINATION
                     ${RUNTIME_DIR}
                 PUBLIC_HEADER DESTINATION
-                    ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/${INCLUDE_FOLDER}
+                    ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/${INCLUDE_FOLDER}/include
                 )
     endif ()
     if(WIN32) 
@@ -44,6 +44,7 @@ set(OBJECTS $<TARGET_OBJECTS:${LIBCORE}> )
 
 if (BUILD_LIBVISUALIZE OR BUILD_CLI OR BUILD_GUI)
     add_subdirectory(Visualize)
+    set(OBJECTS ${OBJECTS} $<TARGET_OBJECTS:${LIBVISUALIZE}> )
 endif ()
 if (BUILD_LIBCLASSIFIER OR BUILD_LIBVALIDATION OR BUILD_LIBFEATSELECT OR BUILD_CLI OR BUILD_GUI)
     add_subdirectory(Classifier)

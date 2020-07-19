@@ -8,7 +8,7 @@
 
 #include "PrimalClassifier.hpp"
 #include "DualClassifier.hpp"
-#include "UFJF-MLTK/Core/MLToolkit.hpp"
+#include "../../Core/include/MLToolkit.hpp"
 
 /**
  * \brief Wrapper for the implementation of the Perceptron primal algorithm.

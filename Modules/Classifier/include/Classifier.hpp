@@ -6,7 +6,7 @@
 #ifndef CLASSIFIER__HPP
 #define CLASSIFIER__HPP
 
-#include "UFJF-MLTK/Core/Learner.hpp"
+#include "../../Core/include/Learner.hpp"
 
 template < typename T >
 class Classifier: public Learner< T > {

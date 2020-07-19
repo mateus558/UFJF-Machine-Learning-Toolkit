@@ -11,8 +11,8 @@
 #elif _WIN32
 #include <windows.h>
 #endif
-#include "UFJF-MLTK/Core/Data.hpp"
-#include "UFJF-MLTK/Core/Solution.hpp"
+#include "../../Core/include/Data.hpp"
+#include "../../Core/include/Solution.hpp"
 
 #include <string>
 

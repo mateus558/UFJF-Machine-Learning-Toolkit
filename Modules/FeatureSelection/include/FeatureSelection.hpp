@@ -5,9 +5,9 @@
 #ifndef UFJF_MLTK_FEATURESELECTION_H
 #define UFJF_MLTK_FEATURESELECTION_H
 
-#include "Data.hpp"
-#include "Classifier.hpp"
-#include "Validation.hpp"
+#include "../../Core/include/Data.hpp"
+#include "../../Classifier/include/Classifier.hpp"
+#include "../../Validation/include/Validation.hpp"
 
 #include <memory>
 

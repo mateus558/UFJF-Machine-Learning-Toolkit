@@ -6,9 +6,9 @@
 #ifndef VALIDATION__HPP
 #define VALIDATION__HPP
 
-#include "Classifier.hpp"
-#include "Data.hpp"
-#include "Solution.hpp"
+#include "../../Classifier/include/Classifier.hpp"
+#include "../../Core/include/Data.hpp"
+#include "../../Core/include/Solution.hpp"
 
 /**
  * \brief Solution for the validation of a ML method.

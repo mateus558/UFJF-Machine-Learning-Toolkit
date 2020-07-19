@@ -7,7 +7,7 @@
 
 #endif //UFJF_MLTK_REGRESSOR_H
 
-#include "Learner.hpp"
+#include "../../Core/include/Learner.hpp"
 
 template <typename T >
 class Regressor: public Learner<T>{

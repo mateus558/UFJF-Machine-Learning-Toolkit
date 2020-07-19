@@ -6,7 +6,7 @@ add_library(${LIBCORE} SHARED
 )
 
 set_target_properties(${LIBCORE} PROPERTIES PUBLIC_HEADER "include/Data.hpp;include/Learner.hpp;include/Point.hpp;include/Random.hpp;include/Solution.hpp;include/Statistics.hpp;include/Timer.hpp;include/Utils.hpp;include/MLToolkit.hpp;include/Kernel.hpp")
-
+message(STATUS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR})
 target_include_directories(${LIBCORE} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>)
