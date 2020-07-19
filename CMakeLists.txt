@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.14)
 project(UFJF-MLTK VERSION 1.0.0)
 
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
 if(UNIX)
     set(CMAKE_INSTALL_PREFIX /usr)
+endif()
+
+if(WIN32)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
+    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+    set(CMAKE_INSTALL_PREFIX "C:/${PROJECT_NAME}")
 endif()
 
 option(BUILD_GUI "Tells if the Qt GUI application must be built." OFF)

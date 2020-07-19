@@ -3,20 +3,33 @@ include(CMakePackageConfigHelpers)
 
 # Function to install a library in the system
 function(install_lib LIBTARGET INCLUDE_FOLDER LIBVERSION)
-    install(TARGETS ${LIBTARGET}
-            EXPORT ${LIBTARGET}Targets
-            LIBRARY DESTINATION
-                ${CMAKE_INSTALL_LIBDIR}
-            RUNTIME DESTINATION
-                ${RUNTIME_DIR}
-            PUBLIC_HEADER DESTINATION
-                ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/${INCLUDE_FOLDER}
-            )
+    if(UNIX)
+        install(TARGETS ${LIBTARGET}
+                EXPORT ${LIBTARGET}Targets
+                LIBRARY DESTINATION
+                    ${CMAKE_INSTALL_LIBDIR}
+                RUNTIME DESTINATION
+                    ${RUNTIME_DIR}
+                PUBLIC_HEADER DESTINATION
+                    ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/${INCLUDE_FOLDER}
+                )
+    endif ()
+    if(WIN32) 
+        install(TARGETS ${LIBTARGET}
+                EXPORT ${LIBTARGET}Targets
+                LIBRARY DESTINATION
+                    ${CMAKE_INSTALL_LIBDIR}
+                RUNTIME DESTINATION
+                    ${RUNTIME_DIR}
+                PUBLIC_HEADER DESTINATION
+                    ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/${INCLUDE_FOLDER}
+                )
+    endif()
 
     write_basic_package_version_file(${LIBTARGET}ConfigVersion.cmake
-        VERSION {${LIBVERSION}}
-        COMPATIBILITY SameMajorVersion
-    )
+            VERSION {${LIBVERSION}}
+            COMPATIBILITY SameMajorVersion
+            )
     export(TARGETS
             ${LIBTARGET}
         FILE "${CMAKE_CURRENT_BINARY_DIR}/${LIBTARGET}Config.cmake"
