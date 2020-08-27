@@ -23,229 +23,192 @@ Validation< T > ::Validation(std::shared_ptr<Data< T > > sample, Classifier< T >
 
 template < typename T >
 void Validation< T > ::partTrainTest(int fold){
-    size_t i, j, npos, nneg, size = sample->getSize();
-    shared_ptr<Point< T > > p, aux;
-    Data< T > sample_pos, sample_neg;
+    double sizes = sample->getSize()/fold;
+    std::vector<int> classes = sample->getClasses();
+    std::vector<size_t> classDistribution = sample->getClassesDistribution();
+    std::vector<DataPointer<T> > points_by_class(classes.size());
+    std::vector<size_t> new_class_distribution(classes.size());
 
-    sample_pos.copyZero(*sample);
-    sample_neg.copyZero(*sample);
+    for(size_t i = 0; i < classes.size(); i++){
+        points_by_class[i] = std::make_shared<Data<T> >();
+    }
 
-    for(i = 0; i < size; i++){
-        p = sample->getPoint(i);
-        if(p->y == 1){
-            sample_pos.insertPoint(*sample, i);
+    for(auto it = sample->begin(); it != sample->end(); it++){
+        auto point = (*it);
+
+        if(classes.size() > 2){
+            points_by_class[point->y-1]->insertPoint(point);
         }else{
-            sample_neg.insertPoint(*sample, i);
+            if(point->y == -1){
+                points_by_class[1]->insertPoint(point);
+            }else{ 
+                points_by_class[0]->insertPoint(point);
+            }
         }
     }
 
-    npos = sample_pos.getSize();
-    nneg = sample_neg.getSize();
-
-    for(i = 0; i < npos; i++){
-        j = Random::intInRange(0, npos-1);
-        aux = sample_pos.getPoint(i);
-        sample_pos.setPoint(i, sample_pos.getPoint(j));
-        sample_pos.setPoint(j, aux);
-    }
-    for(i = 0; i < nneg; i++){
-        j = Random::intInRange(0, nneg-1);
-        aux = sample_neg.getPoint(i);
-        sample_neg.setPoint(i, sample_neg.getPoint(j));
-        sample_neg.setPoint(j, aux);
+    for(size_t i = 0; i < classes.size(); i++){
+        new_class_distribution[i] = ((double)classDistribution[i]/sample->getSize())*sizes;
     }
 
-    train_sample->copyZero(sample_pos);
-    test_sample->copyZero(sample_pos);
+    test_sample = std::make_shared<Data< T > >();
+    train_sample = std::make_shared<Data< T > >();
 
-    for(j = 0; j < npos*(fold-1)/fold; j++)
-        train_sample->insertPoint(sample_pos, j);
-    for(; j < npos; j++)
-        test_sample->insertPoint(sample_pos, j);
+    std::vector<size_t> markers(classes.size(), 0);
+    for(size_t i = 0; i < fold; i++){
+        for(size_t j = 0; j < points_by_class.size(); j++){
+            for(size_t k = markers[j], l = 0; markers[j] < points_by_class[j]->getSize() && l < new_class_distribution[j]; k++, l++){
+                if(i != fold-1){
+                    train_sample->insertPoint((*points_by_class[j])[k]);
+                }else{ 
+                    test_sample->insertPoint((*points_by_class[j])[k]);
+                }
+                markers[j]++;
+            }
+        }
+    }
 
-    for(j = 0; j < nneg/fold; j++)
-        test_sample->insertPoint(sample_neg, j);
-    for(; j < nneg; j++)
-        train_sample->insertPoint(sample_neg, j);
+    train_sample->shuffle();
+    test_sample->shuffle();
 }
 
 template < typename T >
 double Validation< T > ::kFold (int fold, int seed){
     size_t i = 0, j = 0, k = 0, size = sample->getSize();
-    size_t qtdpos = 0, qtdneg = 0, cost_pos = 0, cost_neg = 0, svcount = 0;
     size_t fp = 0, fn = 0, tp = 0, tn = 0;
+    double sizes = sample->getSize()/fold;
     double error = 0.0, func = 0.0, margin = 0.0;
-    vector<double> w;
-    vector<int> error_arr(fold);
-    unique_ptr<Data< T > > sample_pos(make_unique<Data< T > > ()), sample_neg(make_unique<Data< T > > ()), test_sample(make_unique<Data< T > > ());
-    shared_ptr<Data< T > >  train_sample(make_shared<Data< T > > ());
-    vector<std::unique_ptr<Data< T > > > vet_sample_pos(fold), vet_sample_neg(fold), vet_sample_final(fold);
+    std::vector<double> error_arr(fold);
+    std::vector<DataPointer< T > > folds(fold);
+    auto classes = sample->getClasses();
+    auto classDistribution = sample->getClassesDistribution();
+    std::vector<size_t> markers(classes.size(), 0);
+    std::vector<DataPointer< T > > points_by_class(classes.size());
+    std::vector<size_t> new_class_distribution(classes.size());
     bool isPrimal = classifier->getFormulationString() == "Primal";
 
-    Random::init(seed);
 
-    sample_neg->copyZero(*sample);
-    sample_pos->copyZero(*sample);
-
-    for(i = 0; i < size; i++){
-        shared_ptr<Point< T > > p = sample->getPoint(i);
-        if(p->y == 1)
-            sample_pos->insertPoint(p);
-        else
-            sample_neg->insertPoint(p);
+    for(size_t i = 0; i < classes.size(); i++){
+        points_by_class[i] = std::make_shared<Data< T > >();
+    }
+    for(size_t i = 0; i < fold; i++){
+        folds[i] = std::make_shared<Data< T > >();
+    }
+    
+    for(auto it = sample->begin(); it != sample->end(); it++){
+        auto point = (*it);
+        if(classes.size() > 2){
+            points_by_class[point->y-1]->insertPoint(point);
+        }else{
+            if(point->y == -1){
+                points_by_class[1]->insertPoint(point);
+            }else{ 
+                points_by_class[0]->insertPoint(point);
+            }
+        }
+    }
+    
+    for(size_t i = 0; i < classes.size(); i++){
+        new_class_distribution[i] = ((double)classDistribution[i]/sample->getSize())*sizes;
     }
 
-    qtdpos = sample_pos->getSize();
-    qtdneg = sample_neg->getSize();
-
-    if(verbose){
-        cout << "\nTotal of points: " << sample->getSize() << endl;
-        cout << "Qtd of positive: " << qtdpos << endl;
-        cout << "Qtd of negative: " << qtdneg << endl;
+    for(size_t i = 0; i < folds.size(); i++){
+        for(size_t j = 0; j < points_by_class.size(); j++){
+            for(size_t k = markers[j], l = 0; markers[j] < points_by_class[j]->getSize() && l < new_class_distribution[j]; k++, l++){
+                folds[i]->insertPoint((*points_by_class[j])[k]);
+                markers[j]++;
+            }
+        }
+        folds[i]->shuffle();
     }
-
-    //randomize
-    for(i = 0; i < qtdpos; ++i){
-        shared_ptr<Point< T > > aux;
-
-        j = Random::intInRange(0, sample_pos->getSize()-1);
-        aux = sample_pos->getPoint(i);
-        sample_pos->setPoint(i, sample_pos->getPoint(j));
-        sample_pos->setPoint(j, aux);
+    points_by_class.clear();
+    new_class_distribution.clear();
+    for(size_t i = 0; i < folds.size(); i++){
+        std::cout << *folds[i] << std::endl;
+        std::cout << std::endl;
     }
-
-    for(i = 0; i < qtdneg; ++i){
-        shared_ptr<Point< T > > aux;
-
-        j = Random::intInRange(0, sample_neg->getSize()-1);
-        aux = sample_neg->getPoint(i);
-        sample_neg->setPoint(i, sample_neg->getPoint(j));
-        sample_neg->setPoint(j, aux);
-    }
-
-    for(i = 0; i < fold; ++i){
-        vet_sample_pos[i] = make_unique<Data< T > >();
-        vet_sample_neg[i] = make_unique<Data< T > >();
-        vet_sample_final[i] = make_unique<Data< T > >();
-
-        vet_sample_pos[i]->copyZero(*sample);
-        vet_sample_neg[i]->copyZero(*sample);
-        vet_sample_final[i]->copyZero(*sample);
-    }
-
-    for(i = 0, j = 0; i < fold - 1; ++i){
-        for(; j < (qtdpos-cost_pos)/(fold-i)+cost_pos; ++j)
-            vet_sample_pos[i]->insertPoint(*sample_pos, j);
-        cost_pos = j;
-    }
-
-    for(; j < qtdpos; ++j){
-        vet_sample_pos[i]->insertPoint(*sample_pos, j);
-    }
-
-    for(i = 0, j = 0; i < fold-1; ++i){
-        for(; j < (qtdneg-cost_neg)/(fold-i)+cost_neg; ++j)
-            vet_sample_neg[fold-1-i]->insertPoint(*sample_neg, j);
-        cost_neg = j;
-    }
-
-    for(; j < qtdneg; ++j)
-        vet_sample_neg[fold-1-i]->insertPoint(*sample_neg, j);
-
-    sample_pos.reset(nullptr);
-    sample_neg.reset(nullptr);
-
-    for(i = 0; i < fold; ++i){
-        for(j = 0; j < vet_sample_pos[i]->getSize(); ++j)
-            vet_sample_final[i]->insertPoint(*vet_sample_pos[i], j);
-        for(; j < vet_sample_pos[i]->getSize() + vet_sample_neg[i]->getSize(); ++j)
-            vet_sample_final[i]->insertPoint(*vet_sample_neg[i], j - vet_sample_pos[i]->getSize());
-    }
-
-    for(i = 0; i < fold; ++i){
-        vet_sample_pos[i].reset(nullptr);
-        vet_sample_neg[i].reset(nullptr);
-    }
-
-    vet_sample_pos.clear();
-    vet_sample_neg.clear();
 
     //Start cross-validation
-    for(fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){
-        test_sample->copy(*vet_sample_final[j]);
-        train_sample->copyZero(*sample);
-
-        for(i = 0; i < fold; ++i){
-            if(i != j)
-                for(k = 0; k < vet_sample_final[i]->getSize(); ++k)
-                    train_sample->insertPoint(*vet_sample_final[i], k);
+    for(size_t fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){
+        auto test_sample = folds[j];
+        DataPointer< T > train_sample = std::make_shared<Data< T > >();
+        train_sample->setClasses(sample->getClasses());
+        for(size_t i = 0; i < fold; i++){
+            if(i != j){
+                for(auto it = folds[i]->begin(); it != folds[i]->end(); it++){
+                    auto point = (*it);
+                    train_sample->insertPoint(point);
+                }
+            }
         }
-
         if(verbose){
-            cout << "\nCross-Validation " << j + 1 << ": \n";
-            cout << "Train points: " << train_sample->getSize() << endl;
-            cout << "Test points: " << test_sample->getSize() << endl;
-            cout << endl;
+            std::cout << "\nCross-Validation " << j + 1 << ": \n";
+            std::cout << "Train points: " << train_sample->getSize() << std::endl;
+            std::cout << "Test points: " << test_sample->getSize() << std::endl;
+            std::cout << std::endl;
         }
 
-        //training
-
+        // Training phase
         classifier->setSamples(train_sample);
         if(!classifier->train()){
-            if(verbose)
-                cerr << "Error at " << fold << "-fold: The convergency wasn't reached at the set " << j+1 << "!\n";
+            if(verbose){
+                std::cerr << "Error at " << fold << "-fold: The convergency wasn't reached at the set " << j+1 << "!\n";
+            }
         }
 
         Solution s = classifier->getSolution();
+        bool isPrimal = classifier->getFormulationString() == "Primal";
 
         if(isPrimal){
-            for(i = 0; i < test_sample->getSize(); ++i){
-                shared_ptr<Point< T > > p = test_sample->getPoint(i);
-                for(func = s.bias, k = 0; k < train_sample->getDim(); ++k)
-                    func += s.w[k] * p->x[k];
+            size_t i = 0;
+            double func = 0;
+            for(auto it = test_sample->begin(); it != test_sample->end(); it++, i++){
+                auto point = (*it);
+                double _y = classifier->evaluate(*point);
 
-                if(p->y * func <= 0){
+                if(point->y != _y){
                     if(verbose > 1)
-                        cerr << "[" << i+1 << "x] function: " << func << ", y: " << p->y << endl;
+                        std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->y << std::endl;
                     error_arr[j]++;
-                    if(p->y == -1) fp++; else fn++;
+                    if(point->y == -1) fp++; else fn++;
                 }else{
                     if(verbose > 1)
-                        cerr << "[" << i+1 << "] function: " << func << ", y: " << p->y << endl;
-                    if(p->y == -1) tn++; else tp++;
+                        std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->y << std::endl;
+                    if(point->y == -1) tn++; else tp++;
                 }
             }
-            cout << endl;
         }else{
             DualClassifier< T > *dual = dynamic_cast<DualClassifier< T > *>(classifier);
             Kernel K(dual->getKernelType(), dual->getKernelParam());
             dMatrix *matrix;
-            shared_ptr<Data< T > > traintest_sample(make_shared<Data< T > >());
+            std::shared_ptr<Data< T > > traintest_sample(std::make_shared<Data< T > >());
 
             *traintest_sample = *test_sample;
             traintest_sample->join(train_sample);
             K.compute(traintest_sample);
             matrix = K.getKernelMatrixPointer();
+            size_t i = 0;
+            for(auto it = test_sample->begin(); it != test_sample->end(); it++, i++){
+                auto point = (*it);
+                double _y = classifier->evaluate(*point);
 
-            for(i = 0; i < test_sample->getSize(); ++i){
-                for(func = s.bias, k = 0; k < train_sample->getSize(); ++k)
-                    func += train_sample->getPoint(k)->alpha * train_sample->getPoint(k)->y * (*matrix)[k+test_sample->getSize()][i];
-
-                if(test_sample->getPoint(i)->y * func <= 0){
+                if(point->y != _y){
                     if(verbose > 1)
-                        cerr << "[" << i+1 << "x] function: " << func << ", y: " << test_sample->getPoint(i)->y << endl;
+                        std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->y << std::endl;
                     error_arr[j]++;
-                    if(test_sample->getPoint(i)->y == -1) fp++; else fn++;
+                    if(point->y == -1) fp++; else fn++;
                 }else{
                     if(verbose > 1)
-                        cerr << "[" << i+1 << "] function: " << func << ", y: " << test_sample->getPoint(i)->y << endl;
-                    if(test_sample->getPoint(i)->y == -1) tn++; else tp++;
+                        std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->y << std::endl;
+                    if(point->y == -1) tn++; else tp++;
                 }
             }
-            cout << endl;
+            
+            std::cout << std::endl;
         }
-        if(verbose) cout << "Error " << j + 1 << ": " << error_arr[j] << " -- " << ((double)error_arr[j]/(double)vet_sample_final[j]->getSize())*100.0f << "%";
-        error += ((double)error_arr[j]/(double)vet_sample_final[j]->getSize())*100.0f;
+
+        if(verbose) std::cout << "Error " << j + 1 << ": " << error_arr[j] << " -- " << ((double)error_arr[j]/(double)folds[j]->getSize())*100.0f << "%\n";
+        error += ((double)error_arr[j]/(double)folds[j]->getSize())*100.0f;
         this->solution.accuracy += (double)(tp + tn)/(double)(tp + tn + fp + fn);
         this->solution.precision += (double)tp/(double)(tp + fp);
         this->solution.recall += (double)tp/(double)(tp + fn);

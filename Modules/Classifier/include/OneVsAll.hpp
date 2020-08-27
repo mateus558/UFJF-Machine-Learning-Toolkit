@@ -33,7 +33,8 @@ bool OneVsAll<T, ClassifierT>::train() {
     auto classes = this->samples->getClasses();
     size_t i = 0, j, n_classes = classes.size(), size = this->samples->getSize();
 
-    base_learners.resize(n_classes);
+    if(base_learners.size() == 0) base_learners.resize(n_classes);
+
     for(auto &learner: base_learners){
         Data<T> temp_samples;
         learner.setMaxTime(this->max_time);
@@ -57,10 +58,8 @@ bool OneVsAll<T, ClassifierT>::train() {
 
 template< typename T, template <typename > class ClassifierT>
 double OneVsAll<T, ClassifierT>::evaluate(Point<T> p) {
-    int i = 0;
-    for(auto learner: base_learners){
-        i++;
-        if(learner.evaluate(p) == 1){
+    for(size_t i = 1; i <= base_learners.size(); i++){
+        if(base_learners[i-1].evaluate(p) == 1){
             return i;
         }
     }
@@ -69,7 +68,10 @@ double OneVsAll<T, ClassifierT>::evaluate(Point<T> p) {
 
 template< typename T, template <typename > class ClassifierT>
 std::string OneVsAll<T, ClassifierT>::getFormulationString() {
-    return base_learners[0].getFormulationString();
+    if(this->samples && base_learners.size() == 0){
+        this->base_learners.resize(this->samples->getClasses().size());
+    }
+    return this->base_learners[0].getFormulationString();
 }
 
 

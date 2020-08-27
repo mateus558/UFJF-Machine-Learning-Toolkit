@@ -86,7 +86,7 @@ public :
      * @param classifier Model to be validated.
      * @param seed  Seed to feed the pseudo random number generator.
      */
-    explicit Validation (std::shared_ptr<Data< T > > sample = std::make_shared<Data< T > >(), Classifier< T >  *classifier = nullptr, unsigned int seed = 666);
+    explicit Validation (std::shared_ptr<Data< T > > sample, Classifier< T >  *classifier = nullptr, unsigned int seed = 666);
 
     static std::vector<std::vector<size_t> > generateConfusionMatrix(Learner< T > &learner, Data< T > &samples);
     /**
@@ -126,6 +126,8 @@ public :
     /*********************************************
      *               Setters                     *
      *********************************************/
+
+    void setClassifier(Classifier< T > *classifier) {this->classifier = classifier;}
 
     void setSamples(std::shared_ptr<Data< T > > sample);
     /**

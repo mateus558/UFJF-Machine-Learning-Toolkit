@@ -39,7 +39,7 @@ else()
 endif()
 
 add_subdirectory(Modules)
-
+add_subdirectory(Testes)
 if(BUILD_CLI)
     add_subdirectory(CLI)
 endif()

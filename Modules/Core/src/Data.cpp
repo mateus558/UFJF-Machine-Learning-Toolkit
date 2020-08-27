@@ -245,10 +245,10 @@ bool Data< T >::load_data(const string& path){
         while(getline(ss, item, ' ')){
             const char * pch = strchr(item.c_str(), ':');
             _dim++;
-            if(_size > 0 && _dim < ldim && pch == nullptr){
+            /*if(_size > 0 && _dim < ldim && pch == nullptr){
                 std::cerr << "Error (line: " << _size << ", _dim: " << _dim << "): file isn't in the .data format." << std::endl;
                 return false;
-            }
+            }*/
 
             ss1.str(item);
             ss1.clear();
@@ -302,6 +302,15 @@ bool Data< T >::load_data(const string& path){
 
         //Read features from line
         while(getline(ss, item, ' ')){
+            const char * pch = strchr(item.c_str(), ':');
+            if(!pch){
+                if(type == "Classification") {
+                    c = process_class(item);
+                }else{
+                    c = Utils::atod(item.c_str());
+                }
+                new_point->y = c;
+            }
             //Verify if the class is at the beggining or at the end
             if(!ss.eof()){
                 is_feature = false; //Verify if it's including value or fname
@@ -319,13 +328,6 @@ bool Data< T >::load_data(const string& path){
                         }
                     }
                 }
-            }else{
-                if(type == "Classification") {
-                    c = process_class(item);
-                }else{
-                    c = Utils::atod(item.c_str());
-                }
-                new_point->y = c;
             }
         }
         points[_size++] = std::move(new_point);
@@ -701,6 +703,20 @@ Data< T >* Data< T >::insertFeatures(std::vector<int> ins_feat){
 }
 
 template < typename T >
+void Data< T >::shuffle(const size_t &seed){
+    std::mt19937 gen(seed);
+    std::uniform_int_distribution<size_t> dist(0, size-1);
+
+    for(auto it = points.begin(); it != points.end(); it++){
+        auto pos = points.begin() + dist(gen);
+        auto temp = (*it)->id;
+        (*it)->id = (*pos)->id;
+        (*pos)->id = temp;
+        std::iter_swap(it, pos);
+    }
+}
+
+template < typename T >
 bool Data< T >::removeFeatures(std::vector<int> feats){
     size_t i, j, k, psize = points.size(), rsize = feats.size();
     typename vector< T >::iterator itr;
@@ -784,12 +800,13 @@ bool Data< T >::insertPoint(Data< T > sample, int _index){
 template < typename T >
 bool Data< T >::insertPoint(shared_ptr<Point< T > > p){
     //Dimension verification
-    if(int(p->x.size()) > dim){
+    if(size > 0 && int(p->x.size()) > dim){
         cerr << "Point with dimension different from the data. (insertPoint)" << endl;
         cerr << "Point dim = " << p->x.size() << " dim = " << dim << endl;
         return false;
     }
 
+    if(size == 0) dim = p->x.size();
     //Insert the point p at the end of the points vector
     points.insert(points.end(), std::move(p));
     size++;
@@ -1096,14 +1113,12 @@ template<typename T>
 int Data<T>::process_class(std::string item) {
     int c;
     size_t i;
-
     for(i = 0; i < class_names.size(); i++){
         if(class_names[i] == item){
             break;
         }
     }
     if(i == class_names.size()){
-        std::cout << item << "i " << i << " size " << class_names.size() << std::endl;
         class_names.push_back(item);
     }
 

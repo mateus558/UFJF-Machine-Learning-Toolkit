@@ -41,6 +41,7 @@
 #include <iostream>
 #include <fstream>
 #include <memory>
+#include <random>
 
 #include "Point.hpp"
 #include "Statistics.hpp"
@@ -52,6 +53,13 @@ enum  Type {TYPE_INVALID = -1, TYPE_DATA = 0, TYPE_CSV = 1, TYPE_ARFF = 2, TYPE_
 template < typename T > 
 class Statistics;
 
+template < typename T > 
+class Data;
+
+template < class T > using DataPointer = std::shared_ptr<Data< T > >;
+template < class T > using SamplePointer = std::shared_ptr<Point< T > >;
+template < class T > using SampleIterator = typename std::vector<SamplePointer< T > >::iterator;
+
 /**
  * \brief Wrapper for the dataset data.
  */
@@ -62,7 +70,7 @@ class Data {
     // Attributes
 private :
     /// Set of points.
-    std::vector<std::shared_ptr<Point< T > > > points;
+    std::vector<SamplePointer<T> > points;
     /// Features names.
     std::vector<int> fnames;
     /// Points indexes.
@@ -241,6 +249,7 @@ public :
      *              Other operations             *
      *********************************************/
 
+    void shuffle(const size_t& seed = 42);
     /**
      * \brief Load a dataset from a file.
      * \param file (???) Path to dataset file.
@@ -345,6 +354,9 @@ public :
     /*********************************************
      *  Overloaded operators for the Data class. *
      *********************************************/
+    SampleIterator<T> begin() { return points.begin(); }
+    
+    SampleIterator<T> end() { return points.end(); }
 
     std::shared_ptr<Point< T > > operator[](size_t i) const {return points[i];}
 
