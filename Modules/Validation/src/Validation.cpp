@@ -123,10 +123,6 @@ double Validation< T > ::kFold (int fold, int seed){
     }
     points_by_class.clear();
     new_class_distribution.clear();
-    for(size_t i = 0; i < folds.size(); i++){
-        std::cout << *folds[i] << std::endl;
-        std::cout << std::endl;
-    }
 
     //Start cross-validation
     for(size_t fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){

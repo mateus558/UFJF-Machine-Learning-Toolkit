@@ -37,6 +37,7 @@ bool OneVsAll<T, ClassifierT>::train() {
 
     for(auto &learner: base_learners){
         Data<T> temp_samples;
+        learner.setSamples(this->samples);
         learner.setMaxTime(this->max_time);
         learner.setLearningRate(this->rate);
         learner.setMaxIterations(this->MAX_IT);
