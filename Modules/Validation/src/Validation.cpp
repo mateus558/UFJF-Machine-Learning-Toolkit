@@ -74,7 +74,7 @@ void Validation< T > ::partTrainTest(int fold){
 
 template < typename T >
 double Validation< T > ::kFold (int fold, int seed){
-    size_t i = 0, j = 0, k = 0, size = sample->getSize();
+    size_t size = sample->getSize();
     size_t fp = 0, fn = 0, tp = 0, tn = 0;
     double sizes = sample->getSize()/fold;
     double error = 0.0, func = 0.0, margin = 0.0;
@@ -114,12 +114,13 @@ double Validation< T > ::kFold (int fold, int seed){
 
     for(size_t i = 0; i < folds.size(); i++){
         for(size_t j = 0; j < points_by_class.size(); j++){
+            points_by_class[j]->shuffle(seed);
             for(size_t k = markers[j], l = 0; markers[j] < points_by_class[j]->getSize() && l < new_class_distribution[j]; k++, l++){
                 folds[i]->insertPoint((*points_by_class[j])[k]);
                 markers[j]++;
             }
         }
-        folds[i]->shuffle();
+        folds[i]->shuffle(seed);
     }
     points_by_class.clear();
     new_class_distribution.clear();
@@ -157,7 +158,6 @@ double Validation< T > ::kFold (int fold, int seed){
 
         if(isPrimal){
             size_t i = 0;
-            double func = 0;
             for(auto it = test_sample->begin(); it != test_sample->end(); it++, i++){
                 auto point = (*it);
                 double _y = classifier->evaluate(*point);
@@ -166,11 +166,11 @@ double Validation< T > ::kFold (int fold, int seed){
                     if(verbose > 1)
                         std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->y << std::endl;
                     error_arr[j]++;
-                    if(point->y == -1) fp++; else fn++;
+                    if(classes.size() == 2 && point->y == -1) fp++; else fn++;
                 }else{
                     if(verbose > 1)
                         std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->y << std::endl;
-                    if(point->y == -1) tn++; else tp++;
+                    if(classes.size() == 2 && point->y == -1) tn++; else tp++;
                 }
             }
         }else{
@@ -192,11 +192,11 @@ double Validation< T > ::kFold (int fold, int seed){
                     if(verbose > 1)
                         std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->y << std::endl;
                     error_arr[j]++;
-                    if(point->y == -1) fp++; else fn++;
+                    if(point->y == -1 && classes.size() == 2) fp++; else fn++;
                 }else{
                     if(verbose > 1)
                         std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->y << std::endl;
-                    if(point->y == -1) tn++; else tp++;
+                    if(point->y == -1 && classes.size() == 2) tn++; else tp++;
                 }
             }
             
@@ -205,15 +205,16 @@ double Validation< T > ::kFold (int fold, int seed){
 
         if(verbose) std::cout << "Error " << j + 1 << ": " << error_arr[j] << " -- " << ((double)error_arr[j]/(double)folds[j]->getSize())*100.0f << "%\n";
         error += ((double)error_arr[j]/(double)folds[j]->getSize())*100.0f;
-        this->solution.accuracy += (double)(tp + tn)/(double)(tp + tn + fp + fn);
-        this->solution.precision += (double)tp/(double)(tp + fp);
-        this->solution.recall += (double)tp/(double)(tp + fn);
-        this->solution.tnrate += (double)tn/(double)(tn + fp);
-        this->solution.falseNegative += fn;
-        this->solution.falsePositive += fp;
-        this->solution.trueNegative += tn;
-        this->solution.truePositive += tp;
-
+        if(classes.size() == 2){
+            this->solution.accuracy += (double)(tp + tn)/(double)(tp + tn + fp + fn);
+            this->solution.precision += (double)tp/(double)(tp + fp);
+            this->solution.recall += (double)tp/(double)(tp + fn);
+            this->solution.tnrate += (double)tn/(double)(tn + fp);
+            this->solution.falseNegative += fn;
+            this->solution.falsePositive += fp;
+            this->solution.trueNegative += tn;
+            this->solution.truePositive += tp;
+        }
         train_sample = make_shared<Data< T > >();
         test_sample = make_unique<Data< T > >();
     }
@@ -228,9 +229,11 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
     size_t fp = 0, fn = 0, tp = 0, tn = 0;
     double error = 0, errocross = 0, func = 0.0, margin = 0, bias;
     vector<double> w;
+    auto classes = this->sample->getClasses();
+    classifier->setSamples(this->sample);
     bool isPrimal = (classifier->getFormulationString() == "Primal");
 
-    sample = train_sample;
+    //sample = train_sample;
 
     /*cross-validation*/
     if(qtde > 0)
@@ -250,7 +253,8 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
         this->solution.trueNegative /= qtde*fold;
         this->solution.truePositive /= qtde*fold;
     }
-
+    
+    partTrainTest(fold);
     /*start final validation*/
     if(verbose)
     {
@@ -258,8 +262,8 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
         cout << "Pts de Treino: " << train_sample->getSize() << "\n";
         cout << "Pts de Teste:  " << test_sample->getSize() << "\n";
     }
-
     //training
+    train_sample->setClasses(this->sample->getClasses());
     classifier->setSamples(train_sample);
     classifier->setVerbose(0);
 
@@ -274,24 +278,21 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
     bias = s.bias;
 
     if(isPrimal){
-        for(i = 0; i < test_size; ++i)
-        {
-            shared_ptr<Point< T > > p = test_sample->getPoint(i);
-            for(func = bias, k = 0; k < train_dim; ++k)
-                func += w[k] * p->x[k];
+        size_t i = 0;
+        for(auto it = test_sample->begin(); it != test_sample->end(); it++, i++){
+            auto point = (*it);
+            double _y = classifier->evaluate(*point);
 
-            if(p->y * func <= 0)
-            {
-                if(verbose > 1) cout << "["<< i+1 <<"x] function: " << func << ", y: " << p->y  << "\n";
+            if(point->y != _y){
+                if(verbose > 1)
+                    std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->y << std::endl;
                 erro++;
-                if(p->y == -1) fp++; else fn++;
+                if(classes.size() == 2 && point->y == -1) fp++; else fn++;
+            }else{
+                if(verbose > 1)
+                    std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->y << std::endl;
+                if(classes.size() == 2 && point->y == -1) tn++; else tp++;
             }
-            else
-            {
-                if(verbose > 1) cout << "["<< i+1 <<"] function: " << func << ", y: " << p->y  << "\n";
-                if(p->y == -1) tn++; else tp++;
-            }
-            if(verbose) cout.flush();
         }
     }else{
         /*testing imadual and smo*/
@@ -306,25 +307,23 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
         K.compute(traintest_sample);
         matrix = K.getKernelMatrix();
 
-        for(i = 0; i < test_size; ++i)
-        {
-            shared_ptr<Point< T > > p = test_sample->getPoint(i);
-            for(func = bias, k = 0; k < train_size; ++k)
-                func += train_sample->getPoint(k)->alpha * train_sample->getPoint(k)->y * matrix[k+test_size][i];
+        size_t i = 0;
+        for(auto it = test_sample->begin(); it != test_sample->end(); it++, i++){
+            auto point = (*it);
+            double _y = classifier->evaluate(*point);
 
-            if(p->y * func <= 0)
-            {
-                if(verbose > 1) cout << "["<< i+1 <<"x] function: " << func << ", y: " << p->y  << "\n";
+            if(point->y != _y){
+                if(verbose > 1)
+                    std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->y << std::endl;
                 erro++;
-                if(p->y == -1) fp++; else fn++;
+                if(point->y == -1 && classes.size() == 2) fp++; else fn++;
+            }else{
+                if(verbose > 1)
+                    std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->y << std::endl;
+                if(point->y == -1 && classes.size() == 2) tn++; else tp++;
             }
-            else
-            {
-                if(verbose > 1) cout << "["<< i+1 <<"x] function: " << func << ", y: " << p->y  << "\n";
-                if(p->y == -1) tn++; else tp++;
-            }
-            if(verbose) cout.flush();
         }
+        if(verbose) cout.flush();
     }
 
     cout << "Validation Error: " << erro << " -- " << (double)erro/(double)test_sample->getSize()*100.0f << "%\n";

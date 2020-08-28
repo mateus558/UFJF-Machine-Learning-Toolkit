@@ -32,9 +32,13 @@ template< typename T, template <typename > class ClassifierT>
 bool OneVsAll<T, ClassifierT>::train() {
     auto classes = this->samples->getClasses();
     size_t i = 0, j, n_classes = classes.size(), size = this->samples->getSize();
-
+    Kernel k;
     if(base_learners.size() == 0) base_learners.resize(n_classes);
-
+    if(getFormulationString() != "Primal"){
+        k.setType(0);
+        k.setParam(0);
+        k.compute(this->samples);
+    }
     for(auto &learner: base_learners){
         Data<T> temp_samples;
         learner.setSamples(this->samples);
