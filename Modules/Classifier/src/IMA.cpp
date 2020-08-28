@@ -480,9 +480,10 @@ bool IMADual< T >::train() {
 
     it = 0; this->ctot = 0; this->steps = 0; this->gamma = 0;
 
-    PerceptronFixedMarginDual< T > percDual(this->samples, this->gamma, this->rate, this->kernel, nullptr);
+    PerceptronFixedMarginDual< T > percDual(this->samples, this->gamma, this->rate, nullptr);
     Solution sol, *solr;
 
+    percDual.setKernel(this->kernel);
     percDual.setLearningRate(this->rate);
     percDual.setMaxTime(this->max_time);
     percDual.setMaxUpdates(this->MAX_UP);

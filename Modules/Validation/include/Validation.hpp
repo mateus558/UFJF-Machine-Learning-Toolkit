@@ -52,7 +52,7 @@ private :
     /// Parameter used in the kernel in case of Dual classifiers.
     double kernel_param;
     /// Type of the kernel in case of Dual classifiers.
-    int kernel_type;
+    KernelType kernel_type;
     /// Controls the information printed in the console.
     int verbose = 0;
     /// Seed used in the random generator.
@@ -128,7 +128,7 @@ public :
      *********************************************/
 
     void setClassifier(Classifier< T > *classifier) {this->classifier = classifier;}
-
+    void setKernelParameters(KernelType kernel_type, double param){ this->kernel_type = kernel_type; this->kernel_param = param;}
     void setSamples(std::shared_ptr<Data< T > > sample);
     /**
      * \brief Set the verbose.

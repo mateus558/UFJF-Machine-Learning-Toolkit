@@ -23,10 +23,12 @@ double Kernel::getParam(){
 
 void Kernel::setType(int _type){
     this->type = _type;
+    this->computed = false;
 }
 
 void Kernel::setParam(double _param){
     this->param = _param;
+    this->computed = false;
 }
 
 void Kernel::setKernelMatrix(dMatrix _K){

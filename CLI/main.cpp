@@ -918,6 +918,7 @@ void featureSelectionOption(int option){
     Fisher<double> fisher;
     AOS<double> aos;
     shared_ptr<Data<double> > res;
+    KernelType type;
 
     clear();
     header();
@@ -969,8 +970,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         imadual.setKernelParam(kernel_param);
-                        imadual.setKernelType(kernel_type);
+                        imadual.setKernelType(type);
                         imadual.setMaxTime(max_time);
                         rfe.setClassifier(&imadual);
                         break;
@@ -987,8 +1002,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         smo.setKernelParam(kernel_param);
-                        smo.setKernelType(kernel_type);
+                        smo.setKernelType(type);
                         rfe.setClassifier(&smo);
                         break;
                     case 0:
@@ -1087,8 +1116,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         imadual.setKernelParam(kernel_param);
-                        imadual.setKernelType(kernel_type);
+                        imadual.setKernelType(type);
                         imadual.setMaxTime(max_time);
                         golub.setClassifier(&imadual);
                         break;
@@ -1105,8 +1148,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         smo.setKernelParam(kernel_param);
-                        smo.setKernelType(kernel_type);
+                        smo.setKernelType(type);
                         golub.setClassifier(&smo);
                         break;
                     case 0:
@@ -1185,8 +1242,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         imadual.setKernelParam(kernel_param);
-                        imadual.setKernelType(kernel_type);
+                        imadual.setKernelType(type);
                         imadual.setMaxTime(max_time);
                         fisher.setClassifier(&imadual);
                         break;
@@ -1203,8 +1274,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         smo.setKernelParam(kernel_param);
-                        smo.setKernelType(kernel_type);
+                        smo.setKernelType(type);
                         fisher.setClassifier(&smo);
                         break;
                     case 0:
@@ -1284,8 +1369,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         imadual.setKernelParam(kernel_param);
-                        imadual.setKernelType(kernel_type);
+                        imadual.setKernelType(type);
                         imadual.setMaxTime(max_time);
                         aos.setClassifier(&imadual);
                         break;
@@ -1302,8 +1401,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         smo.setKernelParam(kernel_param);
-                        smo.setKernelType(kernel_type);
+                        smo.setKernelType(type);
                         aos.setClassifier(&smo);
                         break;
                     case 0:
@@ -1910,11 +2023,8 @@ void dualClassifiersOption(int option){
                 }
 
                 clock_t begin = clock();
-                K.setType(kernel_type);
-                K.setParam(kernel_param);
-                K.compute(samples);
 
-                PerceptronDual<double> perc_dual(samples, rate, &K);
+                PerceptronDual<double> perc_dual(samples, rate, kernel_type, kernel_param);
                 perc_dual.train();
 
                 sol = perc_dual.getSolution();
@@ -1969,11 +2079,8 @@ void dualClassifiersOption(int option){
                 }
 
                 clock_t begin = clock();
-                K.setType(kernel_type);
-                K.setParam(kernel_param);
-                K.compute(samples);
 
-                PerceptronFixedMarginDual<double> perc_fixmargin_dual(samples, gamma, rate, &K);
+                PerceptronFixedMarginDual<double> perc_fixmargin_dual(samples, gamma, rate, kernel_type, kernel_param);
                 perc_fixmargin_dual.train();
 
                 sol = perc_fixmargin_dual.getSolution();

@@ -211,16 +211,27 @@ double PerceptronFixedMarginPrimal< T >::evaluate(Point< T > p){
 }
 
 template < typename T >
-PerceptronDual< T >::PerceptronDual(std::shared_ptr<Data< T > > samples, double rate, Kernel *K, Solution *initial_solution){
+PerceptronDual< T >::PerceptronDual(std::shared_ptr<Data< T > > samples, double rate, int kernel_type, double kernel_param, Solution *initial_solution){
     this->samples = samples;
     if(initial_solution){
         this->solution = *initial_solution;
         this->alpha = (*initial_solution).alpha;
     }
     this->rate = rate;
-    if(K)
-        this->kernel = K;
+    this->kernel = new Kernel(kernel_type, kernel_param);
 }
+
+template < typename T >
+PerceptronDual< T >::PerceptronDual(std::shared_ptr<Data< T > > samples, double rate, Solution *initial_solution){
+    this->samples = samples;
+    if(initial_solution){
+        this->solution = *initial_solution;
+        this->alpha = (*initial_solution).alpha;
+    }
+    this->rate = rate;
+    this->kernel = nullptr;
+}
+
 
 template < typename T >
 bool PerceptronDual< T > ::train(){
@@ -232,6 +243,7 @@ bool PerceptronDual< T > ::train(){
     vector<int> index = this->samples->getIndex();
     vector<double> func(size, 0.0), Kv;
     vector<shared_ptr<Point< T > > > points = this->samples->getPoints();
+    this->kernel->compute(this->samples);
     dMatrix *K = this->kernel->getKernelMatrixPointer();
 
     if(this->alpha.empty()){
@@ -283,12 +295,26 @@ bool PerceptronDual< T > ::train(){
 
 
 template < typename T >
-PerceptronFixedMarginDual< T >::PerceptronFixedMarginDual(std::shared_ptr<Data< T > > samples, double gamma, double rate, Kernel *K, Solution *initial_solution){
+PerceptronFixedMarginDual< T >::PerceptronFixedMarginDual(std::shared_ptr<Data< T > > samples, double gamma, double rate, int kernel_type, double kernel_param, Solution *initial_solution){
     this->samples = samples;
     //this->solution = *initial_solution;
     this->rate = rate;
-    if(K)
-        this->kernel = K;
+    this->kernel = new Kernel(kernel_type, kernel_param);
+    this->gamma = gamma;
+    if(initial_solution)
+        this->alpha = (*initial_solution).alpha;
+    else{
+        this->alpha.resize(samples->getSize());
+        this->solution.func.resize(samples->getSize());
+    }
+}
+
+template < typename T >
+PerceptronFixedMarginDual< T >::PerceptronFixedMarginDual(std::shared_ptr<Data< T > > samples, double gamma, double rate, Solution *initial_solution){
+    this->samples = samples;
+    //this->solution = *initial_solution;
+    this->rate = rate;
+    this->kernel = nullptr;
     this->gamma = gamma;
     if(initial_solution)
         this->alpha = (*initial_solution).alpha;
@@ -307,6 +333,7 @@ bool PerceptronFixedMarginDual< T >::train(){
     const double tworate = 2*this->rate;
     vector<int> index = this->samples->getIndex();
     vector<double> func = this->solution.func, Kv;
+    this->kernel->compute(this->samples);
     dMatrix *K = this->kernel->getKernelMatrixPointer();
 
     if(func.empty()){ func.resize(size);}

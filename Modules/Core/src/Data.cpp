@@ -130,7 +130,7 @@ bool Data< T >::load_csv(const string& path){
 
         while(getline(ss, item, deli)){
             //check for invalid feature or class
-            if(type == "Classification") {
+            if(type == "Classification" || type == "MultiClassification" || type == "BinClassification") {
                 if (_dim == -1 && !flag) {
                     if (!((item == pos_class) || (item == neg_class))) {
                         atEnd = true;
@@ -195,12 +195,12 @@ bool Data< T >::load_csv(const string& path){
             }else{
                 double c;
 
-                if(type == "Classification") {
+                if(type == "Classification" || type == "MultiClassification" || type == "BinClassification") {
                     c = process_class(item);
                 }else{
                     c = Utils::atod(item.c_str());
                 }
-                if(type == "Classification")
+                if(type == "Classification" || type == "MultiClassification" || type == "BinClassification")
                     if(c == -1){
                         stats.n_neg++;
                     }else{
@@ -304,7 +304,7 @@ bool Data< T >::load_data(const string& path){
         while(getline(ss, item, ' ')){
             const char * pch = strchr(item.c_str(), ':');
             if(!pch){
-                if(type == "Classification") {
+                if(type == "Classification" || type == "MultiClassification" || type == "BinClassification") {
                     c = process_class(item);
                 }else{
                     c = Utils::atod(item.c_str());
@@ -342,6 +342,9 @@ bool Data< T >::load_data(const string& path){
                 this->stats.n_pos = this->class_distribution[i];
             }
         }
+        type = "BinClassification";
+    }else{
+        type = "MultiClassification";
     }
 
     input.close();
@@ -376,7 +379,7 @@ bool Data< T >::load_arff(const string& path){
                 clog << "Warning: point[" << _size << "] " << dim + 1 << " feature is not a number." << endl;
                 dim--;
             }
-            if(type == "Classification") {
+            if(type == "Classification" || type == "MultiClassification" || type == "BinClassification") {
                 if (dim == 0 && !flag) {
                     if (!((item == pos_class) || (item == neg_class))) {
                         atEnd = true;
@@ -442,7 +445,7 @@ bool Data< T >::load_arff(const string& path){
                 }
 
             }else{
-                if(type == "Classification"){
+                if(type == "Classification" || type == "MultiClassification" || type == "BinClassification"){
                     c = process_class(item);
                 }
                 new_point->y = c;

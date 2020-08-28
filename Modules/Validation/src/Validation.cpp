@@ -85,7 +85,6 @@ double Validation< T > ::kFold (int fold, int seed){
     std::vector<size_t> markers(classes.size(), 0);
     std::vector<DataPointer< T > > points_by_class(classes.size());
     std::vector<size_t> new_class_distribution(classes.size());
-    bool isPrimal = classifier->getFormulationString() == "Primal";
 
 
     for(size_t i = 0; i < classes.size(); i++){
@@ -147,16 +146,17 @@ double Validation< T > ::kFold (int fold, int seed){
 
         // Training phase
         classifier->setSamples(train_sample);
-        if(!classifier->train()){
-            if(verbose){
-                std::cerr << "Error at " << fold << "-fold: The convergency wasn't reached at the set " << j+1 << "!\n";
-            }
-        }
-
+       
         Solution s = classifier->getSolution();
         bool isPrimal = classifier->getFormulationString() == "Primal";
 
         if(isPrimal){
+             if(!classifier->train()){
+                if(verbose){
+                    std::cerr << "Error at " << fold << "-fold: The convergency wasn't reached at the set " << j+1 << "!\n";
+                }
+            }
+
             size_t i = 0;
             for(auto it = test_sample->begin(); it != test_sample->end(); it++, i++){
                 auto point = (*it);
@@ -175,14 +175,17 @@ double Validation< T > ::kFold (int fold, int seed){
             }
         }else{
             DualClassifier< T > *dual = dynamic_cast<DualClassifier< T > *>(classifier);
-            Kernel K(dual->getKernelType(), dual->getKernelParam());
-            dMatrix *matrix;
             std::shared_ptr<Data< T > > traintest_sample(std::make_shared<Data< T > >());
-
+            
             *traintest_sample = *test_sample;
             traintest_sample->join(train_sample);
-            K.compute(traintest_sample);
-            matrix = K.getKernelMatrixPointer();
+            traintest_sample->setClasses(classes);
+            dual->setSamples(traintest_sample);
+            if(!dual->train()){
+                if(verbose)
+                    cerr << "Validation error: The convergency wasn't reached in the training set!\n";
+            }
+            
             size_t i = 0;
             for(auto it = test_sample->begin(); it != test_sample->end(); it++, i++){
                 auto point = (*it);
@@ -218,7 +221,9 @@ double Validation< T > ::kFold (int fold, int seed){
         train_sample = make_shared<Data< T > >();
         test_sample = make_unique<Data< T > >();
     }
-
+    if(classes.size() > 2){
+        this->solution.accuracy = 100.0 - (((double)error)/(double)fold); 
+    }
     return (((double)error)/(double)fold);
 }
 
@@ -230,8 +235,6 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
     double error = 0, errocross = 0, func = 0.0, margin = 0, bias;
     vector<double> w;
     auto classes = this->sample->getClasses();
-    classifier->setSamples(this->sample);
-    bool isPrimal = (classifier->getFormulationString() == "Primal");
 
     //sample = train_sample;
 
@@ -267,17 +270,17 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
     classifier->setSamples(train_sample);
     classifier->setVerbose(0);
 
-    if(!classifier->train()){
-        if(verbose)
-            cerr << "Validation error: The convergency wasn't reached in the training set!\n";
-    }
-
-    Solution s = classifier->getSolution();
-
-    w = s.w;
-    bias = s.bias;
-
+    bool isPrimal = (classifier->getFormulationString() == "Primal");
+    
     if(isPrimal){
+        if(!classifier->train()){
+            if(verbose)
+                cerr << "Validation error: The convergency wasn't reached in the training set!\n";
+        }
+        Solution s = classifier->getSolution();
+        w = s.w;
+        bias = s.bias;
+
         size_t i = 0;
         for(auto it = test_sample->begin(); it != test_sample->end(); it++, i++){
             auto point = (*it);
@@ -297,20 +300,22 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
     }else{
         /*testing imadual and smo*/
         DualClassifier< T >  *dual = dynamic_cast<DualClassifier< T > *>(classifier);
-        Kernel K(dual->getKernelType(), dual->getKernelParam());
         dMatrix matrix;
         shared_ptr<Data< T > > traintest_sample(make_shared<Data< T > >());
-
+        
         *traintest_sample = *test_sample;
         traintest_sample->join(train_sample);
-
-        K.compute(traintest_sample);
-        matrix = K.getKernelMatrix();
+        traintest_sample->setClasses(classes);
+        dual->setSamples(traintest_sample);
+        if(!dual->train()){
+            if(verbose)
+                cerr << "Validation error: The convergency wasn't reached in the training set!\n";
+        }
 
         size_t i = 0;
         for(auto it = test_sample->begin(); it != test_sample->end(); it++, i++){
             auto point = (*it);
-            double _y = classifier->evaluate(*point);
+            double _y = dual->evaluate(*point);
 
             if(point->y != _y){
                 if(verbose > 1)

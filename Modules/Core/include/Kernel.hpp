@@ -14,12 +14,15 @@
 #include "Data.hpp"
 #include "Utils.hpp"
 
+enum KernelType {INVALID_TYPE = -1, INNER_PRODUCT, POLYNOMIAL, GAUSSIAN};
+
 /**
  * \brief Class for the kernel computations.
  */
 class Kernel {
     // Attributes
 private :
+    bool computed = false;
     /// Kernel type and parameter.
     int type{};
     /// Kernel parameter.
@@ -75,6 +78,7 @@ public :
      * \return std::vector<std::vector<double> >
      */
     dMatrix getKernelMatrix();
+    void recompute(){ this->computed = false;}
     /**
      * \brief compute Compute the kernel matrix with the given type and parameter.
      * \param samples Data used to compute the kernel matrix.
@@ -135,6 +139,7 @@ template < typename T >
 void Kernel::compute(const std::shared_ptr<Data< T > > samples){
     size_t i, j, size = samples->getSize(), dim = samples->getDim();
 
+    if(computed) return;
     K.assign(size, std::vector<double>(size, 0.0));
 
     //Calculating Matrix
@@ -144,6 +149,7 @@ void Kernel::compute(const std::shared_ptr<Data< T > > samples){
             K[j][i] = K[i][j];
         }
     }
+    computed = true;
 }
 
 template < typename T >

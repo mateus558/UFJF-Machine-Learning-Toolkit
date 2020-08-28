@@ -9,7 +9,7 @@
 #include "Classifier.hpp"
 
 template < typename T >
-class PrimalClassifier : public Classifier< T > {
+class PrimalClassifier : virtual public Classifier< T > {
     // Attributes
 protected :
     /// Weights vector.

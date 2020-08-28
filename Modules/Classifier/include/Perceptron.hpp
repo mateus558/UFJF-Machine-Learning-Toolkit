@@ -38,7 +38,8 @@ public:
 template < typename T >
 class PerceptronDual : public DualClassifier< T >  {
 public:
-    explicit PerceptronDual(std::shared_ptr<Data< T > > samples = nullptr, double rate = 0.5, Kernel *K = nullptr, Solution *initial_solution = nullptr);
+    explicit PerceptronDual(std::shared_ptr<Data< T > > samples = nullptr, double rate = 0.5, int kernel_type = KernelType::INNER_PRODUCT, double kernel_param = 0, Solution *initial_solution = nullptr);
+    explicit PerceptronDual(std::shared_ptr<Data< T > > samples, double rate = 0.5, Solution *initial_solution = nullptr);
     bool train() override;
 };
 
@@ -48,7 +49,8 @@ public:
 template < typename T >
 class PerceptronFixedMarginDual : public DualClassifier< T >  {
 public:
-    explicit PerceptronFixedMarginDual(std::shared_ptr<Data< T > > samples = nullptr, double gamma = 1.0, double rate = 0.5, Kernel *K = nullptr, Solution *initial_solution = nullptr);
+    explicit PerceptronFixedMarginDual(std::shared_ptr<Data< T > > samples = nullptr, double gamma = 1.0, double rate = 0.5, int kernel_type = KernelType::INNER_PRODUCT, double kernel_param = 0, Solution *initial_solution = nullptr);
+    explicit PerceptronFixedMarginDual(std::shared_ptr<Data< T > > samples, double gamma = 1.0, double rate = 0.5, Solution *initial_solution = nullptr);
     bool train() override;
 };
 

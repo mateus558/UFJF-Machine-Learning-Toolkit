@@ -11,17 +11,19 @@
 #include <vector>
 
 template < typename T >
-class DualClassifier : public Classifier< T > {
+class DualClassifier : virtual public Classifier< T > {
     // Associations
     // Attributes
 protected:
     /// Alphas vector.
     std::vector<double> alpha;
+    KernelType kernel_type = KernelType::INNER_PRODUCT;
+    double kernel_param = 0;
     /// Object for kernel computations.
     Kernel *kernel = nullptr;
 public:
 
-    double evaluate(Point< T > p) override {
+    virtual double evaluate(Point< T > p) override {
         double func, bias = this->solution.bias, fk = 0.0, lambda;
         size_t size = this->samples->getSize(), dim = this->samples->getDim(), r;
         auto po = std::make_shared<Point< T > >(p);
@@ -52,29 +54,29 @@ public:
      * \brief Set the type of the kernel.
      * \param type The type of the selected kernel.
      */
-    inline void setKernelType(int type){ kernel->setType(type); }
+    inline void setKernelType(KernelType type){ this->kernel_type = type; if(this->kernel) this->kernel->setType(type); }
     /**
      * \brief Set the parameter of the kernel.
      * \param param The parameter of the selected kernel.
      */
-    inline void setKernelParam(double param){ kernel->setParam(param); }
+    inline void setKernelParam(double param){ this->kernel_param = param; if(this->kernel) kernel->setParam(param); }
 
     /*********************************************
      *               Getters                     *
      *********************************************/
 
-    std::string getFormulationString() override { return "Dual"; }
-
+    virtual std::string getFormulationString() override { return "Dual"; }
+    inline Kernel* getKernel(){ return kernel; }
     /**
      * \brief Get the parameter of the kernel.
      * \return double
      */
-    inline double getKernelParam(){ return kernel->getParam(); }
+    inline double getKernelParam(){ return kernel_param; }
     /**
      * \brief Get the type of the kernel.
      * \return double
      */
-    inline double getKernelType(){ return kernel->getType(); }
+    inline KernelType getKernelType(){ return kernel_type; }
     /**
      * \brief Get the vector of alphas.
      * \return std::vector<double>
