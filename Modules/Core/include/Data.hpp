@@ -42,6 +42,7 @@
 #include <fstream>
 #include <memory>
 #include <random>
+#include <set>
 
 #include "Point.hpp"
 #include "Statistics.hpp"
@@ -98,6 +99,7 @@ public:
     const std::string &getType() const;
 
 private:
+    bool isClassification() const { return (type == "Classification" || type == "MultiClassification" || type == "BinClassification");}
 
     // Private Operations
     int process_class(std::string item);
@@ -178,7 +180,7 @@ public :
      */
     std::vector<std::shared_ptr<Point< T > > > getPoints ();
 
-    const std::vector<int> &getClasses() const;
+    const std::vector<int> getClasses() const;
 
     /**
      * \brief Returns a shared pointer to the point with the given index.
@@ -305,6 +307,7 @@ public :
      * \return bool
      */
     bool insertPoint (std::shared_ptr<Point< T > > p);
+    bool insertPoint (Point< T > &p);
     /**
      * \brief Remove several points from the sample.
      * \param ids (???) Ids of the points to be removed (must be sorted).

@@ -130,7 +130,7 @@ bool Data< T >::load_csv(const string& path){
 
         while(getline(ss, item, deli)){
             //check for invalid feature or class
-            if(type == "Classification" || type == "MultiClassification" || type == "BinClassification") {
+            if(this->isClassification()) {
                 if (_dim == -1 && !flag) {
                     if (!((item == pos_class) || (item == neg_class))) {
                         atEnd = true;
@@ -195,12 +195,12 @@ bool Data< T >::load_csv(const string& path){
             }else{
                 double c;
 
-                if(type == "Classification" || type == "MultiClassification" || type == "BinClassification") {
+                if(this->isClassification()) {
                     c = process_class(item);
                 }else{
                     c = Utils::atod(item.c_str());
                 }
-                if(type == "Classification" || type == "MultiClassification" || type == "BinClassification")
+                if(this->isClassification())
                     if(c == -1){
                         stats.n_neg++;
                     }else{
@@ -335,11 +335,12 @@ bool Data< T >::load_data(const string& path){
     }
 
     if(classes.size() == 2){
-        for(size_t i = 0; i < 2; i++){
-            if(class_names[i] == "-1"){
-                this->stats.n_neg = this->class_distribution[i];
+
+        for(auto it = class_names.begin(); it != class_names.end(); it++){
+            if((*it) == "-1"){
+                this->stats.n_neg = this->class_distribution[0];
             }else{
-                this->stats.n_pos = this->class_distribution[i];
+                this->stats.n_pos = this->class_distribution[1];
             }
         }
         type = "BinClassification";
@@ -814,16 +815,28 @@ bool Data< T >::insertPoint(shared_ptr<Point< T > > p){
     points.insert(points.end(), std::move(p));
     size++;
     if(is_empty) is_empty = false;
+    
+    if(this->isClassification()){
+        auto class_pos = std::find(this->classes.begin(), this->classes.end(), points[size-1]->y);
 
-    if(points[size-1]->y > 0)
-        stats.n_pos++;
-    else stats.n_neg++;
-
+        if(class_pos == this->classes.end()){
+            this->class_names.push_back(std::to_string(int(points[size-1]->y)));
+            this->classes.push_back(points[size-1]->y);
+            this->class_distribution.push_back(1);
+        }else{
+            this->class_distribution[int(class_pos - this->classes.begin())]++;
+        }
+    }
     //Give a new id to the point equal to the previous point id plus 1
     points[size-1]->id = size;
     index.push_back(size-1);
 
     return true;
+}
+
+template < typename T >
+bool Data< T >::insertPoint(Point< T > &p){
+    return this->insertPoint(std::make_shared<Point< T > >(p));
 }
 
 template < typename T >
@@ -1114,33 +1127,27 @@ const string &Data<T>::getType() const {
 
 template<typename T>
 int Data<T>::process_class(std::string item) {
-    int c;
-    size_t i;
-    for(i = 0; i < class_names.size(); i++){
-        if(class_names[i] == item){
-            break;
-        }
-    }
-    if(i == class_names.size()){
-        class_names.push_back(item);
-    }
-
-    if(Utils::is_number(item)) {
-        c = std::stoi(item);
+    int c = 0;
+    auto class_name_it = std::find(this->class_names.begin(), this->class_names.end(), item);
+    
+    if(class_name_it == class_names.end()){
+        this->class_names.push_back(item);
+        c = this->class_names.size();
     }else{
-        c = (int)i+1;
-    }
-
-    for(i = 0; i < classes.size(); i++){
-        if(classes[i] == c){
-            this->class_distribution[i]++;
-            break;
+        if(Utils::is_number(item)) {
+            c = std::stoi(item);
+        }else{
+            c = (int)(class_name_it - this->class_names.begin())+1;
         }
     }
-    if(i == classes.size()){
-        classes.push_back(c);
-        this->class_distribution.push_back(1);
+
+    auto class_it = std::find(this->classes.begin(), this->classes.end(), c);
+    if(class_it == this->classes.end()){
+        this->classes.push_back(c);
+        this->class_distribution.push_back(0);
     }
+    this->class_distribution[c-1]++;
+    
     return c;
 }
 
@@ -1155,13 +1162,13 @@ std::vector<size_t> Data<T>::getClassesDistribution() const{
 }
 
 template<typename T>
-const vector<int> &Data<T>::getClasses() const {
-    return classes;
+const std::vector<int> Data<T>::getClasses() const {
+    return this->classes;
 }
 
 template<typename T>
-void Data<T>::setClasses(const vector<int> &classes) {
-    Data::classes = classes;
+void Data<T>::setClasses(const vector<int> &_classes) {
+    this->classes = _classes;
 }
 
 template class Data<int>;
