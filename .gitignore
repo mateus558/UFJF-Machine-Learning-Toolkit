@@ -16,3 +16,4 @@ Exec
 build
 docs
 .vscode
+*.bat

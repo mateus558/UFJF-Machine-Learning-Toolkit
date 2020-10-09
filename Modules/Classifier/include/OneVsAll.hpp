@@ -81,8 +81,7 @@ double OneVsAll<T, ClassifierT>::evaluate(Point<T> p) {
 
 template< typename T, template <typename > class ClassifierT>
 std::string OneVsAll<T, ClassifierT>::getFormulationString() {
-    ClassifierT<T> c;
-    return c.getFormulationString();
+    return ClassifierT<T>().getFormulationString();
 }
 
 
