@@ -376,11 +376,15 @@ bool Data< T >::load_arff(const string& path){
 
         while(getline(ss, item, ',')){
             //check for invalid feature or class
-            if(!Utils::is_number(item) && (item != pos_class || item != neg_class)){
-                clog << "Warning: point[" << _size << "] " << dim + 1 << " feature is not a number." << endl;
+            auto found_class = std::find_if(this->class_names.begin(), this->class_names.end(), [&item](const std::string &_class){
+                return (_class == item);
+            });
+            
+            if(!Utils::is_number(item) && (found_class != this->class_names.end())){
+                clog << "Warning: point[" << _size << "] " << dim + 1 << " feature is not a number. (" << item << ")" << endl;
                 dim--;
             }
-            if(type == "Classification" || type == "MultiClassification" || type == "BinClassification") {
+            if(this->isClassification()) {
                 if (dim == 0 && !flag) {
                     if (!((item == pos_class) || (item == neg_class))) {
                         atEnd = true;
@@ -446,7 +450,7 @@ bool Data< T >::load_arff(const string& path){
                 }
 
             }else{
-                if(type == "Classification" || type == "MultiClassification" || type == "BinClassification"){
+                if(this->isClassification()){
                     c = process_class(item);
                 }
                 new_point->y = c;
@@ -625,7 +629,7 @@ template < typename T >
 vector<bool> Data< T >::removePoints(vector<int> ids){
     int idsize = ids.size(), i;
     bool save;
-    shared_ptr<Point< T > > po;
+    std::shared_ptr<Point< T > > po;
     auto p = points.begin();
     vector<bool> notFound(idsize, true);
 
@@ -659,7 +663,7 @@ Data< T >* Data< T >::insertFeatures(std::vector<int> ins_feat){
     size_t i, j, s, offset = 0, fsize = ins_feat.size();
     bool saveflag = false;
     vector<int> new_fnames(fsize, 0);
-    shared_ptr<Point< T > > p;
+    std::shared_ptr<Point< T > > p;
     auto *smout = new Data< T >;
 
     if(fsize == 0) return this;
@@ -802,7 +806,7 @@ bool Data< T >::insertPoint(Data< T > sample, int _index){
 }
 
 template < typename T >
-bool Data< T >::insertPoint(shared_ptr<Point< T > > p){
+bool Data< T >::insertPoint(std::shared_ptr<Point< T > > p){
     //Dimension verification
     if(size > 0 && int(p->x.size()) > dim){
         cerr << "Point with dimension different from the data. (insertPoint)" << endl;
@@ -840,9 +844,9 @@ bool Data< T >::insertPoint(Point< T > &p){
 }
 
 template < typename T >
-void Data< T >::changeXVector(vector<int> _index){
+void Data< T >::changeXVector(std::vector<int> _index){
     int i;
-    vector<shared_ptr<Point< T > > > nPoints(size);
+    std::vector<std::shared_ptr<Point< T > > > nPoints(size);
 
     //Copy features and classes of the points making the changes
     for(i = 0; i < size; i++){
@@ -855,12 +859,12 @@ void Data< T >::changeXVector(vector<int> _index){
 }
 
 template < typename T >
-shared_ptr<Point< T > > Data< T >::getPoint(int _index){
+std::shared_ptr<Point< T > > Data< T >::getPoint(int _index){
     return points[_index];
 }
 
 template < typename T >
-void Data< T >::setPoint(int _index, shared_ptr<Point< T > > p){
+void Data< T >::setPoint(int _index, std::shared_ptr<Point< T > > p){
     points[_index] = p;
 }
 
@@ -901,8 +905,8 @@ void Data< T >::copyZero(const Data< T >& other){
 template < typename T >
 void Data< T >::join(std::shared_ptr<Data< T > > data){
     size_t i, j, dim1 = data->getDim(), antsize = size, size1 = data->getSize();
-    vector<int> index1 = data->getIndex(), antindex = index;
-    vector<shared_ptr<Point< T > > > points1 = data->getPoints();
+    std::vector<int> index1 = data->getIndex(), antindex = index;
+    std::vector<std::shared_ptr<Point< T > > > points1 = data->getPoints();
 
     if(dim > dim1){
         cerr << "Error: sample1 dimension must be less or equal to sample2\n";
@@ -952,7 +956,7 @@ void Data< T >::normalize(double p){
 }
 
 template < typename T >
-void Data< T >::normalize(vector<double> &v, double q){
+void Data< T >::normalize(std::vector<double> &v, double q){
     size_t i = 0, dim = v.size();
     double norm = 0.0;
 
@@ -971,7 +975,7 @@ void Data< T >::setDim(size_t _dim){
 }
 
 template < typename T >
-vector<int> Data< T >::getFeaturesNames() const{
+std::vector<int> Data< T >::getFeaturesNames() const{
     return fnames;
 }
 
@@ -981,12 +985,12 @@ void Data< T >::setFeaturesNames(const std::vector<int>& _fnames){
 }
 
 template < typename T >
-vector<shared_ptr<Point< T > > > Data< T >::getPoints(){
+std::vector<std::shared_ptr<Point< T > > > Data< T >::getPoints(){
     return points;
 }
 
 template < typename T >
-vector<int> Data< T >::getIndex() const{
+std::vector<int> Data< T >::getIndex() const{
     return index;
 }
 
@@ -1153,7 +1157,6 @@ int Data<T>::process_class(std::string item) {
     auto it_pos = std::find_if(this->classes.begin(), this->classes.end(), [&c](const int &_class){
         return (_class == c);
     });
-    std::cout << c << " " << item << " " << (it_pos-this->classes.begin()) << std::endl;
     this->class_distribution[(it_pos-this->classes.begin())]++;
     
     return c;
@@ -1175,7 +1178,7 @@ const std::vector<int> Data<T>::getClasses() const {
 }
 
 template<typename T>
-void Data<T>::setClasses(const vector<int> &_classes) {
+void Data<T>::setClasses(const std::vector<int> &_classes) {
     this->classes = _classes;
 }
 
