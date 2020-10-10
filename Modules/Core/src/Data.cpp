@@ -304,7 +304,7 @@ bool Data< T >::load_data(const string& path){
         while(getline(ss, item, ' ')){
             const char * pch = strchr(item.c_str(), ':');
             if(!pch){
-                if(type == "Classification" || type == "MultiClassification" || type == "BinClassification") {
+                if(this->isClassification()) {
                     c = process_class(item);
                 }else{
                     c = Utils::atod(item.c_str());
@@ -1132,7 +1132,11 @@ int Data<T>::process_class(std::string item) {
     
     if(class_name_it == class_names.end()){
         this->class_names.push_back(item);
-        c = this->class_names.size();
+        if(item != "-1"){
+            c = this->class_names.size();
+        }else{
+            c = -1;
+        }
     }else{
         if(Utils::is_number(item)) {
             c = std::stoi(item);
@@ -1146,7 +1150,11 @@ int Data<T>::process_class(std::string item) {
         this->classes.push_back(c);
         this->class_distribution.push_back(0);
     }
-    this->class_distribution[c-1]++;
+    auto it_pos = std::find_if(this->classes.begin(), this->classes.end(), [&c](const int &_class){
+        return (_class == c);
+    });
+    std::cout << c << " " << item << " " << (it_pos-this->classes.begin()) << std::endl;
+    this->class_distribution[(it_pos-this->classes.begin())]++;
     
     return c;
 }
