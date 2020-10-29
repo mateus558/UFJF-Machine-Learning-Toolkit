@@ -121,7 +121,7 @@ bool KMeans<T>::train() {
 }
 
 template<typename T>
-double KMeans<T>::evaluate(Point<T> p) {
+double KMeans<T>::evaluate(Point<T> p, bool raw_value) {
     std::vector<double> distances(this->n_clusters, 0.0);
     double min_value = std::numeric_limits<double>::max();
     size_t min_cluster = 0;

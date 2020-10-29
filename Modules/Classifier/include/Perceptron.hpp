@@ -18,7 +18,7 @@ class PerceptronPrimal : public PrimalClassifier< T >  {
 public:
     explicit PerceptronPrimal(std::shared_ptr<Data< T > > samples = nullptr, double q = 2, double rate = 0.5, Solution *initial_solution = nullptr);
     bool train() override;
-    double evaluate(Point< T > p) override;
+    double evaluate(Point< T > p, bool raw_value=false) override;
 };
 
 /**
@@ -29,7 +29,7 @@ class PerceptronFixedMarginPrimal : public PrimalClassifier< T >  {
 public:
     explicit PerceptronFixedMarginPrimal(std::shared_ptr<Data< T > > samples = nullptr, double gamma = 1.0, double q = 2, double rate = 0.5, Solution *initial_solution = nullptr);
     bool train() override;
-    double evaluate(Point< T > p) override;
+    double evaluate(Point< T > p, bool raw_value=false) override;
 };
 
 /**

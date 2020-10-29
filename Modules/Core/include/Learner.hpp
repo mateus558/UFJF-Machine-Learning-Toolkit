@@ -67,7 +67,7 @@ public:
      * \param Point< T >  x (???) Features point to be evaluated.
      * \return int
      */
-    virtual double evaluate (Point< T > p) = 0;
+    virtual double evaluate (Point< T > p, bool raw_value=false) = 0;
     
     /*********************************************
      *               Getters                     *

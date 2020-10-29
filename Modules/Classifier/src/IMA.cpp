@@ -198,24 +198,38 @@ bool IMAp< T >::train() {
         imapFixMargin.setGamma(gamma);
         imapFixMargin.setSolution(tempSol);
         imapFixMargin.setLearningRate(this->rate);
-
+        this->svs.erase(this->svs.begin(), this->svs.end());
+        for(i = 0; i < size; ++i)
+        {
+            y = points[i]->y;
+            alpha = points[i]->alpha;
+            if(alpha > this->EPS * this->rate) { this->svs.push_back(i); }
+        }
+        this->steps = imapFixMargin.getSteps();
+        this->ctot = imapFixMargin.getCtot();
+        this->solution.w = w_saved;
+        this->solution.margin = rmargin;
+        this->solution.norm = norm;
+        this->solution.bias = bias;
+        this->solution.svs = this->svs.size();
         //  break;
         if(flagNao1aDim) break;
     }
-    this->svs.erase(this->svs.begin(), this->svs.end());
-    for(i = 0; i < size; ++i)
-    {
-        y = points[i]->y;
-        alpha = points[i]->alpha;
-        if(alpha > this->EPS * this->rate) { this->svs.push_back(i); }
-    }
-    this->steps = imapFixMargin.getSteps();
-    this->ctot = imapFixMargin.getCtot();
-    this->solution.w = w_saved;
-    this->solution.margin = rmargin;
-    this->solution.norm = norm;
-    this->solution.bias = bias;
-    this->solution.svs = this->svs.size();
+    // this->svs.erase(this->svs.begin(), this->svs.end());
+    // for(i = 0; i < size; ++i)
+    // {
+    //     y = points[i]->y;
+    //     alpha = points[i]->alpha;
+    //     if(alpha > this->EPS * this->rate) { this->svs.push_back(i); }
+    // }
+    
+    // this->steps = imapFixMargin.getSteps();
+    // this->ctot = imapFixMargin.getCtot();
+    // this->solution.w = w_saved;
+    // this->solution.margin = rmargin;
+    // this->solution.norm = norm;
+    // this->solution.bias = bias;
+    // this->solution.svs = this->svs.size();
 
     if(this->verbose)
     {
@@ -244,21 +258,22 @@ bool IMAp< T >::train() {
 }
 
 template < typename T >
-double IMAp< T >::evaluate(Point< T > p) {
+double IMAp< T >::evaluate(Point< T > p, bool raw_value) {
     double func = 0.0;
     int i;
     size_t dim = this->solution.w.size();
 
-    if(p.x.size() != dim){
-        cerr << "The point must have the same dimension of the feature set! (" << p.x.size() << "," << dim << ")" << endl;
-        return 0;
-    }
+    // if(p.x.size() != dim){
+    //     cerr << "The point must have the same dimension of the feature set! (" << p.x.size() << "," << dim << ")" << endl;
+    //     return 0;
+    // }
 
     for(func = this->solution.bias, i = 0; i < dim; i++){
         func += this->solution.w[i] * p[i];
     }
 
-    return (func >= this->solution.margin * this->solution.norm)?1:-1;
+    if(!raw_value) return (func >= this->solution.margin * this->solution.norm)?1:-1;
+    else return func;
 }
 
 template < typename T >
@@ -409,7 +424,7 @@ bool IMApFixedMargin< T >::train() {
 }
 
 template < typename T >
-double IMApFixedMargin< T >::evaluate(Point< T > p) {
+double IMApFixedMargin< T >::evaluate(Point< T > p, bool raw_value) {
     double func = 0.0;
     int i;
     size_t dim = this->solution.w.size();
@@ -423,7 +438,8 @@ double IMApFixedMargin< T >::evaluate(Point< T > p) {
         func += this->solution.w[i] * p[i];
     }
 
-    return (func >= this->solution.margin * this->solution.norm)?1:-1;
+    if(!raw_value) return (func >= this->solution.margin * this->solution.norm)?1:-1;
+    else return func;
 }
 
 template < typename T >

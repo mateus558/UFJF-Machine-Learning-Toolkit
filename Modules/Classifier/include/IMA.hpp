@@ -29,7 +29,7 @@ public:
     explicit IMAp(std::shared_ptr<Data< T > > samples = nullptr, double margin = 0.0, Solution *initial_solution = nullptr);
 
     bool train() override;
-    double evaluate(Point< T >  p) override;
+    double evaluate(Point< T >  p, bool raw_value=false) override;
     /**
      * \brief Get the indexes of the support vectors.
      * \return std::vector<int> 
@@ -54,7 +54,7 @@ public:
     explicit IMApFixedMargin(std::shared_ptr<Data< T > > samples = nullptr, double gamma = 0, Solution *initial_solution = nullptr);
 
     bool train() override;
-    double evaluate(Point< T >  p) override;
+    double evaluate(Point< T >  p, bool raw_value=false) override;
     inline int* getFlagNot1aDim() {return &flagNao1aDim; }
     inline unsigned long* gettMax(){ return &tMax; }
 };

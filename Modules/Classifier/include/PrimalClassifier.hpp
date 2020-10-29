@@ -35,7 +35,7 @@ public:
         this->alpha_aprox = primal_learner.alpha_aprox;
     }
 
-    double evaluate(Point< T > p) override {
+    double evaluate(Point< T > p, bool raw_value=false) override {
         double func = 0.0;
         size_t i, dim = this->solution.w.size();
 

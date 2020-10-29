@@ -23,7 +23,7 @@ protected:
     Kernel *kernel = nullptr;
 public:
 
-    virtual double evaluate(Point< T > p) override {
+    virtual double evaluate(Point< T > p, bool raw_value=false) override {
         double func, bias = this->solution.bias, fk = 0.0, lambda;
         size_t size = this->samples->getSize(), dim = this->samples->getDim(), r;
         auto po = std::make_shared<Point< T > >(p);

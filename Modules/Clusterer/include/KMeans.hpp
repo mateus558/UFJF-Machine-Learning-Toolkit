@@ -28,7 +28,7 @@ public:
 
     bool train() override;
 
-    double evaluate(Point<T> p) override;
+    double evaluate(Point<T> p, bool raw_value=false) override;
 
     std::string getFormulationString() override;
 

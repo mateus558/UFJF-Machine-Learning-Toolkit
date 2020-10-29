@@ -14,7 +14,7 @@ std::string KNNRegressor<T>::getFormulationString() {
 }
 
 template<typename T>
-double KNNRegressor<T>::evaluate(Point<T> p) {
+double KNNRegressor<T>::evaluate(Point<T> p, bool raw_value) {
     auto points = this->samples->getPoints();
     std::vector<double> distances(this->samples->getSize());
     std::vector<int> classes = this->samples->getClasses();

@@ -20,7 +20,7 @@ public:
 
     bool train() override;
 
-    double evaluate(Point<T> p) override;
+    double evaluate(Point<T> p, bool raw_value=false) override;
 
     std::string getFormulationString() override;
 
@@ -65,36 +65,17 @@ bool OneVsAll<T, ClassifierT>::train() {
 }
 
 template< typename T, template <typename > class ClassifierT>
-double OneVsAll<T, ClassifierT>::evaluate(Point<T> p) {
+double OneVsAll<T, ClassifierT>::evaluate(Point<T> p, bool raw_value) {
     auto classes = this->samples->getClasses();
     std::vector<double> dist_hyperplanes(base_learners.size());
 
-    // std::transform(base_learners.begin(), base_learners.end(), dist_hyperplanes.begin(), [&p](auto &learner){
-    //     auto hyperplane = learner->getSolution().w;
-    //     auto bias = learner->getSolution().bias;
-    //     //std::cout << std::endl;
-    //     // for(auto& x: hyperplane){
-    //     //     std::cout << x << " ";
-    //     // }
-    //     // std::cout << bias << std::endl;
-        
-    //     double h_norm = sqrt(std::inner_product(hyperplane.begin(), hyperplane.end(), hyperplane.begin(), 0.0L));
-    //     double prod = abs(std::inner_product(hyperplane.begin(), hyperplane.end(), p.x.begin(), 0.0L) + bias);
-    //     return prod/h_norm;
-    // });
-    // for(auto& dist: dist_hyperplanes){
-    //     std::cout << dist << " ";
-    // }
-    // std::cout << std::endl;
-    // size_t max_index = dist_hyperplanes.end() - std::max_element(dist_hyperplanes.begin(), dist_hyperplanes.end());
-    for(size_t i = 0; i < base_learners.size(); i++){
-        if(base_learners[i]->evaluate(p) == 1){
-            return classes[i];
-        }
-    }
+    std::transform(base_learners.begin(), base_learners.end(), dist_hyperplanes.begin(), [&p](auto &learner){
+        return learner->evaluate(p, true);
+    });
     
-    //return classes[max_index];
-    return 0;
+    size_t max_index = std::max_element(dist_hyperplanes.begin(), dist_hyperplanes.end()) - dist_hyperplanes.begin();
+
+    return classes[max_index];
 }
 
 template< typename T, template <typename > class ClassifierT>

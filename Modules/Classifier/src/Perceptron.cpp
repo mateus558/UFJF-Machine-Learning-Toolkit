@@ -65,8 +65,8 @@ bool PerceptronPrimal< T >::train(){
 }
 
 template<typename T>
-double PerceptronPrimal<T>::evaluate(Point<T> p) {
-    return PrimalClassifier<T>::evaluate(p);
+double PerceptronPrimal<T>::evaluate(Point<T> p, bool raw_value) {
+    return PrimalClassifier<T>::evaluate(p, raw_value);
 }
 
 template < typename T >
@@ -193,7 +193,7 @@ bool PerceptronFixedMarginPrimal< T >::train(){
 }
 
 template < typename T >
-double PerceptronFixedMarginPrimal< T >::evaluate(Point< T > p){
+double PerceptronFixedMarginPrimal< T >::evaluate(Point< T > p, bool raw_value){
     double func = 0.0;
     int i;
     size_t dim = this->solution.w.size();
@@ -207,7 +207,8 @@ double PerceptronFixedMarginPrimal< T >::evaluate(Point< T > p){
         func += this->solution.w[i] * p[i];
     }
 
-    return (func >= this->solution.margin * this->solution.norm)?1:-1;
+    if(!raw_value) return (func >= this->solution.margin * this->solution.norm)?1:-1;
+    else return func;
 }
 
 template < typename T >

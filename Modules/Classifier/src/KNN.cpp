@@ -13,7 +13,7 @@ KNN< T >::KNN(std::shared_ptr<Data<T>> _samples, size_t k, std::function<double(
 }
 
 template <typename T >
-double KNN< T >::evaluate(Point<T> p) {
+double KNN< T >::evaluate(Point<T> p, bool raw_value) {
     size_t max_index = 0, max_freq = 0, i;
     auto points = this->samples->getPoints();
     std::vector<double> distances(this->samples->getSize());

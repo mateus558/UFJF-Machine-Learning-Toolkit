@@ -22,7 +22,7 @@ public:
 
     bool train() override;
 
-    double evaluate(Point<T> p) override;
+    double evaluate(Point<T> p, bool raw_value=false) override;
 
     std::string getFormulationString() override;
 
@@ -85,7 +85,7 @@ bool OneVsOne<T, ClassifierT>::train() {
 }
 
 template< typename T, template <typename > class ClassifierT>
-double OneVsOne<T, ClassifierT>::evaluate(Point<T> p) {
+double OneVsOne<T, ClassifierT>::evaluate(Point<T> p, bool raw_value) {
     auto classes = this->samples->getClasses();
     std::vector<size_t> class_votes(classes.size(), 0);
 
