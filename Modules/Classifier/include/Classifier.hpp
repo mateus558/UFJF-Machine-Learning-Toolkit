@@ -24,6 +24,15 @@ protected :
     // Operations
 public :
 
+    Classifier< T >(){} 
+
+    Classifier< T >(const Classifier< T > &classifier)
+    : Learner< T > (classifier)
+    {
+        this->hasInitialSolution = classifier.hasInitialSolution;
+        this->gamma = classifier.gamma;
+    }
+
     /*********************************************
      *               Getters                     *
      *********************************************/

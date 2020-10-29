@@ -816,12 +816,12 @@ bool Data< T >::insertPoint(std::shared_ptr<Point< T > > p){
 
     if(size == 0) dim = p->x.size();
     //Insert the point p at the end of the points vector
-    points.insert(points.end(), std::move(p));
+    points.insert(points.end(), p);
     size++;
     if(is_empty) is_empty = false;
     
     if(this->isClassification()){
-        auto class_pos = std::find(this->classes.begin(), this->classes.end(), points[size-1]->y);
+        auto class_pos = std::find(this->classes.begin(), this->classes.end(), p->y);
 
         if(class_pos == this->classes.end()){
             this->class_names.push_back(std::to_string(int(points[size-1]->y)));
@@ -866,6 +866,35 @@ std::shared_ptr<Point< T > > Data< T >::getPoint(int _index){
 template < typename T >
 void Data< T >::setPoint(int _index, std::shared_ptr<Point< T > > p){
     points[_index] = p;
+}
+
+template < typename T >
+void Data< T >::classesCopy(const Data< T > &_data, std::vector<int> &classes){
+    size_t _size = 0;
+    std::set<int> _classes(classes.begin(), classes.end());
+    
+    for(size_t i = 0; i < _data.getSize(); i++){
+        if(_classes.find(_data[i]->y) != _classes.end()){
+            this->points.push_back(std::make_shared<Point< T > >());
+            size_t curr = this->points.size()-1;
+            this->points[curr]->x = _data[i]->x;
+            this->points[curr]->y = _data[i]->y;
+            this->points[curr]->alpha = _data[i]->alpha;
+            this->points[curr]->id = _data[i]->id;
+            _size++;
+        }
+    }
+
+    this->fnames = _data.getFeaturesNames();
+    this->size = _size;
+    this->classes = classes;
+    this->stats = _data.getStatistics();
+    this->dim = _data.getDim();
+    this->type = _data.getType();
+    this->index = _data.getIndex();
+    this->is_empty = _data.isEmpty();
+    this->normalized = _data.isNormalized();
+    this->time_mult = _data.getTime_mult();
 }
 
 template < typename T >
@@ -1180,6 +1209,7 @@ const std::vector<int> Data<T>::getClasses() const {
 template<typename T>
 void Data<T>::setClasses(const std::vector<int> &_classes) {
     this->classes = _classes;
+    this->class_distribution.resize(_classes.size());
 }
 
 template class Data<int>;

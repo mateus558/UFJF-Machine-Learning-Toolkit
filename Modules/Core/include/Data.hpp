@@ -282,6 +282,11 @@ public :
      * \brief Makes a deep copy from another data object.
      * \return Data
      */
+    void classesCopy (const Data< T > &_data, std::vector<int> &classes);
+    /**
+     * \brief Makes a deep copy from another data object.
+     * \return Data
+     */
     void copy (const Data< T > &_data);
     /**
      * \brief Returns a copy of the data with zero points.

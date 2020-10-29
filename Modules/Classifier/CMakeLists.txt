@@ -5,7 +5,7 @@ add_library(${LIBCLASSIFIER} SHARED
     src/SMO.cpp
 )
 
-set_target_properties(${LIBCLASSIFIER} PROPERTIES PUBLIC_HEADER "include/Classifier.hpp;include/DualClassifier.hpp;include/PrimalClassifier.hpp;include/IMA.hpp;include/KNN.hpp;include/OneVsAll.hpp;include/Perceptron.hpp;include/SMO.hpp")
+set_target_properties(${LIBCLASSIFIER} PROPERTIES PUBLIC_HEADER "include/Classifier.hpp;include/DualClassifier.hpp;include/PrimalClassifier.hpp;include/IMA.hpp;include/KNN.hpp;include/OneVsAll.hpp;include/OneVsOne.hpp;include/Perceptron.hpp;include/SMO.hpp")
 
 target_include_directories(${LIBCLASSIFIER} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

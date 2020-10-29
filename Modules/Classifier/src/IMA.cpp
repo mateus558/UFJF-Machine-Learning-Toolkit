@@ -24,7 +24,7 @@ IMAp< T >::IMAp(std::shared_ptr<Data< T > > samples, double margin,  Solution *i
         this->solution.bias = initial_solution->bias;
         this->hasInitialSolution = true;
     }else{
-        this->w.resize(samples->getDim());
+        if(samples) this->w.resize(samples->getDim());
     }
 }
 
@@ -250,7 +250,7 @@ double IMAp< T >::evaluate(Point< T > p) {
     size_t dim = this->solution.w.size();
 
     if(p.x.size() != dim){
-        cerr << "The point must have the same dimension of the feature set!" << endl;
+        cerr << "The point must have the same dimension of the feature set! (" << p.x.size() << "," << dim << ")" << endl;
         return 0;
     }
 

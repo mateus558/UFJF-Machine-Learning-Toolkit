@@ -39,6 +39,24 @@ protected:
     Timer timer = Timer();
 
 public:
+    Learner< T > (){}
+
+    Learner< T > (const Learner< T > &learner){
+      this->samples = learner.samples;
+      this->EPS = learner.EPS;
+      this->rate = learner.rate;
+      this->start_time = learner.start_time;
+      this->max_time = learner.max_time;
+      this->steps = learner.steps;
+      this->ctot = learner.ctot;
+      this->MIN_INC = learner.MIN_INC;
+      this->MAX_IT = learner.MAX_IT;
+      this->MAX_UP = learner.MAX_UP;
+      this->MAX_EPOCH = learner.MAX_EPOCH;
+      this->verbose = learner.verbose;
+    }
+
+
     /**
      * \brief Function that execute the training phase of a Learner.
      * \return void
@@ -50,7 +68,7 @@ public:
      * \return int
      */
     virtual double evaluate (Point< T > p) = 0;
-
+    
     /*********************************************
      *               Getters                     *
      *********************************************/

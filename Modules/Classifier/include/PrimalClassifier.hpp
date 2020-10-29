@@ -24,6 +24,17 @@ protected:
     double alpha_aprox = 0.0;
 public:
 
+    PrimalClassifier< T > (){}
+
+    PrimalClassifier< T > (const PrimalClassifier< T >& primal_learner)
+    : Classifier< T >(primal_learner)
+    {
+        this->q = primal_learner.q;
+        this->p = primal_learner.p;
+        this->flexible = primal_learner.flexible;
+        this->alpha_aprox = primal_learner.alpha_aprox;
+    }
+
     double evaluate(Point< T > p) override {
         double func = 0.0;
         size_t i, dim = this->solution.w.size();

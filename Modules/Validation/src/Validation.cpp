@@ -35,7 +35,6 @@ void Validation< T > ::partTrainTest(int fold){
 
     for(auto it = sample->begin(); it != sample->end(); it++){
         auto point = (*it);
-
         if(classes.size() > 2){
             points_by_class[point->y-1]->insertPoint(point);
         }else{
@@ -126,39 +125,39 @@ double Validation< T > ::kFold (int fold, int seed){
 
     //Start cross-validation
     for(size_t fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){
-        auto test_sample = folds[j];
-        DataPointer< T > train_sample = std::make_shared<Data< T > >();
-        train_sample->setClasses(sample->getClasses());
+        auto _test_sample = folds[j];
+        auto _train_sample = std::make_shared<Data< T > >();
+        _train_sample->setClasses(sample->getClasses());
         for(size_t i = 0; i < fold; i++){
             if(i != j){
                 for(auto it = folds[i]->begin(); it != folds[i]->end(); it++){
                     auto point = (*it);
-                    train_sample->insertPoint(point);
+                    _train_sample->insertPoint(point);
                 }
             }
         }
         if(verbose){
             std::cout << "\nCross-Validation " << j + 1 << ": \n";
-            std::cout << "Train points: " << train_sample->getSize() << std::endl;
-            std::cout << "Test points: " << test_sample->getSize() << std::endl;
+            std::cout << "Train points: " << _train_sample->getSize() << std::endl;
+            std::cout << "Test points: " << _test_sample->getSize() << std::endl;
             std::cout << std::endl;
         }
 
         // Training phase
-        classifier->setSamples(train_sample);
+        classifier->setSamples(_train_sample);
        
         Solution s = classifier->getSolution();
         bool isPrimal = classifier->getFormulationString() == "Primal";
 
         if(isPrimal){
-             if(!classifier->train()){
+            if(!classifier->train()){
                 if(verbose){
                     std::cerr << "Error at " << fold << "-fold: The convergency wasn't reached at the set " << j+1 << "!\n";
                 }
             }
 
             size_t i = 0;
-            for(auto it = test_sample->begin(); it != test_sample->end(); it++, i++){
+            for(auto it = _test_sample->begin(); it != _test_sample->end(); it++, i++){
                 auto point = (*it);
                 double _y = classifier->evaluate(*point);
 
@@ -177,7 +176,7 @@ double Validation< T > ::kFold (int fold, int seed){
             DualClassifier< T > *dual = dynamic_cast<DualClassifier< T > *>(classifier);
             std::shared_ptr<Data< T > > traintest_sample(std::make_shared<Data< T > >());
             
-            *traintest_sample = *test_sample;
+            *traintest_sample = *_test_sample;
             traintest_sample->join(train_sample);
             traintest_sample->setClasses(classes);
             dual->setSamples(traintest_sample);
@@ -222,7 +221,7 @@ double Validation< T > ::kFold (int fold, int seed){
         test_sample = make_unique<Data< T > >();
     }
     if(classes.size() > 2){
-        this->solution.accuracy = 100.0 - (((double)error)/(double)fold); 
+        this->solution.accuracy += 100.0 - (((double)error)/(double)fold); 
     }
     return (((double)error)/(double)fold);
 }
@@ -247,7 +246,7 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
             errocross += kFold(fold, i);
         }
         cout << "\n\nErro " << fold << "-Fold Cross Validation: " << errocross/qtde << "%\n";
-        this->solution.accuracy /= qtde*fold;
+        this->solution.accuracy = 100.0 - errocross/qtde;
         this->solution.precision /= qtde*fold;
         this->solution.recall /= qtde*fold;
         this->solution.tnrate /= qtde*fold;
@@ -368,7 +367,7 @@ std::vector<std::vector<size_t> > Validation<T>::generateConfusionMatrix(Learner
     double acc = 0.0;
 
     for(i = 0; i < size; i++){
-        size_t pred = learner.evaluate(*(samples[i]));
+        int pred = learner.evaluate(*(samples[i]));
         for(j = 0, idp = 0, idy = 0; j < n_classes; j++){
             if(classes[j] == pred){
                 idp = j;
