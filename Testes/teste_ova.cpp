@@ -8,21 +8,28 @@
 int main(int argc, char *argv[]){
     DataPointer<double> data = std::make_shared<Data< double > >();
     Validation<double> validation;
+    
     data->load("iris_mult.csv");
     
     std::cout << *data << std::endl;
+    
     IMAp<double> imap;
+    
     imap.setAlphaAprox(1);
     imap.setVerbose(0);
     imap.setFlexible(0.001);
+    
     OneVsAll<double, IMAp> ova(data, std::make_shared<IMAp<double> >(imap));
     
     ova.train();
+    
     std::cout << "Original class: " << (*data)[0]->y << std::endl;
     std::cout << "Evaluated class: " << ova.evaluate(*(*data)[0]) << std::endl;
+    
     validation.setVerbose(2);
     validation.setSamples(data);
     validation.setClassifier(&ova);
+    
     auto conf_matrix = Validation<double>::generateConfusionMatrix(ova, *data);
     double errors = 0;
     for(size_t i = 0; i < conf_matrix.size(); i++){
@@ -32,16 +39,19 @@ int main(int argc, char *argv[]){
             }
         }
     }
+    
     for(auto& line: conf_matrix){
         for(size_t i = 0; i < line.size(); i++){
             std::cout << line[i] << " ";
         }
         std::cout << std::endl;
     }
+    
     validation.partTrainTest(10);
     ValidationSolution s = validation.validation(10, 10);
 
     std::cout << "Validation accuracy: " << s.accuracy << std::endl;
     std::cout << "Acurracy: " << 1 - errors/data->getSize() << std::endl;
+    
     return 0;
 }

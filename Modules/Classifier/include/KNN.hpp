@@ -33,7 +33,6 @@ public:
 
     double evaluate(Point<T> p, bool raw_value=false) override;
 };
-/*
 
-*/
+
 #endif //UFJF_MLTK_KNN_HPP

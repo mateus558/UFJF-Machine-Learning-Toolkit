@@ -61,6 +61,12 @@ public :
 
     bool operator!=(const Point< T > &rhs) const;
 
+    Point< T > operator+(const Point< T > &p) const;
+
+    Point< T > operator-(const Point< T > &p) const;
+    
+    Point< T > operator/(const Point< T > &p) const;
+
     ~Point();
 };
 
@@ -124,9 +130,37 @@ std::ostream &operator<<( std::ostream &output, const Point< T > &p ) {
     return output;
 }
 
-template< typename T >
-Point< T >::~Point(){
+template < typename T >
+Point< T > Point< T >::operator+(const Point<T> &p) const{
+    Point< T > result(p.x.size(), 0.0);
+    
+    for(size_t i = 0; i < result.x.size(); ++i){
+        result.x[i] = this->x[i] + p.x[i];
+    }
 
+    return result;
+}
+
+template < typename T >
+Point< T > Point< T >::operator-(const Point<T> &p) const{
+    Point< T > result(p.x.size(), 0.0);
+    
+    for(size_t i = 0; i < result.x.size(); ++i){
+        result.x[i] = this->x[i] - p.x[i];
+    }
+
+    return result;
+}
+
+template < typename T >
+Point< T > Point< T >::operator/(const Point<T> &p) const{
+    Point< T > result(p.x.size(), 0.0);
+    
+    for(size_t i = 0; i < result.x.size(); ++i){
+        result.x[i] = this->x[i] / p.x[i];
+    }
+
+    return result;
 }
 
 template< typename T >
@@ -142,5 +176,9 @@ bool Point< T >::operator!=(const Point< T > &rhs) const {
     return !(rhs == *this);
 }
 
+template< typename T >
+Point< T >::~Point(){
+
+}
 
 #endif

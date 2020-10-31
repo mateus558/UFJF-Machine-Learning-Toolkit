@@ -2,8 +2,8 @@
 // Created by mateus558 on 30/03/2020.
 //
 
-#ifndef UFJF_MLTK_ONEVSALL_HPP
-#define UFJF_MLTK_ONEVSALL_HPP
+#ifndef UFJF_MLTK_ONEVSONE_HPP
+#define UFJF_MLTK_ONEVSONE_HPP
 
 #include "PrimalClassifier.hpp"
 #include "DualClassifier.hpp"
@@ -18,26 +18,28 @@ private:
     ClassifierPointer classifier;
 
 public:
-    OneVsOne(std::shared_ptr<Data< T > > samples = nullptr, std::shared_ptr<ClassifierT< T > > classifier = nullptr, int _verbose = 0);
+    OneVsOne(std::shared_ptr<Data< T > > samples = nullptr, ClassifierPointer classifier = nullptr, int _verbose = 0);
 
     bool train() override;
 
     double evaluate(Point<T> p, bool raw_value=false) override;
 
     std::string getFormulationString() override;
-
 };
 
 template< typename T, template <typename > class ClassifierT>
-OneVsOne<T, ClassifierT>::OneVsOne(std::shared_ptr<Data< T > > _samples, std::shared_ptr<ClassifierT< T > > classifier, int _verbose) {
+OneVsOne<T, ClassifierT>::OneVsOne(std::shared_ptr<Data< T > > _samples, ClassifierPointer classifier, int _verbose) {
     this->samples = _samples;
     this->verbose = _verbose;
     this->classifier = classifier;
     auto classes = _samples->getClasses();
+    
     if(_samples && base_learners.size() == 0){
         base_learners.resize(_samples->getClasses().size());
+    
         for(size_t i = 0; i < _samples->getClasses().size(); ++i) {
             base_learners[i].resize(_samples->getClasses().size());
+    
             for(size_t j = 0; j < base_learners[i].size(); ++j) {
                 if(classes[i] != classes[j]){
                     base_learners[i][j] = std::make_shared<ClassifierT< T > >(*classifier);
@@ -51,6 +53,7 @@ template< typename T, template <typename > class ClassifierT>
 bool OneVsOne<T, ClassifierT>::train() {
     auto classes = this->samples->getClasses();
     size_t current_class = 0, j, n_classes = classes.size(), size = this->samples->getSize();
+    
     if(base_learners.size() == 0){
         base_learners.resize(n_classes);
         for(size_t i = 0; i < n_classes; ++i) {
@@ -72,9 +75,11 @@ bool OneVsOne<T, ClassifierT>::train() {
                 
                 temp_samples.classesCopy(*this->samples, current_classes);
                 temp_samples.setClasses({-1, 1});
+                
                 for(size_t k = 0; k < temp_samples.getSize(); k++) {
                     temp_samples[k]->y = (temp_samples[k]->y == classes[i]) ? 1 : -1;
                 }
+                
                 learner->setSamples(std::make_shared<Data< T > >(temp_samples));
                 learner->train();
             }
@@ -112,4 +117,4 @@ std::string OneVsOne<T, ClassifierT>::getFormulationString() {
 }
 
 
-#endif //UFJF_MLTK_ONEVSALL_HPP
+#endif //UFJF_MLTK_ONEVSONE_HPP
