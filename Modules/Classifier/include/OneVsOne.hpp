@@ -7,7 +7,7 @@
 
 #include "PrimalClassifier.hpp"
 #include "DualClassifier.hpp"
-
+#include "Sampling.hpp"
 
 template< typename T, template <typename > class ClassifierT>
 class OneVsOne: public PrimalClassifier< T >, public DualClassifier< T > {
@@ -16,9 +16,10 @@ private:
 
     std::vector<std::vector<ClassifierPointer> > base_learners;
     ClassifierPointer classifier;
+    std::shared_ptr<OverSampling< T > > samp_method;
 
 public:
-    OneVsOne(std::shared_ptr<Data< T > > samples = nullptr, ClassifierPointer classifier = nullptr, int _verbose = 0);
+    OneVsOne(std::shared_ptr<Data< T > > samples = nullptr, ClassifierPointer classifier = nullptr, std::shared_ptr<OverSampling< T > > samp_method= nullptr, int _verbose = 0);
 
     bool train() override;
 
@@ -28,12 +29,13 @@ public:
 };
 
 template< typename T, template <typename > class ClassifierT>
-OneVsOne<T, ClassifierT>::OneVsOne(std::shared_ptr<Data< T > > _samples, ClassifierPointer classifier, int _verbose) {
+OneVsOne<T, ClassifierT>::OneVsOne(std::shared_ptr<Data< T > > _samples, ClassifierPointer classifier, std::shared_ptr<OverSampling< T > > samp_method, int _verbose) {
     this->samples = _samples;
     this->verbose = _verbose;
     this->classifier = classifier;
-    auto classes = _samples->getClasses();
+    this->samp_method = samp_method;
     
+    auto classes = _samples->getClasses();
     if(_samples && base_learners.size() == 0){
         base_learners.resize(_samples->getClasses().size());
     
@@ -69,18 +71,20 @@ bool OneVsOne<T, ClassifierT>::train() {
     for(size_t i = 0; i < n_classes; ++i) {
         for(size_t j = 0; j < n_classes; ++j) {
             if(classes[i] != classes[j]){
-                Data<T> temp_samples;
+                DataPointer<T> temp_samples = std::make_shared<Data< T > >();
                 auto learner = base_learners[i][j];
                 std::vector<int> current_classes = {classes[i], classes[j]};
                 
-                temp_samples.classesCopy(*this->samples, current_classes);
-                temp_samples.setClasses({-1, 1});
+                temp_samples->classesCopy(*this->samples, current_classes);
+                temp_samples->setClasses({-1, 1});
                 
                 for(size_t k = 0; k < temp_samples.getSize(); k++) {
-                    temp_samples[k]->y = (temp_samples[k]->y == classes[i]) ? 1 : -1;
+                    (*temp_samples)[k]->y = ((*temp_samples)[k]->y == classes[i]) ? 1 : -1;
                 }
-                
-                learner->setSamples(std::make_shared<Data< T > >(temp_samples));
+                if(samp_method){
+                    (*samp_method)(*temp_samples);
+                }
+                learner->setSamples(temp_samples);
                 learner->train();
             }
         }
