@@ -105,7 +105,73 @@ public:
     BorderlineSMOTEOne(size_t k = 1, double r = 0.1, size_t m = 1, size_t seed = 0): k(k), r(r), m(m), seed(seed) {}
 
     DataPointer< T > operator()(DataPointer< T > data) override {
+        // Find the majority class
+        auto classes = data->getClasses();
+        auto class_distribution = data->getClassesDistribution();
+        int maj_class = classes[std::max_element(class_distribution.begin(), class_distribution.end()) - class_distribution.begin()];
+        // Initialize the danger subset
+        DataPointer< T > danger_subset = std::make_shared<Data< T > >();
+        std::set<size_t> danger_ids;
 
+        // iterate through all the elements from the Z set
+        for(auto z = data->begin(); z != data->end(); ++z){
+            std::vector<std::pair<size_t, double> > distance(data->getSize());
+            std::vector<SamplePointer< T > > M(m);
+            size_t id = 0;
+            auto _z = *z;
+
+            // compute the euclidean distance from a point to the rest 
+            std::transform(data->begin(), data->end(), distance.begin(), [&_z, &id](auto p){
+                const size_t _dimp = p->x.size();
+                size_t i;
+                double dist = 0;
+
+                for(i = 0; i < _dimp; i++){
+                    dist += ((*_z).x[i] - p->x[i]) * ((*_z).x[i] - p->x[i]);
+                }
+                id++;
+                return std::make_pair(id, sqrt(dist));
+            });
+
+            // sort the distances in decreasing order
+            std::sort(distance.begin(), distance.end(), [](auto &d1, auto &d2){
+                return d1.second > d2.second;
+            });
+
+            // get the m neighbors
+            for(size_t i = 0; i < m; i++){
+                M[i] = (*data)[distance[i].first];
+            }
+            
+            // set m' as the number of points on the majority class set on m neighbors
+            size_t m_ = std::count_if(M.begin(), M.end(), [&maj_class](auto &p){
+                std::cout << p->y << " " << maj_class << std::endl;
+                return p->y == maj_class;
+            });
+            
+            // insert the point to the danger subset if m/2 <= m' < m
+            //std::cout << m_ << " " << m/2 << " " << m << std::endl;
+            if(m_ >= (m/2) && m_ < m){
+                danger_ids.insert(_z->id);
+                danger_subset->insertPoint(_z);
+            }
+        }
+
+        // apply SMOTE algorithm to the danger subset
+        if(danger_subset->getSize() > 0){
+            std::shared_ptr<SMOTE< T > > smote = std::make_shared< SMOTE< T > >(k, r, seed);
+            (*smote)(danger_subset);
+        }
+
+        for(auto p = danger_subset->begin(); p != danger_subset->end(); p++){
+            auto _p = (*p);
+
+            if(danger_ids.find(_p->id) != danger_ids.end()){
+                data->insertPoint(_p);
+            }
+        }
+
+        return data;
     }
 };
 
