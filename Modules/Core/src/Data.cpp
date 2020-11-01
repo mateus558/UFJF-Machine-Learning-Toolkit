@@ -1212,6 +1212,19 @@ void Data<T>::setClasses(const std::vector<int> &_classes) {
     this->class_distribution.resize(_classes.size());
 }
 
+template <typename T>
+void Data< T >::computeClassesDistribution(){
+    this->class_distribution = std::vector<size_t>(this->classes.size(), 0);
+    for(auto p: points){
+        int c = p->y;
+        auto class_it = std::find_if(this->classes.begin(), this->classes.end(), [&c](int _c){
+            return c == _c;
+        });
+        size_t class_pos = class_it - this->classes.begin();
+        class_distribution[class_pos]++;
+    }
+}
+
 template class Data<int>;
 template class Data<double>;
 template class Data<float>;

@@ -27,7 +27,6 @@ public:
         seed = (seed > 0)?seed:rd();
 	    std::mt19937 generator(seed);
 	    std::uniform_real_distribution<double> distribution(0.0,1.0); 
-        double alpha = distribution(generator);
         // number of generated artificial points
         size_t n_apoints = r * data->getSize(); 
         // find the minority class
@@ -74,7 +73,8 @@ public:
             for(auto p = k_neighbors.begin(); p != k_neighbors.end(); p++){
                 auto _k = (*p);
                 Point< T > s(_z->x.size(), 0.0, 0);
-
+                double alpha = distribution(generator);
+                
                 for(size_t d = 0; d < _z->x.size(); d++){
                     s.x[d] = _z->x[d] + alpha * (_z->x[d] - _k->x[d]);
                 }
@@ -145,7 +145,6 @@ public:
             
             // set m' as the number of points on the majority class set on m neighbors
             size_t m_ = std::count_if(M.begin(), M.end(), [&maj_class](auto &p){
-                std::cout << p->y << " " << maj_class << std::endl;
                 return p->y == maj_class;
             });
             

@@ -23,3 +23,7 @@ target_link_libraries(teste_osampling ${LIBCORE} ${LIBCLASSIFIER} ${LIBVALIDATIO
 add_executable(teste_ova_samp teste_ova_oversamp.cpp)
 set_target_properties(teste_ova_samp PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 target_link_libraries(teste_ova_samp ${LIBCORE} ${LIBCLASSIFIER} ${LIBVALIDATION})
+
+add_executable(teste_ovo_samp teste_ovo_oversamp.cpp)
+set_target_properties(teste_ovo_samp PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+target_link_libraries(teste_ovo_samp ${LIBCORE} ${LIBCLASSIFIER} ${LIBVALIDATION})

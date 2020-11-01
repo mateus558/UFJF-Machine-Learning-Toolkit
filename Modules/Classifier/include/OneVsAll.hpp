@@ -60,13 +60,15 @@ bool OneVsAll<T, ClassifierT>::train() {
         
         temp_samples->copy(*this->samples);
         temp_samples->setClasses({-1, 1});
-        
         for(j = 0; j < size; j++) {
             (*temp_samples)[j]->y = ((*temp_samples)[j]->y == classes[current_class]) ? 1 : -1;
         }
+        
         if(samp_method){
+            temp_samples->computeClassesDistribution();
             (*samp_method)(temp_samples);
         }
+        
         learner->setSamples(temp_samples);
         learner->train();
         

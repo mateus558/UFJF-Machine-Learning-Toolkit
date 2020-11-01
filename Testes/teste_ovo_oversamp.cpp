@@ -2,7 +2,7 @@
 #include "Validation.hpp"
 #include "Perceptron.hpp"
 #include "SMO.hpp"
-#include "OneVsAll.hpp"
+#include "OneVsOne.hpp"
 #include "IMA.hpp"
 #include "Sampling.hpp"
 
@@ -20,18 +20,18 @@ int main(int argc, char *argv[]){
     imap.setVerbose(0);
     imap.setFlexible(0.001);
     
-    OneVsAll<double, IMAp> ova(data, std::make_shared<IMAp<double> >(imap), std::make_shared<SMOTE<double> >(3, 0.1));
+    OneVsOne<double, IMAp> ovo(data, std::make_shared<IMAp<double> >(imap), std::make_shared<SMOTE<double> >(3, 0.1));
     
-    ova.train();
+    ovo.train();
     
     std::cout << "Original class: " << (*data)[0]->y << std::endl;
-    std::cout << "Evaluated class: " << ova.evaluate(*(*data)[0]) << std::endl;
+    std::cout << "Evaluated class: " << ovo.evaluate(*(*data)[0]) << std::endl;
     
     validation.setVerbose(2);
     validation.setSamples(data);
-    validation.setClassifier(&ova);
+    validation.setClassifier(&ovo);
     
-    auto conf_matrix = Validation<double>::generateConfusionMatrix(ova, *data);
+    auto conf_matrix = Validation<double>::generateConfusionMatrix(ovo, *data);
     double errors = 0;
     for(size_t i = 0; i < conf_matrix.size(); i++){
         for(size_t j = 0; j < conf_matrix[i].size(); j++){

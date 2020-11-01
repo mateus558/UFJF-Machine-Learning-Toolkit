@@ -250,7 +250,8 @@ public :
     /*********************************************
      *              Other operations             *
      *********************************************/
-
+    
+    void computeClassesDistribution();
     void shuffle(const size_t& seed = 42);
     /**
      * \brief Load a dataset from a file.
