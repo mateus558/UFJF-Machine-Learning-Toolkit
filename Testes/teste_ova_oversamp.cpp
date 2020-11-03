@@ -22,7 +22,7 @@ int main(int argc, char *argv[]){
     imap.setFlexible(500);
     imap.setMaxTime(600);
     
-    OneVsAll<double, IMAp> ova(data, std::make_shared<IMAp<double> >(imap), std::make_shared<BorderlineSMOTEOne<double> >(5, 0.1, 5));
+    OneVsAll<double, IMAp> ova(data, std::make_shared<IMAp<double> >(imap), std::make_shared<SMOTE<double> >());
     
     ova.train();
     

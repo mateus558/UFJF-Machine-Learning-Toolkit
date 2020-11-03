@@ -10,8 +10,8 @@ int main(int argc, char *argv[]){
     DataPointer<double> data = std::make_shared<Data< double > >();
     Validation<double> validation;
     
-    data->setClassesAtEnd(true);
-    data->load("dataset_54_vehicle.csv");
+    //data->setClassesAtEnd(true);
+    data->load("iris_mult.csv");
     
     std::cout << *data << std::endl;
     
@@ -19,10 +19,10 @@ int main(int argc, char *argv[]){
     
     imap.setAlphaAprox(1);
     imap.setVerbose(0);
-    imap.setFlexible(500);
-    imap.setMaxTime(450);
+    imap.setFlexible(0.001);
+    imap.setMaxTime(110);
     
-    OneVsOne<double, IMAp> ovo(data, std::make_shared<IMAp<double> >(imap), std::make_shared<SMOTE<double> >(5, 0.1, 5));
+    OneVsOne<double, IMAp> ovo(data, std::make_shared<IMAp<double> >(imap), std::make_shared<SMOTE<double> >());
     
     ovo.train();
     

@@ -10,15 +10,15 @@ int main(int argc, char *argv[]){
     Validation<double> validation;
     IMAp<double> imap;
     
-    data->setClassesAtEnd(true);
-    data->load("dataset_54_vehicle.csv");
+    //data->setClassesAtEnd(true);
+    data->load("iris_mult.csv");
     
     std::cout << *data << std::endl;
     
     imap.setAlphaAprox(1);
     imap.setVerbose(0);
-    imap.setFlexible(500);
-    imap.setMaxTime(450);
+    imap.setFlexible(0.001);
+    imap.setMaxTime(110);
  
     OneVsOne<double, IMAp> ovo(data, std::make_shared<IMAp<double> >(imap));
     

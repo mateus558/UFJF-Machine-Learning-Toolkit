@@ -44,19 +44,12 @@ public:
             std::vector<std::pair<size_t, double> > distance(Z->getSize());
             std::vector<SamplePointer< T > > k_neighbors(k);
             size_t id = 0;
-            auto _z = *z;
+            auto _z = *(*z);
 
             // compute the euclidean distance from a point to the rest 
             std::transform(Z->begin(), Z->end(), distance.begin(), [&_z, &id](auto p){
-                const size_t _dimp = p->x.size();
-                size_t i;
-                double dist = 0;
-
-                for(i = 0; i < _dimp; i++){
-                    dist += ((*_z).x[i] - p->x[i]) * ((*_z).x[i] - p->x[i]);
-                }
                 id++;
-                return std::make_pair(id, sqrt(dist));
+                return std::make_pair(id, sqrt(((_z - *p) * (_z - *p)).sum()));
             });
 
             // sort the distances in increasing distance order
@@ -79,15 +72,13 @@ public:
 
             // create the artificial points and insert them to the dataset
             for(auto p = k_neighbors.begin(); p != k_neighbors.end(); p++){
-                auto _k = (*p);
-                Point< T > s(_z->x.size(), 0.0, 0);
+                auto _k = *(*p);
+                Point< T > s(_z.size(), 0.0, 0);
                 double alpha = distribution(generator);
                 
-                for(size_t d = 0; d < _z->x.size(); d++){
-                    s.x[d] = _z->x[d] + alpha * (_z->x[d] - _k->x[d]);
-                }
-
+                s = _z + alpha * (_z - _k);
                 s.y = min_class;
+
                 artificial_data.push_back(std::make_shared<Point< T > >(s));
             }
         }
@@ -126,19 +117,12 @@ public:
             std::vector<std::pair<size_t, double> > distance(data->getSize());
             std::vector<SamplePointer< T > > M(m);
             size_t id = 0;
-            auto _z = *z;
+            auto _z = (*z);
 
             // compute the euclidean distance from a point to the rest 
             std::transform(data->begin(), data->end(), distance.begin(), [&_z, &id](auto p){
-                const size_t _dimp = p->x.size();
-                size_t i;
-                double dist = 0;
-
-                for(i = 0; i < _dimp; i++){
-                    dist += ((*_z).x[i] - p->x[i]) * ((*_z).x[i] - p->x[i]);
-                }
                 id++;
-                return std::make_pair(id, sqrt(dist));
+                return std::make_pair(id, sqrt(((*_z - *p) * (*_z - *p)).sum()));
             });
 
             // sort the distances in increasing distance order
