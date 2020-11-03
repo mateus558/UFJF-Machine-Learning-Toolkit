@@ -89,6 +89,7 @@ private :
     std::string pos_class = std::string("1"), neg_class = std::string("-1");
     /// Verify if there's some data loaded.
     bool is_empty = true;
+    bool atEnd = false;
     /// Verify if the data is normalized.
     bool normalized = false;
     /// Values for statistical methods.
@@ -100,7 +101,6 @@ public:
 
 private:
     bool isClassification() const { return (type == "Classification" || type == "MultiClassification" || type == "BinClassification");}
-
     // Private Operations
     int process_class(std::string item);
     /**
@@ -162,7 +162,6 @@ public :
     /*********************************************
      *               Getters                     *
      *********************************************/
-    void setClasses(const std::vector<int> &classes);
 
     /**
      * \brief Returns the size of the dataset.
@@ -224,7 +223,8 @@ public :
     /*********************************************
      *               Setters                     *
      *********************************************/
-
+    void setClasses(const std::vector<int> &classes);
+    void setClassesAtEnd(bool atEnd){ this->atEnd = atEnd; }
     /**
      * \brief setPoint Set the point in a position of the data.
      * \param index (???) Index of the point that will be set.

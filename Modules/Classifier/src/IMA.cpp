@@ -113,7 +113,6 @@ bool IMAp< T >::train() {
 
     //Initializing alpha
     for(i = 0; i < size; ++i) { points[i]->alpha = 0.0; }
-
     if(this->verbose)
     {
         cout << "-----------------------------------------------------------------------------\n";
@@ -322,7 +321,6 @@ bool IMApFixedMargin< T >::train() {
             for(func[idx] = bias, j = 0; j < dim; ++j){
                 func[idx] += this->w[j] * x[j];
             }
-
             //cout << "funcidx: " << y*func[idx] << " marg: " << this->gamma*norm - points[idx]->alpha*this->flexible <<"\n ";
             //Checking if the point is a mistake
             if(y*func[idx] <= this->gamma*norm - (*this->samples)[idx]->alpha*this->flexible)

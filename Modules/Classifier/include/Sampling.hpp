@@ -16,7 +16,7 @@ template < typename T >
 class SMOTE: public OverSampling< T > {
 private:
     size_t seed = 0;
-    size_t k = 1;
+    size_t k = 5;
     double r = 0.1;
 
 public:
@@ -41,7 +41,7 @@ public:
         
         // iterate through all the elements from the Z set
         for(auto z = Z->begin(); z != Z->end(); ++z){
-            std::vector<std::pair<size_t, double> > distance(data->getSize());
+            std::vector<std::pair<size_t, double> > distance(Z->getSize());
             std::vector<SamplePointer< T > > k_neighbors(k);
             size_t id = 0;
             auto _z = *z;
@@ -59,14 +59,22 @@ public:
                 return std::make_pair(id, sqrt(dist));
             });
 
-            // sort the distances in decreasing order
+            // sort the distances in increasing distance order
             std::sort(distance.begin(), distance.end(), [](auto &d1, auto &d2){
-                return d1.second > d2.second;
+                return d1.second < d2.second;
             });
 
+            // remove points with equal distance or duplicate ids
+            distance.erase(std::unique(distance.begin(), distance.end(), [](auto &d1, auto &d2){
+                return (d1.second == d2.second) || ((d1.first == d2.first));
+            }), distance.end());
+
             // get the k neighbors
-            for(size_t i = 0; i < k; i++){
-                k_neighbors[i] = (*data)[distance[i].first];
+            size_t zero_dist = 0;
+            for(size_t i = 0; i < (k + zero_dist); i++){
+                if(distance[i].second > 0){
+                    k_neighbors[i-zero_dist] = (*data)[distance[i].first-1];
+                }else zero_dist++;
             }
 
             // create the artificial points and insert them to the dataset
@@ -97,8 +105,8 @@ template < typename T >
 class BorderlineSMOTEOne: public OverSampling< T > {
 private:
     size_t seed = 0;
-    size_t k = 1;
-    size_t m = 1;
+    size_t k = 5;
+    size_t m = 5;
     double r = 0.1;
     
 public:
@@ -133,14 +141,22 @@ public:
                 return std::make_pair(id, sqrt(dist));
             });
 
-            // sort the distances in decreasing order
+            // sort the distances in increasing distance order
             std::sort(distance.begin(), distance.end(), [](auto &d1, auto &d2){
-                return d1.second > d2.second;
+                return d1.second < d2.second;
             });
+            
+            // remove points with equal distance or duplicate ids
+            distance.erase(std::unique(distance.begin(), distance.end(), [](auto &d1, auto &d2){
+                return (d1.second == d2.second) || ((d1.first == d2.first));
+            }), distance.end());
 
             // get the m neighbors
-            for(size_t i = 0; i < m; i++){
-                M[i] = (*data)[distance[i].first];
+            size_t zero_dist = 0;
+            for(size_t i = 0; i < (m + zero_dist); i++){
+                if(distance[i].second > 0){
+                    M[i-zero_dist] = (*data)[distance[i].first-1];
+                }else zero_dist++;
             }
             
             // set m' as the number of points on the majority class set on m neighbors
@@ -149,7 +165,6 @@ public:
             });
             
             // insert the point to the danger subset if m/2 <= m' < m
-            //std::cout << m_ << " " << m/2 << " " << m << std::endl;
             if(m_ >= (m/2) && m_ < m){
                 danger_ids.insert(_z->id);
                 danger_subset->insertPoint(_z);

@@ -66,9 +66,14 @@ bool OneVsAll<T, ClassifierT>::train() {
         
         if(samp_method){
             temp_samples->computeClassesDistribution();
+            // auto class_distribution = temp_samples->getClassesDistribution();
+            // for(auto &dist: class_distribution){
+            //     std::cout << dist << " ";
+            // }
+            // std::cout << std::endl;
             (*samp_method)(temp_samples);
         }
-        
+
         learner->setSamples(temp_samples);
         learner->train();
         

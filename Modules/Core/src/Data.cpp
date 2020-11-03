@@ -99,9 +99,9 @@ bool Data< T >::load_csv(const string& path){
     string str, item;
     int _dim, ldim, _size, ssize;
     char deli = ',';
-    bool cond, flag, atEnd;
+    bool cond, flag;
 
-    atEnd = flag = false;
+    flag = false;
     _dim = ldim = _size = 0;
 
     if(!input){
@@ -133,7 +133,6 @@ bool Data< T >::load_csv(const string& path){
             if(this->isClassification()) {
                 if (_dim == -1 && !flag) {
                     if (!((item == pos_class) || (item == neg_class))) {
-                        atEnd = true;
                         flag = true;
                     }
                 } else if (ss.eof() && !flag) {
@@ -171,7 +170,6 @@ bool Data< T >::load_csv(const string& path){
     //reserve memory for points array
     points.resize(_size);
     _size = 0;
-    atEnd = false;
     //Read sample (line) from file
     while(getline(input, str)){
         auto new_point = make_shared<Point< T > >();
@@ -185,7 +183,7 @@ bool Data< T >::load_csv(const string& path){
         //Read features from line
         while(getline(ss, item, deli)){
             if(atEnd)
-                cond = (!ss.eof() && atEnd);
+                cond = !ss.eof();
             else
                 cond = _dim != -1;
 
@@ -359,7 +357,7 @@ bool Data< T >::load_arff(const string& path){
     istringstream ss;
     string str, item;
     int dim, ldim, _size, c;
-    bool atEnd, atBegin, flag, cond;
+    bool atBegin, flag, cond;
 
     if(!input){
         cout << "File could not be opened!" << endl;
@@ -448,7 +446,6 @@ bool Data< T >::load_arff(const string& path){
                 if(Utils::is_number(item)){
                     new_point->x[dim + 1] = Utils::atod(item.c_str());
                 }
-
             }else{
                 if(this->isClassification()){
                     c = process_class(item);
