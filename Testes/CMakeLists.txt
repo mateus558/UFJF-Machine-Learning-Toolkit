@@ -27,3 +27,7 @@ target_link_libraries(teste_ova_samp ${LIBCORE} ${LIBCLASSIFIER} ${LIBVALIDATION
 add_executable(teste_ovo_samp teste_ovo_oversamp.cpp)
 set_target_properties(teste_ovo_samp PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 target_link_libraries(teste_ovo_samp ${LIBCORE} ${LIBCLASSIFIER} ${LIBVALIDATION})
+
+add_executable(teste_exp teste_expression.cpp)
+set_target_properties(teste_exp PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+target_link_libraries(teste_exp ${LIBCORE} ${LIBCLASSIFIER} ${LIBVALIDATION})
