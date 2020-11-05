@@ -1538,7 +1538,7 @@ void clusterersOption(int option){
                 _data.copy(*samples);
                 for(size_t i = 0; i < _data.getSize(); i++){
                     auto point = _data[i];
-                    point->y = kmeans.evaluate(*point);
+                    point->Y() = kmeans.evaluate(*point);
                 }
                 Visualization<double> vis(_data);
                 vector<int> classes(_data.getClasses().size());

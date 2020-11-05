@@ -72,9 +72,9 @@ bool IMAp< T >::train() {
         int flag = 0;
 
         for (min = DBL_MAX, max = -DBL_MAX, i = 0; i < size; ++i) {
-            y = points[i]->y;
+            y = points[i]->Y();
             for (func[i] = 0, j = 0; j < dim; ++j)
-                func[i] += this->w[j] * points[i]->x[j];
+                func[i] += this->w[j] * points[i]->X()[j];
             if (y == 1 && func[i] < min) min = func[i];
             else if (y == -1 && func[i] > max) max = func[i];
         }
@@ -82,9 +82,9 @@ bool IMAp< T >::train() {
         this->solution.bias = -(min + max) / 2.0;
 
         for (min = DBL_MAX, max = -DBL_MAX, i = 0; i < size; ++i) {
-            y = points[i]->y;
+            y = points[i]->Y();
             for (func[i] = this->solution.bias, j = 0; j < dim; ++j)
-                func[i] += this->solution.w[j] * points[i]->x[j];
+                func[i] += this->solution.w[j] * points[i]->X()[j];
             if (func[i] * y < 0) flag++;
             if (y == 1 && func[i] < min) min = func[i];
             else if (y == -1 && func[i] > max) max = func[i];
@@ -112,7 +112,7 @@ bool IMAp< T >::train() {
     this->samples->setIndex(index);
 
     //Initializing alpha
-    for(i = 0; i < size; ++i) { points[i]->alpha = 0.0; }
+    for(i = 0; i < size; ++i) { points[i]->Alpha() = 0.0; }
     if(this->verbose)
     {
         cout << "-----------------------------------------------------------------------------\n";
@@ -153,8 +153,8 @@ bool IMAp< T >::train() {
 
         for(min = DBL_MAX, max = -DBL_MAX, i = 0; i < size; ++i)
         {
-            y = points[i]->y;
-            alpha = points[i]->alpha;
+            y = points[i]->Y();
+            alpha = points[i]->Alpha();
             if((func[i] + y*alpha*this->flexible) >= 0 && min > (func[i] + y*alpha*this->flexible)/norm){ min = (func[i] + y*alpha*this->flexible)/norm; }
             else if((func[i] + y*alpha*this->flexible) <  0 && max < (func[i] + y*alpha*this->flexible)/norm) max = (func[i] + y*alpha*this->flexible)/norm;
         }
@@ -200,8 +200,8 @@ bool IMAp< T >::train() {
         this->svs.erase(this->svs.begin(), this->svs.end());
         for(i = 0; i < size; ++i)
         {
-            y = points[i]->y;
-            alpha = points[i]->alpha;
+            y = points[i]->Y();
+            alpha = points[i]->Alpha();
             if(alpha > this->EPS * this->rate) { this->svs.push_back(i); }
         }
         this->steps = imapFixMargin.getSteps();
@@ -217,8 +217,8 @@ bool IMAp< T >::train() {
     // this->svs.erase(this->svs.begin(), this->svs.end());
     // for(i = 0; i < size; ++i)
     // {
-    //     y = points[i]->y;
-    //     alpha = points[i]->alpha;
+    //     y = points[i]->Y();
+    //     alpha = points[i]->Alpha();
     //     if(alpha > this->EPS * this->rate) { this->svs.push_back(i); }
     // }
     
@@ -262,15 +262,14 @@ double IMAp< T >::evaluate(Point< T > p, bool raw_value) {
     int i;
     size_t dim = this->solution.w.size();
 
-    // if(p.x.size() != dim){
-    //     cerr << "The point must have the same dimension of the feature set! (" << p.x.size() << "," << dim << ")" << endl;
+    // if(p.X().size() != dim){
+    //     cerr << "The point must have the same dimension of the feature set! (" << p.X().size() << "," << dim << ")" << endl;
     //     return 0;
     // }
 
     for(func = this->solution.bias, i = 0; i < dim; i++){
         func += this->solution.w[i] * p[i];
     }
-
     if(!raw_value) return (func >= this->solution.margin * this->solution.norm)?1:-1;
     else return func;
 }
@@ -314,20 +313,20 @@ bool IMApFixedMargin< T >::train() {
             //shuffling data r = i + rand()%(size-i); j = index[i]; idx = index[i] = index[r]; index[r] = j;
             idx = index[i];
             //cout << idx << endl;
-            x = (*this->samples)[idx]->x;
-            y = (*this->samples)[idx]->y;
+            x = (*this->samples)[idx]->X();
+            y = (*this->samples)[idx]->Y();
             //if(i == 100) return 1;
             //calculating function
             for(func[idx] = bias, j = 0; j < dim; ++j){
                 func[idx] += this->w[j] * x[j];
             }
-            //cout << "funcidx: " << y*func[idx] << " marg: " << this->gamma*norm - points[idx]->alpha*this->flexible <<"\n ";
+            //cout << "funcidx: " << y*func[idx] << " marg: " << this->gamma*norm - points[idx]->Alpha()*this->flexible <<"\n ";
             //Checking if the point is a mistake
-            if(y*func[idx] <= this->gamma*norm - (*this->samples)[idx]->alpha*this->flexible)
+            if(y*func[idx] <= this->gamma*norm - (*this->samples)[idx]->Alpha()*this->flexible)
             {
                 lambda = (norm) ? (1-this->rate*this->gamma/norm) : 1;
                 for(r = 0; r < size; ++r)
-                    (*this->samples)[r]->alpha *= lambda;
+                    (*this->samples)[r]->Alpha() *= lambda;
 
                 if(this->q == 1.0) //Linf
                 {
@@ -392,7 +391,7 @@ bool IMApFixedMargin< T >::train() {
                     norm = pow(sumnorm, 1.0/this->q);
                 }
                 bias += this->rate * y;
-                (*this->samples)[idx]->alpha += this->rate;
+                (*this->samples)[idx]->Alpha() += this->rate;
 
                 k = (i > s) ? s++ : e;
                 j = index[k];
@@ -427,7 +426,7 @@ double IMApFixedMargin< T >::evaluate(Point< T > p, bool raw_value) {
     int i;
     size_t dim = this->solution.w.size();
 
-    if(p.x.size() != dim){
+    if(p.X().size() != dim){
         cerr << "The point must have the same dimension of the feature set!" << endl;
         return 0;
     }
@@ -517,7 +516,7 @@ bool IMADual< T >::train() {
 
         for(sv = 0, min = DBL_MAX, max = -DBL_MAX, i = 0; i < size; ++i)
         {
-            if(points[i]->alpha > this->EPS*this->rate) { sv++; saved_alphas[i] = points[i]->alpha; }
+            if(points[i]->Alpha() > this->EPS*this->rate) { sv++; saved_alphas[i] = points[i]->Alpha(); }
             else                           { saved_alphas[i] = 0.0; }
             if(solr->func[i] >= 0 && min > solr->func[i]/norm) min = solr->func[i]/norm;
             else if(solr->func[i] <  0 && max < solr->func[i]/norm) max = solr->func[i]/norm;
@@ -547,10 +546,10 @@ bool IMADual< T >::train() {
 
     for(i = 0; i < size; ++i)
     {
-        if(points[i]->alpha > this->EPS*this->rate) { this->svs.push_back(i);}
+        if(points[i]->Alpha() > this->EPS*this->rate) { this->svs.push_back(i);}
     }
 
-    for(i = 0; i < size; ++i) points[i]->alpha = saved_alphas[i];
+    for(i = 0; i < size; ++i) points[i]->Alpha() = saved_alphas[i];
 
     this->solution.norm = this->kernel->norm(*this->samples);
 
@@ -561,7 +560,7 @@ bool IMADual< T >::train() {
     if(kernel_type == 0)
         for(i = 0; i < dim; i++){
             for(j = 0; j < size; j++){
-                w_saved[i] += points[j]->alpha*points[j]->y*points[j]->x[i];
+                w_saved[i] += points[j]->Alpha()*points[j]->Y()*points[j]->X()[i];
             }
         }
     else

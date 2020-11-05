@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
     
     ovo.train();
  
-    std::cout << "Original class: " << (*data)[0]->y << std::endl;
+    std::cout << "Original class: " << (*data)[0]->Y() << std::endl;
     std::cout << "Evaluated class: " << ovo.evaluate(*(*data)[0]) << std::endl;
     
     validation.setVerbose(2);

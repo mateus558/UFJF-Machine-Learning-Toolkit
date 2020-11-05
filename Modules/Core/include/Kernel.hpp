@@ -162,8 +162,8 @@ dMatrix* Kernel::generateMatrixH(const std::shared_ptr<Data< T > > samples) {
     /* Calculating Matrix */
     for(i = 0; i < size; ++i) {
         for (j = i; j < size; ++j) {
-            H[i][j] = function(samples->getPoint(i), samples->getPoint(j), dim) * samples->getPoint(i)->y *
-                      samples->getPoint(j)->y;
+            H[i][j] = function(samples->getPoint(i), samples->getPoint(j), dim) * samples->getPoint(i)->Y() *
+                      samples->getPoint(j)->Y();
             H[j][i] = H[i][j];
         }
     }
@@ -182,7 +182,7 @@ dMatrix* Kernel::generateMatrixHwithoutDim(const std::shared_ptr<Data< T > > sam
     for(i = 0; i < size; ++i) {
         for (j = i; j < size; ++j) {
             HwithoutDim[i][j] = functionWithoutDim((*samples)[i], (*samples)[j], dim, samples->getDim()) *
-                                samples->getPoint(i)->y * samples->getPoint(j)->y;
+                                samples->getPoint(i)->Y() * samples->getPoint(j)->Y();
             HwithoutDim[j][i] = HwithoutDim[i][j];
         }
     }
@@ -194,7 +194,7 @@ template < typename T >
 double Kernel::function(std::shared_ptr<Point< T > > one, std::shared_ptr<Point< T > > two, int dim){
     int i = 0;
     double t, sum = 0.0;
-    std::vector< T > a = one->x, b = two->x;
+    std::vector< T > a = one->X(), b = two->X();
 
     // a.erase(a.end());
     //b.erase(b.end());
@@ -235,20 +235,20 @@ double Kernel::functionWithoutDim(std::shared_ptr<Point< T > > one, std::shared_
         case 0: //Produto Interno
             for(i = 0; i < dim; ++i)
                 if(i != j)
-                    sum += one->x[i] * two->x[i];
+                    sum += one->X()[i] * two->X()[i];
             break;
 
         case 1: //Polinomial
             for(i = 0; i < dim; ++i)
                 if(i != j)
-                    sum += one->x[i] * two->x[i];
+                    sum += one->X()[i] * two->X()[i];
             sum = (param > 1) ? pow(sum+1, param) : sum;
             break;
 
         case 2: //Gaussiano
             for(i = 0; i < dim; ++i)
                 if(i != j)
-                { t = one->x[i] - two->x[i]; sum += t * t; }
+                { t = one->X()[i] - two->X()[i]; sum += t * t; }
             sum = exp(-1 * sum * param);
             break;
     }
@@ -267,8 +267,8 @@ double Kernel::norm(Data< T > data){
 
     for(i = 0; i < size; ++i){
         for(j = 0; j < size; j++){
-            sum1 += points[j]->alpha * points[j]->y * K[i][j];
-            sum += points[i]->y * points[i]->alpha * sum1;
+            sum1 += points[j]->Alpha() * points[j]->Y() * K[i][j];
+            sum += points[i]->Y() * points[i]->Alpha() * sum1;
         }
     }
 
@@ -283,15 +283,15 @@ double Kernel::featureSpaceNorm(std::shared_ptr<Data< T > > data) {
 
     for(i = 0; i < size; ++i)
     {
-        if((*data)[i]->alpha > 0)
+        if((*data)[i]->Alpha() > 0)
         {
             sum1 = 0.0;
             for(j = 0; j < size; ++j)
             {
-                if((*data)[j]->alpha > 0)
-                    sum1 += (*data)[j]->y * (*data)[j]->alpha * K[j][i];
+                if((*data)[j]->Alpha() > 0)
+                    sum1 += (*data)[j]->Y() * (*data)[j]->Alpha() * K[j][i];
             }
-            sum += (*data)[i]->alpha * (*data)[i]->y * sum1;
+            sum += (*data)[i]->Alpha() * (*data)[i]->Y() * sum1;
         }
     }
     sum = sqrt(sum);

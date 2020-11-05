@@ -77,7 +77,7 @@ public:
                 double alpha = distribution(generator);
                 
                 s = _z + alpha * (_z - _k);
-                s.y = min_class;
+                s.Y() = min_class;
 
                 artificial_data.push_back(std::make_shared<Point< T > >(s));
             }
@@ -145,12 +145,12 @@ public:
             
             // set m' as the number of points on the majority class set on m neighbors
             size_t m_ = std::count_if(M.begin(), M.end(), [&maj_class](auto &p){
-                return p->y == maj_class;
+                return p->Y() == maj_class;
             });
             
             // insert the point to the danger subset if m/2 <= m' < m
             if(m_ >= (m/2) && m_ < m){
-                danger_ids.insert(_z->id);
+                danger_ids.insert(_z->Id());
                 danger_subset->insertPoint(_z);
             }
         }
@@ -164,7 +164,7 @@ public:
         for(auto p = danger_subset->begin(); p != danger_subset->end(); p++){
             auto _p = (*p);
 
-            if(danger_ids.find(_p->id) != danger_ids.end()){
+            if(danger_ids.find(_p->Id()) != danger_ids.end()){
                 data->insertPoint(_p);
             }
         }

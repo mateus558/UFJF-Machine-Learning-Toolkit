@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
     
     ova.train();
     
-    std::cout << "Original class: " << (*data)[0]->y << std::endl;
+    std::cout << "Original class: " << (*data)[0]->Y() << std::endl;
     std::cout << "Evaluated class: " << ova.evaluate(*(*data)[0]) << std::endl;
     
 

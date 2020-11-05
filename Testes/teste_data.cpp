@@ -4,7 +4,7 @@
 int main(int argc, char *argv[]){
     Data<double> data;
 
-    data.setClassesAtEnd(false);
+    data.setClassesAtEnd(true);
     data.load("dataset_54_vehicle.csv");
 
     std::cout << "Dataset size: " << data.getSize() << std::endl;
@@ -16,7 +16,7 @@ int main(int argc, char *argv[]){
     }
     std::cout << std::endl;
     for(auto it = data.begin(); it != data.begin()+5; it++){
-        std::cout << (*it)->y << std::endl;
+        std::cout << (*it)->Y() << std::endl;
     }
     std::cout << std::endl;
     auto distribution = data.getClassesDistribution();

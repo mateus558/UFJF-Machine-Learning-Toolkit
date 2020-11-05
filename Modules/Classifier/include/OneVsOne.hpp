@@ -78,7 +78,7 @@ bool OneVsOne<T, ClassifierT>::train() {
                 temp_samples->classesCopy(*this->samples, current_classes);
                 temp_samples->setClasses({-1, 1});
                 for(size_t k = 0; k < temp_samples->getSize(); k++) {
-                    (*temp_samples)[k]->y = ((*temp_samples)[k]->y == classes[i]) ? 1 : -1;
+                    (*temp_samples)[k]->Y() = ((*temp_samples)[k]->Y() == classes[i]) ? 1 : -1;
                 }
                 
                 if(samp_method){

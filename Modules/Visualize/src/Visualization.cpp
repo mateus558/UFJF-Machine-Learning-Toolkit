@@ -49,11 +49,11 @@ vector<string> Visualization< T >::createTempFiles(){
         }
         for (i = 0; i < size; i++) {
             for(j = 0; j < classes.size(); j++){
-                if (samples->getPoint(i)->y == classes[j]) {
+                if (samples->getPoint(i)->Y() == classes[j]) {
                     for (k = 0; k < dim - 1; k++) {
-                        temp_files[j] << (double) (samples->getPoint(i)->x[k]) << " ";
+                        temp_files[j] << (double) (samples->getPoint(i)->X()[k]) << " ";
                     }
-                    temp_files[j] << (double) (samples->getPoint(i)->x[k]) << endl;
+                    temp_files[j] << (double) (samples->getPoint(i)->X()[k]) << endl;
                 }
             }
         }
@@ -65,9 +65,9 @@ vector<string> Visualization< T >::createTempFiles(){
 
         for (i = 0; i < size; i++) {
             for (j = 0; j < dim - 1; j++) {
-                samples_file << (double) (samples->getPoint(i)->x[j]) << " ";
+                samples_file << (double) (samples->getPoint(i)->X()[j]) << " ";
             }
-            samples_file << (double) (samples->getPoint(i)->x[j]) << endl;
+            samples_file << (double) (samples->getPoint(i)->X()[j]) << endl;
         }
 
         samples_file.close();

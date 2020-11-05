@@ -36,7 +36,7 @@ double KNNRegressor<T>::evaluate(Point<T> p, bool raw_value) {
 
     // sum the values in the k nearest neighbors and return the average
     for(size_t j = 0; j < this->k; j++){
-        sum += points[idx[j]]->y;
+        sum += points[idx[j]]->Y();
     }
     return sum/this->k;
 }

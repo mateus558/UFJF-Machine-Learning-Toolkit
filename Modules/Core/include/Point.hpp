@@ -19,7 +19,7 @@
 template <typename T, typename Rep> class Point;
 template< typename T, typename Rep> std::ostream &operator<<( std::ostream &output, const Point<T, Rep> &p );
 
-template <typename T, typename Rep = std::vector<T>>
+template <typename T, typename Rep = std::vector<T> >
 class Point {
     private:
         /// Features values.
@@ -121,48 +121,48 @@ class Point {
         }
 
         // return what the array currently represents
-        Rep const& rep() const{
+        Rep const& X() const{
             return x;
         }
 
-        Rep& rep(){
+        Rep& X(){
             return x;
         }
 
-        double const& y() const{
+        double const& Y() const{
             return y;
         }
 
-        double& y(){
+        double& Y(){
             return y;
         }
 
-        void setY(double const& y){
-            this->y = y;
+        void setY(double const& _y){
+            this->y = _y;
         }
 
-        double const& alpha() const{
-            return y;
+        double const& Alpha() const{
+            return alpha;
         }
 
-        double& alpha(){
-            return y;
+        double& Alpha(){
+            return alpha;
         }
 
-        void setAlpha(double const& alpha){
-            this->alpha = alpha;
+        void setAlpha(double const& _alpha){
+            this->alpha = _alpha;
         }
 
-        double const& id() const{
+        size_t const& Id() const{
             return id;
         }
 
-        double& id(){
+        size_t& Id(){
             return id;
         }
 
-        void setID(double const& id){
-            this->id = id;
+        void setID(size_t const& _id){
+            this->id = _id;
         }
 
         friend std::ostream &operator<< <T, Rep>( std::ostream &output, const Point< T, Rep> &p );
@@ -204,86 +204,86 @@ bool Point< T, R >::operator!=(const Point<T, R> &rhs) const {
 
 // adition of two points
 template <typename T, typename R1, typename R2>
-Point<T, A_Add<T, R1, R2>>
+Point<T, A_Add<T, R1, R2> >
 operator+ (Point<T, R1> const& a, Point<T, R2> const& b){
-    return Point<T, A_Add<T, R1, R2>>(A_Add<T, R1, R2>(a.rep(), b.rep()));
+    return Point<T, A_Add<T, R1, R2>>(A_Add<T, R1, R2>(a.X(), b.X()));
 }
 
 // adition of scalar and point
 template <typename T, typename R1, typename R2>
-Point<T, A_Add<T, A_Scalar<T>, R2>>
+Point<T, A_Add<T, A_Scalar<T>, R2> >
 operator+ (T const& s, Point<T, R2> const& b){
-    return Point<T, A_Add<T, A_Scalar<T>, R2>>(A_Add<T, A_Scalar<T>, R2>(A_Scalar<T>(s), b.rep()));
+    return Point<T, A_Add<T, A_Scalar<T>, R2>>(A_Add<T, A_Scalar<T>, R2>(A_Scalar<T>(s), b.X()));
 }
 
 // adition of point and scalar
 template <typename T, typename R1, typename R2>
-Point<T, A_Add<T, R1, A_Scalar<T>>>
+Point<T, A_Add<T, R1, A_Scalar<T> > >
 operator+ (Point<T, R1> const& a, T const& s){
-    return Point<T, A_Add<T, R1, A_Scalar<T>>>(A_Add<T, R1, A_Scalar<T>>(a.rep(), A_Scalar<T>(s)));
+    return Point<T, A_Add<T, R1, A_Scalar<T>>>(A_Add<T, R1, A_Scalar<T>>(a.X(), A_Scalar<T>(s)));
 }
 
 // subtraction of two points
 template <typename T, typename R1, typename R2>
-Point<T, A_Sub<T, R1, R2>>
+Point<T, A_Sub<T, R1, R2> >
 operator- (Point<T, R1> const& a, Point<T, R2> const& b){
-    return Point<T, A_Sub<T, R1, R2>>(A_Sub<T, R1, R2>(a.rep(), b.rep()));
+    return Point<T, A_Sub<T, R1, R2>>(A_Sub<T, R1, R2>(a.X(), b.X()));
 }
 
 // subtraction of scalar and array
 template <typename T, typename R1, typename R2>
-Point<T, A_Sub<T, A_Scalar<T>, R2>>
+Point<T, A_Sub<T, A_Scalar<T>, R2> >
 operator- (T const& s, Point<T, R2> const& b){
-    return Point<T, A_Sub<T, A_Scalar<T>, R2>>(A_Sub<T, A_Scalar<T>, R2>(A_Scalar<T>(s), b.rep()));
+    return Point<T, A_Sub<T, A_Scalar<T>, R2>>(A_Sub<T, A_Scalar<T>, R2>(A_Scalar<T>(s), b.X()));
 }
 
 // subtraction of point and scalar
 template <typename T, typename R1, typename R2>
-Point<T, A_Sub<T, R1, A_Scalar<T>>>
+Point<T, A_Sub<T, R1, A_Scalar<T> > >
 operator- (Point<T, R1> const& a, T const& s){
-    return Point<T, A_Sub<T, R1, A_Scalar<T>>>(A_Sub<T, R1, A_Scalar<T>>(a.rep(), A_Scalar<T>(s)));
+    return Point<T, A_Sub<T, R1, A_Scalar<T>>>(A_Sub<T, R1, A_Scalar<T>>(a.X(), A_Scalar<T>(s)));
 }
 
 // multiplication of two points
 template <typename T, typename R1, typename R2>
-Point<T, A_Mult<T, R1, R2>>
+Point<T, A_Mult<T, R1, R2> >
 operator* (Point<T, R1> const& a, Point<T, R2> const& b){
-    return Point<T, A_Mult<T, R1, R2>>(A_Mult<T, R1, R2>(a.rep(), b.rep()));
+    return Point<T, A_Mult<T, R1, R2>>(A_Mult<T, R1, R2>(a.X(), b.X()));
 }
 
 // multiplication of scalar and point
 template<typename T, typename R2>
-Point<T, A_Mult<T,A_Scalar<T>,R2>>
+Point<T, A_Mult<T,A_Scalar<T>,R2> >
 operator* (T const& s, Point<T,R2> const& b) {
-    return Point<T,A_Mult<T,A_Scalar<T>,R2>>(A_Mult<T,A_Scalar<T>,R2>(A_Scalar<T>(s), b.rep()));
+    return Point<T,A_Mult<T,A_Scalar<T>,R2>>(A_Mult<T,A_Scalar<T>,R2>(A_Scalar<T>(s), b.X()));
 }
 
 // multiplication of array and scalar
 template <typename T, typename R1>
-Point<T, A_Mult<T, R1, A_Scalar<T>>>
+Point<T, A_Mult<T, R1, A_Scalar<T> > >
 operator* (Point<T, R1> const& a, T const& s){
-    return Point<T, A_Mult<T, R1, A_Scalar<T>>>(A_Mult<T, R1, A_Scalar<T>>(a.rep(), A_Scalar<T>(s)));
+    return Point<T, A_Mult<T, R1, A_Scalar<T>>>(A_Mult<T, R1, A_Scalar<T>>(a.X(), A_Scalar<T>(s)));
 }
 
 // division of two points
 template <typename T, typename R1, typename R2>
-Point<T, A_Div<T, R1, R2>>
+Point<T, A_Div<T, R1, R2> >
 operator/ (Point<T, R1> const & a, Point<T, R2> const& b){
-    return Point<T, A_Div<T, R1, R2>>(A_Div<T, R1, R2>(a.rep(), b.rep()));
+    return Point<T, A_Div<T, R1, R2>>(A_Div<T, R1, R2>(a.X(), b.X()));
 }
 
 // division of point and scalar
 template <typename T, typename R1>
-Point<T, A_Div<T, R1, A_Scalar<T>>>
+Point<T, A_Div<T, R1, A_Scalar<T> > >
 operator/ (Point<T, R1> const& a, T const& s){
-    return Point<T, A_Div<T, R1, A_Scalar<T>>>(A_Div<T, R1, A_Scalar<T>>(a.rep(), A_Scalar<T>(s)));
+    return Point<T, A_Div<T, R1, A_Scalar<T>>>(A_Div<T, R1, A_Scalar<T>>(a.X(), A_Scalar<T>(s)));
 }
 
 // division of scalar and point
 template<typename T, typename R2>
-Point<T, A_Div<T,A_Scalar<T>,R2>>
+Point<T, A_Div<T,A_Scalar<T>,R2> >
 operator/ (T const& s, Point<T,R2> const& b) {
-    return Point<T,A_Div<T,A_Scalar<T>,R2>>(A_Div<T,A_Scalar<T>,R2>(A_Scalar<T>(s), b.rep()));
+    return Point<T,A_Div<T,A_Scalar<T>,R2>>(A_Div<T,A_Scalar<T>,R2>(A_Scalar<T>(s), b.X()));
 }
 
 #endif

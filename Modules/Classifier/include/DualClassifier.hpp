@@ -28,14 +28,14 @@ public:
         size_t size = this->samples->getSize(), dim = this->samples->getDim(), r;
         auto po = std::make_shared<Point< T > >(p);
 
-        if(p.x.size() != dim){
+        if(p.X().size() != dim){
             std::cerr << "The point must have the same dimension of the feature set!" << std::endl;
             return 0;
         }
 
         for(func = bias, r = 0; r < size; ++r){
             fk = this->kernel->function(po, (*this->samples)[r], dim);
-            func  += (*this->samples)[r]->alpha * (*this->samples)[r]->y * fk;
+            func  += (*this->samples)[r]->Alpha() * (*this->samples)[r]->Y() * fk;
         }
 
         return (func >= 0)?1:-1;
@@ -92,7 +92,7 @@ public:
 
         for(i = 0; i < dim; i++){
             for(j = 0; j < size; j++){
-                w[i] += (*this->samples)[j]->alpha*(*this->samples)[j]->y*(*this->samples)[j]->x[i];
+                w[i] += (*this->samples)[j]->Alpha()*(*this->samples)[j]->Y()*(*this->samples)[j]->X()[i];
             }
         }
 
@@ -122,10 +122,10 @@ public:
 
             for(i = 0; i < size; ++i)
                 for(alphaaux[i] = 0, j = 0; j < size; ++j)
-                    alphaaux[i] += this->samples->getPoint(j)->alpha * matrixdif[i][j];
+                    alphaaux[i] += this->samples->getPoint(j)->Alpha() * matrixdif[i][j];
 
             for(this->solution.w[k] = 0, i = 0; i < size; ++i)
-                this->solution.w[k] += alphaaux[i] * this->samples->getPoint(i)->alpha;
+                this->solution.w[k] += alphaaux[i] * this->samples->getPoint(i)->Alpha();
         }
 
         return this->solution.w;
@@ -146,15 +146,15 @@ public:
         {
             for(i = 0; i < size; ++i)
                 for(j = 0; j < size; ++j)
-                    H[i][j] = (*this->samples)[i]->x[k] * (*this->samples)[j]->x[k]
-                              * (*this->samples)[i]->y * (*this->samples)[j]->y;
+                    H[i][j] = (*this->samples)[i]->X()[k] * (*this->samples)[j]->X()[k]
+                              * (*this->samples)[i]->Y() * (*this->samples)[j]->Y();
             if(this->verbose >= 3) std::clog << "\n H matrix without dim generated.\n";
             for(i = 0; i < size; ++i)
                 for(alphaaux[i] = 0, j = 0; j < size; ++j)
-                    alphaaux[i] += this->samples->getPoint(j)->alpha * H[i][j];
+                    alphaaux[i] += this->samples->getPoint(j)->Alpha() * H[i][j];
 
             for(this->solution.w[k] = 0, i = 0; i < size; ++i)
-                this->solution.w[k] += alphaaux[i] * this->samples->getPoint(i)->alpha;
+                this->solution.w[k] += alphaaux[i] * this->samples->getPoint(i)->Alpha();
         }
 
         return this->solution.w;

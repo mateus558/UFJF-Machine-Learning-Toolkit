@@ -36,9 +36,9 @@ void Validation< T > ::partTrainTest(int fold){
     for(auto it = sample->begin(); it != sample->end(); it++){
         auto point = (*it);
         if(classes.size() > 2){
-            points_by_class[point->y-1]->insertPoint(point);
+            points_by_class[point->Y()-1]->insertPoint(point);
         }else{
-            if(point->y == -1){
+            if(point->Y() == -1){
                 points_by_class[1]->insertPoint(point);
             }else{ 
                 points_by_class[0]->insertPoint(point);
@@ -96,9 +96,9 @@ double Validation< T > ::kFold (int fold, int seed){
     for(auto it = sample->begin(); it != sample->end(); it++){
         auto point = (*it);
         if(classes.size() > 2){
-            points_by_class[point->y-1]->insertPoint(point);
+            points_by_class[point->Y()-1]->insertPoint(point);
         }else{
-            if(point->y == -1){
+            if(point->Y() == -1){
                 points_by_class[1]->insertPoint(point);
             }else{ 
                 points_by_class[0]->insertPoint(point);
@@ -161,15 +161,15 @@ double Validation< T > ::kFold (int fold, int seed){
                 auto point = (*it);
                 double _y = classifier->evaluate(*point);
 
-                if(point->y != _y){
+                if(point->Y() != _y){
                     if(verbose > 1)
-                        std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->y << std::endl;
+                        std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->Y() << std::endl;
                     error_arr[j]++;
-                    if(classes.size() == 2 && point->y == -1) fp++; else fn++;
+                    if(classes.size() == 2 && point->Y() == -1) fp++; else fn++;
                 }else{
                     if(verbose > 1)
-                        std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->y << std::endl;
-                    if(classes.size() == 2 && point->y == -1) tn++; else tp++;
+                        std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->Y() << std::endl;
+                    if(classes.size() == 2 && point->Y() == -1) tn++; else tp++;
                 }
             }
         }else{
@@ -190,15 +190,15 @@ double Validation< T > ::kFold (int fold, int seed){
                 auto point = (*it);
                 double _y = classifier->evaluate(*point);
 
-                if(point->y != _y){
+                if(point->Y() != _y){
                     if(verbose > 1)
-                        std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->y << std::endl;
+                        std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->Y() << std::endl;
                     error_arr[j]++;
-                    if(point->y == -1 && classes.size() == 2) fp++; else fn++;
+                    if(point->Y() == -1 && classes.size() == 2) fp++; else fn++;
                 }else{
                     if(verbose > 1)
-                        std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->y << std::endl;
-                    if(point->y == -1 && classes.size() == 2) tn++; else tp++;
+                        std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->Y() << std::endl;
+                    if(point->Y() == -1 && classes.size() == 2) tn++; else tp++;
                 }
             }
             
@@ -285,15 +285,15 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
             auto point = (*it);
             double _y = classifier->evaluate(*point);
 
-            if(point->y != _y){
+            if(point->Y() != _y){
                 if(verbose > 1)
-                    std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->y << std::endl;
+                    std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->Y() << std::endl;
                 erro++;
-                if(classes.size() == 2 && point->y == -1) fp++; else fn++;
+                if(classes.size() == 2 && point->Y() == -1) fp++; else fn++;
             }else{
                 if(verbose > 1)
-                    std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->y << std::endl;
-                if(classes.size() == 2 && point->y == -1) tn++; else tp++;
+                    std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->Y() << std::endl;
+                if(classes.size() == 2 && point->Y() == -1) tn++; else tp++;
             }
         }
     }else{
@@ -316,15 +316,15 @@ ValidationSolution Validation< T > ::validation(int fold, int qtde){
             auto point = (*it);
             double _y = dual->evaluate(*point);
 
-            if(point->y != _y){
+            if(point->Y() != _y){
                 if(verbose > 1)
-                    std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->y << std::endl;
+                    std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->Y() << std::endl;
                 erro++;
-                if(point->y == -1 && classes.size() == 2) fp++; else fn++;
+                if(point->Y() == -1 && classes.size() == 2) fp++; else fn++;
             }else{
                 if(verbose > 1)
-                    std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->y << std::endl;
-                if(point->y == -1 && classes.size() == 2) tn++; else tp++;
+                    std::cerr << "[" << i+1 << "] function: " << _y << ", y: " << point->Y() << std::endl;
+                if(point->Y() == -1 && classes.size() == 2) tn++; else tp++;
             }
         }
         if(verbose) cout.flush();
@@ -372,7 +372,7 @@ std::vector<std::vector<size_t> > Validation<T>::generateConfusionMatrix(Learner
             if(classes[j] == pred){
                 idp = j;
             }
-            if(classes[j] == samples[i]->y){
+            if(classes[j] == samples[i]->Y()){
                 idy = j;
             }
             if(idp && idy) break;

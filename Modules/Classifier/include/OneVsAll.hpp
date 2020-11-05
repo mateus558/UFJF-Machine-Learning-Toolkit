@@ -61,7 +61,7 @@ bool OneVsAll<T, ClassifierT>::train() {
         temp_samples->copy(*this->samples);
         temp_samples->setClasses({-1, 1});
         for(j = 0; j < size; j++) {
-            (*temp_samples)[j]->y = ((*temp_samples)[j]->y == classes[current_class]) ? 1 : -1;
+            (*temp_samples)[j]->Y() = ((*temp_samples)[j]->Y() == classes[current_class]) ? 1 : -1;
         }
         
         if(samp_method){
@@ -91,7 +91,6 @@ double OneVsAll<T, ClassifierT>::evaluate(Point<T> p, bool raw_value) {
     std::transform(base_learners.begin(), base_learners.end(), dist_hyperplanes.begin(), [&p](auto &learner){
         return learner->evaluate(p, true);
     });
-    
     size_t max_index = std::max_element(dist_hyperplanes.begin(), dist_hyperplanes.end()) - dist_hyperplanes.begin();
 
     return classes[max_index];

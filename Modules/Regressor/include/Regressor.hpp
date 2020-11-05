@@ -38,7 +38,7 @@ public:
     * \brief setW Set the weights vector of the regressor.
     * \param w weights vector.
     */
-    void setW(std::vector<double> w) {this->solution.w = w;}
+    void setW(const std::vector<double>& w) {this->solution.w = w;}
     /**
      * \brief setSolution Set a solution for the regressor.
      * \param solution Solution to be set.

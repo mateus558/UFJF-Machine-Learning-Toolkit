@@ -44,9 +44,9 @@ bool LMSPrimal< T >::train() {
             for (func[j] = this->solution.bias, k = 0; k < dim; k++) {
                 func[j] += (*input)[k] * this->solution.w[k];
             }
-            cost_func += (func[j] - input->y) * (func[j] - input->y);
+            cost_func += (func[j] - input->Y()) * (func[j] - input->Y());
             //Verify if the point is a error
-            error = (input->y - func[j]) * (*input)[j];
+            error = (input->Y() - func[j]) * (*input)[j];
             if (error > this->EPS) {
                 for (k = 0; k < dim; k++) {
                     this->solution.w[k] += this->rate * error * (*input)[k];
