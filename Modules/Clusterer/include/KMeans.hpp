@@ -16,12 +16,12 @@ private:
 
 public:
     KMeans(std::shared_ptr<Data<T> > _samples, size_t k, const std::string& initialization = "random", Function _dist_function  = [] (const std::shared_ptr<Point< double > > p, const std::shared_ptr<Point< T > > q){
-        const size_t _dimp = p->x.size();
+        const size_t _dimp = p->X().size();
         size_t i;
         double dist = 0;
 
         for(i = 0; i < _dimp; i++){
-            dist += (p->x[i] - q->x[i]) * (p->x[i] - q->x[i]);
+            dist += (p->X()[i] - q->X()[i]) * (p->X()[i] - q->X()[i]);
         }
         return sqrt(dist);
     });

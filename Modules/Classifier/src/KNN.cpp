@@ -35,7 +35,7 @@ double KNN< T >::evaluate(Point<T> p, bool raw_value) {
     // find the most frequent class in the k nearest neighbors
     for(size_t j = 0; j < this->k; j++){
         for (i = 0; i < classes.size(); i++) {
-            if (classes[i] == points[idx[j]]->y) {
+            if (classes[i] == points[idx[j]]->Y()) {
                 freq[i]++;
                 if (freq[i] > max_freq) {
                     max_freq = freq[i];

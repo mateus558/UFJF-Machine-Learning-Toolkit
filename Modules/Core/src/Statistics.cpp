@@ -21,7 +21,7 @@ double Statistics< T >::getFeatureMean(std::shared_ptr<Data< T > > data, int ind
     vector<shared_ptr<Point< T > > > points = data->getPoints();
 
     for(i = 0; i < size; ++i){
-        sum += points[i]->x[index];
+        sum += points[i]->X()[index];
     }
     sum /= size;
 
@@ -58,7 +58,7 @@ double Statistics< T >::variance(std::shared_ptr<Data< T > > data, int index){
             avg[j] = 0.0;
 
             for(i = 0; i < size; ++i){
-                avg[j] += points[i]->x[j];
+                avg[j] += points[i]->X()[j];
             }
             avg[j] = avg[j] / size;
         }
@@ -67,7 +67,7 @@ double Statistics< T >::variance(std::shared_ptr<Data< T > > data, int index){
     for(i = 0; i < size; ++i){
         for(j = 0; j < dim; ++j){
             if(index < 0 || fnames[j] != index){
-                norm += pow(avg[j] - points[i]->x[j], 2);
+                norm += pow(avg[j] - points[i]->X()[j], 2);
             }
             sum += norm;
         }
@@ -94,7 +94,7 @@ double Statistics< T >::getFeatureStdev(std::shared_ptr<Data< T > > data, int in
     avg = getFeatureMean(data, index);
 
     for(sd = 0.0, i = 0; i < vetsize; ++i){
-        sd = (points[i]->x[index] - avg)*(points[i]->x[index] - avg);
+        sd = (points[i]->X()[index] - avg)*(points[i]->X()[index] - avg);
     }
 
     return sqrt(sd/(vetsize - 1));
@@ -113,7 +113,7 @@ double Statistics< T >::getRadius(std::shared_ptr<Data< T > > data, int index, d
         for(j = 0; j < dim; ++j){
             if(index < 0 || fnames[j] != index){
                 for(i = 0; i < size; ++i){
-                    avg[j] += points[i]->x[j];
+                    avg[j] += points[i]->X()[j];
                 }
                 avg[j] = avg[j] / size;
             }
@@ -122,7 +122,7 @@ double Statistics< T >::getRadius(std::shared_ptr<Data< T > > data, int index, d
         for(max = 0, i = 0; i < size; ++i){
             for(norm = 0, j = 0; j < dim; ++j){
                 if(index < 0 || fnames[j] != index){
-                    norm += pow(avg[j] - points[i]->x[j], 2);
+                    norm += pow(avg[j] - points[i]->X()[j], 2);
                 }
 
                 norm = sqrt(norm);
@@ -135,8 +135,8 @@ double Statistics< T >::getRadius(std::shared_ptr<Data< T > > data, int index, d
         for(max = 0, i = 0; i < size; ++i){
             for(j = 0; j < dim; ++j){
                 if(index < 0 || fnames[j] != index)
-                    if(max < fabs(points[i]->x[j]))
-                        max = fabs(points[i]->x[j]);
+                    if(max < fabs(points[i]->X()[j]))
+                        max = fabs(points[i]->X()[j]);
             }
         }
     }
@@ -154,16 +154,16 @@ double Statistics< T >::getDistCenters(std::shared_ptr<Data< T > > data, int ind
     vector<shared_ptr<Point< T > > > points = data->getPoints();
 
     for(size_pos = 0, size_neg = 0, i = 0; i < size; ++i){
-        if(points[i]->y == 1)	size_pos++;
+        if(points[i]->Y() == 1)	size_pos++;
         else 					size_neg++;
     }
 
     for(j = 0; j < dim; ++j){
         for(i = 0; i < size; ++i){
-            if(points[i]->y == 1){
-                avg_pos[j] += points[i]->x[j];
+            if(points[i]->Y() == 1){
+                avg_pos[j] += points[i]->X()[j];
             }else
-                avg_neg[j] += points[i]->x[j];
+                avg_neg[j] += points[i]->X()[j];
         }
 
         avg_pos[j] /= (double)size_pos;
@@ -188,16 +188,16 @@ double Statistics< T >::getDistCentersWithoutFeats(std::shared_ptr<Data< T > > d
     vector<shared_ptr<Point< T > > > points = data->getPoints();
 
     for(size_pos = 0, size_neg = 0, i = 0; i < size; ++i){
-        if(points[i]->y == 1)	size_pos++;
+        if(points[i]->Y() == 1)	size_pos++;
         else					size_neg++;
     }
 
     for(j = 0; j < dim; ++j){
         for(i = 0; i < size; ++i){
-            if(points[i]->y == 1)
-                avg_pos[j] += points[i]->x[j];
+            if(points[i]->Y() == 1)
+                avg_pos[j] += points[i]->X()[j];
             else
-                avg_neg[j] += points[i]->x[j];
+                avg_neg[j] += points[i]->X()[j];
         }
 
         avg_pos[j] /= (double) size_pos;

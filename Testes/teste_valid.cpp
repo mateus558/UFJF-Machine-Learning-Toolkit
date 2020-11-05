@@ -38,9 +38,9 @@ int main(int argc, char *argv[]){
     for(auto it = sample->begin(); it != sample->end(); it++){
         auto point = (*it);
         if(classes.size() > 2){
-            points_by_class[point->y-1]->insertPoint(point);
+            points_by_class[point->Y()-1]->insertPoint(point);
         }else{
-            if(point->y == -1){
+            if(point->Y() == -1){
                 points_by_class[1]->insertPoint(point);
             }else{ 
                 points_by_class[0]->insertPoint(point);

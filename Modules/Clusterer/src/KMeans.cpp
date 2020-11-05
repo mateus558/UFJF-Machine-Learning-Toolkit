@@ -29,11 +29,11 @@ bool KMeans<T>::train() {
         std::generate(centers_ids.begin(), centers_ids.end(), gen);
         // get the values from the dataset for the centers
         std::transform(centers_ids.begin(), centers_ids.end(), this->centers.begin(), [this](const size_t &center_id){
-            return (*this->samples)[center_id]->x;
+            return (*this->samples)[center_id]->X();
         });
     }else if(initialization == "kmeanspp"){
         // choose the first center randomly
-        this->centers[0] = points[dist(mersenne_engine)]->x;
+        this->centers[0] = points[dist(mersenne_engine)]->X();
         // choose the next cluster in points with a probability directly proportional to the distance from the
         // last chosen cluster.
         for(size_t i = 1; i < this->centers.size(); i++){
@@ -52,7 +52,7 @@ bool KMeans<T>::train() {
             std::discrete_distribution<size_t> _dist(distances.begin(), distances.end());
             // generate the id for the next cluster
             size_t center = _dist(mersenne_engine);
-            this->centers[i] = points[center]->x;
+            this->centers[i] = points[center]->X();
         }
     }
 
@@ -75,7 +75,7 @@ bool KMeans<T>::train() {
             size_t min_cluster = 0;
 
             for(size_t c = 0; c < this->n_clusters; c++){
-                auto point = (*this->samples)[i]->x;
+                auto point = (*this->samples)[i]->X();
                 auto center = this->centers[c];
                 std::vector< T > diff(dim);
                 // compute the difference between the pointer in a cluster to it's center
@@ -98,7 +98,7 @@ bool KMeans<T>::train() {
             this->centers[c].assign(dim, T());
             for(size_t e = 0; e < cluster_size; e++){
                 for(size_t j = 0; j < dim; j++) {
-                    this->centers[c][j] += points[e]->x[j];
+                    this->centers[c][j] += points[e]->X()[j];
                 }
             }
             for(size_t j = 0; j < dim; j++){
@@ -125,10 +125,10 @@ double KMeans<T>::evaluate(Point<T> p, bool raw_value) {
     std::vector<double> distances(this->n_clusters, 0.0);
     double min_value = std::numeric_limits<double>::max();
     size_t min_cluster = 0;
-    size_t dim = p.x.size();
+    size_t dim = p.X().size();
 
     for(size_t c = 0; c < this->n_clusters; c++){
-        auto point = p.x;
+        auto point = p.X();
         auto center = this->centers[c];
         std::vector< T > diff(dim);
         // compute the difference between the pointer in a cluster to it's center

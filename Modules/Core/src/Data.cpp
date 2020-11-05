@@ -178,7 +178,7 @@ bool Data< T >::load_csv(const string& path){
         _dim = -1;
 
         //reserve memory for x array
-        new_point->x.resize(this->dim, 0.0);
+        new_point->X().resize(this->dim, 0.0);
 
         //Read features from line
         while(getline(ss, item, deli)){
@@ -189,7 +189,7 @@ bool Data< T >::load_csv(const string& path){
 
             if(cond){
                 if(Utils::is_number(item))
-                    new_point->x[(!atEnd) ? _dim : _dim + 1] = Utils::atod(item.c_str());
+                    new_point->X()[(!atEnd) ? _dim : _dim + 1] = Utils::atod(item.c_str());
             }else{
                 double c;
 
@@ -204,13 +204,13 @@ bool Data< T >::load_csv(const string& path){
                     }else{
                         stats.n_pos++;
                     }
-                new_point->y = c;
+                new_point->Y() = c;
             }
             _dim++;
         }
 
         points[_size++] = std::move(new_point);
-        points[_size - 1]->id = _size;
+        points[_size - 1]->Id() = _size;
         ss.clear();
     }
 
@@ -296,7 +296,7 @@ bool Data< T >::load_data(const string& path){
         ss.str(str);
         ss.clear();
         _dim = 0;
-        new_point->x.resize(this->dim, 0.0);
+        new_point->X().resize(this->dim, 0.0);
 
         //Read features from line
         while(getline(ss, item, ' ')){
@@ -307,7 +307,7 @@ bool Data< T >::load_data(const string& path){
                 }else{
                     c = Utils::atod(item.c_str());
                 }
-                new_point->y = c;
+                new_point->Y() = c;
             }
             //Verify if the class is at the beggining or at the end
             if(!ss.eof()){
@@ -321,7 +321,7 @@ bool Data< T >::load_data(const string& path){
                         is_feature = true;
                     }else{
                         if(Utils::is_number(item)){
-                            new_point->x[_dim] = Utils::atod(item.c_str());
+                            new_point->X()[_dim] = Utils::atod(item.c_str());
                             _dim++;
                         }
                     }
@@ -329,7 +329,7 @@ bool Data< T >::load_data(const string& path){
             }
         }
         points[_size++] = std::move(new_point);
-        points[_size - 1]->id = _size;
+        points[_size - 1]->Id() = _size;
     }
 
     if(classes.size() == 2){
@@ -433,7 +433,7 @@ bool Data< T >::load_arff(const string& path){
         ss.str(str);
 
         //reserve memory for features
-        new_point->x.assign(this->dim, 0.0);
+        new_point->X().assign(this->dim, 0.0);
 
         //Read features from line
         while(getline(ss, item, ',')){
@@ -444,19 +444,19 @@ bool Data< T >::load_arff(const string& path){
 
             if(cond){
                 if(Utils::is_number(item)){
-                    new_point->x[dim + 1] = Utils::atod(item.c_str());
+                    new_point->X()[dim + 1] = Utils::atod(item.c_str());
                 }
             }else{
                 if(this->isClassification()){
                     c = process_class(item);
                 }
-                new_point->y = c;
+                new_point->Y() = c;
             }
             dim++;
         }
 
         points[_size++] = std::move(new_point);
-        points[_size - 1]->id = _size;
+        points[_size - 1]->Id() = _size;
         ss.clear();
     }
 
@@ -526,7 +526,7 @@ bool Data< T >::load_txt(const string& path){
         auto new_point = make_shared<Point< T > >();
 
         //Allocate memory for features
-        new_point->x.resize(_dim, 0.0);
+        new_point->X().resize(_dim, 0.0);
         ss.str(str);
         n = 0;
 
@@ -534,15 +534,15 @@ bool Data< T >::load_txt(const string& path){
         while(getline(ss, item, ' ')){
             if(n >= 2){
                 if(Utils::is_number(item))
-                    new_point->x[n - 2] = Utils::atod(item.c_str());
+                    new_point->X()[n - 2] = Utils::atod(item.c_str());
                 else{ clog << "Warning: point[" << _size << "] " << n - 2 << " feature is not a number." << endl; }
-                new_point->y = 0;
+                new_point->Y() = 0;
             }
             n++;
         }
 
         points[_size++] = std::move(new_point);
-        points[_size - 1]->id = _size;
+        points[_size - 1]->Id() = _size;
         ss.clear();
     }
 
@@ -557,7 +557,7 @@ bool Data< T >::removePoint(int pid){
 
     if(size == 1){ cout << "Error: RemovePoint, only one point left\n"; return false; }
     //Ids bound verification
-    if(pid > points[size-1]->id || pid <= 0) return false;
+    if(pid > points[size-1]->Id() || pid <= 0) return false;
 
     if(!index.empty()){
         index.resize(size);
@@ -571,10 +571,10 @@ bool Data< T >::removePoint(int pid){
 
     //Find the point by its id and erase it
     for(i = 0; i < size; i++){
-        if(points[i]->id == pid){
+        if(points[i]->Id() == pid){
             if(stats.n_pos > 0 || stats.n_neg > 0){
-                if(points[i]->y == 1) stats.n_pos--;
-                else if(points[i]->y == -1) stats.n_neg--;
+                if(points[i]->Y() == 1) stats.n_pos--;
+                else if(points[i]->Y() == -1) stats.n_neg--;
             }
             points.erase(points.begin() + i);
             break;
@@ -599,23 +599,23 @@ void Data< T >::write(const string& fname, string ext){
 
     for(i = 0; i < size; i++){
         if(ext == "plt"){
-            outstream << points[i]->y << " ";
+            outstream << points[i]->Y() << " ";
             for(j = 0; j < dim-1; j++){
-                outstream << points[i]->x[j] << " ";
+                outstream << points[i]->X()[j] << " ";
             }
-            outstream << points[i]->x[j] << endl;
+            outstream << points[i]->X()[j] << endl;
         }else if(ext == "data"){
-            outstream << points[i]->y << " ";
+            outstream << points[i]->Y() << " ";
             for(j = 0; j < dim-1; j++){
-                outstream << fnames[j] << ":" << points[i]->x[j] << " ";
+                outstream << fnames[j] << ":" << points[i]->X()[j] << " ";
             }
-            outstream << fnames[j] << ":" << points[i]->x[j] << "\n";
+            outstream << fnames[j] << ":" << points[i]->X()[j] << "\n";
         }else if(ext == "csv"){
-            outstream << points[i]->y << ",";
+            outstream << points[i]->Y() << ",";
             for(j = 0; j < dim-1; j++){
-                outstream << points[i]->x[j] << ",";
+                outstream << points[i]->X()[j] << ",";
             }
-            outstream << points[i]->x[j] << "\n";
+            outstream << points[i]->X()[j] << "\n";
         }
     }
 
@@ -634,7 +634,7 @@ vector<bool> Data< T >::removePoints(vector<int> ids){
         save = true;
         po = (*p);
         for(i = 0; i < idsize; i++){
-            if(po->id == ids[i]){
+            if(po->Id() == ids[i]){
                 save = false;
                 notFound[i] = false;
                 break;
@@ -646,8 +646,8 @@ vector<bool> Data< T >::removePoints(vector<int> ids){
             p = points.erase(p);
             //Size verification.
             if(size == 1){ clog << "Error: RemovePoint, only one point left." << endl; break;}
-            if(po->y == 1) stats.n_pos--;
-            else if(po->y == -1) stats.n_neg--;
+            if(po->Y() == 1) stats.n_pos--;
+            else if(po->Y() == -1) stats.n_neg--;
             size--;
         }
     }
@@ -673,10 +673,10 @@ Data< T >* Data< T >::insertFeatures(std::vector<int> ins_feat){
     //Copying information to new data array
     for(i = 0; i < size; i++){
         p = make_shared<Point< T > >();
-        p->x.resize(fsize);
-        p->alpha = points[i]->alpha;
-        p->id = points[i]->id;
-        p->y = points[i]->y;
+        p->X().resize(fsize);
+        p->Alpha() = points[i]->Alpha();
+        p->Id() = points[i]->Id();
+        p->Y() = points[i]->Y();
 
         //Copying features
         s = 0, offset = 0;
@@ -687,7 +687,7 @@ Data< T >* Data< T >::insertFeatures(std::vector<int> ins_feat){
             }
 
             if(saveflag){
-                p->x[s] = points[i]->x[j];
+                p->X()[s] = points[i]->X()[j];
                 new_fnames[s] = fnames[j];
                 s++;
                 saveflag = false;
@@ -714,9 +714,9 @@ void Data< T >::shuffle(const size_t &seed){
 
     for(auto it = points.begin(); it != points.end(); it++){
         auto pos = points.begin() + dist(gen);
-        auto temp = (*it)->id;
-        (*it)->id = (*pos)->id;
-        (*pos)->id = temp;
+        auto temp = (*it)->Id();
+        (*it)->Id() = (*pos)->Id();
+        (*pos)->Id() = temp;
         std::iter_swap(it, pos);
     }
 }
@@ -759,13 +759,13 @@ bool Data< T >::removeFeatures(std::vector<int> feats){
         if(points[i] == nullptr) clog << "WARNING: point is null." << endl;
 
         // Iterate through the point features
-        for(itr = points[i]->x.begin(),k = 0, j = 0; itr != points[i]->x.end();){
+        for(itr = points[i]->X().begin(),k = 0, j = 0; itr != points[i]->X().end();){
             while(!exist[k] && k < rsize) k++; // go to next existent feature
             if(k == rsize) break;              // Verify if is in the end of the feats vector
 
             // Feature to remove found, remove it from the point and go to the next feat to remove
             if(fnames[j] == feats[k]){
-                itr = points[i]->x.erase(itr);
+                itr = points[i]->X().erase(itr);
                 k++;
             }else{
                 itr++;
@@ -805,31 +805,31 @@ bool Data< T >::insertPoint(Data< T > sample, int _index){
 template < typename T >
 bool Data< T >::insertPoint(std::shared_ptr<Point< T > > p){
     //Dimension verification
-    if(size > 0 && int(p->x.size()) > dim){
+    if(size > 0 && int(p->X().size()) > dim){
         cerr << "Point with dimension different from the data. (insertPoint)" << endl;
-        cerr << "Point dim = " << p->x.size() << " dim = " << dim << endl;
+        cerr << "Point dim = " << p->X().size() << " dim = " << dim << endl;
         return false;
     }
 
-    if(size == 0) dim = p->x.size();
+    if(size == 0) dim = p->X().size();
     //Insert the point p at the end of the points vector
     points.insert(points.end(), p);
     size++;
     if(is_empty) is_empty = false;
     
     if(this->isClassification()){
-        auto class_pos = std::find(this->classes.begin(), this->classes.end(), p->y);
+        auto class_pos = std::find(this->classes.begin(), this->classes.end(), p->Y());
 
         if(class_pos == this->classes.end()){
-            this->class_names.push_back(std::to_string(int(points[size-1]->y)));
-            this->classes.push_back(points[size-1]->y);
+            this->class_names.push_back(std::to_string(int(points[size-1]->Y())));
+            this->classes.push_back(points[size-1]->Y());
             this->class_distribution.push_back(1);
         }else{
             this->class_distribution[int(class_pos - this->classes.begin())]++;
         }
     }
     //Give a new id to the point equal to the previous point id plus 1
-    points[size-1]->id = size;
+    points[size-1]->Id() = size;
     index.push_back(size-1);
 
     return true;
@@ -847,8 +847,8 @@ void Data< T >::changeXVector(std::vector<int> _index){
 
     //Copy features and classes of the points making the changes
     for(i = 0; i < size; i++){
-        nPoints[i]->x = points[_index[i]]->x;
-        nPoints[i]->x = points[_index[i]]->x;
+        nPoints[i]->X() = points[_index[i]]->X();
+        nPoints[i]->X() = points[_index[i]]->X();
     }
 
     //Save changes in the class
@@ -871,13 +871,13 @@ void Data< T >::classesCopy(const Data< T > &_data, std::vector<int> &classes){
     std::set<int> _classes(classes.begin(), classes.end());
     
     for(size_t i = 0; i < _data.getSize(); i++){
-        if(_classes.find(_data[i]->y) != _classes.end()){
+        if(_classes.find(_data[i]->Y()) != _classes.end()){
             this->points.push_back(std::make_shared<Point< T > >());
             size_t curr = this->points.size()-1;
-            this->points[curr]->x = _data[i]->x;
-            this->points[curr]->y = _data[i]->y;
-            this->points[curr]->alpha = _data[i]->alpha;
-            this->points[curr]->id = _data[i]->id;
+            this->points[curr]->X() = _data[i]->X();
+            this->points[curr]->Y() = _data[i]->Y();
+            this->points[curr]->Alpha() = _data[i]->Alpha();
+            this->points[curr]->Id() = _data[i]->Id();
             _size++;
         }
     }
@@ -900,10 +900,10 @@ void Data< T >::copy(const Data<T> &_data){
     this->points.resize(_size);
     for(size_t i = 0; i < _size; i++){
         this->points[i] = std::make_shared<Point< T > >();
-        this->points[i]->x = _data[i]->x;
-        this->points[i]->y = _data[i]->y;
-        this->points[i]->alpha = _data[i]->alpha;
-        this->points[i]->id = _data[i]->id;
+        this->points[i]->X() = _data[i]->X();
+        this->points[i]->Y() = _data[i]->Y();
+        this->points[i]->Alpha() = _data[i]->Alpha();
+        this->points[i]->Id() = _data[i]->Id();
     }
     this->fnames = _data.getFeaturesNames();
     this->size = _data.getSize();
@@ -951,8 +951,8 @@ void Data< T >::join(std::shared_ptr<Data< T > > data){
 
     for(i = antsize, j = 0; i < size && j < size1; i++, j++){
         points[i] = points1[j];
-        if(points1[j]->y == 1) stats.n_pos++;
-        else if(points1[j]->y == -1) stats.n_neg++;
+        if(points1[j]->Y() == 1) stats.n_pos++;
+        else if(points1[j]->Y() == -1) stats.n_neg++;
     }
 
 }
@@ -964,15 +964,15 @@ void Data< T >::normalize(double p){
 
     for(i = 0; i < size; ++i){
         for(norm = 0, j = 0; j < dim; ++j){
-            norm += pow(fabs(points[i]->x[j]),p);
+            norm += pow(fabs(points[i]->X()[j]),p);
         }
-        points[i]->x.resize(dim+1);
-        points[i]->x[j] = 1;
+        points[i]->X().resize(dim+1);
+        points[i]->X()[j] = 1;
         fnames[j] = j+1;
-        norm += pow(fabs(points[i]->x[j]),p);
+        norm += pow(fabs(points[i]->X()[j]),p);
         norm = pow(norm, 1.0/p);
         for(j = 0; j < dim+1; ++j){
-            points[i]->x[j] /= norm;
+            points[i]->X()[j] /= norm;
         }
     }
     dim++;
@@ -1135,7 +1135,7 @@ Data<T>::Data(size_t size, size_t dim, T val) {
 
     for(i = 0; i < size; i++){
         this->points[i] = std::make_shared<Point< T > >(dim, val);
-        this->points[i]->id = i+1;
+        this->points[i]->Id() = i+1;
     }
 
     std::iota(fnames.begin(), fnames.end(), 1);
@@ -1213,7 +1213,7 @@ template <typename T>
 void Data< T >::computeClassesDistribution(){
     this->class_distribution = std::vector<size_t>(this->classes.size(), 0);
     for(auto p: points){
-        int c = p->y;
+        int c = p->Y();
         auto class_it = std::find_if(this->classes.begin(), this->classes.end(), [&c](int _c){
             return c == _c;
         });

@@ -48,7 +48,7 @@ bool SMO<T>::train() {
     /*clear data*/
     this->solution.bias = 0;
     for(i = 0; i < size; i++)
-        (*this->samples)[i]->alpha = 0;
+        (*this->samples)[i]->Alpha() = 0;
 
     this->timer.Reset();
     this->kernel->compute(this->samples);
@@ -73,8 +73,8 @@ bool SMO<T>::train() {
 
     for(i = 0; i < size; ++i)
     {
-        if((*this->samples)[i]->alpha > 0) ++this->solution.svs;
-        if((*this->samples)[i]->alpha > this->C) ret = false;
+        if((*this->samples)[i]->Alpha() > 0) ++this->solution.svs;
+        if((*this->samples)[i]->Alpha() > this->C) ret = false;
     }
 
     if(this->verbose)
@@ -112,8 +112,8 @@ bool SMO<T>::examine_example(int i1) {
 
     /*reading stuff from array*/
     auto p = (*this->samples)[i1];
-    y1     = p->y;
-    alpha1 = p->alpha;
+    y1     = p->Y();
+    alpha1 = p->Alpha();
     if(alpha1 > 0 && alpha1 < this->C) e1 = this->l_data[i1].error;
     else                         e1 = function(i1) - y1;
 
@@ -148,7 +148,7 @@ bool SMO<T>::max_errors(int i1, double e1) {
     while(list != nullptr)
     {
         k = list->index;
-        if(this->l_data[k].done == 0 && (*this->samples)[k]->alpha < this->C)
+        if(this->l_data[k].done == 0 && (*this->samples)[k]->Alpha() < this->C)
         {
             e2 = this->l_data[k].error;
             temp = fabs(e1-e2);
@@ -173,7 +173,7 @@ bool SMO<T>::iterate_non_bound(int i1) {
     while(list != nullptr)
     {
         k = list->index;
-        if(this->l_data[k].done == 0 && (*this->samples)[k]->alpha < this->C)
+        if(this->l_data[k].done == 0 && (*this->samples)[k]->Alpha() < this->C)
             if(take_step(i1,k)) return true;
         list = list->next;
     }
@@ -220,11 +220,11 @@ int SMO<T>::take_step(int i1, int i2) {
 
     /*get info from sample struct*/
     b      = -this->solution.bias;
-    y1     = (*this->samples)[i1]->y;
-    y2     = (*this->samples)[i2]->y;
+    y1     = (*this->samples)[i1]->Y();
+    y2     = (*this->samples)[i2]->Y();
     //size   = sample->size;
-    alpha1 = (*this->samples)[i1]->alpha;
-    alpha2 = (*this->samples)[i2]->alpha;
+    alpha1 = (*this->samples)[i1]->Alpha();
+    alpha2 = (*this->samples)[i2]->Alpha();
 
     /*get error values for i1*/
     if(alpha1 > 0 && alpha1 < this->C) e1 = this->l_data[i1].error;
@@ -294,8 +294,8 @@ int SMO<T>::take_step(int i1, int i2) {
         new_alpha1 = this->C;
     }
     /*saving new alphas*/
-    (*this->samples)[i1]->alpha = new_alpha1;
-    (*this->samples)[i2]->alpha = new_alpha2;
+    (*this->samples)[i1]->Alpha() = new_alpha1;
+    (*this->samples)[i2]->Alpha() = new_alpha2;
 
     /*saving new stuff into sv list*/
     if(new_alpha1 > 0 && this->l_data[i1].sv == nullptr)
@@ -347,9 +347,9 @@ int SMO<T>::take_step(int i1, int i2) {
     while(itr != nullptr)
     {
         i = itr->index;
-        if((i != i1 && i !=i2) && (*this->samples)[i]->alpha < C)
+        if((i != i1 && i !=i2) && (*this->samples)[i]->Alpha() < C)
         {
-            this->l_data[i].error = function(i) - (*this->samples)[i]->y;
+            this->l_data[i].error = function(i) - (*this->samples)[i]->Y();
             error_tot += this->l_data[i].error;
         }
         itr = itr->next;
@@ -374,8 +374,8 @@ double SMO<T>::function(int index) {
     while(list != nullptr)
     {
         i = list->index;
-        if((*this->samples)[i]->alpha > 0)
-            sum += (*this->samples)[i]->alpha * (*this->samples)[i]->y * (*matrix)[i][index];
+        if((*this->samples)[i]->Alpha() > 0)
+            sum += (*this->samples)[i]->Alpha() * (*this->samples)[i]->Y() * (*matrix)[i][index];
         list = list->next;
     }
     sum += this->solution.bias;
@@ -396,7 +396,7 @@ bool SMO<T>::training_routine() {
     this->solution.bias = 0;
     for(k = 0; k < size; ++k)
     {
-        (*this->samples)[k]->alpha = 0;
+        (*this->samples)[k]->Alpha() = 0;
         this->l_data[k].error = 0;
         this->l_data[k].done  = false;
     }
@@ -414,7 +414,7 @@ bool SMO<T>::training_routine() {
             }
         else
             for(k = 0; k < size; ++k)
-                if((*this->samples)[k]->alpha > 0 && (*this->samples)[k]->alpha < C)
+                if((*this->samples)[k]->Alpha() > 0 && (*this->samples)[k]->Alpha() < C)
                     num_changed += examine_example(k);
 
         if(examine_all) examine_all = false;
@@ -437,7 +437,7 @@ template<typename T>
 void SMO<T>::test_learning() {
     size_t i = 0, size = this->samples->getSize();
     for(i = 0; i < size; ++i)
-        cout << i+1 << " -> " << function(i) << " (error=" << this->l_data[i].error << ") (alpha=" << (*this->samples)[i]->alpha << ")\n"   ;
+        cout << i+1 << " -> " << function(i) << " (error=" << this->l_data[i].error << ") (alpha=" << (*this->samples)[i]->Alpha() << ")\n"   ;
 }
 
 template<typename T>
@@ -452,7 +452,7 @@ int SMO<T>::train_matrix(Kernel *matrix) {
     /*clear data*/
     this->solution.bias = 0;
     for(i = 0; i < size; i++)
-    (*this->samples)[i]->alpha = 0;
+    (*this->samples)[i]->Alpha() = 0;
 
     /*run training algorithm*/
     ret = training_routine();
@@ -463,8 +463,8 @@ int SMO<T>::train_matrix(Kernel *matrix) {
     this->solution.svs = 0;
     for(i = 0; i < size; ++i)
     {
-        if((*this->samples)[i]->alpha > 0) ++this->solution.svs;
-        if((*this->samples)[i]->alpha > this->C) ret = false;
+        if((*this->samples)[i]->Alpha() > 0) ++this->solution.svs;
+        if((*this->samples)[i]->Alpha() > this->C) ret = false;
     }
 
     int_dll::free(&this->head);

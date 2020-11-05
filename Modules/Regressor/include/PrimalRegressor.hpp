@@ -20,7 +20,7 @@ public:
         double func = 0.0;
         size_t i, dim = this->solution.w.size();
 
-        if(p.x.size() != dim){
+        if(p.X().size() != dim){
             std::cerr << "The point must have the same dimension of the feature set!" << std::endl;
             return 0;
         }
