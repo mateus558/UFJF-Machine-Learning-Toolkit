@@ -8,7 +8,6 @@
 #include "PrimalClassifier.hpp"
 #include "DistanceMetric.hpp"
 #include <assert.h>
-#include <functional>
 
 template <typename T, typename Callable = EuclideanDistance< T > >
 class KNN: public PrimalClassifier< T > {

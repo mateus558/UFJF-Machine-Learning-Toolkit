@@ -36,7 +36,7 @@ double KNNRegressor<T, Callable>::evaluate(Point<T> p, bool raw_value) {
 
 template<typename T, typename Callable>
 bool KNNRegressor<T, Callable>::train() {
-    return false;
+    return true;
 }
 
 template class KNNRegressor<int>;

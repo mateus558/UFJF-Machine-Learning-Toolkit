@@ -43,7 +43,7 @@ double KNN<T, Callable>::evaluate(Point<T> p, bool raw_value) {
 
 template <typename T, typename Callable >
 bool KNN<T, Callable>::train() {
-    return false;
+    return true;
 }
 
 
