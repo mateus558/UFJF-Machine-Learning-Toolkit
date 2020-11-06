@@ -9,13 +9,19 @@
 #include "DualClassifier.hpp"
 #include "Sampling.hpp"
 
+
+/**
+ * \brief Wrapper for the implementation of the one vs one multi class classification algorithm.
+ */
 template< typename T, template <typename > class ClassifierT>
 class OneVsOne: public PrimalClassifier< T >, public DualClassifier< T > {
 private:
     using ClassifierPointer = std::shared_ptr<ClassifierT< T > >;
-
+    /// Matrix of binary base learners 
     std::vector<std::vector<ClassifierPointer> > base_learners;
+    /// Classifier used to pass parameters to the base learners
     ClassifierPointer classifier;
+    /// Over sampling method used during training (optional)
     OverSampling< T > *samp_method;
 
 public:
@@ -36,6 +42,7 @@ OneVsOne<T, ClassifierT>::OneVsOne(std::shared_ptr<Data< T > > _samples, Classif
     this->samp_method = samp_method;
     
     auto classes = _samples->getClasses();
+    // initialize the learners matrix is samples were given
     if(_samples && base_learners.size() == 0){
         base_learners.resize(_samples->getClasses().size());
     
@@ -56,12 +63,14 @@ bool OneVsOne<T, ClassifierT>::train() {
     auto classes = this->samples->getClasses();
     size_t current_class = 0, j, n_classes = classes.size(), size = this->samples->getSize();
     
+    // construct the matrix of learners
     if(base_learners.size() == 0){
         base_learners.resize(n_classes);
         for(size_t i = 0; i < n_classes; ++i) {
             base_learners[i].resize(n_classes);
             for(size_t j = 0; j < base_learners[i].size(); ++j) {
                 if(classes[i] != classes[j]){
+                    // copy the parameters of the given classifier
                     base_learners[i][j] = std::make_shared<ClassifierT< T > >(*this->classifier);
                 }
             }
@@ -75,17 +84,21 @@ bool OneVsOne<T, ClassifierT>::train() {
                 auto learner = base_learners[i][j];
                 std::vector<int> current_classes = {classes[i], classes[j]};
                 
+                // Copy the points with the classes being trained
                 temp_samples->classesCopy(*this->samples, current_classes);
                 temp_samples->setClasses({-1, 1});
+                // Transform the classes for binary classification
                 for(size_t k = 0; k < temp_samples->getSize(); k++) {
                     (*temp_samples)[k]->Y() = ((*temp_samples)[k]->Y() == classes[i]) ? 1 : -1;
                 }
                 
+                // If a over sampling algorithm was given, apply it to the samples
                 if(samp_method){
                     temp_samples->computeClassesDistribution();
                     (*samp_method)(temp_samples);
                 }
                 
+                // train the current binary learner
                 learner->setSamples(temp_samples);
                 learner->train();
             }
@@ -100,6 +113,7 @@ double OneVsOne<T, ClassifierT>::evaluate(Point<T> p, bool raw_value) {
     auto classes = this->samples->getClasses();
     std::vector<size_t> class_votes(classes.size(), 0);
 
+    // classify the given point as the class with maximum votes
     for(size_t i = 0; i < base_learners.size(); ++i) {
         for(size_t j = 0; j < base_learners[i].size(); ++j) {
             if(classes[i] != classes[j]){

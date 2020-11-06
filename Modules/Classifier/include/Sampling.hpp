@@ -5,6 +5,9 @@
 #include "DistanceMetric.hpp"
 #include <random>
 
+/**
+ * \brief Base class for the implementation of over sampling methods.
+ */
 template < typename T, typename Callable = EuclideanDistance< T > >
 class OverSampling{
 protected:
@@ -15,11 +18,17 @@ public:
     virtual DataPointer< T > operator()(DataPointer< T > data) = 0;
 };
 
+/**
+ * \brief Functor for the implementation of the SMOTE over sampling algorithm.
+ */
 template < typename T, typename Callable = EuclideanDistance< T > >
 class SMOTE: public OverSampling< T, Callable > {
 private:
+    /// Seed used for randomization
     size_t seed = 0;
+    /// Number k of neighbors being considered
     size_t k = 5;
+    /// Replication factor
     double r = 0.1;
 
 public:
@@ -97,12 +106,19 @@ public:
     }
 }; 
 
+/**
+ * \brief Functor for the implementation of the Borderline SMOTE 1 over sampling algorithm.
+ */
 template < typename T, typename Callable = EuclideanDistance< T > >
 class BorderlineSMOTEOne: public OverSampling< T, Callable > {
 private:
+    /// Seed used for randomization
     size_t seed = 0;
+    /// Number k of neighbors being considered
     size_t k = 5;
+    /// Size of the M set
     size_t m = 5;
+    /// Replication factor
     double r = 0.1;
     
 public:

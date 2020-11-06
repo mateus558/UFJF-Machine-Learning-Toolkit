@@ -9,10 +9,15 @@
 #include "DistanceMetric.hpp"
 #include <assert.h>
 
+/**
+ * \brief Wrapper for the implementation of the K-Nearest Neighbors classifier algorithm.
+ */
 template <typename T, typename Callable = EuclideanDistance< T > >
 class KNN: public PrimalClassifier< T > {
 private:
+    /// Number k of neighbors to be considered
     size_t k;
+    /// Function to compute the distance between two points
     Callable dist_function;
 
 public:

@@ -11,9 +11,13 @@
 template < typename T, typename Callable = EuclideanDistance< T > >
 class Clusterer: public Learner< T > {
 protected:
+    /// Function used to compute the distance between two points
     Callable dist_function;
+    /// Number of clusters for the cluster method
     size_t n_clusters;
+    /// Vector with the centers of the clusters
     std::vector<std::vector<T> > centers;
+    /// Clusters of points
     std::vector<std::vector<size_t> > clusters;
 
 public:

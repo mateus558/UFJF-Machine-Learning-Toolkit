@@ -4,6 +4,9 @@
 #include "Point.hpp"
 #include <cmath>
 
+/**
+ * \brief Base functor class for the implementation of new distance metrics.
+ */
 template < typename T >
 class DistanceMetric {
     public:
@@ -11,7 +14,9 @@ class DistanceMetric {
         virtual T operator()(const Point<T>& p1, const Point<T>& p2) = 0;    
 };
 
-
+/**
+ * \brief Functor for the computation of the euclidean distance between two points.
+ */
 template < typename T >
 class EuclideanDistance: public DistanceMetric< T > {
     public:

@@ -76,8 +76,11 @@ private :
     std::vector<int> fnames;
     /// Points indexes.
     std::vector<int> index;
+    /// Names of the classes in the dataset.
     std::vector<std::string> class_names;
+    /// Numeric values of the classes.
     std::vector<int> classes;
+    /// Frequency of each class in the dataset.
     std::vector<size_t> class_distribution;
     /// Number of points in the dataset.
     size_t size = 0;
@@ -89,6 +92,7 @@ private :
     std::string pos_class = std::string("1"), neg_class = std::string("-1");
     /// Verify if there's some data loaded.
     bool is_empty = true;
+    /// Boolean informing if the classes are at the end of the dataset.
     bool atEnd = false;
     /// Verify if the data is normalized.
     bool normalized = false;
@@ -97,11 +101,23 @@ private :
     /// Dataset type.
     std::string type = "Classification";
 public:
+    /**
+     * \brief Returns the type of the dataset.
+     * \return std::string
+     **/
     const std::string &getType() const;
 
 private:
+    /**
+     * \brief Inform if the dataset is used for classification.
+     **/
     bool isClassification() const { return (type == "Classification" || type == "MultiClassification" || type == "BinClassification");}
     // Private Operations
+    /**
+     * \brief Process a new class being added to the dataset.
+     * \param item new class being added.
+     * \return Id of the new class.
+     **/
     int process_class(std::string item);
     /**
      * \brief Returns the type of the file.
@@ -178,16 +194,26 @@ public :
      * \return std::vector<std::shared_ptr<Point< T > > >
      */
     std::vector<std::shared_ptr<Point< T > > > getPoints ();
-
+    /**
+     * \brief Returns a vector containing the numeric values of the classes.
+     * \return std::vector<int>
+     **/
     const std::vector<int> getClasses() const;
-
     /**
      * \brief Returns a shared pointer to the point with the given index.
      * \param index    Position of a point in the points array.
      * \return std::vector<Point< T > >
      */
     std::shared_ptr<Point< T > > getPoint (int index);
+    /**
+     * \brief Returns a vector containing the frequency of the classes.
+     * \return std::vector<size_t>
+     **/
     std::vector<size_t> getClassesDistribution() const ;
+    /**
+     * \brief Returns a vector containing the name of the classes.
+     * \return std::vector<std::string>
+     **/
     std::vector<std::string> getClassNames() const;
     /**
      * \brief Returns the features names.
@@ -223,7 +249,16 @@ public :
     /*********************************************
      *               Setters                     *
      *********************************************/
+    
+    /**
+     * \brief Set the classes to use in the dataset.
+     * \param classes Vector of classes that will be in the dataset.
+     **/
     void setClasses(const std::vector<int> &classes);
+    /**
+     * \brief Inform if the classes of the dataset to be loaded are at begining or end of the attributes.
+     * \param atEnd Boolean informing if classes are at end.
+     **/
     void setClassesAtEnd(bool atEnd){ this->atEnd = atEnd; }
     /**
      * \brief setPoint Set the point in a position of the data.
@@ -243,7 +278,7 @@ public :
     void setIndex(std::vector<int> index);
     /**
      * \brief setDim Set the dimension of the points.
-     * \param dim (???) Dimension to be set.
+     * \param dim Dimension to be set.
      */
     void setDim(size_t dim);
 
@@ -251,7 +286,14 @@ public :
      *              Other operations             *
      *********************************************/
     
+    /**
+     * \brief Compute the frequency of each class in the dataset.
+     **/
     void computeClassesDistribution();
+    /**
+     * \brief Shuffle the data with a given seed
+     * \param seed Seed given for randomization
+     **/
     void shuffle(const size_t& seed = 42);
     /**
      * \brief Load a dataset from a file.
@@ -308,8 +350,8 @@ public :
      */
     bool insertPoint (Data< T > sample, int id);
     /**
-     * \brief Insert a point to the end of vector points.
-     * \param p (???) Point to be inserted.
+     * \brief Insert a point to the end of points vector.
+     * \param p  Point to be inserted.
      * \return bool
      */
     bool insertPoint (std::shared_ptr<Point< T > > p);
@@ -363,6 +405,7 @@ public :
     /*********************************************
      *  Overloaded operators for the Data class. *
      *********************************************/
+
     SampleIterator<T> begin() { return points.begin(); }
     
     SampleIterator<T> end() { return points.end(); }

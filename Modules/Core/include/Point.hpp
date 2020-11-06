@@ -19,6 +19,9 @@
 template <typename T, typename Rep> class Point;
 template< typename T, typename Rep> std::ostream &operator<<( std::ostream &output, const Point<T, Rep> &p );
 
+/**
+ * \brief Wrapper for the point data.
+ */
 template <typename T, typename Rep = std::vector<T> >
 class Point {
     private:
@@ -30,12 +33,26 @@ class Point {
         size_t id = 0;
 
     public:
+        /**
+         * \brief Empty constructor.
+         **/
         Point(){}
-        // create array with initial size
+        /**
+         * \brief Construct a point with initial dimension.
+         * \param s Dimension of the point.
+         **/
         explicit Point(std::size_t s): x(s) {}
-        // create array with initial size, default value and optional id
+        /**
+         * \brief Construct a point with initial dimension, default value and id.
+         * \param s Dimension of the point.
+         * \param value Initial value of the dimensions.
+         * \param id Id of the point
+         **/
         Point(std::size_t s, const T &value, const std::size_t &id = 0): x(s, value), id(id) {}
-        // create array from possible representation
+        /**
+         * \brief Construct a point with a custom internal representation.
+         * \param rb Point internal representation (std::vector by default).
+         **/
         Point(Rep const& rb): x(rb) {}
         /**
          * \brief Computes the dot product with a vector.
@@ -59,7 +76,7 @@ class Point {
         }
         /**
          * \brief Returns the p-norm of the point.
-         * \param p (???) p of the norm (euclidean norm is the default).
+         * \param p p of the norm (euclidean norm is the default).
          * \return double
          */
         double norm (int p = 2){
@@ -76,13 +93,98 @@ class Point {
 
             return pow(norm, 1.0/p);
         }
-
+        /**
+         * \brief Compute the sum of the components of the point.
+         * \return The sum of the components of the point.
+         **/
         T sum(){ 
             T _sum = T();
             for(std::size_t i = 0; i < size(); i++){
                 _sum += x[i];
             }
             return _sum;
+        }
+        /**
+         * \brief Returns the dimension of the point.
+         * \return std::size_t
+         **/
+        std::size_t size() const {
+            return x.size();
+        }
+        /**
+         * \brief Returns the attributes representation of the point (std::vector by default).
+         **/
+        Rep const& X() const{
+            return x;
+        }
+        /**
+         * \brief Returns a reference to the attributes representation of the point (std::vector by default).
+         **/
+        Rep& X(){
+            return x;
+        }
+        /**
+         * \brief Returns the class or value of the point.
+         * \return double
+         **/
+        double const& Y() const{
+            return y;
+        }
+        /**
+         * \brief Returns a reference to the class or value of the point.
+         * \return double
+         **/
+        double& Y(){
+            return y;
+        }
+        /**
+         * \brief Set the class or value of the point.
+         * \param y The class/value of the point.
+          **/
+        void setY(double const& _y){
+            this->y = _y;
+        }
+        /**
+         * \brief Return the alpha value of the point.
+         * \return double
+          **/
+        double const& Alpha() const{
+            return alpha;
+        }
+        /**
+         * \brief Returns a reference to the alpha value of the point.
+         * \return double
+          **/
+        double& Alpha(){
+            return alpha;
+        }
+        /**
+         * \brief Set alpha value of the point.
+         * \param alpha alpha value.
+          **/
+        void setAlpha(double const& _alpha){
+            this->alpha = _alpha;
+        }
+        /**
+         * \brief Returns the id of the point.
+         * \return size_t
+          **/
+        size_t const& Id() const{
+            return id;
+        }
+        /**
+        * \brief Returns a reference to the id of the point.
+        * \return size_t
+        **/
+        size_t& Id(){
+            return id;
+        }
+        /**
+         * \brief Set the id of the point.
+         * \param _id new id of the point.
+          **/
+        void setID(size_t const& _id){
+            this->id = _id;
         }
 
         // assignment operator from same type
@@ -104,11 +206,6 @@ class Point {
             return *this;
         }
 
-        // size is size of represented data
-        std::size_t size() const {
-            return x.size();
-        }
-
         // index operator for constants and variables
         decltype(auto) operator[] (std::size_t idx) const {
             assert(idx < size());
@@ -120,51 +217,7 @@ class Point {
             return x[idx];
         }
 
-        // return what the array currently represents
-        Rep const& X() const{
-            return x;
-        }
-
-        Rep& X(){
-            return x;
-        }
-
-        double const& Y() const{
-            return y;
-        }
-
-        double& Y(){
-            return y;
-        }
-
-        void setY(double const& _y){
-            this->y = _y;
-        }
-
-        double const& Alpha() const{
-            return alpha;
-        }
-
-        double& Alpha(){
-            return alpha;
-        }
-
-        void setAlpha(double const& _alpha){
-            this->alpha = _alpha;
-        }
-
-        size_t const& Id() const{
-            return id;
-        }
-
-        size_t& Id(){
-            return id;
-        }
-
-        void setID(size_t const& _id){
-            this->id = _id;
-        }
-
+        
         friend std::ostream &operator<< <T, Rep>( std::ostream &output, const Point< T, Rep> &p );
         bool operator== (Point const& rhs) const;
         bool operator!= (Point const& rhs) const;

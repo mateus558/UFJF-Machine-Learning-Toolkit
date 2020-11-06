@@ -7,9 +7,13 @@
 
 #include "Clusterer.hpp"
 
+/**
+ * \brief Wrapper for the implementation of the K-Means clustering algorithm.
+ */
 template<typename T, typename Callable = EuclideanDistance< T > >
 class KMeans: public Clusterer< T > {
 private:
+    /// Algorithm used for the initialization of the K-Means algorithm
     std::string initialization;
 
 public:
