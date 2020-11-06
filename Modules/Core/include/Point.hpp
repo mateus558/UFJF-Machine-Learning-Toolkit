@@ -182,6 +182,22 @@ class Point {
             this->id = _id;
         }
 
+        // index operator for constants and variables
+        decltype(auto) operator[] (size_t idx) const {
+            assert(idx < size());
+            return x[idx];
+        }
+
+        T& operator[](size_t idx) {
+            assert(idx < size());
+            return x[idx];
+        }
+        
+        template<typename T2, typename R2>
+        Point<T, A_Subscript<T, Rep, R2>> operator[](Point<T2, R2> const& b) {
+            return Point<T, A_Subscript<T, Rep, R2>> (A_Subscript<T, Rep, R2>((*this).X(), b.X()));
+        }
+
         // assignment operator from same type
         Point& operator=(Point const& b) {
             assert(size() == b.size());
@@ -197,6 +213,21 @@ class Point {
             assert(size() == b.size());
             for(std::size_t idx = 0; idx < b.size(); ++idx){
                 x[idx] = b[idx];
+            }
+            return *this;
+        }
+
+        Point& operator=(T const& b) {
+            for(std::size_t idx = 0; idx < size(); ++idx){
+                x[idx] = b;
+            }
+            return *this;
+        }
+
+        template <typename Y>
+        Point& operator=(Y const& b) {
+            for(std::size_t idx = 0; idx < size(); ++idx){
+                x[idx] = b;
             }
             return *this;
         }
@@ -335,22 +366,6 @@ class Point {
                 x[idx] /= b;
             }
             return *this;
-        }
-
-        // index operator for constants and variables
-        decltype(auto) operator[] (size_t idx) const {
-            assert(idx < size());
-            return x[idx];
-        }
-
-        T& operator[](size_t idx) {
-            assert(idx < size());
-            return x[idx];
-        }
-        
-        template<typename T2, typename R2>
-        Point<T, A_Subscript<T, Rep, R2>> operator[](Point<T2, R2> const& b) {
-            return Point<T, A_Subscript<T, Rep, R2>> (A_Subscript<T, Rep, R2>((*this).X(), b.X()));
         }
         
         friend std::ostream &operator<< <T, Rep>( std::ostream &output, const Point< T, Rep> &p );

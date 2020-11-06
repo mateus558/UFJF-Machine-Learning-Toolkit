@@ -9,6 +9,7 @@ int main(int argc, char *argv[]){
     x += 1;
     y *= 2;
     x /= 3;
+    y = 1201;
     std::cout << y << std::endl;
 
     std::cout << x << std::endl;
