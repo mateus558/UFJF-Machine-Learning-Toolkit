@@ -4,8 +4,8 @@
 int main(int argc, char *argv[]){
     Data<double> data;
 
-    data.setClassesAtEnd(true);
-    data.load("dataset_54_vehicle.csv");
+    data.setClassesAtEnd(false);
+    data.load("iris_teste.data");
 
     std::cout << "Dataset size: " << data.getSize() << std::endl;
     std::cout << "Dataset dimension: " << data.getDim() << std::endl;
@@ -51,4 +51,5 @@ int main(int argc, char *argv[]){
     for(auto class_name: class_names){
         std::cout << class_name << std::endl;
     }
+    data.write("iris_teste", "data");
 }

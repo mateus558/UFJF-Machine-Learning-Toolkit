@@ -59,20 +59,15 @@ class Point {
          * \param p (???)
          * \return double
          */
-        T dot (const std::vector< T > &p){
-            int i, dim = p.size();
-            double dot;
+        T dot (const Point<T> &p){
+            T result = 0;
+            assert(this->size() == p.size());
 
-            if(dim != x.size()){
-                std::cerr << "The Points must have the same dimension!" << std::endl;
-                return -1;
+            for(size_t i = 0; i < p.size(); i++){
+                result += p[i] * this->x[i];
             }
 
-            for(i = 0, dot = 0; i < dim; i++){
-                dot += p[i] * x[i];
-            }
-
-            return dot;
+            return result;
         }
         /**
          * \brief Returns the p-norm of the point.
@@ -395,4 +390,35 @@ operator/ (int const& s, Point<T,R2> const& b) {
     return Point<T,A_Div<T,A_Scalar<int>,R2>>(A_Div<T,A_Scalar<int>,R2>(A_Scalar<int>(s), b.X()));
 }
 
+
+// template <typename T>
+// class DotProduct {
+//     public:
+//         virtual ~DotProduct(){}
+//         virtual T operator()(const Point<T, R> &a, const Point<T, R> &b) = 0;
+// };
+
+// template <class T>
+// class CompositeDotProduct  : public DotProduct <T> {
+// public:
+//   T operator()(const Point<T, R> &a, const Point<T, R> &b) override{
+//        return  SimpleDotProduct<T>().eval(a,b,dim) 
+//     + ((dim==1) ? 0
+//       : CompositeDotProduct<T>().eval(a+1,b+1,dim-1)); 
+//   }
+// };
+ 
+// template <class T>
+// class SimpleDotProduct  : public DotProduct <T> {
+// public:
+//   virtual T eval(T* a, T* b, size_t dim) 
+//   { return (*a)*(*b); }
+// };
+
+
+// template <class T> T dot(T* a, T* b, size_t dim) 
+// { return (dim==1)
+//          ? SimpleDotProduct<T>(a,b).eval()
+//          : CompositeDotProduct<T>(a,b,dim).eval();
+// }
 #endif
