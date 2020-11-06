@@ -1,8 +1,14 @@
-// class for objects that represent scalars:
+/*! 
+   \class A_Scalar
+   \author Mateus Coutinho Marim
+    
+    Template for objects that represent scalars.
+*/
 template <typename T>
 class A_Scalar {
     private:
-        T const& value; // value of the scalar
+        /// value of the scalar
+        T const& value; 
     
     public:
         // Constructor initializes value

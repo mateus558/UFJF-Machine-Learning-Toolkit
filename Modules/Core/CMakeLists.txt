@@ -14,6 +14,6 @@ target_include_directories(${LIBCORE} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
         $<INSTALL_INTERFACE:src>)
 target_compile_definitions(${LIBCORE} PUBLIC LIBCORE_VERSION=1.0)
-target_compile_features(${LIBCORE} PRIVATE cxx_std_14)
+target_compile_features(${LIBCORE} PRIVATE cxx_std_17)
 
 install_lib(${LIBCORE} Core 1.0)

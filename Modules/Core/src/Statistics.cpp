@@ -45,9 +45,9 @@ double Statistics< T >::variance(vector< T > p){
 
 template < typename T >
 double Statistics< T >::variance(std::shared_ptr<Data< T > > data, int index){
-    register int i, j;
-    register double norm = 0.0;
-    register double sum = 0.0;
+    int i, j;
+    double norm = 0.0;
+    double sum = 0.0;
     int dim = data->getDim(), size = data->getSize();
     vector<int> fnames = data->getFeaturesNames();
     vector<double> avg(dim);

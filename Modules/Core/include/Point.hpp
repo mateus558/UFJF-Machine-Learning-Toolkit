@@ -201,17 +201,157 @@ class Point {
             return *this;
         }
 
+        // plus assignment operator for arrays of same types
+        Point& operator+=(Point const& b) {
+            assert(size() == b.size());
+            for(std::size_t idx = 0; idx < b.size(); ++idx){
+                x[idx] += b[idx];
+            }
+            return *this;
+        }
+
+        Point& operator+=(T const& b) {
+            for(std::size_t idx = 0; idx < size(); ++idx){
+                x[idx] += b;
+            }
+            return *this;
+        }
+
+        template <typename Y>
+        Point& operator+=(Y const& b) {
+            for(std::size_t idx = 0; idx < size(); ++idx){
+                x[idx] += b;
+            }
+            return *this;
+        }
+
+        // plus assignment operator for arrays of different types
+        template <typename T2, typename Rep2 >
+        Point& operator+=(Point<T2, Rep2> const& b) {
+            assert(size() == b.size());
+            for(std::size_t idx = 0; idx < b.size(); ++idx){
+                x[idx] += b[idx];
+            }
+            return *this;
+        }
+
+        // minus assignment operator for arrays of same types
+        Point& operator-=(Point const& b) {
+            assert(size() == b.size());
+            for(std::size_t idx = 0; idx < b.size(); ++idx){
+                x[idx] -= b[idx];
+            }
+            return *this;
+        }
+
+        // minus assignment operator for arrays of different types
+        template <typename T2, typename Rep2 >
+        Point& operator-=(Point<T2, Rep2> const& b) {
+            assert(size() == b.size());
+            for(std::size_t idx = 0; idx < b.size(); ++idx){
+                x[idx] -= b[idx];
+            }
+            return *this;
+        }
+
+        Point& operator-=(T const& b) {
+            for(std::size_t idx = 0; idx < size(); ++idx){
+                x[idx] -= b;
+            }
+            return *this;
+        }
+
+        template <typename Y>
+        Point& operator-=(Y const& b) {
+            for(std::size_t idx = 0; idx < size(); ++idx){
+                x[idx] -= b;
+            }
+            return *this;
+        }
+
+        // minus assignment operator for arrays of same types
+        Point& operator*=(Point const& b) {
+            assert(size() == b.size());
+            for(std::size_t idx = 0; idx < b.size(); ++idx){
+                x[idx] *= b[idx];
+            }
+            return *this;
+        }
+
+        // minus assignment operator for arrays of different types
+        template <typename T2, typename Rep2 >
+        Point& operator*=(Point<T2, Rep2> const& b) {
+            assert(size() == b.size());
+            for(std::size_t idx = 0; idx < b.size(); ++idx){
+                x[idx] *= b[idx];
+            }
+            return *this;
+        }
+
+        Point& operator*=(T const& b) {
+            for(std::size_t idx = 0; idx < size(); ++idx){
+                x[idx] *= b;
+            }
+            return *this;
+        }
+
+        template <typename Y>
+        Point& operator*=(Y const& b) {
+            for(std::size_t idx = 0; idx < size(); ++idx){
+                x[idx] *= b;
+            }
+            return *this;
+        }
+
+        // minus assignment operator for arrays of same types
+        Point& operator/=(Point const& b) {
+            assert(size() == b.size());
+            for(std::size_t idx = 0; idx < b.size(); ++idx){
+                x[idx] /= b[idx];
+            }
+            return *this;
+        }
+
+        // minus assignment operator for arrays of different types
+        template <typename T2, typename Rep2 >
+        Point& operator/=(Point<T2, Rep2> const& b) {
+            assert(size() == b.size());
+            for(std::size_t idx = 0; idx < b.size(); ++idx){
+                x[idx] /= b[idx];
+            }
+            return *this;
+        }
+
+        Point& operator/=(T const& b) {
+            for(std::size_t idx = 0; idx < size(); ++idx){
+                x[idx] /= b;
+            }
+            return *this;
+        }
+
+        template <typename Y>
+        Point& operator/=(Y const& b) {
+            for(std::size_t idx = 0; idx < size(); ++idx){
+                x[idx] /= b;
+            }
+            return *this;
+        }
+
         // index operator for constants and variables
-        decltype(auto) operator[] (std::size_t idx) const {
+        decltype(auto) operator[] (size_t idx) const {
             assert(idx < size());
             return x[idx];
         }
 
-        T& operator[](std::size_t idx) {
+        T& operator[](size_t idx) {
             assert(idx < size());
             return x[idx];
         }
-
+        
+        template<typename T2, typename R2>
+        Point<T, A_Subscript<T, Rep, R2>> operator[](Point<T2, R2> const& b) {
+            return Point<T, A_Subscript<T, Rep, R2>> (A_Subscript<T, Rep, R2>((*this).X(), b.X()));
+        }
         
         friend std::ostream &operator<< <T, Rep>( std::ostream &output, const Point< T, Rep> &p );
         bool operator== (Point const& rhs) const;
@@ -265,10 +405,10 @@ operator+ (T const& s, Point<T,R2> const& b) {
 }
 
 // addition of scalar and point
-template<typename T, typename R2>
-Point<T, A_Add<T,A_Scalar<int>,R2> >
-operator+ (int const& s, Point<T,R2> const& b) {
-    return Point<T,A_Add<T,A_Scalar<int>,R2>>(A_Add<T,A_Scalar<int>,R2>(A_Scalar<int>(s), b.X()));
+template<typename T, typename T2, typename R2>
+Point<T, A_Add<T,A_Scalar<T2>,R2> >
+operator+ (T2 const& s, Point<T,R2> const& b) {
+    return Point<T,A_Add<T,A_Scalar<T2>,R2>>(A_Add<T,A_Scalar<T2>,R2>(A_Scalar<T2>(s), b.X()));
 }
 
 // addition of point and scalar
@@ -335,10 +475,10 @@ operator* (T const& s, Point<T,R2> const& b) {
 }
 
 // multiplication of scalar and point
-template<typename T, typename R2>
-Point<T, A_Mult<T,A_Scalar<int>,R2> >
-operator* (int const& s, Point<T,R2> const& b) {
-    return Point<T,A_Mult<T,A_Scalar<int>,R2>>(A_Mult<T,A_Scalar<int>,R2>(A_Scalar<int>(s), b.X()));
+template<typename T, typename T2, typename R2>
+Point<T, A_Mult<T,A_Scalar<T2>,R2> >
+operator* (T2 const& s, Point<T,R2> const& b) {
+    return Point<T,A_Mult<T,A_Scalar<T2>,R2>>(A_Mult<T,A_Scalar<T2>,R2>(A_Scalar<T2>(s), b.X()));
 }
 
 // multiplication of point and scalar
@@ -391,34 +531,4 @@ operator/ (int const& s, Point<T,R2> const& b) {
 }
 
 
-// template <typename T>
-// class DotProduct {
-//     public:
-//         virtual ~DotProduct(){}
-//         virtual T operator()(const Point<T, R> &a, const Point<T, R> &b) = 0;
-// };
-
-// template <class T>
-// class CompositeDotProduct  : public DotProduct <T> {
-// public:
-//   T operator()(const Point<T, R> &a, const Point<T, R> &b) override{
-//        return  SimpleDotProduct<T>().eval(a,b,dim) 
-//     + ((dim==1) ? 0
-//       : CompositeDotProduct<T>().eval(a+1,b+1,dim-1)); 
-//   }
-// };
- 
-// template <class T>
-// class SimpleDotProduct  : public DotProduct <T> {
-// public:
-//   virtual T eval(T* a, T* b, size_t dim) 
-//   { return (*a)*(*b); }
-// };
-
-
-// template <class T> T dot(T* a, T* b, size_t dim) 
-// { return (dim==1)
-//          ? SimpleDotProduct<T>(a,b).eval()
-//          : CompositeDotProduct<T>(a,b,dim).eval();
-// }
 #endif
