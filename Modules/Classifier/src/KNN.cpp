@@ -5,15 +5,9 @@
 #include "KNN.hpp"
 #include <memory>
 
-template <typename T >
-KNN< T >::KNN(std::shared_ptr<Data<T>> _samples, size_t k, std::function<double(std::shared_ptr<Point< T > >, std::shared_ptr<Point< T > >)> _dist_function){
-    this->samples = _samples;
-    this->k = k;
-    this->dist_function = _dist_function;
-}
 
-template <typename T >
-double KNN< T >::evaluate(Point<T> p, bool raw_value) {
+template <typename T, typename Callable >
+double KNN<T, Callable>::evaluate(Point<T> p, bool raw_value) {
     size_t max_index = 0, max_freq = 0, i;
     auto points = this->samples->getPoints();
     std::vector<double> distances(this->samples->getSize());
@@ -25,7 +19,7 @@ double KNN< T >::evaluate(Point<T> p, bool raw_value) {
     std::iota(idx.begin(), idx.end(), 0);
     // compute the distance from the sample to be evaluated to the samples vector
     std::transform(points.begin(), points.end(), distances.begin(), [p0, this](const std::shared_ptr<Point< T > > q){
-        return this->dist_function(p0, q);
+        return this->dist_function(*p0, *q);
     });
     // sort the index vector by the distance from the sample to be evaluated
     std::stable_sort(idx.begin(), idx.end(), [&distances](size_t i1, size_t i2){
@@ -47,8 +41,8 @@ double KNN< T >::evaluate(Point<T> p, bool raw_value) {
     return classes[max_index];
 }
 
-template<typename T>
-bool KNN<T>::train() {
+template <typename T, typename Callable >
+bool KNN<T, Callable>::train() {
     return false;
 }
 

@@ -14,12 +14,12 @@ class OneVsAll: public PrimalClassifier< T >, public DualClassifier< T > {
 private:
     using ClassifierPointer = std::shared_ptr<ClassifierT< T > >;
 
-    std::shared_ptr<OverSampling< T > > samp_method;
+    OverSampling< T > *samp_method;
     std::vector<ClassifierPointer> base_learners;
     ClassifierPointer classifier;
 
 public:
-    OneVsAll(std::shared_ptr<Data< T > > samples = nullptr, ClassifierPointer classifier = nullptr, std::shared_ptr<OverSampling< T > > samp_method = nullptr, int _verbose = 0);
+    OneVsAll(std::shared_ptr<Data< T > > samples = nullptr, ClassifierPointer classifier = nullptr, OverSampling< T > *samp_method = nullptr, int _verbose = 0);
 
     bool train() override;
 
@@ -30,7 +30,7 @@ public:
 };
 
 template< typename T, template <typename > class ClassifierT>
-OneVsAll<T, ClassifierT>::OneVsAll(std::shared_ptr<Data< T > > _samples, ClassifierPointer classifier, std::shared_ptr<OverSampling< T > > samp_method, int _verbose){
+OneVsAll<T, ClassifierT>::OneVsAll(std::shared_ptr<Data< T > > _samples, ClassifierPointer classifier, OverSampling< T > *samp_method, int _verbose){
     this->samples = _samples;
     this->classifier = classifier;
     this->samp_method = samp_method;
@@ -66,11 +66,6 @@ bool OneVsAll<T, ClassifierT>::train() {
         
         if(samp_method){
             temp_samples->computeClassesDistribution();
-            // auto class_distribution = temp_samples->getClassesDistribution();
-            // for(auto &dist: class_distribution){
-            //     std::cout << dist << " ";
-            // }
-            // std::cout << std::endl;
             (*samp_method)(temp_samples);
         }
 

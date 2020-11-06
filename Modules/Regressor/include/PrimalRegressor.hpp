@@ -16,6 +16,10 @@ protected :
 
 public:
 
+    PrimalRegressor() {}
+
+    PrimalRegressor(DataPointer< T > samples): Regressor< T >(samples) {}
+
     double evaluate(Point< T > p, bool raw_value=false) override {
         double func = 0.0;
         size_t i, dim = this->solution.w.size();

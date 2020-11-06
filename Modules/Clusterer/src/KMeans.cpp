@@ -5,8 +5,16 @@
 #include <random>
 #include "KMeans.hpp"
 
-template<typename T>
-bool KMeans<T>::train() {
+template<typename T, typename Callable>
+KMeans<T, Callable>::KMeans(std::shared_ptr<Data<T>> _samples, size_t k, const std::string& _initialization)
+: Clusterer< T >(_samples, k), initialization(_initialization)
+{
+    this->centers.assign(this->n_clusters, std::vector<T>(this->samples->getDim(), 0.0));
+    this->clusters.assign(this->n_clusters, std::vector<size_t>());
+}
+
+template<typename T, typename Callable>
+bool KMeans<T, Callable>::train() {
     double cost = 0.0, old_cost = 0.0;
     size_t dim = this->samples->getDim(), size = this->samples->getSize();
     size_t time = this->start_time+this->max_time;
@@ -41,7 +49,7 @@ bool KMeans<T>::train() {
             std::vector<double> distances(points.size(), 0.0);
             //compute the distances from the points to the last cluster
             std::transform(points.begin(), points.end(), distances.begin(), [&i, &sum_d, this](const std::shared_ptr<Point< T > > q){
-                double d = this->dist_function(std::make_shared<Point<T> >(this->centers[i-1]), q);
+                double d = this->dist_function(Point<T>(this->centers[i-1]), *q);
                 sum_d += d;
                 return d;
             });
@@ -120,8 +128,8 @@ bool KMeans<T>::train() {
     return true;
 }
 
-template<typename T>
-double KMeans<T>::evaluate(Point<T> p, bool raw_value) {
+template<typename T, typename Callable>
+double KMeans<T, Callable>::evaluate(Point<T> p, bool raw_value) {
     std::vector<double> distances(this->n_clusters, 0.0);
     double min_value = std::numeric_limits<double>::max();
     size_t min_cluster = 0;
@@ -145,20 +153,9 @@ double KMeans<T>::evaluate(Point<T> p, bool raw_value) {
     return min_cluster+1;
 }
 
-template<typename T>
-std::string KMeans<T>::getFormulationString() {
+template<typename T, typename Callable>
+std::string KMeans<T, Callable>::getFormulationString() {
     return "Clusterer";
-}
-
-template<typename T>
-KMeans<T>::KMeans(std::shared_ptr<Data<T>> _samples, size_t k, const std::string& initialization, Function _dist_function){
-    this->samples = _samples;
-    this->n_clusters = k;
-    this->initialization = initialization;
-    this->dist_function = _dist_function;
-
-    this->centers.assign(this->n_clusters, std::vector<T>(this->samples->getDim(), 0.0));
-    this->clusters.assign(this->n_clusters, std::vector<size_t>());
 }
 
 template class KMeans<int>;

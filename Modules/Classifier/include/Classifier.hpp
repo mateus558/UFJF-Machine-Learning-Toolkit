@@ -26,6 +26,8 @@ public :
 
     Classifier< T >(){} 
 
+    Classifier< T >(DataPointer< T > samples): Learner< T > (samples) {}
+
     Classifier< T >(const Classifier< T > &classifier)
     : Learner< T > (classifier)
     {

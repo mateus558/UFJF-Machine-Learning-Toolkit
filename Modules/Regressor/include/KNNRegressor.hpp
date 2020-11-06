@@ -3,27 +3,18 @@
 
 
 #include "PrimalRegressor.hpp"
+#include "DistanceMetric.hpp"
 #include <assert.h>
 #include <functional>
 
-template <typename T>
+template <typename T, typename Callable = EuclideanDistance< T > >
 class KNNRegressor: public PrimalRegressor< T > {
 private:
-    using function = std::function<double(std::shared_ptr<Point< T > >, std::shared_ptr<Point< T > >)>;
-
     size_t k;
-    function dist_function;
+    Callable dist_function;
 public:
-    KNNRegressor(std::shared_ptr<Data<T> > _samples, size_t _k, function _dist_function  = [] (const std::shared_ptr<Point< T > > p, const std::shared_ptr<Point< T > > q){
-        const size_t _dimp = p->X().size();
-        size_t i;
-        double dist = 0;
-
-        for(i = 0; i < _dimp; i++){
-            dist += (p->X()[i] - q->X()[i]) * (p->X()[i] - q->X()[i]);
-        }
-        return sqrt(dist);
-    });
+    KNNRegressor(std::shared_ptr<Data<T> > _samples, size_t _k, Callable dist_func = Callable())
+    : PrimalRegressor< T >(_samples), k(_k), dist_function(dist_func) {}
 
     bool train() override;
 

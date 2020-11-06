@@ -16,10 +16,10 @@ private:
 
     std::vector<std::vector<ClassifierPointer> > base_learners;
     ClassifierPointer classifier;
-    std::shared_ptr<OverSampling< T > > samp_method;
+    OverSampling< T > *samp_method;
 
 public:
-    OneVsOne(std::shared_ptr<Data< T > > samples = nullptr, ClassifierPointer classifier = nullptr, std::shared_ptr<OverSampling< T > > samp_method= nullptr, int _verbose = 0);
+    OneVsOne(std::shared_ptr<Data< T > > samples = nullptr, ClassifierPointer classifier = nullptr, OverSampling< T > *samp_method= nullptr, int _verbose = 0);
 
     bool train() override;
 
@@ -29,7 +29,7 @@ public:
 };
 
 template< typename T, template <typename > class ClassifierT>
-OneVsOne<T, ClassifierT>::OneVsOne(std::shared_ptr<Data< T > > _samples, ClassifierPointer classifier, std::shared_ptr<OverSampling< T > > samp_method, int _verbose) {
+OneVsOne<T, ClassifierT>::OneVsOne(std::shared_ptr<Data< T > > _samples, ClassifierPointer classifier, OverSampling< T > *samp_method, int _verbose) {
     this->samples = _samples;
     this->verbose = _verbose;
     this->classifier = classifier;

@@ -2,25 +2,29 @@
 #define OVERSAMPLING_HPP_INCLUDED
 
 #include "Data.hpp"
+#include "DistanceMetric.hpp"
 #include <random>
 
-template < typename T >
+template < typename T, typename Callable = EuclideanDistance< T > >
 class OverSampling{
+protected:
+    Callable distance_metric;
 public:
     OverSampling(){}
-    void setSeed(size_t seed = 0){ this->seed = seed; }
+    OverSampling(Callable dist_metric): distance_metric(dist_metric) {}
     virtual DataPointer< T > operator()(DataPointer< T > data) = 0;
 };
 
-template < typename T >
-class SMOTE: public OverSampling< T > {
+template < typename T, typename Callable = EuclideanDistance< T > >
+class SMOTE: public OverSampling< T, Callable > {
 private:
     size_t seed = 0;
     size_t k = 5;
     double r = 0.1;
 
 public:
-    SMOTE(size_t k = 1, double r = 0.1, size_t seed = 0): k(k), r(r), seed(seed) {}
+    SMOTE(size_t k = 1, double r = 0.1, size_t seed = 0, Callable dist_metric = Callable())
+    : k(k), r(r), seed(seed), OverSampling<T>(dist_metric) {}
 
     DataPointer< T > operator()(DataPointer< T > data) override {
         std::random_device rd;
@@ -47,9 +51,10 @@ public:
             auto _z = *(*z);
 
             // compute the euclidean distance from a point to the rest 
-            std::transform(Z->begin(), Z->end(), distance.begin(), [&_z, &id](auto p){
+            std::transform(Z->begin(), Z->end(), distance.begin(), [this, &_z, &id](auto p){
                 id++;
-                return std::make_pair(id, sqrt(((_z - *p) * (_z - *p)).sum()));
+                return std::make_pair(id, this->distance_metric(_z, *p));
+                // return std::make_pair(id, sqrt(((_z - *p) * (_z - *p)).sum()));
             });
 
             // sort the distances in increasing distance order
@@ -92,8 +97,8 @@ public:
     }
 }; 
 
-template < typename T >
-class BorderlineSMOTEOne: public OverSampling< T > {
+template < typename T, typename Callable = EuclideanDistance< T > >
+class BorderlineSMOTEOne: public OverSampling< T, Callable > {
 private:
     size_t seed = 0;
     size_t k = 5;
@@ -101,7 +106,8 @@ private:
     double r = 0.1;
     
 public:
-    BorderlineSMOTEOne(size_t k = 1, double r = 0.1, size_t m = 1, size_t seed = 0): k(k), r(r), m(m), seed(seed) {}
+    BorderlineSMOTEOne(size_t k = 1, double r = 0.1, size_t m = 1, size_t seed = 0, Callable dist_metric = Callable())
+    : k(k), r(r), m(m), seed(seed), OverSampling<T>(dist_metric) {}
 
     DataPointer< T > operator()(DataPointer< T > data) override {
         // Find the majority class
@@ -120,9 +126,9 @@ public:
             auto _z = (*z);
 
             // compute the euclidean distance from a point to the rest 
-            std::transform(data->begin(), data->end(), distance.begin(), [&_z, &id](auto p){
+            std::transform(data->begin(), data->end(), distance.begin(), [this, &_z, &id](auto p){
                 id++;
-                return std::make_pair(id, sqrt(((*_z - *p) * (*_z - *p)).sum()));
+                return std::make_pair(id, this->distance_metric(*_z, *p));
             });
 
             // sort the distances in increasing distance order

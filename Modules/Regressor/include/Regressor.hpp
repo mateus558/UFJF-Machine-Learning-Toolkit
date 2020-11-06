@@ -15,6 +15,10 @@ protected:
     ///Regressor solution.
     Solution solution;
 public:
+    Regressor() {}
+
+    Regressor(DataPointer< T > samples): Learner< T > (samples) {}
+
     /*********************************************
      *               Getters                     *
      *********************************************/

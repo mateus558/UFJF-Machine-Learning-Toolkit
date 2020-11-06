@@ -7,24 +7,13 @@
 
 #include "Clusterer.hpp"
 
-template<typename T>
+template<typename T, typename Callable = EuclideanDistance< T > >
 class KMeans: public Clusterer< T > {
 private:
-    using Function = typename Clusterer< T >::Function;
-
     std::string initialization;
 
 public:
-    KMeans(std::shared_ptr<Data<T> > _samples, size_t k, const std::string& initialization = "random", Function _dist_function  = [] (const std::shared_ptr<Point< double > > p, const std::shared_ptr<Point< T > > q){
-        const size_t _dimp = p->X().size();
-        size_t i;
-        double dist = 0;
-
-        for(i = 0; i < _dimp; i++){
-            dist += (p->X()[i] - q->X()[i]) * (p->X()[i] - q->X()[i]);
-        }
-        return sqrt(dist);
-    });
+    KMeans(std::shared_ptr<Data<T> > _samples, size_t k, const std::string& initialization = "random");
 
     bool train() override;
 

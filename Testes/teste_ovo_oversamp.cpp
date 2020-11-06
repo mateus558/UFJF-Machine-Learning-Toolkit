@@ -22,7 +22,8 @@ int main(int argc, char *argv[]){
     imap.setFlexible(0.001);
     imap.setMaxTime(110);
     
-    OneVsOne<double, IMAp> ovo(data, std::make_shared<IMAp<double> >(imap), std::make_shared<SMOTE<double> >());
+    SMOTE<double> smote;
+    OneVsOne<double, IMAp> ovo(data, std::make_shared<IMAp<double> >(imap), &smote);
     
     ovo.train();
     

@@ -41,6 +41,8 @@ protected:
 public:
     Learner< T > (){}
 
+    Learner< T > (DataPointer< T > _samples): samples(_samples) {}
+
     Learner< T > (const Learner< T > &learner){
       this->samples = learner.samples;
       this->EPS = learner.EPS;

@@ -26,6 +26,8 @@ public:
 
     PrimalClassifier< T > (){}
 
+    PrimalClassifier< T > (DataPointer< T > samples): Classifier< T >(samples) {}
+
     PrimalClassifier< T > (const PrimalClassifier< T >& primal_learner)
     : Classifier< T >(primal_learner)
     {

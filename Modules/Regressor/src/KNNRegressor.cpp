@@ -1,20 +1,13 @@
 #include "KNNRegressor.hpp"
 #include <memory>
 
-template<typename T>
-KNNRegressor<T>::KNNRegressor(std::shared_ptr<Data<T>> _samples, size_t _k, KNNRegressor::function _dist_function) {
-    this->samples = _samples;
-    this->k = _k;
-    this->dist_function = _dist_function;
-}
-
-template<typename T>
-std::string KNNRegressor<T>::getFormulationString() {
+template<typename T, typename Callable>
+std::string KNNRegressor<T, Callable>::getFormulationString() {
     return "Regressor";
 }
 
-template<typename T>
-double KNNRegressor<T>::evaluate(Point<T> p, bool raw_value) {
+template<typename T, typename Callable>
+double KNNRegressor<T, Callable>::evaluate(Point<T> p, bool raw_value) {
     auto points = this->samples->getPoints();
     std::vector<double> distances(this->samples->getSize());
     std::vector<int> classes = this->samples->getClasses();
@@ -25,7 +18,7 @@ double KNNRegressor<T>::evaluate(Point<T> p, bool raw_value) {
 
     // compute the distance from the sample to be evaluated to the samples vector
     std::transform(points.begin(), points.end(), distances.begin(), [p0, this](const std::shared_ptr<Point< T > > q){
-        return this->dist_function(p0, q);
+        return this->dist_function(*p0, *q);
     });
     // sort the index vector by the distance from the sample to be evaluated
     std::stable_sort(idx.begin(), idx.end(), [&distances](size_t i1, size_t i2){
@@ -41,8 +34,8 @@ double KNNRegressor<T>::evaluate(Point<T> p, bool raw_value) {
     return sum/this->k;
 }
 
-template<typename T>
-bool KNNRegressor<T>::train() {
+template<typename T, typename Callable>
+bool KNNRegressor<T, Callable>::train() {
     return false;
 }
 

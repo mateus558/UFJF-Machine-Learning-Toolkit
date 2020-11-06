@@ -6,28 +6,19 @@
 #define UFJF_MLTK_KNN_HPP
 
 #include "PrimalClassifier.hpp"
+#include "DistanceMetric.hpp"
 #include <assert.h>
 #include <functional>
 
-template <typename T>
+template <typename T, typename Callable = EuclideanDistance< T > >
 class KNN: public PrimalClassifier< T > {
 private:
-    typedef std::function<double(std::shared_ptr<Point< T > >, std::shared_ptr<Point< T > >)> function;
-
     size_t k;
-    function dist_function;
+    Callable dist_function;
 
 public:
-    KNN(std::shared_ptr<Data<T> > _samples, size_t _k, function _dist_function  = [] (const std::shared_ptr<Point< T > > p, const std::shared_ptr<Point< T > > q){
-        const size_t _dimp = p->X().size();
-        size_t i;
-        double dist = 0;
-
-        for(i = 0; i < _dimp; i++){
-            dist += (p->X()[i] - q->X()[i]) * (p->X()[i] - q->X()[i]);
-        }
-        return sqrt(dist);
-    });
+    KNN(std::shared_ptr<Data<T> > _samples, size_t _k, Callable dist_func = Callable())
+    : PrimalClassifier< T >(_samples), k(_k), dist_function(dist_func) {}
 
     bool train() override;
 

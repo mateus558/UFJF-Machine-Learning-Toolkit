@@ -5,19 +5,22 @@
 #ifndef UFJF_MLTK_CLUSTERER_HPP
 #define UFJF_MLTK_CLUSTERER_HPP
 
-#include <functional>
-
+#include "DistanceMetric.hpp"
 #include "../../Core/include/Learner.hpp"
 
-template < typename T >
+template < typename T, typename Callable = EuclideanDistance< T > >
 class Clusterer: public Learner< T > {
 protected:
-    using Function = std::function<double(std::shared_ptr<Point< T > >, std::shared_ptr<Point< T > >)>;
-
-    Function dist_function;
+    Callable dist_function;
     size_t n_clusters;
     std::vector<std::vector<T> > centers;
     std::vector<std::vector<size_t> > clusters;
+
+public:
+    Clusterer() {}
+
+    Clusterer(DataPointer< T > samples = nullptr, size_t clusters = 0)
+    : Learner< T > (samples), n_clusters(clusters) {}
 };
 
 
