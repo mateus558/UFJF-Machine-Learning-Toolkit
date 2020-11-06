@@ -64,7 +64,6 @@ template < class T > using SampleIterator = typename std::vector<SamplePointer< 
 /**
  * \brief Wrapper for the dataset data.
  */
-
 template < typename T >
 class Data {
     // Associations
