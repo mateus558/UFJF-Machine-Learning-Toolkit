@@ -39,10 +39,11 @@ else()
 endif()
 
 add_subdirectory(Modules)
-add_subdirectory(Examples)
 if(BUILD_CLI)
     add_subdirectory(CLI)
 endif()
+
+add_subdirectory(Examples)
 
 if(BUILD_GUI)
     add_subdirectory(GUI)

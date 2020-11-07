@@ -9,43 +9,45 @@
 
 #include "../../Core/include/Learner.hpp"
 
-template <typename T >
-class Regressor: public Learner<T>{
-protected:
-    ///Regressor solution.
-    Solution solution;
-public:
-    Regressor() {}
+namespace mltk{
+    template <typename T >
+    class Regressor: public Learner<T>{
+    protected:
+        ///Regressor solution.
+        Solution solution;
+    public:
+        Regressor() {}
 
-    Regressor(DataPointer< T > samples): Learner< T > (samples) {}
+        Regressor(DataPointer< T > samples): Learner< T > (samples) {}
 
-    /*********************************************
-     *               Getters                     *
-     *********************************************/
+        /*********************************************
+         *               Getters                     *
+         *********************************************/
 
-    /**
-     * \brief getSolution Returns the solution of the regressor.
-     * \return Solution
-     */
-    Solution getSolution() const {return solution;}
-    /**
-     * \brief getSolution Returns a reference to the solution of the regressor.
-     * \return Solution
-     */
-    Solution *getSolutionRef() { return &solution; }
+        /**
+         * \brief getSolution Returns the solution of the regressor.
+         * \return Solution
+         */
+        Solution getSolution() const {return solution;}
+        /**
+         * \brief getSolution Returns a reference to the solution of the regressor.
+         * \return Solution
+         */
+        Solution *getSolutionRef() { return &solution; }
 
-    /*********************************************
-     *               Setters                     *
-     *********************************************/
+        /*********************************************
+         *               Setters                     *
+         *********************************************/
 
-    /**
-    * \brief setW Set the weights vector of the regressor.
-    * \param w weights vector.
-    */
-    void setW(const std::vector<double>& w) {this->solution.w = w;}
-    /**
-     * \brief setSolution Set a solution for the regressor.
-     * \param solution Solution to be set.
-     */
-    void setSolution(Solution solution) {this->solution = solution;}
-};
+        /**
+        * \brief setW Set the weights vector of the regressor.
+        * \param w weights vector.
+        */
+        void setW(const std::vector<double>& w) {this->solution.w = w;}
+        /**
+         * \brief setSolution Set a solution for the regressor.
+         * \param solution Solution to be set.
+         */
+        void setSolution(Solution solution) {this->solution = solution;}
+    };
+}

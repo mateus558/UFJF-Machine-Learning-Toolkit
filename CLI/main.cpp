@@ -25,6 +25,7 @@
 #include "KMeans.hpp"
 
 using namespace std;
+using namespace mltk;
 
 int verbose = 1;
 bool sair = false, inva = false;

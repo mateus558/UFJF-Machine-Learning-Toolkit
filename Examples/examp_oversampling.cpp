@@ -1,21 +1,21 @@
 #include "Sampling.hpp"
 
 int main(int argc, char *argv[]){
-    DataPointer<double> data = std::make_shared<Data< double > >();
-    DataPointer<double> data1 = std::make_shared<Data< double > >();
+    mltk::DataPointer<double> data = std::make_shared<mltk::Data< double > >();
+    mltk::DataPointer<double> data1 = std::make_shared<mltk::Data< double > >();
     
     data->load("iris_mult.csv");
     data1->copy(*data);
     std::cout << *data << std::endl;
 
-    SMOTE<double> smote;
+    mltk::SMOTE<double> smote;
     smote(data);
 
     std::cout << *data << std::endl;
 
     auto class_distribution = data->getClassesDistribution();
     
-    BorderlineSMOTEOne<double> bsmote1;
+    mltk::BorderlineSMOTEOne<double> bsmote1;
     bsmote1(data1);
 
     std::cout << *data1 << std::endl;

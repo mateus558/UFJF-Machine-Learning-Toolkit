@@ -2,7 +2,7 @@
 #include <Data.hpp>
 
 int main(int argc, char *argv[]){
-    Data<double> data;
+    mltk::Data<double> data;
 
     data.setClassesAtEnd(false);
     data.load("iris_teste.data");

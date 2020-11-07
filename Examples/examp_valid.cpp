@@ -2,32 +2,32 @@
 #include "OneVsAll.hpp"
 #include "Perceptron.hpp"
 
-template < class T > using DataPointer = std::shared_ptr<Data< T > >;
+template < class T > using DataPointer = std::shared_ptr<mltk::Data< T > >;
 
 int main(int argc, char *argv[]){
-    DataPointer<double> sample = std::make_shared<Data<double> >();
+    mltk::DataPointer<double> sample = std::make_shared<mltk::Data<double> >();
     size_t fold = 10;
     int verbose = 2;
-    Classifier< double >  *classifier = new PerceptronPrimal<double >();
+    mltk::Classifier< double >  *classifier = new mltk::PerceptronPrimal<double >();
     std::vector<double> error_arr(fold);
 
-    std::vector<DataPointer<double> > folds(fold);
+    std::vector<mltk::DataPointer<double> > folds(fold);
     sample->load("iris.data");
     double sizes = sample->getSize()/fold;
     std::cout << *sample << std::endl;
 
     auto classes = sample->getClasses();
     auto classDistribution = sample->getClassesDistribution();
-    std::vector<DataPointer<double> > points_by_class(classes.size());
+    std::vector<mltk::DataPointer<double> > points_by_class(classes.size());
     std::vector<size_t> new_class_distribution(classes.size());
-    auto train_sample = std::make_shared<Data<double> >();
-    auto test_sample = std::make_shared<Data<double> >();
+    auto train_sample = std::make_shared<mltk::Data<double> >();
+    auto test_sample = std::make_shared<mltk::Data<double> >();
 
     for(size_t i = 0; i < classes.size(); i++){
-        points_by_class[i] = std::make_shared<Data<double> >();
+        points_by_class[i] = std::make_shared<mltk::Data<double> >();
     }
     for(size_t i = 0; i < fold; i++){
-        folds[i] = std::make_shared<Data<double> >();
+        folds[i] = std::make_shared<mltk::Data<double> >();
     }
 
     for(size_t i = 0; i < classes.size(); i++){

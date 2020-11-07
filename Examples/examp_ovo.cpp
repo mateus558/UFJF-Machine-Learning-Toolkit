@@ -6,9 +6,9 @@
 #include "IMA.hpp"
 
 int main(int argc, char *argv[]){
-    DataPointer<double> data = std::make_shared<Data< double > >();
-    Validation<double> validation;
-    IMAp<double> imap;
+    mltk::DataPointer<double> data = std::make_shared<mltk::Data< double > >();
+    mltk::Validation<double> validation;
+    mltk::IMAp<double> imap;
     
     //data->setClassesAtEnd(true);
     data->load("iris_mult.csv");
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
     imap.setFlexible(0.001);
     imap.setMaxTime(110);
  
-    OneVsOne<double, IMAp> ovo(data, std::make_shared<IMAp<double> >(imap));
+   mltk::OneVsOne<double, mltk::IMAp> ovo(data, std::make_shared<mltk::IMAp<double> >(imap));
     
     ovo.train();
  
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
     validation.setSamples(data);
     validation.setClassifier(&ovo);
     
-    auto conf_matrix = Validation<double>::generateConfusionMatrix(ovo, *data);
+    auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(ovo, *data);
     double errors = 0;
  
     for(size_t i = 0; i < conf_matrix.size(); i++){
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]){
     }
  
     validation.partTrainTest(10);
-    ValidationSolution s = validation.validation(10, 10);
+    mltk::ValidationSolution s = validation.validation(10, 10);
 
     std::cout << "Validation accuracy: " << s.accuracy << std::endl;
     std::cout << "Acurracy: " << 1 - errors/data->getSize() << std::endl;
