@@ -4,6 +4,7 @@
 
 #ifndef UFJF_MLTK_ONEVSONE_HPP
 #define UFJF_MLTK_ONEVSONE_HPP
+#pragma once
 
 #include "PrimalClassifier.hpp"
 #include "DualClassifier.hpp"

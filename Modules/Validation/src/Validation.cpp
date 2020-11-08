@@ -18,8 +18,8 @@ namespace mltk{
         train_sample = std::make_shared<Data< T > >();
         test_sample = std::make_shared<Data< T > >();
 
-        mltk::random::init(seed);
-        seed = mltk::random::getSeed();
+        random::init(seed);
+        seed = random::getSeed();
     }
 
     template < typename T >

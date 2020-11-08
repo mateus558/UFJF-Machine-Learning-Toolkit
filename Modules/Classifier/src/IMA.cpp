@@ -7,8 +7,6 @@
 #include <ctime>
 #include <float.h>
 #include "IMA.hpp"
-#include "Timer.hpp"
-#include "Perceptron.hpp"
 
 namespace mltk{
     using namespace std;

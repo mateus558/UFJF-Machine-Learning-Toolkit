@@ -5,6 +5,7 @@
 
 #ifndef SOLUTION__HPP
 #define SOLUTION__HPP
+#pragma once
 
 #include <vector>
 #include "Kernel.hpp"

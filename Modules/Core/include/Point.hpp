@@ -5,6 +5,7 @@
 
 #ifndef POINT__HPP
 #define POINT__HPP
+#pragma once
 
 #include <cstddef>
 #include <cassert>

@@ -4,6 +4,7 @@
 
 #ifndef LEARNER_HPP
 #define LEARNER_HPP
+#pragma once
 
 #include "Solution.hpp"
 #include "Data.hpp"

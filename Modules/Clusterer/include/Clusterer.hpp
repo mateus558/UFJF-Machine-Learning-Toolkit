@@ -4,6 +4,7 @@
 
 #ifndef UFJF_MLTK_CLUSTERER_HPP
 #define UFJF_MLTK_CLUSTERER_HPP
+#pragma once
 
 #include "DistanceMetric.hpp"
 #include "../../Core/include/Learner.hpp"

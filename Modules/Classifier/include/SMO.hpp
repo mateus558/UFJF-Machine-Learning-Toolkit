@@ -8,6 +8,7 @@
 
 #ifndef UFJF_MLTK_SMO_H
 #define UFJF_MLTK_SMO_H
+#pragma once
 
 #include "DualClassifier.hpp"
 #include <list>

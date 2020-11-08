@@ -6,7 +6,7 @@ if(GNUPLOT_FOUND)
         src/Visualization.cpp
     )
 
-    set_target_properties(${LIBVISUALIZE} PROPERTIES PUBLIC_HEADER "include/Visualization.hpp;include/gnuplot_i.hpp" )
+    set_target_properties(${LIBVISUALIZE} PROPERTIES PUBLIC_HEADER "Visualization.hpp;include/Visualization.hpp;include/gnuplot_i.hpp" )
 
     target_include_directories(${LIBVISUALIZE} PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

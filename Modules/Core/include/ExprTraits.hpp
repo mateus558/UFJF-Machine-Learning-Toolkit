@@ -1,5 +1,6 @@
 #ifndef EXPRTRAITS_HPP_INCLUDED
 #define EXPRTRAITS_HPP_INCLUDED
+#pragma once
 
 namespace mltk{
     template <typename T> class A_Scalar;

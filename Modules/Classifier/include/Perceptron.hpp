@@ -8,7 +8,6 @@
 
 #include "PrimalClassifier.hpp"
 #include "DualClassifier.hpp"
-#include "../../Core/include/MLToolkit.hpp"
 
 namespace mltk{
     /**

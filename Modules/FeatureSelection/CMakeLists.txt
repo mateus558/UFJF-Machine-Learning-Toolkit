@@ -5,7 +5,7 @@ add_library(${LIBFEATSELECT} SHARED
     src/RFE.cpp
 )
 
-set_target_properties(${LIBFEATSELECT} PROPERTIES PUBLIC_HEADER "include/FeatureSelection.hpp;include/AOS.hpp;include/Fisher.hpp;include/Golub.hpp;include/RFE.hpp")
+set_target_properties(${LIBFEATSELECT} PROPERTIES PUBLIC_HEADER "FeatureSelection.hpp;include/FeatureSelection.hpp;include/AOS.hpp;include/Fisher.hpp;include/Golub.hpp;include/RFE.hpp")
 
 target_include_directories(${LIBFEATSELECT} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

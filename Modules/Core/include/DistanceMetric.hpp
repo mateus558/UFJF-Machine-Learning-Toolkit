@@ -1,5 +1,6 @@
 #ifndef DISTANCEMETRIC_HPP_INCLUDED
 #define DISTANCEMETRIC_HPP_INCLUDED
+#pragma once
 
 #include "Point.hpp"
 #include <cmath>

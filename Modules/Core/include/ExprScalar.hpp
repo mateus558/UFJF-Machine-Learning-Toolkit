@@ -1,5 +1,6 @@
 #ifndef EXPRSCALAR_HPP_INCLUDED
 #define EXPRSCALAR_HPP_INCLUDED
+#pragma once
 
 namespace mltk{
     /*! 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "include/Learner.hpp"
 #include "include/Point.hpp"
 #include "include/Random.hpp"

@@ -4,6 +4,7 @@
 
 #ifndef UFJF_MLTK_KMEANS_HPP
 #define UFJF_MLTK_KMEANS_HPP
+#pragma once
 
 #include "Clusterer.hpp"
 

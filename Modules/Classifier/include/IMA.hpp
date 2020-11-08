@@ -13,7 +13,7 @@
 #include <vector>
 #include "PrimalClassifier.hpp"
 #include "DualClassifier.hpp"
-#include "../../Core/include/MLToolkit.hpp"
+#include "Perceptron.hpp"
 
 namespace mltk{
     /**

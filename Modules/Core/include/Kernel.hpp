@@ -5,6 +5,7 @@
 
 #ifndef KERNEL__HPP
 #define KERNEL__HPP
+#pragma once
 
 #include <vector>
 #include <memory>

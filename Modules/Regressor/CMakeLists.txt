@@ -4,7 +4,7 @@ add_library(${LIBREGRESSOR} SHARED
 )
 
 set_target_properties(${LIBREGRESSOR} PROPERTIES PUBLIC_HEADER
-        "include/Regressor.hpp;include/PrimalRegressor.hpp;include/DualRegressor.hpp;include/LMS.hpp;include/KNNRegressor.hpp"
+        "Regressor.hpp;include/Regressor.hpp;include/PrimalRegressor.hpp;include/DualRegressor.hpp;include/LMS.hpp;include/KNNRegressor.hpp"
         )
 
 target_include_directories(${LIBREGRESSOR} PUBLIC

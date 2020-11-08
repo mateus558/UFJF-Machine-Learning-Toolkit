@@ -1,5 +1,6 @@
 #ifndef EXPROPS_HPP_INCLUDED
 #define EXPROPS_HPP_INCLUDED
+#pragma once
 
 #include <cstddef>
 #include <cassert>

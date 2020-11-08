@@ -5,6 +5,7 @@
 
 #ifndef STATISTICS__HPP
 #define STATISTICS__HPP
+#pragma once
 
 #include <vector>
 #include <cmath>

@@ -1,5 +1,6 @@
 #ifndef OVERSAMPLING_HPP_INCLUDED
 #define OVERSAMPLING_HPP_INCLUDED
+#pragma once
 
 #include "Data.hpp"
 #include "DistanceMetric.hpp"
