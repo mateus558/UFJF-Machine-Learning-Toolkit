@@ -22,7 +22,7 @@ namespace mltk{
         class Euclidean: public DistanceMetric< T > {
             public:
                 T operator()(const Point<T>& p1, const Point<T>& p2){
-                    return sqrt(mltk::pow(p1 - p2).sum());
+                    return sqrt(mltk::pow(p1 - p2, 2).sum());
                 }
         };
 
@@ -41,7 +41,6 @@ namespace mltk{
                     return mltk::abs(p1-p2).max();
                 }
         };
-        
     }
 }
 

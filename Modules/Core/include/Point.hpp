@@ -426,8 +426,13 @@ namespace mltk {
     }
 
     template < typename T, typename R>
-    Point<T, F_Pow<T, R> > pow(const Point<T, R>& p, const size_t &power){        
-        return Point<T, F_Pow<T, R > >(F_Pow<T, R>(p.X(), power));
+    Point<T, F_Pow<T, T, R> > pow(const Point<T, R>& p, const T &power){        
+        return Point<T, F_Pow<T, T, R > >(F_Pow<T, T, R>(p.X(), power));
+    }
+
+    template < typename T, typename P, typename R>
+    Point<T, F_Pow<T, P, R> > pow(const Point<T, R>& p, const P &power){        
+        return Point<T, F_Pow<T, P, R > >(F_Pow<T, P, R>(p.X(), power));
     }
 
     // adition of two points

@@ -135,12 +135,12 @@ namespace mltk{
             }
     };
 
-    template <typename T, typename OP >
+    template <typename T, typename POWT, typename OP >
     class F_Pow: public UExprOp< T, OP > {
         private:
-            size_t power = 1;
+            POWT power = POWT();
         public:
-            F_Pow(OP const& a, const size_t& power): UExprOp<T, OP>(a), power(power) {}
+            F_Pow(OP const& a, const POWT& power): UExprOp<T, OP>(a), power(power) {}
 
             T operator[](size_t idx) const override {
                 return std::pow(this->op[idx], power);
