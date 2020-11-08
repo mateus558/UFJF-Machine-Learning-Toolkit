@@ -14,13 +14,13 @@ namespace mltk{
     \author Mateus Coutinho Marim
     */
     /*! 
-    \class ExprOp
+    \class BExprOp
     \author Mateus Coutinho Marim
         
-        Base template for arithmetic operations implementation.
+        Base template for binary arithmetic operations implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class ExprOp {
+    class BExprOp {
         protected:
             /// first operand
             typename A_Traits<OP1>::ExprRef op1;
@@ -29,9 +29,9 @@ namespace mltk{
 
         public:
             // constructor initializes references to operands
-            ExprOp(OP1 const &a, OP2 const &b): op1(a), op2(b) {}
+            BExprOp(OP1 const &a, OP2 const &b): op1(a), op2(b) {}
 
-            virtual T operator[](const size_t &idx) const = 0;
+            virtual T operator[](size_t idx) const = 0;
             
             // size is maximum size
             virtual size_t size() const { 
@@ -47,13 +47,13 @@ namespace mltk{
         Template for addition operation implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class A_Add: public ExprOp< T, OP1, OP2 > {
+    class A_Add: public BExprOp< T, OP1, OP2 > {
         public:
             // constructor initializes references to operands
-            A_Add(OP1 const &a, OP2 const &b): ExprOp< T, OP1, OP2 >(a, b) {  }
+            A_Add(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {  }
 
             // compute sum when value requested
-            T operator[] (const size_t &idx) const override { 
+            T operator[] (size_t idx) const override { 
                 return this->op1[idx] + this->op2[idx];
             }
     };
@@ -64,12 +64,12 @@ namespace mltk{
         Template for multiplication operation implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class A_Mult: public ExprOp< T, OP1, OP2 >{
+    class A_Mult: public BExprOp< T, OP1, OP2 >{
         public:
-            A_Mult(OP1 const &a, OP2 const &b): ExprOp< T, OP1, OP2 >(a, b) {  }
+            A_Mult(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {  }
             
             // compute product when value requested
-            T operator[] (const size_t &idx) const { 
+            T operator[] (size_t idx) const { 
                 return this->op1[idx] * this->op2[idx]; 
             }
     };
@@ -80,12 +80,12 @@ namespace mltk{
         Template for division operation implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class A_Div: public ExprOp< T, OP1, OP2 >{
+    class A_Div: public BExprOp< T, OP1, OP2 >{
         public:
-            A_Div(OP1 const &a, OP2 const &b): ExprOp< T, OP1, OP2 >(a, b) {}
+            A_Div(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {}
             
             // compute product when value requested
-            T operator[] (const size_t &idx) const { 
+            T operator[] (size_t idx) const { 
                 return this->op1[idx] / this->op2[idx]; 
             }
     };
@@ -96,13 +96,54 @@ namespace mltk{
         Template for subtraction operation implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class A_Sub: public ExprOp< T, OP1, OP2 > {
+    class A_Sub: public BExprOp< T, OP1, OP2 > {
         public:
-            A_Sub(OP1 const &a, OP2 const &b): ExprOp< T, OP1, OP2 >(a, b) {  }
+            A_Sub(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {  }
 
             // compute sum when value requested
-            T operator[] (const size_t &idx) const { 
+            T operator[] (size_t idx) const { 
                 return this->op1[idx] - this->op2[idx];
+            }
+    };
+    /*! 
+    \class UExprOp
+    \author Mateus Coutinho Marim
+        
+        Base template for unary arithmetic operations implementation.
+    */
+    template <typename T, typename OP >
+    class UExprOp{
+        protected:
+            OP const &op;
+        public:
+            UExprOp(OP const &op) : op(op) {}
+
+            virtual T operator[](size_t idx) const = 0;
+    
+            virtual std::size_t size() const {
+                return op.size();
+            }
+    };
+
+    template <typename T, typename OP >
+    class F_Abs: public UExprOp< T, OP > {
+        public:
+            F_Abs(OP const& a): UExprOp<T, OP>(a) {}
+
+            T operator[](size_t idx) const override {
+                return std::abs(this->op[idx]);
+            }
+    };
+
+    template <typename T, typename OP >
+    class F_Pow: public UExprOp< T, OP > {
+        private:
+            size_t power = 1;
+        public:
+            F_Pow(OP const& a, const size_t& power): UExprOp<T, OP>(a), power(power) {}
+
+            T operator[](size_t idx) const override {
+                return std::pow(this->op[idx], power);
             }
     };
 

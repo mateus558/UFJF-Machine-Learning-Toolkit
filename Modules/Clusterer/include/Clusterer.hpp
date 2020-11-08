@@ -10,7 +10,7 @@
 #include "../../Core/include/Learner.hpp"
 
 namespace mltk{
-    template < typename T, typename Callable = EuclideanDistance< T > >
+    template < typename T, typename Callable = distance::Euclidean< T > >
     class Clusterer: public Learner< T > {
     protected:
         /// Function used to compute the distance between two points

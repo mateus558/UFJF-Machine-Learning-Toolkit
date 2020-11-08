@@ -14,6 +14,7 @@
 #include <functional>
 #include <cmath>
 #include <memory>
+#include <algorithm>
 
 #include "ExprOps.hpp"
 #include "ExprScalar.hpp"
@@ -23,6 +24,7 @@ namespace mltk {
     template <typename T, typename Rep> class Point;
     template <typename T, typename Rep> std::ostream &operator<<( std::ostream &output, const Point<T, Rep> &p );
     template <class T, typename Rep = std::vector<T> > using PointPointer = std::shared_ptr<mltk::Point<T, Rep> >;
+    template <class T, typename Rep = std::vector<T> > using PointIterator = typename Rep::iterator ;
 
     /**
      * \brief Wrapper for the point data.
@@ -59,6 +61,7 @@ namespace mltk {
              * \param rb Point internal representation (std::vector by default).
              **/
             Point(Rep const& rb): x(rb) {}
+
             /**
              * \brief Computes the dot product with a vector.
              * \param p (???)
@@ -79,19 +82,21 @@ namespace mltk {
              * \param p p of the norm (euclidean norm is the default).
              * \return double
              */
-            double norm (int p = 2){
-                int i, dim = x.size();
-                double norm;
-
+            double norm (int p = NormType::NORM_L2){
                 if(p == NormType::NORM_LINF){
-                    return Utils::maxAbsElement(x);
+                    return abs(*this).max();
                 }
+                return std::pow(pow(abs(*this), p).sum(), 1.0/p);
+            }
 
-                for(i = 0, norm = 0; i < dim; i++){
-                    norm += pow(fabs(x[i]), p);
+            T max(){
+                T _max = std::numeric_limits<T>::min(); 
+                for(size_t i = 0; i < size(); i++){
+                    if(x[i] > x[_max]){
+                        _max = i;
+                    }
                 }
-
-                return pow(norm, 1.0/p);
+                return x[_max];
             }
             /**
              * \brief Compute the sum of the components of the point.
@@ -413,6 +418,16 @@ namespace mltk {
     template< typename T, typename R >
     bool Point< T, R >::operator!=(const Point<T, R> &rhs) const {
         return !(rhs == *this);
+    }
+
+    template < typename T, typename R>
+    Point<T, F_Abs<T, R> > abs(const Point<T, R>& p){        
+        return Point<T, F_Abs<T, R > >(F_Abs<T, R>(p.X()));
+    }
+
+    template < typename T, typename R>
+    Point<T, F_Pow<T, R> > pow(const Point<T, R>& p, const size_t &power){        
+        return Point<T, F_Pow<T, R > >(F_Pow<T, R>(p.X(), power));
     }
 
     // adition of two points

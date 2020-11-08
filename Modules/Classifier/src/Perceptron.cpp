@@ -162,11 +162,11 @@ namespace mltk{
                         if(n > largn) largn = n;
                     }else{ //Other Lp formulations
                         for(sumnorm = 0, j = 0; j < dim; ++j){
-                            lambda = (norm > 0 && w[j] != 0) ? w[j] * this->gamma * pow(fabs(w[j]), this->q-2.0) * pow(norm, 1.0-this->q) : 0;
+                            lambda = (norm > 0 && w[j] != 0) ? w[j] * this->gamma * std::pow(fabs(w[j]), this->q-2.0) * std::pow(norm, 1.0-this->q) : 0;
                             w[j] += this->rate * (y * x[j] - lambda);
-                            sumnorm += pow(fabs(w[j]), this->q);
+                            sumnorm += std::pow(fabs(w[j]), this->q);
                         }
-                        norm = pow(sumnorm, 1.0/this->q);
+                        norm = std::pow(sumnorm, 1.0/this->q);
                     }
                     bias += this->rate * y;
                     p->Alpha() += this->rate;

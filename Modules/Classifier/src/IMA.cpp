@@ -59,8 +59,8 @@ namespace mltk{
                 for (this->solution.norm = 0.0, i = 0; i < dim; ++i) this->solution.norm += this->solution.w[i] * this->solution.w[i];
                 this->solution.norm = sqrt(this->solution.norm);
             } else {
-                for (this->solution.norm = 0.0, i = 0; i < dim; ++i) this->solution.norm += pow(fabs(this->solution.w[i]), this->q);
-                this->solution.norm = pow(this->solution.norm, 1.0 / this->q);
+                for (this->solution.norm = 0.0, i = 0; i < dim; ++i) this->solution.norm += std::pow(fabs(this->solution.w[i]), this->q);
+                this->solution.norm = std::pow(this->solution.norm, 1.0 / this->q);
             }
 
             for (i = 0; i < dim; ++i) this->solution.w[i] /= this->solution.norm;
@@ -95,7 +95,7 @@ namespace mltk{
             if (margin == 0) tMax = this->MAX_UP;
             else {
                 double raio = Statistics< T >::getRadius(this->samples, -1, this->q);//data_get_radius(sample, -1, this->q);
-                tMax = (raio * raio - rmargin * rmargin) / pow(this->margin - rmargin, 2);
+                tMax = (raio * raio - rmargin * rmargin) / std::pow(this->margin - rmargin, 2);
                 if (rmargin == 0) tMax *= 1.5;
             }
 
@@ -383,11 +383,11 @@ namespace mltk{
                     {
                         for(sumnorm = 0, j = 0; j < dim; ++j)
                         {
-                            lambda = (norm > 0 && this->w[j] != 0) ? this->w[j] * this->gamma * pow(fabs(this->w[j]), this->q-2.0) * pow(norm, 1.0-this->q) : 0;
+                            lambda = (norm > 0 && this->w[j] != 0) ? this->w[j] * this->gamma * std::pow(fabs(this->w[j]), this->q-2.0) * std::pow(norm, 1.0-this->q) : 0;
                             this->w[j] += this->rate * (y * x[j] - lambda);
-                            sumnorm += pow(fabs(this->w[j]), this->q);
+                            sumnorm += std::pow(fabs(this->w[j]), this->q);
                         }
-                        norm = pow(sumnorm, 1.0/this->q);
+                        norm = std::pow(sumnorm, 1.0/this->q);
                     }
                     bias += this->rate * y;
                     (*this->samples)[idx]->Alpha() += this->rate;

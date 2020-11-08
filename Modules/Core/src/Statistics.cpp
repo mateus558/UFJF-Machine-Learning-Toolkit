@@ -68,7 +68,7 @@ namespace mltk {
         for(i = 0; i < size; ++i){
             for(j = 0; j < dim; ++j){
                 if(index < 0 || fnames[j] != index){
-                    norm += pow(avg[j] - points[i]->X()[j], 2);
+                    norm += std::pow(avg[j] - points[i]->X()[j], 2);
                 }
                 sum += norm;
             }
@@ -123,7 +123,7 @@ namespace mltk {
             for(max = 0, i = 0; i < size; ++i){
                 for(norm = 0, j = 0; j < dim; ++j){
                     if(index < 0 || fnames[j] != index){
-                        norm += pow(avg[j] - points[i]->X()[j], 2);
+                        norm += std::pow(avg[j] - points[i]->X()[j], 2);
                     }
 
                     norm = sqrt(norm);
@@ -173,7 +173,7 @@ namespace mltk {
 
         for(dist = 0.0, j = 0; j < dim; ++j){
             if(index < 0 || fnames[j] != index)
-                dist += pow(avg_pos[j] - avg_neg[j], 2);
+                dist += std::pow(avg_pos[j] - avg_neg[j], 2);
         }
 
         return sqrt(dist);
@@ -208,7 +208,7 @@ namespace mltk {
         for(dist = 0.0, j = 0; j < dim; ++j){
             for(i = 0; i < featsize; ++i){
                 if(fnames[j] == feats[i])
-                    dist -= pow(avg_pos[j] - avg_neg[j], 2);
+                    dist -= std::pow(avg_pos[j] - avg_neg[j], 2);
             }
         }
 

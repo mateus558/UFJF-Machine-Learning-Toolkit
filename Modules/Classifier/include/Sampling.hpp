@@ -10,7 +10,7 @@ namespace mltk{
     /**
      * \brief Base class for the implementation of over sampling methods.
      */
-    template < typename T, typename Callable = mltk::EuclideanDistance< T > >
+    template < typename T, typename Callable = distance::Euclidean< T > >
     class OverSampling{
     protected:
         Callable distance_metric;
@@ -23,7 +23,7 @@ namespace mltk{
     /**
      * \brief Functor for the implementation of the SMOTE over sampling algorithm.
      */
-    template < typename T, typename Callable = mltk::EuclideanDistance< T > >
+    template < typename T, typename Callable = distance::Euclidean< T > >
     class SMOTE: public OverSampling< T, Callable > {
     private:
         /// Seed used for randomization
@@ -111,7 +111,7 @@ namespace mltk{
     /**
      * \brief Functor for the implementation of the Borderline SMOTE 1 over sampling algorithm.
      */
-    template < typename T, typename Callable = mltk::EuclideanDistance< T > >
+    template < typename T, typename Callable = distance::Euclidean< T > >
     class BorderlineSMOTEOne: public OverSampling< T, Callable > {
     private:
         /// Seed used for randomization

@@ -965,13 +965,13 @@ namespace mltk{
 
         for(i = 0; i < size; ++i){
             for(norm = 0, j = 0; j < dim; ++j){
-                norm += pow(fabs(points[i]->X()[j]),p);
+                norm += std::pow(fabs(points[i]->X()[j]),p);
             }
             points[i]->X().resize(dim+1);
             points[i]->X()[j] = 1;
             fnames[j] = j+1;
-            norm += pow(fabs(points[i]->X()[j]),p);
-            norm = pow(norm, 1.0/p);
+            norm += std::pow(fabs(points[i]->X()[j]),p);
+            norm = std::pow(norm, 1.0/p);
             for(j = 0; j < dim+1; ++j){
                 points[i]->X()[j] /= norm;
             }
@@ -988,9 +988,9 @@ namespace mltk{
         double norm = 0.0;
 
         for(i = 0; i < dim; ++i)
-            norm += pow(fabs(v[i]), q);
+            norm += std::pow(fabs(v[i]), q);
 
-        norm = pow(norm, 1.0/q);
+        norm = std::pow(norm, 1.0/q);
 
         for(i = 0; i < dim; ++i)
             v[i] /= norm;

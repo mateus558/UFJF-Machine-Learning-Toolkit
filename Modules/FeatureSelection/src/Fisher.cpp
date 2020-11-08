@@ -67,8 +67,8 @@ namespace mltk{
             sd_pos[i] = 0;
             for(j = 0; j < size; ++j)
             {
-                if((*this->samples)[j]->Y() == -1) sd_neg[i] += pow((*this->samples)[j]->X()[i]-avg_neg[i], 2);
-                else                          sd_pos[i] += pow((*this->samples)[j]->X()[i]-avg_pos[i], 2);
+                if((*this->samples)[j]->Y() == -1) sd_neg[i] += std::pow((*this->samples)[j]->X()[i]-avg_neg[i], 2);
+                else                          sd_pos[i] += std::pow((*this->samples)[j]->X()[i]-avg_pos[i], 2);
             }
             sd_neg[i] = sqrt(sd_neg[i]/(num_neg-1));
             sd_pos[i] = sqrt(sd_pos[i]/(num_pos-1));
@@ -79,7 +79,7 @@ namespace mltk{
         /*calc scores*/
         for(i = 0; i < dim; ++i)
         {
-            scores[i].score = pow(avg_pos[i]-avg_neg[i], 2)/(sd_pos[i]+sd_neg[i]);
+            scores[i].score = std::pow(avg_pos[i]-avg_neg[i], 2)/(sd_pos[i]+sd_neg[i]);
             scores[i].fname = fnames[i];
             if(this->verbose)
                 cout << "Score: " << scores[i].score << ", Fname: " << scores[i].fname << endl;

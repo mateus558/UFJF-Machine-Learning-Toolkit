@@ -11,15 +11,21 @@ int main(int argc, char *argv[]){
     std::cout << *data << std::endl;
 
     x = 3*x;
-    y = 1;
+    y = 3.141517;
 
     std::cout << y << std::endl;
-
     std::cout << x << std::endl;
-
-    std::cout << mltk::EuclideanDistance<double>()(x, y) << std::endl;
-    std::cout << mltk::ManhattanDistance<double>()(x, y) << std::endl;
-    
     std::cout << *k << std::endl;
+
+    std::cout << mltk::distance::Euclidean<double>()(x, y) << std::endl;
+    std::cout << mltk::distance::Manhattan<double>()(x, y) << std::endl;
+    std::cout << mltk::distance::Chebyshev<double>()(x, y) << std::endl;
+    
+    std::cout << mltk::pow(x, 2) << std::endl;
+    
+    std::cout << (x-y).norm(mltk::NORM_L1) << std::endl;
+    std::cout << (x-y).norm(mltk::NORM_L2) << std::endl;
+    std::cout << (x-y).norm(mltk::NORM_LINF) << std::endl;
+
     return 0;
 }

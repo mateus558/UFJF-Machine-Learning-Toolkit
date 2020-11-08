@@ -760,7 +760,7 @@ namespace mltk{
         /*hashing function*/
         func = 0;
         for(i = 0; i < elmt->level; ++i)
-            func += pow(elmt->fnames[i], 2);
+            func += std::pow(elmt->fnames[i], 2);
 
         index = (int)fmod(func, this->length);
 
@@ -836,7 +836,7 @@ namespace mltk{
 
         /*hashing function*/
         for(i = 0; i < elmt->level; ++i)
-            func += pow(elmt->fnames[i], 2);
+            func += std::pow(elmt->fnames[i], 2);
 
         index = (unsigned int) fmod(func, this->length);
 

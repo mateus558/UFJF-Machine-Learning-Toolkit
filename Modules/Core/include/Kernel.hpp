@@ -209,8 +209,8 @@ namespace mltk{
             case 1: //Polinomial
                 for(i = 0; i < dim; ++i)
                     sum += a[i] * b[i];
-                //    sum = (param > 1) ? pow(sum+1, param) : sum;
-                sum = (param > 1) ? pow(sum, param) : sum;
+                //    sum = (param > 1) ? std::pow(sum+1, param) : sum;
+                sum = (param > 1) ? std::pow(sum, param) : sum;
                 break;
 
             case 2: //Gaussiano
@@ -243,7 +243,7 @@ namespace mltk{
                 for(i = 0; i < dim; ++i)
                     if(i != j)
                         sum += one->X()[i] * two->X()[i];
-                sum = (param > 1) ? pow(sum+1, param) : sum;
+                sum = (param > 1) ? std::pow(sum+1, param) : sum;
                 break;
 
             case 2: //Gaussiano

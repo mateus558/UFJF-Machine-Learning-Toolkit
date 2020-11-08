@@ -13,7 +13,7 @@ namespace mltk{
     /**
      * \brief Wrapper for the implementation of the K-Nearest Neighbors classifier algorithm.
      */
-    template <typename T, typename Callable = mltk::EuclideanDistance< T > >
+    template <typename T, typename Callable = distance::Euclidean< T > >
     class KNN: public PrimalClassifier< T > {
     private:
         /// Number k of neighbors to be considered
