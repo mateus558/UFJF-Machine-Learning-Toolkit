@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
     std::cout << mltk::distance::Manhattan<double>()(x, y) << std::endl;
     std::cout << mltk::distance::Chebyshev<double>()(x, y) << std::endl;
     
-    std::cout << mltk::pow(x, 2) << std::endl;
+    std::cout << mltk::pow(y, 2.5) << std::endl;
     
     std::cout << (x-y).norm(mltk::NORM_L1) << std::endl;
     std::cout << (x-y).norm(mltk::NORM_L2) << std::endl;

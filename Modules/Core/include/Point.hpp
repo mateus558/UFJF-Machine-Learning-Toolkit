@@ -62,6 +62,10 @@ namespace mltk {
              **/
             Point(Rep const& rb): x(rb) {}
 
+            /*********************************************
+             *               Point functions             *
+             *********************************************/
+
             /**
              * \brief Computes the dot product with a vector.
              * \param p (???)
@@ -88,7 +92,10 @@ namespace mltk {
                 }
                 return std::pow(pow(abs(*this), p).sum(), 1.0/p);
             }
-
+            /**
+             * \brief Returns the max value of the point.
+             * \return T
+             */
             T max(){
                 T _max = std::numeric_limits<T>::min(); 
                 for(size_t i = 0; i < size(); i++){
@@ -109,6 +116,11 @@ namespace mltk {
                 }
                 return _sum;
             }
+
+            /*********************************************
+             *               Getters                     *
+             *********************************************/
+            
             /**
              * \brief Returns the dimension of the point.
              * \return std::size_t
@@ -143,13 +155,6 @@ namespace mltk {
                 return y;
             }
             /**
-             * \brief Set the class or value of the point.
-             * \param y The class/value of the point.
-             **/
-            void setY(double const& _y){
-                this->y = _y;
-            }
-            /**
              * \brief Return the alpha value of the point.
              * \return double
              **/
@@ -163,14 +168,7 @@ namespace mltk {
             double& Alpha(){
                 return alpha;
             }
-            /**
-             * \brief Set alpha value of the point.
-             * \param alpha alpha value.
-             **/
-            void setAlpha(double const& _alpha){
-                this->alpha = _alpha;
-            }
-            /**
+             /**
              * \brief Returns the id of the point.
              * \return size_t
              **/
@@ -184,6 +182,25 @@ namespace mltk {
             size_t& Id(){
                 return id;
             }
+
+            /*********************************************
+             *               Setters                     *
+             *********************************************/
+            
+            /**
+             * \brief Set the class or value of the point.
+             * \param y The class/value of the point.
+             **/
+            void setY(double const& _y){
+                this->y = _y;
+            }
+            /**
+             * \brief Set alpha value of the point.
+             * \param alpha alpha value.
+             **/
+            void setAlpha(double const& _alpha){
+                this->alpha = _alpha;
+            }
             /**
              * \brief Set the id of the point.
              * \param _id new id of the point.
@@ -192,6 +209,10 @@ namespace mltk {
                 this->id = _id;
             }
 
+            /*********************************************
+             *               Access operators            *
+             *********************************************/
+            
             // index operator for constants and variables
             decltype(auto) operator[] (size_t idx) const {
                 assert(idx < size());
@@ -207,6 +228,10 @@ namespace mltk {
             Point<T, A_Subscript<T, Rep, R2>> operator[](Point<T2, R2> const& b) {
                 return Point<T, A_Subscript<T, Rep, R2>> (A_Subscript<T, Rep, R2>((*this).X(), b.X()));
             }
+
+            /*********************************************
+             *                Other operators            *
+             *********************************************/
 
             // assignment operator from same type
             Point& operator=(Point const& b) {
