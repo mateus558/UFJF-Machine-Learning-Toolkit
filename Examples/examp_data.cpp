@@ -25,28 +25,6 @@ int main(int argc, char *argv[]){
         std::cout << dist << std::endl;
     }
 
-    // std::cout << std::endl;
-    // for(int i = 0; i < 10; i++){
-    //     auto p = Point<double>(data.getDim(), 0);
-    //     p.y = (i%5 == 0)?-1:5;
-    //     data.insertPoint(p);
-    // }
-
-    // for(int i = 0; i < 10; i++){
-    //     auto p = Point<double>(data.getDim(), 0);
-    //     p.y = -1;
-    //     data.insertPoint(p);
-    // }
-    // std::cout << data << std::endl;
-    // std::cout << std::endl;
-
-
-    // distribution = data.getClassesDistribution();
-
-    // for(auto dist: distribution){
-    //     std::cout << dist << std::endl;
-    // }
-    // std::cout << std::endl;
     auto class_names = data.getClassNames();
     for(auto class_name: class_names){
         std::cout << class_name << std::endl;

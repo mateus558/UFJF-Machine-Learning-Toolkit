@@ -108,9 +108,9 @@ namespace mltk{
     template<typename T, typename A1, typename A2>
     class A_Subscript{
         private:
-            // reference to first operand
+            /// reference to first operand
             A1 const& a1;
-            // reference to second operand
+            /// reference to second operand
             A2 const& a2;
         public:
             // constructor initializes references to operands
