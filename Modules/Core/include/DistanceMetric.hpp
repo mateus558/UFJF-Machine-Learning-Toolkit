@@ -5,7 +5,8 @@
 #include <cmath>
 
 namespace mltk{
-    namespace distance{    /**
+    namespace distance{    
+        /**
          * \brief Base functor class for the implementation of new distance metrics.
          */
         template < typename T >

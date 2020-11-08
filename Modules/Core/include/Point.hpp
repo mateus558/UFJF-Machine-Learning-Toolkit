@@ -421,11 +421,19 @@ namespace mltk {
     std::ostream &operator<<( std::ostream &output, const Point<T, R> &p ) {
         int i, dim = p.x.size();
 
-        output << p.id << ":[";
-        for(i = 0; i < dim; ++i){
+        if(p.id > 0)
+            output << p.id << ":[";
+        else
+            output << "[";
+        
+        for(i = 0; i < dim-1; ++i){
             output << p.x[i] << ", ";
         }
-        output << p.y << "]";
+
+        if(p.y > 0)
+            output <<  p.x[i] << ", " << p.y << "]";
+        else
+            output <<  p.x[i] << "]";
 
         return output;
     }
