@@ -214,12 +214,12 @@ namespace mltk {
              *********************************************/
             
             // index operator for constants and variables
-            decltype(auto) operator[] (size_t idx) const {
+            decltype(auto) operator[] (const size_t &idx) const {
                 assert(idx < size());
                 return x[idx];
             }
 
-            T& operator[](size_t idx) {
+            T& operator[](const size_t &idx) {
                 assert(idx < size());
                 return x[idx];
             }
@@ -235,8 +235,9 @@ namespace mltk {
 
             // assignment operator from same type
             Point& operator=(Point const& b) {
-                assert(size() == b.size());
-                for(std::size_t idx = 0; idx < b.size(); ++idx) {
+                const size_t dim = b.size();
+                assert(size() == dim);
+                for(std::size_t idx = 0; idx < dim; ++idx) {
                     x[idx] = b[idx];
                 }
                 return *this;

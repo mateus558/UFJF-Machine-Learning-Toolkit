@@ -20,7 +20,7 @@ namespace mltk{
             constexpr A_Scalar (T const& v): value (v) {}
 
             // for index operations, the scalar is the value of each element
-            constexpr T const& operator[] (std::size_t ) const { 
+            constexpr T const& operator[] (const std::size_t& ) const { 
                 return value;
             }
 

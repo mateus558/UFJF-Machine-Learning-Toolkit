@@ -23,8 +23,8 @@ int main(int argc, char *argv[]){
     std::cout << *k << std::endl;
     std::cout << (mltk::pow((*k)*17, 3) % 5).sum() << std::endl;
     
-    std::cout << (x-y).norm(mltk::NORM_L1) << std::endl;
     std::cout << (x-y).norm(mltk::NORM_L2) << std::endl;
+    std::cout << (x-y).norm(mltk::NORM_L1) << std::endl;
     std::cout << (x-y).norm(mltk::NORM_LINF) << std::endl;
 
     return 0;

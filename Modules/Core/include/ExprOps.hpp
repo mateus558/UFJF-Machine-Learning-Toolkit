@@ -31,7 +31,7 @@ namespace mltk{
             // constructor initializes references to operands
             BExprOp(OP1 const &a, OP2 const &b): op1(a), op2(b) {}
 
-            virtual T operator[](size_t idx) const = 0;
+            virtual T operator[](const size_t& idx) const = 0;
             
             // size is maximum size
             virtual size_t size() const { 
@@ -53,7 +53,7 @@ namespace mltk{
             A_Add(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {  }
 
             // compute sum when value requested
-            T operator[] (size_t idx) const override { 
+            T operator[] (const size_t& idx) const override { 
                 return this->op1[idx] + this->op2[idx];
             }
     };
@@ -69,7 +69,7 @@ namespace mltk{
             A_Mult(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {  }
             
             // compute product when value requested
-            T operator[] (size_t idx) const { 
+            T operator[] (const size_t& idx) const override { 
                 return this->op1[idx] * this->op2[idx]; 
             }
     };
@@ -85,7 +85,7 @@ namespace mltk{
             A_Div(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {}
             
             // compute product when value requested
-            T operator[] (size_t idx) const { 
+            T operator[] (const size_t& idx) const override { 
                 return this->op1[idx] / this->op2[idx]; 
             }
     };
@@ -101,7 +101,7 @@ namespace mltk{
             A_Sub(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {  }
 
             // compute sum when value requested
-            T operator[] (size_t idx) const { 
+            T operator[] (const size_t& idx) const override { 
                 return this->op1[idx] - this->op2[idx];
             }
     };
@@ -118,7 +118,7 @@ namespace mltk{
         public:
             UExprOp(OP const &op) : op(op) {}
 
-            virtual T operator[](size_t idx) const = 0;
+            virtual T operator[](const size_t& idx) const = 0;
     
             virtual std::size_t size() const {
                 return op.size();
@@ -130,7 +130,7 @@ namespace mltk{
         public:
             F_Abs(OP const& a): UExprOp<T, OP>(a) {}
 
-            T operator[](size_t idx) const override {
+            T operator[](const size_t& idx) const override {
                 return std::abs(this->op[idx]);
             }
     };
@@ -142,7 +142,7 @@ namespace mltk{
         public:
             F_Pow(OP const& a, const POWT& power): UExprOp<T, OP>(a), power(power) {}
 
-            T operator[](size_t idx) const override {
+            T operator[](const size_t& idx) const override {
                 return std::pow(this->op[idx], power);
             }
     };
@@ -152,7 +152,7 @@ namespace mltk{
         public:
             A_Mod(OP1 const& a, OP2 const& b): BExprOp<T, OP1, OP2>(a, b) {}
 
-            T operator[](size_t idx) const override {
+            T operator[](const size_t& idx) const override {
                 return this->op1[idx] % this->op2[idx];
             }
     };
@@ -162,7 +162,7 @@ namespace mltk{
         public:
             A_Mod(OP1 const& a, A_Scalar<double> const& b): BExprOp<T, OP1, A_Scalar<double> >(a, b) {}
 
-            T operator[](size_t idx) const override {
+            T operator[](const size_t& idx) const override {
                 return std::fmod(this->op1[idx], this->op2[idx]);
             }
     };
@@ -172,7 +172,7 @@ namespace mltk{
         public:
             A_Mod(OP1 const& a, OP2 const& b): BExprOp< double, OP1, OP2 >(a, b) {}
 
-            double operator[](size_t idx) const override {
+            double operator[](const size_t& idx) const override {
                 return std::fmod(this->op1[idx], this->op2[idx]);
             }
     };
@@ -192,11 +192,11 @@ namespace mltk{
             }
 
             // process subscription when value requested
-            decltype(auto) operator[] (std::size_t idx) const {
+            decltype(auto) operator[] (const size_t& idx) const {
                 return a1[a2[idx]];
             }
             
-            T& operator[] (std::size_t idx) {
+            T& operator[] (const size_t& idx) {
                 return a1[a2[idx]];
             }
             
