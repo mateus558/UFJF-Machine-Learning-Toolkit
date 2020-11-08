@@ -58,8 +58,8 @@ namespace mltk{
     template < typename T > 
     class Data;
 
-    template < class T > using DataPointer = std::shared_ptr<Data< T > >;
-    template < class T > using SamplePointer = std::shared_ptr<Point< T > >;
+    template < class T > using DataPointer = std::shared_ptr<mltk::Data< T > >;
+    template < class T > using SamplePointer = std::shared_ptr<mltk::Point< T > >;
     template < class T > using SampleIterator = typename std::vector<SamplePointer< T > >::iterator;
 
     /**
@@ -425,6 +425,11 @@ namespace mltk{
 
         ~Data();
     };
+
+    template < typename T, typename... Types >
+    DataPointer< T > make_data(Types... args) {
+        return std::make_shared< Data < T > >(args...);
+    }
 
     template < typename T >
     std::ostream &operator<<( std::ostream &output, const Data< T > &data ){

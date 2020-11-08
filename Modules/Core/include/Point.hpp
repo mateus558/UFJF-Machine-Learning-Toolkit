@@ -13,6 +13,7 @@
 #include <iostream>
 #include <functional>
 #include <cmath>
+#include <memory>
 
 #include "ExprOps.hpp"
 #include "ExprScalar.hpp"
@@ -20,7 +21,8 @@
 
 namespace mltk {    
     template <typename T, typename Rep> class Point;
-    template< typename T, typename Rep> std::ostream &operator<<( std::ostream &output, const Point<T, Rep> &p );
+    template <typename T, typename Rep> std::ostream &operator<<( std::ostream &output, const Point<T, Rep> &p );
+    template <class T, typename Rep = std::vector<T> > using PointPointer = std::shared_ptr<mltk::Point<T, Rep> >;
 
     /**
      * \brief Wrapper for the point data.
@@ -379,6 +381,11 @@ namespace mltk {
     /*************************************************
      *  Overloaded operators for the Point template. *
      *************************************************/
+
+    template < typename T, typename R = std::vector<T>, typename... Types>
+    PointPointer<T, R> make_point(Types... args){
+        return std::make_shared< Point< T, R > >(args...);
+    }
 
     template <typename T, typename R>
     std::ostream &operator<<( std::ostream &output, const Point<T, R> &p ) {
