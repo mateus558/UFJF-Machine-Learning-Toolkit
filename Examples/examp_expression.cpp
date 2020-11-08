@@ -20,8 +20,8 @@ int main(int argc, char *argv[]){
     std::cout << mltk::distance::Euclidean<double>()(x, y) << std::endl;
     std::cout << mltk::distance::Manhattan<double>()(x, y) << std::endl;
     std::cout << mltk::distance::Chebyshev<double>()(x, y) << std::endl;
-    
-    std::cout << mltk::pow(y, 2.5) << std::endl;
+    std::cout << *k << std::endl;
+    std::cout << (mltk::pow((*k)*17, 3) % 5).sum() << std::endl;
     
     std::cout << (x-y).norm(mltk::NORM_L1) << std::endl;
     std::cout << (x-y).norm(mltk::NORM_L2) << std::endl;

@@ -468,6 +468,18 @@ namespace mltk {
         return Point<T, F_Pow<T, P, R > >(F_Pow<T, P, R>(p.X(), power));
     }
 
+    // module of point and scalar
+    template<typename T, typename R1>
+    Point<T, A_Mod<T, R1, A_Scalar<T> > > operator%(const Point<T, R1>& p, const T& mod){
+        return Point<T, A_Mod<T, R1, A_Scalar<T>> >(A_Mod<T, R1, A_Scalar<T>>(p.X(), A_Scalar<T>(mod)));
+    } 
+
+    // module of point and scalar
+    template<typename T, typename Y, typename R1>
+    Point<T, A_Mod<T, R1, A_Scalar<Y> > > operator%(const Point<T, R1>& p, const Y& mod){
+        return Point<T, A_Mod<T, R1, A_Scalar<Y>> >(A_Mod<T, R1, A_Scalar<Y>>(p.X(), A_Scalar<Y>(mod)));
+    }
+
     // adition of two points
     template <typename T, typename R1, typename R2>
     Point<T, A_Add<T, R1, R2> >

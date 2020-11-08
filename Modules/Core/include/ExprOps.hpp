@@ -147,6 +147,37 @@ namespace mltk{
             }
     };
 
+    template <typename T, typename OP1, typename OP2 >
+    class A_Mod: public BExprOp< T, OP1, OP2> {
+        public:
+            A_Mod(OP1 const& a, OP2 const& b): BExprOp<T, OP1, OP2>(a, b) {}
+
+            T operator[](size_t idx) const override {
+                return this->op1[idx] % this->op2[idx];
+            }
+    };
+
+    template <typename T, typename OP1  >
+    class A_Mod< T, OP1, A_Scalar<double> >: public BExprOp< T, OP1, A_Scalar<double> > {
+        public:
+            A_Mod(OP1 const& a, A_Scalar<double> const& b): BExprOp<T, OP1, A_Scalar<double> >(a, b) {}
+
+            T operator[](size_t idx) const override {
+                return std::fmod(this->op1[idx], this->op2[idx]);
+            }
+    };
+
+    template <typename OP1, typename OP2>
+    class A_Mod< double , OP1, OP2 >: public BExprOp< double, OP1, OP2 > {
+        public:
+            A_Mod(OP1 const& a, OP2 const& b): BExprOp< double, OP1, OP2 >(a, b) {}
+
+            double operator[](size_t idx) const override {
+                return std::fmod(this->op1[idx], this->op2[idx]);
+            }
+    };
+    
+
     template<typename T, typename A1, typename A2>
     class A_Subscript{
         private:
