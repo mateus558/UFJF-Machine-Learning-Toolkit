@@ -31,6 +31,7 @@ set(LIBFEATSELECT ${LIB_OUTPUT_PREFIX}featselect)
 set(LIBVALIDATION ${LIB_OUTPUT_PREFIX}validation)
 
 message(STATUS "UFJF-MLTK Version: ${PROJECT_VERSION}")
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
 if(WIN32)
     set(RUNTIME_DIR bin)

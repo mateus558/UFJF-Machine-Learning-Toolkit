@@ -10,8 +10,8 @@ int main(int argc, char *argv[]){
     mltk::DataPointer<double> data = std::make_shared<mltk::Data< double > >();
     mltk::Validation<double> validation;
     
-    data->setClassesAtEnd(false);
-    data->load("iris_mult.csv");
+    data->setClassesAtEnd(true);
+    data->load("dataset_54_vehicle.csv");
     
     std::cout << *data << std::endl;
     
@@ -19,8 +19,8 @@ int main(int argc, char *argv[]){
     
     imap.setAlphaAprox(1);
     imap.setVerbose(0);
-    imap.setFlexible(0.001);
-    imap.setMaxTime(110);
+    imap.setFlexible(500);
+    imap.setMaxTime(600);
     
     mltk::SMOTE<double> smote;
     mltk::OneVsAll<double, mltk::IMAp> ova(data, std::make_shared<mltk::IMAp<double> >(imap), &smote);
