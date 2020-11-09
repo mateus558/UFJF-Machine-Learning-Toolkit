@@ -15,6 +15,7 @@
 #include <cmath>
 #include <memory>
 #include <algorithm>
+#include <omp.h>
 
 #include "ExprOps.hpp"
 #include "ExprScalar.hpp"
@@ -74,7 +75,9 @@ namespace mltk {
             T dot (const Point<T> &p){
                 T result = 0;
                 assert(this->size() == p.size());
-
+                #ifndef DEBUG
+                #pragma omp parallel for reduction (+:result)
+                #endif
                 for(size_t i = 0; i < p.size(); i++){
                     result += p[i] * this->x[i];
                 }
@@ -111,9 +114,13 @@ namespace mltk {
              **/
             T sum(const std::function <T (T)>& f = [](T const& x) { return x;}){ 
                 T _sum = T();
+                #ifndef DEBUG
+                #pragma omp parallel for reduction (+:_sum)
+                #endif
                 for(std::size_t i = 0; i < size(); i++){
                     _sum += f(x[i]);
                 }
+                
                 return _sum;
             }
 
@@ -235,11 +242,16 @@ namespace mltk {
 
             // assignment operator from same type
             Point& operator=(Point const& b) {
-                const size_t dim = b.size();
+                size_t dim = b.size();
                 assert(size() == dim);
-                for(std::size_t idx = 0; idx < dim; ++idx) {
-                    x[idx] = b[idx];
-                }
+               
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
+                    for(std::size_t idx = 0; idx < dim; ++idx) {
+                        x[idx] = b[idx];
+                    }
+                
                 return *this;
             }
 
@@ -247,13 +259,20 @@ namespace mltk {
             template <typename T2, typename Rep2 >
             Point& operator=(Point<T2, Rep2> const& b) {
                 assert(size() == b.size());
-                for(std::size_t idx = 0; idx < b.size(); ++idx){
-                    x[idx] = b[idx];
-                }
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
+                    for(std::size_t idx = 0; idx < b.size(); ++idx){
+                        x[idx] = b[idx];
+                    }
+                
                 return *this;
             }
 
             Point& operator=(T const& b) {
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] = b;
                 }
@@ -262,6 +281,9 @@ namespace mltk {
 
             template <typename Y>
             Point& operator=(Y const& b) {
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] = b;
                 }
@@ -271,6 +293,9 @@ namespace mltk {
             // plus assignment operator for arrays of same types
             Point& operator+=(Point const& b) {
                 assert(size() == b.size());
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < b.size(); ++idx){
                     x[idx] += b[idx];
                 }
@@ -278,6 +303,9 @@ namespace mltk {
             }
 
             Point& operator+=(T const& b) {
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] += b;
                 }
@@ -286,6 +314,9 @@ namespace mltk {
 
             template <typename Y>
             Point& operator+=(Y const& b) {
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] += b;
                 }
@@ -296,6 +327,9 @@ namespace mltk {
             template <typename T2, typename Rep2 >
             Point& operator+=(Point<T2, Rep2> const& b) {
                 assert(size() == b.size());
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < b.size(); ++idx){
                     x[idx] += b[idx];
                 }
@@ -305,6 +339,9 @@ namespace mltk {
             // minus assignment operator for arrays of same types
             Point& operator-=(Point const& b) {
                 assert(size() == b.size());
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < b.size(); ++idx){
                     x[idx] -= b[idx];
                 }
@@ -315,6 +352,9 @@ namespace mltk {
             template <typename T2, typename Rep2 >
             Point& operator-=(Point<T2, Rep2> const& b) {
                 assert(size() == b.size());
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < b.size(); ++idx){
                     x[idx] -= b[idx];
                 }
@@ -322,6 +362,9 @@ namespace mltk {
             }
 
             Point& operator-=(T const& b) {
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] -= b;
                 }
@@ -330,6 +373,9 @@ namespace mltk {
 
             template <typename Y>
             Point& operator-=(Y const& b) {
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] -= b;
                 }
@@ -339,6 +385,9 @@ namespace mltk {
             // minus assignment operator for arrays of same types
             Point& operator*=(Point const& b) {
                 assert(size() == b.size());
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < b.size(); ++idx){
                     x[idx] *= b[idx];
                 }
@@ -349,6 +398,9 @@ namespace mltk {
             template <typename T2, typename Rep2 >
             Point& operator*=(Point<T2, Rep2> const& b) {
                 assert(size() == b.size());
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < b.size(); ++idx){
                     x[idx] *= b[idx];
                 }
@@ -356,6 +408,9 @@ namespace mltk {
             }
 
             Point& operator*=(T const& b) {
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] *= b;
                 }
@@ -364,6 +419,9 @@ namespace mltk {
 
             template <typename Y>
             Point& operator*=(Y const& b) {
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] *= b;
                 }
@@ -373,6 +431,9 @@ namespace mltk {
             // minus assignment operator for arrays of same types
             Point& operator/=(Point const& b) {
                 assert(size() == b.size());
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < b.size(); ++idx){
                     x[idx] /= b[idx];
                 }
@@ -383,6 +444,9 @@ namespace mltk {
             template <typename T2, typename Rep2 >
             Point& operator/=(Point<T2, Rep2> const& b) {
                 assert(size() == b.size());
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < b.size(); ++idx){
                     x[idx] /= b[idx];
                 }
@@ -390,6 +454,9 @@ namespace mltk {
             }
 
             Point& operator/=(T const& b) {
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] /= b;
                 }
@@ -398,6 +465,9 @@ namespace mltk {
 
             template <typename Y>
             Point& operator/=(Y const& b) {
+                #ifndef DEBUG
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
                 for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] /= b;
                 }

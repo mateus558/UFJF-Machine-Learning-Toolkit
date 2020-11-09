@@ -3,6 +3,9 @@ include(CMakePackageConfigHelpers)
 
 # Function to install a library in the system
 function(install_lib LIBTARGET INCLUDE_FOLDER LIBVERSION)
+    if(CMAKE_BUILD_TYPE EQUAL "Debug")
+        target_compile_definitions(${LIBTARGET} PUBLIC DEBUG=1)
+    endif()
     if(UNIX)
         install(TARGETS ${LIBTARGET}
                 EXPORT ${LIBTARGET}Targets

@@ -13,6 +13,11 @@ target_include_directories(${LIBCORE} PUBLIC
 target_include_directories(${LIBCORE} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
         $<INSTALL_INTERFACE:src>)
+
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+        target_link_libraries(${LIBCORE} PUBLIC OpenMP::OpenMP_CXX)
+endif ()
 target_compile_definitions(${LIBCORE} PUBLIC LIBCORE_VERSION=1.0)
 target_compile_features(${LIBCORE} PRIVATE cxx_std_17)
 
