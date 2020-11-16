@@ -23,7 +23,7 @@ int main(int argc, char *argv[]){
     imap.setMaxTime(110);
     
     mltk::SMOTE<double> smote;
-    mltk::OneVsOne<double, mltk::IMAp> ovo(data, std::make_shared<mltk::IMAp<double> >(imap), &smote);
+    mltk::OneVsOne<double> ovo(data, imap, &smote);
     
     ovo.train();
     

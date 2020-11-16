@@ -13,20 +13,31 @@ namespace mltk{
     /**
      * \brief Wrapper for the implementation of the one vs all multi class classification algorithm.
      */
-    template< typename T, template <typename > class ClassifierT>
+    template< typename T >
     class OneVsAll: public PrimalClassifier< T >, public DualClassifier< T > {
     private:
-        using ClassifierPointer = std::shared_ptr<ClassifierT< T > >;
+        using LearnerPointer = std::shared_ptr<Learner< T > >;
 
         /// Over sampling method (optional)
         OverSampling< T > *samp_method;
         /// Vector of binary base learners 
-        std::vector<ClassifierPointer> base_learners;
-        /// Classifier used to pass parameters to the base learners
-        ClassifierPointer classifier;
+        std::vector<LearnerPointer> base_learners;
 
     public:
-        OneVsAll(std::shared_ptr<Data< T > > samples = nullptr, ClassifierPointer classifier = nullptr, OverSampling< T > *samp_method = nullptr, int _verbose = 0);
+        template < template <typename > class ClassifierType >
+        OneVsAll(std::shared_ptr<Data< T > > samples, ClassifierType< T > &classifier, OverSampling< T > *samp_method = nullptr, int _verbose = 0){
+            this->samples = samples;
+            this->samp_method = samp_method;
+
+            // initialize the base learners if samples were given
+            if(samples && base_learners.size() == 0){
+                base_learners.resize(samples->getClasses().size());
+                for(size_t i = 0; i < samples->getClasses().size(); ++i) {
+                    // copy the parameters of the given classifier    
+                    base_learners[i] = std::make_shared<ClassifierType< T > >(classifier);
+                }
+            }
+        }
 
         bool train() override;
 
@@ -36,34 +47,10 @@ namespace mltk{
 
     };
 
-    template< typename T, template <typename > class ClassifierT>
-    OneVsAll<T, ClassifierT>::OneVsAll(std::shared_ptr<Data< T > > _samples, ClassifierPointer classifier, OverSampling< T > *samp_method, int _verbose){
-        this->samples = _samples;
-        this->classifier = classifier;
-        this->samp_method = samp_method;
-
-        // initialize the base learners if samples were given
-        if(_samples && base_learners.size() == 0){
-            base_learners.resize(_samples->getClasses().size());
-            for(size_t i = 0; i < _samples->getClasses().size(); ++i) {
-                // copy the parameters of the given classifier    
-                base_learners[i] = std::make_shared<ClassifierT< T > >(*classifier);
-            }
-        }
-    }
-
-    template< typename T, template <typename > class ClassifierT>
-    bool OneVsAll<T, ClassifierT>::train() {
+    template< typename T >
+    bool OneVsAll<T>::train() {
         auto classes = this->samples->getClasses();
         size_t current_class = 0, j, n_classes = classes.size(), size = this->samples->getSize();
-        
-        // initialize learners copying the parameters of the given classifier
-        if(base_learners.size() == 0){
-            base_learners.resize(n_classes);
-            for(size_t i = 0; i < n_classes; ++i) {
-                base_learners[i] = std::make_shared<ClassifierT< T > >(*this->classifier);
-            }
-        } 
 
         // iterate over each base learner
         for(auto &learner: base_learners){
@@ -93,8 +80,8 @@ namespace mltk{
         return true;
     }
 
-    template< typename T, template <typename > class ClassifierT>
-    double OneVsAll<T, ClassifierT>::evaluate(const Point< T >  &p, bool raw_value) {
+    template< typename T >
+    double OneVsAll<T>::evaluate(const Point< T >  &p, bool raw_value) {
         auto classes = this->samples->getClasses();
         std::vector<double> dist_hyperplanes(base_learners.size());
 
@@ -107,9 +94,9 @@ namespace mltk{
         return classes[max_index];
     }
 
-    template< typename T, template <typename > class ClassifierT>
-    std::string OneVsAll<T, ClassifierT>::getFormulationString() {
-        return ClassifierT< T >().getFormulationString();
+    template< typename T >
+    std::string OneVsAll< T >::getFormulationString() {
+        return this->base_learners[0]->getFormulationString();
     }
 }
 

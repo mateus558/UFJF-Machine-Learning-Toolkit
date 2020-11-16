@@ -10,7 +10,7 @@ namespace mltk{
             mltk::Point<double> weights;
             std::string voting_type;
 
-            template <template<typename...> class WeakLearner, template<typename...> class... WeakLearners > 
+            template <template<typename...> class WeakLearner, template<typename... > class... WeakLearners > 
             void fillLearnersVector(WeakLearner< T > flearner){
                 this->learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
             }
@@ -35,7 +35,8 @@ namespace mltk{
             }
 
             bool train() override{ 
-                //#pragma omp parallel for
+                #pragma omp parallel for
+                // train each one of the given learners
                 for(size_t i = 0; i < this->learners.size(); i++){
                     this->learners[i]->setSamples(this->samples);
                     this->learners[i]->train();
@@ -44,7 +45,7 @@ namespace mltk{
 
             double evaluate(const Point< T >  &p, bool raw_value=false) override{
                 auto _classes = this->samples->getClasses();
-                mltk::Point<double> votes(_classes.size());
+                mltk::Point<double> votes(_classes.size(), 0.0);
 
                 for(size_t i = 0; i < this->learners.size(); i++){
                         auto pred = this->learners[i]->evaluate(p);
