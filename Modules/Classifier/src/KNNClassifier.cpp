@@ -2,7 +2,7 @@
 // Created by mateus558 on 20/03/2020.
 //
 
-#include "KNN.hpp"
+#include "KNNClassifier.hpp"
 #include <memory>
 
 namespace mltk{

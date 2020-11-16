@@ -20,7 +20,7 @@
 #include "Golub.hpp"
 #include "Fisher.hpp"
 #include "AOS.hpp"
-#include "KNN.hpp"
+#include "KNNClassifier.hpp"
 #include "KNNRegressor.hpp"
 #include "KMeans.hpp"
 

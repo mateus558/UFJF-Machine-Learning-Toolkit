@@ -233,6 +233,18 @@ namespace mltk {
                 return *this;
             }
 
+            Point& operator=(std::vector<T> const& b) {
+                assert(size() == b.size());
+                #if DEBUG == 1
+                #pragma omp parallel for schedule(dynamic, 1000) 
+                #endif
+                    for(std::size_t idx = 0; idx < b.size(); ++idx) {
+                        x[idx] = b[idx];
+                    }
+                
+                return *this;
+            }
+
             // assignment operator for arrays of different types
             template <typename T2, typename Rep2 >
             Point& operator=(Point<T2, Rep2> const& b) {
