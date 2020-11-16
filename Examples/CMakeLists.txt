@@ -32,6 +32,16 @@ add_executable(examp_exp examp_expression.cpp)
 set_target_properties(examp_exp PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 target_link_libraries(examp_exp ${LIBCORE} ${LIBCLASSIFIER} ${LIBVALIDATION})
 
+add_executable(examp_ensemble examp_ensemble.cpp)
+set_target_properties(examp_ensemble PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+target_link_libraries(examp_ensemble ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} ${LIBVALIDATION})
+
+
 add_executable(bench_exptmp bench_exptmp.cpp)
 set_target_properties(bench_exptmp PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
-target_link_libraries(bench_exptmp ${LIBCORE} ${LIBCLASSIFIER} ${LIBVALIDATION})
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(bench_exptmp PUBLIC ${LIBCORE} OpenMP::OpenMP_CXX ${LIBCLASSIFIER} ${LIBVALIDATION})
+else()
+    target_link_libraries(bench_exptmp ${LIBCORE} ${LIBCLASSIFIER} ${LIBVALIDATION})
+endif()

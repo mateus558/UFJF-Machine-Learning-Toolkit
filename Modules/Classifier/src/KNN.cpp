@@ -6,8 +6,9 @@
 #include <memory>
 
 namespace mltk{
+    
     template <typename T, typename Callable >
-    double KNN<T, Callable>::evaluate(Point<T> p, bool raw_value) {
+    double KNNClassifier<T, Callable>::evaluate(const Point< T >  &p, bool raw_value) {
         size_t max_index = 0, max_freq = 0, i;
         auto points = this->samples->getPoints();
         std::vector<double> distances(this->samples->getSize());
@@ -42,20 +43,20 @@ namespace mltk{
     }
 
     template <typename T, typename Callable >
-    bool KNN<T, Callable>::train() {
+    bool KNNClassifier<T, Callable>::train() {
         return true;
     }
 
 
-    template class KNN<int>;
-    template class KNN<double>;
-    template class KNN<float>;
-    template class KNN<int8_t>;
-    template class KNN<char>;
-    template class KNN<long long int>;
-    template class KNN<short int>;
-    template class KNN<long double>;
-    template class KNN<unsigned char>;
-    template class KNN<unsigned int>;
-    template class KNN<unsigned short int>;
+    template class KNNClassifier<int>;
+    template class KNNClassifier<double>;
+    template class KNNClassifier<float>;
+    template class KNNClassifier<int8_t>;
+    template class KNNClassifier<char>;
+    template class KNNClassifier<long long int>;
+    template class KNNClassifier<short int>;
+    template class KNNClassifier<long double>;
+    template class KNNClassifier<unsigned char>;
+    template class KNNClassifier<unsigned int>;
+    template class KNNClassifier<unsigned short int>;
 }

@@ -61,11 +61,10 @@ namespace mltk{
                 size_t id = 0;
                 auto _z = *(*z);
 
-                // compute the euclidean distance from a point to the rest 
+                // compute the distance from a point to the rest 
                 std::transform(Z->begin(), Z->end(), distance.begin(), [this, &_z, &id](auto p){
                     id++;
                     return std::make_pair(id, this->distance_metric(_z, *p));
-                    // return std::make_pair(id, sqrt(((_z - *p) * (_z - *p)).sum()));
                 });
 
                 // sort the distances in increasing distance order

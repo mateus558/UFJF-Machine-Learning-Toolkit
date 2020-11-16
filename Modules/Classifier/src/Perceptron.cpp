@@ -66,7 +66,7 @@ namespace mltk{
     }
 
     template<typename T>
-    double PerceptronPrimal<T>::evaluate(Point<T> p, bool raw_value) {
+    double PerceptronPrimal<T>::evaluate(const Point< T >  &p, bool raw_value) {
         return PrimalClassifier<T>::evaluate(p, raw_value);
     }
 
@@ -194,7 +194,7 @@ namespace mltk{
     }
 
     template < typename T >
-    double PerceptronFixedMarginPrimal< T >::evaluate(Point< T > p, bool raw_value){
+    double PerceptronFixedMarginPrimal< T >::evaluate(const Point< T >  &p, bool raw_value){
         double func = 0.0;
         int i;
         size_t dim = this->solution.w.size();

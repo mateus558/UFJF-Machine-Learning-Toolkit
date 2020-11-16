@@ -24,7 +24,7 @@
 #include "KNNRegressor.hpp"
 #include "KMeans.hpp"
 
-using namespace std;
+using namespace std;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 using namespace mltk;
 
 int verbose = 1;
@@ -434,7 +434,7 @@ void datasetOption(int option){
                 cout << "Enter the number of the DB (must be in the DB folder): ";
                 cin >> sid;
 
-                path = data_folder + files[Utils::stoin(sid)];
+                path = data_folder + files[utils::stoin(sid)];
                 clock_t begin = clock();
                 cout << "\n" << path << endl;
                 samples->load(path);
@@ -1546,7 +1546,7 @@ void clusterersOption(int option){
                 iota(classes.begin(), classes.end(), 1);
                 _data.setClasses(classes);
                 cout << endl;
-                Utils::printConfusionMatrix(classes, conf_m);
+                utils::printConfusionMatrix(classes, conf_m);
                 if(_data.getDim() >= 3 )
                     vis.plot3D(1,2,3);
                 if(_data.getDim() == 2)
@@ -1976,13 +1976,13 @@ void primalClassifiersOption(int option){
                 cin >> k;
                 cout << endl;
 
-                KNN<double> knn(samples, k);
+                KNNClassifier<double> knn(samples, k);
                 vector<string> class_names = samples->getClassNames();
                 vector<int> classes = samples->getClasses();
 
                 auto conf_matrix = Validation<double>::generateConfusionMatrix(knn, *samples);
                 cout << "Confusion Matrix: " << endl;
-                Utils::printConfusionMatrix(classes, conf_matrix);
+                utils::printConfusionMatrix(classes, conf_matrix);
                 waitUserAction();
             }else{
                 cout << "Load a dataset first..." << endl;

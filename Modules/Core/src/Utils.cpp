@@ -17,7 +17,7 @@
 using namespace std;
 
 namespace mltk{
-    namespace Utils{
+    namespace utils{
 
         bool is_number(string s){
             return !s.empty() && std::find_if(s.begin(),

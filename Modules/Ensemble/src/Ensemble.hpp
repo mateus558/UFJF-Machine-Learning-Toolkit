@@ -6,6 +6,7 @@
 #define UFJF_MLTK_ENSEMBLE_HPP
 
 #include "Learner.hpp"
+#include "Classifier.hpp"
 
 namespace mltk{
     template <typename T>
@@ -15,10 +16,12 @@ namespace mltk{
         /// Committee size.
         size_t c_size;
         /// Pointer to base learner used by the ensemble method.
-        Learner< T > *learner;
+        std::vector< LearnerPointer< T > > learners;
         /// Ensemble solution.
         Solution solution;
     public:
+        Ensemble() {}
+        Ensemble(DataPointer< T > samples): Learner< T > (samples) {}
         /*********************************************
          *               Getters                     *
          *********************************************/

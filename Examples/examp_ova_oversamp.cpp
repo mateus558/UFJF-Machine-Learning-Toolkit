@@ -7,7 +7,7 @@
 #include "Sampling.hpp"
 
 int main(int argc, char *argv[]){
-    mltk::DataPointer<double> data = std::make_shared<mltk::Data< double > >();
+    mltk::DataPointer<double> data = mltk::make_data<double>();
     mltk::Validation<double> validation;
     
     data->setClassesAtEnd(true);
@@ -29,7 +29,6 @@ int main(int argc, char *argv[]){
     
     std::cout << "Original class: " << (*data)[0]->Y() << std::endl;
     std::cout << "Evaluated class: " << ova.evaluate(*(*data)[0]) << std::endl;
-    
 
     validation.setVerbose(2);
     validation.setSamples(data);

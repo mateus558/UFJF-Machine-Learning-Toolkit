@@ -25,7 +25,7 @@ namespace mltk{
 
         std::string getFormulationString() override;
 
-        double evaluate(Point<T> p, bool raw_value=false) override;
+        double evaluate(const Point< T >  &p, bool raw_value=false) override;
     };
 }
 

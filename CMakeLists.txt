@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(UFJF-MLTK VERSION 1.0.0)
+project(UFJF-MLTK LANGUAGES CXX VERSION 1.0.0)
 
 if(UNIX)
     set(CMAKE_INSTALL_PREFIX /usr)
@@ -19,6 +19,7 @@ option(BUILD_LIBREGRESSOR "Tells if the regressor module must be built." ON)
 option(BUILD_LIBCLUSTERER "Tells if the clusterer module must be built." ON)
 option(BUILD_LIBFEATSELECT "Tells if the feature selection module must be built." ON)
 option(BUILD_LIBVALIDATION "Tells if the validation module must be built." ON)
+option(BUILD_LIBENSEMBLE "Tells if the ensemble module must be built." ON)
 
 set(LIBMAIN ufjfmltk)
 set(LIB_OUTPUT_PREFIX ${LIBMAIN}-)
@@ -29,6 +30,7 @@ set(LIBREGRESSOR ${LIB_OUTPUT_PREFIX}regressor)
 set(LIBCLUSTERER ${LIB_OUTPUT_PREFIX}clusterer)
 set(LIBFEATSELECT ${LIB_OUTPUT_PREFIX}featselect)
 set(LIBVALIDATION ${LIB_OUTPUT_PREFIX}validation)
+set(LIBENSEMBLE ${LIB_OUTPUT_PREFIX}ensemble)
 
 message(STATUS "UFJF-MLTK Version: ${PROJECT_VERSION}")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")

@@ -18,7 +18,7 @@ namespace mltk{
         Kernel *kernel = nullptr;
     public:
 
-        double evaluate(Point< T > p, bool raw_value=false) override {
+        double evaluate(const Point< T >  &p, bool raw_value=false) override {
             double func = 0.0;
             size_t i, dim = this->solution.w.size();
 

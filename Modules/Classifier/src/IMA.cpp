@@ -256,7 +256,7 @@ namespace mltk{
     }
 
     template < typename T >
-    double IMAp< T >::evaluate(Point< T > p, bool raw_value) {
+    double IMAp< T >::evaluate(const Point< T >  &p, bool raw_value) {
         double func = 0.0;
         int i;
         size_t dim = this->solution.w.size();
@@ -420,7 +420,7 @@ namespace mltk{
     }
 
     template < typename T >
-    double IMApFixedMargin< T >::evaluate(Point< T > p, bool raw_value) {
+    double IMApFixedMargin< T >::evaluate(const Point< T >  &p, bool raw_value) {
         double func = 0.0;
         int i;
         size_t dim = this->solution.w.size();

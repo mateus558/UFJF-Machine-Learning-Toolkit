@@ -130,7 +130,7 @@ namespace mltk{
     }
 
     template<typename T, typename Callable>
-    double KMeans<T, Callable>::evaluate(Point<T> p, bool raw_value) {
+    double KMeans<T, Callable>::evaluate(const Point< T >  &p, bool raw_value) {
         std::vector<double> distances(this->n_clusters, 0.0);
         double min_value = std::numeric_limits<double>::max();
         size_t min_cluster = 0;

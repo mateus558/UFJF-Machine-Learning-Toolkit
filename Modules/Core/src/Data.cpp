@@ -189,15 +189,15 @@ namespace mltk{
                     cond = _dim != -1;
 
                 if(cond){
-                    if(Utils::is_number(item))
-                        new_point->X()[(!atEnd) ? _dim : _dim + 1] = Utils::atod(item.c_str());
+                    if(utils::is_number(item))
+                        new_point->X()[(!atEnd) ? _dim : _dim + 1] = utils::atod(item.c_str());
                 }else{
                     double c;
 
                     if(this->isClassification()) {
                         c = process_class(item);
                     }else{
-                        c = Utils::atod(item.c_str());
+                        c = utils::atod(item.c_str());
                     }
                     if(this->isClassification())
                         if(c == -1){
@@ -259,7 +259,7 @@ namespace mltk{
                             this->type = "Classification";
                         }
                         type_detect = true;
-                    }else if(_dim < ldim && !Utils::is_number(item)){
+                    }else if(_dim < ldim && !utils::is_number(item)){
                         clog << "Warning (line: " << _size << "): feature " << _dim << " is not a number." << endl;
                     }
                 }
@@ -306,7 +306,7 @@ namespace mltk{
                     if(this->isClassification()) {
                         c = process_class(item);
                     }else{
-                        c = Utils::atod(item.c_str());
+                        c = utils::atod(item.c_str());
                     }
                     new_point->Y() = c;
                 }
@@ -318,11 +318,11 @@ namespace mltk{
                     //Get feature name and value
                     while(getline(ss1, item, ':')){
                         if(!is_feature){
-                            fnames[_dim] = Utils::stoin(item);
+                            fnames[_dim] = utils::stoin(item);
                             is_feature = true;
                         }else{
-                            if(Utils::is_number(item)){
-                                new_point->X()[_dim] = Utils::atod(item.c_str());
+                            if(utils::is_number(item)){
+                                new_point->X()[_dim] = utils::atod(item.c_str());
                                 _dim++;
                             }
                         }
@@ -379,7 +379,7 @@ namespace mltk{
                     return (_class == item);
                 });
                 
-                if(!Utils::is_number(item) && (found_class != this->class_names.end())){
+                if(!utils::is_number(item) && (found_class != this->class_names.end())){
                     clog << "Warning: point[" << _size << "] " << dim + 1 << " feature is not a number. (" << item << ")" << endl;
                     dim--;
                 }
@@ -444,8 +444,8 @@ namespace mltk{
                     cond = dim != 0;
 
                 if(cond){
-                    if(Utils::is_number(item)){
-                        new_point->X()[dim + 1] = Utils::atod(item.c_str());
+                    if(utils::is_number(item)){
+                        new_point->X()[dim + 1] = utils::atod(item.c_str());
                     }
                 }else{
                     if(this->isClassification()){
@@ -534,8 +534,8 @@ namespace mltk{
             //read features from line
             while(getline(ss, item, ' ')){
                 if(n >= 2){
-                    if(Utils::is_number(item))
-                        new_point->X()[n - 2] = Utils::atod(item.c_str());
+                    if(utils::is_number(item))
+                        new_point->X()[n - 2] = utils::atod(item.c_str());
                     else{ clog << "Warning: point[" << _size << "] " << n - 2 << " feature is not a number." << endl; }
                     new_point->Y() = 0;
                 }
@@ -1169,7 +1169,7 @@ namespace mltk{
                 c = -1;
             }
         }else{
-            if(Utils::is_number(item)) {
+            if(utils::is_number(item)) {
                 c = std::stoi(item);
             }else{
                 c = (int)(class_name_it - this->class_names.begin())+1;

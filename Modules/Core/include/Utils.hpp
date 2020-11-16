@@ -17,7 +17,7 @@ namespace mltk{
     enum NormType {NORM_LINF = 0, NORM_L1 = 1, NORM_L2 = 2};
     typedef std::vector<std::vector<double> > dMatrix;
 
-    namespace Utils {
+    namespace utils {
 
         void printConfusionMatrix(std::vector<int> &classes, std::vector<std::vector<size_t> > &confusion_m);
     /**

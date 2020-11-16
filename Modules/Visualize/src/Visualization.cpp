@@ -155,7 +155,7 @@ namespace mltk{
 
     template < typename T >
     void Visualization< T >::plot2D(int x, int y){
-        string dims = Utils::itos(x) + ":" + Utils::itos(y);
+        string dims = utils::itos(x) + ":" + utils::itos(y);
         string cmd("plot ");
         vector<string> temp_files_names, class_names = samples->getClassNames();
         size_t i;
@@ -183,7 +183,7 @@ namespace mltk{
 
     template < typename T >
     void Visualization< T >::plot3D(int x, int y, int z){
-        string dims = Utils::itos(x) + ":" + Utils::itos(y) + ":" + Utils::itos(z);
+        string dims = utils::itos(x) + ":" + utils::itos(y) + ":" + utils::itos(z);
         string cmd("splot ");
         vector<string> temp_files_names, class_names = samples->getClassNames();
         size_t i;
@@ -211,7 +211,7 @@ namespace mltk{
     void Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s){
         if(s.norm != s.norm) s.norm = 0.0;
 
-        string feats = Utils::itos(x) + ":" + Utils::itos(y);
+        string feats = utils::itos(x) + ":" + utils::itos(y);
         string fx, gx, hx, cmd;
         vector<string> temp_files_names, class_names = samples->getClassNames();
         size_t i;
@@ -219,16 +219,16 @@ namespace mltk{
         temp_files_names = createTempFiles();
 
         if(s.bias != 0) {
-            fx = "f(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
-                            Utils::dtoa(s.bias / -s.w[y - 1]);
-            gx = "g(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
-                            Utils::dtoa((s.bias + s.margin * s.norm) / -s.w[y - 1]);
-            hx = "h(x) = " + Utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
-                            Utils::dtoa((s.bias - s.margin * s.norm) / -s.w[y - 1]);
+            fx = "f(x) = " + utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
+                            utils::dtoa(s.bias / -s.w[y - 1]);
+            gx = "g(x) = " + utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
+                            utils::dtoa((s.bias + s.margin * s.norm) / -s.w[y - 1]);
+            hx = "h(x) = " + utils::dtoa(s.w[x - 1] / -s.w[y - 1]) + "*x + " +
+                            utils::dtoa((s.bias - s.margin * s.norm) / -s.w[y - 1]);
         }else{
-            fx = "f(x) = " + Utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
-            gx = "g(x) = " + Utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
-            hx = "h(x) = " + Utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
+            fx = "f(x) = " + utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
+            gx = "g(x) = " + utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
+            hx = "h(x) = " + utils::dtoa(s.w[x - 1] / s.w[y - 1]) + "*x";
         }
 
         cmd = fx + "; "+ gx +"; "+ hx +"; plot ";
@@ -253,13 +253,13 @@ namespace mltk{
 
     template < typename T >
     void Visualization< T >::plot3DwithHyperplane(int x, int y, int z, Solution s){
-        string feats = Utils::itos(x) + ":" + Utils::itos(y) + ":" + Utils::itos(z);
+        string feats = utils::itos(x) + ":" + utils::itos(y) + ":" + utils::itos(z);
         string fxy, cmd;
         vector<string> temp_files_names, class_names = samples->getClassNames();
         size_t i;
 
         temp_files_names = createTempFiles();
-        fxy = "f(x,y) = "+Utils::dtoa(s.w[x-1]/-s.w[z-1])+"*x + "+Utils::dtoa(s.w[y-1]/-s.w[z-1])+"*y + "+Utils::dtoa(s.bias/-s.w[z-1]);
+        fxy = "f(x,y) = "+utils::dtoa(s.w[x-1]/-s.w[z-1])+"*x + "+utils::dtoa(s.w[y-1]/-s.w[z-1])+"*y + "+utils::dtoa(s.bias/-s.w[z-1]);
         cmd = fxy + "; splot ";
 
         if(samples->getType() == "Classification"){

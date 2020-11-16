@@ -30,7 +30,7 @@ namespace mltk{
 
         bool train() override;
 
-        double evaluate(Point<T> p, bool raw_value=false) override;
+        double evaluate(const Point< T >  &p, bool raw_value=false) override;
 
         std::string getFormulationString() override;
 
@@ -94,7 +94,7 @@ namespace mltk{
     }
 
     template< typename T, template <typename > class ClassifierT>
-    double OneVsAll<T, ClassifierT>::evaluate(Point<T> p, bool raw_value) {
+    double OneVsAll<T, ClassifierT>::evaluate(const Point< T >  &p, bool raw_value) {
         auto classes = this->samples->getClasses();
         std::vector<double> dist_hyperplanes(base_learners.size());
 

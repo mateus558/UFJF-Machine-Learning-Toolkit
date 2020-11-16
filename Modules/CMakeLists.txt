@@ -3,7 +3,6 @@ include(CMakePackageConfigHelpers)
 
 # Function to install a library in the system
 function(install_lib LIBTARGET INCLUDE_FOLDER LIBVERSION)
-
     if(CMAKE_BUILD_TYPE EQUAL "Debug")
         target_compile_definitions(${LIBTARGET} PUBLIC DEBUG=1)
     else()
@@ -56,6 +55,10 @@ if (BUILD_LIBCLASSIFIER OR BUILD_LIBVALIDATION OR BUILD_LIBFEATSELECT OR BUILD_C
     add_subdirectory(Classifier)
     set(OBJECTS ${OBJECTS} $<TARGET_OBJECTS:${LIBCLASSIFIER}> )
 endif ()
+if (BUILD_LIBENSEMBLE OR BUILD_LIBENSEMBLE OR BUILD_CLI OR BUILD_GUI)
+    add_subdirectory(Ensemble)
+    set(OBJECTS ${OBJECTS} $<TARGET_OBJECTS:${LIBENSEMBLE}> )
+endif ()
 if (BUILD_LIBREGRESSOR OR BUILD_CLI OR BUILD_GUI)
     add_subdirectory(Regressor)
     set(OBJECTS ${OBJECTS} $<TARGET_OBJECTS:${LIBREGRESSOR}> )
@@ -72,6 +75,7 @@ if (BUILD_LIBVALIDATION OR BUILD_LIBFEATSELECT OR BUILD_CLI OR BUILD_GUI)
     add_subdirectory(Validation)
     set(OBJECTS ${OBJECTS} $<TARGET_OBJECTS:${LIBVALIDATION}> )
 endif ()
+
 
 # link all built libraries to the main library
 add_library(${LIBMAIN} SHARED ${OBJECTS})

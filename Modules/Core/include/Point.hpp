@@ -17,8 +17,8 @@
 #include <algorithm>
 #include <omp.h>
 
-#include "ExprOps.hpp"
-#include "ExprScalar.hpp"
+#include "PointExpression/ExprOps.hpp"
+#include "PointExpression/ExprScalar.hpp"
 #include "Utils.hpp"
 
 namespace mltk {    
@@ -63,66 +63,6 @@ namespace mltk {
              **/
             Point(Rep const& rb): x(rb) {}
 
-            /*********************************************
-             *               Point functions             *
-             *********************************************/
-
-            /**
-             * \brief Computes the dot product with a vector.
-             * \param p (???)
-             * \return double
-             */
-            T dot (const Point<T> &p){
-                T result = 0;
-                assert(this->size() == p.size());
-                #if DEBUG == 1
-                #pragma omp parallel for reduction (+:result)
-                #endif
-                for(size_t i = 0; i < p.size(); i++){
-                    result += p[i] * this->x[i];
-                }
-
-                return result;
-            }
-            /**
-             * \brief Returns the p-norm of the point.
-             * \param p p of the norm (euclidean norm is the default).
-             * \return double
-             */
-            double norm (int p = NormType::NORM_L2){
-                if(p == NormType::NORM_LINF){
-                    return abs(*this).max();
-                }
-                return std::pow(pow(abs(*this), p).sum(), 1.0/p);
-            }
-            /**
-             * \brief Returns the max value of the point.
-             * \return T
-             */
-            T max(){
-                T _max = std::numeric_limits<T>::min(); 
-                for(size_t i = 0; i < size(); i++){
-                    if(x[i] > x[_max]){
-                        _max = i;
-                    }
-                }
-                return x[_max];
-            }
-            /**
-             * \brief Compute the sum of the components of the point.
-             * \return The sum of the components of the point.
-             **/
-            T sum(const std::function <T (T)>& f = [](T const& x) { return x;}){ 
-                T _sum = T();
-                #if DEBUG == 1
-                #pragma omp parallel for reduction (+:_sum)
-                #endif
-                for(std::size_t i = 0; i < size(); i++){
-                    _sum += f(x[i]);
-                }
-                
-                return _sum;
-            }
 
             /*********************************************
              *               Getters                     *
@@ -236,19 +176,57 @@ namespace mltk {
                 return Point<T, A_Subscript<T, Rep, R2>> (A_Subscript<T, Rep, R2>((*this).X(), b.X()));
             }
 
+            /**
+             * \brief Returns the p-norm of the point.
+             * \param p p of the norm (euclidean norm is the default).
+             * \return double
+             */
+            double norm (int p = NormType::NORM_L2){
+                if(p == NormType::NORM_LINF){
+                    return abs(*this).max();
+                }
+                return std::pow(pow(abs(*this), p).sum(), 1.0/p);
+            }
+            /**
+             * \brief Returns the max value of the point.
+             * \return T
+             */
+            T max(){
+                T _max = std::numeric_limits<T>::min(); 
+                for(size_t i = 0; i < size(); i++){
+                    if(x[i] > x[_max]){
+                        _max = i;
+                    }
+                }
+                return x[_max];
+            }
+            /**
+             * \brief Compute the sum of the components of the point.
+             * \return The sum of the components of the point.
+             **/
+            T sum(const std::function <T (T)>& f = [](T const& x) { return x;}){ 
+                T _sum = T();
+                #if DEBUG == 1
+                #pragma omp parallel for reduction (+:_sum)
+                #endif
+                for(std::size_t i = 0; i < size(); i++){
+                    _sum += f(x[i]);
+                }
+                
+                return _sum;
+            }
+
             /*********************************************
              *                Other operators            *
              *********************************************/
 
             // assignment operator from same type
             Point& operator=(Point const& b) {
-                size_t dim = b.size();
-                assert(size() == dim);
-               
+                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
-                    for(std::size_t idx = 0; idx < dim; ++idx) {
+                    for(std::size_t idx = 0; idx < b.size(); ++idx) {
                         x[idx] = b[idx];
                     }
                 
@@ -281,6 +259,7 @@ namespace mltk {
 
             template <typename Y>
             Point& operator=(Y const& b) {
+                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -314,6 +293,7 @@ namespace mltk {
 
             template <typename Y>
             Point& operator+=(Y const& b) {
+                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -373,6 +353,7 @@ namespace mltk {
 
             template <typename Y>
             Point& operator-=(Y const& b) {
+                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -419,6 +400,7 @@ namespace mltk {
 
             template <typename Y>
             Point& operator*=(Y const& b) {
+                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -465,6 +447,7 @@ namespace mltk {
 
             template <typename Y>
             Point& operator/=(Y const& b) {
+                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -487,6 +470,47 @@ namespace mltk {
     PointPointer<T, R> make_point(Types... args){
         return std::make_shared< Point< T, R > >(args...);
     }
+
+    /*********************************************
+     *               Point functions             *
+     *********************************************/
+
+    /**
+     * \brief Computes the dot product with a vector.
+     * \param p (???)
+     * \return double
+     */
+    template < typename T, typename R >
+    T dot (const Point<T, R> &p, const Point<T, R> &p1){
+        assert(p.size() == p1.size());
+        #if DEBUG == 1
+        #pragma omp parallel for private(i) shared(result) num_threads(4) reduction(+:result) 
+        #endif
+        size_t dim = p.size();
+        T result = 0;
+        for(size_t i = 0; i < dim; i++){
+            result += p[i] * p1[i];
+        }
+
+        return result;
+    }
+            
+
+    template < typename T, typename R>
+    Point<T, F_Abs<T, R> > abs(const Point<T, R>& p){        
+        return Point<T, F_Abs<T, R > >(F_Abs<T, R>(p.X()));
+    }
+
+    template < typename T, typename R>
+    Point<T, F_Pow<T, T, R> > pow(const Point<T, R>& p, const T &power){        
+        return Point<T, F_Pow<T, T, R > >(F_Pow<T, T, R>(p.X(), power));
+    }
+
+    template < typename T, typename P, typename R>
+    Point<T, F_Pow<T, P, R> > pow(const Point<T, R>& p, const P &power){        
+        return Point<T, F_Pow<T, P, R > >(F_Pow<T, P, R>(p.X(), power));
+    }
+
 
     template <typename T, typename R>
     std::ostream &operator<<( std::ostream &output, const Point<T, R> &p ) {
@@ -522,21 +546,6 @@ namespace mltk {
     template< typename T, typename R >
     bool Point< T, R >::operator!=(const Point<T, R> &rhs) const {
         return !(rhs == *this);
-    }
-
-    template < typename T, typename R>
-    Point<T, F_Abs<T, R> > abs(const Point<T, R>& p){        
-        return Point<T, F_Abs<T, R > >(F_Abs<T, R>(p.X()));
-    }
-
-    template < typename T, typename R>
-    Point<T, F_Pow<T, T, R> > pow(const Point<T, R>& p, const T &power){        
-        return Point<T, F_Pow<T, T, R > >(F_Pow<T, T, R>(p.X(), power));
-    }
-
-    template < typename T, typename P, typename R>
-    Point<T, F_Pow<T, P, R> > pow(const Point<T, R>& p, const P &power){        
-        return Point<T, F_Pow<T, P, R > >(F_Pow<T, P, R>(p.X(), power));
     }
 
     // module of point and scalar

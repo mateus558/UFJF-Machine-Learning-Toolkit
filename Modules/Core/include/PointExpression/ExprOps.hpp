@@ -205,6 +205,20 @@ namespace mltk{
                 return a2.size();
             }
     };
+
+    template<typename T, size_t N>
+    struct DotProduct{
+        static inline T result(T* a, T* b){
+            return *a * *b + DotProduct<T, N-1>::result(a+1, b+1);
+        }
+    };
+
+    template<typename T>
+    struct DotProduct<T, 0>{
+        static inline T result(T* a, T* b){
+            return T{};
+        }
+    };
 }
 
 #endif

@@ -11,6 +11,12 @@
 #include "Timer.hpp"
 
 namespace mltk{
+
+  template <typename T>
+  class Learner;
+
+  template < class T > using LearnerPointer = std::shared_ptr<mltk::Learner< T > >;
+
   template < typename T >
   class Learner {
   protected:
@@ -71,7 +77,7 @@ namespace mltk{
        * \param Point< T >  x (???) Features point to be evaluated.
        * \return int
        */
-      virtual double evaluate (Point< T > p, bool raw_value=false) = 0;
+      virtual double evaluate (const Point< T > &p, bool raw_value=false) = 0;
       
       /*********************************************
        *               Getters                     *
