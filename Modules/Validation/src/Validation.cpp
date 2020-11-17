@@ -24,47 +24,48 @@ namespace mltk{
 
     template < typename T >
     void Validation< T > ::partTrainTest(int fold){
-        double sizes = sample->getSize()/fold;
+        double sizes = (double)sample->getSize()/fold;
         std::vector<int> classes = sample->getClasses();
+        sample->computeClassesDistribution();
         std::vector<size_t> classDistribution = sample->getClassesDistribution();
         std::vector<DataPointer<T> > points_by_class(classes.size());
-        std::vector<size_t> new_class_distribution(classes.size());
+        std::vector<size_t> train_class_distribution(classes.size());
 
         for(size_t i = 0; i < classes.size(); i++){
-            points_by_class[i] = std::make_shared<Data<T> >();
+            points_by_class[i] = mltk::make_data< T >();
         }
 
         for(auto it = sample->begin(); it != sample->end(); it++){
             auto point = (*it);
-            if(classes.size() > 2){
-                points_by_class[point->Y()-1]->insertPoint(point);
-            }else{
-                if(point->Y() == -1){
-                    points_by_class[1]->insertPoint(point);
-                }else{ 
-                    points_by_class[0]->insertPoint(point);
-                }
-            }
+            auto p_class = point->Y();
+            auto pos = std::find_if(classes.begin(), classes.end(), [&p_class](auto &c){
+                return (c == p_class);
+            }) - classes.begin();
+            points_by_class[pos]->insertPoint(point);
         }
 
         for(size_t i = 0; i < classes.size(); i++){
-            new_class_distribution[i] = ((double)classDistribution[i]/sample->getSize())*sizes;
+            double d = ((double)classDistribution[i]/sample->getSize())*sizes*(fold-1);
+            train_class_distribution[i] = (d < 1)?std::ceil(d):d;
         }
 
-        test_sample = std::make_shared<Data< T > >();
-        train_sample = std::make_shared<Data< T > >();
+        test_sample = mltk::make_data< T >();
+        train_sample = mltk::make_data< T >();
 
-        std::vector<size_t> markers(classes.size(), 0);
-        for(size_t i = 0; i < fold; i++){
-            for(size_t j = 0; j < points_by_class.size(); j++){
-                for(size_t k = markers[j], l = 0; markers[j] < points_by_class[j]->getSize() && l < new_class_distribution[j]; k++, l++){
-                    if(i != fold-1){
-                        train_sample->insertPoint((*points_by_class[j])[k]);
-                    }else{ 
-                        test_sample->insertPoint((*points_by_class[j])[k]);
-                    }
-                    markers[j]++;
+        std::vector<size_t> class_counter(classes.size(), 0);
+        for(size_t i = 0; i < points_by_class.size(); i++){
+            for(size_t j = 0; j < points_by_class[i]->getSize(); j++){
+                if(class_counter[i] < train_class_distribution[i]){
+                    train_sample->insertPoint((*points_by_class[i])[j]);
+                    class_counter[i]++;
+                }else{
+                    break;
                 }
+            }
+        }
+        for(size_t i = 0; i < points_by_class.size(); i++){
+            for(size_t j = class_counter[i]-1; j < points_by_class[i]->getSize(); j++){
+                test_sample->insertPoint((*points_by_class[i])[j]);
             }
         }
 
@@ -88,27 +89,24 @@ namespace mltk{
 
 
         for(size_t i = 0; i < classes.size(); i++){
-            points_by_class[i] = std::make_shared<Data< T > >();
+            points_by_class[i] = mltk::make_data<T>();
         }
         for(size_t i = 0; i < fold; i++){
-            folds[i] = std::make_shared<Data< T > >();
+            folds[i] = mltk::make_data<T>();
         }
         
         for(auto it = sample->begin(); it != sample->end(); it++){
             auto point = (*it);
-            if(classes.size() > 2){
-                points_by_class[point->Y()-1]->insertPoint(point);
-            }else{
-                if(point->Y() == -1){
-                    points_by_class[1]->insertPoint(point);
-                }else{ 
-                    points_by_class[0]->insertPoint(point);
-                }
-            }
+            auto p_class = point->Y();
+            auto pos = std::find_if(classes.begin(), classes.end(), [&p_class](auto &c){
+                return (c == p_class);
+            }) - classes.begin();
+            points_by_class[pos]->insertPoint(point);
         }
-        
+
         for(size_t i = 0; i < classes.size(); i++){
-            new_class_distribution[i] = ((double)classDistribution[i]/sample->getSize())*sizes;
+            double d = ((double)classDistribution[i]/sample->getSize())*sizes;
+            new_class_distribution[i] = (d < 1)?std::ceil(d):d;
         }
 
         for(size_t i = 0; i < folds.size(); i++){

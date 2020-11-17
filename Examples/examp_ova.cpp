@@ -10,9 +10,9 @@ int main(int argc, char *argv[]){
     mltk::Validation<double> validation;
     
     data->setClassesAtEnd(false);
-    data->load("iris_mult.csv");
+    data->load("breast.data");
     
-    std::cout << *data << std::endl;
+    //std::cout << *data << std::endl;
     
     mltk::IMAp<double> imap;
     

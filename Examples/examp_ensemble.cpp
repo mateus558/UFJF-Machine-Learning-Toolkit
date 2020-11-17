@@ -4,6 +4,7 @@
 #include "KNNClassifier.hpp"
 #include "OneVsAll.hpp"
 #include "Validation.hpp"
+#include "PerceptronCommittee.hpp"
 
 int main(int argc, char *argv[]){
     mltk::Data<double> data;
@@ -26,7 +27,8 @@ int main(int argc, char *argv[]){
     ima.setMaxTime(110);
     
     mltk::OneVsAll<double> ova(std::make_shared<mltk::Data< double > >(data), ima);
-    mltk::VotingClassifier<double> voter(data, "soft", knn, ova);
+    mltk::PerceptronCommittee<double> pc(data, 20);
+    mltk::VotingClassifier<double> voter(data, "soft", knn, ova, pc);
     
     
     voter.setWeights(weights);

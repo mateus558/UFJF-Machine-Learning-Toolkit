@@ -53,7 +53,7 @@ template < typename T >
 
                     }
                 
-                    if(stop || this->timer.Elapsed() > 5 || errors == 0) break;
+                    if(stop || this->timer.Elapsed() > this->max_time || errors == 0) break;
                 }
 
                 for(auto it = this->samples->begin(); it != this->samples->end(); ++it){

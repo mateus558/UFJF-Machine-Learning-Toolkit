@@ -28,7 +28,7 @@ namespace mltk{
          * \brief Returns the elapsed time.
          * \returns double
          */
-        inline double Elapsed() const { return std::chrono::duration_cast<std::chrono::duration<double> >(std::chrono::high_resolution_clock::now() - start).count(); }
+        inline double Elapsed() const { return std::chrono::duration_cast<std::chrono::duration<double> >(std::chrono::high_resolution_clock::now() - start).count()*1000; }
     private:
         /// Initial time.
         std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
