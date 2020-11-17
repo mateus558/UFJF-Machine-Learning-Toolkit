@@ -10,7 +10,7 @@
 
 namespace mltk{
     template <typename T>
-    class Ensemble: public Learner< T > {
+    class Ensemble: virtual public Learner< T > {
         // Attributes
     protected:
         /// Committee size.

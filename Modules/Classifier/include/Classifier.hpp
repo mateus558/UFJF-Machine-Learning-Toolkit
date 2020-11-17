@@ -10,7 +10,7 @@
 
 namespace mltk{
     template < typename T >
-    class Classifier: public Learner< T > {
+    class Classifier: virtual public Learner< T > {
         // Attributes
     protected :
         /// Inform if there's an initial solution.

@@ -2,10 +2,11 @@
 #define VOTING_CLASSIFIER_HPP_DEFINED
 
 #include "Ensemble.hpp"
+#include "Classifier.hpp"
 
 namespace mltk{
     template < typename T>
-    class VotingClassifier: public Ensemble< T >{
+    class VotingClassifier: public Ensemble< T >, public Classifier< T >{
         private:
             mltk::Point<double> weights;
             std::string voting_type;
@@ -22,8 +23,9 @@ namespace mltk{
         public:
             template <template<typename...> class WeakLearner> 
             VotingClassifier(Data< T > &samples, const std::string &voting_type, WeakLearner< T > flearner)
-            : Ensemble<T>(std::make_shared< Data<T> >(samples)), voting_type(voting_type)
+            : voting_type(voting_type)
             {
+                this->samples = samples;
                 this->learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
             }
 
@@ -31,6 +33,7 @@ namespace mltk{
             VotingClassifier(Data< T > &samples, const std::string &voting_type, WeakLearner< T > flearner, WeakLearners<T>... weak_learners)
             : Ensemble<T>(std::make_shared< Data<T> >(samples)), voting_type(voting_type) 
             {
+                this->samples = std::make_shared< Data<T> >(samples);
                 fillLearnersVector(flearner, weak_learners...);
             }
 
@@ -41,11 +44,18 @@ namespace mltk{
                     this->learners[i]->setSamples(this->samples);
                     this->learners[i]->train();
                 }
+                return true;
             }
 
             double evaluate(const Point< T >  &p, bool raw_value=false) override{
                 auto _classes = this->samples->getClasses();
                 mltk::Point<double> votes(_classes.size(), 0.0);
+                
+                if(voting_type == "soft"){ 
+                    assert(this->weights.size() > 0);
+                }else{   
+                    this->weights = 1;  
+                }
 
                 for(size_t i = 0; i < this->learners.size(); i++){
                         auto pred = this->learners[i]->evaluate(p);
@@ -54,16 +64,11 @@ namespace mltk{
                             return (a == pred);
                         }) - _classes.begin();
                         // count prediction as a vote
-                        votes[pred_pos]++;
+                        votes[pred_pos] += 1*this->weights[i];
                 }
                  
-                if(voting_type == "soft"){
-                    assert(this->weights.size() > 0);
-                    votes *= weights;
-                }
                 size_t max_votes = std::max_element(votes.X().begin(), votes.X().end()) - votes.X().begin();
                 return _classes[max_votes];
-                
             }
 
             void setWeights(const std::vector<double> weights){
@@ -71,8 +76,11 @@ namespace mltk{
                 this->weights.X().resize(weights.size());
                 this->weights = weights;
             }
-            std::string getFormulationString() override {}
+            std::string getFormulationString() override {
+                return this->learners[0]->getFormulationString();
+            }
     };
 
 }
+
 #endif

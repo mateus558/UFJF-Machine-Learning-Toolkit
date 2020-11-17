@@ -271,7 +271,6 @@ namespace mltk {
 
             template <typename Y>
             Point& operator=(Y const& b) {
-                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -305,7 +304,6 @@ namespace mltk {
 
             template <typename Y>
             Point& operator+=(Y const& b) {
-                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -365,7 +363,6 @@ namespace mltk {
 
             template <typename Y>
             Point& operator-=(Y const& b) {
-                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -412,7 +409,6 @@ namespace mltk {
 
             template <typename Y>
             Point& operator*=(Y const& b) {
-                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -459,7 +455,6 @@ namespace mltk {
 
             template <typename Y>
             Point& operator/=(Y const& b) {
-                assert(size() == b.size());
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
