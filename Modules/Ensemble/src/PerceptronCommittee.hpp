@@ -53,7 +53,7 @@ template < typename T >
 
                     }
                 
-                    if(stop || this->timer.Elapsed() > 0.3 || errors == 0) break;
+                    if(stop || this->timer.Elapsed() > 5 || errors == 0) break;
                 }
 
                 for(auto it = this->samples->begin(); it != this->samples->end(); ++it){
@@ -93,7 +93,9 @@ class PerceptronCommittee: public Ensemble< T >, public Classifier< T > {
         
         bool train() override{ 
             this->learners.resize(n);
+            #if DEBUG == 1
             #pragma omp parallel for
+            #endif
             for(size_t i = 0; i < n; i++){
                 this->learners[i] = std::make_shared<BalancedPerceptron<T>>();
                 DataPointer< T > samp = mltk::make_data< T >();
@@ -108,7 +110,9 @@ class PerceptronCommittee: public Ensemble< T >, public Classifier< T > {
             auto _classes = this->samples->getClasses();
             mltk::Point<double> votes(_classes.size(), 0.0);
             
+            #if DEBUG == 1
             #pragma omp parallel for
+            #endif
             for(size_t i = 0; i < this->learners.size(); i++){
                 auto pred = this->learners[i]->evaluate(p);
 
