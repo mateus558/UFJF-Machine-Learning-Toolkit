@@ -39,7 +39,7 @@ namespace mltk{
         class Chebyshev: public DistanceMetric< T > {
             public:
                 T operator()(const Point<T>& p1, const Point<T>& p2){
-                    return mltk::abs(p1-p2).max();
+                    return mltk::max(mltk::abs(p1-p2));
                 }
         };
     }

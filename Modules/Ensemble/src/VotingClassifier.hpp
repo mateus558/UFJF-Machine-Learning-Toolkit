@@ -25,13 +25,13 @@ namespace mltk{
             VotingClassifier(Data< T > &samples, const std::string &voting_type, WeakLearner< T > flearner)
             : voting_type(voting_type)
             {
-                this->samples = samples;
+                this->samples = std::make_shared< Data<T> >(samples);
                 this->learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
             }
 
             template <template<typename...> class WeakLearner, template<typename...> class... WeakLearners > 
             VotingClassifier(Data< T > &samples, const std::string &voting_type, WeakLearner< T > flearner, WeakLearners<T>... weak_learners)
-            : Ensemble<T>(std::make_shared< Data<T> >(samples)), voting_type(voting_type) 
+            : voting_type(voting_type) 
             {
                 this->samples = std::make_shared< Data<T> >(samples);
                 fillLearnersVector(flearner, weak_learners...);

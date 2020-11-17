@@ -8,8 +8,11 @@
 
 #include "PrimalClassifier.hpp"
 #include "DualClassifier.hpp"
+#include <chrono>
 
 namespace mltk{
+    using namespace std::chrono;
+
     /**
      * \brief Wrapper for the implementation of the Perceptron primal algorithm.
      */
@@ -53,6 +56,8 @@ namespace mltk{
         explicit PerceptronFixedMarginDual(std::shared_ptr<Data< T > > samples, double gamma = 1.0, double rate = 0.5, Solution *initial_solution = nullptr);
         bool train() override;
     };
+
+    
 }
 
 #endif

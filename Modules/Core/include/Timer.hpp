@@ -8,6 +8,7 @@
 
 #include <cstdio>
 #include <ctime>
+#include <chrono>
 
 namespace mltk{
     /**
@@ -18,19 +19,19 @@ namespace mltk{
         /**
          * \brief Contructor already initiate the timer to the current time.
          */
-        inline Timer() {start = std::clock();}
+        inline Timer() {start = std::chrono::high_resolution_clock::now();}
         /**
          * \brief Set the timer to the current time.
          */
-        inline void Reset(){ start = std::clock(); }
+        inline void Reset(){ start = std::chrono::high_resolution_clock::now(); }
         /**
          * \brief Returns the elapsed time.
          * \returns double
          */
-        inline double Elapsed() const { return 100.0f*( std::clock() - start ) / (double) CLOCKS_PER_SEC; }
+        inline double Elapsed() const { return std::chrono::duration_cast<std::chrono::duration<double> >(std::chrono::high_resolution_clock::now() - start).count(); }
     private:
         /// Initial time.
-        std::clock_t start;
+        std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
         /// Elapsed time.
         double duration;
     };

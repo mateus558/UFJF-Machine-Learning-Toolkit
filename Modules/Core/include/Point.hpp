@@ -183,22 +183,9 @@ namespace mltk {
              */
             double norm (int p = NormType::NORM_L2){
                 if(p == NormType::NORM_LINF){
-                    return abs(*this).max();
+                    return max(abs(*this));
                 }
                 return std::pow(pow(abs(*this), p).sum(), 1.0/p);
-            }
-            /**
-             * \brief Returns the max value of the point.
-             * \return T
-             */
-            T max(){
-                T _max = std::numeric_limits<T>::min(); 
-                for(size_t i = 0; i < size(); i++){
-                    if(x[i] > x[_max]){
-                        _max = i;
-                    }
-                }
-                return x[_max];
             }
             /**
              * \brief Compute the sum of the components of the point.
@@ -500,6 +487,19 @@ namespace mltk {
         }
 
         return result;
+    }
+
+     /**
+     * \brief Returns the max value of the point.
+     * \return T
+     */
+    template < typename T, typename R >
+    T max(const Point<T, R> &p){
+        T _max = std::numeric_limits<T>::min();
+        for(size_t i = 0; i < p.size(); i++){
+            if(p[i] > _max) _max = p[i];
+        }
+        return _max;
     }
             
 

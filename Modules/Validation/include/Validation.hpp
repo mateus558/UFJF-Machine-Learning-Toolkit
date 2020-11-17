@@ -90,6 +90,8 @@ namespace mltk{
         explicit Validation (std::shared_ptr<Data< T > > sample, Classifier< T >  *classifier = nullptr, unsigned int seed = 666);
 
         static std::vector<std::vector<size_t> > generateConfusionMatrix(Learner< T > &learner, Data< T > &samples);
+        static double confusionMatrixAccuracy(const std::vector<std::vector<size_t> > &conf_matrix);
+
         /**
          * \brief Divide the samples in training and test.
          * \param fold Number of folds.

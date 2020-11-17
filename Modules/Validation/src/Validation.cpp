@@ -360,6 +360,20 @@ namespace mltk{
         this->seed = seed;
     }
 
+    template < typename T >
+    double Validation<T>::confusionMatrixAccuracy(const std::vector<std::vector<size_t> > &conf_matrix){
+        double errors = 0, total = 0;
+        for(size_t i = 0; i < conf_matrix.size(); i++){
+            for(size_t j = 0; j < conf_matrix[i].size(); j++){
+                if(i != j){
+                    errors += conf_matrix[i][j];
+                }
+                total += conf_matrix[i][j];
+            }
+        }
+        return (1 - errors/total)*100;
+    }
+
     template<typename T>
     std::vector<std::vector<size_t> > Validation<T>::generateConfusionMatrix(Learner<T> &learner, Data<T> &samples) {
         auto classes = samples.getClasses();
