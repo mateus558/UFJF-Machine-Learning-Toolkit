@@ -11,7 +11,7 @@ int main(int argc, char *argv[]){
 
     std::cout << data << std::endl;
 
-    mltk::BalancedPerceptron<double> bp(data);
+    mltk::PerceptronCommittee<double> bp(data, 1000);
     mltk::Validation<double> validation;
 
     bp.train();
