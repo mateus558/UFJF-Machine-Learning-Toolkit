@@ -176,6 +176,7 @@ namespace mltk {
                 return Point<T, A_Subscript<T, Rep, R2>> (A_Subscript<T, Rep, R2>((*this).X(), b.X()));
             }
 
+
             /**
              * \brief Returns the p-norm of the point.
              * \param p p of the norm (euclidean norm is the default).
@@ -501,7 +502,21 @@ namespace mltk {
         }
         return _max;
     }
-            
+
+    template < typename T, typename R = std::vector< T > >
+    void random_init(Point<T, R> &p, const size_t &size, const size_t &seed){
+        std::mt19937 gen;
+        if(seed == 0) {
+            std::random_device rd;
+            gen.seed(rd());
+        }else gen.seed(seed);
+        std::uniform_real_distribution<double> dist(0., 1.);
+
+        p.X().resize(size);
+        for(size_t i = 0; i < p.size(); i++){
+            p[i] = dist(gen);
+        }
+    }
 
     template < typename T, typename R>
     Point<T, F_Abs<T, R> > abs(const Point<T, R>& p){        

@@ -8,7 +8,7 @@ int main(int argc, char *argv[]){
     mltk::Data<double> _data, data;
 
     //_data.setClassesAtEnd(true);
-    _data.load("breast.data");
+    _data.load("iris.data");
     std::cout << _data.getSize() << std::endl;
     std::vector<int> cl = {-1,1};
     data.setClasses(cl);

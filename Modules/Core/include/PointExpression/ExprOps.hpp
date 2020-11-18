@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <cassert>
 #include <memory>
+#include <random>
 
 #include "ExprTraits.hpp"
 

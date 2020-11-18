@@ -18,8 +18,8 @@ namespace mltk{
         train_sample = std::make_shared<Data< T > >();
         test_sample = std::make_shared<Data< T > >();
 
-        random::init(seed);
-        seed = random::getSeed();
+        mltk::random::init(seed);
+        seed = mltk::random::getSeed();
     }
 
     template < typename T >
@@ -64,7 +64,7 @@ namespace mltk{
             }
         }
         for(size_t i = 0; i < points_by_class.size(); i++){
-            for(size_t j = class_counter[i]-1; j < points_by_class[i]->getSize(); j++){
+            for(size_t j = class_counter[i]; j < points_by_class[i]->getSize(); j++){
                 test_sample->insertPoint((*points_by_class[i])[j]);
             }
         }
@@ -329,7 +329,7 @@ namespace mltk{
             if(verbose) cout.flush();
         }
 
-        cout << "Validation Error: " << erro << " -- " << (double)erro/(double)test_sample->getSize()*100.0f << "%\n";
+        cout << "Validation Error: " << erro << " -- " <<  ((double)erro/(double)test_sample->getSize())*100.0f << "%\n";
         error += ((double)erro/(double)test_sample->getSize())*100.0f;
 
         return this->solution;

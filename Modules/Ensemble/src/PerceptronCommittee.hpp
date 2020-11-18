@@ -24,11 +24,7 @@ template < typename T >
                 bool stop = false;
                 double gamma1 = std::numeric_limits< double >::max(), gamma2 = std::numeric_limits< double >::max();
                 
-                this->weights.X().resize(this->samples->getDim(), 0.0);
-                std::random_device rnd;
-                std::mt19937 gen(rnd());
-                std::uniform_real_distribution<> dist(0.,1.);
-                std::generate(this->weights.X().begin(), this->weights.X().end(), [&gen, &dist]() { return dist(gen); });
+                mltk::random_init<double>(this->weights, this->samples->getDim(), 0);
                 this->samples->shuffle();
 
                 this->timer.Reset();
@@ -52,7 +48,7 @@ template < typename T >
                         }
 
                     }
-                
+                    epoch++;
                     if(stop || this->timer.Elapsed() > this->max_time || errors == 0) break;
                 }
 
@@ -87,7 +83,7 @@ class PerceptronCommittee: public Ensemble< T >, public Classifier< T > {
         size_t n = 0;
         double epslon = -1;
     public:
-        PerceptronCommittee(Data< T > &samples, size_t size = 10, double epslon = -1): n(size), epslon(epslon) {
+        explicit PerceptronCommittee(Data< T > &samples, size_t size = 10, double epslon = -1): n(size), epslon(epslon) {
             this->samples = std::make_shared< Data< T > >(samples);
         }
         
