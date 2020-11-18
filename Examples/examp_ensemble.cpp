@@ -41,24 +41,9 @@ int main(int argc, char *argv[]){
     std::cout << "Original class: " << data[100]->Y() << "\nPredicted class: " << voter.evaluate(*data[100]) << std::endl;
 
     auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(voter, data);
-    double errors = 0;
-    for(size_t i = 0; i < conf_matrix.size(); i++){
-        for(size_t j = 0; j < conf_matrix[i].size(); j++){
-            if(i != j){
-                errors += conf_matrix[i][j];
-            }
-        }
-    }
-    
-    for(auto& line: conf_matrix){
-        for(size_t i = 0; i < line.size(); i++){
-            std::cout << line[i] << " ";
-        }
-        std::cout << std::endl;
-    }
-
-    std::cout << "Acurracy: " << 1 - errors/data.getSize() << std::endl;
-
+    auto classes = data.getClasses();
+    mltk::utils::printConfusionMatrix(classes, conf_matrix);
+    std::cout << "Error: " << 100.0-mltk::Validation<double>::confusionMatrixAccuracy(conf_matrix) << "%" << std::endl;
 
     validation.partTrainTest(10);
     mltk::ValidationSolution s = validation.validation(10, 10);

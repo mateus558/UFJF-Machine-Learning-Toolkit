@@ -23,14 +23,15 @@ template < typename T >
                 size_t epoch = 0, ite = 0;
                 bool stop = false;
                 double gamma1 = std::numeric_limits< double >::max(), gamma2 = std::numeric_limits< double >::max();
-                
+                size_t errors = 0;
+
                 mltk::random_init<double>(this->weights, this->samples->getDim(), 0);
                 this->samples->shuffle();
 
                 this->timer.Reset();
 
                 while(epoch < this->MAX_EPOCH){ 
-                    size_t errors = 0;
+                    errors = 0;
                     for(auto it = this->samples->begin(); it != this->samples->end(); ++it){
                         auto point = *it;
                         int pred = ((mltk::dot(weights, *point) + bias) >= 0)?1:-1;
@@ -89,14 +90,9 @@ class PerceptronCommittee: public Ensemble< T >, public Classifier< T > {
         
         bool train() override{ 
             this->learners.resize(n);
-            #if DEBUG == 1
-            #pragma omp parallel for
-            #endif
             for(size_t i = 0; i < n; i++){
                 this->learners[i] = std::make_shared<BalancedPerceptron<T>>();
-                DataPointer< T > samp = mltk::make_data< T >();
-                samp->copy(*this->samples);
-                this->learners[i]->setSamples(samp);
+                this->learners[i]->setSamples(this->samples);
                 this->learners[i]->train();
             }
             return true;

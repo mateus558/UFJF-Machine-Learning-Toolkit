@@ -18,7 +18,7 @@ int main(int argc, char *argv[]){
         std::cout << c << std::endl;
     }
     auto t1 = std::chrono::high_resolution_clock::now();
-    mltk::PerceptronCommittee<double> bp(data, 1000);
+    mltk::PerceptronCommittee<double> bp(data, 100);
     mltk::Validation<double> validation;
 
     bp.train();
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]){
     std::cout << "Error: " << 100.0-mltk::Validation<double>::confusionMatrixAccuracy(conf_matrix) << "%" << std::endl;
     
     validation.setVerbose(2);
-    validation.setSamples(std::make_shared<mltk::Data< double > >(data));
+    validation.setSamples(mltk::make_data<double>(data));
     validation.setClassifier(&bp);
     validation.partTrainTest(10);
     mltk::ValidationSolution s = validation.validation(10, 10);
