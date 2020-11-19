@@ -96,6 +96,8 @@ namespace mltk{
         bool atEnd = false;
         /// Verify if the data is normalized.
         bool normalized = false;
+        /// Verify if classes distribution is computed
+        bool cdist_computed = false;
         /// Values for statistical methods.
         Statistics< T > stats;
         /// Dataset type.
@@ -336,6 +338,7 @@ namespace mltk{
          * \return Data
          */
         void copyZero (const Data< T >& other);
+        std::vector< Data< T > > splitSample();
         /**
          * \brief Merge one dataset with another.
          * \param data (???) Dataset to be joined.
@@ -380,6 +383,7 @@ namespace mltk{
          * \return boolean informing if all features were succesfully removed.
          */
         bool removeFeatures (std::vector<int> feats);
+        bool updatePointValue(const size_t &idx, double value);
         /**
          * \brief Change the x vector of a sample.
          * \param index (???) Indexes of the change to be made.

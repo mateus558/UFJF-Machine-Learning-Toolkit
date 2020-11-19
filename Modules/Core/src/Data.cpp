@@ -75,6 +75,7 @@ namespace mltk{
     template < typename T >
     bool mltk::Data< T >::load(const string& file){
         Type t = identifyFileType(file);
+        this->cdist_computed = true;
 
         switch (t) {
             case TYPE_ARFF:
@@ -645,10 +646,15 @@ namespace mltk{
             if(save) p++;
             else{
                 p = points.erase(p);
+                int c = po->Y();
                 //Size verification.
                 if(size == 1){ clog << "Error: RemovePoint, only one point left." << endl; break;}
-                if(po->Y() == 1) stats.n_pos--;
-                else if(po->Y() == -1) stats.n_neg--;
+                if(c == 1) stats.n_pos--;
+                else if(c == -1) stats.n_neg--;
+                auto class_pos = std::find_if(classes.begin(), classes.end(), [&c](auto &_c){
+                   return (c == _c);
+                }) - classes.begin();
+                class_distribution[class_pos]--;
                 size--;
             }
         }
@@ -893,6 +899,7 @@ namespace mltk{
         this->is_empty = _data.isEmpty();
         this->normalized = _data.isNormalized();
         this->time_mult = _data.getTime_mult();
+        this->cdist_computed = false;
     }
 
     template < typename T >
@@ -918,6 +925,7 @@ namespace mltk{
         this->is_empty = _data.isEmpty();
         this->normalized = _data.isNormalized();
         this->time_mult = _data.getTime_mult();
+        this->cdist_computed = _data.cdist_computed;
     }
 
     template < typename T >
@@ -927,6 +935,7 @@ namespace mltk{
         size = 0;
         is_empty = other.is_empty;
         normalized = other.normalized;
+        cdist_computed = false;
     }
 
     template < typename T >
@@ -1075,6 +1084,7 @@ namespace mltk{
         stats.pos_centroid = Point< T >();
         normalized = false;
         is_empty = true;
+        cdist_computed = false;
     }
 
     template < typename T >
@@ -1221,6 +1231,37 @@ namespace mltk{
             size_t class_pos = class_it - this->classes.begin();
             class_distribution[class_pos]++;
         }
+    }
+
+    template<typename T>
+    std::vector<Data<T>> Data<T>::splitSample() {
+        this->computeClassesDistribution();
+
+        return std::vector<Data<T>>();
+    }
+
+    template<typename T>
+    bool Data<T>::updatePointValue(const size_t &idx, const double value) {
+        if(idx >= size){
+            std::cerr << "Error [Data]: idx bigger than data size.\n";
+            return false;
+        }
+        double old_value = points[idx]->Y();
+
+        if(isClassification()){
+            auto class_pos = std::find_if(classes.begin(), classes.end(), [&value](auto &c){
+                return (int(value) == c);
+            });
+            if(class_pos == classes.end()){
+                classes.push_back(int(value));
+                class_names.push_back(std::to_string(int(value)));
+                class_distribution.push_back(1);
+            }else {
+                class_distribution[class_pos - classes.begin()]++;
+            }
+        }
+        points[idx]->Y() = value;
+        return true;
     }
 
     template class mltk::Data<int>;
