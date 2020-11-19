@@ -1173,9 +1173,13 @@ namespace mltk{
         
         if(class_name_it == class_names.end()){
             this->class_names.push_back(item);
-            if(item != "-1"){
-                c = this->class_names.size()-1;
+            auto has_mone = std::find(class_names.begin(), class_names.end(), "-1");
+            if(has_mone == class_names.end()){
+                c = this->class_names.size();
             }else{
+                c = this->class_names.size()-1;
+            }
+            if(item == "-1"){
                 c = -1;
             }
         }else{

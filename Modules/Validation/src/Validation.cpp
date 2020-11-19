@@ -24,49 +24,22 @@ namespace mltk{
 
     template < typename T >
     void Validation< T > ::partTrainTest(int fold){
-        double sizes = (double)sample->getSize()/fold;
-        std::vector<int> classes = sample->getClasses();
-        sample->computeClassesDistribution();
-        std::vector<size_t> classDistribution = sample->getClassesDistribution();
-        std::vector<DataPointer<T> > points_by_class(classes.size());
-        std::vector<size_t> train_class_distribution(classes.size());
-
-        for(size_t i = 0; i < classes.size(); i++){
-            points_by_class[i] = mltk::make_data< T >();
-        }
-
-        for(auto it = sample->begin(); it != sample->end(); it++){
-            auto point = (*it);
-            auto p_class = point->Y();
-            auto pos = std::find_if(classes.begin(), classes.end(), [&p_class](auto &c){
-                return (c == p_class);
-            }) - classes.begin();
-            points_by_class[pos]->insertPoint(point);
-        }
-
-        for(size_t i = 0; i < classes.size(); i++){
-            double d = ((double)classDistribution[i]/sample->getSize())*sizes*(fold-1);
-            train_class_distribution[i] = (d < 1)?std::ceil(d):d;
-        }
+        std::vector<Data<T> > folds = sample->splitSample(fold);
 
         test_sample = mltk::make_data< T >();
         train_sample = mltk::make_data< T >();
 
-        std::vector<size_t> class_counter(classes.size(), 0);
-        for(size_t i = 0; i < points_by_class.size(); i++){
-            for(size_t j = 0; j < points_by_class[i]->getSize(); j++){
-                if(class_counter[i] < train_class_distribution[i]){
-                    train_sample->insertPoint((*points_by_class[i])[j]);
-                    class_counter[i]++;
-                }else{
-                    break;
-                }
+        for(auto it = folds.begin(); it != folds.end()-1; it++){
+            auto data = *it;
+            for(auto p = data.begin(); p != data.end(); p++){
+                auto point = *p;
+                train_sample->insertPoint(point);
             }
         }
-        for(size_t i = 0; i < points_by_class.size(); i++){
-            for(size_t j = class_counter[i]; j < points_by_class[i]->getSize(); j++){
-                test_sample->insertPoint((*points_by_class[i])[j]);
-            }
+        size_t last_fold = folds.size()-1;
+        for(auto it = folds[last_fold].begin(); it != folds[last_fold].end(); it++){
+            auto point = *it;
+            test_sample->insertPoint(point);
         }
 
         train_sample->shuffle();
@@ -80,47 +53,8 @@ namespace mltk{
         double sizes = sample->getSize()/fold;
         double error = 0.0, func = 0.0, margin = 0.0;
         std::vector<double> error_arr(fold);
-        std::vector<DataPointer< T > > folds(fold);
         auto classes = sample->getClasses();
-        auto classDistribution = sample->getClassesDistribution();
-        std::vector<size_t> markers(classes.size(), 0);
-        std::vector<DataPointer< T > > points_by_class(classes.size());
-        std::vector<size_t> new_class_distribution(classes.size());
-
-
-        for(size_t i = 0; i < classes.size(); i++){
-            points_by_class[i] = mltk::make_data<T>();
-        }
-        for(size_t i = 0; i < fold; i++){
-            folds[i] = mltk::make_data<T>();
-        }
-        
-        for(auto it = sample->begin(); it != sample->end(); it++){
-            auto point = (*it);
-            auto p_class = point->Y();
-            auto pos = std::find_if(classes.begin(), classes.end(), [&p_class](auto &c){
-                return (c == p_class);
-            }) - classes.begin();
-            points_by_class[pos]->insertPoint(point);
-        }
-
-        for(size_t i = 0; i < classes.size(); i++){
-            double d = ((double)classDistribution[i]/sample->getSize())*sizes;
-            new_class_distribution[i] = (d < 1)?std::ceil(d):d;
-        }
-
-        for(size_t i = 0; i < folds.size(); i++){
-            for(size_t j = 0; j < points_by_class.size(); j++){
-                points_by_class[j]->shuffle(seed);
-                for(size_t k = markers[j], l = 0; markers[j] < points_by_class[j]->getSize() && l < new_class_distribution[j]; k++, l++){
-                    folds[i]->insertPoint((*points_by_class[j])[k]);
-                    markers[j]++;
-                }
-            }
-            folds[i]->shuffle(seed);
-        }
-        points_by_class.clear();
-        new_class_distribution.clear();
+        std::vector<Data< T > > folds = sample->splitSample(fold, seed);
 
         //Start cross-validation
         for(size_t fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){
@@ -129,7 +63,7 @@ namespace mltk{
             _train_sample->setClasses(sample->getClasses());
             for(size_t i = 0; i < fold; i++){
                 if(i != j){
-                    for(auto it = folds[i]->begin(); it != folds[i]->end(); it++){
+                    for(auto it = folds[i].begin(); it != folds[i].end(); it++){
                         auto point = (*it);
                         _train_sample->insertPoint(point);
                     }
@@ -138,7 +72,7 @@ namespace mltk{
             if(verbose){
                 std::cout << "\nCross-Validation " << j + 1 << ": \n";
                 std::cout << "Train points: " << _train_sample->getSize() << std::endl;
-                std::cout << "Test points: " << _test_sample->getSize() << std::endl;
+                std::cout << "Test points: " << _test_sample.getSize() << std::endl;
                 std::cout << std::endl;
             }
 
@@ -156,7 +90,7 @@ namespace mltk{
                 }
 
                 size_t i = 0;
-                for(auto it = _test_sample->begin(); it != _test_sample->end(); it++, i++){
+                for(auto it = _test_sample.begin(); it != _test_sample.end(); it++, i++){
                     auto point = (*it);
                     double _y = classifier->evaluate(*point);
 
@@ -175,7 +109,7 @@ namespace mltk{
                 DualClassifier< T > *dual = dynamic_cast<DualClassifier< T > *>(classifier);
                 std::shared_ptr<Data< T > > traintest_sample(std::make_shared<Data< T > >());
                 
-                *traintest_sample = *_test_sample;
+                *traintest_sample = _test_sample;
                 traintest_sample->join(train_sample);
                 traintest_sample->setClasses(classes);
                 dual->setSamples(traintest_sample);
@@ -204,8 +138,8 @@ namespace mltk{
                 std::cout << std::endl;
             }
 
-            if(verbose) std::cout << "Error " << j + 1 << ": " << error_arr[j] << " -- " << ((double)error_arr[j]/(double)folds[j]->getSize())*100.0f << "%\n";
-            error += ((double)error_arr[j]/(double)folds[j]->getSize())*100.0f;
+            if(verbose) std::cout << "Error " << j + 1 << ": " << error_arr[j] << " -- " << ((double)error_arr[j]/(double)folds[j].getSize())*100.0f << "%\n";
+            error += ((double)error_arr[j]/(double)folds[j].getSize())*100.0f;
             if(classes.size() == 2){
                 this->solution.accuracy += (double)(tp + tn)/(double)(tp + tn + fp + fn);
                 this->solution.precision += (double)tp/(double)(tp + fp);

@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
     imap.setFlexible(0.001);
     imap.setMaxTime(110);
     
-    mltk::OneVsAll<double> ova(*data, imap);
+    mltk::OneVsAll<double> ova(data, imap);
     
     ova.train();
     

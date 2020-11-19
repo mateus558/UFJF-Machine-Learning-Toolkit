@@ -24,8 +24,9 @@ int main(int argc, char *argv[]){
     for(auto dist: distribution){
         std::cout << dist << std::endl;
     }
+    std::cout << std::endl;
 
-    auto class_names = data.getClassNames();
+    auto class_names = data.getClasses();
     for(auto class_name: class_names){
         std::cout << class_name << std::endl;
     }
