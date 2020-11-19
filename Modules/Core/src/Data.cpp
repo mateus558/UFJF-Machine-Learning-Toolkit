@@ -1,18 +1,18 @@
-    /**
-        \brief Implementation of the Data class methods.
-        \file Data.cpp
-    */
+/**
+    \brief Implementation of the Data class methods.
+    \file Data.cpp
+*/
 
-    #include <iostream>
-    #include <vector>
-    #include <algorithm>
-    #include <numeric>
-    #include <iterator>
-    #include <utility>
-    #include <cmath>
-    #include <cstring>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include <iterator>
+#include <utility>
+#include <cmath>
+#include <cstring>
 
-    #include "Data.hpp"
+#include "Data.hpp"
 
 namespace mltk{
     using namespace std;
@@ -1174,11 +1174,12 @@ namespace mltk{
         if(class_name_it == class_names.end()){
             this->class_names.push_back(item);
             if(item != "-1"){
-                c = this->class_names.size();
+                c = this->class_names.size()-1;
             }else{
                 c = -1;
             }
         }else{
+            item.erase(std::remove_if(item.begin(), item.end(), ::isspace), item.end());
             if(utils::is_number(item)) {
                 c = std::stoi(item);
             }else{
@@ -1218,10 +1219,12 @@ namespace mltk{
     void mltk::Data<T>::setClasses(const std::vector<int> &_classes) {
         this->classes = _classes;
         this->class_distribution.resize(_classes.size());
+        this->cdist_computed = false;
     }
 
     template <typename T>
     void mltk::Data< T >::computeClassesDistribution(){
+        if(cdist_computed) return;
         this->class_distribution = std::vector<size_t>(this->classes.size(), 0);
         for(auto p: points){
             int c = p->Y();
@@ -1234,10 +1237,32 @@ namespace mltk{
     }
 
     template<typename T>
-    std::vector<Data<T>> Data<T>::splitSample() {
+    std::vector<Data<T>> Data<T>::splitSample(const std::size_t &split_size, const size_t seed) {
         this->computeClassesDistribution();
+        Point< double > dist(class_distribution.size());
+        dist = class_distribution;
+        size_t new_size = size_t(getSize()/split_size);
+        auto classes_split = this->splitByClasses();
+        std::vector<size_t> marker(classes.size(), 0);
+        std::vector<Data<T>> split(split_size);
+        dist = (dist/getSize())*new_size;
 
-        return std::vector<Data<T>>();
+        for(size_t i = 0; i < dist.size(); i++){
+            dist[i] = (dist[i] < 1)?1:std::floor(dist[i]);
+        }
+
+        for(size_t i = 0; i < split.size(); i++){
+            for(size_t j = 0; j < classes_split.size(); j++){
+                for(size_t k = 0; k < dist[j]; k++){
+                    if(marker[j] == classes_split[j].getSize()) break;
+                    split[i].insertPoint(classes_split[j][marker[j]]);
+                    marker[j]++;
+                }
+            }
+            split[i].shuffle(seed+i);
+        }
+
+        return split;
     }
 
     template<typename T>
@@ -1249,12 +1274,11 @@ namespace mltk{
         double old_value = points[idx]->Y();
 
         if(isClassification()){
-            auto class_pos = std::find_if(classes.begin(), classes.end(), [&value](auto &c){
-                return (int(value) == c);
-            });
+            int _c = int(value);
+            auto class_pos = std::find(classes.begin(), classes.end(), _c);
             if(class_pos == classes.end()){
-                classes.push_back(int(value));
-                class_names.push_back(std::to_string(int(value)));
+                classes.push_back(_c);
+                class_names.push_back(std::to_string(_c));
                 class_distribution.push_back(1);
             }else {
                 class_distribution[class_pos - classes.begin()]++;
@@ -1262,6 +1286,26 @@ namespace mltk{
         }
         points[idx]->Y() = value;
         return true;
+    }
+
+    template<typename T>
+    std::vector<Data<T>> Data<T>::splitByClasses() {
+        int last_c = std::numeric_limits<int>::max();
+        size_t class_pos = 0;
+        std::vector<Data<T>> class_split(classes.size());
+
+        for(auto it = points.begin(); it != points.end(); it++){
+            auto point = *(*it);
+            if(last_c != point.Y()) {
+                class_pos = std::find(classes.begin(), classes.end(), int(point.Y())) - classes.begin();
+            }
+            class_split[class_pos].insertPoint(*it);
+        }
+        for(auto &data: class_split){
+            data.computeClassesDistribution();
+        }
+
+        return class_split;
     }
 
     template class mltk::Data<int>;

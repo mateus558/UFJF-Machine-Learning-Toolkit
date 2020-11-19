@@ -36,7 +36,7 @@ namespace mltk {
             /// Features values.
             Rep x; // (access to) the data of the array
             /// Point classification.
-            double y = 0, alpha = 0.0;
+            double y = -std::numeric_limits<double>::max(), alpha = 0.0;
             /// Point identification.
             size_t id = 0;
 
@@ -244,6 +244,19 @@ namespace mltk {
                         x[idx] = b[idx];
                     }
                 
+                return *this;
+            }
+
+            template< typename T2 >
+            Point& operator=(std::vector<T2> const& b) {
+                assert(size() == b.size());
+                #if DEBUG == 1
+                #pragma omp parallel for schedule(dynamic, 1000)
+                #endif
+                for(std::size_t idx = 0; idx < b.size(); ++idx) {
+                    x[idx] = b[idx];
+                }
+
                 return *this;
             }
 
@@ -547,7 +560,7 @@ namespace mltk {
             output << p.x[i] << ", ";
         }
 
-        if(p.y > 0)
+        if(p.y > -std::numeric_limits<double>::max())
             output <<  p.x[i] << ", " << p.y << "]";
         else
             output <<  p.x[i] << "]";
