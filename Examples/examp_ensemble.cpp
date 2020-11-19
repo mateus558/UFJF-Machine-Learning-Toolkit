@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include "VotingClassifier.hpp"
 #include "IMA.hpp"
 #include "KNNClassifier.hpp"
@@ -6,12 +7,14 @@
 #include "Validation.hpp"
 #include "PerceptronCommittee.hpp"
 
+using namespace std::chrono;
+
 int main(int argc, char *argv[]){
     mltk::Data<double> data;
     mltk::IMAp<double> ima;
     mltk::PerceptronPrimal<double> perc;
     mltk::KNNClassifier<double> knn(30);
-    std::vector<double> weights = {2, 1};
+    std::vector<double> weights = {1.5, 1, 2};
     mltk::Validation<double> validation;
     
     //data.setClassesAtEnd(true);
@@ -25,20 +28,22 @@ int main(int argc, char *argv[]){
     ima.setVerbose(0);
     ima.setFlexible(0.001);
     ima.setMaxTime(110);
-    
-    mltk::OneVsAll<double> ova(std::make_shared<mltk::Data< double > >(data), ima);
+
     mltk::PerceptronCommittee<double> pc(data, 20);
-    mltk::VotingClassifier<double> voter(data, "soft", knn, ova, pc);
-    
-    
+    mltk::OneVsAll<double> ova_ima(data, ima);
+    mltk::OneVsAll<double> ova_pc(data, pc);
+
+    auto t1 = high_resolution_clock::now();
+    mltk::VotingClassifier<double> voter(data, "soft", knn, ova_ima, ova_pc);
     voter.setWeights(weights);
     voter.train();
 
     validation.setVerbose(2);
-    validation.setSamples(std::make_shared<mltk::Data< double > >(data));
+    validation.setSamples(mltk::make_data<double>(data));
     validation.setClassifier(&voter);
 
-    std::cout << "Original class: " << data[100]->Y() << "\nPredicted class: " << voter.evaluate(*data[100]) << std::endl;
+    auto pred = voter.evaluate(*data[100]);
+    std::cout << "Original class: " << data[100]->Y() << "\nPredicted class: " << pred << std::endl;
 
     auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(voter, data);
     auto classes = data.getClasses();
@@ -49,4 +54,6 @@ int main(int argc, char *argv[]){
     mltk::ValidationSolution s = validation.validation(10, 10);
 
     std::cout << "Validation accuracy: " << s.accuracy << std::endl;
+    auto time = duration_cast<duration<double> >(high_resolution_clock::now() - t1).count();
+    std::cout << "Execution time: " << time << " seconds." << std::endl;
 }

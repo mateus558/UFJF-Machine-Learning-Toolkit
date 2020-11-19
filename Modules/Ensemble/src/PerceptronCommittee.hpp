@@ -12,10 +12,11 @@ template < typename T >
         private:
             Point<double> weights;
             double bias = 0;
+            size_t seed = 0;
 
         public:
-            BalancedPerceptron(){}
-            BalancedPerceptron(Data< T > &samples){
+            BalancedPerceptron()= default;
+            explicit BalancedPerceptron(const Data< T > &samples, const size_t &seed = 0) : seed(seed){
                 this->samples = std::make_shared< Data< T > >(samples);
             }
 
@@ -67,7 +68,7 @@ template < typename T >
                 return true;
             }
 
-            double evaluate(const Point< T >  &p, bool raw_value=false) override {
+            double evaluate(const Point< T >  &p, bool raw_value) override {
                 if(raw_value){
                     return mltk::dot(weights, p) + bias;
                 }else{
@@ -98,7 +99,7 @@ class PerceptronCommittee: public Ensemble< T >, public Classifier< T > {
             return true;
         }
 
-        double evaluate(const Point< T >  &p, bool raw_value=false) override {
+        double evaluate(const Point< T >  &p, bool raw_value) override {
             auto _classes = this->samples->getClasses();
             mltk::Point<double> votes(_classes.size(), 0.0);
             

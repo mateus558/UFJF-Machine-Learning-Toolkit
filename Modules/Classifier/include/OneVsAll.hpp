@@ -25,14 +25,14 @@ namespace mltk{
 
     public:
         template < template <typename > class ClassifierType >
-        OneVsAll(std::shared_ptr<Data< T > > samples, ClassifierType< T > &classifier, OverSampling< T > *samp_method = nullptr, int _verbose = 0){
-            this->samples = samples;
+        OneVsAll(Data< T > samples, ClassifierType< T > &classifier, OverSampling< T > *samp_method = nullptr, int _verbose = 0){
+            this->samples = mltk::make_data<double>(samples);
             this->samp_method = samp_method;
 
             // initialize the base learners if samples were given
-            if(samples && base_learners.size() == 0){
-                base_learners.resize(samples->getClasses().size());
-                for(size_t i = 0; i < samples->getClasses().size(); ++i) {
+            if(this->samples && base_learners.size() == 0){
+                base_learners.resize(this->samples->getClasses().size());
+                for(size_t i = 0; i < this->samples->getClasses().size(); ++i) {
                     // copy the parameters of the given classifier    
                     base_learners[i] = std::make_shared<ClassifierType< T > >(classifier);
                 }

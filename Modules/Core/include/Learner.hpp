@@ -124,7 +124,8 @@ namespace mltk{
        * \brief setSamples Set the samples used by the Learner.
        * \param samples Samples to be used.
        */
-      virtual void setSamples(std::shared_ptr<Data< T > > samples) {this->samples = samples;}
+      virtual void setSamples(const Data< T > &samples) {this->samples = mltk::make_data<T>(samples);}
+      virtual void setSamples(DataPointer< T > samples) {this->samples = samples;}
       /**
        * \brief setTimer Set the timer used by the Learner.
        * \param timer Timer to be used.

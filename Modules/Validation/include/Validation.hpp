@@ -132,7 +132,10 @@ namespace mltk{
 
         void setClassifier(Classifier< T > *classifier) {this->classifier = classifier;}
         void setKernelParameters(KernelType kernel_type, double param){ this->kernel_type = kernel_type; this->kernel_param = param;}
-        void setSamples(std::shared_ptr<Data< T > > sample);
+        void setSamples(const Data< T > &sample);
+        void setSamples(DataPointer< T > sample){
+            this->sample = sample;
+        }
         /**
          * \brief Set the verbose.
          * \param verbose Verbose level.

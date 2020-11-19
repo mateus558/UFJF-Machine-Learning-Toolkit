@@ -349,8 +349,8 @@ namespace mltk{
     Validation< T > ::Validation() : sample(std::make_shared<Data< T > >()), train_sample(std::make_shared<Data< T > >()), test_sample(std::make_shared<Data< T > >()), classifier(nullptr) {}
 
     template < typename T >
-    void Validation< T > ::setSamples(shared_ptr<Data<T>> sample) {
-        this->sample = sample;
+    void Validation< T > ::setSamples(const Data<T> &sample) {
+        this->sample = mltk::make_data< T >(sample);
     }
 
     template < typename T >

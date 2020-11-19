@@ -5,13 +5,13 @@
 #include "Classifier.hpp"
 
 namespace mltk{
-    template < typename T>
+    template < typename T >
     class VotingClassifier: public Ensemble< T >, public Classifier< T >{
         private:
             mltk::Point<double> weights;
             std::string voting_type;
 
-            template <template<typename...> class WeakLearner, template<typename... > class... WeakLearners > 
+            template <template<typename...> class WeakLearner, template<typename... > class... WeakLearners >
             void fillLearnersVector(WeakLearner< T > flearner){
                 this->learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
             }
@@ -21,7 +21,7 @@ namespace mltk{
                 fillLearnersVector(weak_learners...);
             }
         public:
-            template <template<typename...> class WeakLearner> 
+            template <template<typename...> class WeakLearner>
             VotingClassifier(Data< T > &samples, const std::string &voting_type, WeakLearner< T > flearner)
             : voting_type(voting_type)
             {
@@ -37,8 +37,8 @@ namespace mltk{
                 fillLearnersVector(flearner, weak_learners...);
             }
 
-            bool train() override{ 
-                #pragma omp parallel for
+            bool train() override{
+                #pragma omp parallel for default(none)
                 // train each one of the given learners
                 for(size_t i = 0; i < this->learners.size(); i++){
                     this->learners[i]->setSamples(this->samples);
@@ -58,13 +58,13 @@ namespace mltk{
                 }
 
                 for(size_t i = 0; i < this->learners.size(); i++){
-                        auto pred = this->learners[i]->evaluate(p);
-                        // get prediction position
-                        size_t pred_pos = std::find_if(_classes.begin(), _classes.end(), [&pred](const auto &a){
-                            return (a == pred);
-                        }) - _classes.begin();
-                        // count prediction as a vote
-                        votes[pred_pos] += 1*this->weights[i];
+                    auto pred = this->learners[i]->evaluate(p);
+                    // get prediction position
+                    size_t pred_pos = std::find_if(_classes.begin(), _classes.end(), [&pred](const auto &a){
+                        return (a == pred);
+                    }) - _classes.begin();
+                    // count prediction as a vote
+                    votes[pred_pos] += 1*this->weights[i];
                 }
                  
                 size_t max_votes = std::max_element(votes.X().begin(), votes.X().end()) - votes.X().begin();
