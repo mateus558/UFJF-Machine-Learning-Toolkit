@@ -339,7 +339,8 @@ namespace mltk{
          */
         void copyZero (const Data< T >& other);
         std::vector< Data< T > > splitByClasses();
-        std::vector< Data< T > > splitSample(const std::size_t &split_size, const size_t seed = 0);
+        std::vector< Data< T > > splitSample(const std::size_t &split_size, size_t seed = 0);
+        Data< T > sampling(const size_t& samp_size, bool with_replacement = true, const size_t &seed=0);
         /**
          * \brief Merge one dataset with another.
          * \param data (???) Dataset to be joined.

@@ -5,7 +5,7 @@ int main(int argc, char *argv[]){
     mltk::Data<double> data;
 
     data.setClassesAtEnd(false);
-    data.load("breast.data");
+    data.load("iris.data");
 
     std::cout << "Dataset size: " << data.getSize() << std::endl;
     std::cout << "Dataset dimension: " << data.getDim() << std::endl;
@@ -42,4 +42,6 @@ int main(int argc, char *argv[]){
     for(auto &sample: samples_split){
         std::cout << sample.getSize() << std::endl;
     }
+
+    std::cout << data.sampling(50) << std::endl;
 }

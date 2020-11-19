@@ -1312,6 +1312,39 @@ namespace mltk{
         return class_split;
     }
 
+    template<typename T>
+    Data<T> Data<T>::sampling(const size_t &samp_size, bool with_replacement, const size_t &seed) {
+        assert(samp_size < getSize());
+        std::random_device rd;
+        std::mt19937 gen((seed == 0)?rd():seed);
+        std::uniform_int_distribution<size_t> dist(0, getSize()-1);
+        Data< T > sample;
+        std::set<std::size_t> ids;
+        auto classes_split = splitByClasses();
+        Point<double> class_dist(classes.size());
+
+        class_dist = getClassesDistribution();
+        class_dist = (class_dist/getSize())*samp_size;
+
+        for(size_t i = 0; i < class_dist.size(); i++){
+            class_dist[i] = (class_dist[i] < 1)?1:std::floor(class_dist[i]);
+        }
+        for(size_t i = 0; i < class_dist.size(); i++){
+            for(size_t j = 0; j < class_dist[i]; j++){
+                std::size_t idx = dist(gen);
+                if(!with_replacement) {
+                    while (ids.find(idx) != ids.end()) {
+                        idx = dist(gen);
+                    }
+                    ids.insert(idx);
+                }
+                sample.insertPoint(points[idx]);
+            }
+        }
+
+        return sample;
+    }
+
     template class mltk::Data<int>;
     template class mltk::Data<double>;
     template class mltk::Data<float>;
