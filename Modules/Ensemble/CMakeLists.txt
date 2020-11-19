@@ -1,6 +1,6 @@
 add_library(${LIBENSEMBLE} SHARED
     Ensemble.hpp
-)
+        src/BaggingClassifier.hpp)
 
 set_target_properties(${LIBENSEMBLE} PROPERTIES LINKER_LANGUAGE CXX)
 
