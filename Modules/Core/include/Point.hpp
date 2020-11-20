@@ -537,6 +537,16 @@ namespace mltk {
     }
 
     template < typename T, typename R>
+    Point<T, F_Exp<T, R> > exp(const Point<T, R>& p){
+        return Point<T, F_Exp<T, R > >(F_Exp<T, R>(p.X()));
+    }
+
+    template < typename T, typename R>
+    Point<T, F_Log<T, R> > log(const Point<T, R>& p){
+        return Point<T, F_Log<T, R > >(F_Log<T, R>(p.X()));
+    }
+
+    template < typename T, typename R>
     Point<T, F_Pow<T, T, R> > pow(const Point<T, R>& p, const T &power){        
         return Point<T, F_Pow<T, T, R > >(F_Pow<T, T, R>(p.X(), power));
     }

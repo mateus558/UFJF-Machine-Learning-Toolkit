@@ -17,6 +17,7 @@ int main(int argc, char *argv[]){
         std::cout << c << std::endl;
     }
 
+    auto t1 = high_resolution_clock::now();
     mltk::PerceptronPrimal<double> perc;
     mltk::IMAp<double> ima;
     ima.setVerbose(0);
@@ -25,7 +26,6 @@ int main(int argc, char *argv[]){
     mltk::PerceptronCommittee<double> pc(data, 20);
     mltk::OneVsAll<double> ova_ima(data, ima);
     mltk::OneVsAll<double> ova_pc(data, pc);
-    auto t1 = high_resolution_clock::now();
     mltk::VotingClassifier<double> voter(data, "soft", knn, ova_ima, ova_pc);
 
     voter.setWeights(weights);

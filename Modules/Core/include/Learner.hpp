@@ -45,6 +45,7 @@ namespace mltk{
       int verbose = 1;
       /// Timer used to measure the time elapsed in the execution of a Learner.
       Timer timer = Timer();
+      size_t seed = 0;
 
   public:
       Learner< T > (){}
@@ -64,6 +65,7 @@ namespace mltk{
         this->MAX_UP = learner.MAX_UP;
         this->MAX_EPOCH = learner.MAX_EPOCH;
         this->verbose = learner.verbose;
+        this->seed = learner.seed;
       }
 
 
@@ -119,6 +121,7 @@ namespace mltk{
       /*********************************************
       *               Setters                     *
       *********************************************/
+      void setSeed(const size_t _seed){ this->seed = _seed; }
 
       /**
        * \brief setSamples Set the samples used by the Learner.

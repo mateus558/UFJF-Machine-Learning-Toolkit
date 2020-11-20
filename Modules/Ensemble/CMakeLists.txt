@@ -1,6 +1,8 @@
 add_library(${LIBENSEMBLE} SHARED
-    Ensemble.hpp
-        src/BaggingClassifier.hpp)
+        Ensemble.hpp
+        src/BaggingClassifier.hpp
+        src/AdaBoostClassifier.hpp
+        )
 
 set_target_properties(${LIBENSEMBLE} PROPERTIES LINKER_LANGUAGE CXX)
 

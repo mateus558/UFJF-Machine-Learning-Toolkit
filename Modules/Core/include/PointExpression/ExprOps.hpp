@@ -126,6 +126,26 @@ namespace mltk{
             }
     };
 
+    template<typename T, typename OP>
+    class F_Exp: public UExprOp<T, OP> {
+    public:
+        F_Exp(OP const & a): UExprOp<T, OP>(a) {}
+
+        T operator[](const size_t& idx) const override{
+            return std::exp(this->op[idx]);
+        }
+    };
+
+    template<typename T, typename OP>
+    class F_Log: public UExprOp<T, OP> {
+    public:
+        F_Log(OP const & a): UExprOp<T, OP>(a) {}
+
+        T operator[](const size_t& idx) const override{
+            return std::log(this->op[idx]);
+        }
+    };
+
     template <typename T, typename OP >
     class F_Abs: public UExprOp< T, OP > {
         public:

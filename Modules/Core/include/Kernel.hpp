@@ -216,7 +216,7 @@ namespace mltk{
             case 2: //Gaussiano
                 for(i = 0; i < dim; ++i)
                 { t = a[i] - b[i]; sum += t * t; }
-                sum = exp(-1 * sum * param);
+                sum = std::exp(-1 * sum * param);
                 break;
         }
 
@@ -250,7 +250,7 @@ namespace mltk{
                 for(i = 0; i < dim; ++i)
                     if(i != j)
                     { t = one->X()[i] - two->X()[i]; sum += t * t; }
-                sum = exp(-1 * sum * param);
+                sum = std::exp(-1 * sum * param);
                 break;
         }
         /*The '+1' here accounts for the bias term "b" in SVM formulation since

@@ -12,7 +12,7 @@ namespace mltk{
         template < typename T >
         class DistanceMetric {
             public:
-                DistanceMetric(){}
+                DistanceMetric()= default;
                 virtual T operator()(const Point<T>& p1, const Point<T>& p2) = 0;    
         };
 

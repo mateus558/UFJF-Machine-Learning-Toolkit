@@ -21,7 +21,7 @@ namespace mltk{
         Solution solution;
         /// Classifier margin.
         double gamma = 0;
-        
+
         // Operations
     public :
 
@@ -54,7 +54,6 @@ namespace mltk{
         /*********************************************
          *               Setters                     *
          *********************************************/
-
         /**
         * \brief Set the gamma (margin) of the classifier.
         * \param gamma Gamma (margin) of the classifier.

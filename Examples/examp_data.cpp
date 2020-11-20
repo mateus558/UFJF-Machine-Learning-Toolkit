@@ -40,7 +40,7 @@ int main(int argc, char *argv[]){
     }
     std::cout << std::endl;
 
-    auto samples_split = data.splitSample(12);
+    auto samples_split = data.splitSample(10);
     for(auto &sample: samples_split){
         std::cout << sample.getSize() << std::endl;
     }

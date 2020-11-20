@@ -191,7 +191,7 @@ namespace mltk{
          * \brief Returns the dimension of the dataset.
          * \return int
          */
-        size_t getDim () const{ return dim; }
+        size_t getDim () const{ return (points.size() > 0)?points[0]->size():0; }
         /**
          * \brief Returns a shared pointer to the vector of Points of the sample.
          * \return std::vector<std::shared_ptr<Point< T > > >

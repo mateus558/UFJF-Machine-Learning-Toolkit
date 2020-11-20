@@ -49,7 +49,6 @@ namespace mltk{
         for(size_t fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){
             auto _test_sample = folds[j];
             auto _train_sample = std::make_shared<Data< T > >();
-            _train_sample->setClasses(sample->getClasses());
             for(size_t i = 0; i < fold; i++){
                 if(i != j){
                     for(auto it = folds[i].begin(); it != folds[i].end(); it++){
@@ -97,7 +96,6 @@ namespace mltk{
             }else{
                 DualClassifier< T > *dual = dynamic_cast<DualClassifier< T > *>(classifier);
                 std::shared_ptr<Data< T > > traintest_sample(std::make_shared<Data< T > >());
-                
                 *traintest_sample = _test_sample;
                 traintest_sample->join(train_sample);
                 traintest_sample->setClasses(classes);

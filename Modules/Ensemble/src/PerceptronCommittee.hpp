@@ -12,12 +12,12 @@ template < typename T >
         private:
             Point<double> weights;
             double bias = 0;
-            size_t seed = 0;
 
         public:
             BalancedPerceptron()= default;
-            explicit BalancedPerceptron(const Data< T > &samples, const size_t &seed = 0) : seed(seed){
-                this->samples = std::make_shared< Data< T > >(samples);
+            explicit BalancedPerceptron(const Data< T > &samples, const size_t &seed = 0){
+                this->samples = mltk::make_data< T >(samples);
+                this->seed = seed;
             }
 
             bool train() override{
@@ -26,8 +26,8 @@ template < typename T >
                 double gamma1 = std::numeric_limits< double >::max(), gamma2 = std::numeric_limits< double >::max();
                 size_t errors = 0;
 
-                mltk::random_init<double>(this->weights, this->samples->getDim(), 0);
-                this->samples->shuffle();
+                mltk::random_init<double>(this->weights, this->samples->getDim(), this->seed);
+                this->samples->shuffle(this->seed);
 
                 this->timer.Reset();
 

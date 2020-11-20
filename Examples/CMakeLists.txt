@@ -44,6 +44,9 @@ add_executable(examp_bag examp_bagging.cpp)
 set_target_properties(examp_bag PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 target_link_libraries(examp_bag ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} ${LIBVALIDATION})
 
+add_executable(examp_ada examp_adaboost.cpp)
+set_target_properties(examp_ada PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+target_link_libraries(examp_ada ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} ${LIBVALIDATION})
 
 add_executable(bench_exptmp bench_exptmp.cpp)
 set_target_properties(bench_exptmp PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
