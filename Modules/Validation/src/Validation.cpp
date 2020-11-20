@@ -12,17 +12,6 @@ namespace mltk{
     using namespace std;
 
     template < typename T >
-    Validation< T > ::Validation(std::shared_ptr<Data< T > > sample, Classifier< T >  *classifier, unsigned int seed){
-        this->sample = sample;
-        this->classifier = classifier;
-        train_sample = std::make_shared<Data< T > >();
-        test_sample = std::make_shared<Data< T > >();
-
-        mltk::random::init(seed);
-        seed = mltk::random::getSeed();
-    }
-
-    template < typename T >
     void Validation< T > ::partTrainTest(int fold){
         std::vector<Data<T> > folds = sample->splitSample(fold);
 
@@ -332,6 +321,18 @@ namespace mltk{
         }
         std::cout << "Purity: " << acc / size << std::endl;
         return confusion_m;
+    }
+
+    template<typename T>
+    Validation<T>::Validation(const Data<T> &sample, Classifier<T> *classifier, size_t seed) {
+        this->sample = mltk::make_data<T>(sample);
+        this->classifier = classifier;
+
+        train_sample = std::make_shared<Data< T > >();
+        test_sample = std::make_shared<Data< T > >();
+
+        mltk::random::init(seed);
+        seed = mltk::random::getSeed();
     }
 
 

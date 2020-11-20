@@ -64,22 +64,22 @@ namespace mltk{
         for(size_t i = 0; i < n_classes; ++i) {
             for(size_t j = 0; j < n_classes; ++j) {
                 if(classes[i] != classes[j]){
-                    DataPointer<T> temp_samples = std::make_shared<Data< T > >();
+                    Data<T> temp_samples;
                     auto learner = base_learners[i][j];
                     std::vector<int> current_classes = {classes[i], classes[j]};
                     
                     // Copy the points with the classes being trained
-                    temp_samples->classesCopy(*this->samples, current_classes);
-                    temp_samples->setClasses({-1, 1});
+                    temp_samples.classesCopy(*this->samples, current_classes);
+                    temp_samples.setClasses({-1, 1});
                     // Transform the classes for binary classification
-                    for(size_t k = 0; k < temp_samples->getSize(); k++) {
-                        (*temp_samples)[k]->Y() = ((*temp_samples)[k]->Y() == classes[i]) ? 1 : -1;
+                    for(size_t k = 0; k < temp_samples.getSize(); k++) {
+                        temp_samples[k]->Y() = (temp_samples[k]->Y() == classes[i]) ? 1 : -1;
                     }
                     
                     // If a over sampling algorithm was given, apply it to the samples
                     if(samp_method){
-                        temp_samples->computeClassesDistribution();
-                        (*samp_method)(*temp_samples);
+                        temp_samples.computeClassesDistribution();
+                        (*samp_method)(temp_samples);
                     }
                     
                     // train the current binary learner

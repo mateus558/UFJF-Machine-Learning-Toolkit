@@ -56,19 +56,19 @@ namespace mltk{
 
         // iterate over each base learner
         for(auto &learner: base_learners){
-            DataPointer<T> temp_samples = std::make_shared<Data< T > >();
+            Data<T> temp_samples;
             
             // copy samples and set all classes not being considered to -1
-            temp_samples->copy(*this->samples);
-            temp_samples->setClasses({-1, 1});
+            temp_samples.copy(*this->samples);
+            temp_samples.setClasses({-1, 1});
             for(j = 0; j < size; j++) {
-                (*temp_samples)[j]->Y() = ((*temp_samples)[j]->Y() == classes[current_class]) ? 1 : -1;
+                temp_samples[j]->Y() = (temp_samples[j]->Y() == classes[current_class]) ? 1 : -1;
             }
             
             // if a over sampling algorithm were given, apply it
             if(samp_method){
-                temp_samples->computeClassesDistribution();
-                (*samp_method)(*temp_samples);
+                temp_samples.computeClassesDistribution();
+                (*samp_method)(temp_samples);
             }
 
             // train the current learner

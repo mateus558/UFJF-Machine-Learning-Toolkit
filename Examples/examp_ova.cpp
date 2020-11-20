@@ -7,7 +7,6 @@
 
 int main(int argc, char *argv[]){
     mltk::Data<double> data;
-    mltk::Validation<double> validation;
     
     data.setClassesAtEnd(false);
     data.load("breast.data");
@@ -27,18 +26,14 @@ int main(int argc, char *argv[]){
     
     std::cout << "Original class: " << data[0]->Y() << std::endl;
     std::cout << "Evaluated class: " << ova.evaluate(*data[0]) << std::endl;
-    
-    validation.setVerbose(2);
-    validation.setSamples(data);
-    validation.setClassifier(&ova);
-    
+
     auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(ova, data);
     auto classes = data.getClasses();
     mltk::utils::printConfusionMatrix(classes, conf_matrix);
     std::cout << "Error: " << 100.0-mltk::Validation<double>::confusionMatrixAccuracy(conf_matrix) << "%" << std::endl;
 
-
-    validation.partTrainTest(10);
+    mltk::Validation<double> validation(data, &ova, 1);
+    validation.setVerbose(2);
     mltk::ValidationSolution s = validation.validation(10, 10);
 
     std::cout << "Validation accuracy: " << s.accuracy << std::endl;

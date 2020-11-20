@@ -15,8 +15,7 @@ int main(int argc, char *argv[]){
     mltk::PerceptronPrimal<double> perc;
     mltk::KNNClassifier<double> knn(30);
     std::vector<double> weights = {1.5, 1, 2};
-    mltk::Validation<double> validation;
-    
+
     //data.setClassesAtEnd(true);
     data.load("iris_mult.csv");
 
@@ -38,10 +37,6 @@ int main(int argc, char *argv[]){
     voter.setWeights(weights);
     voter.train();
 
-    validation.setVerbose(2);
-    validation.setSamples(mltk::make_data<double>(data));
-    validation.setClassifier(&voter);
-
     auto pred = voter.evaluate(*data[100]);
     std::cout << "Original class: " << data[100]->Y() << "\nPredicted class: " << pred << std::endl;
 
@@ -50,9 +45,9 @@ int main(int argc, char *argv[]){
     mltk::utils::printConfusionMatrix(classes, conf_matrix);
     std::cout << "Error: " << 100.0-mltk::Validation<double>::confusionMatrixAccuracy(conf_matrix) << "%" << std::endl;
 
-    validation.partTrainTest(10);
+    mltk::Validation<double> validation(data, &voter, 1);
+    validation.setVerbose(2);
     mltk::ValidationSolution s = validation.validation(10, 10);
-
     std::cout << "Validation accuracy: " << s.accuracy << std::endl;
     auto time = duration_cast<duration<double> >(high_resolution_clock::now() - t1).count();
     std::cout << "Execution time: " << time << " seconds." << std::endl;
