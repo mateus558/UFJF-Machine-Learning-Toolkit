@@ -7,28 +7,19 @@
 #include "Sampling.hpp"
 
 int main(int argc, char *argv[]){
-    mltk::Data<double> data;
-
-    //data->setClassesAtEnd(true);
-    data.load("iris_mult.csv");
-    
+    mltk::Data<double> data("iris_mult.csv");
     std::cout << data << std::endl;
     
     mltk::IMAp<double> imap;
-    
-    imap.setAlphaAprox(1);
     imap.setVerbose(0);
     imap.setFlexible(0.001);
-    imap.setMaxTime(110);
-    
+
     mltk::SMOTE<double> smote;
     mltk::OneVsOne<double> ovo(data, imap, &smote);
-    
     ovo.train();
     
     std::cout << "Original class: " << data[0]->Y() << std::endl;
     std::cout << "Evaluated class: " << ovo.evaluate(*data[0]) << std::endl;
-    
 
     auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(ovo, data);
     auto classes = data.getClasses();

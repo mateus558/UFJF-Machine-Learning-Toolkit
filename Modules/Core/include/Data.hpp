@@ -156,6 +156,7 @@ namespace mltk{
         void setType(const std::string &type);
 
         Data() {}
+        Data(const std::string &dataset, bool atEnd);
         /**
          * \brief Data constructor to load a dataset from a file.
          * \param dataset (???) Path to the dataset to be loaded.

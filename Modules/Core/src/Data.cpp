@@ -1345,6 +1345,13 @@ namespace mltk{
         return sample;
     }
 
+    template<typename T>
+    Data<T>::Data(const string &dataset, bool atEnd): atEnd(atEnd) {
+        if(!load(string(dataset))){
+            cerr << "Couldn't read the dataset." << endl;
+        }
+    }
+
     template class mltk::Data<int>;
     template class mltk::Data<double>;
     template class mltk::Data<float>;

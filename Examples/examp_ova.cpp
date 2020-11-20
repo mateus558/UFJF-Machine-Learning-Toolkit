@@ -6,20 +6,13 @@
 #include "IMA.hpp"
 
 int main(int argc, char *argv[]){
-    mltk::Data<double> data;
-    
-    data.setClassesAtEnd(false);
-    data.load("breast.data");
-    
+    mltk::Data<double> data("breast.data");
     //std::cout << *data << std::endl;
     
     mltk::IMAp<double> imap;
-    
-    imap.setAlphaAprox(1);
     imap.setVerbose(0);
     imap.setFlexible(0.001);
-    imap.setMaxTime(110);
-    
+
     mltk::OneVsAll<double> ova(data, imap);
     
     ova.train();

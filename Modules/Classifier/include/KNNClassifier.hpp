@@ -22,11 +22,11 @@ namespace mltk{
         Callable dist_function;
 
     public:
-        KNNClassifier(size_t _k, Callable dist_func = Callable())
+        explicit KNNClassifier(size_t _k, Callable dist_func = Callable())
         : k(_k), dist_function(dist_func) {}
         
-        KNNClassifier(std::shared_ptr<Data<T> > _samples, size_t _k, Callable dist_func = Callable())
-        : PrimalClassifier< T >(_samples), k(_k), dist_function(dist_func) {}
+        KNNClassifier(Data<T> &_samples, size_t _k, Callable dist_func = Callable())
+        : PrimalClassifier< T >(mltk::make_data<T>(_samples)), k(_k), dist_function(dist_func) {}
 
         bool train() override;
 

@@ -7,16 +7,10 @@
 #include "Sampling.hpp"
 
 int main(int argc, char *argv[]){
-    mltk::Data<double> data;
-    
-    data.setClassesAtEnd(true);
-    data.load("dataset_54_vehicle.csv");
-    
+    mltk::Data<double> data("dataset_54_vehicle.csv", true);
     std::cout << data << std::endl;
     
     mltk::IMAp<double> imap;
-    
-    imap.setAlphaAprox(1);
     imap.setVerbose(0);
     imap.setFlexible(500);
     imap.setMaxTime(600);

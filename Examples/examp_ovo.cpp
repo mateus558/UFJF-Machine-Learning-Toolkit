@@ -6,21 +6,15 @@
 #include "IMA.hpp"
 
 int main(int argc, char *argv[]){
-    mltk::Data<double> data;
-    mltk::IMAp<double> imap;
-    
+    mltk::Data<double> data("iris_mult.csv");
     //data->setClassesAtEnd(true);
-    data.load("iris_mult.csv");
-    
     std::cout << data << std::endl;
-    
-    imap.setAlphaAprox(1);
+
+    mltk::IMAp<double> imap;
     imap.setVerbose(0);
     imap.setFlexible(0.001);
-    imap.setMaxTime(110);
- 
-   mltk::OneVsOne<double> ovo(data, imap);
-    
+
+    mltk::OneVsOne<double> ovo(data, imap);
     ovo.train();
  
     std::cout << "Original class: " << data[0]->Y() << std::endl;
