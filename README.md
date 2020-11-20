@@ -33,7 +33,7 @@ These are the requirements to build the project:
 * Documentation [![Generic badge](https://img.shields.io/badge/status-WIP-yellow.svg)](https://shields.io/)
 
 ## Documentation
-You can find the documentation at the project page: [UFJF-MLTK](https://mateus558.github.io/Machine-Learning-Toolkit/index.html). <br />
+You can find the documentation at the project page: [UFJF-MLTK](https://mateus558.github.io/UFJF-MLTK/index.html). <br />
 And for examples and other information you can access the [wiki](https://github.com/mateus558/Machine-Learning-Toolkit/wiki).
 
 ## Authors
