@@ -6,14 +6,14 @@
 #include "IMA.hpp"
 
 int main(int argc, char *argv[]){
-    mltk::DataPointer<double> data = std::make_shared<mltk::Data< double > >();
+    mltk::Data<double> data;
     mltk::Validation<double> validation;
     mltk::IMAp<double> imap;
     
     //data->setClassesAtEnd(true);
-    data->load("iris_mult.csv");
+    data.load("iris_mult.csv");
     
-    std::cout << *data << std::endl;
+    std::cout << data << std::endl;
     
     imap.setAlphaAprox(1);
     imap.setVerbose(0);
@@ -24,15 +24,15 @@ int main(int argc, char *argv[]){
     
     ovo.train();
  
-    std::cout << "Original class: " << (*data)[0]->Y() << std::endl;
-    std::cout << "Evaluated class: " << ovo.evaluate(*(*data)[0]) << std::endl;
+    std::cout << "Original class: " << data[0]->Y() << std::endl;
+    std::cout << "Evaluated class: " << ovo.evaluate(*data[0]) << std::endl;
     
     validation.setVerbose(2);
     validation.setSamples(data);
     validation.setClassifier(&ovo);
     
-    auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(ovo, *data);
-    auto classes = data->getClasses();
+    auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(ovo, data);
+    auto classes = data.getClasses();
     mltk::utils::printConfusionMatrix(classes, conf_matrix);
     std::cout << "Error: " << 100.0-mltk::Validation<double>::confusionMatrixAccuracy(conf_matrix) << "%" << std::endl;
  

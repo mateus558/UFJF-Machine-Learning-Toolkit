@@ -123,7 +123,6 @@ class PerceptronCommittee: public Ensemble< T >, public Classifier< T > {
         std::string getFormulationString() override {
             return "Primal";
         }
-
 };
 
 }

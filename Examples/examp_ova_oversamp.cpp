@@ -7,13 +7,13 @@
 #include "Sampling.hpp"
 
 int main(int argc, char *argv[]){
-    mltk::DataPointer<double> data = mltk::make_data<double>();
+    mltk::Data<double> data;
     mltk::Validation<double> validation;
     
-    data->setClassesAtEnd(true);
-    data->load("dataset_54_vehicle.csv");
+    data.setClassesAtEnd(true);
+    data.load("dataset_54_vehicle.csv");
     
-    std::cout << *data << std::endl;
+    std::cout << data << std::endl;
     
     mltk::IMAp<double> imap;
     
@@ -27,15 +27,15 @@ int main(int argc, char *argv[]){
     
     ova.train();
     
-    std::cout << "Original class: " << (*data)[0]->Y() << std::endl;
-    std::cout << "Evaluated class: " << ova.evaluate(*(*data)[0]) << std::endl;
+    std::cout << "Original class: " << data[0]->Y() << std::endl;
+    std::cout << "Evaluated class: " << ova.evaluate(*data[0]) << std::endl;
 
     validation.setVerbose(2);
     validation.setSamples(data);
     validation.setClassifier(&ova);
     
-    auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(ova, *data);
-    auto classes = data->getClasses();
+    auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(ova, data);
+    auto classes = data.getClasses();
     mltk::utils::printConfusionMatrix(classes, conf_matrix);
     std::cout << "Error: " << 100.0-mltk::Validation<double>::confusionMatrixAccuracy(conf_matrix) << "%" << std::endl;
     

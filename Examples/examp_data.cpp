@@ -19,8 +19,8 @@ int main(int argc, char *argv[]){
 //        std::cout << (*it)->Y() << std::endl;
 //    }
     std::cout << std::endl;
+
     auto distribution = data.getClassesDistribution();
-    
     for(auto dist: distribution){
         std::cout << dist << std::endl;
     }
@@ -30,18 +30,20 @@ int main(int argc, char *argv[]){
     for(auto class_name: class_names){
         std::cout << class_name << std::endl;
     }
+
     data.write("iris_teste", "data");
+
     auto classes_split = data.splitByClasses();
     for(auto &class_split: classes_split){
         if(class_split[0]->Y() == 2)
             std::cout << class_split << std::endl;
     }
     std::cout << std::endl;
-    auto samples_split = data.splitSample(10);
 
+    auto samples_split = data.splitSample(12);
     for(auto &sample: samples_split){
         std::cout << sample.getSize() << std::endl;
     }
 
-    std::cout << data.sampling(50) << std::endl;
+    std::cout << data.sampling(50, true) << std::endl;
 }

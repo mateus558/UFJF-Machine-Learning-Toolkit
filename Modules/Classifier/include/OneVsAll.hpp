@@ -24,8 +24,10 @@ namespace mltk{
         std::vector<LearnerPointer> base_learners;
 
     public:
+        OneVsAll()=default;
+
         template < template <typename > class ClassifierType >
-        OneVsAll(Data< T > samples, ClassifierType< T > &classifier, OverSampling< T > *samp_method = nullptr, int _verbose = 0){
+        OneVsAll(Data< T > &samples, ClassifierType< T > &classifier, OverSampling< T > *samp_method = nullptr, int _verbose = 0){
             this->samples = mltk::make_data<double>(samples);
             this->samp_method = samp_method;
 
@@ -66,7 +68,7 @@ namespace mltk{
             // if a over sampling algorithm were given, apply it
             if(samp_method){
                 temp_samples->computeClassesDistribution();
-                (*samp_method)(temp_samples);
+                (*samp_method)(*temp_samples);
             }
 
             // train the current learner

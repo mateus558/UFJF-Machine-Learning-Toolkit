@@ -13,9 +13,7 @@ using namespace std::chrono;
 int main(int argc, char* argv[]){
     mltk::Data<double> data;
     mltk::IMAp<double> ima;
-
     mltk::Validation<double> validation;
-
     //data.setClassesAtEnd(true);
     data.load("iris.data");
 
