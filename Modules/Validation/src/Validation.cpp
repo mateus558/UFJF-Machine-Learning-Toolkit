@@ -48,7 +48,7 @@ namespace mltk{
         //Start cross-validation
         for(size_t fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){
             auto _test_sample = folds[j];
-            auto _train_sample = std::make_shared<Data< T > >();
+            auto _train_sample = mltk::make_data< T >();
             for(size_t i = 0; i < fold; i++){
                 if(i != j){
                     for(auto it = folds[i].begin(); it != folds[i].end(); it++){

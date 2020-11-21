@@ -13,7 +13,7 @@ namespace mltk {
         template<typename T>
         class AdaBoostClassifier : public Ensemble<T>, public Classifier<T> {
         private:
-            size_t n_estimators;
+            size_t n_estimators{};
             Point<double> weights;
             Point<double> _alpha;
         public:
@@ -33,26 +33,27 @@ namespace mltk {
                 size_t _size = this->samples->getSize();
                 Point<double> err(n_estimators, 0.0);
                 Point<double> alpha(n_estimators, 0.0);
-                this->weights.X().resize(_size, 1.0/_size);
+                // Initialize weights to an uniform distribution
+                this->weights.X().assign(_size, 1.0/_size);
+
                 for(size_t m = 0; m < n_estimators; m++){
                     auto learner = this->learners[m];
                     learner->setSeed(this->seed+m);
                     learner->setSamples(this->samples);
                     learner->train();
-
+                    // compute the probability of miss classification for each point
                     Point<double> errors(_size, 0.0);
-                    Point<double> predictions(_size, 1), y(_size, 1);
                     for(size_t i = 0; i < _size; i++){
                         auto point = (*this->samples)[i];
-                        y[i] = point->Y();
-                        predictions[i] = double(learner->evaluate(*point));
+                        double pred = double(learner->evaluate(*point));
 
-                        if(y[i] != predictions[i]) errors[i] = weights[i];
+                        if(point->Y() != pred) errors[i] = weights[i];
                     }
-                    err[m] = ((weights*errors)/weights.sum()).sum();
-                    alpha[m] = (err[m] > 0)?std::log(std::abs(1.0-err[m])/err[m]):0;
+                    // compute the estimator error as the weighted average of each point error
+                    err[m] = mltk::dot(weights, errors)/weights.sum();
+                    alpha[m] = ((err[m] > 0)?std::log((1.0-err[m])/err[m]):1) + std::log2(this->samples->getClasses().size() - 1);
                     weights *= mltk::exp(alpha[m]*errors);
-                    // Normalize weights to one
+                    // Normalize weights to form a probability distribution
                     weights /= weights.sum();
                 }
                 this->_alpha.X().resize(n_estimators);
@@ -61,12 +62,17 @@ namespace mltk {
             }
 
             double evaluate(const Point<T>& p, bool raw_value=false) override {
-                double hip = 0.0;
-                for(size_t m = 0; m < n_estimators; m++){
-                    hip += this->_alpha[m] * this->learners[m]->evaluate(p, true);
+                auto classes = this->samples->getClasses();
+                Point<double> prob(classes.size(), 0.0);
+                for(size_t c = 0; c < classes.size(); c++) {
+                    for(size_t m = 0; m < n_estimators; m++) {
+                        if(this->learners[m]->evaluate(p) == classes[c]) {
+                            prob[c] += this->_alpha[m];
+                        }
+                    }
                 }
-                if(raw_value) return hip;
-                else return (hip > 0)?1:-1;
+                size_t class_pos = std::max_element(prob.X().begin(), prob.X().end()) - prob.X().begin();
+                return classes[class_pos];
             }
 
             std::string getFormulationString() override {

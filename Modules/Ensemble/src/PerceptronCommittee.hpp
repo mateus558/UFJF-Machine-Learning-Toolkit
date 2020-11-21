@@ -26,9 +26,9 @@ template < typename T >
                 double gamma1 = std::numeric_limits< double >::max(), gamma2 = std::numeric_limits< double >::max();
                 size_t errors = 0;
 
+                this->bias = 0;
                 mltk::random_init<double>(this->weights, this->samples->getDim(), this->seed);
                 this->samples->shuffle(this->seed);
-
                 this->timer.Reset();
 
                 while(epoch < this->MAX_EPOCH){ 
