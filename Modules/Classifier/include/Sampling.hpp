@@ -77,16 +77,18 @@ namespace mltk{
                     return (d1.second == d2.second) || ((d1.first == d2.first));
                 }), distance.end());
 
+                distance.erase(std::remove_if(distance.begin(), distance.end(), [](auto &d){
+                    return d.second == 0;
+                }), distance.end());
+
                 // get the k neighbors
-                size_t zero_dist = 0;
-                for(size_t i = 0; i < (k + zero_dist); i++){
-                    if(distance[i].second > 0){
-                        k_neighbors[i-zero_dist] = data[distance[i].first-1];
-                    }else zero_dist++;
+                for(size_t i = 0; (i < k) && (i < distance.size()); i++){
+                    k_neighbors[i] = data[distance[i].first-1];
                 }
 
                 // create the artificial points and insert them to the dataset
                 for(auto p = k_neighbors.begin(); p != k_neighbors.end(); p++){
+                    if(!*p) continue;
                     auto _k = *(*p);
                     Point< T > s(_z.size(), 0.0, 0);
                     double alpha = distribution(generator);
@@ -99,10 +101,9 @@ namespace mltk{
             }
 
             std::shuffle(artificial_data.begin(), artificial_data.end(), std::default_random_engine(seed));
-            for(size_t i = 0; i < n_apoints; i++){
+            for (size_t i = 0; i < artificial_data.size(); i++) {
                 data.insertPoint(artificial_data[i]);
             }
-
             return data;
         }
     }; 
@@ -158,12 +159,13 @@ namespace mltk{
                     return (d1.second == d2.second) || ((d1.first == d2.first));
                 }), distance.end());
 
+                distance.erase(std::remove_if(distance.begin(), distance.end(), [](auto &d){
+                    return d.second == 0;
+                }), distance.end());
+
                 // get the m neighbors
-                size_t zero_dist = 0;
-                for(size_t i = 0; i < (m + zero_dist); i++){
-                    if(distance[i].second > 0){
-                        M[i-zero_dist] = data[distance[i].first-1];
-                    }else zero_dist++;
+                for(size_t i = 0; (i < m) && (i < distance.size()); i++){
+                    M[i] = data[distance[i].first-1];
                 }
                 
                 // set m' as the number of points on the majority class set on m neighbors
@@ -180,8 +182,8 @@ namespace mltk{
 
             // apply SMOTE algorithm to the danger subset
             if(danger_subset.getSize() > 0){
-                std::shared_ptr<SMOTE< T > > smote = std::make_shared< SMOTE< T > >(k, r, seed);
-                (*smote)(danger_subset);
+                SMOTE< T > smote(k, r, seed);
+                smote(danger_subset);
             }
 
             for(auto p = danger_subset.begin(); p != danger_subset.end(); p++){

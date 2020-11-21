@@ -7,15 +7,15 @@
 #include "Sampling.hpp"
 
 int main(int argc, char *argv[]){
-    mltk::Data<double> data("dataset_54_vehicle.csv", true);
+    mltk::Data<double> data("iris_mult.csv");
     std::cout << data << std::endl;
     
     mltk::IMAp<double> imap;
     imap.setVerbose(0);
-    imap.setFlexible(500);
-    imap.setMaxTime(600);
+    imap.setFlexible(0.1);
+    imap.setMaxTime(110);
     
-    mltk::SMOTE<double> smote;
+    mltk::BorderlineSMOTEOne<double> smote(4, 0.7, 1);
     mltk::OneVsAll<double> ova(data, imap, &smote);
     
     ova.train();

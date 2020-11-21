@@ -64,7 +64,7 @@ namespace mltk{
             for(j = 0; j < size; j++) {
                 temp_samples[j]->Y() = (temp_samples[j]->Y() == classes[current_class]) ? 1 : -1;
             }
-            
+
             // if a over sampling algorithm were given, apply it
             if(samp_method){
                 temp_samples.computeClassesDistribution();

@@ -5,17 +5,19 @@
 #include "AdaBoostClassifier.hpp"
 #include "PerceptronCommittee.hpp"
 #include "Validation.hpp"
+#include "OneVsAll.hpp"
 
 int main(int argc, char* argv[]){
-    mltk::Data<double> data("iris.data");
+    mltk::Data<double> data("iris_mult.csv");
     mltk::BalancedPerceptron<double> bp;
     bp.setMaxTime(300);
+    mltk::OneVsAll<double> ova(data, bp);
 
     mltk::Validation<double> validation(data);
     validation.setVerbose(2);
     validation.partTrainTest(5);
 
-    mltk::ensemble::AdaBoostClassifier<double> ada(*validation.getTrainSample(), bp, 20);
+    mltk::ensemble::AdaBoostClassifier<double> ada(*validation.getTrainSample(), ova, 20);
     ada.setSeed(42);
     ada.train();
     std::cout << "Original class: " << data[15]->Y() << std::endl;

@@ -30,11 +30,11 @@ namespace mltk {
             }
 
             bool train() override {
-                size_t _size = this->samples->getSize();
+                size_t _size = this->samples->getSize(), K = this->samples->getClasses().size();
                 Point<double> err(n_estimators, 0.0);
                 Point<double> alpha(n_estimators, 0.0);
                 // Initialize weights to an uniform distribution
-                this->weights.X().assign(_size, 1.0/_size);
+                this->weights.assign(_size, 1.0/_size);
 
                 for(size_t m = 0; m < n_estimators; m++){
                     auto learner = this->learners[m];
@@ -45,13 +45,12 @@ namespace mltk {
                     Point<double> errors(_size, 0.0);
                     for(size_t i = 0; i < _size; i++){
                         auto point = (*this->samples)[i];
-                        double pred = double(learner->evaluate(*point));
 
-                        if(point->Y() != pred) errors[i] = weights[i];
+                        if(point->Y() != learner->evaluate(*point)) errors[i] = weights[i];
                     }
                     // compute the estimator error as the weighted average of each point error
                     err[m] = mltk::dot(weights, errors)/weights.sum();
-                    alpha[m] = ((err[m] > 0)?std::log((1.0-err[m])/err[m]):1) + std::log2(this->samples->getClasses().size() - 1);
+                    alpha[m] = ((err[m] > 0)?std::log((1.0-err[m])/err[m]):1) + std::log2(K - 1);
                     weights *= mltk::exp(alpha[m]*errors);
                     // Normalize weights to form a probability distribution
                     weights /= weights.sum();

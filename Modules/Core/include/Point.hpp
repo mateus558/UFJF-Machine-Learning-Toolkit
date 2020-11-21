@@ -176,7 +176,14 @@ namespace mltk {
                 return Point<T, A_Subscript<T, Rep, R2>> (A_Subscript<T, Rep, R2>((*this).X(), b.X()));
             }
 
-
+            template <typename... Types>
+            void resize(Types... args){
+                this->x.resize(args...);
+            }
+            template <typename... Types>
+            void assign(Types... args){
+                this->x.assign(args...);
+            }
             /**
              * \brief Returns the p-norm of the point.
              * \param p p of the norm (euclidean norm is the default).
