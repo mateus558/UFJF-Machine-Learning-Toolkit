@@ -6,12 +6,13 @@
 #include "IMA.hpp"
 
 int main(int argc, char *argv[]){
-    mltk::Data<double> data("iris_mult.csv");
+    mltk::Data<double> data("dataset_54_vehicle.csv", true);
     //std::cout << *data << std::endl;
     
     mltk::IMAp<double> imap;
     imap.setVerbose(0);
-    imap.setFlexible(0.1);
+    imap.setFlexible(500);
+    imap.setMaxTime(500);
 
     mltk::Validation<double> validation(data);
     validation.partTrainTest(3);
