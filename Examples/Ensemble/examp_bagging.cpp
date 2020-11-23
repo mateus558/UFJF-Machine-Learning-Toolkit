@@ -6,38 +6,32 @@
 #include <iostream>
 #include "BaggingClassifier.hpp"
 #include "Validation.hpp"
-#include "IMA.hpp"
+#include "PerceptronCommittee.hpp"
 
 using namespace std::chrono;
 
 int main(int argc, char* argv[]){
-    mltk::Data<double> data;
-    mltk::IMAp<double> ima;
+    mltk::Data<double> data("iris.data");
+    mltk::BalancedPerceptron<double> bp;
     mltk::Validation<double> validation;
-    //data.setClassesAtEnd(true);
-    data.load("iris.data");
 
     for(auto c: data.getClasses()){
         std::cout << c << std::endl;
     }
 
-    ima.setAlphaAprox(1);
-    ima.setVerbose(0);
-    ima.setFlexible(0.001);
-    ima.setMaxTime(110);
-
     auto t1 = high_resolution_clock::now();
-    mltk::BaggingClassifier<double> voter(data, ima, 10);
-    voter.train();
+    mltk::BaggingClassifier<double> bag(data, bp, 20);
+    bag.train();
 
+    validation.setSeed(42);
     validation.setVerbose(2);
     validation.setSamples(mltk::make_data<double>(data));
-    validation.setClassifier(&voter);
+    validation.setClassifier(&bag);
 
-    auto pred = voter.evaluate((*data[100]));
-    std::cout << "Original class: " << data[100]->Y() << "\nPredicted class: " << pred << std::endl;
+    auto pred = bag.evaluate((*data[10]));
+    std::cout << "Original class: " << data[10]->Y() << "\nPredicted class: " << pred << std::endl;
 
-    auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(voter, data);
+    auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(bag, data);
     auto classes = data.getClasses();
     mltk::utils::printConfusionMatrix(classes, conf_matrix);
     std::cout << "Error: " << 100.0-mltk::Validation<double>::confusionMatrixAccuracy(conf_matrix) << "%" << std::endl;

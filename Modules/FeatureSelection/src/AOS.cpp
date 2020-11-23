@@ -99,7 +99,7 @@ namespace mltk{
                         std::cout << fnamesp[i] << ", ";
                     std::cout << fnamesp[i] << std::endl;
 
-                    Validation<T> validation(this->stmp_partial, this->classifier);
+                    Validation<T> validation(*this->stmp_partial, this->classifier);
                     validation.setVerbose(0);
 
                     if (this->cv->qtde > 0) {
@@ -159,7 +159,7 @@ namespace mltk{
                 if(level == 1)
                     this->n0 = this->max_time *= FIRST_DECAY;
                 else if(level > 1)
-                    this->max_time = this->n0 * exp(-stmp.getTime_mult() * ((double)startdim/(startdim-level)));
+                    this->max_time = this->n0 * std::exp(-stmp.getTime_mult() * ((double)startdim/(startdim-level)));
 
                 /*stop criterium*/
                 if(this->samples->getDim() == dim-this->depth && this->heap->getElements()[1]->rgamma > 0)
@@ -176,7 +176,7 @@ namespace mltk{
                         std::cout << this->heap->getElements()[1]->fnames[i] << ", ";
                     std::cout << this->heap->getElements()[1]->fnames[i] << std::endl;
 
-                    Validation<T> validation(std::make_shared<Data<T> >(stmp), this->classifier);
+                    Validation<T> validation(stmp, this->classifier);
                     validation.setVerbose(0);
 
                     if(this->cv->qtde > 0)
@@ -433,7 +433,7 @@ namespace mltk{
             loolflag = 0;
             if(this->cv->qtde > 0)
             {
-                Validation<T> validation(this->samples, this->classifier);
+                Validation<T> validation(*this->samples, this->classifier);
                 validation.setVerbose(0);
 
                 if(level == 0)
@@ -610,7 +610,7 @@ namespace mltk{
             if(level == 0)
                 this->n0 = this->max_time = max_time_orig * FIRST_DECAY;
             else
-                this->max_time = n0 * exp(-stmp->getTime_mult() * ((double)this->dim_orig/(this->dim_orig-level-1)));
+                this->max_time = n0 * std::exp(-stmp->getTime_mult() * ((double)this->dim_orig/(this->dim_orig-level-1)));
 
             /*creating new nodes for heap*/
             gtmp = new AOS<T>::select_gamma;

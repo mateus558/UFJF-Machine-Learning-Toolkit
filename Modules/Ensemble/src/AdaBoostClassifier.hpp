@@ -50,7 +50,8 @@ namespace mltk {
                     }
                     // compute the estimator error as the weighted average of each point error
                     err[m] = mltk::dot(weights, errors)/weights.sum();
-                    alpha[m] = ((err[m] > 0)?std::log((1.0-err[m])/err[m]):1) + std::log2(K - 1);
+                    // compute alpha to be used on weight update
+                    alpha[m] = ((err[m] > 0)?std::log((1.0-err[m])/err[m]):1) + std::log(K - 1);
                     weights *= mltk::exp(alpha[m]*errors);
                     // Normalize weights to form a probability distribution
                     weights /= weights.sum();

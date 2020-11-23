@@ -4,7 +4,7 @@
 #include "SMO.hpp"
 #include "OneVsOne.hpp"
 #include "IMA.hpp"
-#include "Sampling.hpp"
+#include "Sampling.hpp"n fal
 
 int main(int argc, char *argv[]){
     mltk::Data<double> data("iris_mult.csv");

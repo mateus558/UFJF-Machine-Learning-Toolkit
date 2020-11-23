@@ -6,13 +6,13 @@
 #include "IMA.hpp"
 
 int main(int argc, char *argv[]){
-    mltk::Data<double> data("dataset_54_vehicle.csv", true);
-    //std::cout << *data << std::endl;
+    mltk::Data<double> data("letter-recognition.csv");
+    std::cout << data << std::endl;
     
     mltk::IMAp<double> imap;
-    imap.setVerbose(0);
-    imap.setFlexible(500);
-    imap.setMaxTime(500);
+    //imap.setVerbose(0);
+    imap.setFlexible(300);
+    imap.setMaxTime(2500);
 
     mltk::Validation<double> validation(data);
     validation.partTrainTest(3);
@@ -30,9 +30,9 @@ int main(int argc, char *argv[]){
     std::cout << "Error: " << 100.0-mltk::Validation<double>::confusionMatrixAccuracy(conf_matrix) << "%" << std::endl;
 
     validation.setVerbose(2);
-    mltk::ValidationSolution s = validation.validation(10, 10);
-
-    std::cout << "Validation accuracy: " << s.accuracy << std::endl;
+//    mltk::ValidationSolution s = validation.validation(10, 10);
+//
+//    std::cout << "Validation accuracy: " << s.accuracy << std::endl;
     
     return 0;
 }

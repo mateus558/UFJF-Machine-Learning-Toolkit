@@ -1314,7 +1314,7 @@ namespace mltk{
 
     template<typename T>
     Data<T> Data<T>::sampling(const size_t &samp_size, bool with_replacement, const size_t &seed) {
-        assert(samp_size < getSize());
+        assert(samp_size <= getSize());
         std::random_device rd;
         std::mt19937 gen((seed == 0)?rd():seed);
         std::uniform_int_distribution<size_t> dist(0, getSize()-1);

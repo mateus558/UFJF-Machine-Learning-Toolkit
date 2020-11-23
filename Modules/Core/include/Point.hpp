@@ -525,11 +525,8 @@ namespace mltk {
 
     template < typename T, typename R = std::vector< T > >
     void random_init(Point<T, R> &p, const size_t &size, const size_t &seed){
-        std::mt19937 gen;
-        if(seed == 0) {
-            std::random_device rd;
-            gen.seed(rd());
-        }else gen.seed(seed);
+        std::random_device rd;
+        std::mt19937 gen((seed==0)?rd():seed);
         std::uniform_real_distribution<double> dist(0., 1.);
 
         p.X().resize(size);

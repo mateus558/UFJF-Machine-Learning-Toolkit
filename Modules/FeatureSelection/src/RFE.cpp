@@ -30,7 +30,7 @@ namespace mltk{
         vector<double> w, new_w;
         vector<select_weight> weight;
         shared_ptr<Data< T > > stmp_partial, stmp(make_shared<Data< T > >());
-        Validation< T > validation(this->samples, this->classifier);
+        Validation< T > validation(*this->samples, this->classifier);
         Solution sol;
         int svcount = 0, level = 0, leveljump = 0, partial_svs = 0;
         int partial = 0; //verifica se última solução é uma solução recuperada (parcial)
@@ -70,7 +70,7 @@ namespace mltk{
             if (level == 1) {
                 n0 = max_time *= first_decay;
             }else if (level > 1) {
-                max_time = n0 * exp(-time_mult * ((double) dim / (dim - level)));
+                max_time = n0 * std::exp(-time_mult * ((double) dim / (dim - level)));
             }
 
             this->classifier->setGamma(margin);

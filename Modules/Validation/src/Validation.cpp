@@ -13,7 +13,7 @@ namespace mltk{
 
     template < typename T >
     void Validation< T > ::partTrainTest(int fold){
-        std::vector<Data<T> > folds = sample->splitSample(fold);
+        std::vector<Data<T> > folds = sample->splitSample(fold, this->seed);
 
         test_sample = mltk::make_data< T >();
         train_sample = mltk::make_data< T >();
@@ -31,19 +31,20 @@ namespace mltk{
             test_sample->insertPoint(point);
         }
 
-        train_sample->shuffle();
-        test_sample->shuffle();
+        train_sample->shuffle(this->seed);
+        test_sample->shuffle(this->seed);
     }
 
     template < typename T >
-    double Validation< T > ::kFold (int fold, int seed){
+    double Validation< T > ::kFold (int fold, int _seed){
         size_t size = sample->getSize();
         size_t fp = 0, fn = 0, tp = 0, tn = 0;
         double sizes = sample->getSize()/fold;
         double error = 0.0, func = 0.0, margin = 0.0;
         std::vector<double> error_arr(fold);
         auto classes = sample->getClasses();
-        std::vector<Data< T > > folds = sample->splitSample(fold, seed);
+        this->sample->shuffle(_seed);
+        std::vector<Data< T > > folds = sample->splitSample(fold, _seed);
 
         //Start cross-validation
         for(size_t fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){
@@ -69,7 +70,7 @@ namespace mltk{
         
             Solution s = classifier->getSolution();
             bool isPrimal = classifier->getFormulationString() == "Primal";
-
+            classifier->setSeed(this->seed);
             if(isPrimal){
                 if(!classifier->train()){
                     if(verbose){
@@ -163,7 +164,7 @@ namespace mltk{
             for(errocross = 0, i = 0; i < qtde; i++)
             {
                 if(verbose) cout << "\nExecucao " << i + 1 << " / " << qtde << ":\n";
-                errocross += kFold(fold, i);
+                errocross += kFold(fold, this->seed + 1);
             }
             cout << "\n\nErro " << fold << "-Fold Cross Validation: " << errocross/qtde << "%\n";
             this->solution.accuracy = 100.0 - errocross/qtde;
@@ -190,7 +191,7 @@ namespace mltk{
         classifier->setVerbose(0);
 
         bool isPrimal = (classifier->getFormulationString() == "Primal");
-        
+        classifier->setSeed(this->seed);
         if(isPrimal){
             if(!classifier->train()){
                 if(verbose)

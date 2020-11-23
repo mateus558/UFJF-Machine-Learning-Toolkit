@@ -547,7 +547,7 @@ void datasetOption(int option){
                     cout << "Seed for timestamps: ";
                     cin >> seed;
 
-                    Validation<double> valid(samples, nullptr, seed);
+                    Validation<double> valid(*samples, nullptr, seed);
 
                     clock_t begin = clock();
                     valid.partTrainTest(fold);
@@ -1702,7 +1702,7 @@ void validationOption(int option){
                 imap.setAlphaAprox(alpha_prox);
 
                 clock_t begin = clock();
-                Validation<double> validate(samples, &imap, 10);
+                Validation<double> validate(*samples, &imap, 10);
 
                 validate.setVerbose(verbose);
                 validate.partTrainTest(fold);
@@ -1753,7 +1753,7 @@ void validationOption(int option){
                 IMADual<double> ima_dual(samples, &K, rate, nullptr);
                 ima_dual.setMaxTime(max_time);
 
-                Validation<double> validate(samples, &ima_dual, 10);
+                Validation<double> validate(*samples, &ima_dual, 10);
 
                 validate.setVerbose(verbose);
                 validate.partTrainTest(fold);
@@ -1801,7 +1801,7 @@ void validationOption(int option){
                 SMO<double> smo(samples, &K, verbose);
                 smo.setMaxTime(max_time);
 
-                Validation<double> validate(samples, &smo, 10);
+                Validation<double> validate(*samples, &smo, 10);
 
                 validate.setVerbose(verbose);
                 validate.partTrainTest(fold);
@@ -1976,7 +1976,7 @@ void primalClassifiersOption(int option){
                 cin >> k;
                 cout << endl;
 
-                KNNClassifier<double> knn(samples, k);
+                KNNClassifier<double> knn(*samples, k);
                 vector<string> class_names = samples->getClassNames();
                 vector<int> classes = samples->getClasses();
 
