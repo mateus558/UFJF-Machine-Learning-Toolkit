@@ -1577,7 +1577,7 @@ void primalRegressorsOption(int option) {
                 std::cout << "Value of the learning rate: ";
                 std::cin >> eta;
 
-                LMSPrimal<double> lms(samples, eta, 2);
+                regressor::LMSPrimal<double> lms(samples, eta, 2);
 
                 lms.setMaxIterations(20);
                 lms.setMaxTime(max_time);
@@ -1602,7 +1602,7 @@ void primalRegressorsOption(int option) {
                 }
                 cout << endl;
 
-                KNNRegressor<double> knn(samples, k);
+                regressor::KNNRegressor<double> knn(samples, k);
                 double value = knn.evaluate(Point<double>(feats));
 
                 cout << "Evaluated value: " << value << endl;
