@@ -1530,7 +1530,7 @@ void clusterersOption(int option){
                 cout << endl;
                 cout << "Initialization [0 - random; 1 - kmeanspp]: ";
                 cin >> initialization;
-                KMeans<double> kmeans(samples, k, (initialization == 0) ? "random" : "kmeanspp");
+                clusterer::KMeans<double> kmeans(samples, k, (initialization == 0) ? "random" : "kmeanspp");
                 kmeans.setMaxTime(max_time);
                 kmeans.train();
                 auto conf_m = Validation<double>::generateConfusionMatrix(kmeans, *samples);
