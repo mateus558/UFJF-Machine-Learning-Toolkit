@@ -44,7 +44,7 @@ namespace mltk{
         // Attributes
     private :
         /// Model to be validated.
-        Classifier< T >  *classifier;
+        classifier::Classifier< T >  *classifier;
         /// Sample used in the validation.
         std::shared_ptr<Data< T > > sample;
         /// Train and test sample used.
@@ -87,7 +87,7 @@ namespace mltk{
          * @param classifier Model to be validated.
          * @param seed  Seed to feed the pseudo random number generator.
          */
-        explicit Validation (const  Data< T > &sample, Classifier< T >  *classifier = nullptr, size_t seed = 0);
+        explicit Validation (const  Data< T > &sample, classifier::Classifier< T >  *classifier = nullptr, size_t seed = 0);
 
         static std::vector<std::vector<size_t> > generateConfusionMatrix(Learner< T > &learner, Data< T > &samples);
         static double confusionMatrixAccuracy(const std::vector<std::vector<size_t> > &conf_matrix);
@@ -130,7 +130,7 @@ namespace mltk{
          *               Setters                     *
          *********************************************/
 
-        void setClassifier(Classifier< T > *classifier) {this->classifier = classifier;}
+        void setClassifier(classifier::Classifier< T > *classifier) {this->classifier = classifier;}
         void setKernelParameters(KernelType kernel_type, double param){ this->kernel_type = kernel_type; this->kernel_param = param;}
         void setSamples(const Data< T > &sample);
         void setSamples(DataPointer< T > sample){

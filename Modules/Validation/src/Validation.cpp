@@ -95,7 +95,7 @@ namespace mltk{
                     }
                 }
             }else{
-                DualClassifier< T > *dual = dynamic_cast<DualClassifier< T > *>(classifier);
+                classifier::DualClassifier< T > *dual = dynamic_cast<classifier::DualClassifier< T > *>(classifier);
                 std::shared_ptr<Data< T > > traintest_sample(std::make_shared<Data< T > >());
                 *traintest_sample = _test_sample;
                 traintest_sample->join(train_sample);
@@ -219,7 +219,7 @@ namespace mltk{
             }
         }else{
             /*testing imadual and smo*/
-            DualClassifier< T >  *dual = dynamic_cast<DualClassifier< T > *>(classifier);
+            classifier::DualClassifier< T >  *dual = dynamic_cast<classifier::DualClassifier< T > *>(classifier);
             dMatrix matrix;
             shared_ptr<Data< T > > traintest_sample(make_shared<Data< T > >());
             
@@ -323,7 +323,7 @@ namespace mltk{
     }
 
     template<typename T>
-    Validation<T>::Validation(const Data<T> &sample, Classifier<T> *classifier, size_t seed) {
+    Validation<T>::Validation(const Data<T> &sample, classifier::Classifier<T> *classifier, size_t seed) {
         this->sample = mltk::make_data<T>(sample);
         this->classifier = classifier;
 

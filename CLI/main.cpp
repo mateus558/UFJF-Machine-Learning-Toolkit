@@ -910,9 +910,9 @@ void featureSelectionOption(int option){
     double p, q, alpha_aprox, kernel_param = 0;
     int opt, flex, kernel_type, ddim, jump, branching, branch_form, choice_form, prof_look_ahead, cut;
     Timer time;
-    IMAp<double> imap(samples);
-    IMADual<double> imadual(samples);
-    SMO<double> smo;
+    classifier::IMAp<double> imap(samples);
+    classifier::IMADual<double> imadual(samples);
+    classifier::SMO<double> smo;
     Validation<double>::CrossValidation cv;
     RFE<double> rfe;
     Golub<double> golub;
@@ -1655,7 +1655,7 @@ void validationOption(int option){
     switch(option){
         case 1:
             if(!samples->isEmpty()){
-                IMAp<double> imap(samples);
+                classifier::IMAp<double> imap(samples);
 
                 cout << "Quantity of K-fold: ";
                 cin >> qtde;
@@ -1750,7 +1750,7 @@ void validationOption(int option){
                 K.setParam(kernel_param);
 
                 clock_t begin = clock();
-                IMADual<double> ima_dual(samples, &K, rate, nullptr);
+                classifier::IMADual<double> ima_dual(samples, &K, rate, nullptr);
                 ima_dual.setMaxTime(max_time);
 
                 Validation<double> validate(*samples, &ima_dual, 10);
@@ -1798,7 +1798,7 @@ void validationOption(int option){
                 K.setParam(kernel_param);
 
                 clock_t begin = clock();
-                SMO<double> smo(samples, &K, verbose);
+                classifier::SMO<double> smo(samples, &K, verbose);
                 smo.setMaxTime(max_time);
 
                 Validation<double> validate(*samples, &smo, 10);
@@ -1844,7 +1844,7 @@ void primalClassifiersOption(int option){
                 cin >> q;
                 cout << endl;
 
-                PerceptronPrimal<double> perc(samples, q, rate);
+                classifier::PerceptronPrimal<double> perc(samples, q, rate);
 
                 clock_t begin = clock();
                 perc.train();
@@ -1881,7 +1881,7 @@ void primalClassifiersOption(int option){
                 cin >> gamma;
                 cout << endl;
 
-                PerceptronFixedMarginPrimal<double> perc(samples, gamma, q, rate);
+                classifier::PerceptronFixedMarginPrimal<double> perc(samples, gamma, q, rate);
 
                 clock_t begin = clock();
                 perc.train();
@@ -1942,7 +1942,7 @@ void primalClassifiersOption(int option){
                 cin >> alpha_prox;
                 cout << endl;
 
-                IMAp<double> imap(samples);
+                classifier::IMAp<double> imap(samples);
 
                 imap.setMaxTime(max_time);
                 imap.setpNorm(p);
@@ -1976,7 +1976,7 @@ void primalClassifiersOption(int option){
                 cin >> k;
                 cout << endl;
 
-                KNNClassifier<double> knn(*samples, k);
+                classifier::KNNClassifier<double> knn(*samples, k);
                 vector<string> class_names = samples->getClassNames();
                 vector<int> classes = samples->getClasses();
 
@@ -2025,7 +2025,7 @@ void dualClassifiersOption(int option){
 
                 clock_t begin = clock();
 
-                PerceptronDual<double> perc_dual(samples, rate, kernel_type, kernel_param);
+                classifier::PerceptronDual<double> perc_dual(samples, rate, kernel_type, kernel_param);
                 perc_dual.train();
 
                 sol = perc_dual.getSolution();
@@ -2081,7 +2081,7 @@ void dualClassifiersOption(int option){
 
                 clock_t begin = clock();
 
-                PerceptronFixedMarginDual<double> perc_fixmargin_dual(samples, gamma, rate, kernel_type, kernel_param);
+                classifier::PerceptronFixedMarginDual<double> perc_fixmargin_dual(samples, gamma, rate, kernel_type, kernel_param);
                 perc_fixmargin_dual.train();
 
                 sol = perc_fixmargin_dual.getSolution();
@@ -2132,7 +2132,7 @@ void dualClassifiersOption(int option){
                 K.setParam(kernel_param);
 
                 clock_t begin = clock();
-                IMADual<double> ima_dual(samples, &K, rate, nullptr);
+                classifier::IMADual<double> ima_dual(samples, &K, rate, nullptr);
 
                 ima_dual.setMaxTime(max_time);
                 ima_dual.setVerbose(verbose);
@@ -2167,7 +2167,7 @@ void dualClassifiersOption(int option){
                 K.setType(kernel_type);
 
                 clock_t begin = clock();
-                SMO<double> smo(samples, &K, verbose);
+                classifier::SMO<double> smo(samples, &K, verbose);
 
                 smo.setMaxTime(max_time);
                 smo.setVerbose(verbose);

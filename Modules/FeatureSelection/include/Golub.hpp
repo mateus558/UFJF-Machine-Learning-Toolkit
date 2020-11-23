@@ -20,7 +20,7 @@ namespace mltk{
         };
         static int golub_select_compare_score_greater(const golub_select_score &a, const golub_select_score &b);
     public:
-        explicit Golub(std::shared_ptr<Data< T > > samples = nullptr, Classifier< T > *classifier = nullptr, int number = 0);
+        explicit Golub(std::shared_ptr<Data< T > > samples = nullptr, classifier::Classifier< T > *classifier = nullptr, int number = 0);
         std::shared_ptr<Data< T > > selectFeatures() override;
     };
 }

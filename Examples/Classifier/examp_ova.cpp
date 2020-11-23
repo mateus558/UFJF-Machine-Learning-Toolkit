@@ -9,7 +9,7 @@ int main(int argc, char *argv[]){
     mltk::Data<double> data("letter-recognition.csv");
     std::cout << data << std::endl;
     
-    mltk::IMAp<double> imap;
+    mltk::classifier::IMAp<double> imap;
     //imap.setVerbose(0);
     imap.setFlexible(300);
     imap.setMaxTime(2500);
@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
     mltk::Validation<double> validation(data);
     validation.partTrainTest(3);
 
-    mltk::OneVsAll<double> ova(data, imap);
+    mltk::classifier::OneVsAll<double> ova(data, imap);
     validation.setClassifier(&ova);
     ova.train();
     

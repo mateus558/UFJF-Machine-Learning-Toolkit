@@ -10,11 +10,11 @@ int main(int argc, char *argv[]){
     //data->setClassesAtEnd(true);
     std::cout << data << std::endl;
 
-    mltk::IMAp<double> imap;
+    mltk::classifier::IMAp<double> imap;
     imap.setVerbose(0);
     imap.setFlexible(0.001);
 
-    mltk::OneVsOne<double> ovo(data, imap);
+    mltk::classifier::OneVsOne<double> ovo(data, imap);
     ovo.train();
  
     std::cout << "Original class: " << data[0]->Y() << std::endl;

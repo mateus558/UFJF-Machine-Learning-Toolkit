@@ -140,7 +140,7 @@ namespace mltk{
         std::shared_ptr<Data< T > > stmp_partial;
 
     public:
-        AOS(std::shared_ptr<Data< T > > samples = nullptr, Classifier< T > *classifier = nullptr, typename Validation< T >::CrossValidation *cv = nullptr,
+        AOS(std::shared_ptr<Data< T > > samples = nullptr, classifier::Classifier< T > *classifier = nullptr, typename Validation< T >::CrossValidation *cv = nullptr,
             int breadth = 0, int depth = 0, double bonus = 0, int cut = 0, int look_ahead_depth = 0, int skip = 0,
             int startover = 0, double g_margin = 0, bool doleave_oo = 0, int sorting_shape = 0, int choice_shape = 0, int verbose = 0);
         std::shared_ptr<Data< T > > selectFeatures() override;

@@ -18,7 +18,7 @@ namespace mltk{
         };
         static int compare_weight_greater(const select_weight &a, const select_weight &b);
     public:
-        explicit RFE(std::shared_ptr<Data< T > > samples = nullptr, Classifier< T >* classifier = nullptr, typename Validation< T >::CrossValidation *cv = nullptr, int depth = 0, int skip = 0, int jump = 0, bool leave_one_out = false);
+        explicit RFE(std::shared_ptr<Data< T > > samples = nullptr, classifier::Classifier< T >* classifier = nullptr, typename Validation< T >::CrossValidation *cv = nullptr, int depth = 0, int skip = 0, int jump = 0, bool leave_one_out = false);
         std::shared_ptr<Data< T > > selectFeatures() override ;
     };
 }

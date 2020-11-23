@@ -16,65 +16,90 @@
 #include "Perceptron.hpp"
 
 namespace mltk{
-    /**
-     * \brief Wrapper for the implementation of the Incremental Margin Algorithm primal.
-     */
-    template < typename T >
-    class IMAp : public PrimalClassifier< T > {
-    private:
-        double margin;
-        /// Support vector.
-        std::vector<int> svs;
-
-    public:
-        explicit IMAp(std::shared_ptr<Data< T > > samples = nullptr, double margin = 0.0, Solution *initial_solution = nullptr);
-
-        bool train() override;
-        double evaluate(const Point< T >  &p, bool raw_value=false) override;
+    namespace classifier {
         /**
-         * \brief Get the indexes of the support vectors.
-         * \return std::vector<int> 
-         **/
-        std::vector<int> getSupportVectors(){ return svs; }
-    };
+         * \brief Wrapper for the implementation of the Incremental Margin Algorithm primal.
+         */
+        template<typename T>
+        class IMAp : public PrimalClassifier<T> {
+        private:
+            double margin;
+            /// Support vector.
+            std::vector<int> svs;
 
-    /**
-     * \brief Wrapper for the implementation of the Incremental Margin Algorithm primal with fixed margin.
-     */
-    template < typename T >
-    class IMApFixedMargin : public PrimalClassifier< T >  {
-    private:
-        int n, maiorn = 0, flagNao1aDim;
-        double margin = 0.0, maiorw = 0.0;
-        unsigned long tMax;
+        public:
+            explicit IMAp(std::shared_ptr<Data < T>
 
-        /// Support vector.
-        std::vector<int> svs;
+            >
+            samples = nullptr,
+            double margin = 0.0, Solution
+            *
+            initial_solution = nullptr
+            );
 
-    public:
-        explicit IMApFixedMargin(std::shared_ptr<Data< T > > samples = nullptr, double gamma = 0, Solution *initial_solution = nullptr);
+            bool train() override;
 
-        bool train() override;
-        double evaluate(const Point< T >  &p, bool raw_value=false) override;
-        inline int* getFlagNot1aDim() {return &flagNao1aDim; }
-        inline unsigned long* gettMax(){ return &tMax; }
-    };
+            double evaluate(const Point <T> &p, bool raw_value = false) override;
 
-    template < typename T >
-    class IMADual : public DualClassifier< T >  {
-    private:
-        double margin = 0;
-        /// Support vector.
-        std::vector<int> svs;
-    public:
-        explicit IMADual(std::shared_ptr<Data< T > > samples = nullptr, Kernel *k = nullptr, double rate = 1, Solution *initial_solution = nullptr);
-        bool train() override;
+            /**
+             * \brief Get the indexes of the support vectors.
+             * \return std::vector<int>
+             **/
+            std::vector<int> getSupportVectors() { return svs; }
+        };
+
         /**
-         * \brief Get the indexes of support vectors.
-         * \return std::vector<int> 
-         **/
-        std::vector<int> getSupportVectors(){ return svs; }
-    };
+         * \brief Wrapper for the implementation of the Incremental Margin Algorithm primal with fixed margin.
+         */
+        template<typename T>
+        class IMApFixedMargin : public PrimalClassifier<T> {
+        private:
+            int n, maiorn = 0, flagNao1aDim;
+            double margin = 0.0, maiorw = 0.0;
+            unsigned long tMax;
+
+            /// Support vector.
+            std::vector<int> svs;
+
+        public:
+            explicit IMApFixedMargin(std::shared_ptr<Data < T>
+
+            >
+            samples = nullptr,
+            double gamma = 0, Solution
+            *
+            initial_solution = nullptr
+            );
+
+            bool train() override;
+
+            double evaluate(const Point <T> &p, bool raw_value = false) override;
+
+            inline int *getFlagNot1aDim() { return &flagNao1aDim; }
+
+            inline unsigned long *gettMax() { return &tMax; }
+        };
+
+        template<typename T>
+        class IMADual : public DualClassifier<T> {
+        private:
+            double margin = 0;
+            /// Support vector.
+            std::vector<int> svs;
+        public:
+            explicit IMADual(std::shared_ptr<Data < T> >
+            samples = nullptr, Kernel* k = nullptr,
+            double rate = 1, Solution* initial_solution = nullptr);
+
+            bool train() override;
+
+            /**
+             * \brief Get the indexes of support vectors.
+             * \return std::vector<int>
+             **/
+            std::vector<int> getSupportVectors() { return svs; }
+        };
+    }
 }
 
 #endif //CLASSIFICATION_ALGORITHMS_SYSTEM_IMAP_HPP

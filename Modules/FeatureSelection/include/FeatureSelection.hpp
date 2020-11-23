@@ -19,7 +19,7 @@ namespace mltk{
         /// Samples where the features will be selected
         std::shared_ptr<Data< T > > samples;
         /// Classifier used by the method
-        Classifier< T > *classifier;
+        classifier::Classifier< T > *classifier;
         /// Structure to hold the cross-validation result
         typename Validation< T >::CrossValidation *cv;
         /// Solution of the feature selection
@@ -67,7 +67,7 @@ namespace mltk{
          * \brief setClassifier Set the classifier used for the FeatureSelection.
          * \param classifier Reference to the classifier to be used.
          */
-        void setClassifier(Classifier< T > *classifier) { this->classifier = classifier; this->classifier->setVerbose(0); }
+        void setClassifier(classifier::Classifier< T > *classifier) { this->classifier = classifier; this->classifier->setVerbose(0); }
         /**
          * \brief setFinalDimension Set the classifier used for the FeatureSelection.
          * \param final_dim The final number of dimensions.

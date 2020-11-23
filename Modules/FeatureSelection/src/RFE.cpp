@@ -13,7 +13,7 @@ namespace mltk{
     using namespace std;
 
     template < typename T >
-    RFE< T >::RFE(std::shared_ptr<Data< T > > samples, Classifier< T > *classifier, typename Validation< T >::CrossValidation *cv, int depth, int skip, int jump, bool leave_one_out) {
+    RFE< T >::RFE(std::shared_ptr<Data< T > > samples, classifier::Classifier< T > *classifier, typename Validation< T >::CrossValidation *cv, int depth, int skip, int jump, bool leave_one_out) {
         this->samples = samples;
         this->classifier = classifier;
         this->depth = depth;

@@ -10,7 +10,7 @@ namespace mltk{
     using namespace std;
 
     template<typename T>
-    Golub<T>::Golub(shared_ptr<Data<T>> samples, Classifier<T> *classifier, int number) {
+    Golub<T>::Golub(shared_ptr<Data<T>> samples, classifier::Classifier<T> *classifier, int number) {
         this->samples = samples;
         this->classifier = classifier;
         this->number = number;

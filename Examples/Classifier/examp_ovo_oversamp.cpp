@@ -4,18 +4,18 @@
 #include "SMO.hpp"
 #include "OneVsOne.hpp"
 #include "IMA.hpp"
-#include "Sampling.hpp"n fal
+#include "Sampling.hpp"
 
 int main(int argc, char *argv[]){
     mltk::Data<double> data("iris_mult.csv");
     std::cout << data << std::endl;
     
-    mltk::IMAp<double> imap;
+    mltk::classifier::IMAp<double> imap;
     imap.setVerbose(0);
     imap.setFlexible(0.001);
 
     mltk::SMOTE<double> smote;
-    mltk::OneVsOne<double> ovo(data, imap, &smote);
+    mltk::classifier::OneVsOne<double> ovo(data, imap, &smote);
     ovo.train();
     
     std::cout << "Original class: " << data[0]->Y() << std::endl;

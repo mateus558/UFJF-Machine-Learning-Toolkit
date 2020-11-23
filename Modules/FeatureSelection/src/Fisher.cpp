@@ -16,7 +16,7 @@ namespace mltk{
     }
 
     template<typename T>
-    Fisher<T>::Fisher(std::shared_ptr<Data<T> > samples, Classifier<T> *classifier, int final_dim) {
+    Fisher<T>::Fisher(std::shared_ptr<Data<T> > samples, classifier::Classifier<T> *classifier, int final_dim) {
         this->samples = samples;
         this->classifier = classifier;
         this->final_dim = final_dim;

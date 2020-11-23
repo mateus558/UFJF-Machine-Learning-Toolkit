@@ -15,7 +15,7 @@
 
 namespace mltk{
     template<typename T>
-    AOS<T>::AOS(std::shared_ptr<Data< T > > samples, Classifier< T > *classifier, typename Validation< T >::CrossValidation *cv,
+    AOS<T>::AOS(std::shared_ptr<Data< T > > samples, classifier::Classifier< T > *classifier, typename Validation< T >::CrossValidation *cv,
                 int breadth, int depth, double bonus, int cut, int look_ahead_depth, int skip,
                 int startover, double g_margin, bool doleave_oo, int sorting_shape, int choice_shape, int verbose) {
         if(cv == nullptr){
@@ -291,7 +291,7 @@ namespace mltk{
         if (this->heap->getSize() == 0) {
             if (this->ftime && isPrimal) //primeira dimens�o -- solu��o exata primal
             {
-                auto *primal = dynamic_cast<PrimalClassifier<T> *>(this->classifier);
+                auto *primal = dynamic_cast<classifier::PrimalClassifier<T> *>(this->classifier);
 
                 if (primal->getQ() == 2) {
                     Kernel K;
@@ -299,7 +299,7 @@ namespace mltk{
                     K.setType(0);
                     K.setParam(0);
 
-                    SMO<T> smo(this->samples, &K, 0);
+                    classifier::SMO<T> smo(this->samples, &K, 0);
 
                     if (!smo.train()) {
                         //if (!smo_train(sample, &w, &margin, &svcount, 0)) {
@@ -328,7 +328,7 @@ namespace mltk{
                 K.setParam(0);
                 K.setType(0);
 
-                SMO<T> smo(this->samples, &K, 0);
+                classifier::SMO<T> smo(this->samples, &K, 0);
                 if (!smo.train()) {
                     //if (!smo_train(sample, &w, &margin, &svcount, 0)) {
                     if (this->verbose > 1) std::cout << "Training failed!\n";

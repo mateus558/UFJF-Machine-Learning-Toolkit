@@ -10,13 +10,13 @@ int main(int argc, char *argv[]){
     mltk::Data<double> data("dataset_54_vehicle.csv", true);
     std::cout << data << std::endl;
     
-    mltk::IMAp<double> imap;
+    mltk::classifier::IMAp<double> imap;
     imap.setVerbose(0);
     imap.setFlexible(500);
     imap.setMaxTime(500);
     
     mltk::BorderlineSMOTEOne<double> smote(4, 0.7, 1);
-    mltk::OneVsAll<double> ova(data, imap, &smote);
+    mltk::classifier::OneVsAll<double> ova(data, imap, &smote);
     
     ova.train();
     
