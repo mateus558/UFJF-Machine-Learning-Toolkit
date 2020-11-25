@@ -219,19 +219,15 @@ namespace mltk{
             return elems;
         }
 
-        /*double min(double a, double b){
-            return (a < b)?a:b;
-        }
-
-        double max(double a, double b){
-            return (a > b)?a:b;
-        }*/
-
-        void printConfusionMatrix(std::vector<int> &classes, std::vector<std::vector<size_t> > &confusion_m) {
+        void printConfusionMatrix(std::vector<int> &classes, std::vector<std::string> classes_names, std::vector<std::vector<size_t> > &confusion_m, bool show_names) {
             size_t i, j, n_classes = classes.size();
             cout << "    ";
             for(i = 0; i < n_classes; i++){
-                cout << classes[i] << "\t";
+                if(!show_names) {
+                    cout << classes[i] << "\t";
+                }else{
+                    cout << classes_names[i] << "\t";
+                }
             }
             cout << endl;
             cout << "    ";
@@ -240,7 +236,11 @@ namespace mltk{
             }
             cout << endl;
             for(i = 0; i < n_classes; i++){
-                cout << classes[i] << " | ";
+                if(!show_names) {
+                    cout << classes[i] << " | ";
+                }else {
+                    cout << classes_names[i] << " | ";
+                }
                 for(j = 0; j < n_classes; j++){
                     cout << confusion_m[i][j] << "\t";
                 }

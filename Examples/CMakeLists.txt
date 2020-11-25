@@ -1,12 +1,8 @@
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 
-include_directories(Core)
-include_directories(Classifier)
-include_directories(Ensemble)
-include_directories(Regression)
-include_directories(Validation)
-include_directories(Clustering)
-
-
-
-
+add_subdirectory(Core)
+add_subdirectory(Classifier)
+add_subdirectory(Ensemble)
+add_subdirectory(Regression)
+add_subdirectory(Validation)
+add_subdirectory(Clustering)

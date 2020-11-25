@@ -18,8 +18,7 @@ namespace mltk{
     typedef std::vector<std::vector<double> > dMatrix;
 
     namespace utils {
-
-        void printConfusionMatrix(std::vector<int> &classes, std::vector<std::vector<size_t> > &confusion_m);
+        void printConfusionMatrix(std::vector<int> &classes, std::vector<std::string> classes_names, std::vector<std::vector<size_t> > &confusion_m, bool show_names=false);
     /**
      * \brief Verify if the string is a number.
      * \param str   String to be tested.

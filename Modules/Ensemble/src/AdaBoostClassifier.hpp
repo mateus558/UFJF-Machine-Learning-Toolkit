@@ -11,7 +11,7 @@
 namespace mltk {
     namespace ensemble {
         template<typename T>
-        class AdaBoostClassifier : public Ensemble<T>, public Classifier<T> {
+        class AdaBoostClassifier : public Ensemble<T>, public classifier::Classifier<T> {
         private:
             size_t n_estimators{};
             Point<double> weights;

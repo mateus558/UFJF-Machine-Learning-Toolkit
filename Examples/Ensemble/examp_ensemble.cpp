@@ -4,44 +4,41 @@
 #include "IMA.hpp"
 #include "KNNClassifier.hpp"
 #include "OneVsAll.hpp"
-#include "Validation.hpp"
+#include "../../Modules/Validation/Validation.hpp"
 #include "PerceptronCommittee.hpp"
 
 using namespace std::chrono;
 
 int main(int argc, char *argv[]){
-    mltk::Data<double> data("iris_mult.csv");
+    mltk::Data<double> data("../iris_mult.csv");
+    auto valid_pair = mltk::validation::partTrainTest(data, 10, 0);
     std::vector<double> weights = {1.5, 1, 2};
 
-    for(auto c: data.getClasses()){
-        std::cout << c << std::endl;
-    }
-
     auto t1 = high_resolution_clock::now();
-    mltk::PerceptronPrimal<double> perc;
-    mltk::IMAp<double> ima;
+    mltk::classifier::PerceptronPrimal<double> perc;
+    mltk::classifier::IMAp<double> ima;
     ima.setVerbose(0);
     ima.setFlexible(0.001);
-    mltk::KNNClassifier<double> knn(data, 30);
-    mltk::PerceptronCommittee<double> pc(data, 20);
-    mltk::OneVsAll<double> ova_ima(data, ima);
-    mltk::OneVsAll<double> ova_pc(data, pc);
-    mltk::VotingClassifier<double> voter(data, "soft", knn, ova_ima, ova_pc);
+    mltk::classifier::KNNClassifier<double> knn(data, 30);
+    mltk::ensemble::PerceptronCommittee<double> pc(data, 20);
+    mltk::classifier::OneVsAll<double> ova_ima(data, ima);
+    mltk::classifier::OneVsAll<double> ova_pc(data, pc);
+    mltk::ensemble::VotingClassifier<double> voter(valid_pair.train, "soft", knn, ova_ima, ova_pc);
 
     voter.setWeights(weights);
     voter.train();
     auto pred = voter.evaluate(*data[100]);
     std::cout << "Original class: " << data[100]->Y() << "\nPredicted class: " << pred << std::endl;
 
-    auto conf_matrix = mltk::Validation<double>::generateConfusionMatrix(voter, data);
+    auto conf_matrix = mltk::validation::generateConfusionMatrix(valid_pair.test, voter);
     auto classes = data.getClasses();
-    mltk::utils::printConfusionMatrix(classes, conf_matrix);
-    std::cout << "Error: " << 100.0-mltk::Validation<double>::confusionMatrixAccuracy(conf_matrix) << "%" << std::endl;
+    auto classes_names = data.getClassNames();
 
-    mltk::Validation<double> validation(data, &voter, 1);
-    validation.setVerbose(2);
-    mltk::ValidationSolution s = validation.validation(10, 10);
-    std::cout << "Validation accuracy: " << s.accuracy << std::endl;
+    mltk::utils::printConfusionMatrix(classes, classes_names, conf_matrix);
+    std::cout << "Error: " << 100.0-mltk::validation::confusionMatrixAccuracy(conf_matrix) << "%" << std::endl;
+
+    mltk::validation::ValidationSolution s = mltk::validation::kkfold(data, voter, 10, 10, 42, 2);
+    std::cout << "Validation accuracy: " << s.accuracy << "%" << std::endl;
     auto time = duration_cast<duration<double> >(high_resolution_clock::now() - t1).count();
     std::cout << "Execution time: " << time << " seconds." << std::endl;
 }

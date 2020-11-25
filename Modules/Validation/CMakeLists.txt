@@ -1,8 +1,9 @@
 add_library(${LIBVALIDATION} SHARED
-    src/Validation.cpp
+    Validation.hpp
 )
 
-set_target_properties(${LIBVALIDATION} PROPERTIES PUBLIC_HEADER "Validation.hpp;include/Validation.hpp")
+set_target_properties(${LIBVALIDATION} PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${LIBVALIDATION} PROPERTIES PUBLIC_HEADER "Validation.hpp")
 
 target_include_directories(${LIBVALIDATION} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

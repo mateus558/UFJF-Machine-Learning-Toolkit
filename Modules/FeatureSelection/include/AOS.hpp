@@ -6,7 +6,7 @@
 #define UFJF_MLTK_AOS_H
 
 #include "FeatureSelection.hpp"
-#include "../../Validation/include/Validation.hpp"
+#include "../../Validation/Validation.hpp"
 
 namespace mltk{
     template < typename T >
