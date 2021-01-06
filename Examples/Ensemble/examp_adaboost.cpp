@@ -10,7 +10,7 @@
 int main(int argc, char* argv[]){
     mltk::Data<double> data("../iris_mult.csv");
     auto valid_pair = mltk::validation::partTrainTest(data, 10, 0);
-    mltk::BalancedPerceptron<double> bp(data);
+    mltk::classifier::BalancedPerceptron<double> bp(data);
     bp.setMaxTime(2500);
     mltk::classifier::OneVsAll<double> ova(valid_pair.train, bp);
     mltk::ensemble::AdaBoostClassifier<double> ada(valid_pair.train, ova, 100);

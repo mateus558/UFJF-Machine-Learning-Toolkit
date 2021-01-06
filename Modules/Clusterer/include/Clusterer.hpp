@@ -11,10 +11,10 @@
 
 namespace mltk{
         namespace clusterer {
-            template<typename T, typename Callable = distance::Euclidean <T> >
+            template<typename T, typename Callable = metrics::dist::Euclidean <T> >
             class Clusterer : public Learner<T> {
             protected:
-                /// Function used to compute the distance between two points
+                /// Function used to compute the metrics between two points
                 Callable dist_function;
                 /// Number of clusters for the cluster method
                 size_t n_clusters;

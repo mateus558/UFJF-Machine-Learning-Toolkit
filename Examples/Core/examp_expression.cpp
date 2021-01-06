@@ -17,9 +17,9 @@ int main(int argc, char *argv[]){
     std::cout << x << std::endl;
     std::cout << *k << std::endl;
 
-    std::cout << mltk::distance::Euclidean<double>()(x, y) << std::endl;
-    std::cout << mltk::distance::Manhattan<double>()(x, y) << std::endl;
-    std::cout << mltk::distance::Chebyshev<double>()(x, y) << std::endl;
+    std::cout << mltk::metrics::dist::Euclidean<double>()(x, y) << std::endl;
+    std::cout << mltk::metrics::dist::Manhattan<double>()(x, y) << std::endl;
+    std::cout << mltk::metrics::dist::Chebyshev<double>()(x, y) << std::endl;
     std::cout << *k << std::endl;
     std::cout << (mltk::pow((*k)*17, 3) % 5).sum() << std::endl;
     

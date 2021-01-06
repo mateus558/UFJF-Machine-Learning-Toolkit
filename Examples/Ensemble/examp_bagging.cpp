@@ -4,9 +4,8 @@
 
 #include <chrono>
 #include <iostream>
-#include "BaggingClassifier.hpp"
+#include "../Ensemble.hpp"
 #include "../../Modules/Validation/Validation.hpp"
-#include "PerceptronCommittee.hpp"
 
 using namespace std::chrono;
 
@@ -19,7 +18,7 @@ int main(int argc, char* argv[]){
     mltk::ensemble::BaggingClassifier<double> bag(data, bp, 20);
     bag.train();
 
-    auto pred = bag.evaluate((*data[10]));
+    auto pred = bag.evaluate(*data[10]);
     std::cout << "Original class: " << data[10]->Y() << "\nPredicted class: " << pred << std::endl;
 
     auto conf_matrix = mltk::validation::generateConfusionMatrix(valid_pair.test, bag);

@@ -22,8 +22,8 @@ std::pair<double, double> measure(size_t size){
         sum += (p[i] * q[i] - q[i] + 2) *(p[i] * q[i] - q[i] + 2);
     }
     t2 = high_resolution_clock::now();
-    std::cout << size << " " << sum << std::endl;
-    std::cout << std::endl;
+//    std::cout << size << " " << sum << std::endl;
+//    std::cout << std::endl;
     duration<double> time_span2 = duration_cast<duration<double>>(t2-t1);
     return std::make_pair(time_span1.count(), time_span2.count());
 }
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
     measures << "size,Expression templates,Raw loop" << std::endl;
     for(size_t size = 1; size < 1E7; size *= 2){
         auto times = measure(size);
-        measures << size << "," << times.first << "," << times.second << std::endl;
+        //measures << size << "," << times.first << "," << times.second << std::endl;
     }
     measures.close();
 

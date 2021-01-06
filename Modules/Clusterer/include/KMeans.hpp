@@ -13,7 +13,7 @@ namespace mltk{
             /**
              * \brief Wrapper for the implementation of the K-Means clustering algorithm.
              */
-            template<typename T, typename Callable = distance::Euclidean<T> >
+            template<typename T, typename Callable = metrics::dist::Euclidean<T> >
             class KMeans : public Clusterer<T> {
             private:
                 /// Algorithm used for the initialization of the K-Means algorithm

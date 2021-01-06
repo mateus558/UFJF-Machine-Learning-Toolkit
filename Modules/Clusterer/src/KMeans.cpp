@@ -44,7 +44,7 @@ namespace mltk{
             } else if (initialization == "kmeanspp") {
                 // choose the first center randomly
                 this->centers[0] = points[dist(mersenne_engine)]->X();
-                // choose the next cluster in points with a probability directly proportional to the distance from the
+                // choose the next cluster in points with a probability directly proportional to the metrics from the
                 // last chosen cluster.
                 for (size_t i = 1; i < this->centers.size(); i++) {
                     double sum_d = 0.0;

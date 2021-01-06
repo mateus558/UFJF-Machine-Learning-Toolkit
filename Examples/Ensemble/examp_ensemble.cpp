@@ -10,7 +10,7 @@
 using namespace std::chrono;
 
 int main(int argc, char *argv[]){
-    mltk::Data<double> data("../iris_mult.csv");
+    mltk::Data<double> data("../iris.data");
     auto valid_pair = mltk::validation::partTrainTest(data, 10, 0);
     std::vector<double> weights = {1.5, 1, 2};
 

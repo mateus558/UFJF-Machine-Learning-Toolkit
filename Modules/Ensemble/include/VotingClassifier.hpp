@@ -3,7 +3,10 @@
 
 #include "Ensemble.hpp"
 #include "Classifier.hpp"
-
+#include <memory>
+#include <vector>
+#include <string>
+#include "Learner.hpp"
 namespace mltk{
     namespace ensemble {
         template<typename T>
@@ -26,6 +29,8 @@ namespace mltk{
             }
 
         public:
+            VotingClassifier() = default;
+
             template<template<typename...> class WeakLearner>
             VotingClassifier(Data<T> &samples, const std::string &voting_type, WeakLearner<T> flearner)
                     : voting_type(voting_type) {
@@ -36,14 +41,19 @@ namespace mltk{
             template<template<typename...> class WeakLearner,
                     template<typename...> class... WeakLearners>
             VotingClassifier(Data<T> &samples, const std::string &voting_type, WeakLearner<T> flearner,
-                             WeakLearners<T>... weak_learners)
-                    : voting_type(voting_type) {
+                             WeakLearners<T>... weak_learners): voting_type(voting_type) {
                 this->samples = std::make_shared<Data<T> >(samples);
                 fillLearnersVector(flearner, weak_learners...);
             }
 
+            VotingClassifier(Data<T> &samples, const std::string &voting_type, std::vector<LearnerPointer<T>>& _learners)
+                    : voting_type(voting_type) {
+                this->samples = std::make_shared<Data<T>>(samples);
+                this->learners = _learners;
+            }
+
             bool train() override {
-#pragma omp parallel for default(none)
+//#pragma omp parallel for default(none)
                 // train each one of the given learners
                 for (size_t i = 0; i < this->learners.size(); i++) {
                     this->learners[i]->setSamples(this->samples);
@@ -69,7 +79,7 @@ namespace mltk{
                         return (a == pred);
                     }) - _classes.begin();
                     // count prediction as a vote
-                    votes[pred_pos] += 1 * this->weights[i];
+                    votes[pred_pos] += this->weights[i];
                 }
 
                 size_t max_votes = std::max_element(votes.X().begin(), votes.X().end()) - votes.X().begin();
@@ -80,6 +90,10 @@ namespace mltk{
                 assert(weights.size() == this->learners.size());
                 this->weights.X().resize(weights.size());
                 this->weights = weights;
+            }
+
+            void setLearners(std::vector<LearnerPointer<T>>& learners){
+                this->learners = learners;
             }
 
             std::string getFormulationString() override {

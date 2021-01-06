@@ -14,14 +14,14 @@ namespace mltk{
         // Attributes
     protected:
         /// Committee size.
-        size_t c_size;
+        size_t c_size{};
         /// Pointer to base learner used by the ensemble method.
         std::vector< LearnerPointer< T > > learners;
         /// Ensemble solution.
         Solution solution;
     public:
-        Ensemble() {}
-        Ensemble(DataPointer< T > samples): Learner< T > (samples) {}
+        Ensemble() = default;
+        explicit Ensemble(DataPointer< T > samples): Learner< T > (samples) {}
         /*********************************************
          *               Getters                     *
          *********************************************/

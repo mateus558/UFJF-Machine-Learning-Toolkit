@@ -152,7 +152,7 @@ namespace mltk{
             F_Abs(OP const& a): UExprOp<T, OP>(a) {}
 
             T operator[](const size_t& idx) const override {
-                return std::abs(this->op[idx]);
+                return std::fabs(this->op[idx]);
             }
     };
 

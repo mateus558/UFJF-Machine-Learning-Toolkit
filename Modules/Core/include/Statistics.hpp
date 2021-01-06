@@ -86,15 +86,15 @@ namespace mltk{
          */
         static double getRadius(std::shared_ptr<Data< T > > data, int index, double q);
         /**
-         * \brief Returns distance of centers of the classes.
-         * \param data  Dataset to compute the distance.
+         * \brief Returns metrics of centers of the classes.
+         * \param data  Dataset to compute the metrics.
          * \param index Feature to be ignored (-1 uses all features).
          * \return double
          */
         static double getDistCenters(std::shared_ptr<Data< T > > data, int index);
         /**
-         * \brief Returns distance of centers of the classes without given features.
-         * \param data  Dataset to compute the distance.
+         * \brief Returns metrics of centers of the classes without given features.
+         * \param data  Dataset to compute the metrics.
          * \param feats Features to be excluded from the computation.
          * \param index Feature to be ignored (-1 uses all features).
          * \return double

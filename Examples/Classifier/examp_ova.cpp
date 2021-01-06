@@ -9,12 +9,7 @@ int main(int argc, char *argv[]){
     mltk::Data<double> data("../letter-recognition.csv");
     auto valid_pair = mltk::validation::partTrainTest(data, 10, 0);
     mltk::classifier::IMAp<double> imap;
-    imap.setVerbose(0);
-    imap.setFlexible(300);
-    imap.setMaxTime(2500);
     mltk::classifier::OneVsAll<double> ova(valid_pair.train, imap);
-
-    std::cout << data << std::endl;
 
     ova.train();
     

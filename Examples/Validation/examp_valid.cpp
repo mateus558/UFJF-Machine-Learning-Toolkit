@@ -8,7 +8,7 @@ int main(int argc, char *argv[]){
     mltk::DataPointer<double> sample = std::make_shared<mltk::Data<double> >();
     size_t fold = 10;
     int verbose = 2;
-    mltk::Classifier< double >  *classifier = new mltk::PerceptronPrimal<double >();
+    mltk::classifier::Classifier< double >  *classifier = new mltk::classifier::PerceptronPrimal<double >();
     std::vector<double> error_arr(fold);
 
     std::vector<mltk::DataPointer<double> > folds(fold);

@@ -16,6 +16,7 @@
 #include <memory>
 #include <algorithm>
 #include <omp.h>
+#include <initializer_list>
 
 #include "PointExpression/ExprOps.hpp"
 #include "PointExpression/ExprScalar.hpp"
@@ -63,6 +64,7 @@ namespace mltk {
              **/
             Point(Rep const& rb): x(rb) {}
 
+            Point(std::initializer_list<T> init): x(init) {}
 
             /*********************************************
              *               Getters                     *
@@ -217,7 +219,9 @@ namespace mltk {
 
             // assignment operator from same type
             Point& operator=(Point const& b) {
-                assert(size() == b.size());
+                if(size() == 0){
+                    x.resize(b.size());
+                }
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -229,7 +233,9 @@ namespace mltk {
             }
 
             Point& operator=(std::vector<T> const& b) {
-                assert(size() == b.size());
+                if(size() == 0){
+                    x.resize(b.size());
+                }
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -243,7 +249,9 @@ namespace mltk {
             // assignment operator for arrays of different types
             template <typename T2, typename Rep2 >
             Point& operator=(Point<T2, Rep2> const& b) {
-                assert(size() == b.size());
+                if(size() == 0){
+                    x.resize(b.size());
+                }
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
@@ -256,7 +264,9 @@ namespace mltk {
 
             template< typename T2 >
             Point& operator=(std::vector<T2> const& b) {
-                assert(size() == b.size());
+                if(size() == 0){
+                    x.resize(b.size());
+                }
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000)
                 #endif
@@ -523,6 +533,19 @@ namespace mltk {
         return _max;
     }
 
+    /**
+     * \brief Returns the min value of the point.
+     * \return T
+     */
+    template < typename T, typename R >
+    T min(const Point<T, R> &p){
+        T _min = std::numeric_limits<T>::max();
+        for(size_t i = 0; i < p.size(); i++){
+            if(p[i] > _min) _min = p[i];
+        }
+        return _min;
+    }
+
     template < typename T, typename R = std::vector< T > >
     void random_init(Point<T, R> &p, const size_t &size, const size_t &seed){
         std::random_device rd;
@@ -585,10 +608,7 @@ namespace mltk {
     // equality of two points
     template <typename T, typename R>
     bool Point<T, R>::operator== (Point<T, R> const& rhs) const{
-        return x == rhs.x &&
-            y == rhs.y &&
-            alpha == rhs.alpha &&
-            id == rhs.id;
+        return x == rhs.x;
     }
 
     // difference of two points

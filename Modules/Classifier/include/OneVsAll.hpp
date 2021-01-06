@@ -89,7 +89,7 @@ namespace mltk{
                 auto classes = this->samples->getClasses();
                 std::vector<double> dist_hyperplanes(base_learners.size());
 
-                // classify the point as the class with maximum distance
+                // classify the point as the class with maximum metrics
                 std::transform(base_learners.begin(), base_learners.end(), dist_hyperplanes.begin(),
                                [&p](auto &learner) {
                                    return learner->evaluate(p, true);

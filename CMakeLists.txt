@@ -46,8 +46,10 @@ if(BUILD_CLI)
     add_subdirectory(CLI)
 endif()
 
-add_subdirectory(Examples)
-
 if(BUILD_GUI)
     add_subdirectory(GUI)
 endif()
+
+ENABLE_TESTING()
+add_subdirectory(Examples)
+add_subdirectory(Tests)

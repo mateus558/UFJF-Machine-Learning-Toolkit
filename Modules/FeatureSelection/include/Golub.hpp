@@ -4,25 +4,30 @@
 
 #ifndef UFJF_MLTK_GOLUB_H
 #define UFJF_MLTK_GOLUB_H
-
+#pragma once
 #include "FeatureSelection.hpp"
 
 namespace mltk{
-    template < typename T >
-    class Golub: public FeatureSelection< T > {
-    private:
-        int number;
+    namespace featselect {
+        template<typename T>
+        class Golub : public FeatureSelection<T> {
+        private:
+            int number;
 
-        struct golub_select_score
-        {
-            int fname;
-            double score;
+            struct golub_select_score {
+                int fname;
+                double score;
+            };
+
+            static int golub_select_compare_score_greater(const golub_select_score &a, const golub_select_score &b);
+
+        public:
+            explicit Golub(std::shared_ptr<Data<T> > samples = nullptr, classifier::Classifier<T> *classifier = nullptr,
+                           int number = 0);
+
+            std::shared_ptr<Data<T> > selectFeatures() override;
         };
-        static int golub_select_compare_score_greater(const golub_select_score &a, const golub_select_score &b);
-    public:
-        explicit Golub(std::shared_ptr<Data< T > > samples = nullptr, classifier::Classifier< T > *classifier = nullptr, int number = 0);
-        std::shared_ptr<Data< T > > selectFeatures() override;
-    };
+    }
 }
 
 #endif //UFJF_MLTK_GOLUB_H

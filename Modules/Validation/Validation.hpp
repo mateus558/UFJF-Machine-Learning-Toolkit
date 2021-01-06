@@ -5,6 +5,7 @@
 
 #ifndef VALIDATION__HPP
 #define VALIDATION__HPP
+#pragma once
 
 #include "Classifier.hpp"
 #include "DualClassifier.hpp"
@@ -82,14 +83,14 @@ namespace mltk{
                 confusion_m[idp][idy]++;
             }
 
-            for(i = 0; i < confusion_m.size(); i++){
-                acc += *std::max_element(confusion_m[i].begin(), confusion_m[i].end());
-            }
-            std::cout << "Purity: " << acc / size << std::endl;
+//            for(i = 0; i < confusion_m.size(); i++){
+//                acc += *std::max_element(confusion_m[i].begin(), confusion_m[i].end());
+//            }
+//            std::cout << "Purity: " << acc / size << std::endl;
             return confusion_m;
         }
 
-        double confusionMatrixAccuracy(const std::vector<std::vector<size_t> > &conf_matrix){
+       inline double confusionMatrixAccuracy(const std::vector<std::vector<size_t> > &conf_matrix){
             double errors = 0, total = 0;
             for(size_t i = 0; i < conf_matrix.size(); i++){
                 for(size_t j = 0; j < conf_matrix[i].size(); j++){
@@ -131,12 +132,12 @@ namespace mltk{
         }
 
         /**
-         * \brief Executes the k
+         * \brief Executes k-fold stratified cross-validation
          * \param fold Number of folds.
          * \param seed  Seed to feed the pseudo random number generator.
          */
         template <typename T>
-        double kFold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold, const size_t &seed, const int verbose){
+        double kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold, const size_t &seed, const int verbose){
             double error = 0.0;
             std::vector<double> error_arr(fold);
             auto classes = sample.getClasses();
@@ -252,7 +253,7 @@ namespace mltk{
         template <typename T>
         ValidationSolution kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t &fold, const size_t &qtde, const size_t &seed = 0, const int &verbose = 0){
             auto valid_pair = partTrainTest(samples, fold, seed);
-            int i = 0, k = 0, svcount = 0;
+            int i;
             size_t fp = 0, fn = 0, tp = 0, tn = 0, erro=0;
             double error = 0, errocross = 0, func = 0.0, margin = 0, bias;
             std::vector<double> w;
@@ -267,9 +268,9 @@ namespace mltk{
                 for(errocross = 0, i = 0; i < qtde; i++)
                 {
                     if(verbose) std::cout << "\nExecucao " << i + 1 << " / " << qtde << ":\n";
-                    errocross += kFold(samples, classifier, fold, seed + i, verbose);
+                    errocross += kfold(samples, classifier, fold, seed + i, verbose);
                 }
-                std::cout << "\n\nErro " << fold << "-Fold Cross Validation: " << errocross/qtde << "%\n";
+                if(verbose >= 1)std::cout << "\n\nErro " << fold << "-Fold Cross Validation: " << errocross/qtde << "%\n";
                 solution.accuracy = 100.0 - errocross/qtde;
                 solution.precision /= qtde*fold;
                 solution.recall /= qtde*fold;
@@ -303,7 +304,7 @@ namespace mltk{
                 w = s.w;
                 bias = s.bias;
 
-                size_t i = 0;
+                i = 0;
                 for(auto it = valid_pair.test.begin(); it != valid_pair.test.end(); it++, i++){
                     auto point = (*it);
                     double _y = classifier.evaluate(*point);
@@ -353,12 +354,11 @@ namespace mltk{
                 if(verbose) std::cout.flush();
             }
 
-            std::cout << "Validation Error: " << erro << " -- " <<  ((double)erro/(double)valid_pair.test.getSize())*100.0f << "%\n";
+            if(verbose >= 1) std::cout << "Validation Error: " << erro << " -- " <<  ((double)erro/(double)valid_pair.test.getSize())*100.0f << "%\n";
             error += ((double)erro/(double)valid_pair.test.getSize())*100.0f;
 
             return solution;
         }
-
     }
 }
 #endif

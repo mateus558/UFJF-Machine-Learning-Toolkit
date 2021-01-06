@@ -10,7 +10,7 @@ namespace mltk{
     /**
      * \brief Base class for the implementation of over sampling methods.
      */
-    template < typename T, typename Callable = distance::Euclidean< T > >
+    template < typename T, typename Callable = metrics::dist::Euclidean< T > >
     class OverSampling{
     protected:
         Callable distance_metric;
@@ -23,7 +23,7 @@ namespace mltk{
     /**
      * \brief Functor for the implementation of the SMOTE over sampling algorithm.
      */
-    template < typename T, typename Callable = distance::Euclidean< T > >
+    template < typename T, typename Callable = metrics::dist::Euclidean< T > >
     class SMOTE: public OverSampling< T, Callable > {
     private:
         /// Seed used for randomization
@@ -61,18 +61,18 @@ namespace mltk{
                 size_t id = 0;
                 auto _z = *(*z);
 
-                // compute the distance from a point to the rest 
+                // compute the metrics from a point to the rest
                 std::transform(Z.begin(), Z.end(), distance.begin(), [this, &_z, &id](auto p){
                     id++;
                     return std::make_pair(id, this->distance_metric(_z, *p));
                 });
 
-                // sort the distances in increasing distance order
+                // sort the distances in increasing metrics order
                 std::sort(distance.begin(), distance.end(), [](auto &d1, auto &d2){
                     return d1.second < d2.second;
                 });
 
-                // remove points with equal distance or duplicate ids
+                // remove points with equal metrics or duplicate ids
                 distance.erase(std::unique(distance.begin(), distance.end(), [](auto &d1, auto &d2){
                     return (d1.second == d2.second) || ((d1.first == d2.first));
                 }), distance.end());
@@ -111,7 +111,7 @@ namespace mltk{
     /**
      * \brief Functor for the implementation of the Borderline SMOTE 1 over sampling algorithm.
      */
-    template < typename T, typename Callable = distance::Euclidean< T > >
+    template < typename T, typename Callable = metrics::dist::Euclidean< T > >
     class BorderlineSMOTEOne: public OverSampling< T, Callable > {
     private:
         /// Seed used for randomization
@@ -143,18 +143,18 @@ namespace mltk{
                 size_t id = 0;
                 auto _z = (*z);
 
-                // compute the euclidean distance from a point to the rest 
+                // compute the euclidean metrics from a point to the rest
                 std::transform(data.begin(), data.end(), distance.begin(), [this, &_z, &id](auto p){
                     id++;
                     return std::make_pair(id, this->distance_metric(*_z, *p));
                 });
 
-                // sort the distances in increasing distance order
+                // sort the distances in increasing metrics order
                 std::sort(distance.begin(), distance.end(), [](auto &d1, auto &d2){
                     return d1.second < d2.second;
                 });
                 
-                // remove points with equal distance or duplicate ids
+                // remove points with equal metrics or duplicate ids
                 distance.erase(std::unique(distance.begin(), distance.end(), [](auto &d1, auto &d2){
                     return (d1.second == d2.second) || ((d1.first == d2.first));
                 }), distance.end());

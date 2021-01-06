@@ -547,12 +547,10 @@ void datasetOption(int option){
                     cout << "Seed for timestamps: ";
                     cin >> seed;
 
-                    Validation<double> valid(*samples, nullptr, seed);
-
                     clock_t begin = clock();
-                    valid.partTrainTest(fold);
-                    test_sample = *valid.getTestSample();
-                    train_sample = *valid.getTrainSample();
+                    auto valid_data = validation::partTrainTest(*samples, 10, 42);
+                    test_sample = valid_data.test;
+                    train_sample = valid_data.train;
                     clock_t end = clock();
 
                     cout << "\nDone!" << endl;
@@ -913,11 +911,11 @@ void featureSelectionOption(int option){
     classifier::IMAp<double> imap(samples);
     classifier::IMADual<double> imadual(samples);
     classifier::SMO<double> smo;
-    Validation<double>::CrossValidation cv;
-    RFE<double> rfe;
-    Golub<double> golub;
-    Fisher<double> fisher;
-    AOS<double> aos;
+    validation::CrossValidation cv;
+    mltk::featselect::RFE<double> rfe;
+    mltk::featselect::Golub<double> golub;
+    mltk::featselect::Fisher<double> fisher;
+    mltk::featselect::AOS<double> aos;
     shared_ptr<Data<double> > res;
     KernelType type;
 
@@ -1533,7 +1531,7 @@ void clusterersOption(int option){
                 clusterer::KMeans<double> kmeans(samples, k, (initialization == 0) ? "random" : "kmeanspp");
                 kmeans.setMaxTime(max_time);
                 kmeans.train();
-                auto conf_m = Validation<double>::generateConfusionMatrix(kmeans, *samples);
+                auto conf_m = validation::generateConfusionMatrix(*samples, kmeans);
 
                 Data<double> _data;
                 _data.copy(*samples);
@@ -1546,7 +1544,7 @@ void clusterersOption(int option){
                 iota(classes.begin(), classes.end(), 1);
                 _data.setClasses(classes);
                 cout << endl;
-                utils::printConfusionMatrix(classes, conf_m);
+                utils::printConfusionMatrix(classes, samples->getClassNames(), conf_m);
                 if(_data.getDim() >= 3 )
                     vis.plot3D(1,2,3);
                 if(_data.getDim() == 2)
@@ -1650,7 +1648,7 @@ void validationOption(int option){
     int fold, qtde, kernel_type;
     int p, q, i, norm, flexible, svs;
     double rate, gamma, alpha_prox, kernel_param = 0;
-    ValidationSolution val_sol;
+    validation::ValidationSolution val_sol;
 
     switch(option){
         case 1:
@@ -1702,18 +1700,14 @@ void validationOption(int option){
                 imap.setAlphaAprox(alpha_prox);
 
                 clock_t begin = clock();
-                Validation<double> validate(*samples, &imap, 10);
-
-                validate.setVerbose(verbose);
-                validate.partTrainTest(fold);
-                val_sol = validate.validation(fold, qtde);
+//                val_sol = validate.validation(fold, qtde);
                 clock_t end = clock();
-
-                cout << "\n\n   " << fold << "-Fold Cross Validation stats:" << endl;
-                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
-                cout << "Precision: "<< val_sol.precision << endl;
-                cout << "Recall: "<< val_sol.recall << endl;
-                cout << endl;
+//
+//                cout << "\n\n   " << fold << "-Fold Cross Validation stats:" << endl;
+//                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
+//                cout << "Precision: "<< val_sol.precision << endl;
+//                cout << "Recall: "<< val_sol.recall << endl;
+//                cout << endl;
 
                 double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
                 cout << endl;
@@ -1753,16 +1747,16 @@ void validationOption(int option){
                 classifier::IMADual<double> ima_dual(samples, &K, rate, nullptr);
                 ima_dual.setMaxTime(max_time);
 
-                Validation<double> validate(*samples, &ima_dual, 10);
-
-                validate.setVerbose(verbose);
-                validate.partTrainTest(fold);
-                val_sol = validate.validation(fold, qtde);
+//                Validation<double> validate(*samples, &ima_dual, 10);
+//
+//                validate.setVerbose(verbose);
+//                validate.partTrainTest(fold);
+//                val_sol = validate.validation(fold, qtde);
                 clock_t end = clock();
 
-                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
-                cout << "Precision: "<< val_sol.precision << endl;
-                cout << "Recall: "<< val_sol.recall << endl;
+//                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
+//                cout << "Precision: "<< val_sol.precision << endl;
+//                cout << "Recall: "<< val_sol.recall << endl;
                 cout << endl;
 
                 double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
@@ -1801,11 +1795,11 @@ void validationOption(int option){
                 classifier::SMO<double> smo(samples, &K, verbose);
                 smo.setMaxTime(max_time);
 
-                Validation<double> validate(*samples, &smo, 10);
-
-                validate.setVerbose(verbose);
-                validate.partTrainTest(fold);
-                val_sol = validate.validation(fold, qtde);
+//                Validation<double> validate(*samples, &smo, 10);
+//
+//                validate.setVerbose(verbose);
+//                validate.partTrainTest(fold);
+//                val_sol = validate.validation(fold, qtde);
                 clock_t end = clock();
 
                 cout << "\nAccuracy: "<< val_sol.accuracy << endl;
@@ -1980,9 +1974,9 @@ void primalClassifiersOption(int option){
                 vector<string> class_names = samples->getClassNames();
                 vector<int> classes = samples->getClasses();
 
-                auto conf_matrix = Validation<double>::generateConfusionMatrix(knn, *samples);
+                auto conf_matrix = validation::generateConfusionMatrix(*samples, knn);
                 cout << "Confusion Matrix: " << endl;
-                utils::printConfusionMatrix(classes, conf_matrix);
+                utils::printConfusionMatrix(classes, samples->getClassNames(), conf_matrix);
                 waitUserAction();
             }else{
                 cout << "Load a dataset first..." << endl;
