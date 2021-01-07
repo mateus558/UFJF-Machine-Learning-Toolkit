@@ -201,7 +201,7 @@ namespace mltk {
              * \brief Compute the sum of the components of the point.
              * \return The sum of the components of the point.
              **/
-            T sum(const std::function <T (T)>& f = [](T const& x) { return x;}){ 
+            T sum(const std::function <T (T)>& f = [](T const& t) { return t;}){
                 T _sum = T();
                 #if DEBUG == 1
                 #pragma omp parallel for reduction (+:_sum)

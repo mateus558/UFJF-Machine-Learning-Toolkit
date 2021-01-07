@@ -9,3 +9,4 @@
 #include "include/Data.hpp"
 #include "include/Kernel.hpp"
 #include "include/DistanceMetric.hpp"
+#include "include/BallTree.hpp"

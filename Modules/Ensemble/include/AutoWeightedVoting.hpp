@@ -14,7 +14,7 @@ namespace mltk {
         template<typename T>
         class AutoWeightedVoting : public Ensemble<T>, public classifier::Classifier<T> {
         private:
-            size_t p_size = 50, fold = 5;
+            size_t p_size = 20, fold = 5;
             double F = 0.8, CR = 0.9;
             std::vector<double> best_weights;
             VotingClassifier<T> voter;

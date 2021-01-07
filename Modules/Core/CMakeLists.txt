@@ -3,7 +3,7 @@ add_library(${LIBCORE} SHARED
         src/Statistics.cpp
         src/Utils.cpp
         src/Kernel.cpp
-)
+        )
 
 set_target_properties(${LIBCORE} PROPERTIES PUBLIC_HEADER "Core.hpp;include/Data.hpp;include/Learner.hpp;include/Point.hpp;include/Random.hpp;include/Solution.hpp;include/Statistics.hpp;include/Timer.hpp;include/Utils.hpp;include/Kernel.hpp")
 message(STATUS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR})

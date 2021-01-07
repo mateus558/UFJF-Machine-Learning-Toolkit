@@ -1352,6 +1352,7 @@ namespace mltk{
         }
     }
 
+
     template class mltk::Data<int>;
     template class mltk::Data<double>;
     template class mltk::Data<float>;
