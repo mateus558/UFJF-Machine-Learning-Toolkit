@@ -358,7 +358,7 @@ namespace mltk{
         ifstream input(path.c_str());
         istringstream ss;
         string str, item;
-        int dim, ldim, _size, c;
+        int _dim, ldim, _size, c;
         bool atBegin, flag, cond;
 
         if(!input){
@@ -366,12 +366,12 @@ namespace mltk{
             return false;
         }
 
-        dim = ldim = _size = c = 0;
+        _dim = ldim = _size = c = 0;
         atEnd = atBegin = flag = cond = false;
 
         //Verify if the class is at the begining or at the end and error check
         while(getline(input, str)){
-            dim = 0;
+            _dim = 0;
             ss.str(str);
 
             while(getline(ss, item, ',')){
@@ -381,11 +381,11 @@ namespace mltk{
                 });
                 
                 if(!utils::is_number(item) && (found_class != this->class_names.end())){
-                    clog << "Warning: point[" << _size << "] " << dim + 1 << " feature is not a number. (" << item << ")" << endl;
-                    dim--;
+                    clog << "Warning: point[" << _size << "] " << _dim + 1 << " feature is not a number. (" << item << ")" << endl;
+                    _dim--;
                 }
                 if(this->isClassification()) {
-                    if (dim == 0 && !flag) {
+                    if (_dim == 0 && !flag) {
                         if (!((item == pos_class) || (item == neg_class))) {
                             atEnd = true;
                             flag = true;
@@ -397,28 +397,28 @@ namespace mltk{
                         }
                     }
                 }
-                dim++;
+                _dim++;
             }
 
-            if(ldim != dim && ldim != 0){
+            if(ldim != _dim && ldim != 0){
                 cerr << "All the samples must have the same dimension!" << endl;
                 return false;
             }
 
-            ldim = dim;
+            ldim = _dim;
             _size++;
             ss.clear();
         }
         input.clear();
         input.seekg(0, ios::beg);
 
-        //initialize dim and _size
-        dim--;
-        this->dim = dim;
+        //initialize _dim and _size
+        _dim--;
+        this->dim = _dim;
         this->size = _size;
 
         //reserve memory for fnames array and set feature names
-        fnames.assign(dim, 0);
+        fnames.assign(_dim, 0);
         index.assign(_size, 0);
         iota(fnames.begin(), fnames.end(), 1);
         iota(index.begin(), index.end(), 0);
@@ -431,7 +431,7 @@ namespace mltk{
         //Read line (sample) from file
         while(getline(input, str)){
             auto new_point = make_shared<Point< T > >();
-            dim = -1;
+            _dim = -1;
             ss.str(str);
 
             //reserve memory for features
@@ -442,11 +442,11 @@ namespace mltk{
                 if(atEnd)
                     cond = (!ss.eof() && atEnd);
                 else
-                    cond = dim != 0;
+                    cond = _dim != 0;
 
                 if(cond){
                     if(utils::is_number(item)){
-                        new_point->X()[dim + 1] = utils::atod(item.c_str());
+                        new_point->X()[_dim + 1] = utils::atod(item.c_str());
                     }
                 }else{
                     if(this->isClassification()){
@@ -454,7 +454,7 @@ namespace mltk{
                     }
                     new_point->Y() = c;
                 }
-                dim++;
+                _dim++;
             }
 
             points[_size++] = std::move(new_point);

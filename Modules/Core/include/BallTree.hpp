@@ -12,7 +12,7 @@ namespace mltk {
     namespace metrics {
         template<typename T, typename Metric = dist::Euclidean<T> >
         class BallTree {
-        private:
+
             struct BallNode{
                 Metric distance;
                 Point<T> center{};
@@ -42,8 +42,12 @@ namespace mltk {
             static size_t nodes_count;
             BallTree() = default;
             BallTree(Data<T>& data);
+
             void construct(BallNode* root);
             void build(Data<T> &data);
+            std::vector<std::pair<PointPointer<T>, double>> knn_search(Point<T> const& t, size_t k);
+            void knn_search(Point<T> const& t, size_t k, std::vector<std::pair<PointPointer<T>, double>>& Q, BallNode *child);
+
             ~BallTree();
         };
 
@@ -57,6 +61,14 @@ namespace mltk {
         }
 
         template<typename T, typename Metric>
+        void BallTree<T, Metric>::build(Data<T> &data) {
+            if(data.getSize() == 0) return;
+            auto points = data.getPoints();
+            m_root = new BallNode(points);
+            construct(m_root);
+        }
+
+        template<typename T, typename Metric>
         void BallTree<T, Metric>::construct(BallTree::BallNode *root) {
             if(!root) {
                 return;
@@ -65,9 +77,9 @@ namespace mltk {
             nodes_count++;
 
             if(root->points.size() == 1){
-                root->left = new BallNode;
-                root->left->points.push_back(root->points[0]);
-                root->left->center = *root->points[0];
+//                root->left = new BallNode;
+//                root->left->points.push_back(root->points[0]);
+//                root->left->center = *root->points[0];
                 return;
             }else{
                 auto L = root->find_further_away(root->center);
@@ -85,11 +97,66 @@ namespace mltk {
         }
 
         template<typename T, typename Metric>
-        void BallTree<T, Metric>::build(Data<T> &data) {
-            if(data.getSize() == 0) return;
-            auto points = data.getPoints();
-            m_root = new BallNode(points);
-            construct(m_root);
+        void BallTree<T, Metric>::knn_search(Point<T> const& t, size_t k, std::vector<std::pair<PointPointer<T>, double>>& Q, BallNode *root){
+            if(!root) return;
+            std::cout << root->points.size() << " " << distance(t, *root->points.front()) << std::endl;
+            if((distance(t, root->center) - root->radius) >= distance(t, *Q.front().first)){
+                return ;
+            }else if(root->points.size()==1){
+                for(auto const& p: root->points){
+                    auto dist = distance(t, *p);
+                    auto dist_t_q = distance(t, *Q.front().first);
+                    std::cout << dist << " ";
+                    if(!Q.empty()){
+                        std::cout << dist_t_q << " " << (dist < dist_t_q) << std::endl;
+                    }else std::cout << std::endl;
+                    if(dist < dist_t_q){
+                        std::clog << "heap size: " << Q.size() << std::endl;
+                        Q.push_back(std::make_pair(p, dist));
+                        std::push_heap(Q.begin(), Q.end(), [](auto const& a, auto const& b){
+                            return a.second > b.second;
+                        });
+                        if(Q.size() >= k){
+                            std::clog << "pop from heap" << std::endl;
+                            std::pop_heap(Q.begin(), Q.end(), [](auto const& a, auto const& b){
+                                return a.second > b.second;
+                            });
+                            Q.pop_back();
+                        }
+                    }
+                }
+            }else{
+                double dleft = std::numeric_limits<double>::infinity();
+                if(root->left) dleft = distance(root->left->center, t);
+                double dright = std::numeric_limits<double>::infinity();
+                if(root->right) dright = distance(root->right->center, t);
+                if(dleft > dright){
+                    knn_search(t, k, Q, root->right);
+                    std::cout << "esquerda" << std::endl;
+                    knn_search(t, k, Q, root->left);
+                }else{
+                    knn_search(t, k, Q, root->left);
+                    std::cout << "direita" << std::endl;
+                    knn_search(t, k, Q, root->right);
+                }
+            }
+            return;
+        }
+
+        template<typename T, typename Metric>
+        std::vector<std::pair<PointPointer<T>, double> > BallTree<T, Metric>::knn_search(Point<T> const& t, size_t k) {
+            std::vector<std::pair<PointPointer<T>, double>> Q;
+            for(size_t i = 0; i < k; i++){
+                Q.push_back(std::make_pair(m_root->points[i], distance(t, *m_root->points[i])));
+                std::push_heap(Q.begin(), Q.end(), [](auto const& a, auto const& b){
+                    return a.second > b.second;
+                });
+            }
+            knn_search(t, k, Q, m_root);
+            std::sort(Q.begin(), Q.end(), [](auto const& a, auto const& b){
+                return a.second < b.second;
+            });
+            return Q;
         }
 
         template<typename T, typename Metric>
