@@ -56,6 +56,7 @@ namespace mltk{
 //#pragma omp parallel for default(none)
                 // train each one of the given learners
                 for (size_t i = 0; i < this->learners.size(); i++) {
+                    this->learners[i]->setSeed(this->seed);
                     this->learners[i]->setSamples(this->samples);
                     this->learners[i]->train();
                 }
@@ -81,8 +82,10 @@ namespace mltk{
                     // count prediction as a vote
                     votes[pred_pos] += this->weights[i];
                 }
-
+//                std::cout << "weights: "<< weights << std::endl;
+//                std::cout << votes << " " << p.Y() << std::endl;
                 size_t max_votes = std::max_element(votes.X().begin(), votes.X().end()) - votes.X().begin();
+                //std::cout << _classes[max_votes] << std::endl;
                 return _classes[max_votes];
             }
 
@@ -92,12 +95,22 @@ namespace mltk{
                 this->weights = weights;
             }
 
+            Point<double> getWeights(){ return this->weights; }
+
+            void setVotingType(const std::string& vote_type){ this->voting_type = vote_type; }
+
             void setLearners(std::vector<LearnerPointer<T>>& learners){
                 this->learners = learners;
             }
 
             std::string getFormulationString() override {
                 return this->learners[0]->getFormulationString();
+            }
+
+            VotingClassifier<T>& operator=(VotingClassifier<T> const& voter){
+                this->learners = voter.learners;
+                this->weights = voter.weights;
+                this->samples = voter.samples;
             }
         };
     }

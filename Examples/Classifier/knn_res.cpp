@@ -13,25 +13,32 @@
 using namespace mltk;
 using namespace mltk::metrics;
 
-using ClassifierRef = std::shared_ptr<classifier::Classifier<double>>;
-
 template<typename Metric = dist::Euclidean<double>>
 void add_knn(std::vector<std::string> const& datasets, std::vector<size_t> const& ks, std::map<std::string, std::vector<std::pair<double, size_t>>>& res, bool at_end[]){
     Metric metric;
     size_t i = 0;
+
     std::clog << "\nMetric: " << metric.name() << std::endl;
     std::clog << "Family: " << metric.family() << std::endl;
+    std::clog << "\n---------------------------------------------\n";
     for(auto const& dataset: datasets){
+        Data<double> data(std::string(DATASET_FOLDER) + dataset, at_end[i]);
         std::clog << "\nDataset: " << dataset << std::endl;
+        std::clog << "Size: " <<data.getSize() << std::endl;
+        std::clog << "Dimensions: " << data.getDim() << "\n" << std::endl;
+
         for(auto const& k: ks){
-            Data<double> data(std::string(DATASET_FOLDER) + dataset, at_end[i]);
             classifier::KNNClassifier<double, Metric> knn(data, k);
-            auto error = 100-validation::kfold(data, knn, 10, 42, 0);
+
+            auto error = validation::kkfold(data, knn, 10, 10, 42, 0).accuracy;
             std::clog << "Accuracy for k = " << k << ": " << error << std::endl;
+
             res[dataset].push_back(std::make_pair(error, k));
-            i++;
         }
+        std::clog << "\n---------------------------------------------\n";
+        i++;
     }
+    std::clog << "\n---------------------------------------------\n";
 }
 
 int main(int argc, char* argv[]){

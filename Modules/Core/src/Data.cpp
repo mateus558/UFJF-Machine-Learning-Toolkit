@@ -1057,6 +1057,9 @@ namespace mltk{
         index = data.index;
         size = data.size;
         dim = data.dim;
+        classes = data.classes;
+        class_distribution = data.class_distribution;
+        class_names = data.class_names;
         time_mult = data.time_mult;
         pos_class = data.pos_class;
         neg_class = data.neg_class;
