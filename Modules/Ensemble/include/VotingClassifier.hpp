@@ -82,10 +82,7 @@ namespace mltk{
                     // count prediction as a vote
                     votes[pred_pos] += this->weights[i];
                 }
-//                std::cout << "weights: "<< weights << std::endl;
-//                std::cout << votes << " " << p.Y() << std::endl;
                 size_t max_votes = std::max_element(votes.X().begin(), votes.X().end()) - votes.X().begin();
-                //std::cout << _classes[max_votes] << std::endl;
                 return _classes[max_votes];
             }
 

@@ -46,6 +46,7 @@ namespace mltk{
       /// Timer used to measure the time elapsed in the execution of a Learner.
       Timer timer = Timer();
       size_t seed = 0;
+      double pred_prob = 1.0;
 
   public:
       Learner< T > (){}
@@ -118,6 +119,7 @@ namespace mltk{
        */
       inline double getMaxTime() const { return max_time; }
 
+      double getPredictionProbability() const { return pred_prob; }
       /*********************************************
       *               Setters                     *
       *********************************************/

@@ -251,7 +251,7 @@ namespace mltk{
          * @return double Validation error.
          */
         template <typename T>
-        ValidationSolution kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t &fold, const size_t &qtde, const size_t &seed = 0, const int &verbose = 0){
+        ValidationSolution kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t &qtde, const size_t &fold, const size_t &seed = 0, const int &verbose = 0){
             auto valid_pair = partTrainTest(samples, fold, seed);
             int i;
             size_t fp = 0, fn = 0, tp = 0, tn = 0, erro=0;

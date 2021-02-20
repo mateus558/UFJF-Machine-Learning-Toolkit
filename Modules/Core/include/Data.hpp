@@ -156,6 +156,7 @@ namespace mltk{
         void setType(const std::string &type);
 
         Data() {}
+        Data(const Data<T>& other);
         Data(const std::string &dataset, bool atEnd);
         /**
          * \brief Data constructor to load a dataset from a file.
@@ -303,7 +304,7 @@ namespace mltk{
          * \param file (???) Path to dataset file.
          * \return bool
          */
-        bool load (const std::string& file);
+        bool load (const std::string& file, bool _atEnd=false);
         /**
          * \brief write Write the data to a file with the given extention.
          * \param fname Name of the file.
@@ -341,6 +342,7 @@ namespace mltk{
         void copyZero (const Data< T >& other);
         std::vector< Data< T > > splitByClasses();
         std::vector< Data< T > > splitSample(const std::size_t &split_size, size_t seed = 0);
+        Data< T > selectFeatures(std::vector<size_t> feats);
         Data< T > sampling(const size_t& samp_size, bool with_replacement = true, const size_t &seed=0);
         /**
          * \brief Merge one dataset with another.

@@ -46,6 +46,13 @@ namespace mltk {
              * \brief Empty constructor.
              **/
             Point(){}
+
+            Point(Point<T> const &p){
+                this->x = p.X();
+                this->y = p.Y();
+                this->id = p.Id();
+                this->alpha = p.Alpha();
+            }
             /**
              * \brief Construct a point with initial dimension.
              * \param s Dimension of the point.
@@ -158,6 +165,22 @@ namespace mltk {
                 this->id = _id;
             }
 
+            Point<T> selectFeatures(std::vector<size_t> feats) const {
+                Point<T> p(feats.size());
+                std::sort(feats.begin(), feats.end());
+
+                size_t i = 0;
+                for(auto const& feat: feats){
+                    assert(feat < x.size());
+                    p[i] = x[feat];
+                    i++;
+                }
+                p.Y() = y;
+                p.Id() = id;
+                p.Alpha() = alpha;
+                return p;
+            }
+
             /*********************************************
              *               Access operators            *
              *********************************************/
@@ -239,7 +262,7 @@ namespace mltk {
                 #if DEBUG == 1
                 #pragma omp parallel for schedule(dynamic, 1000) 
                 #endif
-                    for(std::size_t idx = 0; idx < b.size(); ++idx) {
+                    for(std::size_t idx = 0; idx < b.size(); idx++) {
                         x[idx] = b[idx];
                     }
                 

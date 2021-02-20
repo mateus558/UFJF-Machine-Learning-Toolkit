@@ -19,7 +19,7 @@ namespace mltk{
             std::string& family() { return m_family; }
             std::string& name() { return m_name; }
 
-            virtual T operator()(const Point <T> &p1, const Point <T> &p2) = 0;
+            virtual T operator()(const Point <T> &p1, const Point <T> &p2) const = 0;
         };
 
         // Lp Minkowski metrics measures
@@ -34,7 +34,7 @@ namespace mltk{
                 this->m_family = "Lp Minkowski distances";
                 this->m_name = "Euclidean";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return sqrt(mltk::pow(p1 - p2, 2).sum());
             }
         };
@@ -46,7 +46,7 @@ namespace mltk{
                 this->m_family = "Lp Minkowski distances";
                 this->m_name = "Manhattan";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::abs(p1 - p2).sum();
             }
         };
@@ -58,7 +58,7 @@ namespace mltk{
                 this->m_family = "Lp Minkowski distances";
                 this->m_name = "Chebyshev";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::max(mltk::abs(p1 - p2));
             }
         };
@@ -72,7 +72,7 @@ namespace mltk{
                 this->m_family = "L1 Distance measures";
                 this->m_name = "Lorentzian";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::log(1 - mltk::abs(p1 - p2)).sum();
             }
         };
@@ -80,7 +80,7 @@ namespace mltk{
         template<typename T>
         class Canberra : public DistanceMetric<T> {
         public:
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (mltk::abs(p1 - p2) / (mltk::abs(p1) + mltk::abs(p2))).sum();
             }
         };
@@ -88,7 +88,7 @@ namespace mltk{
         template<typename T>
         class Sorensen : public DistanceMetric<T> {
         public:
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::abs(p1 - p2).sum() / (p1 + p2).sum();
             }
         };
@@ -96,7 +96,7 @@ namespace mltk{
         template<typename T>
         class AvgManhattan : public DistanceMetric<T> {
         public:
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::abs(p1 - p2).sum() / p1.size();
             }
         };
@@ -104,7 +104,7 @@ namespace mltk{
         template<typename T>
         class NonIntersection : public DistanceMetric<T> {
         public:
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (1 / 2) * mltk::abs(p1 - p2).sum();
             }
         };
@@ -118,7 +118,7 @@ namespace mltk{
                 this->m_family = "Inner product metrics measures";
                 this->m_name = "Jaccard";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::pow(p1 - p2, 2).sum() /
                        (mltk::pow(p1, 2).sum() + mltk::pow(p2, 2).sum() - (p1 * p2).sum());
             }
@@ -131,7 +131,7 @@ namespace mltk{
                 this->m_family = "Inner product metrics measures";
                 this->m_name = "Cosine";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return 1 - (p1 * p2).sum() / (std::sqrt(mltk::pow(p1, 2).sum()) * std::sqrt(mltk::pow(p2, 2).sum()));
             }
         };
@@ -143,7 +143,7 @@ namespace mltk{
                 this->m_family = "Inner product metrics measures";
                 this->m_name = "Dice";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return 1 - 2 * (p1 * p2).sum() / (mltk::pow(p1, 2).sum() + mltk::pow(p2, 2).sum());
             }
         };
@@ -155,7 +155,7 @@ namespace mltk{
                 this->m_family = "Inner product metrics measures";
                 this->m_name = "Chord";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return std::sqrt(2 - 2 * ((p1 * p2).sum() / (mltk::pow(p1, 2).sum() * mltk::pow(p2, 2).sum())));
             }
         };
@@ -169,7 +169,7 @@ namespace mltk{
                 this->m_family = "Squared Chord distance measures";
                 this->m_name = "Bhattacharyya";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return -std::sqrt(mltk::pow(p1 * p2, 0.5).sum());
             }
         };
@@ -181,7 +181,7 @@ namespace mltk{
                 this->m_family = "Squared Chord distance measures";
                 this->m_name = "SquaredChord";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::pow(mltk::pow(p1, 0.5) - mltk::pow(p2, 0.5), 2).sum();
             }
         };
@@ -193,7 +193,7 @@ namespace mltk{
                 this->m_family = "Squared Chord distance measures";
                 this->m_name = "Matusita";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return std::sqrt(mltk::pow(mltk::pow(p1, 0.5) - mltk::pow(p2, 0.5), 2).sum());
             }
         };
@@ -205,7 +205,7 @@ namespace mltk{
                 this->m_family = "Squared Chord distance measures";
                 this->m_name = "Hellinger";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return std::sqrt(2 * mltk::pow(mltk::pow(p1, 0.5) - mltk::pow(p2, 0.5), 2).sum());
             }
         };
@@ -219,7 +219,7 @@ namespace mltk{
                 this->m_family = "Squared L2 distance measures";
                 this->m_name = "SquaredEuclidean";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::pow(p1 - p2, 2).sum();
             }
         };
@@ -231,7 +231,7 @@ namespace mltk{
                 this->m_family = "Squared L2 distance measures";
                 this->m_name = "Clark";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::pow((p1 - p2)/(mltk::abs(p1) + mltk::abs(p2)), 2).sum();
             }
         };
@@ -243,7 +243,7 @@ namespace mltk{
                 this->m_family = "Squared L2 distance measures";
                 this->m_name = "Neyman";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (mltk::pow(p1 - p2, 2)/p1).sum();
             }
         };
@@ -255,7 +255,7 @@ namespace mltk{
                 this->m_family = "Squared L2 distance measures";
                 this->m_name = "Pearson";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (mltk::pow(p1 - p2, 2)/p2).sum();
             }
         };
@@ -267,7 +267,7 @@ namespace mltk{
                 this->m_family = "Squared L2 distance measures";
                 this->m_name = "Pearson";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (mltk::pow(p1 - p2, 2)/(p1 + p2)).sum();
             }
         };
@@ -279,7 +279,7 @@ namespace mltk{
                 this->m_family = "Squared L2 distance measures";
                 this->m_name = "ProbabilisticSymmetric";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return 2 * (mltk::pow(p1 - p2, 2)/(p1 + p2)).sum();
             }
         };
@@ -291,7 +291,7 @@ namespace mltk{
                 this->m_family = "Squared L2 distance measures";
                 this->m_name = "Divergence";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return 2 * (mltk::pow(p1 - p2, 2)/mltk::pow(p1 + p2, 2)).sum();
             }
         };
@@ -303,7 +303,7 @@ namespace mltk{
                 this->m_family = "Squared L2 distance measures";
                 this->m_name = "AdditiveSymmetric";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return 2 * ((mltk::pow(p1 - p2, 2) * (p1 + p2))/(p1 * p2)).sum();
             }
         };
@@ -315,7 +315,7 @@ namespace mltk{
                 this->m_family = "Squared L2 distance measures";
                 this->m_name = "Average";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return std::sqrt((1/p1.size())*(mltk::pow(p1 - p2, 2)).sum());
             }
         };
@@ -323,7 +323,7 @@ namespace mltk{
 //        template<typename T>
 //        class MeanCensoredEuclidean: public DistanceMetric<T> {
 //        public:
-//            T operator()(const Point <T> &p1, const Point <T> &p2) {
+//            T operator()(const Point <T> &p1, const Point <T> &p2) const {
 //                return mltk::pow(p1-p2,2)/;
 //            }
 //        };
@@ -335,7 +335,7 @@ namespace mltk{
                 this->m_family = "Squared L2 distance measures";
                 this->m_name = "SquaredChiSquared";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (mltk::pow(p1 - p2, 2)/mltk::abs(p1 + p2)).sum();
             }
         };
@@ -349,7 +349,7 @@ namespace mltk{
                 this->m_family = "Shannon entropy distance measures";
                 this->m_name = "KullbackLeibler";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (p1 * mltk::log(p1/p2)).sum();
             }
         };
@@ -361,7 +361,7 @@ namespace mltk{
                 this->m_family = "Shannon entropy distance measures";
                 this->m_name = "Jeffreys";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return ((p1 - p2) * mltk::log(p1/p2)).sum();
             }
         };
@@ -373,7 +373,7 @@ namespace mltk{
                 this->m_family = "Shannon entropy distance measures";
                 this->m_name = "KDivergence";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (p1 * mltk::log((2 * p1)/(p1 + p2))).sum();
             }
         };
@@ -385,7 +385,7 @@ namespace mltk{
                 this->m_family = "Shannon entropy distance measures";
                 this->m_name = "Topsoe";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (p1 * mltk::log((2 * p1)/(p1 + p2))).sum() + (p2 * mltk::log((2 * p2)/(p1 + p2))).sum();
             }
         };
@@ -397,7 +397,7 @@ namespace mltk{
                 this->m_family = "Shannon entropy distance measures";
                 this->m_name = "JensenShannon";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (1/2) * (p1 * mltk::log((2 * p1)/(p1 + p2))).sum() + (p2 * mltk::log((2 * p2)/(p1 + p2))).sum();
             }
         };
@@ -409,7 +409,7 @@ namespace mltk{
                 this->m_family = "Shannon entropy distance measures";
                 this->m_name = "JensenDifference";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (1/2) * ((p1 * mltk::log(p1) + p2 * mltk::log(p2))/2 - ((p1 + p2)/2) * mltk::log((p1 + p2)/2)).sum();
             }
         };
@@ -419,7 +419,7 @@ namespace mltk{
 //        template<typename T>
 //        class VicisWaveHedges: public DistanceMetric<T> {
 //        public:
-//            T operator()(const Point <T> &p1, const Point <T> &p2) {
+//            T operator()(const Point <T> &p1, const Point <T> &p2) const {
 //                return (mltk::abs(p1 - p2)/).sum();
 //            }
 //        };
@@ -427,7 +427,7 @@ namespace mltk{
         template<typename T>
         class MaxSymmetric: public DistanceMetric<T> {
         public:
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return std::max((mltk::pow(p1 - p2, 2)/p1).sum(), (mltk::pow(p1 - p2, 2)/p2).sum());
             }
         };
@@ -435,7 +435,7 @@ namespace mltk{
         template<typename T>
         class MinSymmetric: public DistanceMetric<T> {
         public:
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return std::max((mltk::pow(p1 - p2, 2)/p1).sum(), (mltk::pow(p1 - p2, 2)/p2).sum());
             }
         };
@@ -449,7 +449,7 @@ namespace mltk{
                 this->m_family = "Other distance measures";
                 this->m_name = "AverageL1Linf";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (mltk::abs(p1-p2).sum() + mltk::max(mltk::abs(p1-p2)))/2;
             }
         };
@@ -461,7 +461,7 @@ namespace mltk{
                 this->m_family = "Other distance measures";
                 this->m_name = "KumarJohnson";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (mltk::pow(mltk::pow(p1, 2) + mltk::pow(p2, 2), 2)/(2 * mltk::pow(p1 * p2, 3/2))).sum();
             }
         };
@@ -473,7 +473,7 @@ namespace mltk{
                 this->m_family = "Other distance measures";
                 this->m_name = "Taneja";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (((p1 + p2)/2) * mltk::log((p1 + p2)/(2*mltk::pow(p1 * p2, 0.5)))).sum();
             }
         };
@@ -485,7 +485,7 @@ namespace mltk{
                 this->m_family = "Other distance measures";
                 this->m_name = "Hassanat";
             }
-            T operator()(const Point <T> &p1, const Point <T> &p2) {
+            T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 T sum = 0;
                 for(size_t i = 0; i < p1.size(); i++){
                     auto _min = std::min(p1[i], p2[i]);

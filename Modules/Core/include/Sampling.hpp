@@ -6,7 +6,33 @@
 #include "DistanceMetric.hpp"
 #include <random>
 
-namespace mltk{    
+namespace mltk{
+    template < typename T >
+    class RSM{
+        size_t seed{};
+        size_t n_dims{};
+        double r{};
+        std::mt19937 generator;
+        std::vector<size_t> feats;
+
+    public:
+        RSM()=default;
+        RSM(double r, size_t dims, size_t seed): r(r), seed(seed) {
+            generator.seed(seed);
+            n_dims = std::ceil(r * dims);
+            feats.resize(dims);
+            std::iota(feats.begin(), feats.end(), 0);
+        }
+        std::vector<size_t> operator()(Data< T > &data){
+            std::shuffle(feats.begin(), feats.end(), generator);
+            std::vector<size_t> new_feats(n_dims);
+            for(size_t j = 0; j < new_feats.size(); j++){
+                new_feats[j] = feats[j];
+            }
+            return new_feats;
+        }
+    };
+
     /**
      * \brief Base class for the implementation of over sampling methods.
      */

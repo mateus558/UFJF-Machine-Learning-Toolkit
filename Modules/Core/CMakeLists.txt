@@ -5,7 +5,9 @@ add_library(${LIBCORE} SHARED
         src/Kernel.cpp
         )
 
-set_target_properties(${LIBCORE} PROPERTIES PUBLIC_HEADER "Core.hpp;include/Data.hpp;include/Learner.hpp;include/Point.hpp;include/Random.hpp;include/Solution.hpp;include/Statistics.hpp;include/Timer.hpp;include/Utils.hpp;include/Kernel.hpp")
+set_target_properties(${LIBCORE} PROPERTIES PUBLIC_HEADER "Core.hpp;include/Data.hpp;include/Learner.hpp;include/Point.hpp;include/Random.hpp;include/Solution.hpp;include/Statistics.hpp;
+include/Timer.hpp;include/Utils.hpp;include/Kernel.hpp;include/Sampling.hpp;include/CoverTree.hpp")
+
 message(STATUS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR})
 target_include_directories(${LIBCORE} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

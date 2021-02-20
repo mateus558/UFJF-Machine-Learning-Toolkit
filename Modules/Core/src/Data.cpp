@@ -73,9 +73,11 @@ namespace mltk{
     }
 
     template < typename T >
-    bool mltk::Data< T >::load(const string& file){
+    bool mltk::Data< T >::load(const string& file, bool _atEnd){
         Type t = identifyFileType(file);
         this->cdist_computed = true;
+
+        this->atEnd = _atEnd;
 
         switch (t) {
             case TYPE_ARFF:
@@ -367,7 +369,7 @@ namespace mltk{
         }
 
         _dim = ldim = _size = c = 0;
-        atEnd = atBegin = flag = cond = false;
+        atBegin = flag = cond = false;
 
         //Verify if the class is at the begining or at the end and error check
         while(getline(input, str)){
@@ -387,7 +389,7 @@ namespace mltk{
                 if(this->isClassification()) {
                     if (_dim == 0 && !flag) {
                         if (!((item == pos_class) || (item == neg_class))) {
-                            atEnd = true;
+                            //atEnd = true;
                             flag = true;
                         }
                     } else if (ss.eof() && !flag) {
@@ -1248,14 +1250,14 @@ namespace mltk{
         this->computeClassesDistribution();
         Point< double > dist(class_distribution.size());
         dist = class_distribution;
-        size_t new_size = size_t(getSize()/split_size);
+        auto new_size = size_t(getSize()/split_size);
         auto classes_split = this->splitByClasses();
         std::vector<size_t> marker(classes.size(), 0);
         std::vector<Data<T>> split(split_size);
         dist = (dist/getSize())*new_size;
 
         for(size_t i = 0; i < dist.size(); i++){
-            dist[i] = (dist[i] < 1)?1:std::floor(dist[i]);
+            dist[i] = (dist[i] < 1.0)?1.0:std::round(dist[i]);
         }
 
         for(size_t i = 0; i < split.size(); i++){
@@ -1353,6 +1355,31 @@ namespace mltk{
         if(!load(string(dataset))){
             cerr << "Couldn't read the dataset." << endl;
         }
+    }
+
+    template<typename T>
+    Data<T> Data<T>::selectFeatures(std::vector<size_t> feats) {
+        std::sort(feats.begin(), feats.end());
+        Data<T> new_data;
+        for(auto const& point: this->points){
+            auto new_point = make_point<T>(feats.size());
+            size_t i = 0;
+            for(auto const& feat: feats){
+                assert(feat < point->size());
+                (*new_point)[i] = (*point)[feat];
+                (*new_point).Y() = (*point).Y();
+                (*new_point).Id() = (*point).Id();
+                (*new_point).Alpha() = (*point).Alpha();
+                i++;
+            }
+            new_data.insertPoint(new_point);
+        }
+        return new_data;
+    }
+
+    template<typename T>
+    Data<T>::Data(const Data<T> &other) {
+        this->copy(other);
     }
 
 
