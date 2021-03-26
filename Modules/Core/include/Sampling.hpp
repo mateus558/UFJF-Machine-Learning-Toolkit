@@ -8,6 +8,77 @@
 
 namespace mltk{
     template < typename T >
+    class DSM{
+        size_t seed{};
+        size_t n_dims{}, k{};
+        double alpha{};
+        Point<double> labels;
+        std::vector<std::vector<size_t>> subspaces;
+
+    public:
+        DSM()=default;
+        DSM(const Data<T>& data, size_t k, size_t n, double alpha): alpha(alpha), n_dims(n), k(k) {
+            labels = data.getLabels();
+            subspaces.resize(k);
+            for(auto& Si: subspaces) {
+                Si.resize(n_dims, -1);
+            }
+        }
+
+        double div_m(int i, size_t feat){
+            return (div_mx(feat)+div_ms(i))/2;
+        }
+
+        double div_ms(int i){
+            double max_val = 0.0;
+            for(int j = 0; j < subspaces.size();j++){
+                if(j == i) continue;
+                double val = 0.0;
+                std::vector<size_t> intersection;
+                std::set_intersection(subspaces[i].begin(), subspaces[i].end(),
+                                      subspaces[j].begin(), subspaces[j].end(),
+                                      std::back_inserter(intersection));
+                val = double(intersection.size())/subspaces[j].size();
+                if(val > max_val) max_val = val;
+            }
+            return 1.0 - max_val;
+        }
+
+        double div_mx(size_t feat){
+            double count = 0.0;
+            for(auto& Si: subspaces){
+                if(std::find(Si.begin(), Si.end(), feat) != Si.end()){
+                    count++;
+                }
+            }
+            return 1.0 - (count/subspaces.size());
+        }
+
+        double qual_correlation(const Data<T>& data, int feat){
+            Point<T> x = data.getFeature(feat);
+            return mltk::covar(x, labels)/(mltk::std_dev(x)*mltk::std_dev(labels));
+        }
+
+        inline void setAlpha(double alpha){ this->alpha = alpha; }
+
+        std::vector<std::vector<size_t>> operator()(const Data< T > &data){
+           for(int i = 0; i < n_dims; i++) {
+               for (int j = 0; j < subspaces.size(); j++) {
+                   Point<double> fscore(data.getDim(), -1.01);
+                   for (int c = 0; c < data.getDim(); c++) {
+                       if (std::find(subspaces[j].begin(), subspaces[j].end(), c) == subspaces[j].end()) {
+                           fscore[c] = alpha*qual_correlation(data, c) + (1-alpha)*div_m(j, c);
+                       }
+                   }
+                   auto best_x_id = std::max_element(fscore.X().begin(), fscore.X().end()) - fscore.X().begin();
+                   subspaces[j][i] = best_x_id;
+               }
+           }
+           return subspaces;
+        }
+    };
+
+    template < typename T >
     class RSM{
         size_t seed{};
         size_t n_dims{};

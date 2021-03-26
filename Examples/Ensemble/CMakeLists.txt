@@ -42,3 +42,11 @@ target_link_libraries(res_knn_ens_ww ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} 
 add_executable(res_knn_ens_bag_w_rsm res_knn_ens_bag_w_rsm.cpp)
 set_target_properties(res_knn_ens_bag_w_rsm PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 target_link_libraries(res_knn_ens_bag_w_rsm ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} ${LIBVALIDATION})
+
+add_executable(res_knn_ens_w_dsm res_knn_ens_w_dsm.cpp)
+set_target_properties(res_knn_ens_w_dsm PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+target_link_libraries(res_knn_ens_w_dsm ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} ${LIBVALIDATION})
+
+add_executable(res_knn_ens_w_dsml res_knn_ens_w_dsml.cpp)
+set_target_properties(res_knn_ens_w_dsml PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+target_link_libraries(res_knn_ens_w_dsml ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} ${LIBVALIDATION})

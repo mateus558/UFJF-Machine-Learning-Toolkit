@@ -8,7 +8,8 @@ set_target_properties(${LIBENSEMBLE} PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(${LIBENSEMBLE} PROPERTIES PUBLIC_HEADER
         "Ensemble.hpp;include/Ensemble.hpp;include/VotingClassifier.hpp;include/BaggingClassifier.hpp
         include/AdaBoostClassifier.hpp;include/AutoWeightedVoting.hpp;include/kNNEnsemble.hpp;include/kNNEnsembleBagging.hpp;
-        include/kNNEnsembleW.hpp;include/kNNEnsembleWRSM.hpp;include/kNNEnsembleWSS.hpp"
+        include/kNNEnsembleW.hpp;include/kNNEnsembleWRSM.hpp;include/kNNEnsembleWSS.hpp;include/kNNEnsembleDSM.hpp;include/kNNEnsembleWPDSM.hpp;
+        include/kNNEnsembleWPDSMLinear.hpp"
         )
 
 target_include_directories(${LIBENSEMBLE} PUBLIC

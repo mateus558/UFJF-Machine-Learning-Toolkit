@@ -6,7 +6,7 @@
 #include "../../Modules/Validation/Validation.hpp"
 #include <map>
 
-#define DATASET_FOLDER "/home/mateuscmarim/Documents/datasets/"
+#define DATASET_FOLDER "../datasets/"
 
 using namespace mltk;
 using namespace mltk::ensemble;

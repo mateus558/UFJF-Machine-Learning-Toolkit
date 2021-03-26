@@ -1,27 +1,30 @@
 //
-// Created by mateuscmarim on 05/02/2021.
+// Created by mateuscmarim on 20/01/2021.
 //
 
-#ifndef UFJF_MLTK_KNNENSEMBLEW_HPP
-#define UFJF_MLTK_KNNENSEMBLEW_HPP
+#ifndef UFJF_MLTK_KNNENSEMBLEDSMLINEAR_HPP
+#define UFJF_MLTK_KNNENSEMBLEDSMLINEAR_HPP
 
 #include "Classifier.hpp"
 #include "Ensemble.hpp"
 #include "KNNClassifier.hpp"
+#include "Sampling.hpp"
 #include "../../Validation/Validation.hpp"
 
 namespace mltk {
-    namespace ensemble {
+namespace ensemble {
         template<typename T>
-        class kNNEnsembleWSS: public Ensemble<T>, public classifier::Classifier<T> {
+        class kNNEnsembleWPDSMLinear : public Ensemble<T>, public classifier::Classifier<T> {
         private:
             size_t k;
+            double alpha=0.5;
             std::string voting_type = "soft";
             mltk::Point<double> weights;
+            std::vector<std::vector<size_t>> subspaces;
             mltk::Point<double> sub_weights;
         public:
-            kNNEnsembleWSS() = default;
-            kNNEnsembleWSS(Data<T> &samples, size_t _k): k(_k) {
+            kNNEnsembleWPDSMLinear() = default;
+            kNNEnsembleWPDSMLinear(Data<T> &samples, size_t _k): k(_k) {
                 this->samples = make_data<T>(samples);
                 this->learners.resize(7);
                 this->learners[0] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Euclidean<T>>>(k);
@@ -32,29 +35,32 @@ namespace mltk {
                 this->learners[5] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::KullbackLeibler<T>>>(k);
                 this->learners[6] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Hassanat<T>>>(k);
 
+
+                Point<double> alphas = linspace<double>(0, 0.6, 7);
+                DSM<T> dsm(samples, 1, this->samples->getDim()*0.5, alphas[0]);
                 std::vector<double> w;
                 for (size_t i = 0; i < this->learners.size(); i++) {
-                    this->learners[i]->setSamples(this->samples);
+                    dsm.setAlpha(alphas[i]);
+                    std::vector<size_t> subspace = dsm(*this->samples)[0];
+                    auto data = this->samples->selectFeatures(subspace);
+                    subspaces.push_back(subspace);
+                    this->learners[i]->setSamples(data);
                     this->learners[i]->train();
                     auto classifier = dynamic_cast<classifier::Classifier<T> *>(this->learners[i].get());
-                    auto acc = validation::kkfold(samples, *classifier, 10, 10, this->seed, 0).accuracy/100.0;
+                    auto acc = validation::kkfold(data, *classifier, 10, 10, 42, 0).accuracy/100.0;
                     w.push_back(acc);
                 }
                 this->weights = w;
+                this->sub_weights = 1;
+                std::cout << weights << std::endl;
             }
 
-            std::vector<double> linspace(double lower, double upper, size_t N){
-                double h = (upper - lower) / static_cast<double>(N-1);
-                std::vector<double> xs(N);
-                std::vector<double>::iterator x;
-                double val;
-                for (x = xs.begin(), val = lower; x != xs.end(); ++x, val += h) {
-                    *x = val;
-                }
-                return xs;
+            bool train() override{
+
+                return true;
             }
 
-            void optimize(Data<T> &samples, classifier::Classifier<T> &classifier, std::vector<double>& set, std::vector<double>& perm,
+            void optimize(Data<T> &samples, classifier::Classifier<T> &classifier, Point<double>& set, std::vector<double>& perm,
                           int _k, double total_sum, Point<double>& best, double& best_acc, int& N){
                 auto sum = std::accumulate(perm.begin(), perm.end(), 0.0);
 
@@ -65,24 +71,16 @@ namespace mltk {
                 if(_k == 0){
                     Point<double> sub_w(perm);
 
-                   if(sum == total_sum){
+                    if(sum == total_sum){
                         this->sub_weights = sub_w;
                         auto acc = validation::kkfold(samples, classifier, 10, 10, this->seed, 0).accuracy;
                         if(acc > best_acc){
-                            std::cout << (double(N)/2338.0)*100.0 << "% complete" << std::endl;
-                            std::cout << "Old acc: " << best_acc << std::endl;
-
                             best_acc = acc;
                             best = perm;
+                            std::cout <<"\t"<< N << "\t\t" << Point<double>(perm) << "\t\t" << acc << "\t\t" << best << "\t\t" << best_acc << std::endl;
 
-                            std::cout << "Current best: " << best << "\nacc: " << best_acc  << "\nStep: "<< N << "\n\n";
                         }else if(N%50 == 0 && N > 0){
-                            Point<double> w(perm);
-                            std::cout << "current weights: " << w << std::endl;
-                            std::cout << "current accuracy: " << acc << std::endl;
-                            std::cout << "current best weights: " << best << std::endl;
-                            std::cout << "current best accuracy: " << best_acc << std::endl;
-                            std::cout << (double(N)/2338.0)*100.0 << "% complete\n\n" << std::endl;
+                            std::cout <<"\t"<< N << "\t\t" << Point<double>(perm) << "\t\t" << acc << "\t\t" << best << "\t\t" << best_acc << std::endl;
                         }
                         N++;
                     }
@@ -101,14 +99,15 @@ namespace mltk {
             void optimizeSubWeights(Data<T> &samples, size_t step, double max_weight){
                 Point<double> temp(this->learners.size(), 0), best(this->learners.size(), 0);
                 this->sub_weights.resize(this->learners.size());
-                std::vector<double> values = linspace(0, max_weight, step);
+                Point<double> values = mltk::linspace<T>(0, max_weight, step);
                 Point<double> p(values);
                 double best_acc = 0.0;
                 int N = 0, _k = this->learners.size();
                 std::vector<double> perm;
-
                 std::cout << p << std::endl;
-
+                std::cout << "----------------------------------------------------------------------------------------------------------------\n";
+                std::cout << "\tstep\t\t\tweights\t\t\taccuracy\t\tbest_weights\t\tbest_acc\n";
+                std::cout << "----------------------------------------------------------------------------------------------------------------\n";
                 optimize(samples, *this, values, perm, _k, max_weight, best, best_acc, N);
                 this->sub_weights = best;
                 std::cout << N <<  std::endl;
@@ -116,34 +115,6 @@ namespace mltk {
 
             Point<double> getSubWeights(){
                 return this->sub_weights;
-            }
-
-            bool train() override{
-
-                return true;
-            }
-
-            double maxAccuracy(){
-                std::vector<int> ids(this->samples->getSize(), 0);
-
-                int i = 0;
-                for(auto point: this->samples->getPoints()) {
-                    for (auto& learner: this->learners) {
-                        if(learner->evaluate(*point) == point->Y()){
-                            ids[i] = 1;
-                            break;
-                        }
-                    }
-                    i++;
-                }
-                double sum = std::accumulate(ids.begin(), ids.end(), 0.0);
-                return sum/this->samples->getSize();
-            }
-
-            void setWeights(const std::vector<double> weights) {
-                assert(weights.size() == this->learners.size());
-                this->weights.X().resize(weights.size());
-                this->weights = weights;
             }
 
             double evaluate(const Point<T> &p, bool raw_value = false) override {
@@ -156,14 +127,13 @@ namespace mltk {
                     this->weights = 1;
                 }
                 for (size_t i = 0; i < this->learners.size(); i++) {
-                    if(this->sub_weights[i] == 0) continue;
-                    auto pred = this->learners[i]->evaluate(p);
+                    auto pred = this->learners[i]->evaluate(p.selectFeatures(subspaces[i]));
                     // get prediction position
                     size_t pred_pos = std::find_if(_classes.begin(), _classes.end(), [&pred](const auto &a) {
                         return (a == pred);
                     }) - _classes.begin();
                     // count prediction as a vote
-                    votes[pred_pos] += this->weights[i]*this->sub_weights[i];
+                    votes[pred_pos] += this->weights[i]*this->sub_weights[i]*this->learners[i]->getPredictionProbability();
                 }
                 size_t max_votes = std::max_element(votes.X().begin(), votes.X().end()) - votes.X().begin();
                 return _classes[max_votes];
@@ -175,5 +145,4 @@ namespace mltk {
         };
     }
 }
-
-#endif //UFJF_MLTK_KNNENSEMBLEW_HPP
+#endif //UFJF_MLTK_KNNENSEMBLE_HPP

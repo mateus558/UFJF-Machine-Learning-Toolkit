@@ -224,7 +224,7 @@ namespace mltk {
              * \brief Compute the sum of the components of the point.
              * \return The sum of the components of the point.
              **/
-            T sum(const std::function <T (T)>& f = [](T const& t) { return t;}){
+            T sum(const std::function <T (T)>& f = [](T const& t) { return t;}) const{
                 T _sum = T();
                 #if DEBUG == 1
                 #pragma omp parallel for reduction (+:_sum)
@@ -543,6 +543,7 @@ namespace mltk {
         return result;
     }
 
+
      /**
      * \brief Returns the max value of the point.
      * \return T
@@ -606,6 +607,35 @@ namespace mltk {
         return Point<T, F_Pow<T, P, R > >(F_Pow<T, P, R>(p.X(), power));
     }
 
+    template < typename T, typename R >
+    T mean (const Point<T, R> &p){
+        assert(p.size() > 0);
+        return p.sum()/p.size();
+    }
+
+    template < typename T >
+    Point<T> linspace(double lower, double upper, size_t N){
+        double h = (upper - lower) / static_cast<double>(N-1);
+        std::vector<T> xs(N);
+        typename std::vector<T>::iterator x;
+        T val;
+        for (x = xs.begin(), val = lower; x != xs.end(); ++x, val += h) {
+            *x = val;
+        }
+        return xs;
+    }
+
+    template < typename T, typename R >
+    T std_dev(const Point<T, R> &p){
+        assert(p.size() > 0);
+        return std::sqrt((mltk::pow(p-mltk::mean(p), 2)).sum()/p.size());
+    }
+
+    template < typename T, typename R >
+    T covar(const Point<T, R> &p, const Point<T, R> &p1){
+        assert(p.size() == p1.size());
+        return ((p-mltk::mean(p))*(p1-mltk::mean(p1))).sum()/(p1.size()-1.0);
+    }
 
     template <typename T, typename R>
     std::ostream &operator<<( std::ostream &output, const Point<T, R> &p ) {

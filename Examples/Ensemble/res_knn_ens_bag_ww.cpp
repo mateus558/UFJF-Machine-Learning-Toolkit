@@ -13,16 +13,15 @@ using namespace mltk;
 using namespace mltk::ensemble;
 
 int main(){
-    std::vector<std::string> datasets = {"pima.data", "sonar.data", "bupa.data", "wdbc.data", "ionosphere.data", "biodegradetion.csv",
-                                         "vehicle.csv", "seismic-bumps.arff", "ThoraricSurgery.arff"};
-    bool at_end[10] = {false,false,false,false,false,false,false,true, true};
+    std::vector<std::string> datasets = {"seismic-bumps.arff"};
+    bool at_end[10] = {true, true};
     std::vector<size_t> ks = {3, 5, 7};
     std::map<std::string, std::vector<std::tuple<double, size_t, Point<double>>>> knns;
     std::vector<std::ofstream> results(ks.size());
 
     size_t k = 0;
     for(auto& res: results){
-        res.open(std::string("result_k_")+std::to_string(ks[k])+"_ensemb_WSSP_no_zero_11_100.csv");
+        res.open(std::string("result_k_")+std::to_string(ks[k])+"_ensemb_WSS_no_zero_11_100.csv");
         if(!res.is_open()){
             std::cerr << "Error opening results file.\n";
             return 1;
@@ -47,7 +46,7 @@ int main(){
         for(auto const& _k: ks){
             kNNEnsembleWSS<double> knn_ensem(data, _k);
             knn_ensem.train();
-            knn_ensem.optimizeSubWeights(data, 8, 105);
+            knn_ensem.optimizeSubWeights(data, 9, 104);
             auto sub_weights = knn_ensem.getSubWeights();
             auto acc = validation::kkfold(data, knn_ensem, 10, 10, 42, 0).accuracy;
 

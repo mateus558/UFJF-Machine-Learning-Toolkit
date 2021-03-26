@@ -209,6 +209,8 @@ namespace mltk{
          * \return std::vector<Point< T > >
          */
         std::shared_ptr<Point< T > > getPoint (int index);
+        Point< T > getFeature(int index) const;
+        Point< double > getLabels() const;
         /**
          * \brief Returns a vector containing the frequency of the classes.
          * \return std::vector<size_t>
@@ -343,7 +345,7 @@ namespace mltk{
         std::vector< Data< T > > splitByClasses();
         std::vector< Data< T > > splitSample(const std::size_t &split_size, size_t seed = 0);
         Data< T > selectFeatures(std::vector<size_t> feats);
-        Data< T > sampling(const size_t& samp_size, bool with_replacement = true, const size_t &seed=0);
+        Data< T > sampling(const size_t& samp_size, bool with_replacement = true, const int &seed=0);
         /**
          * \brief Merge one dataset with another.
          * \param data (???) Dataset to be joined.

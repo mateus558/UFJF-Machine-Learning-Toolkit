@@ -364,7 +364,7 @@ namespace mltk{
         bool atBegin, flag, cond;
 
         if(!input){
-            cout << "File could not be opened!" << endl;
+            cout << "File could not be opened! \nError: " << strerror(errno) << endl;
             return false;
         }
 
@@ -1318,10 +1318,10 @@ namespace mltk{
     }
 
     template<typename T>
-    Data<T> Data<T>::sampling(const size_t &samp_size, bool with_replacement, const size_t &seed) {
+    Data<T> Data<T>::sampling(const size_t &samp_size, bool with_replacement, const int &seed) {
         assert(samp_size <= getSize());
         std::random_device rd;
-        std::mt19937 gen((seed == 0)?rd():seed);
+        std::mt19937 gen((seed == -1)?rd():seed);
         std::uniform_int_distribution<size_t> dist(0, getSize()-1);
         Data< T > sample;
         std::set<std::size_t> ids;
@@ -1352,7 +1352,7 @@ namespace mltk{
 
     template<typename T>
     Data<T>::Data(const string &dataset, bool atEnd): atEnd(atEnd) {
-        if(!load(string(dataset))){
+        if(!load(string(dataset), atEnd)){
             cerr << "Couldn't read the dataset." << endl;
         }
     }
@@ -1380,6 +1380,24 @@ namespace mltk{
     template<typename T>
     Data<T>::Data(const Data<T> &other) {
         this->copy(other);
+    }
+
+    template<typename T>
+    Point<T> Data<T>::getFeature(int idx) const{
+        Point<T> feat(size, T());
+        for(int i = 0; i < size; i++){
+            feat[i] = (*points[i])[idx];
+        }
+        return feat;
+    }
+
+    template<typename T>
+    Point<double> Data<T>::getLabels() const{
+        Point<double> labels(size, double());
+        for(int i = 0; i < size; i++){
+            labels[i] = points[i]->Y();
+        }
+        return labels;
     }
 
 

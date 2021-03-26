@@ -43,6 +43,7 @@ namespace mltk{
 
             template<typename T, typename Callable>
             double KNNClassifier<T, Callable>::evaluate(const Point<T> &p, bool raw_value) {
+                assert(this->samples->getDim() == p.size());
                 auto points = this->samples->getPoints();
                 std::vector<double> distances(this->samples->getSize());
                 std::vector<int> classes = this->samples->getClasses();

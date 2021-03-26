@@ -10,3 +10,4 @@
 #include "include/Kernel.hpp"
 #include "include/DistanceMetric.hpp"
 #include "include/CoverTree.hpp"
+#include "include/Sampling.hpp"
