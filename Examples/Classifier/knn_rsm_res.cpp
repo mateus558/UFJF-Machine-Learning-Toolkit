@@ -18,8 +18,8 @@ std::vector<double> ratios = {0.25, 0.5, 0.75, 1};
 Data<double> RSM(Data<double> samples, const double ratio, const size_t seed){
     std::random_device rd;
     std::mt19937 generator(rd());
-    size_t new_dim = std::ceil(ratio * samples.getDim());
-    std::vector<size_t> feats(samples.getDim());
+    size_t new_dim = std::ceil(ratio * samples.dim());
+    std::vector<size_t> feats(samples.dim());
 
     std::iota(feats.begin(), feats.end(), 0);
     std::shuffle(feats.begin(), feats.end(), generator);

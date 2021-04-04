@@ -26,27 +26,27 @@ namespace ensemble {
             kNNEnsembleWPDSMLinear() = default;
             kNNEnsembleWPDSMLinear(Data<T> &samples, size_t _k): k(_k) {
                 this->samples = make_data<T>(samples);
-                this->learners.resize(7);
-                this->learners[0] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Euclidean<T>>>(k);
-                this->learners[1] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Lorentzian<T>>>(k);
-                this->learners[2] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Cosine<T>>>(k);
-                this->learners[3] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Bhattacharyya<T>>>(k);
-                this->learners[4] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Pearson<T>>>(k);
-                this->learners[5] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::KullbackLeibler<T>>>(k);
-                this->learners[6] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Hassanat<T>>>(k);
+                this->m_learners.resize(7);
+                this->m_learners[0] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Euclidean<T>>>(k);
+                this->m_learners[1] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Lorentzian<T>>>(k);
+                this->m_learners[2] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Cosine<T>>>(k);
+                this->m_learners[3] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Bhattacharyya<T>>>(k);
+                this->m_learners[4] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Pearson<T>>>(k);
+                this->m_learners[5] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::KullbackLeibler<T>>>(k);
+                this->m_learners[6] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Hassanat<T>>>(k);
 
 
                 Point<double> alphas = linspace<double>(0, 0.6, 7);
-                DSM<T> dsm(samples, 1, this->samples->getDim()*0.5, alphas[0]);
+                DSM<T> dsm(samples, 1, this->samples->dim() * 0.5, alphas[0]);
                 std::vector<double> w;
-                for (size_t i = 0; i < this->learners.size(); i++) {
+                for (size_t i = 0; i < this->m_learners.size(); i++) {
                     dsm.setAlpha(alphas[i]);
                     std::vector<size_t> subspace = dsm(*this->samples)[0];
                     auto data = this->samples->selectFeatures(subspace);
                     subspaces.push_back(subspace);
-                    this->learners[i]->setSamples(data);
-                    this->learners[i]->train();
-                    auto classifier = dynamic_cast<classifier::Classifier<T> *>(this->learners[i].get());
+                    this->m_learners[i]->setSamples(data);
+                    this->m_learners[i]->train();
+                    auto classifier = dynamic_cast<classifier::Classifier<T> *>(this->m_learners[i].get());
                     auto acc = validation::kkfold(data, *classifier, 10, 10, 42, 0).accuracy/100.0;
                     w.push_back(acc);
                 }
@@ -97,12 +97,12 @@ namespace ensemble {
             }
 
             void optimizeSubWeights(Data<T> &samples, size_t step, double max_weight){
-                Point<double> temp(this->learners.size(), 0), best(this->learners.size(), 0);
-                this->sub_weights.resize(this->learners.size());
+                Point<double> temp(this->m_learners.size(), 0), best(this->m_learners.size(), 0);
+                this->sub_weights.resize(this->m_learners.size());
                 Point<double> values = mltk::linspace<T>(0, max_weight, step);
                 Point<double> p(values);
                 double best_acc = 0.0;
-                int N = 0, _k = this->learners.size();
+                int N = 0, _k = this->m_learners.size();
                 std::vector<double> perm;
                 std::cout << p << std::endl;
                 std::cout << "----------------------------------------------------------------------------------------------------------------\n";
@@ -126,21 +126,21 @@ namespace ensemble {
                 } else {
                     this->weights = 1;
                 }
-                for (size_t i = 0; i < this->learners.size(); i++) {
-                    auto pred = this->learners[i]->evaluate(p.selectFeatures(subspaces[i]));
+                for (size_t i = 0; i < this->m_learners.size(); i++) {
+                    auto pred = this->m_learners[i]->evaluate(p.selectFeatures(subspaces[i]));
                     // get prediction position
                     size_t pred_pos = std::find_if(_classes.begin(), _classes.end(), [&pred](const auto &a) {
                         return (a == pred);
                     }) - _classes.begin();
                     // count prediction as a vote
-                    votes[pred_pos] += this->weights[i]*this->sub_weights[i]*this->learners[i]->getPredictionProbability();
+                    votes[pred_pos] += this->weights[i]*this->sub_weights[i]*this->m_learners[i]->getPredictionProbability();
                 }
                 size_t max_votes = std::max_element(votes.X().begin(), votes.X().end()) - votes.X().begin();
                 return _classes[max_votes];
             }
 
             std::string getFormulationString() override {
-                return this->learners[0]->getFormulationString();
+                return this->m_learners[0]->getFormulationString();
             }
         };
     }

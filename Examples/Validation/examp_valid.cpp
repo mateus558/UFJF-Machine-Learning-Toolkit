@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
 
     std::vector<mltk::DataPointer<double> > folds(fold);
     sample->load("iris.data");
-    double sizes = sample->getSize()/fold;
+    double sizes = sample->size() / fold;
     std::cout << *sample << std::endl;
 
     auto classes = sample->getClasses();
@@ -49,13 +49,13 @@ int main(int argc, char *argv[]){
     }
     
     for(size_t i = 0; i < classes.size(); i++){
-        new_class_distribution[i] = ((double)classDistribution[i]/sample->getSize())*sizes;
+        new_class_distribution[i] = ((double)classDistribution[i]/ sample->size()) * sizes;
     }
 
     std::vector<size_t> markers(classes.size(), 0);
     for(size_t i = 0; i < fold; i++){
         for(size_t j = 0; j < points_by_class.size(); j++){
-            for(size_t k = markers[j], l = 0; markers[j] < points_by_class[j]->getSize() && l < new_class_distribution[j]; k++, l++){
+            for(size_t k = markers[j], l = 0; markers[j] < points_by_class[j]->size() && l < new_class_distribution[j]; k++, l++){
                 if(i != fold-1){
                     train_sample->insertPoint((*points_by_class[j])[k]);
                 }else{ 

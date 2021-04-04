@@ -12,8 +12,9 @@ using namespace mltk;
 using namespace mltk::ensemble;
 
 int main(){
-    std::vector<std::string> datasets = {"ThoraricSurgery.arff","vehicle.csv", "seismic-bumps.arff"};
-    bool at_end[10] = {true,false, true};
+    std::vector<std::string> datasets = {/*"pima.data", "sonar.data", "bupa.data","wdbc.data", "ionosphere.data", "biodegradetion.csv",
+            "vehicle.csv",*/ "seismic-bumps.arff"};
+    bool at_end[10] = {true};
     std::vector<size_t> ks = {3, 5, 7};
     std::vector<double> alphas = {0, 0.1, 0.2,0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
     std::map<std::string, std::vector<std::tuple<double, size_t, double>>> knns;
@@ -41,8 +42,8 @@ int main(){
     for(auto& dataset: datasets){
         Data<double> data(std::string(DATASET_FOLDER) + dataset, at_end[i]);
         std::clog << "\nDataset: " << dataset << std::endl;
-        std::clog << "Size: " <<data.getSize() << std::endl;
-        std::clog << "Dimensions: " << data.getDim() << "\n" << std::endl;
+        std::clog << "Size: " << data.size() << std::endl;
+        std::clog << "Dimensions: " << data.dim() << "\n" << std::endl;
 
         for(auto& res: results){
             for(int ai = 0; ai < alphas.size(); ai++)

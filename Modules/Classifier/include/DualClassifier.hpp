@@ -27,7 +27,7 @@ namespace mltk{
 
             virtual double evaluate(const Point <T> &p, bool raw_value = false) override {
                 double func, bias = this->solution.bias, fk = 0.0, lambda;
-                size_t size = this->samples->getSize(), dim = this->samples->getDim(), r;
+                size_t size = this->samples->size(), dim = this->samples->dim(), r;
                 auto po = std::make_shared<Point<T> >(p);
 
                 if (p.X().size() != dim) {
@@ -102,7 +102,7 @@ namespace mltk{
              * \return std::vector<double>
              */
             std::vector<double> getWeight() {
-                size_t i, j, dim = this->samples->getDim(), size = this->samples->getSize();
+                size_t i, j, dim = this->samples->dim(), size = this->samples->size();
                 std::vector<double> w(dim);
 
                 for (i = 0; i < dim; i++) {
@@ -120,7 +120,7 @@ namespace mltk{
              */
             std::vector<double> getDualWeight() {
                 int i = 0, j = 0, k = 0;
-                size_t size = this->samples->getSize(), dim = this->samples->getDim();
+                size_t size = this->samples->size(), dim = this->samples->dim();
                 dMatrix *H, *Hk, matrixdif(size, std::vector<double>(size));
                 std::vector<double> alphaaux(size);
 
@@ -152,7 +152,7 @@ namespace mltk{
              */
             std::vector<double> getDualWeightProdInt() {
                 int i = 0, j = 0, k = 0;
-                size_t size = this->samples->getSize(), dim = this->samples->getDim();
+                size_t size = this->samples->size(), dim = this->samples->dim();
                 std::vector<double> alphaaux(size);
                 dMatrix H(size, std::vector<double>(size));
 

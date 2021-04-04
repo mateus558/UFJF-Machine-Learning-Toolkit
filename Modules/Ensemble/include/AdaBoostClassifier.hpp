@@ -22,22 +22,22 @@ namespace mltk {
             template<template<typename > class Estimator>
             explicit AdaBoostClassifier(const Data<T> &data, Estimator<T> base_estimator, const size_t n_estimators): n_estimators(n_estimators) {
                 this->samples = mltk::make_data<T>(data);
-                this->learners.resize(n_estimators);
+                this->m_learners.resize(n_estimators);
 
                 for(size_t i = 0; i < n_estimators; i++){
-                    this->learners[i] = std::make_shared< Estimator<T> >(base_estimator);
+                    this->m_learners[i] = std::make_shared< Estimator<T> >(base_estimator);
                 }
             }
 
             bool train() override {
-                size_t _size = this->samples->getSize(), K = this->samples->getClasses().size();
+                size_t _size = this->samples->size(), K = this->samples->getClasses().size();
                 Point<double> err(n_estimators, 0.0);
                 Point<double> alpha(n_estimators, 0.0);
                 // Initialize weights to an uniform distribution
                 this->weights.assign(_size, 1.0/_size);
 
                 for(size_t m = 0; m < n_estimators; m++){
-                    auto learner = this->learners[m];
+                    auto learner = this->m_learners[m];
                     learner->setSeed(this->seed+m);
                     learner->setSamples(this->samples);
                     learner->train();
@@ -66,7 +66,7 @@ namespace mltk {
                 Point<double> prob(classes.size(), 0.0);
                 for(size_t c = 0; c < classes.size(); c++) {
                     for(size_t m = 0; m < n_estimators; m++) {
-                        if(this->learners[m]->evaluate(p) == classes[c]) {
+                        if(this->m_learners[m]->evaluate(p) == classes[c]) {
                             prob[c] += this->_alpha[m];
                         }
                     }
@@ -76,7 +76,7 @@ namespace mltk {
             }
 
             std::string getFormulationString() override {
-                return this->learners[0]->getFormulationString();
+                return this->m_learners[0]->getFormulationString();
             }
         };
     }

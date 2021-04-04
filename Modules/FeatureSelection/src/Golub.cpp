@@ -22,7 +22,7 @@ namespace mltk{
         template<typename T>
         shared_ptr<Data<T> > Golub<T>::selectFeatures() {
             size_t i, j;
-            size_t num_pos = 0, num_neg = 0, svs = 0, dim = this->samples->getDim(), size = this->samples->getSize();
+            size_t num_pos = 0, num_neg = 0, svs = 0, dim = this->samples->dim(), size = this->samples->size();
             int partial = 0;
             double margin = 0.0;
             vector<int> remove(dim - number), fnames;

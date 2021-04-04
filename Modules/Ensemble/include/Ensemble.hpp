@@ -16,7 +16,7 @@ namespace mltk{
         /// Committee size.
         size_t c_size{};
         /// Pointer to base learner used by the ensemble method.
-        std::vector< LearnerPointer< T > > learners;
+        std::vector< LearnerPointer< T > > m_learners;
         /// Ensemble solution.
         Solution solution;
     public:
@@ -56,6 +56,26 @@ namespace mltk{
          */
         void setCommitteeSize(size_t c_size) {
             Ensemble::c_size = c_size;
+        }
+
+        size_t size(){
+            return this->m_learners.size();
+        }
+
+        auto begin(){
+            return this->m_learners.begin();
+        }
+
+        auto end(){
+            return this->m_learners.end();
+        }
+
+        LearnerPointer<T> operator[](size_t idx) const  {
+            return this->m_learners[idx];
+        }
+
+        auto learners(){
+            return this->m_learners;
         }
 
     };

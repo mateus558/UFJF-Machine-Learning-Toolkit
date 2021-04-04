@@ -16,7 +16,7 @@ double measure_accuracy(Data<double>& data, classifier::Classifier<double>& clas
             acertos++;
         }
     }
-    return acertos/data.getSize()*100.0;
+    return acertos / data.size() * 100.0;
 }
 
 int main(int argc, char* argv[]){

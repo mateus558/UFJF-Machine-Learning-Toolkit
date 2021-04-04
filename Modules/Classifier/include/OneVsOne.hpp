@@ -19,7 +19,7 @@ namespace mltk{
         class OneVsOne : public PrimalClassifier<T>, public DualClassifier<T> {
         private:
             using LearnerPointer = std::shared_ptr<Learner<T> >;
-            /// Matrix of binary base learners
+            /// Matrix of binary base m_learners
             std::vector<std::vector<LearnerPointer> > base_learners;
             /// Over sampling method used during training (optional)
             OverSampling<T> *samp_method;
@@ -35,7 +35,7 @@ namespace mltk{
                 this->samp_method = samp_method;
 
                 auto classes = samples.getClasses();
-                // initialize the learners matrix is samples were given
+                // initialize the m_learners matrix is samples were given
                 if (base_learners.size() == 0) {
                     base_learners.resize(classes.size());
 
@@ -61,7 +61,7 @@ namespace mltk{
         template<typename T>
         bool OneVsOne<T>::train() {
             auto classes = this->samples->getClasses();
-            size_t current_class = 0, j, n_classes = classes.size(), size = this->samples->getSize();
+            size_t current_class = 0, j, n_classes = classes.size(), size = this->samples->size();
 
             for (size_t i = 0; i < n_classes; ++i) {
                 for (size_t j = 0; j < n_classes; ++j) {
@@ -74,7 +74,7 @@ namespace mltk{
                         temp_samples.classesCopy(*this->samples, current_classes);
                         temp_samples.setClasses({-1, 1});
                         // Transform the classes for binary classification
-                        for (size_t k = 0; k < temp_samples.getSize(); k++) {
+                        for (size_t k = 0; k < temp_samples.size(); k++) {
                             temp_samples[k]->Y() = (temp_samples[k]->Y() == classes[i]) ? 1 : -1;
                         }
 

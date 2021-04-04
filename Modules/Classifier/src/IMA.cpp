@@ -24,7 +24,7 @@ namespace mltk{
                 this->solution.bias = initial_solution->bias;
                 this->hasInitialSolution = true;
             } else {
-                if (samples) this->w.resize(samples->getDim());
+                if (samples) this->w.resize(samples->dim());
             }
         }
 
@@ -32,7 +32,7 @@ namespace mltk{
         bool IMAp<T>::train() {
             unsigned int tMax = 0;
             int i, j, n, maiorn = 0, flagNao1aDim = 0, y, it, sign = 1, svs = 0;
-            size_t size = this->samples->getSize(), dim = this->samples->getDim(), t1 = 1, t3 = 1;
+            size_t size = this->samples->size(), dim = this->samples->dim(), t1 = 1, t3 = 1;
             double gamma, secs, bias = 0.0, alpha, rmargin = margin, inc, stime;
             double min = 0.0, max = 0.0, norm = 1.0, maiorw = 0.0;
             vector<double> w_saved, func;
@@ -289,8 +289,8 @@ namespace mltk{
                 this->solution.bias = initial_solution->bias;
                 this->solution.norm = initial_solution->norm;
             } else {
-                this->w.resize(samples->getDim());
-                this->solution.func.resize(samples->getSize());
+                this->w.resize(samples->dim());
+                this->solution.func.resize(samples->size());
             }
         }
 
@@ -298,7 +298,7 @@ namespace mltk{
         bool IMApFixedMargin<T>::train() {
             int c, e = 1, i, k, s = 0, j;
             int t, idx, r;
-            size_t size = this->samples->getSize(), dim = this->samples->getDim();
+            size_t size = this->samples->size(), dim = this->samples->dim();
             double norm = this->solution.norm, bias = this->solution.bias, lambda = 1, y, time =
                     this->max_time + this->start_time;
             register double sumnorm = 0; //soma das normas para o calculo posterior (nao mais sqrt)
@@ -451,7 +451,7 @@ namespace mltk{
                 this->solution.bias = initial_solution->bias;
                 this->hasInitialSolution = true;
             } else {
-                this->solution.w.resize(samples->getDim());
+                this->solution.w.resize(samples->dim());
             }
         }
 
@@ -459,7 +459,7 @@ namespace mltk{
         bool IMADual<T>::train() {
             double rmargin = 0, secs;
             size_t i, j, it;
-            size_t sv = 0, size = this->samples->getSize(), dim = this->samples->getDim();
+            size_t sv = 0, size = this->samples->size(), dim = this->samples->dim();
             double min, max, norm = 0, stime = 0;
             dMatrix K;
             vector<int> index = this->samples->getIndex();

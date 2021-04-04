@@ -7,8 +7,8 @@ int main(int argc, char *argv[]){
     data.setClassesAtEnd(false);
     data.load("iris.data");
 
-    std::cout << "Dataset size: " << data.getSize() << std::endl;
-    std::cout << "Dataset dimension: " << data.getDim() << std::endl;
+    std::cout << "Dataset size: " << data.size() << std::endl;
+    std::cout << "Dataset dimension: " << data.dim() << std::endl;
     std::cout << std::endl;
 
 //    for(auto it = data.begin(); it != data.begin()+5; it++){
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]){
 
     auto samples_split = data.splitSample(10);
     for(auto &sample: samples_split){
-        std::cout << sample.getSize() << std::endl;
+        std::cout << sample.size() << std::endl;
     }
 
     std::cout << data.sampling(50, true) << std::endl;

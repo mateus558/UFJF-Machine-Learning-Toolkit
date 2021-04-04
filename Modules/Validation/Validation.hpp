@@ -65,7 +65,7 @@ namespace mltk{
         template< typename T >
         std::vector<std::vector<size_t> > generateConfusionMatrix(Data< T > &samples, Learner< T > &learner){
             auto classes = samples.getClasses();
-            size_t size = samples.getSize(), i, j, idp, idy, n_classes = classes.size();
+            size_t size = samples.size(), i, j, idp, idy, n_classes = classes.size();
             std::vector<std::vector<size_t> > confusion_m(n_classes, std::vector<size_t>(n_classes, 0));
             double acc = 0.0;
 
@@ -159,8 +159,8 @@ namespace mltk{
                 }
                 if(verbose){
                     std::cout << "\nCross-Validation " << j + 1 << ": \n";
-                    std::cout << "Train points: " << _train_sample->getSize() << std::endl;
-                    std::cout << "Test points: " << _test_sample.getSize() << std::endl;
+                    std::cout << "Train points: " << _train_sample->size() << std::endl;
+                    std::cout << "Test points: " << _test_sample.size() << std::endl;
                     std::cout << std::endl;
                 }
 
@@ -225,8 +225,8 @@ namespace mltk{
                     std::cout << std::endl;
                 }
 
-                if(verbose) std::cout << "Error " << j + 1 << ": " << error_arr[j] << " -- " << ((double)error_arr[j]/(double)folds[j].getSize())*100.0f << "%\n";
-                error += ((double)error_arr[j]/(double)folds[j].getSize())*100.0f;
+                if(verbose) std::cout << "Error " << j + 1 << ": " << error_arr[j] << " -- " << ((double)error_arr[j]/(double) folds[j].size()) * 100.0f << "%\n";
+                error += ((double)error_arr[j]/(double) folds[j].size()) * 100.0f;
                 if(classes.size() == 2){
                     solution.accuracy += (double)(tp + tn)/(double)(tp + tn + fp + fn);
                     solution.precision += (double)tp/(double)(tp + fp);
@@ -285,8 +285,8 @@ namespace mltk{
             if(verbose)
             {
                 std::cout << "\nFinal Validation:\n";
-                std::cout << "Pts de Treino: " << valid_pair.train.getSize() << "\n";
-                std::cout << "Pts de Teste:  " << valid_pair.test.getSize() << "\n";
+                std::cout << "Pts de Treino: " << valid_pair.train.size() << "\n";
+                std::cout << "Pts de Teste:  " << valid_pair.test.size() << "\n";
             }
             //training
             valid_pair.train.setClasses(samples.getClasses());
@@ -354,8 +354,8 @@ namespace mltk{
                 if(verbose) std::cout.flush();
             }
 
-            if(verbose >= 1) std::cout << "Validation Error: " << erro << " -- " <<  ((double)erro/(double)valid_pair.test.getSize())*100.0f << "%\n";
-            error += ((double)erro/(double)valid_pair.test.getSize())*100.0f;
+            if(verbose >= 1) std::cout << "Validation Error: " << erro << " -- " << ((double)erro/(double) valid_pair.test.size()) * 100.0f << "%\n";
+            error += ((double)erro/(double) valid_pair.test.size()) * 100.0f;
 
             return solution;
         }

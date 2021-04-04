@@ -47,7 +47,7 @@ namespace mltk{
             int i = 0;
             int tbreadth = 0;
             int level = 0;
-            int dim = this->samples->getDim();
+            int dim = this->samples->dim();
             int startdim = dim_orig = dim;
             std::vector<int> fnames;
             int ftime = 1;
@@ -94,7 +94,7 @@ namespace mltk{
                         std::cout << "---------------\n :: FINAL :: \n---------------\n";
                         std::cout << "Chosen Features: ";
                         std::vector<int> fnamesp = this->stmp_partial->getFeaturesNames();
-                        for (i = 0; i < this->stmp_partial->getDim() - 1; ++i)
+                        for (i = 0; i < this->stmp_partial->dim() - 1; ++i)
                             std::cout << fnamesp[i] << ", ";
                         std::cout << fnamesp[i] << std::endl;
 
@@ -165,16 +165,16 @@ namespace mltk{
                                 this->n0 * std::exp(-stmp.getTime_mult() * ((double) startdim / (startdim - level)));
 
                     /*stop criterium*/
-                    if (this->samples->getDim() == dim - this->depth && this->heap->getElements()[1]->rgamma > 0) {
+                    if (this->samples->dim() == dim - this->depth && this->heap->getElements()[1]->rgamma > 0) {
                         std::cout << "---------------\n :: FINAL :: \n---------------\n";
                         std::cout << "Chosen Features: ";
                         std::vector<int> fnamesp = stmp.getFeaturesNames();
-                        for (i = 0; i < stmp.getDim() - 1; ++i)
+                        for (i = 0; i < stmp.dim() - 1; ++i)
                             std::cout << fnamesp[i] << ",";
                         std::cout << fnamesp[i] << std::endl;
 
                         std::cout << "---------------\nRemoved Features: ";
-                        for (i = 0; i < this->samples->getDim() - stmp.getDim() - 1; ++i)
+                        for (i = 0; i < this->samples->dim() - stmp.dim() - 1; ++i)
                             std::cout << this->heap->getElements()[1]->fnames[i] << ", ";
                         std::cout << this->heap->getElements()[1]->fnames[i] << std::endl;
 
@@ -183,12 +183,12 @@ namespace mltk{
                                 this->cv->actual_error += validation::kfold(stmp, *this->classifier, this->cv->fold,
                                                                             this->cv->seed[i], 0);
                             this->kfolderror = this->cv->actual_error / this->cv->qtde;
-                            std::cout << "Dim: " << stmp.getDim() << ", Margin: "
+                            std::cout << "Dim: " << stmp.dim() << ", Margin: "
                                       << this->heap->getElements()[1]->rgamma
                                       << ", SVs: " << this->heap->getElements()[1]->sv << ", Error " << this->cv->fold
                                       << "-fold: " << this->kfolderror << "%\n";
                         } else {
-                            std::cout << "Dim: " << stmp.getDim() << ", Margin: "
+                            std::cout << "Dim: " << stmp.dim() << ", Margin: "
                                       << this->heap->getElements()[1]->rgamma
                                       << ", SVs: " << this->heap->getElements()[1]->sv << "\n";
                         }
@@ -225,7 +225,7 @@ namespace mltk{
 
                     /*check breadth*/
                     tbreadth = this->breadth;
-                    if (tbreadth > stmp.getDim()) tbreadth = stmp.getDim();
+                    if (tbreadth > stmp.dim()) tbreadth = stmp.dim();
 
                     /*run select*/
                     this->mainLoop();
@@ -277,8 +277,8 @@ namespace mltk{
             AOS<T>::select_weight *weight = nullptr;
             bool isPrimal = this->classifier->getFormulationString() == "Primal";
 
-            size_t dim = this->samples->getDim();
-            size_t size = this->samples->getSize();
+            size_t dim = this->samples->dim();
+            size_t size = this->samples->size();
             //double q = sample->q;
 
             int loolflag = 0; //fechar uma dimensao
@@ -537,14 +537,14 @@ namespace mltk{
 
             while (true) {
                 /*stopping criterion*/
-                if (count == this->look_ahead_depth || count == this->samples->getDim() - 1 ||
-                    stmp->getDim() == this->samples->getDim() - this->depth || level == this->depth)
+                if (count == this->look_ahead_depth || count == this->samples->dim() - 1 ||
+                        stmp->dim() == this->samples->dim() - this->depth || level == this->depth)
                     break;
                 if (this->choice_shape == 2) {
                     /*selecting one feature with least w / dist. centers*/
                     min = fabs(w[0]) / Statistics<T>::getDistCenters(stmp, stmp->getFeaturesNames()[0]);
                     feat = stmp->getFeaturesNames()[0];
-                    for (i = 1; i < stmp->getDim(); i++) {
+                    for (i = 1; i < stmp->dim(); i++) {
                         distcents = Statistics<T>::getDistCenters(stmp, stmp->getFeaturesNames()[i]);
                         if (fabs(w[i]) / distcents < min) {
                             min = fabs(w[i]) / distcents;
@@ -555,7 +555,7 @@ namespace mltk{
                     /*selecting one feature with least w*/
                     min = fabs(w[0]);
                     feat = stmp->getFeaturesNames()[0];
-                    for (i = 1; i < stmp->getDim(); i++)
+                    for (i = 1; i < stmp->dim(); i++)
                         if (fabs(w[i]) < min) {
                             min = fabs(w[i]);
                             feat = stmp->getFeaturesNames()[i];
@@ -564,7 +564,7 @@ namespace mltk{
 
                 /*manutencao do w do pai para o IMA Primal*/
                 if (isPrimal) {
-                    size_t dim = this->samples->getDim() - 1;
+                    size_t dim = this->samples->dim() - 1;
                     std::vector<int> fnames = this->samples->getFeaturesNames();
                     novo_w.resize(dim - 1);
                     for (i = 0, j = 0; j < dim; ++j)
@@ -653,7 +653,7 @@ namespace mltk{
                     this->heap->insert(gtmp, 1);
                 }
                 if (isPrimal) {
-                    w.resize(stmp->getDim());
+                    w.resize(stmp->dim());
                     w = this->classifier->getSolutionRef()->w;
                 }
 

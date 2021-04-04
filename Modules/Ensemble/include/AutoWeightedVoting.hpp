@@ -27,13 +27,13 @@ namespace mltk {
             template<template<typename...> class WeakLearner,
                     template<typename...> class... WeakLearners>
             void fillLearnersVector(WeakLearner<T> flearner) {
-                this->learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
+                this->m_learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
             }
 
             template<template<typename...> class WeakLearner,
                     template<typename...> class... WeakLearners>
             void fillLearnersVector(WeakLearner<T> flearner, WeakLearners<T>... weak_learners) {
-                this->learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
+                this->m_learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
                 fillLearnersVector(weak_learners...);
             }
 
@@ -80,12 +80,12 @@ namespace mltk {
                         acc++;
                     }
                 }
-                return double(acc)/data.getSize();
+                return double(acc)/ data.size();
             }
 
             double objective_function(Point<double> const& x){
                 double tp = 0, tn = 0, fp = 0, fn = 0;
-                int n = valid_pair.test.getSize();
+                int n = valid_pair.test.size();
                 voter.setWeights(x.X());
 //                for(size_t i = 0; i < n; i++){
 //                    auto point = valid_pair.test[i];
@@ -113,7 +113,7 @@ namespace mltk {
                 //generator.seed(this->seed);
 
                 for(size_t i = 0; i < p_size; i++){
-                    std::vector<double> w(this->learners.size());
+                    std::vector<double> w(this->m_learners.size());
                     for(double & j : w){
                         j = dist(generator);
                     }
@@ -165,9 +165,9 @@ namespace mltk {
                 }while(P3 == P0 || P3 == P1 || P3 == P2);
 
                 std::uniform_real_distribution<double> distCR(0., 1.);
-                std::uniform_int_distribution<size_t> distNP(0, this->learners.size()-1);
+                std::uniform_int_distribution<size_t> distNP(0, this->m_learners.size() - 1);
                 size_t cut_point = distNP(generator);
-                Point<double> S(this->learners.size());
+                Point<double> S(this->m_learners.size());
                 for(int i = 0; i < S.size(); i++){
                     double _cr = distCR(generator);
 
@@ -199,7 +199,7 @@ namespace mltk {
             }
 
             bool train() override {
-                voter.setLearners(this->learners);
+                voter.setLearners(this->m_learners);
                 voter.setVotingType("soft");
                 valid_pair = validation::partTrainTest(*this->samples, 10, this->seed);
                 voter.setSamples(valid_pair.train);
@@ -254,7 +254,7 @@ namespace mltk {
             }
 
             std::string getFormulationString() override {
-                return this->learners[0]->getFormulationString();
+                return this->m_learners[0]->getFormulationString();
             }
 
             Point<double> getBestWeights(){

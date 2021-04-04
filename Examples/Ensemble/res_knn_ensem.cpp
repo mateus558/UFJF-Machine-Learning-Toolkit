@@ -42,8 +42,8 @@ int main(){
     for(auto& dataset: datasets){
         Data<double> data(std::string(DATASET_FOLDER) + dataset, at_end[i]);
         std::clog << "\nDataset: " << dataset << std::endl;
-        std::clog << "Size: " <<data.getSize() << std::endl;
-        std::clog << "Dimensions: " << data.getDim() << "\n" << std::endl;
+        std::clog << "Size: " << data.size() << std::endl;
+        std::clog << "Dimensions: " << data.dim() << "\n" << std::endl;
 //        ks.push_back(std::floor(std::sqrt(data.getDim())));
 
         for(auto const& k: ks){

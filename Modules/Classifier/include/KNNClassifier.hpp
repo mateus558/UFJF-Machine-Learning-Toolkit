@@ -8,6 +8,7 @@
 #include "PrimalClassifier.hpp"
 #include "DistanceMetric.hpp"
 #include "CoverTree.hpp"
+#include "hnswlib/hnswalg.h"
 #include <assert.h>
 
 namespace mltk{
@@ -24,6 +25,7 @@ namespace mltk{
                 Callable dist_function;
                 std::string algorithm;
                 metrics::CoverTree<T, std::shared_ptr<Point<T>>, Callable> kquery;
+                std::shared_ptr<hnswlib::AlgorithmInterface<float>> alg_hnsw;
             public:
                 KNNClassifier() = default;
                 explicit KNNClassifier(size_t _k, std::string _algorithm = "brute")
@@ -43,9 +45,9 @@ namespace mltk{
 
             template<typename T, typename Callable>
             double KNNClassifier<T, Callable>::evaluate(const Point<T> &p, bool raw_value) {
-                assert(this->samples->getDim() == p.size());
+                assert(this->samples->dim() == p.size());
                 auto points = this->samples->getPoints();
-                std::vector<double> distances(this->samples->getSize());
+                std::vector<double> distances(this->samples->size());
                 std::vector<int> classes = this->samples->getClasses();
                 std::vector<size_t> idx(distances.size());
                 std::vector<PointPointer<T>> neigh;
@@ -67,6 +69,11 @@ namespace mltk{
                     });
                 }else if(algorithm == "covertree"){
                     neigh = kquery.kNearestNeighbors(mltk::make_point<T>(p), k);
+                }else if(algorithm == "hsnw"){
+                    auto result = alg_hnsw->searchKnnCloserFirst((const void *) p.X().data(), k);
+                    for(const auto& r: result){
+                        neigh.push_back((*this->samples)[r.second]);
+                    }
                 }
                 // find the most frequent class in the k nearest neighbors
                 size_t max_index = 0, max_freq = 0, i=0;
@@ -77,7 +84,7 @@ namespace mltk{
                         freq = std::count_if(idx.begin(), idx.begin() + this->k, [&points, &c](size_t id) {
                             return points[id]->Y() == c;
                         });
-                    }else if(algorithm == "covertree"){
+                    }else{
                         freq = std::count_if(neigh.begin(), neigh.end(), [&c](auto point) {
                             return point->Y() == c;
                         });
@@ -100,6 +107,14 @@ namespace mltk{
                 if(algorithm == "covertree") {
                     for (const auto &point: this->samples->getPoints()) {
                         kquery.insert(point);
+                    }
+                }else if(algorithm == "hsnw"){
+                    hnswlib::L2Space space(this->samples->dim());
+                    alg_hnsw = std::make_shared<hnswlib::HierarchicalNSW<float>>(&space, this->samples->size() * 2, 16, 200, 42);
+                    int j = 0;
+                    for (const auto &point: this->samples->getPoints()) {
+                        alg_hnsw->addPoint(point->X().data(), j);
+                        j++;
                     }
                 }
                 return true;

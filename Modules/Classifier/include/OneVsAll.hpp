@@ -21,7 +21,7 @@ namespace mltk{
 
                 /// Over sampling method (optional)
                 OverSampling<T> *samp_method;
-                /// Vector of binary base learners
+                /// Vector of binary base m_learners
                 std::vector<LearnerPointer> base_learners;
 
             public:
@@ -33,7 +33,7 @@ namespace mltk{
                     this->samples = mltk::make_data<double>(samples);
                     this->samp_method = samp_method;
 
-                    // initialize the base learners if samples were given
+                    // initialize the base m_learners if samples were given
                     if (this->samples && base_learners.size() == 0) {
                         base_learners.resize(this->samples->getClasses().size());
                         for (size_t i = 0; i < this->samples->getClasses().size(); ++i) {
@@ -54,7 +54,7 @@ namespace mltk{
             template<typename T>
             bool OneVsAll<T>::train() {
                 auto classes = this->samples->getClasses();
-                size_t current_class = 0, j, n_classes = classes.size(), size = this->samples->getSize();
+                size_t current_class = 0, j, n_classes = classes.size(), size = this->samples->size();
 
                 // iterate over each base learner
                 for (auto &learner: base_learners) {

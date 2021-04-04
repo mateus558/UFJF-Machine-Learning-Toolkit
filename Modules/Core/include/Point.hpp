@@ -42,6 +42,18 @@ namespace mltk {
             size_t id = 0;
 
         public:
+            auto begin() const {
+                return x.begin();
+            }
+            auto end() const{
+                return x.end();
+            }
+            auto& begin() {
+                return x.begin();
+            }
+            auto& end() {
+                return x.end();
+            }
             /**
              * \brief Empty constructor.
              **/

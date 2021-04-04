@@ -32,7 +32,7 @@ namespace mltk{
 
     template < typename T >
     vector<string> Visualization< T >::createTempFiles(){
-        size_t i, j, k, size = samples->getSize(), dim = samples->getDim();
+        size_t i, j, k, size = samples->size(), dim = samples->dim();
         vector<string> file_names;
         if(samples->getType() == "Classification") {
             vector<std::string> class_names = samples->getClassNames();

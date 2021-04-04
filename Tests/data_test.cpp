@@ -9,7 +9,7 @@
 int main(int, char**){
     mltk::Data<double> data("../iris.data");
 
-    std::cout << data.getSize() << std::endl;
+    std::cout << data.size() << std::endl;
 
     return 0;
 }

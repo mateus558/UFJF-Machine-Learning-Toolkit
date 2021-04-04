@@ -19,11 +19,11 @@ namespace mltk{
             }
 
             bool train() override {
-                this->learners.resize(n);
+                this->m_learners.resize(n);
                 for (size_t i = 0; i < n; i++) {
-                    this->learners[i] = std::make_shared<classifier::BalancedPerceptron<T>>();
-                    this->learners[i]->setSamples(this->samples);
-                    this->learners[i]->train();
+                    this->m_learners[i] = std::make_shared<classifier::BalancedPerceptron<T>>();
+                    this->m_learners[i]->setSamples(this->samples);
+                    this->m_learners[i]->train();
                 }
                 return true;
             }
@@ -35,8 +35,8 @@ namespace mltk{
                 #if DEBUG == 1
                 #pragma omp parallel for
                 #endif
-                for (size_t i = 0; i < this->learners.size(); i++) {
-                    auto pred = this->learners[i]->evaluate(p);
+                for (size_t i = 0; i < this->m_learners.size(); i++) {
+                    auto pred = this->m_learners[i]->evaluate(p);
 
                     // get prediction position
                     size_t pred_pos = std::find_if(_classes.begin(), _classes.end(), [&pred](const auto &a) {

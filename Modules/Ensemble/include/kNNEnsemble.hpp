@@ -19,16 +19,16 @@ namespace ensemble {
             kNNEnsemble() = default;
             kNNEnsemble(const Data<T> &samples, size_t _k): k(_k) {
                 this->samples = make_data<T>(samples);
-                this->learners.resize(7);
-                this->learners[0] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Euclidean<T>>>(k);
-                this->learners[1] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Lorentzian<T>>>(k);
-                this->learners[2] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Cosine<T>>>(k);
-                this->learners[3] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Bhattacharyya<T>>>(k);
-                this->learners[4] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Pearson<T>>>(k);
-                this->learners[5] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::KullbackLeibler<T>>>(k);
-                this->learners[6] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Hassanat<T>>>(k);
+                this->m_learners.resize(7);
+                this->m_learners[0] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Euclidean<T>>>(k);
+                this->m_learners[1] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Lorentzian<T>>>(k);
+                this->m_learners[2] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Cosine<T>>>(k);
+                this->m_learners[3] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Bhattacharyya<T>>>(k);
+                this->m_learners[4] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Pearson<T>>>(k);
+                this->m_learners[5] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::KullbackLeibler<T>>>(k);
+                this->m_learners[6] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Hassanat<T>>>(k);
 
-                for(auto& learner: this->learners){
+                for(auto& learner: this->m_learners){
                     learner->setSamples(this->samples);
                 }
             }
@@ -41,8 +41,8 @@ namespace ensemble {
             double evaluate(const Point<T> &p, bool raw_value = false) override {
                 auto classes = this->samples->getClasses();
                 Point<int> votes(classes.size());
-                for (size_t i = 0; i < this->learners.size(); i++) {
-                    int pred = this->learners[i]->evaluate(p);
+                for (size_t i = 0; i < this->m_learners.size(); i++) {
+                    int pred = this->m_learners[i]->evaluate(p);
                     size_t pred_pos = std::find(classes.begin(), classes.end(), pred) - classes.begin();
                     votes[pred_pos]++;
                 }
@@ -50,7 +50,7 @@ namespace ensemble {
             }
 
             std::string getFormulationString() override {
-                return this->learners[0]->getFormulationString();
+                return this->m_learners[0]->getFormulationString();
             }
         };
     }

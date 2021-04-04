@@ -19,7 +19,7 @@ double compute_acc(Data<double>& data, Learner<double> *learner){
             acc++;
         }
     }
-    return 100.0*double(acc)/data.getSize();
+    return 100.0*double(acc)/ data.size();
 }
 
 int main(int argc, char* argv[]){

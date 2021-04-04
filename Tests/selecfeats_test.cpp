@@ -8,7 +8,7 @@ int main(){
     mltk::Data<double> data("iris.data");
     std::vector<size_t> feats = {0,2,3};
     auto feat_data = data.selectFeatures(feats);
-    assert(feats.size() == feat_data.getDim());
+    assert(feats.size() == feat_data.dim());
     assert(data.size() == feats_data.size());
     for(auto const& point: data){
         for(auto const& feat_point: feat_data){

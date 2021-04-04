@@ -16,14 +16,14 @@ namespace mltk{
             if (initial_solution) {
                 this->solution = *initial_solution;
             } else {
-                this->solution.w.resize(samples->getDim(), 0.0);
+                this->solution.w.resize(samples->dim(), 0.0);
                 this->solution.bias = 0.0;
             }
         }
 
         template<typename T>
         bool LMSPrimal<T>::train() {
-            size_t j = 0, k = 0, size = this->samples->getSize(), dim = this->samples->getDim();
+            size_t j = 0, k = 0, size = this->samples->size(), dim = this->samples->dim();
             size_t time = this->start_time + this->max_time;
             double error = 0.0, diff = 0.0, diffAnt = 0.0, cost_func = 0.0;
             std::vector<double> func(size, 0.0);

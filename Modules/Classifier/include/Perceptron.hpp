@@ -95,7 +95,7 @@ namespace mltk{
                 size_t errors = 0;
 
                 this->bias = 0;
-                mltk::random_init<double>(this->weights, this->samples->getDim(), this->seed);
+                mltk::random_init<double>(this->weights, this->samples->dim(), this->seed);
                 this->samples->shuffle(this->seed);
                 this->timer.Reset();
 

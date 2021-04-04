@@ -10,20 +10,20 @@ namespace mltk{
         template<typename T, typename Callable>
         KMeans<T, Callable>::KMeans(std::shared_ptr<Data<T>> _samples, size_t k, const std::string &_initialization)
                 : Clusterer<T>(_samples, k), initialization(_initialization) {
-            this->centers.assign(this->n_clusters, std::vector<T>(this->samples->getDim(), 0.0));
+            this->centers.assign(this->n_clusters, std::vector<T>(this->samples->dim(), 0.0));
             this->clusters.assign(this->n_clusters, std::vector<size_t>());
         }
 
         template<typename T, typename Callable>
         bool KMeans<T, Callable>::train() {
             double cost = 0.0, old_cost = 0.0;
-            size_t dim = this->samples->getDim(), size = this->samples->getSize();
+            size_t dim = this->samples->dim(), size = this->samples->size();
             size_t time = this->start_time + this->max_time;
             auto points = this->samples->getPoints();
             bool has_converged = true;
             std::random_device rnd_device;
             std::mt19937 mersenne_engine{rnd_device()};
-            std::uniform_int_distribution<size_t> dist{0, this->samples->getSize()};
+            std::uniform_int_distribution<size_t> dist{0, this->samples->size()};
 
             std::shuffle(points.begin(), points.end(), std::mt19937(std::random_device()()));
 

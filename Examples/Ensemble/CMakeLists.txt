@@ -10,7 +10,7 @@ add_executable(examp_bag examp_bagging.cpp)
 set_target_properties(examp_bag PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 target_link_libraries(examp_bag ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} ${LIBVALIDATION})
 
-add_executable(examp_ada examp_adaboost.cpp)
+add_executable(examp_ada examp_adaboost.cpp res_knn_est_acc.cpp)
 set_target_properties(examp_ada PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 target_link_libraries(examp_ada ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} ${LIBVALIDATION})
 
@@ -50,3 +50,9 @@ target_link_libraries(res_knn_ens_w_dsm ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBL
 add_executable(res_knn_ens_w_dsml res_knn_ens_w_dsml.cpp)
 set_target_properties(res_knn_ens_w_dsml PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 target_link_libraries(res_knn_ens_w_dsml ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} ${LIBVALIDATION})
+
+set (CMAKE_CXX_STANDARD 17)
+
+add_executable(res_knn_est_acc res_knn_est_acc.cpp)
+set_target_properties(res_knn_est_acc PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+target_link_libraries(res_knn_est_acc ${LIBCORE} ${LIBCLASSIFIER} ${LIBENSEMBLE} ${LIBVALIDATION} -ltbb)

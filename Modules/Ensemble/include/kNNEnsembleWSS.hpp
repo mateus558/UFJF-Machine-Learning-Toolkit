@@ -23,20 +23,20 @@ namespace mltk {
             kNNEnsembleWSS() = default;
             kNNEnsembleWSS(Data<T> &samples, size_t _k): k(_k) {
                 this->samples = make_data<T>(samples);
-                this->learners.resize(7);
-                this->learners[0] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Euclidean<T>>>(k);
-                this->learners[1] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Lorentzian<T>>>(k);
-                this->learners[2] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Cosine<T>>>(k);
-                this->learners[3] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Bhattacharyya<T>>>(k);
-                this->learners[4] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Pearson<T>>>(k);
-                this->learners[5] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::KullbackLeibler<T>>>(k);
-                this->learners[6] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Hassanat<T>>>(k);
+                this->m_learners.resize(7);
+                this->m_learners[0] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Euclidean<T>>>(k);
+                this->m_learners[1] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Lorentzian<T>>>(k);
+                this->m_learners[2] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Cosine<T>>>(k);
+                this->m_learners[3] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Bhattacharyya<T>>>(k);
+                this->m_learners[4] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Pearson<T>>>(k);
+                this->m_learners[5] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::KullbackLeibler<T>>>(k);
+                this->m_learners[6] = std::make_shared<classifier::KNNClassifier<T, metrics::dist::Hassanat<T>>>(k);
 
                 std::vector<double> w;
-                for (size_t i = 0; i < this->learners.size(); i++) {
-                    this->learners[i]->setSamples(this->samples);
-                    this->learners[i]->train();
-                    auto classifier = dynamic_cast<classifier::Classifier<T> *>(this->learners[i].get());
+                for (size_t i = 0; i < this->m_learners.size(); i++) {
+                    this->m_learners[i]->setSamples(this->samples);
+                    this->m_learners[i]->train();
+                    auto classifier = dynamic_cast<classifier::Classifier<T> *>(this->m_learners[i].get());
                     auto acc = validation::kkfold(samples, *classifier, 10, 10, this->seed, 0).accuracy/100.0;
                     w.push_back(acc);
                 }
@@ -99,12 +99,12 @@ namespace mltk {
             }
 
             void optimizeSubWeights(Data<T> &samples, size_t step, double max_weight){
-                Point<double> temp(this->learners.size(), 0), best(this->learners.size(), 0);
-                this->sub_weights.resize(this->learners.size());
+                Point<double> temp(this->m_learners.size(), 0), best(this->m_learners.size(), 0);
+                this->sub_weights.resize(this->m_learners.size());
                 std::vector<double> values = linspace(0, max_weight, step);
                 Point<double> p(values);
                 double best_acc = 0.0;
-                int N = 0, _k = this->learners.size();
+                int N = 0, _k = this->m_learners.size();
                 std::vector<double> perm;
 
                 std::cout << p << std::endl;
@@ -124,11 +124,11 @@ namespace mltk {
             }
 
             double maxAccuracy(){
-                std::vector<int> ids(this->samples->getSize(), 0);
+                std::vector<int> ids(this->samples->size(), 0);
 
                 int i = 0;
                 for(auto point: this->samples->getPoints()) {
-                    for (auto& learner: this->learners) {
+                    for (auto& learner: this->m_learners) {
                         if(learner->evaluate(*point) == point->Y()){
                             ids[i] = 1;
                             break;
@@ -137,11 +137,11 @@ namespace mltk {
                     i++;
                 }
                 double sum = std::accumulate(ids.begin(), ids.end(), 0.0);
-                return sum/this->samples->getSize();
+                return sum/ this->samples->size();
             }
 
             void setWeights(const std::vector<double> weights) {
-                assert(weights.size() == this->learners.size());
+                assert(weights.size() == this->m_learners.size());
                 this->weights.X().resize(weights.size());
                 this->weights = weights;
             }
@@ -155,9 +155,9 @@ namespace mltk {
                 } else {
                     this->weights = 1;
                 }
-                for (size_t i = 0; i < this->learners.size(); i++) {
+                for (size_t i = 0; i < this->m_learners.size(); i++) {
                     if(this->sub_weights[i] == 0) continue;
-                    auto pred = this->learners[i]->evaluate(p);
+                    auto pred = this->m_learners[i]->evaluate(p);
                     // get prediction position
                     size_t pred_pos = std::find_if(_classes.begin(), _classes.end(), [&pred](const auto &a) {
                         return (a == pred);
@@ -170,7 +170,7 @@ namespace mltk {
             }
 
             std::string getFormulationString() override {
-                return this->learners[0]->getFormulationString();
+                return this->m_learners[0]->getFormulationString();
             }
         };
     }

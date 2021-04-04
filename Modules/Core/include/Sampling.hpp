@@ -59,13 +59,13 @@ namespace mltk{
             return mltk::covar(x, labels)/(mltk::std_dev(x)*mltk::std_dev(labels));
         }
 
-        inline void setAlpha(double alpha){ this->alpha = alpha; }
+        inline void setAlpha(double _alpha){ this->alpha = _alpha; }
 
         std::vector<std::vector<size_t>> operator()(const Data< T > &data){
            for(int i = 0; i < n_dims; i++) {
-               for (int j = 0; j < subspaces.size(); j++) {
-                   Point<double> fscore(data.getDim(), -1.01);
-                   for (int c = 0; c < data.getDim(); c++) {
+               for(int j = 0; j < subspaces.size(); j++) {
+                   Point<double> fscore(data.dim(), -1.01);
+                   for (int c = 0; c < data.dim(); c++) {
                        if (std::find(subspaces[j].begin(), subspaces[j].end(), c) == subspaces[j].end()) {
                            fscore[c] = alpha*qual_correlation(data, c) + (1-alpha)*div_m(j, c);
                        }
@@ -140,7 +140,7 @@ namespace mltk{
             std::mt19937 generator(seed);
             std::uniform_real_distribution<double> distribution(0.0,1.0); 
             // number of generated artificial points
-            size_t n_apoints = r * data.getSize();
+            size_t n_apoints = r * data.size();
             // find the minority class
             auto classes = data.getClasses();
             auto class_distribution = data.getClassesDistribution();
@@ -153,7 +153,7 @@ namespace mltk{
             
             // iterate through all the elements from the Z set
             for(auto z = Z.begin(); z != Z.end(); ++z){
-                std::vector<std::pair<size_t, double> > distance(Z.getSize());
+                std::vector<std::pair<size_t, double> > distance(Z.size());
                 std::vector<SamplePointer< T > > k_neighbors(k);
                 size_t id = 0;
                 auto _z = *(*z);
@@ -235,7 +235,7 @@ namespace mltk{
 
             // iterate through all the elements from the Z set
             for(auto z = data.begin(); z != data.end(); ++z){
-                std::vector<std::pair<size_t, double> > distance(data.getSize());
+                std::vector<std::pair<size_t, double> > distance(data.size());
                 std::vector<SamplePointer< T > > M(m);
                 size_t id = 0;
                 auto _z = (*z);
@@ -278,7 +278,7 @@ namespace mltk{
             }
 
             // apply SMOTE algorithm to the danger subset
-            if(danger_subset.getSize() > 0){
+            if(danger_subset.size() > 0){
                 SMOTE< T > smote(k, r, seed);
                 smote(danger_subset);
             }

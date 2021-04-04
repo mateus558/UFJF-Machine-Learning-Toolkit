@@ -83,9 +83,9 @@ namespace mltk{
         /// Frequency of each class in the dataset.
         std::vector<size_t> class_distribution;
         /// Number of points in the dataset.
-        size_t size = 0;
+        size_t m_size = 0;
         /// Dataset points dimension.
-        size_t dim = 0;
+        size_t m_dim = 0;
         /// Time multiplier
         double time_mult = 0.0;
         /// Positive and negative classes. (1, -1 are the default classes)
@@ -187,12 +187,12 @@ namespace mltk{
          * \brief Returns the size of the dataset.
          * \return int
          */
-        size_t getSize() const{ return size;};
+        size_t size() const{ return m_size;};
         /**
          * \brief Returns the dimension of the dataset.
          * \return int
          */
-        size_t getDim () const{ return (points.size() > 0)?points[0]->size():0; }
+        size_t dim() const{ return (points.size() > 0) ? points[0]->size() : 0; }
         /**
          * \brief Returns a shared pointer to the vector of Points of the sample.
          * \return std::vector<std::shared_ptr<Point< T > > >

@@ -16,7 +16,7 @@ int main(int argc, char* argv[]){
     mltk::ensemble::AdaBoostClassifier<double> ada(valid_pair.train, ova, 100);
     ada.setSeed(42);
 
-    std::cout << "Dataset size: " << data.getSize() << std::endl;
+    std::cout << "Dataset size: " << data.size() << std::endl;
 
     ada.train();
     std::cout << "Original class: " << data[15]->Y() << std::endl;

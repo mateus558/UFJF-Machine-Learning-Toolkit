@@ -39,8 +39,8 @@ int main(){
             continue;
         }
         std::clog << "\nDataset: " << dataset << std::endl;
-        std::clog << "Size: " <<data.getSize() << std::endl;
-        std::clog << "Dimensions: " << data.getDim() << "\n" << std::endl;
+        std::clog << "Size: " << data.size() << std::endl;
+        std::clog << "Dimensions: " << data.dim() << "\n" << std::endl;
         auto train_test = validation::partTrainTest(data, 10, 42);
         for(auto const& k: ks){
             kNNEnsembleBaggingW<double> knn_ensem(data, k);

@@ -24,17 +24,17 @@ namespace mltk {
                                        size_t seed = 0)
                     : n_estimators(n_estimators), seed(seed) {
                 this->samples = mltk::make_data<T>(samples);
-                this->learners.resize(n_estimators);
+                this->m_learners.resize(n_estimators);
                 for (size_t i = 0; i < n_estimators; i++) {
-                    this->learners[i] = std::make_shared<Estimator<T> >(estimator);
+                    this->m_learners[i] = std::make_shared<Estimator<T> >(estimator);
                 }
             }
 
             bool train() override {
-                size_t samp_size = this->samples->getSize() / n_estimators;
+                size_t samp_size = this->samples->size() / n_estimators;
                 for (size_t i = 0; i < n_estimators; i++) {
-                    this->learners[i]->setSamples(this->samples->sampling(samp_size, true, seed));
-                    this->learners[i]->train();
+                    this->m_learners[i]->setSamples(this->samples->sampling(samp_size, true, seed));
+                    this->m_learners[i]->train();
                 }
                 return true;
             }
@@ -43,7 +43,7 @@ namespace mltk {
                 auto classes = this->samples->getClasses();
                 Point<int> votes(classes.size());
                 for (size_t i = 0; i < n_estimators; i++) {
-                    int pred = this->learners[i]->evaluate(p);
+                    int pred = this->m_learners[i]->evaluate(p);
                     size_t pred_pos = std::find(classes.begin(), classes.end(), pred) - classes.begin();
                     votes[pred_pos]++;
                 }
@@ -51,7 +51,7 @@ namespace mltk {
             }
 
             std::string getFormulationString() override {
-                return this->learners[0]->getFormulationString();
+                return this->m_learners[0]->getFormulationString();
             }
         };
     }

@@ -138,7 +138,7 @@ namespace mltk{
 
     template < typename T >
     void Kernel::compute(const std::shared_ptr<Data< T > > samples){
-        size_t i, j, size = samples->getSize(), dim = samples->getDim();
+        size_t i, j, size = samples->size(), dim = samples->dim();
 
         if(computed) return;
         K.assign(size, std::vector<double>(size, 0.0));
@@ -156,7 +156,7 @@ namespace mltk{
     template < typename T >
     mltk::dMatrix* Kernel::generateMatrixH(const std::shared_ptr<Data< T > > samples) {
         int i = 0, j = 0;
-        size_t size = samples->getSize(), dim = samples->getDim();
+        size_t size = samples->size(), dim = samples->dim();
 
         H.resize(size, std::vector<double>(size));
 
@@ -175,14 +175,14 @@ namespace mltk{
     template < typename T >
     mltk::dMatrix* Kernel::generateMatrixHwithoutDim(const std::shared_ptr<Data< T > > samples, int dim) {
         int i = 0, j = 0;
-        size_t size = samples->getSize();
+        size_t size = samples->size();
 
         HwithoutDim.resize(size, std::vector<double>(size));
 
         /* Calculating Matrix */
         for(i = 0; i < size; ++i) {
             for (j = i; j < size; ++j) {
-                HwithoutDim[i][j] = functionWithoutDim((*samples)[i], (*samples)[j], dim, samples->getDim()) *
+                HwithoutDim[i][j] = functionWithoutDim((*samples)[i], (*samples)[j], dim, samples->dim()) *
                                     samples->getPoint(i)->Y() * samples->getPoint(j)->Y();
                 HwithoutDim[j][i] = HwithoutDim[i][j];
             }
@@ -260,7 +260,7 @@ namespace mltk{
 
     template < typename T >
     double Kernel::norm(Data< T > data){
-        size_t i, j, size = data.getSize();
+        size_t i, j, size = data.size();
         double sum, sum1;
         auto points = data.getPoints();
 
@@ -278,7 +278,7 @@ namespace mltk{
 
     template < typename T >
     double Kernel::featureSpaceNorm(std::shared_ptr<Data< T > > data) {
-        size_t i = 0, j = 0, size = data->getSize();
+        size_t i = 0, j = 0, size = data->size();
         double sum1 = 0.0;
         double sum  = 0.0;
 

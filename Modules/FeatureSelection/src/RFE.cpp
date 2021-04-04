@@ -29,7 +29,7 @@ namespace mltk{
 
         template<typename T>
         std::shared_ptr<Data<T> > RFE<T>::selectFeatures() {
-            size_t dim = this->samples->getDim(), partial_dim = 0, i = 0, j = 0;
+            size_t dim = this->samples->dim(), partial_dim = 0, i = 0, j = 0;
             vector<int> features, partial_features, choosen_feats, fnames;
             vector<double> w, new_w;
             vector<select_weight> weight;
@@ -89,7 +89,7 @@ namespace mltk{
                         cout << "---------------\n :: FINAL :: \n---------------\n";
                         choosen_feats = stmp_partial->getFeaturesNames();
                         cout << "Choosen Features: ";
-                        for (i = 0; i < stmp_partial->getDim() - 1; ++i) cout << choosen_feats[i] << ", ";
+                        for (i = 0; i < stmp_partial->dim() - 1; ++i) cout << choosen_feats[i] << ", ";
                         cout << choosen_feats[i] << endl;
 
                         if (this->cv->qtde > 0) {
@@ -166,10 +166,10 @@ namespace mltk{
                 }
 
                 w = this->classifier->getSolutionRef()->w;
-                weight.resize(stmp->getDim());
+                weight.resize(stmp->dim());
                 auto fnames = stmp->getFeaturesNames();
 
-                for (i = 0; i < stmp->getDim(); ++i) {
+                for (i = 0; i < stmp->dim(); ++i) {
                     weight[i].w = w[i];
                     weight[i].fname = fnames[i];
                 }
@@ -189,7 +189,7 @@ namespace mltk{
                     cout << "---------------\n :: FINAL :: \n---------------\n";
                     choosen_feats = stmp->getFeaturesNames();
                     cout << "Choosen Features: ";
-                    for (i = 0; i < stmp->getDim() - 1; ++i) cout << choosen_feats[i] << ",";
+                    for (i = 0; i < stmp->dim() - 1; ++i) cout << choosen_feats[i] << ",";
                     cout << choosen_feats[i] << endl;
 
                     cout << "---------------\nEliminated Features: ";
@@ -224,14 +224,14 @@ namespace mltk{
 
                 /*manutencao do w do pai para o IMA Primal*/
                 if (this->classifier->getFormulationString() == "Primal") {
-                    for (j = 0; j < stmp->getDim(); ++j)
+                    for (j = 0; j < stmp->dim(); ++j)
                         for (i = level; i < leveljump; ++i)
                             if (weight[i - level].w == w[j])
                                 w[j] = 0;
 
                     new_w.resize(dim - leveljump);
 
-                    for (i = 0, j = 0; j < stmp->getDim(); ++j)
+                    for (i = 0, j = 0; j < stmp->dim(); ++j)
                         if (w[j] != 0)
                             new_w[i++] = w[j];
                     //novo_w[i] = w[j]; //bias nao copia mais

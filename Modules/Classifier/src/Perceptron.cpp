@@ -20,7 +20,7 @@ namespace mltk{
 
         template<typename T>
         bool PerceptronPrimal<T>::train() {
-            size_t size = this->samples->getSize(), dim = this->samples->getDim();
+            size_t size = this->samples->size(), dim = this->samples->dim();
             int i, j, e = 0, idx;
             double y, time = this->start_time + this->max_time;
             bool cond;
@@ -85,8 +85,8 @@ namespace mltk{
 
         template<typename T>
         bool PerceptronFixedMarginPrimal<T>::train() {
-            size_t i, j, k, e, s, r, dim = this->samples->getDim();
-            size_t size = this->samples->getSize(), n = dim;
+            size_t i, j, k, e, s, r, dim = this->samples->dim();
+            size_t size = this->samples->size(), n = dim;
             int idx, sign = 1, n_temp = 0, largn = 0;
             double norm = this->solution.norm, lambda = 1.0, y, time = this->start_time + this->max_time;
             double sumnorm = 0.0, bias = this->solution.bias, largw = 0.0, largw_temp = 0.0;
@@ -241,7 +241,7 @@ namespace mltk{
 
         template<typename T>
         bool PerceptronDual<T>::train() {
-            size_t y, e, i, j, idx, r, size = this->samples->getSize(), dim = this->samples->getDim();
+            size_t y, e, i, j, idx, r, size = this->samples->size(), dim = this->samples->dim();
             double norm = this->solution.norm, time = this->start_time + this->max_time;
             double bias = this->solution.bias, f;
             const double sqrate = this->rate * this->rate;
@@ -313,8 +313,8 @@ namespace mltk{
             if (initial_solution)
                 this->alpha = (*initial_solution).alpha;
             else {
-                this->alpha.resize(samples->getSize());
-                this->solution.func.resize(samples->getSize());
+                this->alpha.resize(samples->size());
+                this->solution.func.resize(samples->size());
             }
         }
 
@@ -329,14 +329,14 @@ namespace mltk{
             if (initial_solution)
                 this->alpha = (*initial_solution).alpha;
             else {
-                this->alpha.resize(samples->getSize());
-                this->solution.func.resize(samples->getSize());
+                this->alpha.resize(samples->size());
+                this->solution.func.resize(samples->size());
             }
         }
 
         template<typename T>
         bool PerceptronFixedMarginDual<T>::train() {
-            size_t e, i, j, k, s, idx, r, size = this->samples->getSize(), dim = this->samples->getDim();
+            size_t e, i, j, k, s, idx, r, size = this->samples->size(), dim = this->samples->dim();
             double y, lambda, norm = this->solution.norm, time = this->start_time + this->max_time;
             double bias = this->solution.bias;
             const double sqrate = this->rate * this->rate;

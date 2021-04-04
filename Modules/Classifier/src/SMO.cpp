@@ -38,7 +38,7 @@ namespace mltk{
 
         template<typename T>
         bool SMO<T>::train() {
-            size_t i = 0, size = this->samples->getSize(), dim = this->samples->getDim();
+            size_t i = 0, size = this->samples->size(), dim = this->samples->dim();
             bool ret = true;
             dMatrix matrix;
             double norm = 1;
@@ -98,7 +98,7 @@ namespace mltk{
 
         template<typename T>
         bool SMO<T>::examine_example(int i1) {
-            size_t i = 0, size = this->samples->getSize();
+            size_t i = 0, size = this->samples->size();
             double y1 = 0;
             double e1 = 0;
             double r1 = 0;
@@ -182,7 +182,7 @@ namespace mltk{
             int k0 = 0;
             int k = 0;
             int i2 = 0;
-            size_t size = this->samples->getSize();
+            size_t size = this->samples->size();
 
             if (this->verbose > 2) cout << "  All-set iteration\n";
 
@@ -365,7 +365,7 @@ namespace mltk{
 
         template<typename T>
         bool SMO<T>::training_routine() {
-            size_t size = this->samples->getSize();
+            size_t size = this->samples->size();
             size_t epoch = 0;
             int k = 0;
             int num_changed = 0;
@@ -412,7 +412,7 @@ namespace mltk{
 
         template<typename T>
         void SMO<T>::test_learning() {
-            size_t i = 0, size = this->samples->getSize();
+            size_t i = 0, size = this->samples->size();
             for (i = 0; i < size; ++i)
                 cout << i + 1 << " -> " << function(i) << " (error=" << this->l_data[i].error << ") (alpha="
                      << (*this->samples)[i]->Alpha() << ")\n";
@@ -420,7 +420,7 @@ namespace mltk{
 
         template<typename T>
         int SMO<T>::train_matrix(Kernel *matrix) {
-            size_t i = 0, size = this->samples->getSize();
+            size_t i = 0, size = this->samples->size();
             bool ret = true;
             double norm = 1;
             vector<smo_learning_data> l_data(size);

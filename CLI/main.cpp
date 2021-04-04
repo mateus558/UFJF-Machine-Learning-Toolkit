@@ -464,8 +464,8 @@ void datasetOption(int option){
         case 2:
             if(!samples->isEmpty()){
                 cout << "Dataset type: " << samples->getType() << endl;
-                cout << "Number of features: " << samples->getDim() << endl;
-                cout << "Number of samples: " << samples->getSize() << endl;
+                cout << "Number of features: " << samples->dim() << endl;
+                cout << "Number of samples: " << samples->size() << endl;
                 if(samples->getType() == "Classification") {
                     vector<string> class_names = samples->getClassNames();
                     vector<size_t> class_frequency = samples->getClassesDistribution();
@@ -482,8 +482,8 @@ void datasetOption(int option){
                 }
                 if(!test_sample.isEmpty()){
                     cout << "\n\nTest sample information\n\n";
-                    cout << "Number of features: " << test_sample.getDim() << endl;
-                    cout << "Number of samples: " << test_sample.getSize() << endl;
+                    cout << "Number of features: " << test_sample.dim() << endl;
+                    cout << "Number of samples: " << test_sample.size() << endl;
                     if(samples->getType() == "Classification") {
                         vector<string> class_names = samples->getClassNames();
                         vector<size_t> class_frequency = samples->getClassesDistribution();
@@ -502,8 +502,8 @@ void datasetOption(int option){
 
                 if(!train_sample.isEmpty()){
                     cout << "\n\nTrain sample information\n\n";
-                    cout << "Number of features: " << train_sample.getDim() << endl;
-                    cout << "Number of samples: " << train_sample.getSize() << endl;
+                    cout << "Number of features: " << train_sample.dim() << endl;
+                    cout << "Number of samples: " << train_sample.size() << endl;
                     if(samples->getType() == "Classification") {
                         vector<string> class_names = samples->getClassNames();
                         vector<size_t> class_frequency = samples->getClassesDistribution();
@@ -555,7 +555,7 @@ void datasetOption(int option){
 
                     cout << "\nDone!" << endl;
                     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-                    cout << "Size of the test sample: " << test_sample.getSize() << endl;
+                    cout << "Size of the test sample: " << test_sample.size() << endl;
                     cout << endl;
                     cout << elapsed_secs << " seconds to compute.\n";
 
@@ -1031,14 +1031,14 @@ void featureSelectionOption(int option){
                 }
                 clear();
                 cout << endl;
-                cout << "Desired dimension (max. " << samples->getDim() << "): ";
+                cout << "Desired dimension (max. " << samples->dim() << "): ";
                 cin >> ddim;
                 cout << "Features eliminated at a time: ";
                 cin >> jump;
                 cout << endl;
 
                 rfe.setJump(jump);
-                rfe.setDepth(samples->getDim() - ddim);
+                rfe.setDepth(samples->dim() - ddim);
 
                 clear();
                 cout << "\n--------- Cross-Validation ---------\n" << endl;
@@ -1177,7 +1177,7 @@ void featureSelectionOption(int option){
                 }
                 clear();
                 cout << endl;
-                cout << "Desired dimension (max. " << samples->getDim() << "): ";
+                cout << "Desired dimension (max. " << samples->dim() << "): ";
                 cin >> ddim;
                 golub.setVerbose(verbose);
                 golub.setFinalDimension(ddim);
@@ -1303,7 +1303,7 @@ void featureSelectionOption(int option){
                 }
                 clear();
                 cout << endl;
-                cout << "Desired dimension (max. " << samples->getDim() << "): ";
+                cout << "Desired dimension (max. " << samples->dim() << "): ";
                 cin >> ddim;
                 fisher.setVerbose(verbose);
                 fisher.setFinalDimension(ddim);
@@ -1430,9 +1430,9 @@ void featureSelectionOption(int option){
                 }
 
                 cout << endl;
-                cout << "Desired dimension (max. " << samples->getDim() << "): ";
+                cout << "Desired dimension (max. " << samples->dim() << "): ";
                 cin >> ddim;
-                cout << "Branching factor (max. " << samples->getDim() << "): ";
+                cout << "Branching factor (max. " << samples->dim() << "): ";
                 cin >> branching;
                 cout << endl;
                 cout << "Branching sorting: (1)W (2)W/center (3)W*radius/center (4)W*radius (5)W*Golub (6)W*Fisher: ";
@@ -1535,7 +1535,7 @@ void clusterersOption(int option){
 
                 Data<double> _data;
                 _data.copy(*samples);
-                for(size_t i = 0; i < _data.getSize(); i++){
+                for(size_t i = 0; i < _data.size(); i++){
                     auto point = _data[i];
                     point->Y() = kmeans.evaluate(*point);
                 }
@@ -1545,9 +1545,9 @@ void clusterersOption(int option){
                 _data.setClasses(classes);
                 cout << endl;
                 utils::printConfusionMatrix(classes, samples->getClassNames(), conf_m);
-                if(_data.getDim() >= 3 )
+                if(_data.dim() >= 3 )
                     vis.plot3D(1,2,3);
-                if(_data.getDim() == 2)
+                if(_data.dim() == 2)
                     vis.plot2D(1, 2);
                 waitUserAction();
             }else{
@@ -1593,8 +1593,8 @@ void primalRegressorsOption(int option) {
                 cout << "k value: ";
                 cin >> k;
                 cout << "Enter a point to evaluate:" << endl;
-                vector<double> feats(samples->getDim());
-                for(size_t i = 0; i < samples->getDim(); i++){
+                vector<double> feats(samples->dim());
+                for(size_t i = 0; i < samples->dim(); i++){
                     cout << "Dim " << i << ": ";
                     cin >> feats[i];
                 }

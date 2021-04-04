@@ -17,7 +17,7 @@ namespace mltk {
 
     template < typename T >
     double Statistics< T >::getFeatureMean(std::shared_ptr<Data< T > > data, int index){
-        int i, size = data->getSize();
+        int i, size = data->size();
         double sum = 0.0;
         vector<shared_ptr<Point< T > > > points = data->getPoints();
 
@@ -49,7 +49,7 @@ namespace mltk {
         int i, j;
         double norm = 0.0;
         double sum = 0.0;
-        int dim = data->getDim(), size = data->getSize();
+        int dim = data->dim(), size = data->size();
         vector<int> fnames = data->getFeaturesNames();
         vector<double> avg(dim);
         vector<shared_ptr<Point< T > > > points = data->getPoints();
@@ -86,8 +86,8 @@ namespace mltk {
 
     template < typename T >
     double Statistics< T >::getFeatureStdev(std::shared_ptr<Data< T > > data, int index){
-        int i, size = data->getSize();
-        double avg, sd, vetsize = data->getDim();
+        int i, size = data->size();
+        double avg, sd, vetsize = data->dim();
         vector<shared_ptr<Point< T > > > points = data->getPoints();
 
         if(size == 1) return 0.0;
@@ -103,7 +103,7 @@ namespace mltk {
 
     template < typename T >
     double Statistics< T >::getRadius(std::shared_ptr<Data< T > > data, int index, double q){
-        int i = 0, j = 0, dim = data->getDim(), size = data->getSize();
+        int i = 0, j = 0, dim = data->dim(), size = data->size();
         double norm = 0.0;
         double max = 1.0;
         vector<int> fnames = data->getFeaturesNames();
@@ -147,7 +147,7 @@ namespace mltk {
 
     template < typename T >
     double Statistics< T >::getDistCenters(std::shared_ptr<Data< T > > data, int index){
-        int i = 0, j = 0, dim = data->getDim(), size = data->getSize();
+        int i = 0, j = 0, dim = data->dim(), size = data->size();
         double dist = 0.0;
         int size_pos = 0, size_neg = 0;
         vector<int> fnames = data->getFeaturesNames();
@@ -181,7 +181,7 @@ namespace mltk {
 
     template < typename T >
     double Statistics< T >::getDistCentersWithoutFeats(std::shared_ptr<Data< T > > data, std::vector<int> feats, int index){
-        int i = 0, j = 0, dim = data->getDim(), size = data->getSize();
+        int i = 0, j = 0, dim = data->dim(), size = data->size();
         double dist = 0.0;
         int size_pos = 0, size_neg = 0, featsize = feats.size();
         vector<int> fnames = data->getFeaturesNames();
