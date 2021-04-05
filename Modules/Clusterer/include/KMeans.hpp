@@ -4,35 +4,32 @@
 
 #ifndef UFJF_MLTK_KMEANS_HPP
 #define UFJF_MLTK_KMEANS_HPP
+#pragma once
 
 #include "Clusterer.hpp"
 
-template<typename T>
-class KMeans: public Clusterer< T > {
-private:
-    using Function = typename Clusterer< T >::Function;
+namespace mltk{
+        namespace clusterer {
+            /**
+             * \brief Wrapper for the implementation of the K-Means clustering algorithm.
+             */
+            template<typename T, typename Callable = metrics::dist::Euclidean<T> >
+            class KMeans : public Clusterer<T> {
+            private:
+                /// Algorithm used for the initialization of the K-Means algorithm
+                std::string initialization;
 
-    std::string initialization;
+            public:
+                KMeans(std::shared_ptr<Data<T> > _samples, size_t k, const std::string &initialization = "random");
 
-public:
-    KMeans(std::shared_ptr<Data<T> > _samples, size_t k, const std::string& initialization = "random", Function _dist_function  = [] (const std::shared_ptr<Point< double > > p, const std::shared_ptr<Point< T > > q){
-        const size_t _dimp = p->x.size();
-        size_t i;
-        double dist = 0;
+                bool train() override;
 
-        for(i = 0; i < _dimp; i++){
-            dist += (p->x[i] - q->x[i]) * (p->x[i] - q->x[i]);
+                double evaluate(const Point<T> &p, bool raw_value = false) override;
+
+                std::string getFormulationString() override;
+
+            };
         }
-        return sqrt(dist);
-    });
-
-    bool train() override;
-
-    double evaluate(Point<T> p) override;
-
-    std::string getFormulationString() override;
-
-};
-
+}
 
 #endif //UFJF_MLTK_KMEANS_HPP

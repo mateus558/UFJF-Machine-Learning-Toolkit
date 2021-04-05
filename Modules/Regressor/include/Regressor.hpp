@@ -7,41 +7,51 @@
 
 #endif //UFJF_MLTK_REGRESSOR_H
 
-#include "Learner.hpp"
+#include "../../Core/include/Learner.hpp"
 
-template <typename T >
-class Regressor: public Learner<T>{
-protected:
-    ///Regressor solution.
-    Solution solution;
-public:
-    /*********************************************
-     *               Getters                     *
-     *********************************************/
+namespace mltk{
+        namespace regressor {
+            template<typename T>
+            class Regressor : public Learner<T> {
+            protected:
+                ///Regressor solution.
+                Solution solution;
+            public:
+                Regressor() {}
 
-    /**
-     * \brief getSolution Returns the solution of the regressor.
-     * \return Solution
-     */
-    Solution getSolution() const {return solution;}
-    /**
-     * \brief getSolution Returns a reference to the solution of the regressor.
-     * \return Solution
-     */
-    Solution *getSolutionRef() { return &solution; }
+                Regressor(DataPointer <T> samples) : Learner<T>(samples) {}
 
-    /*********************************************
-     *               Setters                     *
-     *********************************************/
+                /*********************************************
+                 *               Getters                     *
+                 *********************************************/
 
-    /**
-    * \brief setW Set the weights vector of the regressor.
-    * \param w weights vector.
-    */
-    void setW(std::vector<double> w) {this->solution.w = w;}
-    /**
-     * \brief setSolution Set a solution for the regressor.
-     * \param solution Solution to be set.
-     */
-    void setSolution(Solution solution) {this->solution = solution;}
-};
+                /**
+                 * \brief getSolution Returns the solution of the regressor.
+                 * \return Solution
+                 */
+                Solution getSolution() const { return solution; }
+
+                /**
+                 * \brief getSolution Returns a reference to the solution of the regressor.
+                 * \return Solution
+                 */
+                Solution *getSolutionRef() { return &solution; }
+
+                /*********************************************
+                 *               Setters                     *
+                 *********************************************/
+
+                /**
+                * \brief setW Set the weights vector of the regressor.
+                * \param w weights vector.
+                */
+                void setW(const std::vector<double> &w) { this->solution.w = w; }
+
+                /**
+                 * \brief setSolution Set a solution for the regressor.
+                 * \param solution Solution to be set.
+                 */
+                void setSolution(Solution solution) { this->solution = solution; }
+            };
+        }
+}

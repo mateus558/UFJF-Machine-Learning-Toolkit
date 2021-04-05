@@ -20,11 +20,12 @@
 #include "Golub.hpp"
 #include "Fisher.hpp"
 #include "AOS.hpp"
-#include "KNN.hpp"
+#include "KNNClassifier.hpp"
 #include "KNNRegressor.hpp"
 #include "KMeans.hpp"
 
-using namespace std;
+using namespace std;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+using namespace mltk;
 
 int verbose = 1;
 bool sair = false, inva = false;
@@ -433,7 +434,7 @@ void datasetOption(int option){
                 cout << "Enter the number of the DB (must be in the DB folder): ";
                 cin >> sid;
 
-                path = data_folder + files[Utils::stoin(sid)];
+                path = data_folder + files[utils::stoin(sid)];
                 clock_t begin = clock();
                 cout << "\n" << path << endl;
                 samples->load(path);
@@ -463,8 +464,8 @@ void datasetOption(int option){
         case 2:
             if(!samples->isEmpty()){
                 cout << "Dataset type: " << samples->getType() << endl;
-                cout << "Number of features: " << samples->getDim() << endl;
-                cout << "Number of samples: " << samples->getSize() << endl;
+                cout << "Number of features: " << samples->dim() << endl;
+                cout << "Number of samples: " << samples->size() << endl;
                 if(samples->getType() == "Classification") {
                     vector<string> class_names = samples->getClassNames();
                     vector<size_t> class_frequency = samples->getClassesDistribution();
@@ -481,8 +482,8 @@ void datasetOption(int option){
                 }
                 if(!test_sample.isEmpty()){
                     cout << "\n\nTest sample information\n\n";
-                    cout << "Number of features: " << test_sample.getDim() << endl;
-                    cout << "Number of samples: " << test_sample.getSize() << endl;
+                    cout << "Number of features: " << test_sample.dim() << endl;
+                    cout << "Number of samples: " << test_sample.size() << endl;
                     if(samples->getType() == "Classification") {
                         vector<string> class_names = samples->getClassNames();
                         vector<size_t> class_frequency = samples->getClassesDistribution();
@@ -501,8 +502,8 @@ void datasetOption(int option){
 
                 if(!train_sample.isEmpty()){
                     cout << "\n\nTrain sample information\n\n";
-                    cout << "Number of features: " << train_sample.getDim() << endl;
-                    cout << "Number of samples: " << train_sample.getSize() << endl;
+                    cout << "Number of features: " << train_sample.dim() << endl;
+                    cout << "Number of samples: " << train_sample.size() << endl;
                     if(samples->getType() == "Classification") {
                         vector<string> class_names = samples->getClassNames();
                         vector<size_t> class_frequency = samples->getClassesDistribution();
@@ -546,17 +547,15 @@ void datasetOption(int option){
                     cout << "Seed for timestamps: ";
                     cin >> seed;
 
-                    Validation<double> valid(samples, nullptr, seed);
-
                     clock_t begin = clock();
-                    valid.partTrainTest(fold);
-                    test_sample = *valid.getTestSample();
-                    train_sample = *valid.getTrainSample();
+                    auto valid_data = validation::partTrainTest(*samples, 10, 42);
+                    test_sample = valid_data.test;
+                    train_sample = valid_data.train;
                     clock_t end = clock();
 
                     cout << "\nDone!" << endl;
                     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-                    cout << "Size of the test sample: " << test_sample.getSize() << endl;
+                    cout << "Size of the test sample: " << test_sample.size() << endl;
                     cout << endl;
                     cout << elapsed_secs << " seconds to compute.\n";
 
@@ -909,15 +908,16 @@ void featureSelectionOption(int option){
     double p, q, alpha_aprox, kernel_param = 0;
     int opt, flex, kernel_type, ddim, jump, branching, branch_form, choice_form, prof_look_ahead, cut;
     Timer time;
-    IMAp<double> imap(samples);
-    IMADual<double> imadual(samples);
-    SMO<double> smo;
-    Validation<double>::CrossValidation cv;
-    RFE<double> rfe;
-    Golub<double> golub;
-    Fisher<double> fisher;
-    AOS<double> aos;
+    classifier::IMAp<double> imap(samples);
+    classifier::IMADual<double> imadual(samples);
+    classifier::SMO<double> smo;
+    validation::CrossValidation cv;
+    mltk::featselect::RFE<double> rfe;
+    mltk::featselect::Golub<double> golub;
+    mltk::featselect::Fisher<double> fisher;
+    mltk::featselect::AOS<double> aos;
     shared_ptr<Data<double> > res;
+    KernelType type;
 
     clear();
     header();
@@ -969,8 +969,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         imadual.setKernelParam(kernel_param);
-                        imadual.setKernelType(kernel_type);
+                        imadual.setKernelType(type);
                         imadual.setMaxTime(max_time);
                         rfe.setClassifier(&imadual);
                         break;
@@ -987,8 +1001,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         smo.setKernelParam(kernel_param);
-                        smo.setKernelType(kernel_type);
+                        smo.setKernelType(type);
                         rfe.setClassifier(&smo);
                         break;
                     case 0:
@@ -1003,14 +1031,14 @@ void featureSelectionOption(int option){
                 }
                 clear();
                 cout << endl;
-                cout << "Desired dimension (max. " << samples->getDim() << "): ";
+                cout << "Desired dimension (max. " << samples->dim() << "): ";
                 cin >> ddim;
                 cout << "Features eliminated at a time: ";
                 cin >> jump;
                 cout << endl;
 
                 rfe.setJump(jump);
-                rfe.setDepth(samples->getDim() - ddim);
+                rfe.setDepth(samples->dim() - ddim);
 
                 clear();
                 cout << "\n--------- Cross-Validation ---------\n" << endl;
@@ -1087,8 +1115,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         imadual.setKernelParam(kernel_param);
-                        imadual.setKernelType(kernel_type);
+                        imadual.setKernelType(type);
                         imadual.setMaxTime(max_time);
                         golub.setClassifier(&imadual);
                         break;
@@ -1105,8 +1147,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         smo.setKernelParam(kernel_param);
-                        smo.setKernelType(kernel_type);
+                        smo.setKernelType(type);
                         golub.setClassifier(&smo);
                         break;
                     case 0:
@@ -1121,7 +1177,7 @@ void featureSelectionOption(int option){
                 }
                 clear();
                 cout << endl;
-                cout << "Desired dimension (max. " << samples->getDim() << "): ";
+                cout << "Desired dimension (max. " << samples->dim() << "): ";
                 cin >> ddim;
                 golub.setVerbose(verbose);
                 golub.setFinalDimension(ddim);
@@ -1185,8 +1241,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         imadual.setKernelParam(kernel_param);
-                        imadual.setKernelType(kernel_type);
+                        imadual.setKernelType(type);
                         imadual.setMaxTime(max_time);
                         fisher.setClassifier(&imadual);
                         break;
@@ -1203,8 +1273,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         smo.setKernelParam(kernel_param);
-                        smo.setKernelType(kernel_type);
+                        smo.setKernelType(type);
                         fisher.setClassifier(&smo);
                         break;
                     case 0:
@@ -1219,7 +1303,7 @@ void featureSelectionOption(int option){
                 }
                 clear();
                 cout << endl;
-                cout << "Desired dimension (max. " << samples->getDim() << "): ";
+                cout << "Desired dimension (max. " << samples->dim() << "): ";
                 cin >> ddim;
                 fisher.setVerbose(verbose);
                 fisher.setFinalDimension(ddim);
@@ -1284,8 +1368,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         imadual.setKernelParam(kernel_param);
-                        imadual.setKernelType(kernel_type);
+                        imadual.setKernelType(type);
                         imadual.setMaxTime(max_time);
                         aos.setClassifier(&imadual);
                         break;
@@ -1302,8 +1400,22 @@ void featureSelectionOption(int option){
                         if (kernel_type != 0) {
                             cin >> kernel_param;
                         }
+                        switch(kernel_type){
+                            case 0:
+                                type = KernelType::INNER_PRODUCT;
+                                break;
+                            case 1:
+                                type = KernelType::POLYNOMIAL;
+                                break;
+                            case 2:
+                                type = KernelType::GAUSSIAN;
+                                break;
+                            default:
+                                type = KernelType::INVALID_TYPE;
+                                break;
+                        }
                         smo.setKernelParam(kernel_param);
-                        smo.setKernelType(kernel_type);
+                        smo.setKernelType(type);
                         aos.setClassifier(&smo);
                         break;
                     case 0:
@@ -1318,9 +1430,9 @@ void featureSelectionOption(int option){
                 }
 
                 cout << endl;
-                cout << "Desired dimension (max. " << samples->getDim() << "): ";
+                cout << "Desired dimension (max. " << samples->dim() << "): ";
                 cin >> ddim;
-                cout << "Branching factor (max. " << samples->getDim() << "): ";
+                cout << "Branching factor (max. " << samples->dim() << "): ";
                 cin >> branching;
                 cout << endl;
                 cout << "Branching sorting: (1)W (2)W/center (3)W*radius/center (4)W*radius (5)W*Golub (6)W*Fisher: ";
@@ -1416,26 +1528,26 @@ void clusterersOption(int option){
                 cout << endl;
                 cout << "Initialization [0 - random; 1 - kmeanspp]: ";
                 cin >> initialization;
-                KMeans<double> kmeans(samples, k, (initialization == 0) ? "random" : "kmeanspp");
+                clusterer::KMeans<double> kmeans(samples, k, (initialization == 0) ? "random" : "kmeanspp");
                 kmeans.setMaxTime(max_time);
                 kmeans.train();
-                auto conf_m = Validation<double>::generateConfusionMatrix(kmeans, *samples);
+                auto conf_m = validation::generateConfusionMatrix(*samples, kmeans);
 
                 Data<double> _data;
                 _data.copy(*samples);
-                for(size_t i = 0; i < _data.getSize(); i++){
+                for(size_t i = 0; i < _data.size(); i++){
                     auto point = _data[i];
-                    point->y = kmeans.evaluate(*point);
+                    point->Y() = kmeans.evaluate(*point);
                 }
                 Visualization<double> vis(_data);
                 vector<int> classes(_data.getClasses().size());
                 iota(classes.begin(), classes.end(), 1);
                 _data.setClasses(classes);
                 cout << endl;
-                Utils::printConfusionMatrix(classes, conf_m);
-                if(_data.getDim() >= 3 )
+                utils::printConfusionMatrix(classes, samples->getClassNames(), conf_m);
+                if(_data.dim() >= 3 )
                     vis.plot3D(1,2,3);
-                if(_data.getDim() == 2)
+                if(_data.dim() == 2)
                     vis.plot2D(1, 2);
                 waitUserAction();
             }else{
@@ -1463,7 +1575,7 @@ void primalRegressorsOption(int option) {
                 std::cout << "Value of the learning rate: ";
                 std::cin >> eta;
 
-                LMSPrimal<double> lms(samples, eta, 2);
+                regressor::LMSPrimal<double> lms(samples, eta, 2);
 
                 lms.setMaxIterations(20);
                 lms.setMaxTime(max_time);
@@ -1481,14 +1593,14 @@ void primalRegressorsOption(int option) {
                 cout << "k value: ";
                 cin >> k;
                 cout << "Enter a point to evaluate:" << endl;
-                vector<double> feats(samples->getDim());
-                for(size_t i = 0; i < samples->getDim(); i++){
+                vector<double> feats(samples->dim());
+                for(size_t i = 0; i < samples->dim(); i++){
                     cout << "Dim " << i << ": ";
                     cin >> feats[i];
                 }
                 cout << endl;
 
-                KNNRegressor<double> knn(samples, k);
+                regressor::KNNRegressor<double> knn(samples, k);
                 double value = knn.evaluate(Point<double>(feats));
 
                 cout << "Evaluated value: " << value << endl;
@@ -1536,12 +1648,12 @@ void validationOption(int option){
     int fold, qtde, kernel_type;
     int p, q, i, norm, flexible, svs;
     double rate, gamma, alpha_prox, kernel_param = 0;
-    ValidationSolution val_sol;
+    validation::ValidationSolution val_sol;
 
     switch(option){
         case 1:
             if(!samples->isEmpty()){
-                IMAp<double> imap(samples);
+                classifier::IMAp<double> imap(samples);
 
                 cout << "Quantity of K-fold: ";
                 cin >> qtde;
@@ -1588,18 +1700,14 @@ void validationOption(int option){
                 imap.setAlphaAprox(alpha_prox);
 
                 clock_t begin = clock();
-                Validation<double> validate(samples, &imap, 10);
-
-                validate.setVerbose(verbose);
-                validate.partTrainTest(fold);
-                val_sol = validate.validation(fold, qtde);
+//                val_sol = validate.validation(fold, qtde);
                 clock_t end = clock();
-
-                cout << "\n\n   " << fold << "-Fold Cross Validation stats:" << endl;
-                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
-                cout << "Precision: "<< val_sol.precision << endl;
-                cout << "Recall: "<< val_sol.recall << endl;
-                cout << endl;
+//
+//                cout << "\n\n   " << fold << "-Fold Cross Validation stats:" << endl;
+//                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
+//                cout << "Precision: "<< val_sol.precision << endl;
+//                cout << "Recall: "<< val_sol.recall << endl;
+//                cout << endl;
 
                 double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
                 cout << endl;
@@ -1636,19 +1744,19 @@ void validationOption(int option){
                 K.setParam(kernel_param);
 
                 clock_t begin = clock();
-                IMADual<double> ima_dual(samples, &K, rate, nullptr);
+                classifier::IMADual<double> ima_dual(samples, &K, rate, nullptr);
                 ima_dual.setMaxTime(max_time);
 
-                Validation<double> validate(samples, &ima_dual, 10);
-
-                validate.setVerbose(verbose);
-                validate.partTrainTest(fold);
-                val_sol = validate.validation(fold, qtde);
+//                Validation<double> validate(*samples, &ima_dual, 10);
+//
+//                validate.setVerbose(verbose);
+//                validate.partTrainTest(fold);
+//                val_sol = validate.validation(fold, qtde);
                 clock_t end = clock();
 
-                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
-                cout << "Precision: "<< val_sol.precision << endl;
-                cout << "Recall: "<< val_sol.recall << endl;
+//                cout << "\nAccuracy: "<< val_sol.accuracy << endl;
+//                cout << "Precision: "<< val_sol.precision << endl;
+//                cout << "Recall: "<< val_sol.recall << endl;
                 cout << endl;
 
                 double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
@@ -1684,14 +1792,14 @@ void validationOption(int option){
                 K.setParam(kernel_param);
 
                 clock_t begin = clock();
-                SMO<double> smo(samples, &K, verbose);
+                classifier::SMO<double> smo(samples, &K, verbose);
                 smo.setMaxTime(max_time);
 
-                Validation<double> validate(samples, &smo, 10);
-
-                validate.setVerbose(verbose);
-                validate.partTrainTest(fold);
-                val_sol = validate.validation(fold, qtde);
+//                Validation<double> validate(*samples, &smo, 10);
+//
+//                validate.setVerbose(verbose);
+//                validate.partTrainTest(fold);
+//                val_sol = validate.validation(fold, qtde);
                 clock_t end = clock();
 
                 cout << "\nAccuracy: "<< val_sol.accuracy << endl;
@@ -1730,7 +1838,7 @@ void primalClassifiersOption(int option){
                 cin >> q;
                 cout << endl;
 
-                PerceptronPrimal<double> perc(samples, q, rate);
+                classifier::PerceptronPrimal<double> perc(samples, q, rate);
 
                 clock_t begin = clock();
                 perc.train();
@@ -1767,7 +1875,7 @@ void primalClassifiersOption(int option){
                 cin >> gamma;
                 cout << endl;
 
-                PerceptronFixedMarginPrimal<double> perc(samples, gamma, q, rate);
+                classifier::PerceptronFixedMarginPrimal<double> perc(samples, gamma, q, rate);
 
                 clock_t begin = clock();
                 perc.train();
@@ -1828,7 +1936,7 @@ void primalClassifiersOption(int option){
                 cin >> alpha_prox;
                 cout << endl;
 
-                IMAp<double> imap(samples);
+                classifier::IMAp<double> imap(samples);
 
                 imap.setMaxTime(max_time);
                 imap.setpNorm(p);
@@ -1862,13 +1970,13 @@ void primalClassifiersOption(int option){
                 cin >> k;
                 cout << endl;
 
-                KNN<double> knn(samples, k);
+                classifier::KNNClassifier<double> knn(*samples, k);
                 vector<string> class_names = samples->getClassNames();
                 vector<int> classes = samples->getClasses();
 
-                auto conf_matrix = Validation<double>::generateConfusionMatrix(knn, *samples);
+                auto conf_matrix = validation::generateConfusionMatrix(*samples, knn);
                 cout << "Confusion Matrix: " << endl;
-                Utils::printConfusionMatrix(classes, conf_matrix);
+                utils::printConfusionMatrix(classes, samples->getClassNames(), conf_matrix);
                 waitUserAction();
             }else{
                 cout << "Load a dataset first..." << endl;
@@ -1910,11 +2018,8 @@ void dualClassifiersOption(int option){
                 }
 
                 clock_t begin = clock();
-                K.setType(kernel_type);
-                K.setParam(kernel_param);
-                K.compute(samples);
 
-                PerceptronDual<double> perc_dual(samples, rate, &K);
+                classifier::PerceptronDual<double> perc_dual(samples, rate, kernel_type, kernel_param);
                 perc_dual.train();
 
                 sol = perc_dual.getSolution();
@@ -1969,11 +2074,8 @@ void dualClassifiersOption(int option){
                 }
 
                 clock_t begin = clock();
-                K.setType(kernel_type);
-                K.setParam(kernel_param);
-                K.compute(samples);
 
-                PerceptronFixedMarginDual<double> perc_fixmargin_dual(samples, gamma, rate, &K);
+                classifier::PerceptronFixedMarginDual<double> perc_fixmargin_dual(samples, gamma, rate, kernel_type, kernel_param);
                 perc_fixmargin_dual.train();
 
                 sol = perc_fixmargin_dual.getSolution();
@@ -2024,7 +2126,7 @@ void dualClassifiersOption(int option){
                 K.setParam(kernel_param);
 
                 clock_t begin = clock();
-                IMADual<double> ima_dual(samples, &K, rate, nullptr);
+                classifier::IMADual<double> ima_dual(samples, &K, rate, nullptr);
 
                 ima_dual.setMaxTime(max_time);
                 ima_dual.setVerbose(verbose);
@@ -2059,7 +2161,7 @@ void dualClassifiersOption(int option){
                 K.setType(kernel_type);
 
                 clock_t begin = clock();
-                SMO<double> smo(samples, &K, verbose);
+                classifier::SMO<double> smo(samples, &K, verbose);
 
                 smo.setMaxTime(max_time);
                 smo.setVerbose(verbose);

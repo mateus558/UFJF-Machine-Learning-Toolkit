@@ -4,21 +4,32 @@
 
 #ifndef UFJF_MLTK_CLUSTERER_HPP
 #define UFJF_MLTK_CLUSTERER_HPP
+#pragma once
 
-#include <functional>
+#include "DistanceMetric.hpp"
+#include "../../Core/include/Learner.hpp"
 
-#include "Learner.hpp"
+namespace mltk{
+        namespace clusterer {
+            template<typename T, typename Callable = metrics::dist::Euclidean <T> >
+            class Clusterer : public Learner<T> {
+            protected:
+                /// Function used to compute the metrics between two points
+                Callable dist_function;
+                /// Number of clusters for the cluster method
+                size_t n_clusters;
+                /// Vector with the centers of the clusters
+                std::vector<std::vector<T> > centers;
+                /// Clusters of points
+                std::vector<std::vector<size_t> > clusters;
 
-template < typename T >
-class Clusterer: public Learner< T > {
-protected:
-    using Function = std::function<double(std::shared_ptr<Point< T > >, std::shared_ptr<Point< T > >)>;
+            public:
+                Clusterer() {}
 
-    Function dist_function;
-    size_t n_clusters;
-    std::vector<std::vector<T> > centers;
-    std::vector<std::vector<size_t> > clusters;
-};
-
+                Clusterer(DataPointer <T> samples = nullptr, size_t clusters = 0)
+                        : Learner<T>(samples), n_clusters(clusters) {}
+            };
+        }
+}
 
 #endif //UFJF_MLTK_CLUSTERER_HPP

@@ -3,28 +3,24 @@ add_library(${LIBCORE} SHARED
         src/Statistics.cpp
         src/Utils.cpp
         src/Kernel.cpp
-)
+        )
 
-set_target_properties(${LIBCORE} PROPERTIES PUBLIC_HEADER "include/Data.hpp;include/Learner.hpp;include/Point.hpp;include/Random.hpp;include/Solution.hpp;include/Statistics.hpp;include/Timer.hpp;include/Utils.hpp;include/MLToolkit.hpp;include/Kernel.hpp")
+set_target_properties(${LIBCORE} PROPERTIES PUBLIC_HEADER "Core.hpp;include/Data.hpp;include/Learner.hpp;include/Point.hpp;include/Random.hpp;include/Solution.hpp;include/Statistics.hpp;
+include/Timer.hpp;include/Utils.hpp;include/Kernel.hpp;include/Sampling.hpp;include/CoverTree.hpp")
 
+message(STATUS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR})
 target_include_directories(${LIBCORE} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>)
 target_include_directories(${LIBCORE} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
         $<INSTALL_INTERFACE:src>)
-target_compile_definitions(${LIBCORE} PUBLIC CORE_VERSION=1.1)
-target_compile_features(${LIBCORE} PRIVATE cxx_std_14)
 
-include(GNUInstallDirs)
+target_compile_definitions(${LIBCORE} PUBLIC LIBCORE_VERSION=1.0)
+target_compile_features(${LIBCORE} PRIVATE cxx_std_17)
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+        target_link_libraries(${LIBCORE} PUBLIC OpenMP::OpenMP_CXX)
+endif ()
 
-install(TARGETS ${LIBCORE}
-        EXPORT ${PROJECT_NAME}_${LIBCORE}-targets
-        LIBRARY DESTINATION
-            ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}
-        RUNTIME DESTINATION
-            ${RUNTIME_DIR}
-        PUBLIC_HEADER DESTINATION
-            ${CMAKE_INSTALL_INCLUDEDIR}/${LIBCORE}
-        )
-install(EXPORT ${PROJECT_NAME}_${LIBCORE}-targets DESTINATION ${CMAKE_INSTALL_DIR}/cmake/${LIBCORE})
+install_lib(${LIBCORE} Core 1.0)

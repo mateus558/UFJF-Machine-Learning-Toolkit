@@ -1,3 +1,4 @@
+docs
 papers
 DB
 cmake-build-debug
@@ -13,3 +14,10 @@ Doc
 Others
 Exec
 build
+debug
+release
+docs
+.vscode
+*.bat
+Modules/Core/include/*_.hpp
+windows

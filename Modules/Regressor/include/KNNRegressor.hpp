@@ -3,33 +3,39 @@
 
 
 #include "PrimalRegressor.hpp"
+#include "DistanceMetric.hpp"
 #include <assert.h>
-#include <functional>
 
-template <typename T>
-class KNNRegressor: public PrimalRegressor< T > {
-private:
-    using function = std::function<double(std::shared_ptr<Point< T > >, std::shared_ptr<Point< T > >)>;
+namespace mltk{
+        namespace regressor {
+            /**
+             * \brief Wrapper for the implementation of the K-Nearest Neighbors regression algorithm.
+             */
+            template<typename T, typename Callable = metrics::dist::Euclidean <T> >
+            class KNNRegressor : public PrimalRegressor<T> {
+            private:
+                /// Number k of neighbors considered during training
+                size_t k;
+                /// Function to compute the metrics between two points
+                Callable dist_function;
+            public:
+                KNNRegressor(std::shared_ptr<Data < T>
 
-    size_t k;
-    function dist_function;
-public:
-    KNNRegressor(std::shared_ptr<Data<T> > _samples, size_t _k, function _dist_function  = [] (const std::shared_ptr<Point< T > > p, const std::shared_ptr<Point< T > > q){
-        const size_t _dimp = p->x.size();
-        size_t i;
-        double dist = 0;
+                > _samples,
+                size_t _k, Callable
+                dist_func = Callable()
+                )
+                :
 
-        for(i = 0; i < _dimp; i++){
-            dist += (p->x[i] - q->x[i]) * (p->x[i] - q->x[i]);
+                PrimalRegressor<T> (_samples), k(_k), dist_function(dist_func) {}
+
+                bool train() override;
+
+                std::string getFormulationString() override;
+
+                double evaluate(const Point <T> &p, bool raw_value = false) override;
+            };
         }
-        return sqrt(dist);
-    });
-
-    bool train() override;
-
-    std::string getFormulationString() override;
-
-    double evaluate(Point<T> p) override;
-};
+}
 
 #endif
