@@ -1,0 +1,5 @@
+#include "include/DualRegressor.hpp"
+#include "include/KNNRegressor.hpp"
+#include "include/LMS.hpp"
+#include "include/PrimalRegressor.hpp"
+#include "include/Regressor.hpp"

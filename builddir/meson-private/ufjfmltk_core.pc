@@ -1,0 +1,10 @@
+prefix=/usr/local
+libdir=${prefix}/lib/x86_64-linux-gnu
+includedir=${prefix}/include
+
+Name: ufjfmltk_core
+Description: UFJF-MLTK core library.
+Version: 1.0.0
+Requires: ufjfmltk_core
+Libs: -L${libdir} -lufjfmltk_core
+Cflags: -I${includedir}

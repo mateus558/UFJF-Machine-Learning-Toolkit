@@ -4,8 +4,9 @@ project('ufjfmltk', 'cpp',
 
 project_description = 'UFJF Machine Learning Toolkit'
 
-core = subproject('ufjfmltk_core')
+subproject('ufjfmltk_core')
 subproject('ufjfmltk_classifier')
+subproject('ufjfmltk_regressor')
 subproject('ufjfmltk_valid')
 subproject('ufjfmltk_ensemble')
 subproject('ufjfmltk_featselect')

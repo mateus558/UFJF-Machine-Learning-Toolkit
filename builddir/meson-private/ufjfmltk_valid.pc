@@ -1,0 +1,8 @@
+prefix=/usr/local
+libdir=${prefix}/lib/x86_64-linux-gnu
+includedir=${prefix}/include
+
+Name: ufjfmltk_valid
+Description: UFJF-MLTK validation library.
+Version: 1.0.0
+Cflags: -I${includedir}/ufjfmltk
