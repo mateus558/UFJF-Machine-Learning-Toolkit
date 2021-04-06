@@ -1,8 +1,13 @@
 #!/bin/bash
 
+prefix=/usr/local
+if [ ! -z $2 ]; then
+    prefix=$2
+fi
+
 build_module(){
     mkdir $2
-    meson --prefix=/usr $2 $1
+    meson --prefix=$prefix $2 $1
 }
 
 compile_module(){
@@ -75,7 +80,7 @@ if [ $1 = "all" ]; then
     
     for module in "${modules[@]}"
     do
-        if ! compgen -G "/usr/lib/x86_64-linux-gnu/lib${module}*" > /dev/null; then
+        if ! compgen -G "${prefix}/lib/x86_64-linux-gnu/lib${module}*" > /dev/null; then
             build_folder="build_$module"
             clear_build $build_folder
             build_module $module $build_folder

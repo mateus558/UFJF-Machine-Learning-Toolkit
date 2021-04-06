@@ -2,6 +2,7 @@ project('ufjfmltk', 'cpp',
   version : '1.0.0',
   default_options : ['warning_level=0', 'cpp_std=c++17'])
 
+message('Installing the necessary submodules, this can take some time...')
 run_command('./install.sh')
 
 project_description = 'UFJF Machine Learning Toolkit'
@@ -18,14 +19,14 @@ modules = {
 }
 
 combined = [
-  modules['core'].get_variable('ufjfmltk_core_tgt').extract_all_objects(),
-  modules['classifier'].get_variable('ufjfmltk_classifier_tgt').extract_all_objects(),
-  modules['valid'].get_variable('ufjfmltk_valid_tgt').extract_all_objects(),
-  modules['ensemble'].get_variable('ufjfmltk_ensemble_tgt').extract_all_objects(),
-  modules['featselect'].get_variable('ufjfmltk_featselect_tgt').extract_all_objects(),
-  modules['regressor'].get_variable('ufjfmltk_regressor_tgt').extract_all_objects(),
-  modules['clusterer'].get_variable('ufjfmltk_clusterer_tgt').extract_all_objects(),
-  modules['visual'].get_variable('ufjfmltk_visual_tgt').extract_all_objects()
+  modules['core'].get_variable('ufjfmltk_core_tgt').extract_all_objects(recursive:true),
+  modules['classifier'].get_variable('ufjfmltk_classifier_tgt').extract_all_objects(recursive:true),
+  modules['valid'].get_variable('ufjfmltk_valid_tgt').extract_all_objects(recursive:true),
+  modules['ensemble'].get_variable('ufjfmltk_ensemble_tgt').extract_all_objects(recursive:true),
+  modules['featselect'].get_variable('ufjfmltk_featselect_tgt').extract_all_objects(recursive:true),
+  modules['regressor'].get_variable('ufjfmltk_regressor_tgt').extract_all_objects(recursive:true),
+  modules['clusterer'].get_variable('ufjfmltk_clusterer_tgt').extract_all_objects(recursive:true),
+  modules['visual'].get_variable('ufjfmltk_visual_tgt').extract_all_objects(recursive:true)
 ]
 
 project_dependencies = [
@@ -48,7 +49,7 @@ project_target = static_library(meson.project_name(), [],
 )
 
 project_target_dep = declare_dependency(
-  link_with : project_target,
+  link_whole : project_target,
   include_directories : include_directories('.'),
   dependencies: project_dependencies
 )
