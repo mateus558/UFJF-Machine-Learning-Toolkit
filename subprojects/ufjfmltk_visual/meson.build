@@ -13,7 +13,6 @@ project_headers = ['include/gnuplot_i.hpp',
 
 project_dependencies = []
 
-gnuplot_dep = dependency('gnuplot5', required : false)
 libcore_dep = dependency('ufjfmltk_core', required : true)
 
 if not libcore_dep.found()
@@ -21,7 +20,6 @@ if not libcore_dep.found()
   libcore_dep = libcore_proj.get_variable('ufjfmltk_core_dep')
 endif
 
-project_dependencies += gnuplot_dep
 project_dependencies += libcore_dep
 
 public_headers = include_directories('include')
