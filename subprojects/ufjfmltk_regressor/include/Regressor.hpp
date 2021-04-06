@@ -7,7 +7,7 @@
 
 #endif //UFJF_MLTK_REGRESSOR_H
 
-#include "../../Core/include/Learner.hpp"
+#include <ufjfmltk/core/Learner.hpp>
 
 namespace mltk{
         namespace regressor {

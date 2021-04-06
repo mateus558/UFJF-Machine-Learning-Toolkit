@@ -13,9 +13,9 @@ core_dep = dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_co
 project_dependencies += core_dep
 
 build_args = []
-project_description = 'UFJF-MLTK classifier library.'
+project_description = 'UFJF-MLTK regression library.'
 
-project_source_files = ['src/IMA.cpp', 'src/Perceptron.cpp', 'src/SMO.cpp']
+project_source_files = ['src/KNNRegressor.cpp', 'src/LMS.cpp']
 project_headers = ['include/Regressor.hpp', 
     'include/DualRegressor.hpp', 
     'include/KNNRegressor.hpp', 
@@ -44,6 +44,7 @@ project_target_dep = declare_dependency(
 )
 
 set_variable(meson.project_name() + '_dep', project_target_dep)
+set_variable(meson.project_name() + '_tgt', project_target)
 
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(
@@ -51,5 +52,4 @@ pkg_mod.generate(
   filebase : meson.project_name(),
   description : project_description,
   subdirs : 'ufjfmltk/regressor',
-  libraries : project_target,
 )

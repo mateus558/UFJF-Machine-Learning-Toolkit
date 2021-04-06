@@ -33,7 +33,7 @@ install_headers(project_headers, subdir : 'ufjfmltk/core')
 project_target = static_library(meson.project_name(), project_source_files,
   install : true,
   include_directories : public_headers,
-  gnu_symbol_visibility : 'hidden',
+  sources : project_source_files
 )
 
 project_target_dep = declare_dependency(
@@ -42,8 +42,7 @@ project_target_dep = declare_dependency(
 )
 
 set_variable(meson.project_name() + '_dep', project_target_dep)
-set_variable(meson.project_name() + '_pubheaders', project_target_dep)
-
+set_variable(meson.project_name() + '_tgt', project_target)
 
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(

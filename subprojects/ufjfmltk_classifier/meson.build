@@ -54,6 +54,7 @@ project_target_dep = declare_dependency(
 )
 
 set_variable(meson.project_name() + '_dep', project_target_dep)
+set_variable(meson.project_name() + '_tgt', project_target)
 
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(
@@ -61,5 +62,4 @@ pkg_mod.generate(
   filebase : meson.project_name(),
   description : project_description,
   subdirs : 'ufjfmltk/classifier',
-  libraries : project_target,
 )

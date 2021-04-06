@@ -1,11 +1,11 @@
 project(
-  'ufjfmltk_core',
+  'ufjfmltk_visual',
   'cpp',
   version : '1.0.0',
   default_options : ['warning_level=0', 'cpp_std=c++17']
 )
 
-project_description = 'UFJF-MLTK core library.'
+project_description = 'UFJF-MLTK visualization library.'
 
 project_source_files = ['src/gnuplot_i.cpp', 'src/Visualization.cpp']
 project_headers = ['include/gnuplot_i.hpp', 
@@ -27,9 +27,7 @@ public_headers = include_directories('include')
 install_headers('Visualization.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : 'ufjfmltk/visual')
 
-project_target = static_library(
-  meson.project_name(),
-  project_source_files,
+project_target = static_library(meson.project_name(), project_source_files,
   install : true,
   include_directories : public_headers,
   dependencies : project_dependencies
