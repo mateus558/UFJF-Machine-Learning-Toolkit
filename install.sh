@@ -7,5 +7,4 @@ if [ ! -e "builddir" ]; then
     ./build.sh
 fi
 
-cd builddir
-sudo ninja install
+sudo ninja -C install
