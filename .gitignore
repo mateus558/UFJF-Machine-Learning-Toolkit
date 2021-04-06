@@ -11,6 +11,7 @@ notebooks
 figs
 Doc
 .github
+install_old.sh
 Others
 Exec
 build
