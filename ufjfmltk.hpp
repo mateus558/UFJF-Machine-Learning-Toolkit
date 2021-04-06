@@ -7,4 +7,4 @@
 #include <ufjfmltk/Ensemble.hpp>
 #include <ufjfmltk/Clusterer.hpp>
 #include <ufjfmltk/FeatureSelection.hpp>
-#include <ufjfmltk/Visualization.hpp>
+#include <ufjfmltk/Visualize.hpp>

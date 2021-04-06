@@ -1,5 +1,7 @@
-#include "include/DualRegressor.hpp"
-#include "include/KNNRegressor.hpp"
-#include "include/LMS.hpp"
-#include "include/PrimalRegressor.hpp"
-#include "include/Regressor.hpp"
+#pragma once
+
+#include "regressor/DualRegressor.hpp"
+#include "regressor/KNNRegressor.hpp"
+#include "regressor/LMS.hpp"
+#include "regressor/PrimalRegressor.hpp"
+#include "regressor/Regressor.hpp"

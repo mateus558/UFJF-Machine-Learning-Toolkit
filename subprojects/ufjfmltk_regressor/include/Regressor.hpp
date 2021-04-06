@@ -5,8 +5,6 @@
 #ifndef UFJF_MLTK_REGRESSOR_H
 #define UFJF_MLTK_REGRESSOR_H
 
-#endif //UFJF_MLTK_REGRESSOR_H
-
 #include <ufjfmltk/core/Learner.hpp>
 
 namespace mltk{
@@ -55,3 +53,5 @@ namespace mltk{
             };
         }
 }
+
+#endif //UFJF_MLTK_REGRESSOR_H

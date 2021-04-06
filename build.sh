@@ -1,11 +1,17 @@
 #!/bin/bash
 
-if [ -e "build" ]; then
-    meson --prefix=/usr --reconfigure build
+prefix=$1
+if [ -z "$1" ]; then
+    prefix='/usr/local'
+fi
+echo $prefix
+
+if [ -e "builddir" ]; then
+    meson --prefix=$prefix --reconfigure builddir
 else
-    mkdir build
-    meson --prefix=/usr build
+    mkdir builddir
+    meson --prefix=$prefix builddir
 fi
 
-cd build
+cd builddir
 ninja -j 6

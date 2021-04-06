@@ -6,11 +6,8 @@ project(
 )
 
 project_dependencies = [
+    dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_core_dep'], required : true),
 ]
-
-core_dep = dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_core_dep'])
-
-project_dependencies += core_dep
 
 build_args = []
 project_description = 'UFJF-MLTK classifier library.'
@@ -43,7 +40,7 @@ install_headers(project_headers, subdir : 'ufjfmltk/classifier')
 project_target = static_library(
   meson.project_name(),
   project_source_files,
-  dependencies: core_dep,
+  dependencies: project_dependencies,
   install : true,
   include_directories : public_headers,
 )

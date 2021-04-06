@@ -8,7 +8,6 @@
 
 
 #include <ufjfmltk/core/Learner.hpp>
-
 namespace mltk{
     namespace classifier {
         template<typename T>

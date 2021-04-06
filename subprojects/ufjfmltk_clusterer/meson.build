@@ -11,17 +11,9 @@ project_source_files = ['src/KMeans.cpp']
 project_headers = ['include/Clusterer.hpp', 
     'include/KMeans.hpp']
 
-libcore_dep = dependency('ufjfmltk_core', required : true)
-
-project_dependencies = []
-
-if not libcore_dep.found()
-  libcore_proj = subproject('ufjfmltk_core')
-  libcore_dep = libcore_proj.get_variable('ufjfmltk_core_dep')
-endif
-
-project_dependencies += libcore_dep
-
+project_dependencies = [
+    dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_core_dep'], required : true),
+]
 
 public_headers = include_directories('include')
 
@@ -31,9 +23,9 @@ install_headers(project_headers, subdir : 'ufjfmltk/clusterer')
 project_target = static_library(
   meson.project_name(),
   project_source_files,
+  dependencies: project_dependencies,
   install : true,
   include_directories : public_headers,
-  dependencies: project_dependencies
 )
 
 project_target_dep = declare_dependency(
@@ -49,5 +41,5 @@ pkg_mod.generate(
   name : meson.project_name(),
   filebase : meson.project_name(),
   description : project_description,
-  libraries : project_target,
+  subdirs : 'ufjfmltk/clusterer'
 )

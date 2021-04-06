@@ -6,13 +6,9 @@ project(
 )
 
 project_dependencies = [
+    dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_core_dep'], required : true),
 ]
 
-core_dep = dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_core_dep'])
-
-project_dependencies += core_dep
-
-build_args = []
 project_description = 'UFJF-MLTK regression library.'
 
 project_source_files = ['src/KNNRegressor.cpp', 'src/LMS.cpp']
@@ -24,23 +20,21 @@ project_headers = ['include/Regressor.hpp',
 
 public_headers = include_directories('include')
 
-build_args = [
-]
-
 install_headers('Regressor.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : 'ufjfmltk/regressor')
 
 project_target = static_library(
   meson.project_name(),
   project_source_files,
-  dependencies: core_dep,
+  dependencies: project_dependencies,
   install : true,
   include_directories : public_headers,
 )
 
 project_target_dep = declare_dependency(
   include_directories: public_headers,
-  link_with : project_target
+  link_with : project_target,
+  sources: [project_headers, project_source_files]
 )
 
 set_variable(meson.project_name() + '_dep', project_target_dep)
@@ -51,5 +45,5 @@ pkg_mod.generate(
   name : meson.project_name(),
   filebase : meson.project_name(),
   description : project_description,
-  subdirs : 'ufjfmltk/regressor',
+  subdirs : 'ufjfmltk/regressor'
 )

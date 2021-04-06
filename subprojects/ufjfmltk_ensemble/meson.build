@@ -19,11 +19,17 @@ project_headers = ['include/AdaBoostClassifier.hpp',
     'include/PerceptronCommittee.hpp',
     'include/VotingClassifier.hpp']
 
+project_dependencies = [
+  dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_core_dep'], required : true),
+  dependency('ufjfmltk_classifier', fallback : ['ufjfmltk_classifier', 'ufjfmltk_classifier_dep'], required : true)
+]
+
 public_headers = include_directories('include')
 
 project_target = static_library(
   meson.project_name(),
   [],
+  dependencies: project_dependencies,
   install : true,
   include_directories : public_headers,
 )

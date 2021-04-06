@@ -5,7 +5,7 @@ project('ufjfmltk', 'cpp',
 project_description = 'UFJF Machine Learning Toolkit'
 
 modules = {
-  'core': subproject('ufjfmltk_core', required:true),
+  'core': subproject('ufjfmltk_core'),
   'classifier': subproject('ufjfmltk_classifier'),
   'regressor': subproject('ufjfmltk_regressor'),
   'valid': subproject('ufjfmltk_valid'),
@@ -15,6 +15,16 @@ modules = {
   'visual': subproject('ufjfmltk_visual')
 }
 
+combined = [
+  modules['core'].get_variable('ufjfmltk_core_tgt').extract_all_objects(),
+  modules['classifier'].get_variable('ufjfmltk_classifier_tgt').extract_all_objects(),
+  modules['valid'].get_variable('ufjfmltk_valid_tgt').extract_all_objects(),
+  modules['ensemble'].get_variable('ufjfmltk_ensemble_tgt').extract_all_objects(),
+  modules['featselect'].get_variable('ufjfmltk_featselect_tgt').extract_all_objects(),
+  modules['regressor'].get_variable('ufjfmltk_regressor_tgt').extract_all_objects(),
+  modules['clusterer'].get_variable('ufjfmltk_clusterer_tgt').extract_all_objects(),
+  modules['visual'].get_variable('ufjfmltk_visual_tgt').extract_all_objects()
+]
 
 project_dependencies = [
   dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_core_dep']),
@@ -29,21 +39,10 @@ project_dependencies = [
 
 install_headers('ufjfmltk.hpp', subdir: 'ufjfmltk')
 
-combined = [
-  modules['core'].get_variable('ufjfmltk_core_tgt').extract_all_objects(),
-  modules['classifier'].get_variable('ufjfmltk_classifier_tgt').extract_all_objects(),
-  modules['valid'].get_variable('ufjfmltk_valid_tgt').extract_all_objects(),
-  modules['ensemble'].get_variable('ufjfmltk_ensemble_tgt').extract_all_objects(),
-  modules['featselect'].get_variable('ufjfmltk_featselect_tgt').extract_all_objects(),
-  modules['regressor'].get_variable('ufjfmltk_regressor_tgt').extract_all_objects(),
-  modules['clusterer'].get_variable('ufjfmltk_clusterer_tgt').extract_all_objects(),
-  modules['visual'].get_variable('ufjfmltk_visual_tgt').extract_all_objects()
-]
-
 project_target = static_library(meson.project_name(), [],
   dependencies: project_dependencies,
   objects: combined,
-  install : true
+  install : true,
 )
 
 project_target_dep = declare_dependency(

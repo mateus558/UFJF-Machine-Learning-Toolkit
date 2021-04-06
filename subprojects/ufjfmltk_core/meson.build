@@ -38,6 +38,7 @@ project_target = static_library(meson.project_name(), project_source_files,
 
 project_target_dep = declare_dependency(
   include_directories: public_headers,
+  sources: project_headers,
   link_with : project_target
 )
 

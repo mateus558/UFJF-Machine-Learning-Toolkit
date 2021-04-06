@@ -14,23 +14,11 @@ project_headers = ['include/AOS.hpp',
     'include/Golub.hpp',
     'include/RFE.hpp']
 
-libcore_dep = dependency('ufjfmltk_core', required : true)
-libclass_dep = dependency('ufjfmltk_classifier', required : true)
-
-project_dependencies = []
-
-if not libcore_dep.found()
-  libcore_proj = subproject('ufjfmltk_core')
-  libcore_dep = libcore_proj.get_variable('ufjfmltk_core_dep')
-endif
-
-if not libclass_dep.found()
-  libclass_proj = subproject('ufjfmltk_classifier')
-  libclass_dep = libclass_proj.get_variable('ufjfmltk_classifier_dep')
-endif
-
-project_dependencies += libcore_dep
-project_dependencies += libclass_dep
+project_dependencies = [
+  dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_core_dep'], required : true),
+  dependency('ufjfmltk_classifier', fallback : ['ufjfmltk_classifier', 'ufjfmltk_classifier_dep'], required : true),
+  dependency('ufjfmltk_valid', fallback : ['ufjfmltk_valid', 'ufjfmltk_valid_dep'], required : true)
+]
 
 public_headers = include_directories('include')
 
@@ -40,9 +28,9 @@ install_headers(project_headers, subdir : 'ufjfmltk/featselect')
 project_target = static_library(
   meson.project_name(),
   project_source_files,
+  dependencies: project_dependencies,
   install : true,
   include_directories : public_headers,
-  dependencies: project_dependencies
 )
 
 project_target_dep = declare_dependency(
@@ -58,5 +46,5 @@ pkg_mod.generate(
   name : meson.project_name(),
   filebase : meson.project_name(),
   description : project_description,
-  libraries : project_target
+  subdirs : 'ufjfmltk/featselect'
 )
