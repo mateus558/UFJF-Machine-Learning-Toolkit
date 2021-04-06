@@ -53,7 +53,7 @@ if [ $1 = "clean" ]; then
 fi
 
 if [ $1 = "install" ]; then
-    if compgen -G "/usr/lib/x86_64-linux-gnu/lib${modules[$2]}*" > /dev/null; then
+    if compgen -G "$prefix/lib/x86_64-linux-gnu/lib${modules[$2]}*" > /dev/null; then
         echo "${modules[$2]} is installed"
         exit 0
     fi
@@ -64,7 +64,7 @@ if [ $1 = "install" ]; then
 fi
 
 if [ $1 = "install_clean" ]; then
-    if compgen -G "/usr/lib/x86_64-linux-gnu/lib${modules[$2]}*" > /dev/null; then
+    if compgen -G "$prefix/lib/x86_64-linux-gnu/lib${modules[$2]}*" > /dev/null; then
         echo "${modules[$2]} is installed"
         exit 0
     fi

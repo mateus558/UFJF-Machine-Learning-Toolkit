@@ -6,6 +6,8 @@ if [ ! -z $1 ]; then
 fi
 
 sudo chmod +x install_modules.sh
+sudo chmod +x module_installer.sh
+
 ./install_modules.sh all $prefix
 
 if [ ! -e "builddir" ]; then

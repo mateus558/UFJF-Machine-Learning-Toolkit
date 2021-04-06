@@ -2,8 +2,27 @@ project('ufjfmltk', 'cpp',
   version : '1.0.0',
   default_options : ['warning_level=0', 'cpp_std=c++17'])
 
-message('Installing the necessary submodules, this can take some time...')
-run_command('./install.sh')
+prefix = get_option('prefix')
+message('Prefix: '+prefix)
+message('Installing the necessary submodules, this can take some time. \n')
+if target_machine.system() == 'linux'
+  message('Installing ufjfmltk_core...')
+  run_command('./module_installer.sh', 'ufjfmltk_core')
+  message('Installing ufjfmltk_classifier...')
+  run_command('./module_installer.sh', 'ufjfmltk_classifier')
+  message('Installing ufjfmltk_regressor...')
+  run_command('./module_installer.sh', 'ufjfmltk_regressor')
+  message('Installing ufjfmltk_valid...')
+  run_command('./module_installer.sh', 'ufjfmltk_valid')
+  message('Installing ufjfmltk_ensemble...')
+  run_command('./module_installer.sh', 'ufjfmltk_ensemble')
+  message('Installing ufjfmltk_featselect...')
+  run_command('./module_installer.sh', 'ufjfmltk_featselect')
+  message('Installing ufjfmltk_clusterer...')
+  run_command('./module_installer.sh', 'ufjfmltk_clusterer')
+  message('Installing ufjfmltk_visual...')
+  run_command('./module_installer.sh', 'ufjfmltk_visual')
+endif
 
 project_description = 'UFJF Machine Learning Toolkit'
 

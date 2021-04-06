@@ -13,5 +13,4 @@ else
     meson --prefix=$prefix builddir
 fi
 
-cd builddir
-ninja -j 6
+ninja -C builddir -j 6
