@@ -1,1 +1,0 @@
-[{"name": "ufjfmltk_core", "version": "1.0.0", "compile_args": ["-I/usr/local/include"], "link_args": ["/usr/local/lib/x86_64-linux-gnu/libufjfmltk_core.so"]}, {"name": "ufjfmltk_classifier", "version": "1.0.0", "compile_args": ["-I/usr/local/include/ufjfmltk/classifier"], "link_args": ["/usr/local/lib/x86_64-linux-gnu/libufjfmltk_classifier.so"]}]

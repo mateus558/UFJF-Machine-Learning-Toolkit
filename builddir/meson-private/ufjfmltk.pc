@@ -1,8 +1,0 @@
-prefix=/usr/local
-libdir=${prefix}/lib/x86_64-linux-gnu
-includedir=${prefix}/include
-
-Name: ufjfmltk
-Description: UFJF Machine Learning Toolkit
-Version: 1.0.0
-Cflags: -I${includedir}/ufjfmltk

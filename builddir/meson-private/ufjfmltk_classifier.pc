@@ -1,9 +1,0 @@
-prefix=/usr/local
-libdir=${prefix}/lib/x86_64-linux-gnu
-includedir=${prefix}/include
-
-Name: ufjfmltk_classifier
-Description: UFJF-MLTK classifier library.
-Version: 1.0.0
-Libs: -L${libdir} -lufjfmltk_classifier -lufjfmltk_core
-Cflags: -I${includedir}/ufjfmltk/classifier
