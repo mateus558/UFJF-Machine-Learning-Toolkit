@@ -36,7 +36,8 @@ project_target = static_library(
 
 
 project_dep = declare_dependency(
-  include_directories: public_headers
+  include_directories: public_headers,
+  link_with: project_target
 )
 set_variable(meson.project_name() + '_dep', project_dep)
 set_variable(meson.project_name() + '_tgt', project_target)

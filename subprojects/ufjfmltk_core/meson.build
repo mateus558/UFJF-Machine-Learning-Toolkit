@@ -25,21 +25,21 @@ project_headers = ['include/Data.hpp',
     'include/ExprScalar.hpp',
     'include/ExprTraits.hpp']
 
+
 public_headers = include_directories('include')
 
 install_headers('Core.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : 'ufjfmltk/core')
 
-project_target = static_library(meson.project_name(), project_source_files,
+project_target = static_library(meson.project_name(), [project_source_files, project_headers],
   install : true,
-  include_directories : public_headers,
-  sources : project_source_files
+  include_directories : public_headers
 )
 
 project_target_dep = declare_dependency(
-  include_directories: public_headers,
-  sources: project_headers,
-  link_with : project_target
+  include_directories: include_directories('.'),
+  sources: [project_headers],
+  link_whith : project_target
 )
 
 set_variable(meson.project_name() + '_dep', project_target_dep)

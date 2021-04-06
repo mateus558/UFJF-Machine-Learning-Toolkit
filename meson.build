@@ -2,6 +2,8 @@ project('ufjfmltk', 'cpp',
   version : '1.0.0',
   default_options : ['warning_level=0', 'cpp_std=c++17'])
 
+run_command('./install.sh')
+
 project_description = 'UFJF Machine Learning Toolkit'
 
 modules = {
@@ -46,7 +48,9 @@ project_target = static_library(meson.project_name(), [],
 )
 
 project_target_dep = declare_dependency(
-  link_with : project_target
+  link_with : project_target,
+  include_directories : include_directories('.'),
+  dependencies: project_dependencies
 )
 
 set_variable(meson.project_name() + '_dep', project_target_dep)
