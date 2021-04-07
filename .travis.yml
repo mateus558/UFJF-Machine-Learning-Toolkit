@@ -11,6 +11,7 @@ matrix:
 
 install:
   - sudo apt-get install ninja-build meson
+  - pip3 install meson
 
 script:
   - chmod +x build.sh
