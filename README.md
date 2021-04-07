@@ -14,6 +14,10 @@ and some already implemented methods.<br />
 It's not intended to be just a collection of algorithms, but also to auxiliate and create a pattern in future ML algorithms implementations
 through a set of interconected modules that can be used in most ML projects.<br />
 
+## Documentation
+You can find the documentation at the project page: [UFJF-MLTK](https://mateus558.github.io/UFJF-MLTK/index.html). <br />
+And for examples and other information you can access the [wiki](https://github.com/mateus558/Machine-Learning-Toolkit/wiki).
+
 ## Requirements
 * meson >= 0.56
 * g++ >= 7
@@ -76,9 +80,6 @@ KNN accuracy: 100%
 * Feature Selection [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 * Documentation [![Generic badge](https://img.shields.io/badge/status-WIP-yellow.svg)](https://shields.io/)
 
-## Documentation
-You can find the documentation at the project page: [UFJF-MLTK](https://mateus558.github.io/UFJF-MLTK/index.html). <br />
-And for examples and other information you can access the [wiki](https://github.com/mateus558/Machine-Learning-Toolkit/wiki).
 
 ## Authors
 Mateus Coutinho Marim (mateus.marim@ice.ufjf.br) <br />
