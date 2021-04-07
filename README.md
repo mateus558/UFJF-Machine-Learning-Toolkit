@@ -17,7 +17,8 @@ through a set of interconected modules that can be used in most ML projects.<br 
 
 ## Requirements
 * meson >= 0.56
-* g++ >= 7 
+* g++ >= 7
+* gnuplot >= 5 (only for visualization module)
 
 ## Installation
 As meson build system is not well known as CMake, most of users could not know the commands to build and install UFJF-MLTK, so we created the necessary shell scripts to automate the installation process in the system. For now, only **linux** scripts were created. 
