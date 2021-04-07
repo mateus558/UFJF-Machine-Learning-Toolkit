@@ -11,6 +11,7 @@ matrix:
 
 install:
   - pip3 install meson ninja
+  - sudo pip3 install meson ninja
   - chmod +x module_installer.sh
   - bash module_installer.sh ufjfmltk_core /usr
   - bash module_installer.sh ufjfmltk_classifier /usr
