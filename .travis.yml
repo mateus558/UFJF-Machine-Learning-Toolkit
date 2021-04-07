@@ -1,39 +1,17 @@
-language: cpp
-compiler: gcc
+dist: bionic
+group: travis_latest
 
 os: linux
-dist: bionic
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-7
-      - gnuplot
-      
-# the install step will take care of deploying a newer cmake version
-install:    
-  # first we create a directory for the CMake binaries
-  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
-  - mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
-  # we use wget to fetch the cmake binaries
-  - travis_retry wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz
- 
-  # extract the binaries; the output here is quite lengthy,
-  # so we swallow it to not clutter up the travis console
-  - tar -xvf cmake-3.17.3-Linux-x86_64.tar.gz > /dev/null
-  - mv cmake-3.17.3-Linux-x86_64 cmake-install
-  # add both the top-level directory and the bin directory from the archive
-  # to the system PATH. By adding it to the front of the path we hide the
-  # preinstalled CMake with our own.
-  - PATH=${DEPS_DIR}/cmake-install:${DEPS_DIR}/cmake-install/bin:$PATH
-  # don't forget to switch back to the main build directory once you are done
-  - cd ${TRAVIS_BUILD_DIR}
+language: python
 
+matrix:
+  include:
+    - env: CXX=gcc
+    - env: CC=clang
+
+install:
+  - pip3 install meson ninja
 
 script:
-  - export CC=gcc-7
-  - export CXX=g++-7
-  - cmake --version
-  - cmake CMakeLists.txt
-  - cmake  --build . 
+  - chmod +x build.sh
+  - bash build.sh
