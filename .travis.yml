@@ -11,13 +11,6 @@ matrix:
 
 install:
   - sudo apt-get install ninja-build meson
-  - pip3 install meson ninja
-  - chmod +x module_installer.sh
-  - bash module_installer.sh ufjfmltk_core /usr
-  - bash module_installer.sh ufjfmltk_classifier /usr
-  - bash module_installer.sh ufjfmltk_valid /usr
-  - echo $PATH
-  - g++ -E -Wp,-v -xc++ /dev/null
 
 script:
   - chmod +x build.sh
