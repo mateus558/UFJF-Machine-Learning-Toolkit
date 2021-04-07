@@ -1,4 +1,4 @@
-# UFJF - MLTK (Machine Learning Toolkit)
+# UFJF - Machine Learning Toolkit
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mateus558/UFJF-MLTK)
 [![Build Status](https://travis-ci.org/mateus558/UFJF-MLTK.svg?branch=main)](https://travis-ci.org/mateus558/UFJF-MLTK)
