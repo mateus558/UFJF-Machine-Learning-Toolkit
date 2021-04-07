@@ -16,10 +16,53 @@ It's not intended to be just a collection of algorithms, but also to auxiliate a
 through a set of interconected modules that can be used in most ML projects.<br />
 
 ## Requirements
-These are the requirements to build the project:
-* gnuplot >= 5.0
-* g++ >= 4.9.4 
-* cmake (To compile using the makefile in build folder)
+* meson >= 0.56
+* g++ >= 7 
+
+## Installation
+As meson build system is not well known as CMake, most of users could not know the commands to build and install UFJF-MLTK, so we created the necessary shell scripts to automate the installation process in the system. For now, only **linux** scripts were created. 
+
+### Linux
+
+In the main folder execute the following commands:
+```
+sudo chmod +x install.sh
+./install.sh
+```
+After that, the library will be available system wide and it can be used as any library.
+
+### Windows
+
+Installation scripts being written. :)
+
+## Usage Example
+
+The framework is intended to make easier the usage of machine learning algorithms in C++, in the following example we output the 10-fold cross validation accuracy of the kNN algorithm with 3 neighbors, as we can see, we can do it with few lines of code.  
+
+```cpp
+#include <ufjfmltk/Core.hpp>
+#include <ufjfmltk/Validation.hpp>
+#include <ufjfmltk/Classifier.hpp>
+
+int main(){
+  mltk::Data<double> data("iris.data");
+  mltk::classifier::KNNClassifier<double> knn(data, 3);
+
+  std::cout << "Dataset size: " << data.size() << std::endl;
+  std::cout << "Dataset dimension: " << data.dim() << std::endl;
+
+  std::cout << "KNN accuracy: ";
+  std::cout << 100.0 - mltk::validation::kfold(data, knn, 10, 42, 0) << std::endl;
+}
+```
+This code outputs the following:
+
+```
+Dataset size: 150
+Dataset dimension: 4
+KNN accuracy: 100%
+```
+
 
 ## Modules status
 * Data manipulation [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
