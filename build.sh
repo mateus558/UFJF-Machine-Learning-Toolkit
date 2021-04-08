@@ -7,10 +7,10 @@ fi
 echo $prefix
 
 if [ -e "builddir" ]; then
-    meson --prefix=$prefix --reconfigure builddir
+    meson --prefix=$prefix --buildtype=release --reconfigure builddir
 else
     mkdir builddir
-    meson --prefix=$prefix builddir
+    meson --prefix=$prefix --buildtype=release builddir
 fi
 
 ninja -C builddir -j 6

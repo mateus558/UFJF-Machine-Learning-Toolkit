@@ -6,9 +6,11 @@ project_description = 'UFJF Machine Learning Toolkit'
 prefix = get_option('prefix')
 project_subdir = 'ufjfmltk'
 project_install_dir = get_option('libdir')
+build_type = get_option('buildtype') 
 
+message('Build type: ' + build_type)
 message('Install directory: ' + prefix / project_install_dir)
-message('Installing the necessary submodules, this can take some time. \n')
+message('\nInstalling the necessary submodules, this can take some time. \n')
 if target_machine.system() == 'linux'
   message('Installing ufjfmltk_core...')
   run_command('./module_installer.sh', 'ufjfmltk_core', prefix)
