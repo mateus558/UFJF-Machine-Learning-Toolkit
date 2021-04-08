@@ -1,8 +1,18 @@
 project('ufjfmltk_ensemble', 'cpp',
   version : '1.0.0',
   default_options : ['warning_level=0', 'cpp_std=c++17'])
-project_description = 'UFJF-MLTK ensemble library.'
 
+cpp_compiler = meson.get_compiler('cpp')
+project_dependencies = [
+    cpp_compiler.find_library('ufjfmltk_core', required : true),
+    cpp_compiler.find_library('ufjfmltk_classifier', required : true)
+]
+
+project_description = 'UFJF-MLTK ensemble library.'
+prefix = get_option('prefix')
+project_subdir = 'ufjfmltk/ensemble'
+project_install_dir = get_option('libdir')
+message('Install directory: ' + prefix / project_install_dir)
 project_headers = ['include/AdaBoostClassifier.hpp', 
     'include/AutoWeightedVoting.hpp', 
     'include/BaggingClassifier.hpp', 
@@ -19,38 +29,33 @@ project_headers = ['include/AdaBoostClassifier.hpp',
     'include/PerceptronCommittee.hpp',
     'include/VotingClassifier.hpp']
 
-project_dependencies = [
-  dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_core_dep'], required : true),
-  dependency('ufjfmltk_classifier', fallback : ['ufjfmltk_classifier', 'ufjfmltk_classifier_dep'], required : true)
-]
-
 public_headers = include_directories('include')
 
-project_target = static_library(
-  meson.project_name(),
-  [],
-  dependencies: project_dependencies,
+project_target = library(meson.project_name(), [project_headers],
   install : true,
+  install_dir : project_install_dir,
   include_directories : public_headers,
+  version: meson.project_version(),
+  soversion: '0',
+  dependencies: project_dependencies
 )
 
+install_headers('Ensemble.hpp', subdir: 'ufjfmltk')
+install_headers(project_headers, subdir : project_subdir)
 
-project_dep = declare_dependency(
-  include_directories: public_headers,
-  link_with: project_target
+project_target_dep = declare_dependency(
+  include_directories: [include_directories('include')],
+  sources: project_headers,
+  link_with : project_target,
 )
-set_variable(meson.project_name() + '_dep', project_dep)
+
+set_variable(meson.project_name() + '_dep', project_target_dep)
 set_variable(meson.project_name() + '_tgt', project_target)
-
-# Make this library usable from the system's
-# package manager.
-install_headers(project_headers, subdir : 'ufjfmltk/ensemble')
-install_headers('Ensemble.hpp', subdir : 'ufjfmltk')
 
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(
   name : meson.project_name(),
   filebase : meson.project_name(),
   description : project_description,
-  subdirs : 'ufjfmltk/ensemble'
+  subdirs : project_subdir,
 )

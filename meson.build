@@ -1,6 +1,6 @@
 project('ufjfmltk', 'cpp',
   version : '1.0.0',
-  default_options : ['warning_level=0', 'cpp_std=c++17'])
+  default_options : ['warning_level=0', 'cpp_std=c++17','default_library=static'])
 
 prefix = get_option('prefix')
 message('Prefix: '+prefix)
@@ -49,14 +49,14 @@ combined = [
 ]
 
 project_dependencies = [
-  dependency('ufjfmltk_core', fallback : ['ufjfmltk_core', 'ufjfmltk_core_dep']),
-  dependency('ufjfmltk_classifier', fallback : ['ufjfmltk_classifier', 'ufjfmltk_classifier_dep']),
-  dependency('ufjfmltk_regressor', fallback : ['ufjfmltk_regressor', 'ufjfmltk_regressor_dep']),
-  dependency('ufjfmltk_valid', fallback : ['ufjfmltk_valid', 'ufjfmltk_valid_dep']),
-  dependency('ufjfmltk_ensemble', fallback : ['ufjfmltk_ensemble', 'ufjfmltk_ensemble_dep']),
-  dependency('ufjfmltk_featselect', fallback : ['ufjfmltk_featselect', 'ufjfmltk_featselect_dep']),
-  dependency('ufjfmltk_clusterer', fallback : ['ufjfmltk_clusterer', 'ufjfmltk_clusterer_dep']),
-  dependency('ufjfmltk_visual', fallback : ['ufjfmltk_visual', 'ufjfmltk_visual_dep'])
+  modules['core'].get_variable('ufjfmltk_core_dep'),
+  modules['classifier'].get_variable('ufjfmltk_classifier_dep'),
+  modules['valid'].get_variable('ufjfmltk_valid_dep'),
+  modules['ensemble'].get_variable('ufjfmltk_ensemble_dep'),
+  modules['featselect'].get_variable('ufjfmltk_featselect_dep'),
+  modules['regressor'].get_variable('ufjfmltk_regressor_dep'),
+  modules['clusterer'].get_variable('ufjfmltk_clusterer_dep'),
+  modules['visual'].get_variable('ufjfmltk_visual_dep')
 ]
 
 install_headers('ufjfmltk.hpp', subdir: 'ufjfmltk')

@@ -6,7 +6,10 @@ project(
 )
 
 project_description = 'UFJF-MLTK core library.'
-
+prefix = get_option('prefix')
+project_subdir = 'ufjfmltk/core'
+project_install_dir = get_option('libdir')
+message('Install directory: ' + prefix / project_install_dir)
 project_source_files = ['src/Data.cpp', 'src/Kernel.cpp', 'src/Statistics.cpp', 'src/Utils.cpp']
 project_headers = ['include/Data.hpp', 
     'include/Point.hpp', 
@@ -25,21 +28,23 @@ project_headers = ['include/Data.hpp',
     'include/ExprScalar.hpp',
     'include/ExprTraits.hpp']
 
-
 public_headers = include_directories('include')
 
-install_headers('Core.hpp', subdir: 'ufjfmltk')
-install_headers(project_headers, subdir : 'ufjfmltk/core')
-
-project_target = static_library(meson.project_name(), [project_source_files, project_headers],
+project_target = library(meson.project_name(), [project_source_files, project_headers],
   install : true,
-  include_directories : public_headers
+  install_dir : project_install_dir,
+  include_directories : public_headers,
+  version: meson.project_version(),
+  soversion: '0'
 )
 
+install_headers('Core.hpp', subdir: 'ufjfmltk')
+install_headers(project_headers, subdir : project_subdir)
+
 project_target_dep = declare_dependency(
-  include_directories: include_directories('.'),
+  include_directories: [include_directories('include'), include_directories('src')],
   sources: project_headers,
-  link_whole : project_target
+  link_with : project_target,
 )
 
 set_variable(meson.project_name() + '_dep', project_target_dep)
@@ -50,5 +55,5 @@ pkg_mod.generate(
   name : meson.project_name(),
   filebase : meson.project_name(),
   description : project_description,
-  subdirs : 'ufjfmltk/core',
+  subdirs : project_subdir,
 )

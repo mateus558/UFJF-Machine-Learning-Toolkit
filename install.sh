@@ -5,10 +5,7 @@ if [ ! -z $1 ]; then
     prefix=$1
 fi
 
-sudo chmod +x install_modules.sh
 sudo chmod +x module_installer.sh
-
-./install_modules.sh all $prefix
 
 if [ ! -e "builddir" ]; then
     ./build.sh $prefix
