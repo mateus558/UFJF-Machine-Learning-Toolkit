@@ -17,6 +17,7 @@ addons:
     packages:
       - gcc-6
       - g++-6
+      - python3-pip
 
 
 script:
@@ -25,7 +26,6 @@ script:
   - export CC=/usr/bin/gcc-6
   - export CXX=/usr/bin/g++-6
   - gcc -v && g++ -v
-  - sudo apt install python3-pip
   - sudo pip3 install setuptools wheel ninja
   - sudo pip3 install meson==0.56
   - pip3 install meson==0.56
