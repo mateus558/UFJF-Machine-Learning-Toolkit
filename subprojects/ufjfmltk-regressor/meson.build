@@ -1,32 +1,26 @@
 project(
-  'ufjfmltk_core',
+  'ufjfmltk-regressor',
   'cpp',
   version : '1.0.0',
   default_options : ['warning_level=0', 'cpp_std=c++17']
 )
 
-project_description = 'UFJF-MLTK core library.'
+cpp_compiler = meson.get_compiler('cpp')
+project_dependencies = [
+    cpp_compiler.find_library('ufjfmltk-core', required : true)
+]
+
+project_description = 'UFJF-MLTK regression library.'
 prefix = get_option('prefix')
-project_subdir = 'ufjfmltk/core'
+project_subdir = 'ufjfmltk/regressor'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
-project_source_files = ['src/Data.cpp', 'src/Kernel.cpp', 'src/Statistics.cpp', 'src/Utils.cpp']
-project_headers = ['include/Data.hpp', 
-    'include/Point.hpp', 
-    'include/DistanceMetric.hpp', 
-    'include/Kernel.hpp',
-    'include/Learner.hpp',
-    'include/Point.hpp',
-    'include/Random.hpp',
-    'include/Sampling.hpp',
-    'include/Solution.hpp',
-    'include/Statistics.hpp',
-    'include/Timer.hpp',
-    'include/Utils.hpp',
-    'include/CoverTree.hpp',
-    'include/ExprOps.hpp',
-    'include/ExprScalar.hpp',
-    'include/ExprTraits.hpp']
+project_source_files = ['src/KNNRegressor.cpp', 'src/LMS.cpp']
+project_headers = ['include/Regressor.hpp', 
+    'include/DualRegressor.hpp', 
+    'include/KNNRegressor.hpp', 
+    'include/LMS.hpp',
+    'include/PrimalRegressor.hpp']
 
 public_headers = include_directories('include')
 
@@ -35,10 +29,11 @@ project_target = library(meson.project_name(), [project_source_files, project_he
   install_dir : project_install_dir,
   include_directories : public_headers,
   version: meson.project_version(),
-  soversion: '0'
+  soversion: '0',
+  dependencies: project_dependencies
 )
 
-install_headers('Core.hpp', subdir: 'ufjfmltk')
+install_headers('Regressor.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(
@@ -47,8 +42,9 @@ project_target_dep = declare_dependency(
   link_with : project_target,
 )
 
-set_variable(meson.project_name() + '_dep', project_target_dep)
-set_variable(meson.project_name() + '_tgt', project_target)
+varprefix = meson.project_name().split('-')
+set_variable('_'.join(varprefix) + '_dep', project_target_dep)
+set_variable('_'.join(varprefix) + '_tgt', project_target)
 
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(

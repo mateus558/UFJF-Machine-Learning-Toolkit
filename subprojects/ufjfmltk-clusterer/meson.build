@@ -1,5 +1,5 @@
 project(
-  'ufjfmltk_visual',
+  'ufjfmltk-clusterer',
   'cpp',
   version : '1.0.0',
   default_options : ['warning_level=0', 'cpp_std=c++17']
@@ -7,20 +7,21 @@ project(
 
 cpp_compiler = meson.get_compiler('cpp')
 project_dependencies = [
-    cpp_compiler.find_library('ufjfmltk_core', required : true)
+    cpp_compiler.find_library('ufjfmltk-core', required : true),
 ]
 
-project_description = 'UFJF-MLTK visualization library.'
+project_description = 'UFJF-MLTK clustering library.'
 prefix = get_option('prefix')
-project_subdir = 'ufjfmltk/visual'
+project_subdir = 'ufjfmltk/clusterer'
 project_install_dir = get_option('libdir')
-project_source_files = ['src/gnuplot_i.cpp', 'src/Visualization.cpp']
-project_headers = ['include/gnuplot_i.hpp', 
-    'include/Visualization.hpp']
+message('Install directory: ' + prefix / project_install_dir)
+project_source_files = ['src/KMeans.cpp']
+project_headers = ['include/Clusterer.hpp', 
+    'include/KMeans.hpp']
 
 public_headers = include_directories('include')
 
-project_target = library(meson.project_name(), [project_headers, project_source_files],
+project_target = library(meson.project_name(), [project_source_files, project_headers],
   install : true,
   install_dir : project_install_dir,
   include_directories : public_headers,
@@ -29,7 +30,7 @@ project_target = library(meson.project_name(), [project_headers, project_source_
   dependencies: project_dependencies
 )
 
-install_headers('Visualize.hpp', subdir: 'ufjfmltk')
+install_headers('Clusterer.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(
@@ -38,8 +39,9 @@ project_target_dep = declare_dependency(
   link_with : project_target,
 )
 
-set_variable(meson.project_name() + '_dep', project_target_dep)
-set_variable(meson.project_name() + '_tgt', project_target)
+varprefix = meson.project_name().split('-')
+set_variable('_'.join(varprefix) + '_dep', project_target_dep)
+set_variable('_'.join(varprefix) + '_tgt', project_target)
 
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(

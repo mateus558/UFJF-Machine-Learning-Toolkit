@@ -1,7 +1,7 @@
 #!/bin/bash
 
-modules=("ufjfmltk_core" "ufjfmltk_classifier" "ufjfmltk_valid" "ufjfmltk_ensemble" "ufjfmltk_featselect"\
- "ufjfmltk_regressor" "ufjfmltk_clusterer" "ufjfmltk_visual")
+modules=("ufjfmltk-core" "ufjfmltk-classifier" "ufjfmltk-valid" "ufjfmltk-ensemble" "ufjfmltk-featselect"\
+ "ufjfmltk-regressor" "ufjfmltk-clusterer" "ufjfmltk-visual")
 module=$1
 prefix=/usr/local
 if [ ! -z $2 ]; then

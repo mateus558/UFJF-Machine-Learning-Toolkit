@@ -1,11 +1,11 @@
-project('ufjfmltk_valid', 'cpp',
+project('ufjfmltk-valid', 'cpp',
   version : '1.0.0',
   default_options : ['warning_level=0', 'cpp_std=c++17'])
 
 cpp_compiler = meson.get_compiler('cpp')
 project_dependencies = [
-    cpp_compiler.find_library('ufjfmltk_core', required : true),
-    cpp_compiler.find_library('ufjfmltk_classifier', required : true)
+    cpp_compiler.find_library('ufjfmltk-core', required : true),
+    cpp_compiler.find_library('ufjfmltk-classifier', required : true)
 ]
 
 project_description = 'UFJF-MLTK validation library.'
@@ -37,8 +37,9 @@ project_target_dep = declare_dependency(
   link_with : project_target,
 )
 
-set_variable(meson.project_name() + '_dep', project_target_dep)
-set_variable(meson.project_name() + '_tgt', project_target)
+varprefix = meson.project_name().split('-')
+set_variable('_'.join(varprefix) + '_dep', project_target_dep)
+set_variable('_'.join(varprefix) + '_tgt', project_target)
 
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(

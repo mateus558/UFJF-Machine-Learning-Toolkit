@@ -12,33 +12,33 @@ message('Build type: ' + build_type)
 message('Install directory: ' + prefix / project_install_dir)
 message('\nInstalling the necessary submodules, this can take some time. \n')
 if target_machine.system() == 'linux'
-  message('Installing ufjfmltk_core...')
-  run_command('./module_installer.sh', 'ufjfmltk_core', prefix)
-  message('Installing ufjfmltk_classifier...')
-  run_command('./module_installer.sh', 'ufjfmltk_classifier', prefix)
-  message('Installing ufjfmltk_regressor...')
-  run_command('./module_installer.sh', 'ufjfmltk_regressor', prefix)
-  message('Installing ufjfmltk_valid...')
-  run_command('./module_installer.sh', 'ufjfmltk_valid', prefix)
-  message('Installing ufjfmltk_ensemble...')
-  run_command('./module_installer.sh', 'ufjfmltk_ensemble', prefix)
-  message('Installing ufjfmltk_featselect...')
-  run_command('./module_installer.sh', 'ufjfmltk_featselect', prefix)
-  message('Installing ufjfmltk_clusterer...')
-  run_command('./module_installer.sh', 'ufjfmltk_clusterer', prefix)
-  message('Installing ufjfmltk_visual...')
-  run_command('./module_installer.sh', 'ufjfmltk_visual', prefix)
+  message('Installing ufjfmltk-core...')
+  run_command('./module_installer.sh', 'ufjfmltk-core', prefix)
+  message('Installing ufjfmltk-classifier...')
+  run_command('./module_installer.sh', 'ufjfmltk-classifier', prefix)
+  message('Installing ufjfmltk-regressor...')
+  run_command('./module_installer.sh', 'ufjfmltk-regressor', prefix)
+  message('Installing ufjfmltk-valid...')
+  run_command('./module_installer.sh', 'ufjfmltk-valid', prefix)
+  message('Installing ufjfmltk-ensemble...')
+  run_command('./module_installer.sh', 'ufjfmltk-ensemble', prefix)
+  message('Installing ufjfmltk-featselect...')
+  run_command('./module_installer.sh', 'ufjfmltk-featselect', prefix)
+  message('Installing ufjfmltk-clusterer...')
+  run_command('./module_installer.sh', 'ufjfmltk-clusterer', prefix)
+  message('Installing ufjfmltk-visual...')
+  run_command('./module_installer.sh', 'ufjfmltk-visual', prefix)
 endif
 
 modules = {
-  'core': subproject('ufjfmltk_core'),
-  'classifier': subproject('ufjfmltk_classifier'),
-  'regressor': subproject('ufjfmltk_regressor'),
-  'valid': subproject('ufjfmltk_valid'),
-  'ensemble': subproject('ufjfmltk_ensemble'),
-  'featselect': subproject('ufjfmltk_featselect'),
-  'clusterer': subproject('ufjfmltk_clusterer'),
-  'visual': subproject('ufjfmltk_visual')
+  'core': subproject('ufjfmltk-core'),
+  'classifier': subproject('ufjfmltk-classifier'),
+  'regressor': subproject('ufjfmltk-regressor'),
+  'valid': subproject('ufjfmltk-valid'),
+  'ensemble': subproject('ufjfmltk-ensemble'),
+  'featselect': subproject('ufjfmltk-featselect'),
+  'clusterer': subproject('ufjfmltk-clusterer'),
+  'visual': subproject('ufjfmltk-visual')
 }
 
 combined = [
