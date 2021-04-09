@@ -29,13 +29,16 @@ project_headers = ['include/Data.hpp',
     'include/ExprTraits.hpp']
 
 public_headers = include_directories('include')
+lib_args = ['-DBUILDING_CORE']
 
 project_target = library(meson.project_name(), [project_source_files, project_headers],
   install : true,
   install_dir : project_install_dir,
   include_directories : public_headers,
   version: meson.project_version(),
-  soversion: '0'
+  soversion: '0',
+  cpp_args : lib_args,
+  gnu_symbol_visibility : 'hidden',
 )
 
 install_headers('Core.hpp', subdir: 'ufjfmltk')
@@ -56,5 +59,6 @@ pkg_mod.generate(
   name : meson.project_name(),
   filebase : meson.project_name(),
   description : project_description,
-  subdirs : project_subdir,
+  libraries : project_target,
+  subdirs : project_subdir
 )

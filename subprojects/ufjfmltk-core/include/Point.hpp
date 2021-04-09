@@ -3,9 +3,20 @@
    \author Mateus Coutinho Marim
 */
 
-#ifndef POINT__HPP
-#define POINT__HPP
 #pragma once
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define POINT_PUBLIC __declspec(dllexport)
+  #else
+    #define POINT_PUBLIC __declspec(dllimport)
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define POINT_PUBLIC __attribute__ ((visibility ("default")))
+  #else
+      #define POINT_PUBLIC
+  #endif
+#endif
 
 #include <cstddef>
 #include <cassert>
@@ -32,7 +43,7 @@ namespace mltk {
      * \brief Wrapper for the point data.
      */
     template <typename T, typename Rep = std::vector<T> >
-    class Point {
+    class POINT_PUBLIC Point {
         private:
             /// Features values.
             Rep x; // (access to) the data of the array
@@ -835,4 +846,3 @@ namespace mltk {
     }
 
 }
-#endif

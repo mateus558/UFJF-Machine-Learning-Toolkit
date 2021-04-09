@@ -29,9 +29,21 @@
    \file Data.hpp
    \author Mateus Coutinho Marim
 */
-#ifndef DATA__HPP
-#define DATA__HPP
+
 #pragma once
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DATA_PUBLIC __declspec(dllexport)
+  #else
+    #define DATA_PUBLIC __declspec(dllimport)
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DATA_PUBLIC __attribute__ ((visibility ("default")))
+  #else
+      #define DATA_PUBLIC
+  #endif
+#endif
 
 #include <vector>
 #include <string>
@@ -66,7 +78,7 @@ namespace mltk{
      * \brief Wrapper for the dataset data.
      */
     template < typename T >
-    class Data {
+    class DATA_PUBLIC Data {
         // Associations
         // Attributes
     private :
@@ -451,5 +463,3 @@ namespace mltk{
         return output;
     }
 }
-
-#endif
