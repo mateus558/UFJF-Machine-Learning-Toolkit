@@ -14,6 +14,15 @@ install:
   - sudo pip3 install setuptools wheel ninja
   - sudo pip3 install meson==0.56
   - pip3 install meson==0.56
+  - sudo chmod +x module_installer.sh
+  - ./module_installer.sh ufjfmltk-core
+  - ./module_installer.sh ufjfmltk-classifier
+  - ./module_installer.sh ufjfmltk-valid
+  - ./module_installer.sh ufjfmltk-featselect
+  - ./module_installer.sh ufjfmltk-regressor
+  - ./module_installer.sh ufjfmltk-clusterer
+  - ./module_installer.sh ufjfmltk-ensemble
+  - ./module_installer.sh ufjfmltk-visual
 
 script:
   - chmod +x build.sh
