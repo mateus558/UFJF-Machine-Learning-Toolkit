@@ -11,7 +11,8 @@ matrix:
 
 install:
   - sudo apt install python3-pip
-  - sido pip3 setuptools
+  - sudo pip3 setuptools wheel
+  - sudo apt install ninja-build
   - sudo pip3 install meson==0.56
   - pip3 install meson==0.56
 
