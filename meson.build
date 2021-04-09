@@ -13,6 +13,7 @@ message('Build type: ' + build_type)
 message('Install directory: ' + prefix / project_install_dir)
 message('Default library type: ' + library_type)
 message('\nInstalling the necessary submodules, this can take some time. \n')
+
 if target_machine.system() == 'linux'
   message('Installing ufjfmltk-core...')
   run_command('./module_installer.sh', 'ufjfmltk-core', prefix)
