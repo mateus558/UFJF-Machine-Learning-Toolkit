@@ -33,6 +33,8 @@ if target_machine.system() == 'linux'
   run_command('./module_installer.sh', 'ufjfmltk-visual', prefix)
 endif
 
+subdir('docs')
+
 modules = {
   'core': subproject('ufjfmltk-core'),
   'classifier': subproject('ufjfmltk-classifier'),
