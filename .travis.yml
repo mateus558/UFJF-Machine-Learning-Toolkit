@@ -1,5 +1,6 @@
-dist: bionic
+dist: trusty
 group: travis_latest
+sudo: require
 
 os: linux
 language: python
@@ -9,8 +10,25 @@ matrix:
     - env: CXX=gcc
     - env: CC=clang
 
-install:
-  - sudo apt install python3-pip
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-6
+      - g++-6
+
+
+script:
+  # Link gcc-6 and g++-6 to their standard commands
+  - ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+  - ln -s /usr/bin/g++-6 /usr/local/bin/g++
+  # Export CC and CXX to tell cmake which compiler to use
+  - export CC=/usr/bin/gcc-6
+  - export CXX=/usr/bin/g++-6
+  # Check versions of gcc, g++ and cmake
+  - gcc -v && g++ -v
+    - sudo apt install python3-pip
   - sudo pip3 install setuptools wheel ninja
   - sudo pip3 install meson==0.56
   - pip3 install meson==0.56
@@ -23,7 +41,5 @@ install:
   - ./module_installer.sh ufjfmltk-clusterer
   - ./module_installer.sh ufjfmltk-ensemble
   - ./module_installer.sh ufjfmltk-visual
-
-script:
   - chmod +x build.sh
   - bash build.sh /usr
