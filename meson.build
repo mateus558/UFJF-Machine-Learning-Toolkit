@@ -1,15 +1,17 @@
 project('ufjfmltk', 'cpp',
   version : '0.40.0',
-  default_options : ['warning_level=0', 'cpp_std=c++17','default_library=static'])
+  default_options : ['warning_level=0', 'cpp_std=c++17','default_library=shared'])
 
 project_description = 'UFJF Machine Learning Toolkit'
 prefix = get_option('prefix')
 project_subdir = 'ufjfmltk'
 project_install_dir = get_option('libdir')
-build_type = get_option('buildtype') 
+build_type = get_option('buildtype')
+library_type = get_option('default_library')
 
 message('Build type: ' + build_type)
 message('Install directory: ' + prefix / project_install_dir)
+message('Default library type: ' + library_type)
 message('\nInstalling the necessary submodules, this can take some time. \n')
 if target_machine.system() == 'linux'
   message('Installing ufjfmltk-core...')
@@ -65,7 +67,7 @@ project_dependencies = [
 
 install_headers('ufjfmltk.hpp', subdir: 'ufjfmltk')
 
-project_target = static_library(meson.project_name(), [],
+project_target = library(meson.project_name(), [],
   dependencies: project_dependencies,
   objects: combined,
   install : true,
