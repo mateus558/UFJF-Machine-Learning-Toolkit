@@ -43,6 +43,7 @@ Installation scripts being written. :)
 
 The framework is intended to make easier the usage of machine learning algorithms in C++, in the following example we output the 10-fold cross validation accuracy of the kNN algorithm with 3 neighbors, as we can see, we can do it with few lines of code.  
 
+**main.cpp**
 ```cpp
 #include <ufjfmltk/Core.hpp>
 #include <ufjfmltk/Validation.hpp>
@@ -60,7 +61,12 @@ int main(){
             << "%" << std::endl;
 }
 ```
-This code outputs the following:
+Compiling:
+```
+g++ main.cpp -o main -lufjfmltk
+```
+
+This program outputs the following:
 
 ```
 Dataset size: 150
