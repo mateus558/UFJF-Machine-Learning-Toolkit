@@ -1,5 +1,5 @@
 project('ufjfmltk-ensemble', 'cpp',
-  version : '1.0.0',
+  version : '0.40.0',
   default_options : ['warning_level=0', 'cpp_std=c++17'])
 
 cpp_compiler = meson.get_compiler('cpp')
