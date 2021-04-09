@@ -10,7 +10,8 @@ matrix:
     - env: CC=clang
 
 install:
-  - sudo apt install python3-pip python3-setuptools python3-wheel
+  - sudo apt install python3-pip
+  - sido pip3 setuptools
   - sudo pip3 install meson==0.56
   - pip3 install meson==0.56
 
