@@ -10,8 +10,8 @@ matrix:
     - env: CC=clang
 
 install:
-  - sudo apt-get install ninja-build meson
-  - pip3 install meson
+  - sudo pip3 install meson==0.56
+  - pip3 install meson==0.56
 
 script:
   - chmod +x build.sh
