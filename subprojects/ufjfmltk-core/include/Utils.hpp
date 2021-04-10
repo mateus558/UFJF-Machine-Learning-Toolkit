@@ -12,7 +12,7 @@
     #define DLLUtils __declspec(dllexport)
     #define DLLUtilsDecl __cdecl
   #else
-    #define DLLUtils __declspec(dllimport)
+    #define DLLUtils
     #define DLLUtilsDecl
   #endif
 #else
