@@ -22,6 +22,9 @@
 #include "ExprScalar.hpp"
 #include "Utils.hpp"
 
+/**
+ * \brief UFJF-MLTK main namespace for core functionalities.
+ */
 namespace mltk {    
     template <typename T, typename Rep> class Point;
     template <typename T, typename Rep> std::ostream &operator<<( std::ostream &output, const Point<T, Rep> &p );

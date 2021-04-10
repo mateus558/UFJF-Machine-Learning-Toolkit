@@ -55,12 +55,23 @@ namespace mltk{
             double limit_error = 0.0;
         };
 
+        /**
+         * \brief A struct representing a pair with training and test data.
+         */        
         template <typename T>
         struct TrainTestPair{
+            /// Train data
             Data<T> train;
+            /// Test data
             Data<T> test;
         };
 
+        /**
+        * \brief Compute the confusion matrix for a given trained classifier.
+        * \param sample Data to train the classifier on.
+        * \param classifier Classifier to be evaluated.
+        * \return A matrix where the the rows are the true labels and the columns are the missclassification.
+        */
         template< typename T >
         std::vector<std::vector<size_t> > generateConfusionMatrix(Data< T > &samples, Learner< T > &learner){
             auto classes = samples.getClasses();
@@ -89,6 +100,11 @@ namespace mltk{
             return confusion_m;
         }
 
+       /**
+        * \brief Compute the accuracy based on a confusion matrix.
+        * \param conf_matrix A confusion matrix.
+        * \return Accuracy based on a confusion matrix.
+        */
        inline double confusionMatrixAccuracy(const std::vector<std::vector<size_t> > &conf_matrix){
             double errors = 0, total = 0;
             for(size_t i = 0; i < conf_matrix.size(); i++){
@@ -103,11 +119,14 @@ namespace mltk{
         }
 
         /**
-        * \brief Divide the samples in training and test.
+        * \brief Divide the samples in training and test set.
+        * \param data Data to be splitted.
         * \param fold Number of folds.
+        * \param seed  Seed to feed the pseudo random number generator.
+        * \return A pair containing the training and test data.
         */
         template<typename T>
-        TrainTestPair<T> partTrainTest(Data<T> &data, const size_t fold, const size_t seed) {
+        TrainTestPair<T> partTrainTest(Data<T> &data, const size_t fold, const size_t seed=0) {
             std::vector<Data<T> > folds = data.splitSample(fold, seed);
             TrainTestPair<T> result;
 
@@ -132,11 +151,14 @@ namespace mltk{
 
         /**
          * \brief Executes k-fold stratified cross-validation
+         * \param sample Data to train the classifier on.
+         * \param classifier Classifier to be evaluated.
          * \param fold Number of folds.
          * \param seed  Seed to feed the pseudo random number generator.
+         * \return Classification error estimative.
          */
         template <typename T>
-        double kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold, const size_t &seed, const int verbose){
+        double kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold, const size_t &seed=0, const int verbose=0){
             double error = 0.0;
             std::vector<double> error_arr(fold);
             auto classes = sample.getClasses();
@@ -245,6 +267,8 @@ namespace mltk{
 
         /**
          * @brief Executes the validation with several executions of the k fold algorithm
+         * @param sample Data to train the classifier on.
+         * @param classifier Classifier to be evaluated.
          * @param fold Number of folds.
          * @param qtde Number of executions.
          * @return double Validation error.

@@ -8,7 +8,11 @@
 #include <ufjfmltk/core/Learner.hpp>
 
 namespace mltk{
+        /**
+         * \brief Namespace for regression methods.
+         */
         namespace regressor {
+            
             template<typename T>
             class Regressor : public Learner<T> {
             protected:

@@ -11,6 +11,9 @@
 #include <memory>
 
 namespace mltk{
+    /**
+     * \brief Namespace for feature selection methods.
+     */
     namespace featselect {
         template<typename T>
         class FeatureSelection {

@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 namespace mltk{
+    namespace visualize{
     using namespace std;
 
     template < typename T >
@@ -306,4 +307,4 @@ namespace mltk{
     template class Visualization<unsigned char>;
     template class Visualization<unsigned int>;
     template class Visualization<unsigned short int>;
-}
+}}

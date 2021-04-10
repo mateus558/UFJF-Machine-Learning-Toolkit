@@ -10,6 +10,9 @@
 #include <ufjfmltk/core/Learner.hpp>
 
 namespace mltk{
+        /**
+         * \brief Namespace for clustering methods.
+         */
         namespace clusterer {
             template<typename T, typename Callable = metrics::dist::Euclidean <T> >
             class Clusterer : public Learner<T> {

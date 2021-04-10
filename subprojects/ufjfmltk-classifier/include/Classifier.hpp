@@ -9,6 +9,9 @@
 
 #include <ufjfmltk/core/Learner.hpp>
 namespace mltk{
+    /**
+     * \brief Namespace for classification methods.
+     */
     namespace classifier {
         template<typename T>
         class Classifier : virtual public Learner<T> {

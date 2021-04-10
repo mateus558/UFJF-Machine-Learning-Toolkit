@@ -9,76 +9,81 @@
 #include <ufjfmltk/classifier/Classifier.hpp>
 
 namespace mltk{
-    template <typename T>
-    class Ensemble: virtual public Learner< T > {
-        // Attributes
-    protected:
-        /// Committee size.
-        size_t c_size{};
-        /// Pointer to base learner used by the ensemble method.
-        std::vector< LearnerPointer< T > > m_learners;
-        /// Ensemble solution.
-        Solution solution;
-    public:
-        Ensemble() = default;
-        explicit Ensemble(DataPointer< T > samples): Learner< T > (samples) {}
-        /*********************************************
-         *               Getters                     *
-         *********************************************/
-
+namespace ensemble{        
         /**
-         * \brief getSolution Returns the solution of the Ensemble method.
-         * \return Solution
+         * \brief Namespace for ensemble methods.
          */
-        Solution getSolution() const {return solution;}
-        /**
-         * \brief getSolution Returns a reference to the solution of the Ensemble method.
-         * \return Solution
-         */
-        Solution *getSolutionRef() { return &solution; }
+        template <typename T>
+        class Ensemble: virtual public Learner< T > {
+            // Attributes
+        protected:
+            /// Committee size.
+            size_t c_size{};
+            /// Pointer to base learner used by the ensemble method.
+            std::vector< LearnerPointer< T > > m_learners;
+            /// Ensemble solution.
+            Solution solution;
+        public:
+            Ensemble() = default;
+            explicit Ensemble(DataPointer< T > samples): Learner< T > (samples) {}
+            /*********************************************
+             *               Getters                     *
+             *********************************************/
 
-        /*********************************************
-         *               Setters                     *
-         *********************************************/
+            /**
+             * \brief getSolution Returns the solution of the Ensemble method.
+             * \return Solution
+             */
+            Solution getSolution() const {return solution;}
+            /**
+             * \brief getSolution Returns a reference to the solution of the Ensemble method.
+             * \return Solution
+             */
+            Solution *getSolutionRef() { return &solution; }
 
-        /**
-         * \brief setLearner Set the base learner to be used by the ensemble method. Make sure to set the base learner
-         * parameters before setting it.
-         * \return void
-         */
-        void setLearner(Learner<T> *learner) {
-            Ensemble::learner = learner;
-        }
+            /*********************************************
+             *               Setters                     *
+             *********************************************/
 
-        /**
-         * \brief setCommitteeSize Set the learner committee size.
-         * \return void
-         */
-        void setCommitteeSize(size_t c_size) {
-            Ensemble::c_size = c_size;
-        }
+            /**
+             * \brief setLearner Set the base learner to be used by the ensemble method. Make sure to set the base learner
+             * parameters before setting it.
+             * \return void
+             */
+            void setLearner(Learner<T> *learner) {
+                Ensemble::learner = learner;
+            }
 
-        size_t size(){
-            return this->m_learners.size();
-        }
+            /**
+             * \brief setCommitteeSize Set the learner committee size.
+             * \return void
+             */
+            void setCommitteeSize(size_t c_size) {
+                Ensemble::c_size = c_size;
+            }
 
-        auto begin(){
-            return this->m_learners.begin();
-        }
+            size_t size(){
+                return this->m_learners.size();
+            }
 
-        auto end(){
-            return this->m_learners.end();
-        }
+            auto begin(){
+                return this->m_learners.begin();
+            }
 
-        LearnerPointer<T> operator[](size_t idx) const  {
-            return this->m_learners[idx];
-        }
+            auto end(){
+                return this->m_learners.end();
+            }
 
-        auto learners(){
-            return this->m_learners;
-        }
+            LearnerPointer<T> operator[](size_t idx) const  {
+                return this->m_learners[idx];
+            }
 
-    };
+            auto learners(){
+                return this->m_learners;
+            }
+
+        };
+}
 }
 
 #endif //UFJF_MLTK_ENSEMBLE_HPP
