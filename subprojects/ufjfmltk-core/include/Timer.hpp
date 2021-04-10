@@ -3,8 +3,22 @@
    \author Mateus Coutinho Marim
 */
 
+#pragma once
 #ifndef TIMER_H_INCLUDED
 #define TIMER_H_INCLUDED
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DLLTimer __declspec(dllexport)
+  #else
+    #define DLLTimer __declspec(dllimport)
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DLLTimer __attribute__ ((visibility ("default")))
+  #else
+      #define DLLTimer
+  #endif
+#endif
 
 #include <cstdio>
 #include <ctime>
@@ -14,7 +28,7 @@ namespace mltk{
     /**
      * \brief Wrapper for the implementation of a simple timer.
      */
-    class Timer {
+    class DLLTimer Timer {
     public:
         /**
          * \brief Contructor already initiate the timer to the current time.

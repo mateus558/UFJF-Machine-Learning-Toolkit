@@ -74,7 +74,9 @@ project_target = library(meson.project_name(), [],
   dependencies: project_dependencies,
   objects: combined,
   install : true,
-  install_dir : project_install_dir
+  install_dir : project_install_dir,
+  version: meson.project_version(),
+  soversion: '0'
 )
 
 project_target_dep = declare_dependency(

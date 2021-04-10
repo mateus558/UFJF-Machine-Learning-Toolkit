@@ -6,6 +6,19 @@
 #pragma once
 #ifndef POINT_HPP_INCLUDED
 #define POINT_HPP_INCLUDED
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DLLPoint __declspec(dllexport)
+  #else
+    #define DLLPoint __declspec(dllimport)
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DLLPoint __attribute__ ((visibility ("default")))
+  #else
+      #define DLLPoint
+  #endif
+#endif
 
 #include <cstddef>
 #include <cassert>
@@ -35,7 +48,7 @@ namespace mltk {
      * \brief Wrapper for the point data.
      */
     template <typename T, typename Rep = std::vector<T> >
-    class Point {
+    class DLLPoint Point {
         private:
             /// Features values.
             Rep x; // (access to) the data of the array

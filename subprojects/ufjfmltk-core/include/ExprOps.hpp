@@ -1,6 +1,19 @@
+#pragma once
 #ifndef EXPROPS_HPP_INCLUDED
 #define EXPROPS_HPP_INCLUDED
-#pragma once
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DLLPointOps __declspec(dllexport)
+  #else
+    #define DLLPointOps __declspec(dllimport)
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DLLPointOps __attribute__ ((visibility ("default")))
+  #else
+      #define DLLPointOps
+  #endif
+#endif
 
 #include <cstddef>
 #include <cassert>
@@ -21,7 +34,7 @@ namespace mltk{
         Base template for binary arithmetic operations implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class BExprOp {
+    class DLLPointOps BExprOp {
         protected:
             /// first operand
             typename A_Traits<OP1>::ExprRef op1;
@@ -48,7 +61,7 @@ namespace mltk{
         Template for addition operation implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class A_Add: public BExprOp< T, OP1, OP2 > {
+    class DLLPointOps A_Add: public BExprOp< T, OP1, OP2 > {
         public:
             // constructor initializes references to operands
             A_Add(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {  }
@@ -65,7 +78,7 @@ namespace mltk{
         Template for multiplication operation implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class A_Mult: public BExprOp< T, OP1, OP2 >{
+    class DLLPointOps A_Mult: public BExprOp< T, OP1, OP2 >{
         public:
             A_Mult(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {  }
             
@@ -81,7 +94,7 @@ namespace mltk{
         Template for division operation implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class A_Div: public BExprOp< T, OP1, OP2 >{
+    class DLLPointOps A_Div: public BExprOp< T, OP1, OP2 >{
         public:
             A_Div(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {}
             
@@ -97,7 +110,7 @@ namespace mltk{
         Template for subtraction operation implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class A_Sub: public BExprOp< T, OP1, OP2 > {
+    class DLLPointOps A_Sub: public BExprOp< T, OP1, OP2 > {
         public:
             A_Sub(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {  }
 
@@ -169,7 +182,7 @@ namespace mltk{
     };
 
     template <typename T, typename OP1, typename OP2 >
-    class A_Mod: public BExprOp< T, OP1, OP2> {
+    class DLLPointOps A_Mod: public BExprOp< T, OP1, OP2> {
         public:
             A_Mod(OP1 const& a, OP2 const& b): BExprOp<T, OP1, OP2>(a, b) {}
 
@@ -179,7 +192,7 @@ namespace mltk{
     };
 
     template <typename T, typename OP1  >
-    class A_Mod< T, OP1, A_Scalar<double> >: public BExprOp< T, OP1, A_Scalar<double> > {
+    class DLLPointOps A_Mod< T, OP1, A_Scalar<double> >: public BExprOp< T, OP1, A_Scalar<double> > {
         public:
             A_Mod(OP1 const& a, A_Scalar<double> const& b): BExprOp<T, OP1, A_Scalar<double> >(a, b) {}
 
@@ -189,7 +202,7 @@ namespace mltk{
     };
 
     template <typename OP1, typename OP2>
-    class A_Mod< double , OP1, OP2 >: public BExprOp< double, OP1, OP2 > {
+    class DLLPointOps A_Mod< double , OP1, OP2 >: public BExprOp< double, OP1, OP2 > {
         public:
             A_Mod(OP1 const& a, OP2 const& b): BExprOp< double, OP1, OP2 >(a, b) {}
 
@@ -200,7 +213,7 @@ namespace mltk{
     
 
     template<typename T, typename A1, typename A2>
-    class A_Subscript{
+    class DLLPointOps A_Subscript{
         private:
             /// reference to first operand
             A1 const& a1;

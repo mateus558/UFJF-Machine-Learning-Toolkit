@@ -2,9 +2,22 @@
 // Created by Mateus Coutinho Mari on 9/7/2018.
 //
 
+#pragma once
 #ifndef LEARNER_HPP
 #define LEARNER_HPP
-#pragma once
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DLLLearner __declspec(dllexport)
+  #else
+    #define DLLLearner __declspec(dllimport)
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DLLLearner __attribute__ ((visibility ("default")))
+  #else
+      #define DLLLearner
+  #endif
+#endif
 
 #include "Solution.hpp"
 #include "Data.hpp"
@@ -18,7 +31,7 @@ namespace mltk{
   template < class T > using LearnerPointer = std::shared_ptr<mltk::Learner< T > >;
 
   template < typename T >
-  class Learner {
+  class DLLLearner Learner {
   protected:
       /// Samples used in the model training.
       std::shared_ptr<Data< T > > samples;

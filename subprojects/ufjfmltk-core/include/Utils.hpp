@@ -3,9 +3,27 @@
    \author Mateus Coutinho Marim
 */
 
+
+#pragma once
 #ifndef UTILS_H_INCLUDED
 #define UTILS_H_INCLUDED
-#pragma once
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DLLUtils __declspec(dllexport)
+    #define DLLUtilsDecl __cdecl
+  #else
+    #define DLLUtils __declspec(dllimport)
+    #define DLLUtilsDecl
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DLLUtils __attribute__ ((visibility ("default")))
+      #define DLLUtilsDecl
+  #else
+      #define DLLUtils
+      #define DLLUtilsDecl
+  #endif
+#endif
 
 #include <vector>
 #include <string>
@@ -18,27 +36,27 @@ namespace mltk{
     typedef std::vector<std::vector<double> > dMatrix;
 
     namespace utils {
-        void printConfusionMatrix(std::vector<int> &classes, std::vector<std::string> classes_names, std::vector<std::vector<size_t> > &confusion_m, bool show_names=false);
+        DLLUtils void DLLUtilsDecl printConfusionMatrix(std::vector<int> &classes, std::vector<std::string> classes_names, std::vector<std::vector<size_t> > &confusion_m, bool show_names=false);
     /**
      * \brief Verify if the string is a number.
      * \param str   String to be tested.
      * \return  bool
      */
-        bool is_number(std::string str);
+        DLLUtils bool DLLUtilsDecl is_number(std::string str);
 
     /**
      * \brief Converts the string to an integer.
      * \param str   String to be converted.
      * \return The integer resulted from the conversion.
      */
-        int stoin(std::string str);
+       DLLUtils int DLLUtilsDecl stoin(std::string str);
 
     /**
      * \brief Converts the string to a double.
      * \param str   The string to be converted.
      * \return  The double resulted from the conversion.
      */
-        double atod(const char* str);
+       DLLUtils double DLLUtilsDecl atod(const char* str);
 
     /**
      * \brief Returns the max absolute element.
@@ -46,7 +64,7 @@ namespace mltk{
      * \return  The max absolute element found.
      */
         template<typename T>
-        double maxAbsElement(std::vector<T> x) {
+       DLLUtils double DLLUtilsDecl maxAbsElement(std::vector<T> x) {
             int i, dim = x.size();
             double max, absv;
 
@@ -65,19 +83,19 @@ namespace mltk{
      * \param n Integer to be converted.
      * \return string
      */
-        std::string itos(int n);
+       DLLUtils std::string DLLUtilsDecl itos(int n);
 
     /**
      * \brief dtoa Double to string conversion.
      * \param n Double to be converted.
      * \return string
      */
-        std::string dtoa(double n);
+       DLLUtils std::string DLLUtilsDecl dtoa(double n);
 
         template<typename Out>
-        void split(const std::string &s, char delim, Out result);
+       DLLUtils void DLLUtilsDecl split(const std::string &s, char delim, Out result);
 
-        std::vector<std::string> split(const std::string &s, char delim);
+       DLLUtils std::vector<std::string> DLLUtilsDecl split(const std::string &s, char delim);
 
     }
 }

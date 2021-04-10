@@ -24,9 +24,22 @@
  * Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-
+#pragma once
 #ifndef UFJF_MLTK_COVERTREE_HPP
 #define UFJF_MLTK_COVERTREE_HPP
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DLLCoverTree __declspec(dllexport)
+  #else
+    #define DLLCoverTree __declspec(dllimport)
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DLLCoverTree __attribute__ ((visibility ("default")))
+  #else
+      #define DLLCoverTree
+  #endif
+#endif
 
 #include <vector>
 #include <algorithm>
@@ -52,7 +65,7 @@
  */
 namespace mltk { namespace metrics {
     template<typename T, class Point, typename Callable = mltk::metrics::dist::Euclidean<T>>
-    class CoverTree {
+    class DLLCoverTree CoverTree {
         /**
          * Cover tree node. Consists of arbitrarily many points P, as long as
          * they have distance 0 to each other. Keeps track of its children.

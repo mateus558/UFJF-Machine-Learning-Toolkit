@@ -3,15 +3,29 @@
    \author Mateus Coutinho Marim
 */
 
+
+#pragma once
 #ifndef SOLUTION__HPP
 #define SOLUTION__HPP
-#pragma once
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DLLSolution __declspec(dllexport)
+  #else
+    #define DLLSolution __declspec(dllimport)
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DLLSolution __attribute__ ((visibility ("default")))
+  #else
+      #define DLLSolution
+  #endif
+#endif
 
 #include <vector>
 #include "Kernel.hpp"
 
 namespace mltk{
-    class Solution {
+    class DLLSolution Solution {
         // Attributes
     public :
         /// Weights vector

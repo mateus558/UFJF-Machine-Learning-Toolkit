@@ -6,9 +6,26 @@
 //
 // Created by mateus558 on 25/08/17.
 //
-
+#pragma once
 #ifndef RANDOM_H_INCLUDED
 #define RANDOM_H_INCLUDED
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DLLRandom __declspec(dllexport)
+    #define DLLRandomDecl __cdecl
+  #else
+    #define DLLRandom __declspec(dllimport)
+    #define DLLRandomDecl
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DLLRandom __attribute__ ((visibility ("default")))
+      #define DLLRandomDecl
+  #else
+      #define DLLRandom
+      #define DLLRandomDecl
+  #endif
+#endif
 
 #include <random>
 #include <functional>
@@ -28,7 +45,7 @@ namespace mltk{
          * \param seed Seed used to generate the numbers.
          * \return unsigned int
          */
-        auto init(unsigned int seed = 666) {
+        DLLRandom auto DLLRandomDecl init(unsigned int seed = 666) {
             m_seed = (seed == 666)?std::random_device {} (): seed;
             m_gen.seed(m_seed);
 
@@ -40,7 +57,7 @@ namespace mltk{
          * \param high Highest possible integer.
          * \return int
          */
-        int intInRange(int low, int high) {
+        DLLRandom int DLLRandomDecl intInRange(int low, int high) {
             std::uniform_int_distribution<int> dist(low, high);
 
             return dist(m_gen);
@@ -51,7 +68,7 @@ namespace mltk{
          * \param high Highest possible float.
          * \return float
          */
-        float floatInRange(float low, float high) {
+        DLLRandom float DLLRandomDecl floatInRange(float low, float high) {
             std::uniform_real_distribution<float> dist(low, high);
 
             return dist(m_gen);
@@ -60,7 +77,7 @@ namespace mltk{
          * \brief Get the seed used in the mersenne twister.
          * \return unsigned int
          */
-        auto getSeed(){
+        DLLRandom auto DLLRandomDecl getSeed(){
             return m_seed;
         }
     }

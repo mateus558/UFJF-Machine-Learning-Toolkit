@@ -1,14 +1,27 @@
+
+#pragma once
 #ifndef OVERSAMPLING_HPP_INCLUDED
 #define OVERSAMPLING_HPP_INCLUDED
-#pragma once
-
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DLLSampling __declspec(dllexport)
+  #else
+    #define DLLSampling __declspec(dllimport)
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DLLSampling __attribute__ ((visibility ("default")))
+  #else
+      #define DLLSampling
+  #endif
+#endif
 #include "Data.hpp"
 #include "DistanceMetric.hpp"
 #include <random>
 
 namespace mltk{
     template < typename T >
-    class DSM{
+    class DLLSampling DSM{
         size_t seed{};
         size_t n_dims{}, k{};
         double alpha{};
@@ -79,7 +92,7 @@ namespace mltk{
     };
 
     template < typename T >
-    class RSM{
+    class DLLSampling RSM{
         size_t seed{};
         size_t n_dims{};
         double r{};
@@ -108,7 +121,7 @@ namespace mltk{
      * \brief Base class for the implementation of over sampling methods.
      */
     template < typename T, typename Callable = metrics::dist::Euclidean< T > >
-    class OverSampling{
+    class DLLSampling OverSampling{
     protected:
         Callable distance_metric;
     public:
@@ -121,7 +134,7 @@ namespace mltk{
      * \brief Functor for the implementation of the SMOTE over sampling algorithm.
      */
     template < typename T, typename Callable = metrics::dist::Euclidean< T > >
-    class SMOTE: public OverSampling< T, Callable > {
+    class DLLSampling SMOTE: public OverSampling< T, Callable > {
     private:
         /// Seed used for randomization
         size_t seed = 0;
@@ -209,7 +222,7 @@ namespace mltk{
      * \brief Functor for the implementation of the Borderline SMOTE 1 over sampling algorithm.
      */
     template < typename T, typename Callable = metrics::dist::Euclidean< T > >
-    class BorderlineSMOTEOne: public OverSampling< T, Callable > {
+    class DLLSampling BorderlineSMOTEOne: public OverSampling< T, Callable > {
     private:
         /// Seed used for randomization
         size_t seed = 0;

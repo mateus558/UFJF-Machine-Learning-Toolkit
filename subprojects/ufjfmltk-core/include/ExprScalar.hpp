@@ -1,6 +1,19 @@
+#pragma once
 #ifndef EXPRSCALAR_HPP_INCLUDED
 #define EXPRSCALAR_HPP_INCLUDED
-#pragma once
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_CORE
+    #define DLLPointOps __declspec(dllexport)
+  #else
+    #define DLLPointOps __declspec(dllimport)
+  #endif
+#else
+  #ifdef BUILDING_CORE
+      #define DLLPointOps __attribute__ ((visibility ("default")))
+  #else
+      #define DLLPointOps
+  #endif
+#endif
 
 namespace mltk{
     /*! 
@@ -10,7 +23,7 @@ namespace mltk{
         Template for objects that represent scalars.
     */
     template <typename T>
-    class A_Scalar {
+    class DLLPointOps A_Scalar {
         private:
             /// value of the scalar
             T const& value; 
