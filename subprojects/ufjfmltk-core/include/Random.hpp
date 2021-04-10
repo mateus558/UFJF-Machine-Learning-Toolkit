@@ -14,7 +14,7 @@
     #define DLLRandom __declspec(dllexport)
     #define DLLRandomDecl __cdecl
   #else
-    #define DLLRandom __declspec(dllimport)
+    #define DLLRandom 
     #define DLLRandomDecl
   #endif
 #else
