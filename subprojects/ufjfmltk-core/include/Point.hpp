@@ -9,14 +9,18 @@
 #if defined _WIN32 || defined __CYGWIN__
   #ifdef BUILDING_CORE
     #define DLLPoint __declspec(dllexport)
+    #define DLLPointDecl __cdecl
   #else
     #define DLLPoint __declspec(dllimport)
+    #define DLLPointDecl
   #endif
 #else
   #ifdef BUILDING_CORE
-      #define DLLPoint __attribute__ ((visibility ("default")))
+    #define DLLPoint __attribute__ ((visibility ("default")))
+    #define DLLPointDecl
   #else
       #define DLLPoint
+      #define DLLPointDecl
   #endif
 #endif
 
@@ -543,7 +547,7 @@ namespace mltk {
      *************************************************/
 
     template < typename T, typename R = std::vector<T>, typename... Types>
-    PointPointer<T, R> make_point(Types... args){
+    DLLPoint PointPointer<T, R> DLLPointDecl make_point(Types... args){
         return std::make_shared< Point< T, R > >(args...);
     }
 
@@ -553,11 +557,12 @@ namespace mltk {
 
     /**
      * \brief Computes the dot product with a vector.
-     * \param p (???)
+     * \param p First point from dot product 
+     * \param p1 Second point from dot product
      * \return double
      */
     template < typename T, typename R >
-    T dot (const Point<T, R> &p, const Point<T, R> &p1){
+    DLLPoint T DLLPointDecl dot (const Point<T, R> &p, const Point<T, R> &p1){
         assert(p.size() == p1.size());
         #if DEBUG == 1
         #pragma omp parallel for private(i) shared(result) num_threads(4) reduction(+:result) 
@@ -577,7 +582,7 @@ namespace mltk {
      * \return T
      */
     template < typename T, typename R >
-    T max(const Point<T, R> &p){
+    DLLPoint T DLLPointDecl max(const Point<T, R> &p){
         T _max = std::numeric_limits<T>::min();
         for(size_t i = 0; i < p.size(); i++){
             if(p[i] > _max) _max = p[i];
@@ -590,7 +595,7 @@ namespace mltk {
      * \return T
      */
     template < typename T, typename R >
-    T min(const Point<T, R> &p){
+    DLLPoint T DLLPointDecl min(const Point<T, R> &p){
         T _min = std::numeric_limits<T>::max();
         for(size_t i = 0; i < p.size(); i++){
             if(p[i] > _min) _min = p[i];
@@ -599,7 +604,7 @@ namespace mltk {
     }
 
     template < typename T, typename R = std::vector< T > >
-    void random_init(Point<T, R> &p, const size_t &size, const size_t &seed){
+    DLLPoint void DLLPointDecl random_init(Point<T, R> &p, const size_t &size, const size_t &seed){
         std::random_device rd;
         std::mt19937 gen((seed==0)?rd():seed);
         std::uniform_real_distribution<double> dist(0., 1.);
@@ -611,38 +616,38 @@ namespace mltk {
     }
 
     template < typename T, typename R>
-    Point<T, F_Abs<T, R> > abs(const Point<T, R>& p){        
+    DLLPoint Point<T, F_Abs<T, R> > DLLPointDecl abs(const Point<T, R>& p){        
         return Point<T, F_Abs<T, R > >(F_Abs<T, R>(p.X()));
     }
 
     template < typename T, typename R>
-    Point<T, F_Exp<T, R> > exp(const Point<T, R>& p){
+    DLLPoint Point<T, F_Exp<T, R> > DLLPointDecl exp(const Point<T, R>& p){
         return Point<T, F_Exp<T, R > >(F_Exp<T, R>(p.X()));
     }
 
     template < typename T, typename R>
-    Point<T, F_Log<T, R> > log(const Point<T, R>& p){
+    DLLPoint Point<T, F_Log<T, R> > DLLPointDecl log(const Point<T, R>& p){
         return Point<T, F_Log<T, R > >(F_Log<T, R>(p.X()));
     }
 
     template < typename T, typename R>
-    Point<T, F_Pow<T, T, R> > pow(const Point<T, R>& p, const T &power){        
+    DLLPoint Point<T, F_Pow<T, T, R> > DLLPointDecl pow(const Point<T, R>& p, const T &power){        
         return Point<T, F_Pow<T, T, R > >(F_Pow<T, T, R>(p.X(), power));
     }
 
     template < typename T, typename P, typename R>
-    Point<T, F_Pow<T, P, R> > pow(const Point<T, R>& p, const P &power){        
+    DLLPoint Point<T, F_Pow<T, P, R> > DLLPointDecl pow(const Point<T, R>& p, const P &power){        
         return Point<T, F_Pow<T, P, R > >(F_Pow<T, P, R>(p.X(), power));
     }
 
     template < typename T, typename R >
-    T mean (const Point<T, R> &p){
+    DLLPoint T mean DLLPointDecl (const Point<T, R> &p){
         assert(p.size() > 0);
         return p.sum()/p.size();
     }
 
     template < typename T >
-    Point<T> linspace(double lower, double upper, size_t N){
+    DLLPoint Point<T> DLLPointDecl linspace(double lower, double upper, size_t N){
         double h = (upper - lower) / static_cast<double>(N-1);
         std::vector<T> xs(N);
         typename std::vector<T>::iterator x;
@@ -654,13 +659,13 @@ namespace mltk {
     }
 
     template < typename T, typename R >
-    T std_dev(const Point<T, R> &p){
+    DLLPoint T DLLPointDecl std_dev(const Point<T, R> &p){
         assert(p.size() > 0);
         return std::sqrt((mltk::pow(p-mltk::mean(p), 2)).sum()/p.size());
     }
 
     template < typename T, typename R >
-    T covar(const Point<T, R> &p, const Point<T, R> &p1){
+    DLLPoint T DLLPointDecl covar(const Point<T, R> &p, const Point<T, R> &p1){
         assert(p.size() == p1.size());
         return ((p-mltk::mean(p))*(p1-mltk::mean(p1))).sum()/(p1.size()-1.0);
     }
@@ -700,153 +705,133 @@ namespace mltk {
 
     // module of point and scalar
     template<typename T, typename R1>
-    Point<T, A_Mod<T, R1, A_Scalar<T> > > operator%(const Point<T, R1>& p, const T& mod){
+    DLLPoint Point<T, A_Mod<T, R1, A_Scalar<T> > > DLLPointDecl operator%(const Point<T, R1>& p, const T& mod){
         return Point<T, A_Mod<T, R1, A_Scalar<T>> >(A_Mod<T, R1, A_Scalar<T>>(p.X(), A_Scalar<T>(mod)));
     } 
 
     // module of point and scalar
     template<typename T, typename Y, typename R1>
-    Point<T, A_Mod<T, R1, A_Scalar<Y> > > operator%(const Point<T, R1>& p, const Y& mod){
+    DLLPoint Point<T, A_Mod<T, R1, A_Scalar<Y> > > DLLPointDecl operator%(const Point<T, R1>& p, const Y& mod){
         return Point<T, A_Mod<T, R1, A_Scalar<Y>> >(A_Mod<T, R1, A_Scalar<Y>>(p.X(), A_Scalar<Y>(mod)));
     }
 
     // adition of two points
     template <typename T, typename R1, typename R2>
-    Point<T, A_Add<T, R1, R2> >
-    operator+ (Point<T, R1> const& a, Point<T, R2> const& b){
+    DLLPoint Point<T, A_Add<T, R1, R2> > DLLPointDecl operator+ (Point<T, R1> const& a, Point<T, R2> const& b){
         return Point<T, A_Add<T, R1, R2>>(A_Add<T, R1, R2>(a.X(), b.X()));
     }
 
     // addition of scalar and point
     template<typename T, typename R2>
-    Point<T, A_Add<T,A_Scalar<T>,R2> >
-    operator+ (T const& s, Point<T,R2> const& b) {
+    DLLPoint Point<T, A_Add<T,A_Scalar<T>,R2> > DLLPointDecl operator+ (T const& s, Point<T,R2> const& b) {
         return Point<T,A_Add<T,A_Scalar<T>,R2>>(A_Add<T,A_Scalar<T>,R2>(A_Scalar<T>(s), b.X()));
     }
 
     // addition of scalar and point
     template<typename T, typename T2, typename R2>
-    Point<T, A_Add<T,A_Scalar<T2>,R2> >
-    operator+ (T2 const& s, Point<T,R2> const& b) {
+    DLLPoint Point<T, A_Add<T,A_Scalar<T2>,R2> > DLLPointDecl operator+ (T2 const& s, Point<T,R2> const& b) {
         return Point<T,A_Add<T,A_Scalar<T2>,R2>>(A_Add<T,A_Scalar<T2>,R2>(A_Scalar<T2>(s), b.X()));
     }
 
     // addition of point and scalar
     template <typename T, typename R1>
-    Point<T, A_Add<T, R1, A_Scalar<T> > >
-    operator+ (Point<T, R1> const& a, T const& s){
+    DLLPoint Point<T, A_Add<T, R1, A_Scalar<T> > > DLLPointDecl operator+ (Point<T, R1> const& a, T const& s){
         return Point<T, A_Add<T, R1, A_Scalar<T>>>(A_Add<T, R1, A_Scalar<T>>(a.X(), A_Scalar<T>(s)));
     }
 
     // addition of point and scalar
     template <typename T, typename R1>
-    Point<T, A_Add<T, R1, A_Scalar<int> > >
-    operator+ (Point<T, R1> const& a, int const& s){
+    DLLPoint Point<T, A_Add<T, R1, A_Scalar<int> > > DLLPointDecl operator+ (Point<T, R1> const& a, int const& s){
         return Point<T, A_Add<T, R1, A_Scalar<int>>>(A_Add<T, R1, A_Scalar<int>>(a.X(), A_Scalar<int>(s)));
     }
 
     // subtraction of two points
     template <typename T, typename R1, typename R2>
-    Point<T, A_Sub<T, R1, R2> >
-    operator- (Point<T, R1> const& a, Point<T, R2> const& b){
+    DLLPoint Point<T, A_Sub<T, R1, R2> > DLLPointDecl operator- (Point<T, R1> const& a, Point<T, R2> const& b){
         return Point<T, A_Sub<T, R1, R2>>(A_Sub<T, R1, R2>(a.X(), b.X()));
     }
 
     // subtraction of scalar and point
     template<typename T, typename R2>
-    Point<T, A_Sub<T,A_Scalar<T>,R2> >
-    operator- (T const& s, Point<T,R2> const& b) {
+    DLLPoint Point<T, A_Sub<T,A_Scalar<T>,R2> > DLLPointDecl operator- (T const& s, Point<T,R2> const& b) {
         return Point<T,A_Sub<T,A_Scalar<T>,R2>>(A_Sub<T,A_Scalar<T>,R2>(A_Scalar<T>(s), b.X()));
     }
 
     // subtraction of scalar and point
     template<typename T, typename R2>
-    Point<T, A_Sub<T,A_Scalar<int>,R2> >
-    operator- (int const& s, Point<T,R2> const& b) {
+    DLLPoint Point<T, A_Sub<T,A_Scalar<int>,R2> > DLLPointDecl operator- (int const& s, Point<T,R2> const& b) {
         return Point<T,A_Sub<T,A_Scalar<int>,R2>>(A_Sub<T,A_Scalar<int>,R2>(A_Scalar<int>(s), b.X()));
     }
 
     // subtraction of point and scalar
     template <typename T, typename R1>
-    Point<T, A_Sub<T, R1, A_Scalar<T> > >
-    operator- (Point<T, R1> const& a, T const& s){
+    DLLPoint Point<T, A_Sub<T, R1, A_Scalar<T> > > DLLPointDecl operator- (Point<T, R1> const& a, T const& s){
         return Point<T, A_Sub<T, R1, A_Scalar<T>>>(A_Sub<T, R1, A_Scalar<T>>(a.X(), A_Scalar<T>(s)));
     }
 
     // subtraction of point and scalar
     template <typename T, typename R1>
-    Point<T, A_Sub<T, R1, A_Scalar<int> > >
-    operator- (Point<T, R1> const& a, int const& s){
+    DLLPoint Point<T, A_Sub<T, R1, A_Scalar<int> > > DLLPointDecl operator- (Point<T, R1> const& a, int const& s){
         return Point<T, A_Sub<T, R1, A_Scalar<int>>>(A_Sub<T, R1, A_Scalar<int>>(a.X(), A_Scalar<int>(s)));
     }
 
     // multiplication of two points
     template <typename T, typename R1, typename R2>
-    Point<T, A_Mult<T, R1, R2> >
-    operator* (Point<T, R1> const& a, Point<T, R2> const& b){
+    DLLPoint Point<T, A_Mult<T, R1, R2> > DLLPointDecl operator* (Point<T, R1> const& a, Point<T, R2> const& b){
         return Point<T, A_Mult<T, R1, R2>>(A_Mult<T, R1, R2>(a.X(), b.X()));
     }
 
     // multiplication of scalar and point
     template<typename T, typename R2>
-    Point<T, A_Mult<T,A_Scalar<T>,R2> >
-    operator* (T const& s, Point<T,R2> const& b) {
+    DLLPoint Point<T, A_Mult<T,A_Scalar<T>,R2> > DLLPointDecl operator* (T const& s, Point<T,R2> const& b) {
         return Point<T,A_Mult<T,A_Scalar<T>,R2>>(A_Mult<T,A_Scalar<T>,R2>(A_Scalar<T>(s), b.X()));
     }
 
     // multiplication of scalar and point
     template<typename T, typename T2, typename R2>
-    Point<T, A_Mult<T,A_Scalar<T2>,R2> >
-    operator* (T2 const& s, Point<T,R2> const& b) {
+    DLLPoint Point<T, A_Mult<T,A_Scalar<T2>,R2> > DLLPointDecl operator* (T2 const& s, Point<T,R2> const& b) {
         return Point<T,A_Mult<T,A_Scalar<T2>,R2>>(A_Mult<T,A_Scalar<T2>,R2>(A_Scalar<T2>(s), b.X()));
     }
 
     // multiplication of point and scalar
     template <typename T, typename R1>
-    Point<T, A_Mult<T, R1, A_Scalar<T> > >
-    operator* (Point<T, R1> const& a, T const& s){
+    DLLPoint Point<T, A_Mult<T, R1, A_Scalar<T> > > DLLPointDecl operator* (Point<T, R1> const& a, T const& s){
         return Point<T, A_Mult<T, R1, A_Scalar<T>>>(A_Mult<T, R1, A_Scalar<T>>(a.X(), A_Scalar<T>(s)));
     }
 
     // multiplication of point and scalar
     template <typename T, typename R1>
-    Point<T, A_Mult<T, R1, A_Scalar<int> > >
-    operator* (Point<T, R1> const& a, int const& s){
+    DLLPoint Point<T, A_Mult<T, R1, A_Scalar<int> > > DLLPointDecl operator* (Point<T, R1> const& a, int const& s){
         return Point<T, A_Mult<T, R1, A_Scalar<int>>>(A_Mult<T, R1, A_Scalar<int>>(a.X(), A_Scalar<int>(s)));
     }
 
     // division of two points
     template <typename T, typename R1, typename R2>
-    Point<T, A_Div<T, R1, R2> >
-    operator/ (Point<T, R1> const & a, Point<T, R2> const& b){
+    DLLPoint Point<T, A_Div<T, R1, R2> > DLLPointDecl operator/ (Point<T, R1> const & a, Point<T, R2> const& b){
         return Point<T, A_Div<T, R1, R2>>(A_Div<T, R1, R2>(a.X(), b.X()));
     }
 
     // division of point and scalar
     template <typename T, typename R1>
-    Point<T, A_Div<T, R1, A_Scalar<T> > >
-    operator/ (Point<T, R1> const& a, T const& s){
+    DLLPoint Point<T, A_Div<T, R1, A_Scalar<T> > > DLLPointDecl operator/ (Point<T, R1> const& a, T const& s){
         return Point<T, A_Div<T, R1, A_Scalar<T>>>(A_Div<T, R1, A_Scalar<T>>(a.X(), A_Scalar<T>(s)));
     }
 
     // division of point and scalar
     template <typename T, typename R1>
-    Point<T, A_Div<T, R1, A_Scalar<int> > >
-    operator/ (Point<T, R1> const& a, int const& s){
+    DLLPoint Point<T, A_Div<T, R1, A_Scalar<int> > > DLLPointDecl operator/ (Point<T, R1> const& a, int const& s){
         return Point<T, A_Div<T, R1, A_Scalar<int>>>(A_Div<T, R1, A_Scalar<int>>(a.X(), A_Scalar<int>(s)));
     }
 
     // division of scalar and point
     template<typename T, typename R2>
-    Point<T, A_Div<T,A_Scalar<T>,R2> >
-    operator/ (T const& s, Point<T,R2> const& b) {
+    DLLPoint Point<T, A_Div<T,A_Scalar<T>,R2> > DLLPointDecl operator/ (T const& s, Point<T,R2> const& b) {
         return Point<T,A_Div<T,A_Scalar<T>,R2>>(A_Div<T,A_Scalar<T>,R2>(A_Scalar<T>(s), b.X()));
     }
 
     // division of scalar and point
     template<typename T, typename R2>
-    Point<T, A_Div<T,A_Scalar<int>,R2> >
-    operator/ (int const& s, Point<T,R2> const& b) {
+    DLLPoint Point<T, A_Div<T,A_Scalar<int>,R2> > DLLPointDecl operator/ (int const& s, Point<T,R2> const& b) {
         return Point<T,A_Div<T,A_Scalar<int>,R2>>(A_Div<T,A_Scalar<int>,R2>(A_Scalar<int>(s), b.X()));
     }
 
