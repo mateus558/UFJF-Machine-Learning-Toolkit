@@ -46,9 +46,9 @@ namespace mltk{
             template<typename T, typename Callable>
             double KNNClassifier<T, Callable>::evaluate(const Point<T> &p, bool raw_value) {
                 assert(this->samples->dim() == p.size());
-                auto points = this->samples->getPoints();
+                auto points = this->samples->points();
                 std::vector<double> distances(this->samples->size());
-                std::vector<int> classes = this->samples->getClasses();
+                std::vector<int> classes = this->samples->classes();
                 std::vector<size_t> idx(distances.size());
                 std::vector<PointPointer<T>> neigh;
                 auto p0 = std::make_shared<Point<T> >(p);
@@ -105,14 +105,14 @@ namespace mltk{
             template<typename T, typename Callable>
             bool KNNClassifier<T, Callable>::train() {
                 if(algorithm == "covertree") {
-                    for (const auto &point: this->samples->getPoints()) {
+                    for (const auto &point: this->samples->points()) {
                         kquery.insert(point);
                     }
                 }else if(algorithm == "hsnw"){
                     hnswlib::L2Space space(this->samples->dim());
                     alg_hnsw = std::make_shared<hnswlib::HierarchicalNSW<float>>(&space, this->samples->size() * 2, 16, 200, 42);
                     int j = 0;
-                    for (const auto &point: this->samples->getPoints()) {
+                    for (const auto &point: this->samples->points()) {
                         alg_hnsw->addPoint(point->X().data(), j);
                         j++;
                     }

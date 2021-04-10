@@ -10,9 +10,9 @@ namespace mltk{
 
         template<typename T, typename Callable>
         double KNNRegressor<T, Callable>::evaluate(const Point<T> &p, bool raw_value) {
-            auto points = this->samples->getPoints();
+            auto points = this->samples->points();
             std::vector<double> distances(this->samples->size());
-            std::vector<int> classes = this->samples->getClasses();
+            std::vector<int> classes = this->samples->classes();
             std::vector<size_t> idx(distances.size()), freq(classes.size());
             auto p0 = std::make_shared<Point<T> >(p);
             // fill the index vector

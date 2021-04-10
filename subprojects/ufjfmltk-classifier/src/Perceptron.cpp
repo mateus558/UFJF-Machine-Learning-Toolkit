@@ -36,7 +36,7 @@ namespace mltk{
             while (this->timer.Elapsed() - time <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
                     idx = index[i];
-                    auto p = this->samples->getPoint(idx);
+                    auto p = this->samples->point(idx);
                     x = p->X();
                     y = p->Y();
 
@@ -103,7 +103,7 @@ namespace mltk{
             while (this->timer.Elapsed() - time <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
                     idx = index[i];
-                    p = this->samples->getPoint(idx);
+                    p = this->samples->point(idx);
                     x = p->X();
                     y = p->Y();
 
@@ -113,10 +113,10 @@ namespace mltk{
                     }
 
                     //Checking if the point is a mistake
-                    if (y * func[idx] <= this->gamma * norm - this->samples->getPoint(idx)->Alpha() * this->flexible) {
+                    if (y * func[idx] <= this->gamma * norm - this->samples->point(idx)->Alpha() * this->flexible) {
                         lambda = (norm != 0.0) ? (1 - this->rate * this->gamma / norm) : 1;
                         for (r = 0; r < size; ++r) {
-                            shared_ptr<Point<T> > b = this->samples->getPoint(r);
+                            shared_ptr<Point<T> > b = this->samples->point(r);
                             b->Alpha() *= lambda;
                             this->samples->setPoint(r, b);
                         }
@@ -248,7 +248,7 @@ namespace mltk{
             const double tworate = 2 * this->rate;
             vector<int> index = this->samples->getIndex();
             vector<double> func(size, 0.0), Kv;
-            vector<shared_ptr<Point<T> > > points = this->samples->getPoints();
+            vector<shared_ptr<Point<T> > > points = this->samples->points();
             this->kernel->compute(this->samples);
             dMatrix *K = this->kernel->getKernelMatrixPointer();
 

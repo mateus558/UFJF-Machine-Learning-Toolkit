@@ -46,7 +46,7 @@ namespace ensemble {
             }
 
             double evaluate(const Point<T> &p, bool raw_value = false) override {
-                auto classes = this->samples->getClasses();
+                auto classes = this->samples->classes();
                 Point<int> votes(classes.size());
                 for (size_t i = 0; i < this->learners.size(); i++) {
                     int pred = this->learners[i]->evaluate(p.selectFeatures(subspaces[i]));

@@ -37,7 +37,7 @@ namespace mltk{
         vector<string> file_names;
         if(samples->getType() == "Classification") {
             vector<std::string> class_names = samples->getClassNames();
-            vector<int> classes = samples->getClasses();
+            vector<int> classes = samples->classes();
             vector<ofstream> temp_files(class_names.size());
             for(i = 0; i < class_names.size(); i++){
                 std::string file_name = std::string("temp/")+class_names[i]+std::string(".plt");
@@ -50,11 +50,11 @@ namespace mltk{
             }
             for (i = 0; i < size; i++) {
                 for(j = 0; j < classes.size(); j++){
-                    if (samples->getPoint(i)->Y() == classes[j]) {
+                    if (samples->point(i)->Y() == classes[j]) {
                         for (k = 0; k < dim - 1; k++) {
-                            temp_files[j] << (double) (samples->getPoint(i)->X()[k]) << " ";
+                            temp_files[j] << (double) (samples->point(i)->X()[k]) << " ";
                         }
-                        temp_files[j] << (double) (samples->getPoint(i)->X()[k]) << endl;
+                        temp_files[j] << (double) (samples->point(i)->X()[k]) << endl;
                     }
                 }
             }
@@ -66,9 +66,9 @@ namespace mltk{
 
             for (i = 0; i < size; i++) {
                 for (j = 0; j < dim - 1; j++) {
-                    samples_file << (double) (samples->getPoint(i)->X()[j]) << " ";
+                    samples_file << (double) (samples->point(i)->X()[j]) << " ";
                 }
-                samples_file << (double) (samples->getPoint(i)->X()[j]) << endl;
+                samples_file << (double) (samples->point(i)->X()[j]) << endl;
             }
 
             samples_file.close();

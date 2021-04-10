@@ -163,8 +163,8 @@ namespace mltk{
         /* Calculating Matrix */
         for(i = 0; i < size; ++i) {
             for (j = i; j < size; ++j) {
-                H[i][j] = function(samples->getPoint(i), samples->getPoint(j), dim) * samples->getPoint(i)->Y() *
-                        samples->getPoint(j)->Y();
+                H[i][j] = function(samples->point(i), samples->point(j), dim) * samples->point(i)->Y() *
+                        samples->point(j)->Y();
                 H[j][i] = H[i][j];
             }
         }
@@ -183,7 +183,7 @@ namespace mltk{
         for(i = 0; i < size; ++i) {
             for (j = i; j < size; ++j) {
                 HwithoutDim[i][j] = functionWithoutDim((*samples)[i], (*samples)[j], dim, samples->dim()) *
-                                    samples->getPoint(i)->Y() * samples->getPoint(j)->Y();
+                                    samples->point(i)->Y() * samples->point(j)->Y();
                 HwithoutDim[j][i] = HwithoutDim[i][j];
             }
         }
@@ -262,7 +262,7 @@ namespace mltk{
     double Kernel::norm(Data< T > data){
         size_t i, j, size = data.size();
         double sum, sum1;
-        auto points = data.getPoints();
+        auto points = data.points();
 
         sum = sum1 = 0;
 

@@ -34,7 +34,7 @@ namespace mltk{
                 this->verbose = _verbose;
                 this->samp_method = samp_method;
 
-                auto classes = samples.getClasses();
+                auto classes = samples.classes();
                 // initialize the m_learners matrix is samples were given
                 if (base_learners.size() == 0) {
                     base_learners.resize(classes.size());
@@ -60,7 +60,7 @@ namespace mltk{
 
         template<typename T>
         bool OneVsOne<T>::train() {
-            auto classes = this->samples->getClasses();
+            auto classes = this->samples->classes();
             size_t current_class = 0, j, n_classes = classes.size(), size = this->samples->size();
 
             for (size_t i = 0; i < n_classes; ++i) {
@@ -96,7 +96,7 @@ namespace mltk{
 
         template<typename T>
         double OneVsOne<T>::evaluate(const Point<T> &p, bool raw_value) {
-            auto classes = this->samples->getClasses();
+            auto classes = this->samples->classes();
             std::vector<size_t> class_votes(classes.size(), 0);
 
             // classify the given point as the class with maximum votes

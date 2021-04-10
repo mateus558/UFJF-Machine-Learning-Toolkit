@@ -39,7 +39,7 @@ namespace ensemble {
             }
 
             double evaluate(const Point<T> &p, bool raw_value = false) override {
-                auto classes = this->samples->getClasses();
+                auto classes = this->samples->classes();
                 Point<int> votes(classes.size());
                 for (size_t i = 0; i < this->m_learners.size(); i++) {
                     int pred = this->m_learners[i]->evaluate(p);

@@ -19,7 +19,7 @@ namespace mltk {
     double Statistics< T >::getFeatureMean(std::shared_ptr<Data< T > > data, int index){
         int i, size = data->size();
         double sum = 0.0;
-        vector<shared_ptr<Point< T > > > points = data->getPoints();
+        vector<shared_ptr<Point< T > > > points = data->points();
 
         for(i = 0; i < size; ++i){
             sum += points[i]->X()[index];
@@ -52,7 +52,7 @@ namespace mltk {
         int dim = data->dim(), size = data->size();
         vector<int> fnames = data->getFeaturesNames();
         vector<double> avg(dim);
-        vector<shared_ptr<Point< T > > > points = data->getPoints();
+        vector<shared_ptr<Point< T > > > points = data->points();
 
         for(j = 0; j < dim; ++j){
             if(index < 0 || fnames[j] != index){
@@ -88,7 +88,7 @@ namespace mltk {
     double Statistics< T >::getFeatureStdev(std::shared_ptr<Data< T > > data, int index){
         int i, size = data->size();
         double avg, sd, vetsize = data->dim();
-        vector<shared_ptr<Point< T > > > points = data->getPoints();
+        vector<shared_ptr<Point< T > > > points = data->points();
 
         if(size == 1) return 0.0;
 
@@ -108,7 +108,7 @@ namespace mltk {
         double max = 1.0;
         vector<int> fnames = data->getFeaturesNames();
         vector<double> avg(dim, 0.0);
-        vector<shared_ptr<Point< T > > > points = data->getPoints();
+        vector<shared_ptr<Point< T > > > points = data->points();
 
         if(q == 2){
             for(j = 0; j < dim; ++j){
@@ -152,7 +152,7 @@ namespace mltk {
         int size_pos = 0, size_neg = 0;
         vector<int> fnames = data->getFeaturesNames();
         vector<double> avg_pos(dim, 0.0), avg_neg(dim, 0.0);
-        vector<shared_ptr<Point< T > > > points = data->getPoints();
+        vector<shared_ptr<Point< T > > > points = data->points();
 
         for(size_pos = 0, size_neg = 0, i = 0; i < size; ++i){
             if(points[i]->Y() == 1)	size_pos++;
@@ -186,7 +186,7 @@ namespace mltk {
         int size_pos = 0, size_neg = 0, featsize = feats.size();
         vector<int> fnames = data->getFeaturesNames();
         vector<double> avg_pos(dim, 0.0), avg_neg(dim, 0.0);
-        vector<shared_ptr<Point< T > > > points = data->getPoints();
+        vector<shared_ptr<Point< T > > > points = data->points();
 
         for(size_pos = 0, size_neg = 0, i = 0; i < size; ++i){
             if(points[i]->Y() == 1)	size_pos++;

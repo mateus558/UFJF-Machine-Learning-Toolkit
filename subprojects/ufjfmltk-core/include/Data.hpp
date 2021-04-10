@@ -72,7 +72,7 @@ namespace mltk{
         // Attributes
     private :
         /// Set of points.
-        std::vector<SamplePointer<T> > points;
+        std::vector<SamplePointer<T> > m_points;
         /// Features names.
         std::vector<int> fnames;
         /// Points indexes.
@@ -80,7 +80,7 @@ namespace mltk{
         /// Names of the classes in the dataset.
         std::vector<std::string> class_names;
         /// Numeric values of the classes.
-        std::vector<int> classes;
+        std::vector<int> m_classes;
         /// Frequency of each class in the dataset.
         std::vector<size_t> class_distribution;
         /// Number of points in the dataset.
@@ -193,23 +193,23 @@ namespace mltk{
          * \brief Returns the dimension of the dataset.
          * \return int
          */
-        size_t dim() const{ return (points.size() > 0) ? points[0]->size() : 0; }
+        size_t dim() const{ return (m_points.size() > 0) ? m_points[0]->size() : 0; }
         /**
          * \brief Returns a shared pointer to the vector of Points of the sample.
          * \return std::vector<std::shared_ptr<Point< T > > >
          */
-        std::vector<std::shared_ptr<Point< T > > > getPoints ();
+        std::vector<std::shared_ptr<Point< T > > > points ();
         /**
          * \brief Returns a vector containing the numeric values of the classes.
          * \return std::vector<int>
          **/
-        const std::vector<int> getClasses() const;
+        const std::vector<int> classes() const;
         /**
          * \brief Returns a shared pointer to the point with the given index.
          * \param index    Position of a point in the points array.
          * \return std::vector<Point< T > >
          */
-        std::shared_ptr<Point< T > > getPoint (int index);
+        std::shared_ptr<Point< T > > point (int index);
         Point< T > getFeature(int index) const;
         Point< double > getLabels() const;
         /**
@@ -418,13 +418,13 @@ namespace mltk{
          *  Overloaded operators for the Data class. *
          *********************************************/
 
-        SampleIterator<T> begin() { return points.begin(); }
+        SampleIterator<T> begin() { return m_points.begin(); }
         
-        SampleIterator<T> end() { return points.end(); }
+        SampleIterator<T> end() { return m_points.end(); }
 
-        std::shared_ptr<Point< T > > operator[](size_t i) const {return points[i];}
+        std::shared_ptr<Point< T > > operator[](size_t i) const {return m_points[i];}
 
-        std::shared_ptr<Point< T > > & operator[](size_t i) {return points[i];}
+        std::shared_ptr<Point< T > > & operator[](size_t i) {return m_points[i];}
 
         Data< T >& operator=(const Data< T >&);
 
@@ -445,7 +445,7 @@ namespace mltk{
 
     template < typename T >
     std::ostream &operator<<( std::ostream &output, const Data< T > &data ){
-        for(auto p : data.points){
+        for(auto p : data.m_points){
             output << *p << std::endl;
         }
 

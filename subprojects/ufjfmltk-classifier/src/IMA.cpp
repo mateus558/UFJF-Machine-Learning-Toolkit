@@ -37,7 +37,7 @@ namespace mltk{
             double min = 0.0, max = 0.0, norm = 1.0, maiorw = 0.0;
             vector<double> w_saved, func;
             vector<int> index = this->samples->getIndex(), fnames = this->samples->getFeaturesNames();
-            auto points = this->samples->getPoints();
+            auto points = this->samples->points();
             IMApFixedMargin<T> imapFixMargin(this->samples, gamma);
             Solution tempSol;
 
@@ -464,7 +464,7 @@ namespace mltk{
             dMatrix K;
             vector<int> index = this->samples->getIndex();
             vector<double> w_saved(dim), saved_alphas(size), func(size);
-            vector<shared_ptr<Point<T> > > points = this->samples->getPoints();
+            vector<shared_ptr<Point<T> > > points = this->samples->points();
 
             this->timer.Reset();
 

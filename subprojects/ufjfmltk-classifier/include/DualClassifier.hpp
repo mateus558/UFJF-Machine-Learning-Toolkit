@@ -137,10 +137,10 @@ namespace mltk{
 
                     for (i = 0; i < size; ++i)
                         for (alphaaux[i] = 0, j = 0; j < size; ++j)
-                            alphaaux[i] += this->samples->getPoint(j)->Alpha() * matrixdif[i][j];
+                            alphaaux[i] += this->samples->point(j)->Alpha() * matrixdif[i][j];
 
                     for (this->solution.w[k] = 0, i = 0; i < size; ++i)
-                        this->solution.w[k] += alphaaux[i] * this->samples->getPoint(i)->Alpha();
+                        this->solution.w[k] += alphaaux[i] * this->samples->point(i)->Alpha();
                 }
 
                 return this->solution.w;
@@ -166,10 +166,10 @@ namespace mltk{
                     if (this->verbose >= 3) std::clog << "\n H matrix without dim generated.\n";
                     for (i = 0; i < size; ++i)
                         for (alphaaux[i] = 0, j = 0; j < size; ++j)
-                            alphaaux[i] += this->samples->getPoint(j)->Alpha() * H[i][j];
+                            alphaaux[i] += this->samples->point(j)->Alpha() * H[i][j];
 
                     for (this->solution.w[k] = 0, i = 0; i < size; ++i)
-                        this->solution.w[k] += alphaaux[i] * this->samples->getPoint(i)->Alpha();
+                        this->solution.w[k] += alphaaux[i] * this->samples->point(i)->Alpha();
                 }
 
                 return this->solution.w;

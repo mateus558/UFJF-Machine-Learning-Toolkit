@@ -19,7 +19,7 @@ namespace mltk{
             double cost = 0.0, old_cost = 0.0;
             size_t dim = this->samples->dim(), size = this->samples->size();
             size_t time = this->start_time + this->max_time;
-            auto points = this->samples->getPoints();
+            auto points = this->samples->points();
             bool has_converged = true;
             std::random_device rnd_device;
             std::mt19937 mersenne_engine{rnd_device()};

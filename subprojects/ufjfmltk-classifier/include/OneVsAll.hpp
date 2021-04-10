@@ -35,8 +35,8 @@ namespace mltk{
 
                     // initialize the base m_learners if samples were given
                     if (this->samples && base_learners.size() == 0) {
-                        base_learners.resize(this->samples->getClasses().size());
-                        for (size_t i = 0; i < this->samples->getClasses().size(); ++i) {
+                        base_learners.resize(this->samples->classes().size());
+                        for (size_t i = 0; i < this->samples->classes().size(); ++i) {
                             // copy the parameters of the given classifier
                             base_learners[i] = std::make_shared<ClassifierType<T> >(classifier);
                         }
@@ -53,7 +53,7 @@ namespace mltk{
 
             template<typename T>
             bool OneVsAll<T>::train() {
-                auto classes = this->samples->getClasses();
+                auto classes = this->samples->classes();
                 size_t current_class = 0, j, n_classes = classes.size(), size = this->samples->size();
 
                 // iterate over each base learner
@@ -86,7 +86,7 @@ namespace mltk{
 
             template<typename T>
             double OneVsAll<T>::evaluate(const Point<T> &p, bool raw_value) {
-                auto classes = this->samples->getClasses();
+                auto classes = this->samples->classes();
                 std::vector<double> dist_hyperplanes(base_learners.size());
 
                 // classify the point as the class with maximum metrics

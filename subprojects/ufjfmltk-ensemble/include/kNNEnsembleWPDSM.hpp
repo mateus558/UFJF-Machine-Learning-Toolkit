@@ -130,7 +130,7 @@ namespace ensemble {
             }
 
             double evaluate(const Point<T> &p, bool raw_value = false) override {
-                auto _classes = this->samples->getClasses();
+                auto _classes = this->samples->classes();
                 mltk::Point<double> votes(_classes.size(), 0.0);
                 double res = -100;
                 if (voting_type == "soft") {

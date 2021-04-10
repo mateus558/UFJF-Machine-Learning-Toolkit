@@ -74,7 +74,7 @@ namespace mltk{
         */
         template< typename T >
         std::vector<std::vector<size_t> > generateConfusionMatrix(Data< T > &samples, Learner< T > &learner){
-            auto classes = samples.getClasses();
+            auto classes = samples.classes();
             size_t size = samples.size(), i, j, idp, idy, n_classes = classes.size();
             std::vector<std::vector<size_t> > confusion_m(n_classes, std::vector<size_t>(n_classes, 0));
             double acc = 0.0;
@@ -161,7 +161,7 @@ namespace mltk{
         double kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold, const size_t &seed=0, const int verbose=0){
             double error = 0.0;
             std::vector<double> error_arr(fold);
-            auto classes = sample.getClasses();
+            auto classes = sample.classes();
             sample.shuffle(seed);
             std::vector<Data< T > > folds = sample.splitSample(fold, seed);
             ValidationSolution solution;
@@ -280,7 +280,7 @@ namespace mltk{
             size_t fp = 0, fn = 0, tp = 0, tn = 0, erro=0;
             double error = 0, errocross = 0, func = 0.0, margin = 0, bias;
             std::vector<double> w;
-            auto classes = samples.getClasses();
+            auto classes = samples.classes();
             ValidationSolution solution;
 
             //sample = train_sample;
@@ -312,7 +312,7 @@ namespace mltk{
                 std::cout << "Pts de Teste:  " << valid_pair.test.size() << "\n";
             }
             //training
-            valid_pair.train.setClasses(samples.getClasses());
+            valid_pair.train.setClasses(samples.classes());
             classifier.setSamples(mltk::make_data<T>(valid_pair.train));
             classifier.setVerbose(0);
 
