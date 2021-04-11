@@ -1,5 +1,4 @@
 builddir
-docs
 papers
 DB
 cmake-build-debug
@@ -19,7 +18,6 @@ Exec
 build
 debug
 release
-docs
 .vscode
 *.bat
 Modules/Core/include/*_.hpp
