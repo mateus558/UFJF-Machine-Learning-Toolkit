@@ -2,6 +2,9 @@ project('ufjfmltk', 'cpp',
   version : '0.40.0',
   default_options : ['warning_level=0', 'cpp_std=c++17','default_library=shared'])
 
+modules_names = ['ufjfmltk-core', 'ufjfmltk-classifier', 'ufjfmltk-regressor', 'ufjfmltk-valid', 'ufjfmltk-ensemble',
+           'ufjfmltk-featselect', 'ufjfmltk-clusterer', 'ufjfmltk-visual']
+
 project_description = 'UFJF Machine Learning Toolkit'
 prefix = get_option('prefix')
 project_subdir = 'ufjfmltk'
@@ -15,58 +18,31 @@ message('Default library type: ' + library_type)
 message('\nInstalling the necessary submodules, this can take some time. \n')
 
 if target_machine.system() == 'linux'
-  message('Installing ufjfmltk-core...')
-  run_command('./module_installer.sh', 'ufjfmltk-core', prefix)
-  message('Installing ufjfmltk-classifier...')
-  run_command('./module_installer.sh', 'ufjfmltk-classifier', prefix)
-  message('Installing ufjfmltk-regressor...')
-  run_command('./module_installer.sh', 'ufjfmltk-regressor', prefix)
-  message('Installing ufjfmltk-valid...')
-  run_command('./module_installer.sh', 'ufjfmltk-valid', prefix)
-  message('Installing ufjfmltk-ensemble...')
-  run_command('./module_installer.sh', 'ufjfmltk-ensemble', prefix)
-  message('Installing ufjfmltk-featselect...')
-  run_command('./module_installer.sh', 'ufjfmltk-featselect', prefix)
-  message('Installing ufjfmltk-clusterer...')
-  run_command('./module_installer.sh', 'ufjfmltk-clusterer', prefix)
-  message('Installing ufjfmltk-visual...')
-  run_command('./module_installer.sh', 'ufjfmltk-visual', prefix)
+  foreach module_name : modules_names
+    message('Installing '+ module_name +'...')
+    r = run_command('./module_installer.sh', module_name, prefix)
+    if r.returncode() != 0
+      message('Failed to install ' + module_name)
+    endif
+  endforeach
 endif
 
 subdir('docs')
 
-modules = {
-  'core': subproject('ufjfmltk-core'),
-  'classifier': subproject('ufjfmltk-classifier'),
-  'regressor': subproject('ufjfmltk-regressor'),
-  'valid': subproject('ufjfmltk-valid'),
-  'ensemble': subproject('ufjfmltk-ensemble'),
-  'featselect': subproject('ufjfmltk-featselect'),
-  'clusterer': subproject('ufjfmltk-clusterer'),
-  'visual': subproject('ufjfmltk-visual')
-}
+modules = []
+foreach module_name : modules_names
+  modules += subproject(module_name)
+endforeach
 
-combined = [
-  modules['core'].get_variable('ufjfmltk_core_tgt').extract_all_objects(recursive:true),
-  modules['classifier'].get_variable('ufjfmltk_classifier_tgt').extract_all_objects(recursive:true),
-  modules['valid'].get_variable('ufjfmltk_valid_tgt').extract_all_objects(recursive:true),
-  modules['ensemble'].get_variable('ufjfmltk_ensemble_tgt').extract_all_objects(recursive:true),
-  modules['featselect'].get_variable('ufjfmltk_featselect_tgt').extract_all_objects(recursive:true),
-  modules['regressor'].get_variable('ufjfmltk_regressor_tgt').extract_all_objects(recursive:true),
-  modules['clusterer'].get_variable('ufjfmltk_clusterer_tgt').extract_all_objects(recursive:true),
-  modules['visual'].get_variable('ufjfmltk_visual_tgt').extract_all_objects(recursive:true)
-]
-
-project_dependencies = [
-  modules['core'].get_variable('ufjfmltk_core_dep'),
-  modules['classifier'].get_variable('ufjfmltk_classifier_dep'),
-  modules['valid'].get_variable('ufjfmltk_valid_dep'),
-  modules['ensemble'].get_variable('ufjfmltk_ensemble_dep'),
-  modules['featselect'].get_variable('ufjfmltk_featselect_dep'),
-  modules['regressor'].get_variable('ufjfmltk_regressor_dep'),
-  modules['clusterer'].get_variable('ufjfmltk_clusterer_dep'),
-  modules['visual'].get_variable('ufjfmltk_visual_dep')
-]
+combined = []
+project_dependencies = []
+id = 0
+foreach module : modules
+  name = '_'.join(modules_names[id].split('-'))
+  combined += module.get_variable(name+'_tgt').extract_all_objects(recursive:true)
+  project_dependencies += module.get_variable(name+'_dep')
+  id += 1
+endforeach
 
 install_headers('ufjfmltk.hpp', subdir: 'ufjfmltk')
 
@@ -93,5 +69,6 @@ pkg_mod.generate(
   name : meson.project_name(),
   filebase : meson.project_name(),
   description : project_description,
+  libraries : project_target,
   subdirs : project_subdir
 )
