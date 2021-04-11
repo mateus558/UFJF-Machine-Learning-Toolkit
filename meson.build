@@ -2,15 +2,18 @@ project('ufjfmltk', 'cpp',
   version : '0.40.0',
   default_options : ['warning_level=0', 'cpp_std=c++17','default_library=shared'])
 
-modules_names = ['ufjfmltk-core', 'ufjfmltk-classifier', 'ufjfmltk-regressor', 'ufjfmltk-valid', 'ufjfmltk-ensemble',
-           'ufjfmltk-featselect', 'ufjfmltk-clusterer', 'ufjfmltk-visual']
+modules_names = ['ufjfmltk-core', 'ufjfmltk-classifier', 'ufjfmltk-regressor', 'ufjfmltk-valid', 
+                 'ufjfmltk-ensemble', 'ufjfmltk-featselect', 'ufjfmltk-clusterer', 'ufjfmltk-visual']
 
-project_description = 'UFJF Machine Learning Toolkit'
 prefix = get_option('prefix')
-project_subdir = 'ufjfmltk'
 project_install_dir = get_option('libdir')
 build_type = get_option('buildtype')
 library_type = get_option('default_library')
+
+project_description = 'UFJF Machine Learning Toolkit'
+project_subdir = 'ufjfmltk'
+project_headers = ['ufjfmltk.hpp']
+project_sources = []
 
 message('Build type: ' + build_type)
 message('Install directory: ' + prefix / project_install_dir)
@@ -27,26 +30,19 @@ if target_machine.system() == 'linux'
   endforeach
 endif
 
-subdir('docs')
-
-modules = []
-foreach module_name : modules_names
-  modules += subproject(module_name)
-endforeach
-
 combined = []
 project_dependencies = []
-id = 0
-foreach module : modules
-  name = '_'.join(modules_names[id].split('-'))
-  combined += module.get_variable(name+'_tgt').extract_all_objects(recursive:true)
-  project_dependencies += module.get_variable(name+'_dep')
-  id += 1
+foreach module_name : modules_names
+  module = subproject(module_name)
+  module_name = '_'.join(module_name.split('-'))
+  combined += module.get_variable(module_name+'_tgt').extract_all_objects()
+  project_dependencies += module.get_variable(module_name+'_dep')
 endforeach
 
-install_headers('ufjfmltk.hpp', subdir: 'ufjfmltk')
+subdir('docs')
+install_headers(project_headers, subdir: project_subdir)
 
-project_target = library(meson.project_name(), [],
+project_target = library(meson.project_name(), [project_headers, project_sources],
   dependencies: project_dependencies,
   objects: combined,
   install : true,

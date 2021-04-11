@@ -50,9 +50,9 @@ project_target_dep = declare_dependency(
   link_with : project_target,
 )
 
-varprefix = meson.project_name().split('-')
-set_variable('_'.join(varprefix) + '_dep', project_target_dep)
-set_variable('_'.join(varprefix) + '_tgt', project_target)
+varprefix = '_'.join(meson.project_name().split('-'))
+set_variable(varprefix + '_dep', project_target_dep)
+set_variable(varprefix + '_tgt', project_target)
 
 pkg_mod = import('pkgconfig')
 pkg_mod.generate(
@@ -60,5 +60,6 @@ pkg_mod.generate(
   filebase : meson.project_name(),
   description : project_description,
   libraries : project_target,
-  subdirs : project_subdir
+  subdirs : project_subdir,
+  version : meson.project_version()
 )
