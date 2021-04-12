@@ -10,7 +10,7 @@
 // Adapted by Mateus Coutinho Marim on 7/28/2018.
 //
 
-#include "SMO.hpp"
+#include "ufjfmltk/classifier/SMO.hpp"
 #include <cmath>
 #include <algorithm>
 

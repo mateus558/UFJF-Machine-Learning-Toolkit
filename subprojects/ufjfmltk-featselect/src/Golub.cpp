@@ -2,10 +2,10 @@
 // Created by Mateus Coutinho Mari on 7/27/2018.
 //
 
-#include "Golub.hpp"
+#include "ufjfmltk/featselect/Golub.hpp"
 #include <algorithm>
 #include <cmath>
-#include <ufjfmltk/Validation.hpp>
+#include "ufjfmltk/valid/Validation.hpp"
 
 
 namespace mltk{

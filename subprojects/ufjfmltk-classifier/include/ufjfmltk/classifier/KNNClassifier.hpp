@@ -6,8 +6,8 @@
 #define UFJF_MLTK_KNN_HPP
 
 #include "PrimalClassifier.hpp"
-#include <ufjfmltk/core/DistanceMetric.hpp>
-#include <ufjfmltk/core/CoverTree.hpp>
+#include "ufjfmltk/core/DistanceMetric.hpp"
+#include "ufjfmltk/core/CoverTree.hpp"
 #include "hnswalg.h"
 #include <assert.h>
 

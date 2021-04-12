@@ -16,8 +16,8 @@ project_subdir = 'ufjfmltk/clusterer'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
 project_source_files = ['src/KMeans.cpp']
-project_headers = ['include/Clusterer.hpp', 
-    'include/KMeans.hpp']
+project_headers = ['include/ufjfmltk/clusterer/Clusterer.hpp',
+    'include/ufjfmltk/clusterer/KMeans.hpp']
 
 public_headers = include_directories('include')
 

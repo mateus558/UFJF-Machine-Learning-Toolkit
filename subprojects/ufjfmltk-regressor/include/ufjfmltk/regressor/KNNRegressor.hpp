@@ -3,7 +3,7 @@
 
 
 #include "PrimalRegressor.hpp"
-#include <ufjfmltk/core/DistanceMetric.hpp>
+#include "ufjfmltk/core/DistanceMetric.hpp"
 #include <assert.h>
 
 namespace mltk{

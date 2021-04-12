@@ -1,7 +1,7 @@
 #pragma once
 
-#include "regressor/DualRegressor.hpp"
-#include "regressor/KNNRegressor.hpp"
-#include "regressor/LMS.hpp"
-#include "regressor/PrimalRegressor.hpp"
-#include "regressor/Regressor.hpp"
+#include "ufjfmltk/regressor/DualRegressor.hpp"
+#include "ufjfmltk/regressor/KNNRegressor.hpp"
+#include "ufjfmltk/regressor/LMS.hpp"
+#include "ufjfmltk/regressor/PrimalRegressor.hpp"
+#include "ufjfmltk/regressor/Regressor.hpp"

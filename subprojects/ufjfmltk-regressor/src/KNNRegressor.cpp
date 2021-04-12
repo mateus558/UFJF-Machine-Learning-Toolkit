@@ -1,4 +1,4 @@
-#include "KNNRegressor.hpp"
+#include "ufjfmltk/regressor/KNNRegressor.hpp"
 #include <memory>
 
 namespace mltk{

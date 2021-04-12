@@ -2,7 +2,7 @@
 // Created by mateus558 on 03/01/19.
 //
 
-#include "LMS.hpp"
+#include "ufjfmltk/regressor/LMS.hpp"
 
 namespace mltk{
     namespace regressor {

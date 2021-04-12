@@ -6,7 +6,7 @@
 #include <cmath>
 #include <ctime>
 #include <float.h>
-#include "IMA.hpp"
+#include "ufjfmltk/classifier/IMA.hpp"
 
 namespace mltk{
     namespace classifier {

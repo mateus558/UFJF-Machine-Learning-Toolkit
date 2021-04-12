@@ -7,9 +7,11 @@
 #define VALIDATION__HPP
 #pragma once
 
-#include <ufjfmltk/Classifier.hpp>
-#include <ufjfmltk/core/Data.hpp>
-#include <ufjfmltk/core/Solution.hpp>
+#include "ufjfmltk/classifier/Classifier.hpp"
+#include "ufjfmltk/classifier/PrimalClassifier.hpp"
+#include "ufjfmltk/classifier/DualClassifier.hpp"
+#include "ufjfmltk/core/Data.hpp"
+#include "ufjfmltk/core/Solution.hpp"
 
 namespace mltk{
     /**
