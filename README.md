@@ -24,20 +24,24 @@ And for examples and other information you can access the [wiki](https://github.
 * gnuplot >= 5 (only for visualization module)
 
 ## Installation
-As meson build system is not well known as CMake, most of users could not know the commands to build and install UFJF-MLTK, so we created the necessary shell scripts to automate the installation process in the system. For now, only **linux** scripts were created. 
+In order to make the project available for the majority of users and to be cross-platform, the project was adapted to CMake and Meson,the most wide used build systems. Therefore, there are two install methods for the project that can be seen below.
 
-### Linux
-
-In the main folder execute the following commands:
+**CMake**
 ```
-sudo chmod +x install.sh
-./install.sh
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+```
+
+**Meson**
+```
+meson build
+meson compile -C build
+meson install -C build
 ```
 After that, the library will be available system wide and it can be used as any library.
-
-### Windows
-
-Installation scripts being written. :)
 
 ## Usage Example
 
