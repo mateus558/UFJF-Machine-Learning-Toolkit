@@ -20,16 +20,6 @@ message('Install directory: ' + prefix / project_install_dir)
 message('Default library type: ' + library_type)
 message('\nInstalling the necessary submodules, this can take some time. \n')
 
-# if target_machine.system() == 'linux'
-#   foreach module_name : modules_names
-#     message('Installing '+ module_name +'...')
-#     r = run_command('./module_installer.sh', module_name, prefix)
-#     if r.returncode() != 0
-#       message('Failed to install ' + module_name)
-#     endif
-#   endforeach
-# endif
-
 combined = []
 project_dependencies = []
 foreach module_name : modules_names
@@ -48,7 +38,8 @@ project_target = library(meson.project_name(), [project_headers, project_sources
   install : true,
   install_dir : project_install_dir,
   version: meson.project_version(),
-  soversion: '0'
+  soversion: '0',
+  include_directories : include_directories('.'),
 )
 
 project_target_dep = declare_dependency(

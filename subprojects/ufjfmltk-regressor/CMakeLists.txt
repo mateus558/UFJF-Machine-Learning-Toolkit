@@ -95,7 +95,7 @@ install(TARGETS ${REGRESSOR_TARGET}
         RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/regressor" COMPONENT dev)
 
-install(FILES Regressor.hpp
+install(FILES include/ufjfmltk/Regressor.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
 message(STATUS "Created target ${REGRESSOR_TARGET} for export ${PROJECT_NAME}.")

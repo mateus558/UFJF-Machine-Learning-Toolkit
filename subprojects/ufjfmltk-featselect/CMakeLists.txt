@@ -99,7 +99,7 @@ install(TARGETS ${FEATSELECT_TARGET}
         RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/featselect" COMPONENT dev)
 
-install(FILES FeatureSelection.hpp
+install(FILES include/ufjfmltk/FeatureSelection.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
 message(STATUS "Created target ${FEATSELECT_TARGET} for export ${PROJECT_NAME}.")

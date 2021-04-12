@@ -92,7 +92,7 @@ install(TARGETS ${VISUAL_TARGET}
         RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/visual" COMPONENT dev)
 
-install(FILES Visualize.hpp
+install(FILES include/ufjfmltk/Visualize.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
 message(STATUS "Created target ${VISUAL_TARGET} for export ${PROJECT_NAME}.")

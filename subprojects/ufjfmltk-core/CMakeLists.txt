@@ -108,7 +108,7 @@ install(TARGETS ${CORE_TARGET}
         RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/core" COMPONENT dev)
 
-install(FILES Core.hpp
+install(FILES include/ufjfmltk/Core.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
 message(STATUS "Created target ${CORE_TARGET} for export ${PROJECT_NAME}.")

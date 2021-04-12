@@ -91,7 +91,7 @@ install(TARGETS ${CLUSTERER_TARGET}
         RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/clusterer" COMPONENT dev)
 
-install(FILES Clusterer.hpp
+install(FILES include/ufjfmltk/Clusterer.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
 message(STATUS "Created target ${CLUSTERER_TARGET} for export ${PROJECT_NAME}.")

@@ -41,7 +41,7 @@ project_target = library(meson.project_name(), [project_source_files, project_he
   gnu_symbol_visibility : 'default',
 )
 
-install_headers('Core.hpp', subdir: 'ufjfmltk')
+install_headers('include/ufjfmltk/Core.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(

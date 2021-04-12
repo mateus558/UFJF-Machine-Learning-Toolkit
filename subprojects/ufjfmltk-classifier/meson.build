@@ -46,7 +46,7 @@ project_target = library(meson.project_name(), [project_source_files, project_he
   dependencies: project_dependencies
 )
 
-install_headers('Classifier.hpp', subdir: 'ufjfmltk')
+install_headers('include/ufjfmltk/Classifier.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(

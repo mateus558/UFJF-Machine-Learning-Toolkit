@@ -106,7 +106,7 @@ install(TARGETS ${CLASSIFIER_TARGET}
         RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/classifier" COMPONENT dev)
 
-install(FILES Classifier.hpp
+install(FILES include/Classifier.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
 message(STATUS "Created target ${CLASSIFIER_TARGET} for export ${PROJECT_NAME}.")

@@ -45,7 +45,7 @@ project_target = library(meson.project_name(), [project_headers],
   dependencies: project_dependencies
 )
 
-install_headers('Ensemble.hpp', subdir: 'ufjfmltk')
+install_headers('include/ufjfmltk/Ensemble.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(
