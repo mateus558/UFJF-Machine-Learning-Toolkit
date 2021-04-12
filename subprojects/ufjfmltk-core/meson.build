@@ -28,7 +28,7 @@ project_headers = ['include/Data.hpp',
     'include/ExprScalar.hpp',
     'include/ExprTraits.hpp']
 
-public_headers = include_directories('include')
+public_headers = include_directories('include', is_system:true)
 lib_args = ['-DBUILDING_CORE']
 
 project_target = library(meson.project_name(), [project_source_files, project_headers],
@@ -45,7 +45,7 @@ install_headers('Core.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(
-  include_directories: [include_directories('include'), include_directories('src')],
+  include_directories: [include_directories('include','src','.', is_system : true)],
   sources: project_headers,
   link_with : project_target,
 )

@@ -39,7 +39,7 @@ install_headers('FeatureSelection.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(
-  include_directories: [include_directories('include'), include_directories('src')],
+  include_directories: [include_directories('include','src','.')],
   sources: project_headers,
   link_with : project_target,
 )
