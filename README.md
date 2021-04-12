@@ -18,13 +18,13 @@ through a set of interconected modules that can be used in most ML projects.<br 
 You can find the documentation at the project page: [UFJF-MLTK](https://mateus558.github.io/UFJF-MLTK/index.html). <br />
 And for examples and other information you can access the [wiki](https://github.com/mateus558/Machine-Learning-Toolkit/wiki).
 
-## Requirements
-* meson >= 0.56
-* g++ >= 7
-* gnuplot >= 5 (only for visualization module)
-
 ## Installation
 In order to make the project available for the majority of users and to be cross-platform, the project was adapted to CMake and Meson,the most wide used build systems. Therefore, there are two install methods for the project that can be seen below.
+
+**Requirements**
+* meson or cmake
+* g++ >= 7
+* gnuplot >= 5 (only for visualization module)
 
 **CMake**
 ```
