@@ -5,8 +5,8 @@
 #include <algorithm>
 #include <cmath>
 #include <memory>
-#include <ufjfmltk/Validation.hpp>
-#include "RFE.hpp"
+#include "ufjfmltk/valid/Validation.hpp"
+#include "ufjfmltk/featselect/RFE.hpp"
 
 #define first_decay 0.25
 

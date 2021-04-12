@@ -5,26 +5,32 @@ project(
   default_options : ['warning_level=0', 'cpp_std=c++17']
 )
 
-cpp_compiler = meson.get_compiler('cpp')
-project_dependencies = [
-    cpp_compiler.find_library('ufjfmltk-core', required : true),
-    cpp_compiler.find_library('ufjfmltk-classifier', required : true),
-    cpp_compiler.find_library('ufjfmltk-valid', required : true)
-]
-
 project_description = 'UFJF-MLTK feature selection library.'
 prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/featselect'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
 project_source_files = ['src/AOS.cpp', 'src/Fisher.cpp', 'src/Golub.cpp', 'src/RFE.cpp']
-project_headers = ['include/AOS.hpp', 
-    'include/FeatureSelection.hpp', 
-    'include/Fisher.hpp', 
-    'include/Golub.hpp',
-    'include/RFE.hpp']
+project_headers = ['include/ufjfmltk/featselect/AOS.hpp', 
+    'include/ufjfmltk/featselect/FeatureSelection.hpp', 
+    'include/ufjfmltk/featselect/Fisher.hpp', 
+    'include/ufjfmltk/featselect/Golub.hpp',
+    'include/ufjfmltk/featselect/RFE.hpp']
 
-public_headers = include_directories('include')
+project_dependencies = []
+if not meson.is_subproject()
+  cpp_compiler = meson.get_compiler('cpp')
+  project_dependencies += cpp_compiler.find_library('ufjfmltk-core', required : true)
+  project_dependencies += cpp_compiler.find_library('ufjfmltk-classifier', required : true)
+  project_dependencies += cpp_compiler.find_library('ufjfmltk-valid', required : true)
+  public_headers = include_directories('include') 
+else
+  project_dependencies += subproject('ufjfmltk-core').get_variable('ufjfmltk_core_dep')
+  project_dependencies += subproject('ufjfmltk-classifier').get_variable('ufjfmltk_classifier_dep')
+  project_dependencies += subproject('ufjfmltk-valid').get_variable('ufjfmltk_valid_dep')
+  public_headers = include_directories('include', '../ufjfmltk-core/include',
+                   '../ufjfmltk-classifier/include','../ufjfmltk-valid/include')
+endif
 
 project_target = library(meson.project_name(), [project_source_files, project_headers],
   install : true,

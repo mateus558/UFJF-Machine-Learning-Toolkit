@@ -11,22 +11,22 @@ project_subdir = 'ufjfmltk/core'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
 project_source_files = ['src/Data.cpp', 'src/Kernel.cpp', 'src/Statistics.cpp', 'src/Utils.cpp']
-project_headers = ['include/Data.hpp', 
-    'include/Point.hpp', 
-    'include/DistanceMetric.hpp', 
-    'include/Kernel.hpp',
-    'include/Learner.hpp',
-    'include/Point.hpp',
-    'include/Random.hpp',
-    'include/Sampling.hpp',
-    'include/Solution.hpp',
-    'include/Statistics.hpp',
-    'include/Timer.hpp',
-    'include/Utils.hpp',
-    'include/CoverTree.hpp',
-    'include/ExprOps.hpp',
-    'include/ExprScalar.hpp',
-    'include/ExprTraits.hpp']
+project_headers = ['include/ufjfmltk/core/Data.hpp',
+    'include/ufjfmltk/core/Point.hpp',
+    'include/ufjfmltk/core/DistanceMetric.hpp',
+    'include/ufjfmltk/core/Kernel.hpp',
+    'include/ufjfmltk/core/Learner.hpp',
+    'include/ufjfmltk/core/Point.hpp',
+    'include/ufjfmltk/core/Random.hpp',
+    'include/ufjfmltk/core/Sampling.hpp',
+    'include/ufjfmltk/core/Solution.hpp',
+    'include/ufjfmltk/core/Statistics.hpp',
+    'include/ufjfmltk/core/Timer.hpp',
+    'include/ufjfmltk/core/Utils.hpp',
+    'include/ufjfmltk/core/CoverTree.hpp',
+    'include/ufjfmltk/core/ExprOps.hpp',
+    'include/ufjfmltk/core/ExprScalar.hpp',
+    'include/ufjfmltk/core/ExprTraits.hpp']
 
 public_headers = include_directories('include', is_system:true)
 lib_args = ['-DBUILDING_CORE']

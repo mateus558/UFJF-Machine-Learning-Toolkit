@@ -12,4 +12,4 @@ if [ ! -e "builddir" ]; then
     ./build.sh $prefix
 fi
 
-sudo ninja install -C builddir
+sudo ninja install -C builddir -j 6

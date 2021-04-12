@@ -2,22 +2,27 @@ project('ufjfmltk-valid', 'cpp',
   version : '0.40.0',
   default_options : ['warning_level=0', 'cpp_std=c++17'])
 
-cpp_compiler = meson.get_compiler('cpp')
-project_dependencies = [
-    cpp_compiler.find_library('ufjfmltk-core', required : true),
-    cpp_compiler.find_library('ufjfmltk-classifier', required : true)
-]
-
 project_description = 'UFJF-MLTK validation library.'
 prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/valid'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
 project_headers = [
-  'include/Validation.hpp'
+  'include/ufjfmltk/valid/Validation.hpp'
 ]
 
-public_headers = include_directories('include')
+project_dependencies = []
+if not meson.is_subproject()
+  cpp_compiler = meson.get_compiler('cpp')
+  project_dependencies += cpp_compiler.find_library('ufjfmltk-core', required : true)
+  project_dependencies += cpp_compiler.find_library('ufjfmltk-classifier', required : true)
+  public_headers = include_directories('include') 
+else
+  project_dependencies += subproject('ufjfmltk-core').get_variable('ufjfmltk_core_dep')
+  project_dependencies += subproject('ufjfmltk-classifier').get_variable('ufjfmltk_classifier_dep')
+  public_headers = include_directories('include', '../ufjfmltk-core/include',
+                   '../ufjfmltk-classifier/include')
+endif
 
 project_target = library(meson.project_name(), [project_headers],
   install : true,
@@ -28,7 +33,7 @@ project_target = library(meson.project_name(), [project_headers],
   dependencies: project_dependencies
 )
 
-install_headers('include/Validation.hpp', subdir: 'ufjfmltk')
+install_headers('include/ufjfmltk/valid/Validation.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(

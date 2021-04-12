@@ -2,34 +2,39 @@ project('ufjfmltk-ensemble', 'cpp',
   version : '0.40.0',
   default_options : ['warning_level=0', 'cpp_std=c++17'])
 
-cpp_compiler = meson.get_compiler('cpp')
-project_dependencies = [
-    cpp_compiler.find_library('ufjfmltk-core', required : true),
-    cpp_compiler.find_library('ufjfmltk-classifier', required : true)
-]
-
 project_description = 'UFJF-MLTK ensemble library.'
 prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/ensemble'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
-project_headers = ['include/AdaBoostClassifier.hpp', 
-    'include/AutoWeightedVoting.hpp', 
-    'include/BaggingClassifier.hpp', 
-    'include/Ensemble.hpp',
-    'include/kNNEnsemble.hpp',
-    'include/kNNEnsembleBagging.hpp',
-    'include/kNNEnsembleDSM.hpp',
-    'include/kNNEnsembleRSM.hpp',
-    'include/kNNEnsembleW.hpp',
-    'include/kNNEnsembleWPDSM.hpp',
-    'include/kNNEnsembleWPDSMLinear.hpp',
-    'include/kNNEnsembleWRSM.hpp',
-    'include/kNNEnsembleWSS.hpp',
-    'include/PerceptronCommittee.hpp',
-    'include/VotingClassifier.hpp']
+project_headers = ['include/ufjfmltk/ensemble/AdaBoostClassifier.hpp', 
+    'include/ufjfmltk/ensemble/AutoWeightedVoting.hpp', 
+    'include/ufjfmltk/ensemble/BaggingClassifier.hpp', 
+    'include/ufjfmltk/ensemble/Ensemble.hpp',
+    'include/ufjfmltk/ensemble/kNNEnsemble.hpp',
+    'include/ufjfmltk/ensemble/kNNEnsembleBagging.hpp',
+    'include/ufjfmltk/ensemble/kNNEnsembleDSM.hpp',
+    'include/ufjfmltk/ensemble/kNNEnsembleRSM.hpp',
+    'include/ufjfmltk/ensemble/kNNEnsembleW.hpp',
+    'include/ufjfmltk/ensemble/kNNEnsembleWPDSM.hpp',
+    'include/ufjfmltk/ensemble/kNNEnsembleWPDSMLinear.hpp',
+    'include/ufjfmltk/ensemble/kNNEnsembleWRSM.hpp',
+    'include/ufjfmltk/ensemble/kNNEnsembleWSS.hpp',
+    'include/ufjfmltk/ensemble/PerceptronCommittee.hpp',
+    'include/ufjfmltk/ensemble/VotingClassifier.hpp']
 
-public_headers = include_directories('include')
+project_dependencies = []
+if not meson.is_subproject()
+  cpp_compiler = meson.get_compiler('cpp')
+  project_dependencies += cpp_compiler.find_library('ufjfmltk-core', required : true)
+  project_dependencies += cpp_compiler.find_library('ufjfmltk-classifier', required : true)
+  public_headers = include_directories('include') 
+else
+  project_dependencies += subproject('ufjfmltk-core').get_variable('ufjfmltk_core_dep')
+  project_dependencies += subproject('ufjfmltk-classifier').get_variable('ufjfmltk_classifier_dep')
+  public_headers = include_directories('include', '../ufjfmltk-core/include',
+                   '../ufjfmltk-classifier/include')
+endif
 
 project_target = library(meson.project_name(), [project_headers],
   install : true,

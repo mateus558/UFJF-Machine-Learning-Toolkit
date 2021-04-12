@@ -4,9 +4,9 @@
 
 #include <algorithm>
 #include <functional>
-#include "AOS.hpp"
-#include <ufjfmltk/classifier/PrimalClassifier.hpp>
-#include <ufjfmltk/classifier/SMO.hpp>
+#include "ufjfmltk/featselect/AOS.hpp"
+#include "ufjfmltk/classifier/PrimalClassifier.hpp"
+#include "ufjfmltk/classifier/SMO.hpp"
 
 #define MAX_HEAP 500000
 #define NUM_ERROR_EPS 0.05

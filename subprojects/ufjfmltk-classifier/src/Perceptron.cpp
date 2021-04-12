@@ -2,7 +2,7 @@
 #include <ctime>
 #include <cmath>
 
-#include "Perceptron.hpp"
+#include "ufjfmltk/classifier/Perceptron.hpp"
 
 namespace mltk{
     namespace classifier {

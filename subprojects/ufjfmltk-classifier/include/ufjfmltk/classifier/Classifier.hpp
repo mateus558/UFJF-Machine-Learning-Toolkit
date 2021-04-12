@@ -7,7 +7,7 @@
 #define CLASSIFIER__HPP
 
 
-#include <ufjfmltk/core/Learner.hpp>
+#include "ufjfmltk/core/Learner.hpp"
 namespace mltk{
     /**
      * \brief Namespace for classification methods.

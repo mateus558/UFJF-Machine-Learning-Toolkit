@@ -1,7 +1,7 @@
 #pragma once
 
-#include "featselect/FeatureSelection.hpp"
-#include "featselect/AOS.hpp"
-#include "featselect/Fisher.hpp"
-#include "featselect/Golub.hpp"
-#include "featselect/RFE.hpp"
+#include "ufjfmltk/featselect/FeatureSelection.hpp"
+#include "ufjfmltk/featselect/AOS.hpp"
+#include "ufjfmltk/featselect/Fisher.hpp"
+#include "ufjfmltk/featselect/Golub.hpp"
+#include "ufjfmltk/featselect/RFE.hpp"
