@@ -78,7 +78,7 @@ install(TARGETS ${ENSEMBLE_TARGET}
 install(FILES ${${ENSEMBLE_TARGET}_HDR}
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/ensemble")
 
-install(FILES Ensemble.hpp
+install(FILES include/ufjfmltk/Ensemble.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
 message(STATUS "Created target ${ENSEMBLE_TARGET} for export ${PROJECT_NAME}.")
