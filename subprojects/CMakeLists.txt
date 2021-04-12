@@ -14,7 +14,7 @@ add_library(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:ufjfmltk-core>
                                    $<TARGET_OBJECTS:ufjfmltk-regressor>
                                    $<TARGET_OBJECTS:ufjfmltk-visual>
                                    )
-#
+
 install(TARGETS ${PROJECT_NAME}
         EXPORT  ${PROJECT_NAME}
         LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT shlib

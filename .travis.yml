@@ -1,14 +1,7 @@
 dist: trusty
-group: travis_latest
 sudo: require
-
-os: linux
 language: cpp
-
-matrix:
-  include:
-    - env: CXX=gcc
-    - env: CC=clang
+compiler: gcc
 
 addons:
   apt:
@@ -17,26 +10,12 @@ addons:
     packages:
       - gcc-6
       - g++-6
-      - python3-pip
-
+      - cmakes
 
 script:
   - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
   - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
-  - export CC=/usr/bin/gcc-6
-  - export CXX=/usr/bin/g++-6
-  - gcc -v && g++ -v
-  - sudo pip3 install setuptools wheel ninja
-  - sudo pip3 install meson==0.56
-  - pip3 install meson==0.56
-  - sudo chmod +x module_installer.sh
-  - ./module_installer.sh ufjfmltk-core
-  - ./module_installer.sh ufjfmltk-classifier
-  - ./module_installer.sh ufjfmltk-valid
-  - ./module_installer.sh ufjfmltk-featselect
-  - ./module_installer.sh ufjfmltk-regressor
-  - ./module_installer.sh ufjfmltk-clusterer
-  - ./module_installer.sh ufjfmltk-ensemble
-  - ./module_installer.sh ufjfmltk-visual
-  - chmod +x build.sh
-  - bash build.sh /usr
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
