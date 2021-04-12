@@ -10,7 +10,7 @@ addons:
     packages:
       - gcc-6
       - g++-6
-      - cmakes
+      - cmake
 
 script:
   - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
