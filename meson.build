@@ -20,15 +20,15 @@ message('Install directory: ' + prefix / project_install_dir)
 message('Default library type: ' + library_type)
 message('\nInstalling the necessary submodules, this can take some time. \n')
 
-if target_machine.system() == 'linux'
-  foreach module_name : modules_names
-    message('Installing '+ module_name +'...')
-    r = run_command('./module_installer.sh', module_name, prefix)
-    if r.returncode() != 0
-      message('Failed to install ' + module_name)
-    endif
-  endforeach
-endif
+# if target_machine.system() == 'linux'
+#   foreach module_name : modules_names
+#     message('Installing '+ module_name +'...')
+#     r = run_command('./module_installer.sh', module_name, prefix)
+#     if r.returncode() != 0
+#       message('Failed to install ' + module_name)
+#     endif
+#   endforeach
+# endif
 
 combined = []
 project_dependencies = []
@@ -65,6 +65,5 @@ pkg_mod.generate(
   name : meson.project_name(),
   filebase : meson.project_name(),
   description : project_description,
-  libraries : project_target,
   subdirs : project_subdir
 )

@@ -5,34 +5,37 @@ project(
   default_options : ['warning_level=0', 'cpp_std=c++17']
 )
 
-cpp_compiler = meson.get_compiler('cpp')
-project_dependencies = [
-    cpp_compiler.find_library('ufjfmltk-core', required : true),
-]
-
 project_description = 'UFJF-MLTK classifier library.'
 prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/classifier'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
 project_source_files = ['src/IMA.cpp', 'src/Perceptron.cpp', 'src/SMO.cpp']
-project_headers = ['include/Classifier.hpp', 
-    'include/DualClassifier.hpp', 
-    'include/IMA.hpp', 
-    'include/KNNClassifier.hpp',
-    'include/OneVsAll.hpp',
-    'include/OneVsOne.hpp',
-    'include/Perceptron.hpp',
-    'include/PrimalClassifier.hpp',
-    'include/SMO.hpp',
-    'include/hnswlib/bruteforce.h',
-    'include/hnswlib/hnswalg.h',
-    'include/hnswlib/hnswlib.h',
-    'include/hnswlib/space_ip.h',
-    'include/hnswlib/space_l2.h',
-    'include/hnswlib/visited_list_pool.h']
+project_headers = ['include/ufjfmltk/classifier/Classifier.hpp', 
+    'include/ufjfmltk/classifier/DualClassifier.hpp', 
+    'include/ufjfmltk/classifier/IMA.hpp', 
+    'include/ufjfmltk/classifier/KNNClassifier.hpp',
+    'include/ufjfmltk/classifier/OneVsAll.hpp',
+    'include/ufjfmltk/classifier/OneVsOne.hpp',
+    'include/ufjfmltk/classifier/Perceptron.hpp',
+    'include/ufjfmltk/classifier/PrimalClassifier.hpp',
+    'include/ufjfmltk/classifier/SMO.hpp',
+    'include/ufjfmltk/classifier/hnswlib/bruteforce.h',
+    'include/ufjfmltk/classifier/hnswlib/hnswalg.h',
+    'include/ufjfmltk/classifier/hnswlib/hnswlib.h',
+    'include/ufjfmltk/classifier/hnswlib/space_ip.h',
+    'include/ufjfmltk/classifier/hnswlib/space_l2.h',
+    'include/ufjfmltk/classifier/hnswlib/visited_list_pool.h']
 
-public_headers = include_directories('include')
+project_dependencies = []
+if not meson.is_subproject()
+  cpp_compiler = meson.get_compiler('cpp')
+  project_dependencies += cpp_compiler.find_library('ufjfmltk-core', required : true)
+  public_headers = include_directories('include') 
+else
+  project_dependencies += subproject('ufjfmltk-core').get_variable('ufjfmltk_core_dep')
+  public_headers = include_directories('include', '../ufjfmltk-core/include', '../ufjfmltk-core/src')
+endif
 
 project_target = library(meson.project_name(), [project_source_files, project_headers],
   install : true,

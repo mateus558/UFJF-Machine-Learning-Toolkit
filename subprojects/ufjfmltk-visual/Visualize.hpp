@@ -1,3 +1,3 @@
 #pragma once
 
-#include "ufjfmltk/visualize/Visualization.hpp"
+#include "ufjfmltk/visual/Visualization.hpp"

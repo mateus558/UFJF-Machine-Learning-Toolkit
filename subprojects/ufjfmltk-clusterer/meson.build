@@ -5,11 +5,6 @@ project(
   default_options : ['warning_level=0', 'cpp_std=c++17']
 )
 
-cpp_compiler = meson.get_compiler('cpp')
-project_dependencies = [
-    cpp_compiler.find_library('ufjfmltk-core', required : true),
-]
-
 project_description = 'UFJF-MLTK clustering library.'
 prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/clusterer'
@@ -19,7 +14,15 @@ project_source_files = ['src/KMeans.cpp']
 project_headers = ['include/ufjfmltk/clusterer/Clusterer.hpp',
     'include/ufjfmltk/clusterer/KMeans.hpp']
 
-public_headers = include_directories('include')
+project_dependencies = []
+if not meson.is_subproject()
+  cpp_compiler = meson.get_compiler('cpp')
+  project_dependencies += cpp_compiler.find_library('ufjfmltk-core', required : true)
+  public_headers = include_directories('include') 
+else
+  project_dependencies += subproject('ufjfmltk-core').get_variable('ufjfmltk_core_dep')
+  public_headers = include_directories('include', '../ufjfmltk-core/include', '../ufjfmltk-core/src')
+endif
 
 project_target = library(meson.project_name(), [project_source_files, project_headers],
   install : true,
