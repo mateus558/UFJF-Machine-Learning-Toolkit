@@ -13,6 +13,7 @@ doxyfile = configure_file(input: 'Doxyfile.in',
                           configuration: cdata,
                           install: false)
 
-doxygen = find_program('doxygen')
-
-doc_target = run_target(target_name, command: [doxygen, doxyfile])
+doxygen = find_program('doxygen', required:false)
+if doxygen.found()
+    doc_target = run_target(target_name, command: [doxygen, doxyfile])
+endif
