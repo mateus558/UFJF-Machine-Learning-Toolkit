@@ -8,7 +8,7 @@
 #include "PrimalClassifier.hpp"
 #include "ufjfmltk/core/DistanceMetric.hpp"
 #include "ufjfmltk/core/CoverTree.hpp"
-#include "hnswlib/hnswalg.h"
+#include "hnswalg.h"
 #include <assert.h>
 
 namespace mltk{
