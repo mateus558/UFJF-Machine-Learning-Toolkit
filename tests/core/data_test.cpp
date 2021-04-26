@@ -27,3 +27,8 @@ TEST(DataTest, OpenCsvMultiDataset) {
     EXPECT_EQ(data.dim(), 4);
     EXPECT_EQ(data.classesDistribution(), dist);
 }
+
+int main(int argc, char *argv[]) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}

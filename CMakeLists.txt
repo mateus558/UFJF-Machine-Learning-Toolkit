@@ -37,7 +37,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
 
 # Build test related commands?
-option(BUILD_TESTING "Create tests using CMake" OFF)
+option(ENABLE_TESTING "Create tests using CMake" OFF)
 
 # Enable RPATH support for installed binaries and libraries
 include(AddInstallRPATHSupport)
@@ -58,24 +58,12 @@ endif()
 add_subdirectory(subprojects)
 
 set(CMAKE_CXX_STANDARD 17)
-#
-#include(FetchContent)
-#FetchContent_Declare(
-#        googletest
-#        GIT_REPOSITORY https://github.com/google/googletest.git
-#        GIT_TAG        release-1.10.0
-#)
-# For Windows: Prevent overriding the parent project's compiler/linker settings
-#set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-#set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
-#set(BUILD_GTEST ON CACHE BOOL "" FORCE)
-#FetchContent_MakeAvailable(googletest)
 
 # Add integration tests (unit tests for each library should be in each sublibrary directory).
-#if(BUILD_TESTING)
-#    set(DATA_PATH ${CMAKE_CURRENT_SOURCE_DIR}/datasets)
-#    add_subdirectory(tests)
-#endif()
+if(ENABLE_TESTING)
+    set(DATA_PATH ${CMAKE_CURRENT_SOURCE_DIR}/datasets)
+    add_subdirectory(tests)
+endif()
 
 include(InstallBasicPackageFiles)
 install_basic_package_files(${PROJECT_NAME}
