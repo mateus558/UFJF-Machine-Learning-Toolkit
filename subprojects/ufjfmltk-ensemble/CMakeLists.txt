@@ -10,15 +10,6 @@ set(${ENSEMBLE_TARGET}_HDR
         include/ufjfmltk/ensemble/AutoWeightedVoting.hpp
         include/ufjfmltk/ensemble/BaggingClassifier.hpp
         include/ufjfmltk/ensemble/Ensemble.hpp
-        include/ufjfmltk/ensemble/kNNEnsemble.hpp
-        include/ufjfmltk/ensemble/kNNEnsembleBagging.hpp
-        include/ufjfmltk/ensemble/kNNEnsembleDSM.hpp
-        include/ufjfmltk/ensemble/kNNEnsembleRSM.hpp
-        include/ufjfmltk/ensemble/kNNEnsembleW.hpp
-        include/ufjfmltk/ensemble/kNNEnsembleWPDSM.hpp
-        include/ufjfmltk/ensemble/kNNEnsembleWPDSMLinear.hpp
-        include/ufjfmltk/ensemble/kNNEnsembleWRSM.hpp
-        include/ufjfmltk/ensemble/kNNEnsembleWSS.hpp
         include/ufjfmltk/ensemble/PerceptronCommittee.hpp
         include/ufjfmltk/ensemble/VotingClassifier.hpp
         )
