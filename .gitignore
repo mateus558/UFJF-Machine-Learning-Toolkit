@@ -1,7 +1,6 @@
 builddir
 papers
 DB
-cmake-build-debug
 .ipynb_checkpoints
 .idea
 count.sh
@@ -26,3 +25,6 @@ create_dist.sh
 wraps
 module_installer.sh
 install_modules.sh
+/cmake-build-release/
+/cmake-build-test/
+/cmake-build-debug/

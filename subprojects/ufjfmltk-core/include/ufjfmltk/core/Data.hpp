@@ -229,12 +229,12 @@ namespace mltk{
          * \brief Returns a vector containing the frequency of the classes.
          * \return std::vector<size_t>
          **/
-        std::vector<size_t> getClassesDistribution() const ;
+        std::vector<size_t> classesDistribution() const ;
         /**
          * \brief Returns a vector containing the name of the classes.
          * \return std::vector<std::string>
          **/
-        std::vector<std::string> getClassNames() const;
+        std::vector<std::string> classesNames() const;
         /**
          * \brief Returns the features names.
          * \return std::vector<int>

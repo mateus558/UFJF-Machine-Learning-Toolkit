@@ -36,7 +36,7 @@ namespace mltk{
         size_t i, j, k, size = samples->size(), dim = samples->dim();
         vector<string> file_names;
         if(samples->getType() == "Classification") {
-            vector<std::string> class_names = samples->getClassNames();
+            vector<std::string> class_names = samples->classesNames();
             vector<int> classes = samples->classes();
             vector<ofstream> temp_files(class_names.size());
             for(i = 0; i < class_names.size(); i++){
@@ -158,7 +158,7 @@ namespace mltk{
     void Visualization< T >::plot2D(int x, int y){
         string dims = utils::itos(x) + ":" + utils::itos(y);
         string cmd("plot ");
-        vector<string> temp_files_names, class_names = samples->getClassNames();
+        vector<string> temp_files_names, class_names = samples->classesNames();
         size_t i;
 
         temp_files_names = createTempFiles();
@@ -186,7 +186,7 @@ namespace mltk{
     void Visualization< T >::plot3D(int x, int y, int z){
         string dims = utils::itos(x) + ":" + utils::itos(y) + ":" + utils::itos(z);
         string cmd("splot ");
-        vector<string> temp_files_names, class_names = samples->getClassNames();
+        vector<string> temp_files_names, class_names = samples->classesNames();
         size_t i;
 
         temp_files_names = createTempFiles();
@@ -214,7 +214,7 @@ namespace mltk{
 
         string feats = utils::itos(x) + ":" + utils::itos(y);
         string fx, gx, hx, cmd;
-        vector<string> temp_files_names, class_names = samples->getClassNames();
+        vector<string> temp_files_names, class_names = samples->classesNames();
         size_t i;
 
         temp_files_names = createTempFiles();
@@ -256,7 +256,7 @@ namespace mltk{
     void Visualization< T >::plot3DwithHyperplane(int x, int y, int z, Solution s){
         string feats = utils::itos(x) + ":" + utils::itos(y) + ":" + utils::itos(z);
         string fxy, cmd;
-        vector<string> temp_files_names, class_names = samples->getClassNames();
+        vector<string> temp_files_names, class_names = samples->classesNames();
         size_t i;
 
         temp_files_names = createTempFiles();

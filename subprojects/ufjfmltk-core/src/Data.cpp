@@ -917,8 +917,8 @@ namespace mltk{
         this->fnames = _data.getFeaturesNames();
         this->m_size = _data.size();
         this->m_classes = _data.classes();
-        this->class_names = _data.getClassNames();
-        this->class_distribution = _data.getClassesDistribution();
+        this->class_names = _data.classesNames();
+        this->class_distribution = _data.classesDistribution();
         this->stats = _data.getStatistics();
         this->m_dim = _data.dim();
         this->type = _data.getType();
@@ -1209,12 +1209,12 @@ namespace mltk{
     }
 
     template<typename T>
-    std::vector<std::string> mltk::Data<T>::getClassNames() const{
+    std::vector<std::string> mltk::Data<T>::classesNames() const{
         return this->class_names;
     }
 
     template<typename T>
-    std::vector<size_t> mltk::Data<T>::getClassesDistribution() const{
+    std::vector<size_t> mltk::Data<T>::classesDistribution() const{
         return this->class_distribution;
     }
 
@@ -1327,7 +1327,7 @@ namespace mltk{
         auto classes_split = splitByClasses();
         Point<double> class_dist(m_classes.size());
 
-        class_dist = getClassesDistribution();
+        class_dist = classesDistribution();
         class_dist = (class_dist / size()) * samp_size;
 
         for(size_t i = 0; i < class_dist.size(); i++){
