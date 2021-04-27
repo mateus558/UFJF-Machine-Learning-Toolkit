@@ -62,6 +62,7 @@ set(CMAKE_CXX_STANDARD 17)
 # Add integration tests (unit tests for each library should be in each sublibrary directory).
 if(ENABLE_TESTING)
     set(DATA_PATH ${CMAKE_CURRENT_SOURCE_DIR}/datasets)
+    enable_testing()
     add_subdirectory(tests)
 endif()
 

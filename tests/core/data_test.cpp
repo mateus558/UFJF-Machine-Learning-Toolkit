@@ -10,9 +10,13 @@
 class DataTest: public ::testing::Test
 {
 protected:
-    virtual void SetUp(){
-        mult.load("iris_mult.csv");
-        bin.load("iris.data");
+    void SetUp() override{
+        if(!mult.load("iris_mult.csv")){
+            std::cerr << "Error loading multiclass dataset." << std::endl;
+        }
+        if(!bin.load("iris.data")){
+            std::cerr << "Error loading binary dataset." << std::endl;
+        }
     }
     mltk::Data<double> mult, bin;
 };
@@ -46,6 +50,12 @@ TEST_F(DataTest, CopyBinDataset) {
     EXPECT_EQ(cp.dim(), 4);
     EXPECT_EQ(cp.classesDistribution(), dist);
     EXPECT_EQ(cp.classes().size(), 2);
+
+    EXPECT_EQ(bin.size(), 150);
+    EXPECT_EQ(bin.points().size(), 150);
+    EXPECT_EQ(bin.dim(), 4);
+    EXPECT_EQ(bin.classesDistribution(), dist);
+    EXPECT_EQ(bin.classes().size(), 2);
 }
 
 TEST_F(DataTest, CopyMultDataset) {
@@ -57,6 +67,12 @@ TEST_F(DataTest, CopyMultDataset) {
     EXPECT_EQ(cp.dim(), 4);
     EXPECT_EQ(cp.classesDistribution(), dist);
     EXPECT_EQ(cp.classes().size(), 3);
+
+    EXPECT_EQ(mult.size(), 150);
+    EXPECT_EQ(mult.points().size(), 150);
+    EXPECT_EQ(mult.dim(), 4);
+    EXPECT_EQ(mult.classesDistribution(), dist);
+    EXPECT_EQ(mult.classes().size(), 3);
 }
 
 int main(int argc, char *argv[]) {
