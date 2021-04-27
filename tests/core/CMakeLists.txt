@@ -8,7 +8,7 @@ add_executable(data_test data_test.cpp)
 ######################################
 # Configure the test to use GoogleTest
 #
-target_link_libraries(data_test gtest ufjfmltk-core)
+target_link_libraries(data_test gtest gtest_main ufjfmltk-core)
 
 ##################################
 # Just make the test runnable with

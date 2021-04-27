@@ -7,25 +7,56 @@
 #include <gtest/gtest.h>
 #include "ufjfmltk/core/Data.hpp"
 
-TEST(DataTest, OpenDataBinDataset) {
-    mltk::Data<double> data("iris.data");
+class DataTest: public ::testing::Test
+{
+protected:
+    virtual void SetUp(){
+        mult.load("iris_mult.csv");
+        bin.load("iris.data");
+    }
+    mltk::Data<double> mult, bin;
+};
+
+
+TEST_F(DataTest, OpenDataBinDataset) {
     std::vector<size_t> dist = {50, 100};
 
-    EXPECT_EQ(data.size(), 150);
-    EXPECT_EQ(data.points().size(), 150);
-    EXPECT_EQ(data.dim(), 4);
-    EXPECT_EQ(data.classesDistribution(), dist);
+    EXPECT_EQ(bin.size(), 150);
+    EXPECT_EQ(bin.points().size(), 150);
+    EXPECT_EQ(bin.dim(), 4);
+    EXPECT_EQ(bin.classesDistribution(), dist);
 }
 
-TEST(DataTest, OpenCsvMultiDataset) {
-    mltk::Data<double> data("iris_mult.csv");
+TEST_F(DataTest, OpenCsvMultiDataset) {
     std::vector<size_t> dist = {50, 50, 50};
 
-    EXPECT_EQ(data.size(), 150);
-    EXPECT_EQ(data.points().size(), 150);
-    EXPECT_EQ(data.classes().size(), 3);
-    EXPECT_EQ(data.dim(), 4);
-    EXPECT_EQ(data.classesDistribution(), dist);
+    EXPECT_EQ(mult.size(), 150);
+    EXPECT_EQ(mult.points().size(), 150);
+    EXPECT_EQ(mult.classes().size(), 3);
+    EXPECT_EQ(mult.dim(), 4);
+    EXPECT_EQ(mult.classesDistribution(), dist);
+}
+
+TEST_F(DataTest, CopyBinDataset) {
+    std::vector<size_t> dist = {50, 100};
+    mltk::Data<double> cp = bin;
+
+    EXPECT_EQ(cp.size(), 150);
+    EXPECT_EQ(cp.points().size(), 150);
+    EXPECT_EQ(cp.dim(), 4);
+    EXPECT_EQ(cp.classesDistribution(), dist);
+    EXPECT_EQ(cp.classes().size(), 2);
+}
+
+TEST_F(DataTest, CopyMultDataset) {
+    std::vector<size_t> dist = {50, 50, 50};
+    mltk::Data<double> cp = mult;
+
+    EXPECT_EQ(cp.size(), 150);
+    EXPECT_EQ(cp.points().size(), 150);
+    EXPECT_EQ(cp.dim(), 4);
+    EXPECT_EQ(cp.classesDistribution(), dist);
+    EXPECT_EQ(cp.classes().size(), 3);
 }
 
 int main(int argc, char *argv[]) {
