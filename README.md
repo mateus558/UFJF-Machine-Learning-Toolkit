@@ -8,11 +8,18 @@
 [![Documentation Status](https://readthedocs.org/projects/ufjf-mltk/badge/?version=documentation)](https://ufjf-mltk.readthedocs.io/en/documentation/?badge=documentation)
 
 
-## Objective
 This project aims to provide researchers and developers basic tools for manipulation of datasets, implementation and test of ML algorithms
 and some already implemented methods.<br />
 It's not intended to be just a collection of algorithms, but also to auxiliate and create a pattern in future ML algorithms implementations
 through a set of interconected modules that can be used in most ML projects.<br />
+
+## Overview
+
+- [Documentation](#documentation)
+- [Installation](#installation)
+- [Code example](#code-example)
+- [Modules status](#modules-status)
+- [Authors](#authors)
 
 ## Documentation
 You can find the documentation at the project page: [UFJF-MLTK](https://mateus558.github.io/UFJF-MLTK/index.html). <br />
@@ -43,7 +50,7 @@ meson install -C build
 ```
 After that, the library will be available system wide and it can be used as any library.
 
-## Usage Example
+## Code Example
 
 The framework is intended to make easier the usage of machine learning algorithms in C++, in the following example we output the 10-fold cross validation accuracy of the kNN algorithm with 3 neighbors, as we can see, we can do it with few lines of code.  
 
