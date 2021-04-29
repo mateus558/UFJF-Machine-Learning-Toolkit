@@ -29,6 +29,22 @@ namespace mltk{
         }
 
         template<typename T>
+        IMAp<T>::IMAp(const Data<T> &samples, double margin, Solution *initial_solution) {
+            this->samples = mltk::make_data<T>(samples);
+            this->margin = margin;
+
+            this->hasInitialSolution = false;
+
+            if (initial_solution) {
+                this->solution.w = initial_solution->w;
+                this->solution.bias = initial_solution->bias;
+                this->hasInitialSolution = true;
+            } else {
+                if (this->samples) this->w.resize(this->samples->dim());
+            }
+        }
+
+        template<typename T>
         bool IMAp<T>::train() {
             unsigned int tMax = 0;
             int i, j, n, maiorn = 0, flagNao1aDim = 0, y, it, sign = 1, svs = 0;
@@ -277,6 +293,8 @@ namespace mltk{
             if (!raw_value) return (func >= this->solution.margin * this->solution.norm) ? 1 : -1;
             else return func;
         }
+
+
 
         template<typename T>
         IMApFixedMargin<T>::IMApFixedMargin(std::shared_ptr<Data<T> > samples, double gamma,

@@ -104,7 +104,7 @@ namespace mltk{
        * \return std::string
        */
       virtual std::string getFormulationString() = 0;
-
+      inline const auto getSamples() { return this->samples; }
       /**
       * \brief Get the elapsed time in the training phase of the Learner.
       * \return double

@@ -28,14 +28,10 @@ namespace mltk{
             std::vector<int> svs;
 
         public:
-            explicit IMAp(std::shared_ptr<Data < T>
+            explicit IMAp(std::shared_ptr<Data < T> > samples = nullptr,
+            double margin = 0.0, Solution* initial_solution = nullptr);
 
-            >
-            samples = nullptr,
-            double margin = 0.0, Solution
-            *
-            initial_solution = nullptr
-            );
+            explicit IMAp(const Data <T>& samples, double margin = 0.0, Solution* initial_solution = nullptr);
 
             bool train() override;
 
@@ -87,9 +83,8 @@ namespace mltk{
             /// Support vector.
             std::vector<int> svs;
         public:
-            explicit IMADual(std::shared_ptr<Data < T> >
-            samples = nullptr, Kernel* k = nullptr,
-            double rate = 1, Solution* initial_solution = nullptr);
+            explicit IMADual(std::shared_ptr<Data < T> > samples = nullptr, Kernel* k = nullptr, double rate = 1,
+                             Solution* initial_solution = nullptr);
 
             bool train() override;
 

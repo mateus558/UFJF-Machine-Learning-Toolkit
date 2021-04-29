@@ -22,14 +22,20 @@ protected:
 
 TEST_F(ClassifierTest, BinClassifierTest){
     mltk::classifier::KNNClassifier<double> knn(bin, 3);
-
+    mltk::classifier::IMAp<double> ima(bin);
+    ima.setVerbose(0);
     ASSERT_GT(mltk::validation::kkfold(bin, knn, 10, 10, 0).accuracy, 95);
     ASSERT_GT(100-mltk::validation::kfold(bin, knn, 10, 10, 0), 95);
+    ASSERT_GT(100-mltk::validation::kfold(bin, ima, 10, 10, 0), 95);
 }
 
 TEST_F(ClassifierTest, MultiClassifierTest){
     mltk::classifier::KNNClassifier<double> knn(mult, 3);
+    mltk::classifier::IMAp<double> ima(mult);
+    ima.setVerbose(0);
+    mltk::classifier::OneVsAll<double> ova(ima);
 
     ASSERT_GT(mltk::validation::kkfold(mult, knn, 10, 10, 0).accuracy, 95);
     ASSERT_GT(100-mltk::validation::kfold(mult, knn, 10, 10, 0), 95);
+    ASSERT_GT(100-mltk::validation::kfold(mult, ova, 10, 10, 0), 95);
 }
