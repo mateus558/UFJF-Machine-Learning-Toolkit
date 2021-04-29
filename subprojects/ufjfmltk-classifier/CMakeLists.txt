@@ -18,12 +18,6 @@ set(${CLASSIFIER_TARGET}_HDR
         include/ufjfmltk/classifier/Perceptron.hpp
         include/ufjfmltk/classifier/PrimalClassifier.hpp
         include/ufjfmltk/classifier/SMO.hpp
-        include/ufjfmltk/classifier/hnswlib/bruteforce.h
-        include/ufjfmltk/classifier/hnswlib/hnswalg.h
-        include/ufjfmltk/classifier/hnswlib/hnswlib.h
-        include/ufjfmltk/classifier/hnswlib/space_ip.h
-        include/ufjfmltk/classifier/hnswlib/space_l2.h
-        include/ufjfmltk/classifier/hnswlib/visited_list_pool.h
         )
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")

@@ -7,8 +7,6 @@
 
 #include "PrimalClassifier.hpp"
 #include "ufjfmltk/core/DistanceMetric.hpp"
-#include "ufjfmltk/core/CoverTree.hpp"
-#include "hnswlib/hnswalg.h"
 #include <assert.h>
 
 namespace mltk{
@@ -24,8 +22,6 @@ namespace mltk{
                 /// Function to compute the metrics between two points
                 Callable dist_function;
                 std::string algorithm = "brute";
-                metrics::CoverTree<T, std::shared_ptr<Point<T>>, Callable> kquery;
-                std::shared_ptr<hnswlib::AlgorithmInterface<float>> alg_hnsw;
             public:
                 KNNClassifier() = default;
                 explicit KNNClassifier(size_t _k, std::string _algorithm = "brute")
@@ -67,13 +63,6 @@ namespace mltk{
                     std::nth_element(idx.begin(), idx.begin() + this->k, idx.end(), [&distances](size_t i1, size_t i2) {
                         return distances[i1] < distances[i2];
                     });
-                }else if(algorithm == "covertree"){
-                    neigh = kquery.kNearestNeighbors(mltk::make_point<T>(p), k);
-                }else if(algorithm == "hsnw"){
-                    auto result = alg_hnsw->searchKnnCloserFirst((const void *) p.X().data(), k);
-                    for(const auto& r: result){
-                        neigh.push_back((*this->samples)[r.second]);
-                    }
                 }
                 // find the most frequent class in the k nearest neighbors
                 size_t max_index = 0, max_freq = 0, i=0;
@@ -104,19 +93,6 @@ namespace mltk{
 
             template<typename T, typename Callable>
             bool KNNClassifier<T, Callable>::train() {
-                if(algorithm == "covertree") {
-                    for (const auto &point: this->samples->points()) {
-                        kquery.insert(point);
-                    }
-                }else if(algorithm == "hsnw"){
-                    hnswlib::L2Space space(this->samples->dim());
-                    alg_hnsw = std::make_shared<hnswlib::HierarchicalNSW<float>>(&space, this->samples->size() * 2, 16, 200, 42);
-                    int j = 0;
-                    for (const auto &point: this->samples->points()) {
-                        alg_hnsw->addPoint(point->X().data(), j);
-                        j++;
-                    }
-                }
                 return true;
             }
         }

@@ -21,7 +21,6 @@ set(${CORE_TARGET}_HDR
         include/ufjfmltk/core/Statistics.hpp
         include/ufjfmltk/core/Timer.hpp
         include/ufjfmltk/core/Utils.hpp
-        include/ufjfmltk/core/CoverTree.hpp
         include/ufjfmltk/core/ExprOps.hpp
         include/ufjfmltk/core/ExprScalar.hpp
         include/ufjfmltk/core/ExprTraits.hpp

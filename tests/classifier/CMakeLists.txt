@@ -12,5 +12,4 @@ target_link_libraries(${CLASSIFIER_TESTS} gtest gtest_main ufjfmltk-core ufjfmlt
 #   $ make test
 include(GoogleTest)
 gtest_add_tests(TARGET ${CLASSIFIER_TESTS})
-#gtest_discover_tests(data_test)
 add_test(NAME ${CLASSIFIER_TESTS} COMMAND ${CLASSIFIER_TESTS})
