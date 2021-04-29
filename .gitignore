@@ -29,3 +29,5 @@ install_modules.sh
 /cmake-build-test/
 /cmake-build-debug/
 datasets/Untitled.ipynb
+cmake-*
+cmake-build-debug-coverage

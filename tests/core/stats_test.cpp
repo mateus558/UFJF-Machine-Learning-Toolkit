@@ -40,8 +40,3 @@ TEST_F(StatsTest, SpreadMeasures){
     ASSERT_GT(mltk::stats::covar(data.getFeature(1), data.getFeature(0)), -0.04);
     ASSERT_LT(mltk::stats::covar(data.getFeature(1), data.getFeature(0)), -0.03);
 }
-
-int main(int argc, char *argv[]) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

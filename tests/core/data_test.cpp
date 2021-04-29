@@ -74,8 +74,3 @@ TEST_F(DataTest, CopyMultDataset) {
     EXPECT_EQ(mult.classesDistribution(), dist);
     EXPECT_EQ(mult.classes().size(), 3);
 }
-
-int main(int argc, char *argv[]) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
