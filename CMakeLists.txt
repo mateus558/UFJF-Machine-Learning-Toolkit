@@ -54,6 +54,10 @@ if(NOT CMAKE_CONFIGURATION_TYPES)
     endif()
 endif()
 
+if(CODE_COVERAGE)
+    include(CodeCoverage)
+    append_coverage_compiler_flags()
+endif(CODE_COVERAGE)
 ### Compile- and install-related commands.
 add_subdirectory(subprojects)
 

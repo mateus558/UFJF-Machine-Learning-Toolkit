@@ -10,11 +10,6 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-if(CODE_COVERAGE)
-    include(CodeCoverage)
-    append_coverage_compiler_flags()
-endif(CODE_COVERAGE)
-
 set(CORE_TESTS core_test)
 add_subdirectory(core)
 set(CLASSIFIER_TESTS classifier_test)
