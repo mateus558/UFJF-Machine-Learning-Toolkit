@@ -1003,6 +1003,11 @@ namespace mltk{
     }
 
     template < typename T >
+    std::vector<std::shared_ptr<Point< T > > > mltk::Data< T >::points() const {
+        return m_points;
+    }
+
+    template < typename T >
     std::vector<int> mltk::Data< T >::getIndex() const{
         return index;
     }

@@ -4,7 +4,6 @@ set(CORE_TARGET ${PROJECT_NAME}-core)
 set(${CORE_TARGET}_SRC
         src/Data.cpp
         src/Kernel.cpp
-        src/Statistics.cpp
         src/Utils.cpp
         )
 

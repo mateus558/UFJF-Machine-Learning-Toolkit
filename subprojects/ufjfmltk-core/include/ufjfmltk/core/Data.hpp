@@ -211,6 +211,11 @@ namespace mltk{
          */
         std::vector<std::shared_ptr<Point< T > > > points ();
         /**
+         * \brief Returns a shared pointer to the vector of Points of the sample.
+         * \return std::vector<std::shared_ptr<Point< T > > >
+         */
+        std::vector<std::shared_ptr<Point< T > > > points () const;
+        /**
          * \brief Returns a vector containing the numeric values of the classes.
          * \return std::vector<int>
          **/

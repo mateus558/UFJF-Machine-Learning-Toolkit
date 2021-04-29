@@ -19,3 +19,17 @@ include(GoogleTest)
 gtest_add_tests(TARGET data_test)
 #gtest_discover_tests(data_test)
 add_test(NAME data_test COMMAND data_test)
+
+add_executable(stats_test stats_test.cpp)
+######################################
+# Configure the test to use GoogleTest
+#
+target_link_libraries(stats_test gtest gtest_main ufjfmltk-core)
+
+##################################
+# Just make the test runnable with
+#   $ make test
+include(GoogleTest)
+gtest_add_tests(TARGET stats_test)
+#gtest_discover_tests(data_test)
+add_test(NAME stats_test COMMAND stats_test)
