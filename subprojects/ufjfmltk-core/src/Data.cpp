@@ -202,12 +202,6 @@ namespace mltk{
                     }else{
                         c = utils::atod(item.c_str());
                     }
-                    if(this->isClassification())
-                        if(c == -1){
-                            stats.n_neg++;
-                        }else{
-                            stats.n_pos++;
-                        }
                     new_point->Y() = c;
                 }
                 _dim++;
@@ -337,14 +331,6 @@ namespace mltk{
         }
 
         if(m_classes.size() == 2){
-
-            for(auto it = class_names.begin(); it != class_names.end(); it++){
-                if((*it) == "-1"){
-                    this->stats.n_neg = this->class_distribution[0];
-                }else{
-                    this->stats.n_pos = this->class_distribution[1];
-                }
-            }
             type = "BinClassification";
         }else{
             type = "MultiClassification";
@@ -576,10 +562,6 @@ namespace mltk{
         //Find the point by its id and erase it
         for(i = 0; i < m_size; i++){
             if(m_points[i]->Id() == pid){
-                if(stats.n_pos > 0 || stats.n_neg > 0){
-                    if(m_points[i]->Y() == 1) stats.n_pos--;
-                    else if(m_points[i]->Y() == -1) stats.n_neg--;
-                }
                 m_points.erase(m_points.begin() + i);
                 break;
             }
@@ -650,8 +632,6 @@ namespace mltk{
                 int c = po->Y();
                 //Size verification.
                 if(m_size == 1){ clog << "Error: RemovePoint, only one point left." << endl; break;}
-                if(c == 1) stats.n_pos--;
-                else if(c == -1) stats.n_neg--;
                 auto class_pos = std::find_if(m_classes.begin(), m_classes.end(), [&c](auto &_c){
                    return (c == _c);
                 }) - m_classes.begin();
@@ -893,7 +873,6 @@ namespace mltk{
         this->fnames = _data.getFeaturesNames();
         this->m_size = _size;
         this->m_classes = classes;
-        this->stats = _data.getStatistics();
         this->m_dim = _data.dim();
         this->type = _data.getType();
         this->index = _data.getIndex();
@@ -919,7 +898,6 @@ namespace mltk{
         this->m_classes = _data.classes();
         this->class_names = _data.classesNames();
         this->class_distribution = _data.classesDistribution();
-        this->stats = _data.getStatistics();
         this->m_dim = _data.dim();
         this->type = _data.getType();
         this->index = _data.getIndex();
@@ -962,8 +940,6 @@ namespace mltk{
 
         for(i = antsize, j = 0; i < m_size && j < size1; i++, j++){
             m_points[i] = points1[j];
-            if(points1[j]->Y() == 1) stats.n_pos++;
-            else if(points1[j]->Y() == -1) stats.n_neg++;
         }
 
     }
@@ -1032,21 +1008,6 @@ namespace mltk{
     }
 
     template < typename T >
-    int mltk::Data< T >::getNumberNegativePoints(){
-        return stats.n_neg;
-    }
-
-    template < typename T >
-    int mltk::Data< T >::getNumberPositivePoints(){
-        return stats.n_pos;
-    }
-
-    template < typename T >
-    Statistics< T > mltk::Data< T >::getStatistics() const{
-        return stats;
-    }
-
-    template < typename T >
     bool mltk::Data< T >::isEmpty() const{
         return is_empty;
     }
@@ -1066,7 +1027,6 @@ namespace mltk{
         neg_class = data.neg_class;
         is_empty = data.is_empty;
         normalized = data.normalized;
-        stats = data.stats;
 
         return *this;
     }
@@ -1081,11 +1041,6 @@ namespace mltk{
         class_names.clear();
         m_size = 0;
         m_dim = 0;
-        stats.n_neg = 0;
-        stats.n_pos = 0;
-        stats.centroid = Point< T >();
-        stats.neg_centroid = Point< T >();
-        stats.pos_centroid = Point< T >();
         normalized = false;
         is_empty = true;
         cdist_computed = false;

@@ -373,7 +373,7 @@ namespace mltk{
                     }
 
                     if (this->choice_shape == 2)
-                        gtmp->value = margin * Statistics<T>::getDistCenters(this->samples, -1);
+                        gtmp->value = margin * mltk::stats::distCenters(*this->samples, -1);
                     else
                         gtmp->value = margin;
                     gtmp->rgamma = margin;
@@ -542,13 +542,13 @@ namespace mltk{
                     break;
                 if (this->choice_shape == 2) {
                     /*selecting one feature with least w / dist. centers*/
-                    min = fabs(w[0]) / Statistics<T>::getDistCenters(stmp, stmp->getFeaturesNames()[0]);
+                    min = fabs(w[0]) / mltk::stats::distCenters(*stmp, stmp->getFeaturesNames()[0]);
                     feat = stmp->getFeaturesNames()[0];
                     for (i = 1; i < stmp->dim(); i++) {
-                        distcents = Statistics<T>::getDistCenters(stmp, stmp->getFeaturesNames()[i]);
+                        distcents = mltk::stats::distCenters(*stmp, stmp->getFeaturesNames()[i]);
                         if (fabs(w[i]) / distcents < min) {
                             min = fabs(w[i]) / distcents;
-                            feat = (int) Statistics<T>::getDistCenters(stmp, stmp->getFeaturesNames()[i]);
+                            feat = (int) mltk::stats::distCenters(*stmp, stmp->getFeaturesNames()[i]);
                         }
                     }
                 } else {
@@ -605,7 +605,7 @@ namespace mltk{
                 gtmp->level = level + 1;
                 gtmp->radius = -1; //data_get_radius(stmp, -1, stmp->q);
                 if (this->choice_shape == 2)
-                    gtmp->dcents = Statistics<T>::getDistCenters(stmp, -1);
+                    gtmp->dcents = mltk::stats::distCenters(*stmp, -1);
                 else
                     gtmp->dcents = -1;
                 gtmp->fisher = -1;

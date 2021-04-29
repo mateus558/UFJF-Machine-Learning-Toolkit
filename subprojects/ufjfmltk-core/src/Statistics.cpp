@@ -3,116 +3,67 @@
 using namespace std;
 
 namespace mltk {
-    template < typename T >
-    double Statistics< T >::mean(vector< T > p){
-        int i, psize = p.size();
-        double avg;
+    namespace stats {
 
-        for(i = 0, avg = 0; i < psize; i++){
-            avg += p[i];
+        template < typename T, typename R >
+        T mean (const Point<T, R> &p){
+            assert(p.size() > 0);
+            return p.sum()/p.size();
         }
 
-        return (avg / psize);
-    }
-
-    template < typename T >
-    double Statistics< T >::getFeatureMean(std::shared_ptr<Data< T > > data, int index){
-        int i, size = data->size();
-        double sum = 0.0;
-        vector<shared_ptr<Point< T > > > points = data->points();
-
-        for(i = 0; i < size; ++i){
-            sum += points[i]->X()[index];
-        }
-        sum /= size;
-
-        return sum;
-    }
-
-    template < typename T >
-    double Statistics< T >::variance(vector< T > p){
-        if(p.size() == 1) return 0.0;
-        int i;
-        double avg, sum, dim = p.size();
-
-        avg = mean(p);
-
-        for(sum = 0.0, i = 0; i < dim; ++i){
-            sum += (p[i] - avg)*(p[i] - avg);
-        }
-
-        return (sum / dim);
-    }
-
-    template < typename T >
-    double Statistics< T >::variance(std::shared_ptr<Data< T > > data, int index){
-        int i, j;
-        double norm = 0.0;
-        double sum = 0.0;
-        int dim = data->dim(), size = data->size();
-        vector<int> fnames = data->getFeaturesNames();
-        vector<double> avg(dim);
-        vector<shared_ptr<Point< T > > > points = data->points();
-
-        for(j = 0; j < dim; ++j){
-            if(index < 0 || fnames[j] != index){
-                avg[j] = 0.0;
-
-                for(i = 0; i < size; ++i){
-                    avg[j] += points[i]->X()[j];
-                }
-                avg[j] = avg[j] / size;
+        template <typename T>
+        double mean(const Data<T>& data, size_t feat){
+            assert(feat < data.dim());
+            double sum = 0.0;
+            for(size_t i = 0; i < data.size(); i++){
+                sum += data[i][feat];
             }
+            return (data.size()>0)?sum/data.size():0.0;
         }
 
-        for(i = 0; i < size; ++i){
-            for(j = 0; j < dim; ++j){
-                if(index < 0 || fnames[j] != index){
-                    norm += std::pow(avg[j] - points[i]->X()[j], 2);
-                }
-                sum += norm;
+        template < typename T, typename R >
+        T std_dev(const Point<T, R> &p){
+            assert(p.size() > 0);
+            return std::sqrt((mltk::pow(p-mltk::stats::mean(p), 2)).sum()/p.size());
+        }
+
+        template < typename T >
+        double std_dev(const Data<T>& data, size_t feat){
+            int i, size = data.size();
+            double avg, sd, vetsize = data.dim();
+            vector<shared_ptr<Point< T > > > points = data.points();
+
+            if(size == 1) return 0.0;
+
+            avg = mltk::stats::mean(data, feat);
+
+            for(sd = 0.0, i = 0; i < vetsize; ++i){
+                sd = (points[i]->X()[feat] - avg)*(points[i]->X()[feat] - avg);
             }
+
+            return std::sqrt(sd/(vetsize - 1));
         }
 
-        sum = sum/size;
-
-        return sum;
-    }
-
-    template < typename T >
-    double Statistics< T >::stdev(vector< T > p){
-        return sqrt(variance(p));
-    }
-
-    template < typename T >
-    double Statistics< T >::getFeatureStdev(std::shared_ptr<Data< T > > data, int index){
-        int i, size = data->size();
-        double avg, sd, vetsize = data->dim();
-        vector<shared_ptr<Point< T > > > points = data->points();
-
-        if(size == 1) return 0.0;
-
-        avg = getFeatureMean(data, index);
-
-        for(sd = 0.0, i = 0; i < vetsize; ++i){
-            sd = (points[i]->X()[index] - avg)*(points[i]->X()[index] - avg);
+        template < typename T, typename R >
+        T var(const Point<T, R> &p){
+            assert(p.size() > 0);
+            return mltk::pow(p-mltk::stats::mean(p), 2).sum()/p.size();
         }
 
-        return sqrt(sd/(vetsize - 1));
-    }
+        template <typename T>
+        double var(const Data<T>& data, size_t feat){
+            int i, j;
+            double norm = 0.0;
+            double sum = 0.0;
+            int dim = data.dim(), size = data.size();
+            vector<int> fnames = data.getFeaturesNames();
+            vector<double> avg(dim);
+            vector<shared_ptr<Point< T > > > points = data.points();
 
-    template < typename T >
-    double Statistics< T >::getRadius(std::shared_ptr<Data< T > > data, int index, double q){
-        int i = 0, j = 0, dim = data->dim(), size = data->size();
-        double norm = 0.0;
-        double max = 1.0;
-        vector<int> fnames = data->getFeaturesNames();
-        vector<double> avg(dim, 0.0);
-        vector<shared_ptr<Point< T > > > points = data->points();
-
-        if(q == 2){
             for(j = 0; j < dim; ++j){
-                if(index < 0 || fnames[j] != index){
+                if(feat < 0 || fnames[j] != feat){
+                    avg[j] = 0.0;
+
                     for(i = 0; i < size; ++i){
                         avg[j] += points[i]->X()[j];
                     }
@@ -120,110 +71,139 @@ namespace mltk {
                 }
             }
 
-            for(max = 0, i = 0; i < size; ++i){
-                for(norm = 0, j = 0; j < dim; ++j){
-                    if(index < 0 || fnames[j] != index){
+            for(i = 0; i < size; ++i){
+                for(j = 0; j < dim; ++j){
+                    if(feat < 0 || fnames[j] != feat){
                         norm += std::pow(avg[j] - points[i]->X()[j], 2);
                     }
-
-                    norm = sqrt(norm);
-
-                    if(max < norm) max = norm;
+                    sum += norm;
                 }
             }
 
-        }else if(q == 1){
-            for(max = 0, i = 0; i < size; ++i){
+            sum = sum/size;
+
+            return sum;
+        }
+
+        template < typename T, typename R >
+        T covar(const Point<T, R> &p, const Point<T, R> &p1){
+            assert(p.size() == p1.size());
+            return ((p-mltk::stats::mean(p))*(p1-mltk::stats::mean(p1))).sum()/(p1.size()-1.0);
+        }
+
+        template < typename T >
+        double radius(const Data<T>& data, int feat, double q){
+            int i = 0, j = 0, dim = data.dim(), size = data.size();
+            double norm = 0.0;
+            double max = 1.0;
+            vector<int> fnames = data.getFeaturesNames();
+            vector<double> avg(dim, 0.0);
+            vector<shared_ptr<Point< T > > > points = data.points();
+
+            if(q == 2){
                 for(j = 0; j < dim; ++j){
-                    if(index < 0 || fnames[j] != index)
-                        if(max < fabs(points[i]->X()[j]))
-                            max = fabs(points[i]->X()[j]);
+                    if(feat < 0 || fnames[j] != feat){
+                        for(i = 0; i < size; ++i){
+                            avg[j] += points[i]->X()[j];
+                        }
+                        avg[j] = avg[j] / size;
+                    }
+                }
+
+                for(max = 0, i = 0; i < size; ++i){
+                    for(norm = 0, j = 0; j < dim; ++j){
+                        if(feat < 0 || fnames[j] != feat){
+                            norm += std::pow(avg[j] - points[i]->X()[j], 2);
+                        }
+
+                        norm = sqrt(norm);
+
+                        if(max < norm) max = norm;
+                    }
+                }
+
+            }else if(q == 1){
+                for(max = 0, i = 0; i < size; ++i){
+                    for(j = 0; j < dim; ++j){
+                        if(feat < 0 || fnames[j] != feat)
+                            if(max < fabs(points[i]->X()[j]))
+                                max = fabs(points[i]->X()[j]);
+                    }
                 }
             }
+
+            return max;
         }
 
-        return max;
-    }
+        template < typename T >
+        double distCenters(const Data<T>& data, int feat){
+            int i = 0, j = 0, dim = data.dim(), size = data.size();
+            double dist = 0.0;
+            int size_pos = 0, size_neg = 0;
+            vector<int> fnames = data.getFeaturesNames();
+            vector<double> avg_pos(dim, 0.0), avg_neg(dim, 0.0);
+            vector<shared_ptr<Point< T > > > points = data.points();
 
-    template < typename T >
-    double Statistics< T >::getDistCenters(std::shared_ptr<Data< T > > data, int index){
-        int i = 0, j = 0, dim = data->dim(), size = data->size();
-        double dist = 0.0;
-        int size_pos = 0, size_neg = 0;
-        vector<int> fnames = data->getFeaturesNames();
-        vector<double> avg_pos(dim, 0.0), avg_neg(dim, 0.0);
-        vector<shared_ptr<Point< T > > > points = data->points();
-
-        for(size_pos = 0, size_neg = 0, i = 0; i < size; ++i){
-            if(points[i]->Y() == 1)	size_pos++;
-            else 					size_neg++;
-        }
-
-        for(j = 0; j < dim; ++j){
-            for(i = 0; i < size; ++i){
-                if(points[i]->Y() == 1){
-                    avg_pos[j] += points[i]->X()[j];
-                }else
-                    avg_neg[j] += points[i]->X()[j];
+            for(size_pos = 0, size_neg = 0, i = 0; i < size; ++i){
+                if(points[i]->Y() == 1)	size_pos++;
+                else 					size_neg++;
             }
 
-            avg_pos[j] /= (double)size_pos;
-            avg_neg[j] /= (double)size_neg;
-        }
+            for(j = 0; j < dim; ++j){
+                for(i = 0; i < size; ++i){
+                    if(points[i]->Y() == 1){
+                        avg_pos[j] += points[i]->X()[j];
+                    }else
+                        avg_neg[j] += points[i]->X()[j];
+                }
 
-        for(dist = 0.0, j = 0; j < dim; ++j){
-            if(index < 0 || fnames[j] != index)
-                dist += std::pow(avg_pos[j] - avg_neg[j], 2);
-        }
-
-        return sqrt(dist);
-    }
-
-    template < typename T >
-    double Statistics< T >::getDistCentersWithoutFeats(std::shared_ptr<Data< T > > data, std::vector<int> feats, int index){
-        int i = 0, j = 0, dim = data->dim(), size = data->size();
-        double dist = 0.0;
-        int size_pos = 0, size_neg = 0, featsize = feats.size();
-        vector<int> fnames = data->getFeaturesNames();
-        vector<double> avg_pos(dim, 0.0), avg_neg(dim, 0.0);
-        vector<shared_ptr<Point< T > > > points = data->points();
-
-        for(size_pos = 0, size_neg = 0, i = 0; i < size; ++i){
-            if(points[i]->Y() == 1)	size_pos++;
-            else					size_neg++;
-        }
-
-        for(j = 0; j < dim; ++j){
-            for(i = 0; i < size; ++i){
-                if(points[i]->Y() == 1)
-                    avg_pos[j] += points[i]->X()[j];
-                else
-                    avg_neg[j] += points[i]->X()[j];
+                avg_pos[j] /= (double)size_pos;
+                avg_neg[j] /= (double)size_neg;
             }
 
-            avg_pos[j] /= (double) size_pos;
-            avg_neg[j] /= (double) size_neg;
-        }
-
-        for(dist = 0.0, j = 0; j < dim; ++j){
-            for(i = 0; i < featsize; ++i){
-                if(fnames[j] == feats[i])
-                    dist -= std::pow(avg_pos[j] - avg_neg[j], 2);
+            for(dist = 0.0, j = 0; j < dim; ++j){
+                if(feat < 0 || fnames[j] != feat)
+                    dist += std::pow(avg_pos[j] - avg_neg[j], 2);
             }
+
+            return std::sqrt(dist);
         }
 
-        return sqrt(fabs(dist));
-    }
+        template < typename T >
+        double distCentersWithoutFeats(const Data<T>& data, const std::vector<int>& feats, int index){
+            int i = 0, j = 0, dim = data.dim(), size = data.size();
+            double dist = 0.0;
+            int size_pos = 0, size_neg = 0, featsize = feats.size();
+            vector<int> fnames = data.getFeaturesNames();
+            vector<double> avg_pos(dim, 0.0), avg_neg(dim, 0.0);
+            vector<shared_ptr<Point< T > > > points = data.points();
 
-    template class Statistics<int>;
-    template class Statistics<double>;
-    template class Statistics<float>;
-    template class Statistics<int8_t>;
-    template class Statistics<char>;
-    template class Statistics<long long int>;
-    template class Statistics<short int>;
-    template class Statistics<long double>;
-    template class Statistics<unsigned char>;
-    template class Statistics<unsigned int>;
-    template class Statistics<unsigned short int>;
+            for(size_pos = 0, size_neg = 0, i = 0; i < size; ++i){
+                if(points[i]->Y() == 1)	size_pos++;
+                else					size_neg++;
+            }
+
+            for(j = 0; j < dim; ++j){
+                for(i = 0; i < size; ++i){
+                    if(points[i]->Y() == 1)
+                        avg_pos[j] += points[i]->X()[j];
+                    else
+                        avg_neg[j] += points[i]->X()[j];
+                }
+
+                avg_pos[j] /= (double) size_pos;
+                avg_neg[j] /= (double) size_neg;
+            }
+
+            for(dist = 0.0, j = 0; j < dim; ++j){
+                for(i = 0; i < featsize; ++i){
+                    if(fnames[j] == feats[i])
+                        dist -= std::pow(avg_pos[j] - avg_neg[j], 2);
+                }
+            }
+
+            return std::sqrt(std::fabs(dist));
+        }
+    }
 }
+

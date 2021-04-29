@@ -112,8 +112,6 @@ namespace mltk{
         bool normalized = false;
         /// Verify if classes distribution is computed
         bool cdist_computed = false;
-        /// Values for statistical methods.
-        Statistics< T > stats;
         /// Dataset type.
         std::string type = "Classification";
     public:
@@ -241,25 +239,10 @@ namespace mltk{
          */
         std::vector<int> getFeaturesNames() const;
         /**
-         * \brief Returns a class with the statistics info of the sample.
-         * \return Statistics
-         */
-        Statistics< T > getStatistics () const;
-        /**
          * \brief Returns the vector of indexes.
          * \return std::vector<int>
          */
         std::vector<int> getIndex() const;
-        /**
-         * \brief Return the number of positive points.
-         * \return int
-         */
-        int getNumberPositivePoints ();
-        /**
-         * \brief Return the number of negative points.
-         * \return int
-         */
-        int getNumberNegativePoints ();
         /**
          * \brief Return the time multiplier.
          * \return double

@@ -29,91 +29,87 @@
 
 namespace mltk{
     template < typename T > class Data;
-
     /**
-     * \brief Class with methods for statistical computations.
+     * \brief Class with methods for statistical methods.
      */
-
-    template  < typename T >
-    class DLLStatistics Statistics {
-        // Attributes
-        friend class Data< T >;
-    private :
-        /// Centroid of all the dataset.
-        Point< T > centroid;
-        /// Centroid of the positive points.
-        Point< T > pos_centroid;
-        /// Centroid of the negative points.
-        Point< T > neg_centroid;
-        /// Number of positive points.
-        size_t n_pos = 0;
-        /// Number of negative points.
-        size_t n_neg = 0;
-    // Operations
-    public:
-        Statistics (){}
+    namespace stats {
         /**
-         * \brief Compute the mean (average) of a vector.
-         * \param p (???) Point to compute the mean.
+         * \brief Compute the mean (average) of a point.
+         * \param p Point to compute the mean.
          * \return double
          */
-        static double mean (std::vector< T > p);
+        template < typename T, typename R >
+        T mean (const mltk::Point<T, R> &p);
         /**
-         * \brief Computes the mean of a feature in the sample.
-         * \param data (???) Sample where the feature is located.
-         * \param index (???) Index of the feature to compute the mean.
+         * \brief Compute the mean (average) of a feature in data.
+         * \param feat Feature to compute the mean.
          * \return double
          */
-        static double getFeatureMean (std::shared_ptr<Data< T > > data, int index);
+        template <typename T>
+        double mean(const mltk::Data<T>& data, size_t feat);
         /**
-         * \brief Compute the variance of a vector.
-         * \param p (???) Vector to compute the variance.
+         * \brief Compute the standard deviation of a point.
+         * \param p Point to compute the mean.
          * \return double
          */
-        static double variance (std::vector< T > p);
+        template < typename T, typename R >
+        T std_dev(const mltk::Point<T, R> &p);
         /**
-         * \brief Compute the variance of a sample.
-         * \param data (???) Sample to compute the variance.
-         * \param index (???) Index of the feature to be ignored. (-1 dont ignore any feature)
+         * \brief Compute the standard deviation of a feature in data.
+         * \param feat Feature to compute the standard deviation.
          * \return double
          */
-        static double variance (std::shared_ptr<Data< T > > data, int index);
+        template < typename T >
+        double std_dev(const mltk::Data<T>& data, size_t feat);
         /**
-         * \brief Compute the standard deviation of a vector.
-         * \param p (???) Point to compute stdev.
+         * \brief Compute the variance of a point.
+         * \param p Point to compute the variance.
          * \return double
          */
-        static double stdev (std::vector< T > p);
+        template < typename T, typename R >
+        T var(const mltk::Point<T, R> &p);
         /**
-         * \brief Computes the standard deviation of a feature.
-         * \param data (???) Sample where the feature is located.
-         * \param index (???) Index of teh feature to compute the standard deviation.
+         * \brief Compute the variance of a feature in data.
+         * \param feat Feature to compute the variance.
          * \return double
          */
-        static double getFeatureStdev (std::shared_ptr<Data< T > > data, int index);
+        template <typename T>
+        double var(const mltk::Data<T>& data, size_t feat);
+        /**
+         * \brief Compute the covariance between two points.
+         * \param p First point to compute the variance.
+         * \param p1 second point to compute the variance.
+         * \return double
+         */
+        template < typename T, typename R >
+        T covar(const mltk::Point<T, R> &p, const mltk::Point<T, R> &p1);
         /**
          * \brief Returns radius of the ball that circ. the data.
          * \param data  Dataset to compute the radius.
-         * \param index Feature to be ignored (-1 uses all features).
+         * \param feat Feature to be ignored (-1 uses all features).
          * \param q Lp-Norm to be used.
          * \return double
          */
-        static double getRadius(std::shared_ptr<Data< T > > data, int index, double q);
+        template < typename T >
+        double radius(const mltk::Data<T>& data, int feat, double q);
         /**
-         * \brief Returns metrics of centers of the classes.
-         * \param data  Dataset to compute the metrics.
-         * \param index Feature to be ignored (-1 uses all features).
-         * \return double
-         */
-        static double getDistCenters(std::shared_ptr<Data< T > > data, int index);
-        /**
-         * \brief Returns metrics of centers of the classes without given features.
+         * \brief Compute the distance between the centers of binary classes without given features.
          * \param data  Dataset to compute the metrics.
          * \param feats Features to be excluded from the computation.
          * \param index Feature to be ignored (-1 uses all features).
          * \return double
          */
-        static double getDistCentersWithoutFeats(std::shared_ptr<Data< T > > data, std::vector<int> feats, int index);
-    };
+        template < typename T >
+        double distCenters(const mltk::Data<T>& data, int feat);
+        /**
+         * \brief Compute the distance between the centers of binary classes without given features.
+         * \param data  Dataset to compute the metrics.
+         * \param feats Features to be excluded from the computation.
+         * \param index Feature to be ignored (-1 uses all features).
+         * \return double
+         */
+        template < typename T >
+        double distCentersWithoutFeats(const mltk::Data<T>& data, const std::vector<int>& feats, int index);
+    }
 }
 #endif
