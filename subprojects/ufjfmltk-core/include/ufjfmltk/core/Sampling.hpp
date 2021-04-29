@@ -69,7 +69,7 @@ namespace mltk{
 
         double qual_correlation(const Data<T>& data, int feat){
             Point<T> x = data.getFeature(feat);
-            return mltk::covar(x, labels)/(mltk::std_dev(x)*mltk::std_dev(labels));
+            return mltk::stats::covar(x, labels)/(mltk::stats::std_dev(x)*mltk::stats::std_dev(labels));
         }
 
         inline void setAlpha(double _alpha){ this->alpha = _alpha; }
