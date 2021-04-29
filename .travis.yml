@@ -12,6 +12,7 @@ addons:
       - g++-7
       - cmake
       - lcov
+      - gcovr
 # the install step will take care of deploying a newer cmake version
 install:
   # first we create a directory for the CMake binaries
