@@ -8,7 +8,7 @@
 #include "PrimalClassifier.hpp"
 #include "ufjfmltk/core/DistanceMetric.hpp"
 #include "ufjfmltk/core/CoverTree.hpp"
-#include "hnswalg.h"
+#include "hnswlib/hnswalg.h"
 #include <assert.h>
 
 namespace mltk{
@@ -20,10 +20,10 @@ namespace mltk{
             class KNNClassifier : public PrimalClassifier<T> {
             private:
                 /// Number k of neighbors to be considered
-                size_t k;
+                size_t k = 3;
                 /// Function to compute the metrics between two points
                 Callable dist_function;
-                std::string algorithm;
+                std::string algorithm = "brute";
                 metrics::CoverTree<T, std::shared_ptr<Point<T>>, Callable> kquery;
                 std::shared_ptr<hnswlib::AlgorithmInterface<float>> alg_hnsw;
             public:
