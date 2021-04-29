@@ -37,6 +37,8 @@ TEST_F(StatsTest, SpreadMeasures){
     ASSERT_LT(mltk::stats::std_dev(data, 1), 0.44);
     ASSERT_GT(mltk::stats::std_dev(*data[1]), 1.76);
     ASSERT_LT(mltk::stats::std_dev(*data[1]), 1.77);
+    ASSERT_GT(mltk::stats::covar(data.getFeature(1), data.getFeature(0)), -0.04);
+    ASSERT_LT(mltk::stats::covar(data.getFeature(1), data.getFeature(0)), -0.03);
 }
 
 int main(int argc, char *argv[]) {
