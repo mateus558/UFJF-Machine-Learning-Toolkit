@@ -16,13 +16,12 @@ set(CLASSIFIER_TESTS classifier_test)
 add_subdirectory(classifier)
 
 set(COV_TARGETS ${CLASSIFIER_TESTS} ${CORE_TESTS})
-message("TARGETS: ${COV_TARGETS}")
 if(CODE_COVERAGE)
     setup_target_for_coverage_gcovr_html(
             NAME coverage
             EXECUTABLE ctest
             DEPENDENCIES ${COV_TARGETS} ufjfmltk-core ufjfmltk-classifier ufjfmltk-valid
-            EXCLUDE "cmake*;subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/hnswlib/*"
+            EXCLUDE "cmake*;subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/hnswlib/*;subprojects/ufjfmltk-visual/src/gnuplot_i.cpp;subprojects/ufjfmltk-visual/include/gnuplot_i.hpp"
     )
 
 endif(CODE_COVERAGE)

@@ -27,5 +27,7 @@ install(TARGETS ${VALID_TARGET}
 install(FILES ${${VALID_TARGET}_HDR}
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/valid")
 
+install(FILES include/ufjfmltk/Validation.hpp
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
 message(STATUS "Created target ${VALID_TARGET} for export ${PROJECT_NAME}.")

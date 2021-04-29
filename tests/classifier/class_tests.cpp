@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 #include "ufjfmltk/Classifier.hpp"
-#include "ufjfmltk/valid/Validation.hpp"
+#include "ufjfmltk/Validation.hpp"
 
 class ClassifierTest: public ::testing::Test
 {
