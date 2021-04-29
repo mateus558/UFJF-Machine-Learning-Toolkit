@@ -38,7 +38,7 @@ before_script:
   - cmake --version
   - mkdir build
   - cd build
-  - cmake -DENABLE_TESTING=ON ..
+  - cmake -DENABLE_TESTING=ON -DCODE_COVERAGE=ON ..
 
 script:
   - make
