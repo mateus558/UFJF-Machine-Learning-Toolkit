@@ -856,8 +856,10 @@ namespace mltk{
     template < typename T >
     void mltk::Data< T >::classesCopy(const mltk::Data< T > &_data, std::vector<int> &classes){
         size_t _size = 0;
-        std::set<int> _classes(m_classes.begin(), m_classes.end());
-        
+        std::set<int> _classes;
+        for(auto c: classes){
+            _classes.insert(c);
+        }
         for(size_t i = 0; i < _data.size(); i++){
             if(_classes.find(_data[i]->Y()) != _classes.end()){
                 this->m_points.push_back(std::make_shared<Point< T > >());

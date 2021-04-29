@@ -19,6 +19,17 @@ namespace mltk{
         }
 
         template<typename T>
+        PerceptronPrimal<T>::PerceptronPrimal(const Data<T> &samples, double q, double rate,
+                                              Solution *initial_solution) {
+            this->samples = mltk::make_data<T>(samples);
+            this->q = q;
+            this->rate = rate;
+            if (initial_solution)
+                this->solution = *initial_solution;
+        }
+
+
+        template<typename T>
         bool PerceptronPrimal<T>::train() {
             size_t size = this->samples->size(), dim = this->samples->dim();
             int i, j, e = 0, idx;
@@ -200,7 +211,7 @@ namespace mltk{
         double PerceptronFixedMarginPrimal<T>::evaluate(const Point<T> &p, bool raw_value) {
             double func = 0.0;
             int i;
-            size_t dim = this->solution.w.size();
+            size_t dim = this->samples->dim();
 
             if (p.X().size() != dim) {
                 cerr << "The point must have the same dimension of the feature set!" << endl;

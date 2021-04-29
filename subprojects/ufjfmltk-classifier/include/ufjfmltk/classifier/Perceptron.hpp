@@ -22,7 +22,7 @@ namespace mltk{
         public:
             explicit PerceptronPrimal(std::shared_ptr<Data<T> > samples = nullptr, double q = 2, double rate = 0.5,
                                       Solution *initial_solution = nullptr);
-
+            PerceptronPrimal(const Data<T>& samples, double q = 2, double rate = 0.5, Solution *initial_solution = nullptr);
             bool train() override;
 
             double evaluate(const Point<T> &p, bool raw_value = false) override;

@@ -34,7 +34,31 @@ namespace mltk{
                 this->verbose = _verbose;
                 this->samp_method = samp_method;
 
-                auto classes = samples.classes();
+                auto classes = this->samples->classes();
+                // initialize the m_learners matrix is samples were given
+                if (base_learners.size() == 0) {
+                    base_learners.resize(classes.size());
+
+                    for (size_t i = 0; i < classes.size(); ++i) {
+                        base_learners[i].resize(classes.size());
+
+                        for (size_t j = 0; j < base_learners[i].size(); ++j) {
+                            if (classes[i] != classes[j]) {
+                                base_learners[i][j] = std::make_shared<ClassifierType<T> >(classifier);
+                            }
+                        }
+                    }
+                }
+            }
+
+            template<template<typename> class ClassifierType>
+            explicit OneVsOne(ClassifierType<T> &classifier, OverSampling<T> *samp_method = nullptr,
+                     int _verbose = 0) {
+                this->samples = classifier.getSamples();
+                this->verbose = _verbose;
+                this->samp_method = samp_method;
+
+                auto classes = this->samples->classes();
                 // initialize the m_learners matrix is samples were given
                 if (base_learners.size() == 0) {
                     base_learners.resize(classes.size());
@@ -61,7 +85,7 @@ namespace mltk{
         template<typename T>
         bool OneVsOne<T>::train() {
             auto classes = this->samples->classes();
-            size_t current_class = 0, j, n_classes = classes.size(), size = this->samples->size();
+            size_t n_classes = classes.size();
 
             for (size_t i = 0; i < n_classes; ++i) {
                 for (size_t j = 0; j < n_classes; ++j) {
