@@ -1141,9 +1141,14 @@ namespace mltk{
             this->class_names.push_back(item);
             auto has_mone = std::find(class_names.begin(), class_names.end(), "-1");
             if(has_mone == class_names.end()){
-                c = this->class_names.size();
+                if(utils::is_number(item)) {
+                    c = std::stoi(item);
+                }else{
+                    auto pos = std::find(class_names.begin(), class_names.end(), item);
+                    c = (int)(pos - this->class_names.begin())+1;
+                }
             }else{
-                c = this->class_names.size()-1;
+                c = 1;
             }
             if(item == "-1"){
                 c = -1;
@@ -1156,7 +1161,6 @@ namespace mltk{
                 c = (int)(class_name_it - this->class_names.begin())+1;
             }
         }
-
         auto class_it = std::find(this->m_classes.begin(), this->m_classes.end(), c);
         if(class_it == this->m_classes.end()){
             this->m_classes.push_back(c);

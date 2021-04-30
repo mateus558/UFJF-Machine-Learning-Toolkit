@@ -45,6 +45,13 @@ TEST_F(DataTest, OpenDataBinDataset) {
     EXPECT_EQ(csv.points().size(), 150);
     EXPECT_EQ(csv.dim(), 4);
     EXPECT_EQ(csv.classesDistribution(), dist);
+    dist = {540, 611};
+    mltk::Data<double> arff("diabetic.arff", true);
+    EXPECT_EQ(arff.size(), 1151);
+    EXPECT_EQ(arff.points().size(), 1151);
+    EXPECT_EQ(arff.classes().size(), 2);
+    EXPECT_EQ(arff.dim(), 19);
+    EXPECT_EQ(arff.classesDistribution(), dist);
 }
 
 TEST_F(DataTest, OpenCsvMultiDataset) {
