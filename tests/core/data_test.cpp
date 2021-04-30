@@ -29,6 +29,22 @@ TEST_F(DataTest, OpenDataBinDataset) {
     EXPECT_EQ(bin.points().size(), 150);
     EXPECT_EQ(bin.dim(), 4);
     EXPECT_EQ(bin.classesDistribution(), dist);
+
+    bin.write("_iris", "data");
+    bin.write("_iris", "csv");
+    bin.write("_iris", "plt");
+
+    mltk::Data<double> data("_iris.data");
+    EXPECT_EQ(data.size(), 150);
+    EXPECT_EQ(data.points().size(), 150);
+    EXPECT_EQ(data.dim(), 4);
+    EXPECT_EQ(data.classesDistribution(), dist);
+
+    mltk::Data<double> csv("_iris.csv");
+    EXPECT_EQ(csv.size(), 150);
+    EXPECT_EQ(csv.points().size(), 150);
+    EXPECT_EQ(csv.dim(), 4);
+    EXPECT_EQ(csv.classesDistribution(), dist);
 }
 
 TEST_F(DataTest, OpenCsvMultiDataset) {
@@ -39,6 +55,24 @@ TEST_F(DataTest, OpenCsvMultiDataset) {
     EXPECT_EQ(mult.classes().size(), 3);
     EXPECT_EQ(mult.dim(), 4);
     EXPECT_EQ(mult.classesDistribution(), dist);
+
+    mult.write("_iris", "data");
+    mult.write("_iris", "csv");
+    mult.write("_iris", "plt");
+
+    mltk::Data<double> data("_iris.data");
+    EXPECT_EQ(data.size(), 150);
+    EXPECT_EQ(data.points().size(), 150);
+    EXPECT_EQ(data.classes().size(), 3);
+    EXPECT_EQ(data.dim(), 4);
+    EXPECT_EQ(data.classesDistribution(), dist);
+
+    mltk::Data<double> csv("_iris.csv");
+    EXPECT_EQ(csv.size(), 150);
+    EXPECT_EQ(csv.points().size(), 150);
+    EXPECT_EQ(csv.classes().size(), 3);
+    EXPECT_EQ(csv.dim(), 4);
+    EXPECT_EQ(csv.classesDistribution(), dist);
 }
 
 TEST_F(DataTest, CopyBinDataset) {
