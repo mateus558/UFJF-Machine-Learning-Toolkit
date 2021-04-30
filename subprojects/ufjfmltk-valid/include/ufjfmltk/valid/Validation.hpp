@@ -245,7 +245,6 @@ namespace mltk{
                         }
                     }
 
-                    std::cout << std::endl;
                 }
 
                 if(verbose) std::cout << "Error " << j + 1 << ": " << error_arr[j] << " -- " << ((double)error_arr[j]/(double) folds[j].size()) * 100.0f << "%\n";

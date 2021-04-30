@@ -71,14 +71,8 @@ namespace mltk{
                 int train_matrix(Kernel *matrix);
 
             public:
-                explicit SMO(std::shared_ptr<Data < T>
-
-                >
-                samples = nullptr, Kernel
-                *
-                k = nullptr,
-                int verbose = 0
-                );
+                explicit SMO(std::shared_ptr<Data<T>> samples = nullptr, Kernel *k = nullptr, int verbose = 0);
+                explicit SMO(const Data<T>& samples, std::string kernel_type="inner_product", int verbose = 0, double param = 0);
 
                 bool train() override;
 

@@ -28,12 +28,24 @@ namespace mltk{
         }
 
         template<typename T>
+        SMO<T>::SMO(const Data<T> &samples, std::string kernel_type, int verbose, double param) {
+            this->samples = mltk::make_data<T>(samples);
+            this->verbose = verbose;
+
+            if(kernel_type == "inner_product") this->kernel = new mltk::Kernel(KernelType::INNER_PRODUCT);
+            if(kernel_type == "poly") this->kernel = new mltk::Kernel(KernelType::POLYNOMIAL, param);
+            if(kernel_type == "gaussian") this->kernel = new mltk::Kernel(KernelType::GAUSSIAN, param);
+
+            this->head = nullptr;
+        }
+
+        template<typename T>
         SMO<T>::~SMO() {
             if (this->head != nullptr) {
                 int_dll::free(&this->head);
                 this->head = nullptr;
             }
-            //delete this->kernel;
+            if(this->kernel) delete this->kernel;
         }
 
         template<typename T>

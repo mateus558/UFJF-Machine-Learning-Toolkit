@@ -184,6 +184,7 @@ namespace mltk{
        * \param MAX_IT Number max of iterations.
        */
       void setMaxIterations(int MAX_IT) {this->MAX_IT = MAX_IT;}
+      void setMaxEpochs(int MAX_EPOCHS) {this->MAX_EPOCH = MAX_EPOCHS;}
       /**
        * \brief setMaxIterations Set the max number of updates of the Learner.
        * \param MAX_IT Number max of updates.

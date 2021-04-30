@@ -181,7 +181,6 @@ namespace mltk{
                 H[j][i] = H[i][j];
             }
         }
-        std::clog << "\nH matrix generated.\n";
         return &H;
     }
 

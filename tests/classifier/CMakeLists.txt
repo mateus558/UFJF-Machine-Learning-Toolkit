@@ -1,5 +1,9 @@
 configure_file(${DATA_PATH}/iris.data ${CMAKE_BINARY_DIR}/tests/classifier/iris.data COPYONLY)
 configure_file(${DATA_PATH}/iris_mult.csv ${CMAKE_BINARY_DIR}/tests/classifier/iris_mult.csv COPYONLY)
+configure_file(${DATA_PATH}/wine.data ${CMAKE_BINARY_DIR}/tests/classifier/wine.data COPYONLY)
+configure_file(${DATA_PATH}/wine.data ${CMAKE_BINARY_DIR}/wine.data COPYONLY)
+configure_file(${DATA_PATH}/wine.data ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/wine.data COPYONLY)
+
 
 add_executable(${CLASSIFIER_TESTS} main.cpp class_tests.cpp)
 ######################################

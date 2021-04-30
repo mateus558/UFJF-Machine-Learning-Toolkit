@@ -16,8 +16,11 @@ protected:
         if(!bin.load("iris.data")){
             std::cerr << "Error loading binary dataset." << std::endl;
         }
+        if(!wine.load("wine.data")){
+            std::cerr << "Error loading binary dataset." << std::endl;
+        }
     }
-    mltk::Data<double> mult, bin;
+    mltk::Data<double> mult, bin, wine;
 };
 
 TEST_F(ClassifierTest, BinClassifierTest){
@@ -43,4 +46,19 @@ TEST_F(ClassifierTest, MultiClassifierTest){
     ASSERT_GT(100-mltk::validation::kfold(mult, knn, 10, 10, 0), 95);
     ASSERT_GT(100-mltk::validation::kfold(mult, ova, 10, 10, 0), 95);
     ASSERT_GT(100-mltk::validation::kfold(mult, ovo, 10, 10, 0), 90);
+}
+
+TEST_F(ClassifierTest, DualClassifiers){
+    mltk::classifier::SMO<double> smo_gauss(wine, "gaussian", 0, 0.5);
+    mltk::classifier::SMO<double> smo_inner(wine, "inner_product", 0, 0.5);
+    mltk::classifier::SMO<double> smo_poly(wine, "poly", 0, 3);
+
+    std::cout << "Testing with gaussian kernel" << std::endl;
+    ASSERT_GT(100-mltk::validation::kfold(wine, smo_gauss, 10, 0), 95);
+    std::cout << "Testing with inner product kernel" << std::endl;
+    smo_inner.setMaxEpochs(100);
+    ASSERT_GE(100-mltk::validation::kfold(wine, smo_inner, 10, 0), 59);
+    std::cout << "Testing with polynomial kernel" << std::endl;
+    smo_poly.setMaxEpochs(100);
+    ASSERT_GT(100-mltk::validation::kfold(wine, smo_poly, 10, 1), 55);
 }
