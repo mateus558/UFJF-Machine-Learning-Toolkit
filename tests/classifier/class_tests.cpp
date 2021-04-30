@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 #include "ufjfmltk/Classifier.hpp"
 #include "ufjfmltk/Validation.hpp"
+#include "ufjfmltk/core/Utils.hpp"
 
 class ClassifierTest: public ::testing::Test
 {
@@ -27,7 +28,9 @@ TEST_F(ClassifierTest, BinClassifierTest){
     mltk::classifier::KNNClassifier<double> knn(bin, 3);
     mltk::classifier::IMAp<double> ima(bin);
     mltk::classifier::PerceptronPrimal<double> perc(bin);
+
     ima.setVerbose(0);
+
     ASSERT_GT(mltk::validation::kkfold(bin, knn, 10, 10, 0).accuracy, 95);
     ASSERT_GT(100-mltk::validation::kfold(bin, knn, 10, 10, 0), 95);
     ASSERT_GT(100-mltk::validation::kfold(bin, ima, 10, 10, 0), 95);
@@ -46,6 +49,10 @@ TEST_F(ClassifierTest, MultiClassifierTest){
     ASSERT_GT(100-mltk::validation::kfold(mult, knn, 10, 10, 0), 95);
     ASSERT_GT(100-mltk::validation::kfold(mult, ova, 10, 10, 0), 95);
     ASSERT_GT(100-mltk::validation::kfold(mult, ovo, 10, 10, 0), 90);
+
+    auto conf_mat = mltk::validation::generateConfusionMatrix(mult, ovo);
+    mltk::utils::printConfusionMatrix(mult.classes(), mult.classesNames(), conf_mat);
+    ASSERT_GT(mltk::validation::confusionMatrixAccuracy(conf_mat), 90);
 }
 
 TEST_F(ClassifierTest, DualClassifiers){

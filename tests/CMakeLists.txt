@@ -21,7 +21,7 @@ if(CODE_COVERAGE)
             NAME coverage
             EXECUTABLE ctest
             DEPENDENCIES ${COV_TARGETS} ufjfmltk-core ufjfmltk-classifier ufjfmltk-valid
-            EXCLUDE "cmake*;subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/hnswlib/*;subprojects/ufjfmltk-visual/src/gnuplot_i.cpp;subprojects/ufjfmltk-visual/include/gnuplot_i.hpp"
+            EXCLUDE "cmake*;subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/hnswlib/*;subprojects/ufjfmltk-visual/src/gnuplot_i.cpp;subprojects/ufjfmltk-visual/include/ufjfmltk/visual/gnuplot_i.hpp"
     )
 
 endif(CODE_COVERAGE)

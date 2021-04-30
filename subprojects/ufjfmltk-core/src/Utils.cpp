@@ -219,7 +219,7 @@ namespace mltk{
             return elems;
         }
 
-        void printConfusionMatrix(std::vector<int> &classes, std::vector<std::string> classes_names, std::vector<std::vector<size_t> > &confusion_m, bool show_names) {
+        void printConfusionMatrix(const std::vector<int> &classes, const std::vector<std::string>& classes_names, const std::vector<std::vector<size_t> > &confusion_m, bool show_names) {
             size_t i, j, n_classes = classes.size();
             cout << "    ";
             for(i = 0; i < n_classes; i++){
