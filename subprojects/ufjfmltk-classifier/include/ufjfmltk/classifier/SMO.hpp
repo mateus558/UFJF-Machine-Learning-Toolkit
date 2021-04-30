@@ -46,7 +46,8 @@ namespace mltk{
                         sv = nullptr;
                     }
                 };
-
+                std::string kernel_type;
+                double param = 0;
                 const int C = 9999; //0.05
                 const double TOL = 0.0001;
                 std::vector<smo_learning_data> l_data;

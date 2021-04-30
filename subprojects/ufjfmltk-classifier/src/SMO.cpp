@@ -31,11 +31,8 @@ namespace mltk{
         SMO<T>::SMO(const Data<T> &samples, std::string kernel_type, int verbose, double param) {
             this->samples = mltk::make_data<T>(samples);
             this->verbose = verbose;
-
-            if(kernel_type == "inner_product") this->kernel = new mltk::Kernel(KernelType::INNER_PRODUCT);
-            if(kernel_type == "poly") this->kernel = new mltk::Kernel(KernelType::POLYNOMIAL, param);
-            if(kernel_type == "gaussian") this->kernel = new mltk::Kernel(KernelType::GAUSSIAN, param);
-
+            this->kernel_type = kernel_type;
+            this->param = param;
             this->head = nullptr;
         }
 
@@ -65,6 +62,11 @@ namespace mltk{
                 (*this->samples)[i]->Alpha() = 0;
 
             this->timer.Reset();
+
+            if(this->kernel) delete this->kernel;
+            if(kernel_type == "inner_product") this->kernel = new mltk::Kernel(KernelType::INNER_PRODUCT);
+            if(kernel_type == "poly") this->kernel = new mltk::Kernel(KernelType::POLYNOMIAL, param);
+            if(kernel_type == "gaussian") this->kernel = new mltk::Kernel(KernelType::GAUSSIAN, param);
             this->kernel->compute(this->samples);
 
             /*run training algorithm*/
