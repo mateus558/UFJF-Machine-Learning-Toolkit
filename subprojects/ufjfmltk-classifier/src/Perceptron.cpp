@@ -239,12 +239,13 @@ namespace mltk{
         }
 
         template<typename T>
-        PerceptronDual<T>::PerceptronDual(std::shared_ptr<Data<T> > samples, double rate, Solution *initial_solution) {
-            this->samples = samples;
+        PerceptronDual<T>::PerceptronDual(const Data<T>& samples, double rate, Solution *initial_solution) {
+            this->samples = mltk::make_data<T>(samples);
             if (initial_solution) {
                 this->solution = *initial_solution;
                 this->alpha = (*initial_solution).alpha;
             }
+            this->initial = initial_solution;
             this->rate = rate;
             this->kernel = nullptr;
         }
@@ -252,24 +253,29 @@ namespace mltk{
 
         template<typename T>
         bool PerceptronDual<T>::train() {
-            size_t y, e, i, j, idx, r, size = this->samples->size(), dim = this->samples->dim();
+            size_t e, i, j, idx, r, size = this->samples->size(), dim = this->samples->dim();
             double norm = this->solution.norm, time = this->start_time + this->max_time;
             double bias = this->solution.bias, f;
             const double sqrate = this->rate * this->rate;
             const double tworate = 2 * this->rate;
-            vector<int> index = this->samples->getIndex();
+            vector<int> index(size); //= this->samples->getIndex();
             vector<double> func(size, 0.0), Kv;
             vector<shared_ptr<Point<T> > > points = this->samples->points();
+            if(!this->kernel) this->kernel = new Kernel(mltk::KernelType::INNER_PRODUCT);
             this->kernel->compute(this->samples);
             dMatrix *K = this->kernel->getKernelMatrixPointer();
-
+            int y;
+            iota(index.begin(), index.end(), 0);
             if (this->alpha.empty()) {
                 this->alpha.assign(size, 0.0);
             }
-
+            if(!initial){
+                this->solution = Solution();
+            }
+            this->timer.Reset();
             e = 1;
-
-            while (this->timer.Elapsed() - time <= 0) {
+            auto time_elapsed = this->timer.Elapsed() - time;
+            while (time_elapsed <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
                     idx = index[i];
                     y = points[idx]->Y();
@@ -281,13 +287,13 @@ namespace mltk{
 
                     //Checking if the point is a mistake
                     if (y * f <= 0.0) {
-                        norm = sqrt(
-                                norm * norm + tworate * points[idx]->Y() * func[idx] - bias + sqrate * (*K)[idx][idx]);
+                        norm = std::sqrt(norm * norm + tworate * points[idx]->Y() * func[idx] - bias + sqrate * (*K)[idx][idx]);
                         this->alpha[i] += this->rate;
                         bias += this->rate * y;
                         ++this->ctot, ++e;
                     } else if (this->steps > 0 && e > 1) break;
                 }
+                time_elapsed = this->timer.Elapsed() - time;
                 ++this->steps;
 
                 //stop criterion
@@ -295,22 +301,20 @@ namespace mltk{
                 if (this->steps > this->MAX_IT) break;
                 if (this->ctot > this->MAX_UP) break;
             }
-
             this->solution.bias = bias;
             this->solution.norm = norm;
             this->solution.alpha = this->alpha;
             this->solution.margin = 0.0;
             this->solution.w.resize(dim);
 
-            for (i = 0; i < dim; i++) {
-                for (j = 0; j < size; j++) {
-                    this->solution.w[i] += this->alpha[j] * points[j]->Y() * points[j]->X()[i];
+            for (i = 0; i < size; i++) {
+                for (j = 0; j < dim; j++) {
+                    this->solution.w[j] += this->alpha[i] * points[i]->Y() * points[i]->X()[j];
                 }
             }
 
             return (e == 0);
         }
-
 
         template<typename T>
         PerceptronFixedMarginDual<T>::PerceptronFixedMarginDual(std::shared_ptr<Data<T> > samples, double gamma,

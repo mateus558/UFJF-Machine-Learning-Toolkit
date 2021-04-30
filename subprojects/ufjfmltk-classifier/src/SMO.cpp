@@ -52,7 +52,7 @@ namespace mltk{
             dMatrix matrix;
             double norm = 1;
             vector<double> w_saved;
-
+            this->solution = Solution();
             this->head = new int_dll;
             this->l_data.resize(size);
 
@@ -84,9 +84,11 @@ namespace mltk{
 
             this->solution.w = w_saved;
             this->solution.margin = 1.0 / norm;
+            this->solution.alpha.assign(size, 0.0);
             this->solution.svs = 0;
 
             for (i = 0; i < size; ++i) {
+                this->solution.alpha[i] = (*this->samples)[i]->Alpha();
                 if ((*this->samples)[i]->Alpha() > 0) ++this->solution.svs;
                 if ((*this->samples)[i]->Alpha() > this->C) ret = false;
             }

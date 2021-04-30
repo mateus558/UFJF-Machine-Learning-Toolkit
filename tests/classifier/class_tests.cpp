@@ -55,7 +55,7 @@ TEST_F(ClassifierTest, MultiClassifierTest){
     ASSERT_GT(mltk::validation::confusionMatrixAccuracy(conf_mat), 90);
 }
 
-TEST_F(ClassifierTest, DualClassifiers){
+TEST_F(ClassifierTest, SMOClassifier){
     mltk::classifier::SMO<double> smo_gauss(wine, "gaussian", 0, 0.5);
     mltk::classifier::SMO<double> smo_inner(wine, "inner_product", 0, 1);
     mltk::classifier::SMO<double> smo_poly(wine, "poly", 1, 3);
@@ -70,4 +70,11 @@ TEST_F(ClassifierTest, DualClassifiers){
     smo_poly.setMaxEpochs(100);
     acc = 100-mltk::validation::kfold(wine, smo_poly, 10, 0);
     ASSERT_GT(acc, 60);
+}
+
+TEST_F(ClassifierTest, DualClassifier){
+    auto data_pointer = mltk::make_data<double>(bin);
+    mltk::classifier::PerceptronDual<double> perc_dual(data_pointer);
+
+    ASSERT_GT(100-mltk::validation::kfold(bin, perc_dual, 10, 10, 0), 70);
 }

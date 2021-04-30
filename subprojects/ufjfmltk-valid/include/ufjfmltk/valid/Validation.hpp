@@ -231,8 +231,7 @@ namespace mltk{
                     size_t i = 0;
                     for(auto it = _test_sample.begin(); it != _test_sample.end(); it++, i++){
                         auto point = (*it);
-                        double _y = classifier.evaluate(*point);
-
+                        double _y = dual->evaluate(*point);
                         if(point->Y() != _y){
                             if(verbose > 1)
                                 std::cerr << "[" << i+1 << "x] function: " << _y << ", y: " << point->Y() << std::endl;

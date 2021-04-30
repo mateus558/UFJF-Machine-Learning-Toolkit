@@ -37,7 +37,7 @@ namespace mltk{
 
                 for (func = bias, r = 0; r < size; ++r) {
                     fk = this->kernel->function(po, (*this->samples)[r], dim);
-                    func += (*this->samples)[r]->Alpha() * (*this->samples)[r]->Y() * fk;
+                    func += this->solution.alpha[r] * (*this->samples)[r]->Y() * fk;
                 }
 
                 return (func >= 0) ? 1 : -1;

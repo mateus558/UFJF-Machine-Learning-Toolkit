@@ -87,7 +87,6 @@ namespace mltk{
                              Solution* initial_solution = nullptr);
 
             bool train() override;
-
             /**
              * \brief Get the indexes of support vectors.
              * \return std::vector<int>

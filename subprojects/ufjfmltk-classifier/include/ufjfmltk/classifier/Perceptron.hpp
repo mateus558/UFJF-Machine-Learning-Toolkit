@@ -47,12 +47,14 @@ namespace mltk{
          */
         template<typename T>
         class PerceptronDual : public DualClassifier<T> {
+        private:
+            Solution *initial = nullptr;
         public:
             explicit PerceptronDual(std::shared_ptr<Data<T> > samples = nullptr, double rate = 0.5,
                                     int kernel_type = KernelType::INNER_PRODUCT, double kernel_param = 0,
                                     Solution *initial_solution = nullptr);
 
-            explicit PerceptronDual(std::shared_ptr<Data<T> > samples, double rate = 0.5,
+            explicit PerceptronDual(const Data<T>& samples, double rate = 0.5,
                                     Solution *initial_solution = nullptr);
 
             bool train() override;
