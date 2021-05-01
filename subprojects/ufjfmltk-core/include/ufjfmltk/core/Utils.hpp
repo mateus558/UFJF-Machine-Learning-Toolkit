@@ -59,26 +59,6 @@ namespace mltk{
        DLLUtils double DLLUtilsDecl atod(const char* str);
 
     /**
-     * \brief Returns the max absolute element.
-     * \param x The vector used to obtain the max element.
-     * \return  The max absolute element found.
-     */
-        template<typename T>
-       DLLUtils double DLLUtilsDecl maxAbsElement(std::vector<T> x) {
-            int i, dim = x.size();
-            double max, absv;
-
-            for (i = 0, max = -INF; i < dim; i++) {
-                absv = fabs(x[i]);
-                if (absv > max) {
-                    max = absv;
-                }
-            }
-
-            return max;
-        }
-
-    /**
      * \brief itos Integer to string conversion.
      * \param n Integer to be converted.
      * \return string
@@ -91,12 +71,6 @@ namespace mltk{
      * \return string
      */
        DLLUtils std::string DLLUtilsDecl dtoa(double n);
-
-        template<typename Out>
-       DLLUtils void DLLUtilsDecl split(const std::string &s, char delim, Out result);
-
-       DLLUtils std::vector<std::string> DLLUtilsDecl split(const std::string &s, char delim);
-
     }
 }
 #endif

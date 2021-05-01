@@ -98,37 +98,6 @@ namespace mltk{
             return string(buffer);
         }
 
-        void reverse(char *str, int len)
-        {
-            int i=0, j=len-1, temp;
-            while (i<j)
-            {
-                temp = str[i];
-                str[i] = str[j];
-                str[j] = temp;
-                i++; j--;
-            }
-        }
-
-        int intToStr(int x, char str[], int d)
-        {
-            int i = 0;
-            while (x)
-            {
-                str[i++] = (x%10) + '0';
-                x = x/10;
-            }
-
-            // If number of digits required is more, then
-            // add 0s at the beginning
-            while (i < d)
-                str[i++] = '0';
-
-            reverse(str, i);
-            str[i] = '\0';
-            return i;
-        }
-
         string dtoa(double n){
             char s[MAX_NUMBER_STRING_SIZE];
 
@@ -201,22 +170,6 @@ namespace mltk{
                 *(c) = '\0';
             }
             return string(s);
-        }
-
-
-        template<typename Out>
-        void split(const std::string &s, char delim, Out result) {
-            std::stringstream ss(s);
-            std::string item;
-            while (std::getline(ss, item, delim)) {
-                *(result++) = item;
-            }
-        }
-
-        std::vector<std::string> split(const std::string &s, char delim) {
-            std::vector<std::string> elems;
-            split(s, delim, std::back_inserter(elems));
-            return elems;
         }
 
         void printConfusionMatrix(const std::vector<int> &classes, const std::vector<std::string>& classes_names, const std::vector<std::vector<size_t> > &confusion_m, bool show_names) {

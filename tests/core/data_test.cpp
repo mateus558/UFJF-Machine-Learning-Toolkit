@@ -213,4 +213,10 @@ TEST_F(DataTest, DataInsertion){
     }
     ASSERT_EQ(floatData.size(), 5);
     ASSERT_EQ(floatData.dim(), 5);
+    ASSERT_EQ(mltk::utils::atod("0.151"), 0.151);
+    ASSERT_EQ(mltk::utils::atod("-0.151"), -0.151);
+    ASSERT_GT(mltk::utils::atod(mltk::utils::dtoa(0.151).c_str()), 0.150);
+    ASSERT_LT(mltk::utils::atod(mltk::utils::dtoa(0.151).c_str()), 0.152);
+    ASSERT_GT(mltk::utils::atod(mltk::utils::dtoa(-0.151).c_str()), -0.152);
+    ASSERT_LT(mltk::utils::atod(mltk::utils::dtoa(-0.151).c_str()), -0.150);
 }
