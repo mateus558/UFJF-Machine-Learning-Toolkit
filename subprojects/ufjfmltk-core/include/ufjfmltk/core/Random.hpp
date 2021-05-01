@@ -36,19 +36,20 @@ namespace mltk{
      */
     namespace random {
         /// Mersenne twister generator object.
-        std::mt19937 m_gen;
+        static std::mt19937 m_gen;
         /// Seed used.
-        unsigned int m_seed;
+        static unsigned int m_seed;
 
         /**
          * \brief Initialize the mersenne twister pseudorandom number generator.
          * \param seed Seed used to generate the numbers.
          * \return unsigned int
          */
-        DLLRandom auto DLLRandomDecl init(unsigned int seed = 666) {
-            m_seed = (seed == 666)?std::random_device {} (): seed;
-            m_gen.seed(m_seed);
-
+        inline DLLRandom auto DLLRandomDecl init(unsigned int seed = 666) {
+            if(seed != m_seed){
+                m_seed = (seed == 666)?std::random_device {} (): seed;
+                m_gen.seed(m_seed);
+            }
             return m_seed;
         }
         /**
@@ -57,7 +58,7 @@ namespace mltk{
          * \param high Highest possible integer.
          * \return int
          */
-        DLLRandom int DLLRandomDecl intInRange(int low, int high) {
+        inline DLLRandom int DLLRandomDecl intInRange(int low, int high) {
             std::uniform_int_distribution<int> dist(low, high);
 
             return dist(m_gen);
@@ -68,7 +69,7 @@ namespace mltk{
          * \param high Highest possible float.
          * \return float
          */
-        DLLRandom float DLLRandomDecl floatInRange(float low, float high) {
+        inline DLLRandom float DLLRandomDecl floatInRange(float low, float high) {
             std::uniform_real_distribution<float> dist(low, high);
 
             return dist(m_gen);
@@ -77,7 +78,7 @@ namespace mltk{
          * \brief Get the seed used in the mersenne twister.
          * \return unsigned int
          */
-        DLLRandom auto DLLRandomDecl getSeed(){
+        inline DLLRandom auto DLLRandomDecl getSeed(){
             return m_seed;
         }
     }

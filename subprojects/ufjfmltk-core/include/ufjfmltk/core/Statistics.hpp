@@ -24,7 +24,6 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
-#include "Point.hpp"
 #include "Data.hpp"
 
 namespace mltk{

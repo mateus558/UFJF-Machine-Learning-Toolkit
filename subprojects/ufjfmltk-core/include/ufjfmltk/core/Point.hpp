@@ -32,12 +32,12 @@
 #include <cmath>
 #include <memory>
 #include <algorithm>
-#include <omp.h>
 #include <initializer_list>
 
 #include "ExprOps.hpp"
 #include "ExprScalar.hpp"
 #include "Utils.hpp"
+#include "Random.hpp"
 
 /**
  * \brief UFJF-MLTK main namespace for core functionalities.
@@ -604,13 +604,20 @@ namespace mltk {
 
     template < typename T, typename R = std::vector< T > >
     void random_init(Point<T, R> &p, const size_t &size, const size_t &seed){
-        std::random_device rd;
-        std::mt19937 gen((seed==0)?rd():seed);
-        std::uniform_real_distribution<double> dist(0., 1.);
+        mltk::random::init(seed);
 
         p.X().resize(size);
         for(size_t i = 0; i < p.size(); i++){
-            p[i] = dist(gen);
+            p[i] = mltk::random::floatInRange(0, 1);
+        }
+    }
+
+    template < typename T, typename R = std::vector< T > >
+    void random_init(Point<T, R> &p, const size_t &seed){
+        mltk::random::init(seed);
+
+        for(size_t i = 0; i < p.size(); i++){
+            p[i] = mltk::random::floatInRange(0, 1);
         }
     }
 

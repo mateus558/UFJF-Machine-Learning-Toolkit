@@ -7,7 +7,6 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
-#include <iterator>
 #include <utility>
 #include <cmath>
 #include <cstring>
@@ -1309,28 +1308,32 @@ namespace mltk{
         assert(samp_size <= size());
         std::random_device rd;
         std::mt19937 gen((seed == -1)?rd():seed);
-        std::uniform_int_distribution<size_t> dist(0, size() - 1);
         Data< T > sample;
         std::set<std::size_t> ids;
         auto classes_split = splitByClasses();
         Point<double> class_dist(m_classes.size());
+        std::vector<std::uniform_int_distribution<size_t>> dist;
 
         class_dist = classesDistribution();
+        for(int i = 0; i < class_dist.size(); i++){
+            dist.emplace_back(0, class_dist[i]-1);
+        }
         class_dist = (class_dist / size()) * samp_size;
 
         for(size_t i = 0; i < class_dist.size(); i++){
             class_dist[i] = (class_dist[i] < 1)?1:std::floor(class_dist[i]);
         }
+
         for(size_t i = 0; i < class_dist.size(); i++){
             for(size_t j = 0; j < class_dist[i]; j++){
-                std::size_t idx = dist(gen);
+                std::size_t idx = dist[i](gen);
                 if(!with_replacement) {
                     while (ids.find(idx) != ids.end()) {
-                        idx = dist(gen);
+                        idx = dist[i](gen);
                     }
                     ids.insert(idx);
                 }
-                sample.insertPoint(m_points[idx]);
+                sample.insertPoint(classes_split[i][idx]);
             }
         }
 
