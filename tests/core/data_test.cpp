@@ -219,4 +219,7 @@ TEST_F(DataTest, DataInsertion){
     ASSERT_LT(mltk::utils::atod(mltk::utils::dtoa(0.151).c_str()), 0.152);
     ASSERT_GT(mltk::utils::atod(mltk::utils::dtoa(-0.151).c_str()), -0.152);
     ASSERT_LT(mltk::utils::atod(mltk::utils::dtoa(-0.151).c_str()), -0.150);
+    ASSERT_STREQ(mltk::utils::dtoa(1e-3).c_str(), "0.001");
+    ASSERT_STREQ(mltk::utils::itos(1000).c_str(), "1000");
+    ASSERT_STREQ(mltk::utils::itos(-1000).c_str(), "-1000");
 }
