@@ -606,7 +606,9 @@ namespace mltk{
                     w_saved = DualClassifier<T>::getDualWeightProdInt();
                 else
                     w_saved = DualClassifier<T>::getDualWeight();
-                if (it) Data<T>::normalize(this->solution.w, 2);
+                if (it) {
+                    mltk::normalize(this->solution.w, 2.0);
+                }
             }
 
             this->solution.w = w_saved;

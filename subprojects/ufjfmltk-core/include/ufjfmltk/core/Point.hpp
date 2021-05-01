@@ -652,11 +652,20 @@ namespace mltk {
      * \param q Norm to be utilized.
      * \param p Vector to be normalized.
      */
-    template < typename T, typename R >
-    Point<T, R> normalize (Point<T, R> &p, const double q){
+    template < typename T>
+    Point<T> normalize (Point<T> p, const double q){
         double norm = std::pow(mltk::pow(mltk::abs(p), q).sum(), 1.0/q);
         p /= norm;
         return p;
+    }
+
+    template < typename T>
+    Point<T> normalize (std::vector<T> &p, const double q){
+        Point<T> result = p;
+        double norm = std::pow(mltk::pow(mltk::abs(result), q).sum(), 1.0/q);
+        result /= norm;
+        p = result.X();
+        return result;
     }
 
     template < typename T >
