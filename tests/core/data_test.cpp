@@ -6,6 +6,7 @@
 
 #include <gtest/gtest.h>
 #include "ufjfmltk/core/Data.hpp"
+#include "ufjfmltk/core/Random.hpp"
 
 class DataTest: public ::testing::Test
 {
@@ -114,4 +115,61 @@ TEST_F(DataTest, CopyMultDataset) {
     EXPECT_EQ(mult.dim(), 4);
     EXPECT_EQ(mult.classesDistribution(), dist);
     EXPECT_EQ(mult.classes().size(), 3);
+
+    mult.normalize();
+}
+
+TEST_F(DataTest, PointRemoval){
+    std::set<int> ids_remove;
+    std::vector<int> ids_remove_v;
+    int n = bin.size()*0.5;
+    std::vector<size_t> dist = {50, 100};
+    mltk::random::init(10);
+    mltk::Data<double> bin_copy;
+    bin_copy.copy(bin);
+    EXPECT_EQ(bin_copy.size(), 150);
+    EXPECT_EQ(bin_copy.points().size(), 150);
+    EXPECT_EQ(bin_copy.dim(), 4);
+    EXPECT_EQ(bin_copy.classesDistribution(), dist);
+    EXPECT_EQ(bin_copy.classes().size(), 2);
+
+    for(int i = 0; i < n; i++){
+        ids_remove.insert(mltk::random::intInRange(1, n));
+    }
+
+    if(std::find(ids_remove.begin(), ids_remove.end(), 1) == ids_remove.end()){
+        ids_remove.insert(1);
+    }
+    if(std::find(ids_remove.begin(), ids_remove.end(), bin.size()-1) == ids_remove.end()){
+        ids_remove.insert(bin.size());
+    }
+
+    for(auto idx: ids_remove){
+        ids_remove_v.push_back(idx);
+        if(!bin.removePoint(idx)){
+            std::clog << "Point " << idx << " not removed." << std::endl;
+        }
+    }
+    auto sum_dist = mltk::Point<size_t>(bin.classesDistribution()).sum();
+    EXPECT_EQ(bin.size(), 150-ids_remove.size());
+    EXPECT_EQ(bin.points().size(), 150-ids_remove.size());
+    EXPECT_EQ(bin.dim(), 4);
+    EXPECT_EQ(bin.size(), sum_dist);
+    EXPECT_EQ(bin.classes().size(), 2);
+    EXPECT_EQ(bin_copy.size(), 150);
+    EXPECT_EQ(bin_copy.points().size(), 150);
+    EXPECT_EQ(bin_copy.dim(), 4);
+    EXPECT_EQ(bin_copy.classesDistribution(), dist);
+    EXPECT_EQ(bin_copy.classes().size(), 2);
+    EXPECT_NE(bin, bin_copy);
+
+    bin_copy.removePoints(ids_remove_v);
+    sum_dist = mltk::Point<size_t>(bin_copy.classesDistribution()).sum();
+    EXPECT_EQ(bin_copy.size(), 150-ids_remove_v.size());
+    EXPECT_EQ(bin_copy.points().size(), 150-ids_remove_v.size());
+    EXPECT_EQ(bin_copy.dim(), 4);
+    EXPECT_EQ(bin_copy.size(), sum_dist);
+    EXPECT_EQ(bin_copy.classes().size(), 2);
+
+    EXPECT_TRUE(bin == bin_copy);
 }

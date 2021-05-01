@@ -548,26 +548,28 @@ namespace mltk{
         if(m_size == 1){ cout << "Error: RemovePoint, only one point left\n"; return false; }
         //Ids bound verification
         if(pid > m_points[m_size - 1]->Id() || pid <= 0) return false;
-
+        int y;
         if(!index.empty()){
             index.resize(m_size);
 
             for(i = 0; i < m_size; ++i){
                 if(i >= pid){
                     index[i-1] = index[i] - 1;
+                    }
                 }
-            }
         }
 
         //Find the point by its id and erase it
         for(i = 0; i < m_size; i++){
             if(m_points[i]->Id() == pid){
+                y = m_points[i]->Y();
                 m_points.erase(m_points.begin() + i);
                 break;
             }
         }
         m_size--;
-
+        auto pos = std::find(m_classes.begin(), m_classes.end(), y) - m_classes.begin();
+        class_distribution[pos]--;
         return true;
     }
 
@@ -630,11 +632,18 @@ namespace mltk{
             else{
                 p = m_points.erase(p);
                 int c = po->Y();
+                if(!index.empty()){
+                    index.resize(m_size);
+
+                    for(i = 0; i < m_size; ++i){
+                        if(i >= ids[i]){
+                            index[i-1] = index[i] - 1;
+                        }
+                    }
+                }
                 //Size verification.
                 if(m_size == 1){ clog << "Error: RemovePoint, only one point left." << endl; break;}
-                auto class_pos = std::find_if(m_classes.begin(), m_classes.end(), [&c](auto &_c){
-                   return (c == _c);
-                }) - m_classes.begin();
+                auto class_pos = std::find(m_classes.begin(), m_classes.end(), c) - m_classes.begin();
                 class_distribution[class_pos]--;
                 m_size--;
             }
@@ -1082,6 +1091,19 @@ namespace mltk{
 
         for(i = 0; i < _size; i++){
             if(*m_points[i] != *rhs.m_points[i]){
+                return false;
+            }
+        }
+
+        if(m_classes.size() != rhs.classes().size()) return false;
+        for(i = 0; i < m_classes.size(); i++){
+            if(m_classes[i] != rhs.classes()[i]){
+                return false;
+            }
+        }
+
+        for(i = 0; i < class_distribution.size(); i++){
+            if(class_distribution[i] != rhs.class_distribution[i]){
                 return false;
             }
         }

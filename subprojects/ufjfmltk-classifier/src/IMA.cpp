@@ -472,6 +472,25 @@ namespace mltk{
                 this->solution.w.resize(samples->dim());
             }
         }
+        template<typename T>
+        IMADual<T>::IMADual(const Data<T> &samples, size_t kernel_type, double kernel_param, double rate,
+                            Solution *initial_solution) {
+            this->samples = make_data<T>(samples);
+            this->kernel = new Kernel(kernel_type, kernel_param);
+            this->rate = rate;
+
+            if (this->kernel == nullptr) {
+                this->kernel = new Kernel();
+            }
+
+            if (initial_solution) {
+                this->solution.w = initial_solution->w;
+                this->solution.bias = initial_solution->bias;
+                this->hasInitialSolution = true;
+            } else {
+                this->solution.w.resize(this->samples->dim());
+            }
+        }
 
         template<typename T>
         bool IMADual<T>::train() {
@@ -592,6 +611,10 @@ namespace mltk{
 
             this->solution.w = w_saved;
             this->solution.margin = rmargin;
+            this->solution.alpha.assign(size, 0.0);
+            for(i = 0; i < size; i++){
+                this->solution.alpha[i] = points[i]->Alpha();
+            }
 
             if (this->verbose) {
                 cout << "-------------------------------------------------------------------\n";

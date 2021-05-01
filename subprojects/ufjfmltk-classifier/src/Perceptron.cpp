@@ -287,7 +287,7 @@ namespace mltk{
 
                     //Checking if the point is a mistake
                     if (y * f <= 0.0) {
-                        norm = std::sqrt(norm * norm + tworate * points[idx]->Y() * func[idx] - bias + sqrate * (*K)[idx][idx]);
+                        norm = std::sqrt(norm * norm + tworate * points[idx]->Y() * (func[idx] - bias) + sqrate * (*K)[idx][idx]);
                         this->alpha[i] += this->rate;
                         bias += this->rate * y;
                         ++this->ctot, ++e;

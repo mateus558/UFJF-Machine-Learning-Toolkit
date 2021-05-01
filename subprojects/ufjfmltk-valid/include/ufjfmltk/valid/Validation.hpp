@@ -83,14 +83,14 @@ namespace mltk{
 
             for(i = 0; i < size; i++){
                 int pred = learner.evaluate(*(samples[i]));
-                for(j = 0, idp = 0, idy = 0; j < n_classes; j++){
-                    if(classes[j] == pred){
+                for(j = 0, idp = 0, idy = 0; j < n_classes; j++) {
+                    if (classes[j] == pred) {
                         idp = j;
                     }
-                    if(classes[j] == samples[i]->Y()){
+                    if (classes[j] == samples[i]->Y()) {
                         idy = j;
                     }
-                    if(idp && idy) break;
+                    if (idp && idy) break;
                 }
                 confusion_m[idp][idy]++;
             }

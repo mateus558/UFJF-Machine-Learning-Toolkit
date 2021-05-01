@@ -58,14 +58,8 @@ namespace mltk{
             std::vector<int> svs;
 
         public:
-            explicit IMApFixedMargin(std::shared_ptr<Data < T>
-
-            >
-            samples = nullptr,
-            double gamma = 0, Solution
-            *
-            initial_solution = nullptr
-            );
+            explicit IMApFixedMargin(std::shared_ptr<Data<T>> samples = nullptr, double gamma = 0,
+                                     Solution *initial_solution = nullptr);
 
             bool train() override;
 
@@ -85,6 +79,8 @@ namespace mltk{
         public:
             explicit IMADual(std::shared_ptr<Data < T> > samples = nullptr, Kernel* k = nullptr, double rate = 1,
                              Solution* initial_solution = nullptr);
+            explicit IMADual(const Data<T>& samples, size_t kernel_type=KernelType::INNER_PRODUCT, double kernel_param=0,
+                             double rate = 1, Solution* initial_solution = nullptr);
 
             bool train() override;
             /**

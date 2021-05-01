@@ -27,14 +27,18 @@ protected:
 TEST_F(ClassifierTest, BinClassifierTest){
     mltk::classifier::KNNClassifier<double> knn(bin, 3);
     mltk::classifier::IMAp<double> ima(bin);
+    mltk::classifier::IMApFixedMargin<double> ima_fixed(mltk::make_data<double>(bin), 0.5);
     mltk::classifier::PerceptronPrimal<double> perc(bin);
+    mltk::classifier::BalancedPerceptron<double> bperc(bin);
 
     ima.setVerbose(0);
 
     ASSERT_GT(mltk::validation::kkfold(bin, knn, 10, 10, 0).accuracy, 95);
     ASSERT_GT(100-mltk::validation::kfold(bin, knn, 10, 10, 0), 95);
     ASSERT_GT(100-mltk::validation::kfold(bin, ima, 10, 10, 0), 95);
+    ASSERT_GT(100-mltk::validation::kfold(bin, ima_fixed, 10, 10, 0), 30);
     ASSERT_GT(100-mltk::validation::kfold(bin, perc, 10, 10, 0), 95);
+    ASSERT_GT(100-mltk::validation::kfold(bin, bperc, 10, 10, 0), 90);
 }
 
 TEST_F(ClassifierTest, MultiClassifierTest){
@@ -73,8 +77,14 @@ TEST_F(ClassifierTest, SMOClassifier){
 }
 
 TEST_F(ClassifierTest, DualClassifier){
-    auto data_pointer = mltk::make_data<double>(bin);
-    mltk::classifier::PerceptronDual<double> perc_dual(data_pointer);
+    mltk::classifier::PerceptronDual<double> perc_dual(bin);
+    mltk::classifier::IMADual<double> ima_dual(bin);
 
-    ASSERT_GT(100-mltk::validation::kfold(bin, perc_dual, 10, 10, 0), 70);
+    ima_dual.setVerbose(0);
+
+    ASSERT_GT(100-mltk::validation::kfold(bin, perc_dual, 10, 10, 0), 60);
+    ASSERT_GT(100-mltk::validation::kfold(bin, ima_dual, 10, 10, 0), 60);
+
+    mltk::utils::printConfusionMatrix(bin.classes(), bin.classesNames(), mltk::validation::generateConfusionMatrix(bin, perc_dual));
+    mltk::utils::printConfusionMatrix(bin.classes(), bin.classesNames(), mltk::validation::generateConfusionMatrix(bin, ima_dual));
 }
