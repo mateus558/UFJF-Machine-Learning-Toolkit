@@ -603,22 +603,24 @@ namespace mltk {
     }
 
     template < typename T, typename R = std::vector< T > >
-    void random_init(Point<T, R> &p, const size_t &size, const size_t &seed){
+    Point<T, R> random_init(Point<T, R> &p, const size_t &size, const size_t &seed){
         mltk::random::init(seed);
 
         p.X().resize(size);
         for(size_t i = 0; i < p.size(); i++){
             p[i] = mltk::random::floatInRange(0, 1);
         }
+        return p;
     }
 
     template < typename T, typename R = std::vector< T > >
-    void random_init(Point<T, R> &p, const size_t &seed){
+    Point<T, R> random_init(Point<T, R> &p, const size_t &seed){
         mltk::random::init(seed);
 
         for(size_t i = 0; i < p.size(); i++){
             p[i] = mltk::random::floatInRange(0, 1);
         }
+        return p;
     }
 
     template < typename T, typename R>
@@ -644,6 +646,17 @@ namespace mltk {
     template < typename T, typename P, typename R>
     Point<T, F_Pow<T, P, R> > DLLPointDecl pow(const Point<T, R>& p, const P &power){        
         return Point<T, F_Pow<T, P, R > >(F_Pow<T, P, R>(p.X(), power));
+    }
+    /**
+     * \brief normalize Normalize a vector using a Lp-norm.
+     * \param q Norm to be utilized.
+     * \param p Vector to be normalized.
+     */
+    template < typename T, typename R >
+    Point<T, R> normalize (Point<T, R> &p, const double q){
+        double norm = std::pow(mltk::pow(mltk::abs(p), q).sum(), 1.0/q);
+        p /= norm;
+        return p;
     }
 
     template < typename T >

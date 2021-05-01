@@ -979,20 +979,6 @@ namespace mltk{
     }
 
     template < typename T >
-    void mltk::Data< T >::normalize(std::vector<double> &v, double q){
-        size_t i = 0, dim = v.size();
-        double norm = 0.0;
-
-        for(i = 0; i < dim; ++i)
-            norm += std::pow(fabs(v[i]), q);
-
-        norm = std::pow(norm, 1.0/q);
-
-        for(i = 0; i < dim; ++i)
-            v[i] /= norm;
-    }
-
-    template < typename T >
     void mltk::Data< T >::setDim(size_t _dim){
         this->m_dim = _dim;
     }

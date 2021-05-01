@@ -206,7 +206,7 @@ TEST_F(DataTest, DataInsertion){
     auto sample = mult.sampling(75);
     std::vector<size_t> samp_dist = {25,25,25};
     ASSERT_EQ(sample.classesDistribution(), samp_dist);
-
+    std::cout << mltk::normalize(*sample[0], 2) << std::endl;
     mltk::Data<double> floatData(5, 5);
     for(auto& p: floatData){
         mltk::random_init(*p, 42);
