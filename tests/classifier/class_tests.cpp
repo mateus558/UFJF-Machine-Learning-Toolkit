@@ -33,9 +33,9 @@ TEST_F(ClassifierTest, BinClassifierTest){
 
     ima.setVerbose(0);
 
-    ASSERT_GT(mltk::validation::kkfold(bin, knn, 10, 10, 0).accuracy, 95);
-    ASSERT_GT(100-mltk::validation::kfold(bin, knn, 10, 10, 0), 95);
-    ASSERT_GT(100-mltk::validation::kfold(bin, ima, 10, 10, 0), 95);
+    ASSERT_GT(mltk::validation::kkfold(bin, knn, 10, 10, 2).accuracy, 95);
+    ASSERT_GT(100-mltk::validation::kfold(bin, knn, 10, 10, 2), 95);
+    ASSERT_GT(100-mltk::validation::kfold(bin, ima, 10, 10, 0), 80);
     ASSERT_GT(100-mltk::validation::kfold(bin, ima_fixed, 10, 10, 0), 30);
     ASSERT_GT(100-mltk::validation::kfold(bin, perc, 10, 10, 0), 95);
     ASSERT_GT(100-mltk::validation::kfold(bin, bperc, 10, 10, 0), 90);

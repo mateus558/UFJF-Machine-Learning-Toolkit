@@ -221,8 +221,10 @@ TEST_F(DataTest, DataInsertion){
         mltk::random_init(*p, 42);
         *p *= 10;
         *p = mltk::normalize(*p, 2);
+        std::cout << *p << std::endl;
         ASSERT_EQ(p->norm(), 1);
     }
+    std::cout << floatData << std::endl;
     ASSERT_EQ(floatData.size(), 5);
     ASSERT_EQ(floatData.dim(), 5);
     auto new_point = mltk::random_init<double>(floatData.dim(), 42);
