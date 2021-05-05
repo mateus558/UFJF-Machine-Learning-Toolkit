@@ -52,6 +52,12 @@ TEST_F(DataTest, OpenDataBinDataset) {
     EXPECT_EQ(arff.classes().size(), 2);
     EXPECT_EQ(arff.dim(), 19);
     EXPECT_EQ(arff.classesDistribution(), dist);
+
+    mltk::Data<double> txt("teste.txt");
+    EXPECT_EQ(txt.size(), 4);
+    EXPECT_EQ(txt.points().size(), 4);
+    EXPECT_EQ(txt.classes().size(), 0);
+    EXPECT_EQ(txt.dim(), 3);
 }
 
 TEST_F(DataTest, OpenCsvMultiDataset) {
@@ -84,13 +90,16 @@ TEST_F(DataTest, OpenCsvMultiDataset) {
 
 TEST_F(DataTest, CopyBinDataset) {
     std::vector<size_t> dist = {50, 100};
-    mltk::Data<double> cp = bin;
+    mltk::Data<double> cp = bin, cp_zero;
 
     EXPECT_EQ(cp.size(), 150);
     EXPECT_EQ(cp.points().size(), 150);
     EXPECT_EQ(cp.dim(), 4);
     EXPECT_EQ(cp.classesDistribution(), dist);
     EXPECT_EQ(cp.classes().size(), 2);
+
+    cp_zero.copyZero(bin);
+    EXPECT_EQ(cp_zero.size(), 0);
 
     EXPECT_EQ(bin.size(), 150);
     EXPECT_EQ(bin.points().size(), 150);
@@ -206,13 +215,36 @@ TEST_F(DataTest, DataInsertion){
     auto sample = mult.sampling(75);
     std::vector<size_t> samp_dist = {25,25,25};
     ASSERT_EQ(sample.classesDistribution(), samp_dist);
-    std::cout << mltk::normalize(*sample[0], 2) << std::endl;
+
     mltk::Data<double> floatData(5, 5);
     for(auto& p: floatData){
         mltk::random_init(*p, 42);
+        *p *= 10;
+        *p = mltk::normalize(*p, 2);
+        ASSERT_EQ(p->norm(), 1);
     }
     ASSERT_EQ(floatData.size(), 5);
     ASSERT_EQ(floatData.dim(), 5);
+    auto new_point = mltk::random_init<double>(floatData.dim(), 42);
+    floatData.insertPoint(new_point);
+    ASSERT_EQ(floatData.size(), 6);
+    ASSERT_EQ(floatData.dim(), 5);
+    ASSERT_EQ(floatData.classes().size(), 1);
+    auto new_point1 = mltk::random_init<double>(floatData.dim(), 42);
+    new_point1.Y() = 1;
+    std::vector<size_t> dist1 = {floatData.size(),1};
+    floatData.insertPoint(new_point1);
+    std::vector<size_t> dist2 = {floatData.size()};
+    ASSERT_EQ(floatData.size(), 7);
+    ASSERT_EQ(floatData.dim(), 5);
+    ASSERT_EQ(floatData.classes().size(), 2);
+    floatData.computeClassesDistribution();
+    ASSERT_EQ(floatData.classesDistribution(), dist1);
+    floatData.updatePointValue(floatData.size()-1, 0);
+    ASSERT_EQ(floatData.classesDistribution(), dist2);
+    ASSERT_EQ(floatData.classes().size(), 1);
+    ASSERT_EQ(floatData.getLabels().size(), floatData.size());
+
     ASSERT_EQ(mltk::utils::atod("0.151"), 0.151);
     ASSERT_EQ(mltk::utils::atod("-0.151"), -0.151);
     ASSERT_GT(mltk::utils::atod(mltk::utils::dtoa(0.151).c_str()), 0.150);
@@ -222,4 +254,7 @@ TEST_F(DataTest, DataInsertion){
     ASSERT_STREQ(mltk::utils::dtoa(1e-3).c_str(), "0.001");
     ASSERT_STREQ(mltk::utils::itos(1000).c_str(), "1000");
     ASSERT_STREQ(mltk::utils::itos(-1000).c_str(), "-1000");
+    ASSERT_STREQ(mltk::utils::dtoa(1E14).c_str(), "1e+14");
+    ASSERT_STREQ(mltk::utils::dtoa(1E14).c_str(), "1e+14");
+    ASSERT_STREQ(mltk::utils::dtoa(3E-14).c_str(), "3e-14");
 }

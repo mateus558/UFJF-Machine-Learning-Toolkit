@@ -7,6 +7,9 @@ configure_file(${DATA_PATH}/iris_mult.csv ${CMAKE_BINARY_DIR}/iris_mult.csv COPY
 configure_file(${DATA_PATH}/diabetic.arff ${CMAKE_BINARY_DIR}/diabetic.arff COPYONLY)
 configure_file(${DATA_PATH}/diabetic.arff ${CMAKE_BINARY_DIR}/tests/core/diabetic.arff COPYONLY)
 configure_file(${DATA_PATH}/diabetic.arff ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/diabetic.arff COPYONLY)
+configure_file(${DATA_PATH}/teste.txt ${CMAKE_BINARY_DIR}/teste.txt COPYONLY)
+configure_file(${DATA_PATH}/teste.txt ${CMAKE_BINARY_DIR}/tests/core/teste.txt COPYONLY)
+configure_file(${DATA_PATH}/teste.txt ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/teste.txt COPYONLY)
 
 add_executable(${CORE_TESTS} main.cpp data_test.cpp stats_test.cpp)
 ######################################

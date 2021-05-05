@@ -610,6 +610,19 @@ namespace mltk {
         for(size_t i = 0; i < p.size(); i++){
             p[i] = mltk::random::floatInRange(0, 1);
         }
+        p.Y() = 0;
+        return p;
+    }
+
+    template < typename T, typename R = std::vector< T > >
+    Point<T, R> random_init(const size_t &size, const size_t &seed){
+        Point<T, R> p(size);
+        mltk::random::init(seed);
+
+        for(size_t i = 0; i < p.size(); i++){
+            p[i] = mltk::random::floatInRange(0, 1);
+        }
+        p.Y() = 0;
         return p;
     }
 
@@ -620,6 +633,7 @@ namespace mltk {
         for(size_t i = 0; i < p.size(); i++){
             p[i] = mltk::random::floatInRange(0, 1);
         }
+        p.Y() = 0;
         return p;
     }
 

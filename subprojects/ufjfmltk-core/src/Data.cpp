@@ -23,6 +23,34 @@ namespace mltk{
         }
     }
 
+    template<typename T>
+    Data<T>::Data(const string &dataset, bool atEnd): atEnd(atEnd) {
+        if(!load(string(dataset), atEnd)){
+            cerr << "Couldn't read the dataset." << endl;
+        }
+    }
+
+    template<typename T>
+    mltk::Data<T>::Data(size_t size, size_t dim, T val) {
+        size_t i;
+
+        this->m_points.resize(size);
+        this->fnames.resize(dim);
+        this->index.resize(size);
+
+        for(i = 0; i < size; i++){
+            this->m_points[i] = std::make_shared<Point< T > >(dim, val);
+            this->m_points[i]->Id() = i+1;
+            this->m_points[i]->Y() = 0;
+        }
+
+        std::iota(fnames.begin(), fnames.end(), 1);
+        std::iota(index.begin(), index.end(), 0);
+        this->m_size = size;
+        this->m_dim = dim;
+        this->is_empty = false;
+    }
+
     template < typename T >
     mltk::Data< T >::Data(const char* dataset, const char* datasetType, const char* pos_class, const char* neg_class){
         this->pos_class = string(pos_class);
@@ -526,6 +554,8 @@ namespace mltk{
                         new_point->X()[n - 2] = utils::atod(item.c_str());
                     else{ clog << "Warning: point[" << _size << "] " << n - 2 << " feature is not a number." << endl; }
                     new_point->Y() = 0;
+                }else if(n == 1){
+                    new_point->Id() = utils::atod(item.c_str());
                 }
                 n++;
             }
@@ -1110,26 +1140,6 @@ namespace mltk{
     }
 
     template<typename T>
-    mltk::Data<T>::Data(size_t size, size_t dim, T val) {
-        size_t i;
-
-        this->m_points.resize(size);
-        this->fnames.resize(dim);
-        this->index.resize(size);
-
-        for(i = 0; i < size; i++){
-            this->m_points[i] = std::make_shared<Point< T > >(dim, val);
-            this->m_points[i]->Id() = i+1;
-        }
-
-        std::iota(fnames.begin(), fnames.end(), 1);
-        std::iota(index.begin(), index.end(), 0);
-        this->m_size = size;
-        this->m_dim = dim;
-        this->is_empty = false;
-    }
-
-    template<typename T>
     void mltk::Data<T>::setType(const string &_type) {
         this->type = _type;
     }
@@ -1262,7 +1272,13 @@ namespace mltk{
                 class_names.push_back(std::to_string(_c));
                 class_distribution.push_back(1);
             }else {
+                auto oldclass_pos = std::find(m_classes.begin(), m_classes.end(), old_value)- m_classes.begin();
                 class_distribution[class_pos - m_classes.begin()]++;
+                class_distribution[oldclass_pos]--;
+                if(class_distribution[oldclass_pos] == 0){
+                    class_distribution.erase(class_distribution.begin() + oldclass_pos);
+                    m_classes.erase(m_classes.begin() + oldclass_pos);
+                }
             }
         }
         m_points[idx]->Y() = value;
@@ -1324,13 +1340,6 @@ namespace mltk{
         }
 
         return sample;
-    }
-
-    template<typename T>
-    Data<T>::Data(const string &dataset, bool atEnd): atEnd(atEnd) {
-        if(!load(string(dataset), atEnd)){
-            cerr << "Couldn't read the dataset." << endl;
-        }
     }
 
     template<typename T>
