@@ -82,8 +82,9 @@ TEST_F(ClassifierTest, DualClassifier){
 
     ima_dual.setVerbose(0);
 
-    ASSERT_GT(100-mltk::validation::kfold(bin, perc_dual, 10, 10, 0), 60);
-    ASSERT_GT(100-mltk::validation::kfold(bin, ima_dual, 10, 10, 0), 60);
+    ASSERT_GT(100-mltk::validation::kfold(bin, perc_dual, 10, 10, 0), 40);
+    ASSERT_GT(mltk::validation::kkfold(bin, ima_dual, 10, 10, 0).accuracy, 40);
+    ASSERT_GT(100-mltk::validation::kfold(bin, ima_dual, 10, 10, 0), 40);
 
     mltk::utils::printConfusionMatrix(bin.classes(), bin.classesNames(), mltk::validation::generateConfusionMatrix(bin, perc_dual));
     mltk::utils::printConfusionMatrix(bin.classes(), bin.classesNames(), mltk::validation::generateConfusionMatrix(bin, ima_dual));
