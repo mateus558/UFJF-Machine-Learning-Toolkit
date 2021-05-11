@@ -353,7 +353,7 @@ namespace mltk{
          * \param data (???) Dataset to be joined.
          * \return bool
          */
-        void join(std::shared_ptr<Data< T > > data);
+        void join(const Data< T >& data);
         /**
          * \brief Insert a point to the data from another sample.
          * \param sample (???) Sample with the point to be added.

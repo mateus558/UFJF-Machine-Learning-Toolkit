@@ -6,6 +6,7 @@
 
 #include <gtest/gtest.h>
 #include "ufjfmltk/core/Data.hpp"
+#include "ufjfmltk/valid/Validation.hpp"
 
 class DataTest: public ::testing::Test
 {
@@ -259,4 +260,16 @@ TEST_F(DataTest, DataInsertion){
     ASSERT_STREQ(mltk::utils::dtoa(1E14).c_str(), "1e+14");
     ASSERT_STREQ(mltk::utils::dtoa(1E14).c_str(), "1e+14");
     ASSERT_STREQ(mltk::utils::dtoa(3E-14).c_str(), "3e-14");
+}
+
+TEST_F(DataTest, DataSplit){
+    auto split = mltk::validation::kfoldSplit(mult, 5, 42);
+    std::vector<size_t> dist_train = {40, 40, 40};
+    std::vector<size_t> dist_test = {10, 10, 10};
+    for(const auto& s: split){
+        ASSERT_EQ(s.train.size(), 120);
+        ASSERT_EQ(s.test.size(), 30);
+        ASSERT_EQ(s.train.classesDistribution(), dist_train);
+        ASSERT_EQ(s.test.classesDistribution(), dist_test);
+    }
 }

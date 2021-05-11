@@ -66,6 +66,12 @@ namespace mltk{
             Data<T> train;
             /// Test data
             Data<T> test;
+
+            TrainTestPair() = default;
+            TrainTestPair(Data<T> &train, Data<T> &test){
+                this->train.copy(train);
+                this->test.copy(test);
+            }
         };
 
         /**
@@ -119,6 +125,23 @@ namespace mltk{
             }
             return (1 - errors/total)*100;
         }
+
+        template< typename T >
+        std::vector<TrainTestPair<T>> kfoldSplit(Data<T> &samples, const size_t folds, const size_t seed){
+           auto data_folds = samples.splitSample(folds, seed);
+           std::vector<TrainTestPair<T> > kfold_split;
+
+           for(int i = 0; i < folds; i++){
+               Data<T> train;
+               for(int j = 0; j < folds; j++){
+                   if(j != i){
+                       train.join(data_folds[j]);
+                   }
+               }
+               kfold_split.emplace_back(train, data_folds[i]);
+           }
+           return kfold_split;
+       }
 
         /**
         * \brief Divide the samples in training and test set.

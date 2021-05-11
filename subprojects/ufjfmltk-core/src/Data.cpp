@@ -958,10 +958,10 @@ namespace mltk{
     }
 
     template < typename T >
-    void mltk::Data< T >::join(std::shared_ptr<mltk::Data< T > > data){
-        size_t i, j, dim1 = data->dim(), antsize = m_size, size1 = data->size();
-        std::vector<int> index1 = data->getIndex(), antindex = index;
-        std::vector<std::shared_ptr<Point< T > > > points1 = data->points();
+    void mltk::Data< T >::join(const Data< T >& data){
+        size_t i, j, dim1 = data.dim(), antsize = m_size, size1 = data.size();
+        std::vector<int> index1 = data.getIndex(), antindex = index;
+        auto points1 = data.points();
 
         if(m_dim > dim1){
             cerr << "Error: sample1 dimension must be less or equal to sample2\n";
@@ -976,10 +976,40 @@ namespace mltk{
             for(i = 0; i < size1; i++) index[i + antsize] = index1[i];
         }
 
+        if(index.empty()){
+            index.resize(m_size);
+            iota(index.begin(), index.end(), 0);
+        }
+
         m_points.resize(m_size);
 
         for(i = antsize, j = 0; i < m_size && j < size1; i++, j++){
-            m_points[i] = points1[j];
+            m_points[i] = mltk::make_point<T>();
+            m_points[i]->X() = points1[j]->X();
+            m_points[i]->Y() = points1[j]->Y();
+            m_points[i]->Alpha() = points1[j]->Alpha();
+            m_points[i]->Id() = m_points[j]->Id();
+        }
+        std::vector<int> diff, classes1 = data.classes(), classes = m_classes;
+        std::sort(classes.begin(), classes.end());
+        std::sort(classes1.begin(), classes1.end());
+        std::set_difference(classes1.begin(), classes1.end(), classes.begin(), classes.end(),
+                            std::inserter(diff, diff.begin()));
+        m_classes.reserve(m_classes.size()+diff.size());
+        m_classes.insert(m_classes.end(), diff.begin(), diff.end());
+
+        std::vector<std::string> diff_names, classes_names1 = data.classesNames(), classes_names = class_names;
+        std::sort(classes_names.begin(), classes_names.end());
+        std::sort(classes_names1.begin(), classes_names1.end());
+        std::set_difference(classes_names1.begin(), classes_names1.end(), classes_names.begin(), classes_names.end(),
+                            std::inserter(diff_names, diff_names.begin()));
+        class_names.reserve(class_names.size()+diff_names.size());
+        class_names.insert(class_names.end(), diff_names.begin(), diff_names.end());
+
+        class_distribution.assign(m_classes.size(), 0);
+        computeClassesDistribution();
+        if(fnames.empty()){
+            fnames = data.getFeaturesNames();
         }
 
     }
