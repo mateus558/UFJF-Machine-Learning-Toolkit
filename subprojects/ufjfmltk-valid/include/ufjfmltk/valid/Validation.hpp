@@ -127,7 +127,7 @@ namespace mltk{
         }
 
         template< typename T >
-        std::vector<TrainTestPair<T>> kfoldSplit(Data<T> &samples, const size_t folds, const size_t seed){
+        std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, const size_t seed){
            auto data_folds = samples.splitSample(folds, seed);
            std::vector<TrainTestPair<T> > kfold_split;
 

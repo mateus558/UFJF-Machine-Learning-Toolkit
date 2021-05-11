@@ -263,7 +263,7 @@ TEST_F(DataTest, DataInsertion){
 }
 
 TEST_F(DataTest, DataSplit){
-    auto split = mltk::validation::kfoldSplit(mult, 5, 42);
+    auto split = mltk::validation::kfoldsplit(mult, 5, 42);
     std::vector<size_t> dist_train = {40, 40, 40};
     std::vector<size_t> dist_test = {10, 10, 10};
     for(const auto& s: split){
