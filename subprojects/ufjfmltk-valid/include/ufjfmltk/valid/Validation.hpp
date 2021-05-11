@@ -243,7 +243,7 @@ namespace mltk{
                     classifier::DualClassifier< T > *dual = dynamic_cast<classifier::DualClassifier< T > *>(&classifier);
                     std::shared_ptr<Data< T > > traintest_sample(std::make_shared<Data< T > >());
                     *traintest_sample = _test_sample;
-                    traintest_sample->join(_train_sample);
+                    traintest_sample->join(*_train_sample);
                     traintest_sample->setClasses(classes);
                     dual->setSamples(traintest_sample);
                     if(!dual->train()){
@@ -373,7 +373,7 @@ namespace mltk{
                 std::shared_ptr<Data< T > > traintest_sample(mltk::make_data<T>());
 
                 *traintest_sample = valid_pair.test;
-                traintest_sample->join(mltk::make_data<T>(valid_pair.train));
+                traintest_sample->join(valid_pair.train);
                 traintest_sample->setClasses(classes);
                 dual->setSamples(traintest_sample);
                 if(!dual->train()){
