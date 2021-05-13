@@ -31,6 +31,13 @@ TEST_F(DataTest, OpenDataBinDataset) {
     EXPECT_EQ(bin.dim(), 4);
     EXPECT_EQ(bin.classesDistribution(), dist);
 
+    mltk::Data<double> seismic("seismic-bumps.arff", true);
+    auto seis_dist = seismic.classesDistribution();
+    EXPECT_EQ(seismic.size(), 2584);
+    EXPECT_EQ(seismic.points().size(), 2584);
+    EXPECT_EQ(seismic.dim(), 18);
+    EXPECT_EQ(std::accumulate(seis_dist.begin(), seis_dist.end(),0), seismic.size());
+
     bin.write("_iris", "data");
     bin.write("_iris", "csv");
     bin.write("_iris", "plt");

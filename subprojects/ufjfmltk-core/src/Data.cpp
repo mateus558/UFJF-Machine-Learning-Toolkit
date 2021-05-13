@@ -391,9 +391,7 @@ namespace mltk{
 
             while(getline(ss, item, ',')){
                 //check for invalid feature or class
-                auto found_class = std::find_if(this->class_names.begin(), this->class_names.end(), [&item](const std::string &_class){
-                    return (_class == item);
-                });
+                auto found_class = std::find(this->class_names.begin(), this->class_names.end(), item);
                 
                 if(!utils::is_number(item) && (found_class != this->class_names.end())){
                     clog << "Warning: point[" << _size << "] " << _dim + 1 << " feature is not a number. (" << item << ")" << endl;
@@ -568,6 +566,51 @@ namespace mltk{
         is_empty = false;
 
         return true;
+    }
+
+    template<typename T>
+    int mltk::Data<T>::process_class(std::string& item) {
+        int c = 0;
+        auto class_name_it = std::find(this->class_names.begin(), this->class_names.end(), item);
+
+        item.erase(std::remove_if(item.begin(), item.end(), ::isspace), item.end());
+        if(item.empty()) return std::numeric_limits<int>::infinity();
+
+        if(class_name_it == class_names.end()){
+            this->class_names.push_back(item);
+            auto has_mone = std::find(class_names.begin(), class_names.end(), "-1");
+            if(has_mone == class_names.end()){
+                if(utils::is_number(item)) {
+                    c = std::stoi(item);
+                }else{
+                    auto pos = std::find(class_names.begin(), class_names.end(), item);
+                    c = (int)(pos - this->class_names.begin())+1;
+                }
+            }else{
+                c = 1;
+            }
+            if(item == "-1"){
+                c = -1;
+            }
+
+        }else{
+            if(utils::is_number(item)) {
+                c = std::stoi(item);
+            }else{
+                c = (int)(class_name_it - this->class_names.begin())+1;
+            }
+        }
+        auto class_it = std::find(this->m_classes.begin(), this->m_classes.end(), c);
+        if(class_it == this->m_classes.end()){
+            this->m_classes.push_back(c);
+            this->class_distribution.push_back(0);
+        }
+        auto it_pos = std::find_if(this->m_classes.begin(), this->m_classes.end(), [&c](const int &_class){
+            return (_class == c);
+        });
+        this->class_distribution[(it_pos-this->m_classes.begin())]++;
+
+        return c;
     }
 
     template < typename T >
@@ -1011,7 +1054,6 @@ namespace mltk{
         if(fnames.empty()){
             fnames = data.getFeaturesNames();
         }
-
     }
 
     template < typename T >
@@ -1177,48 +1219,6 @@ namespace mltk{
     template<typename T>
     const string &mltk::Data<T>::getType() const {
         return type;
-    }
-
-    template<typename T>
-    int mltk::Data<T>::process_class(std::string item) {
-        int c = 0;
-        auto class_name_it = std::find(this->class_names.begin(), this->class_names.end(), item);
-        
-        if(class_name_it == class_names.end()){
-            this->class_names.push_back(item);
-            auto has_mone = std::find(class_names.begin(), class_names.end(), "-1");
-            if(has_mone == class_names.end()){
-                if(utils::is_number(item)) {
-                    c = std::stoi(item);
-                }else{
-                    auto pos = std::find(class_names.begin(), class_names.end(), item);
-                    c = (int)(pos - this->class_names.begin())+1;
-                }
-            }else{
-                c = 1;
-            }
-            if(item == "-1"){
-                c = -1;
-            }
-        }else{
-            item.erase(std::remove_if(item.begin(), item.end(), ::isspace), item.end());
-            if(utils::is_number(item)) {
-                c = std::stoi(item);
-            }else{
-                c = (int)(class_name_it - this->class_names.begin())+1;
-            }
-        }
-        auto class_it = std::find(this->m_classes.begin(), this->m_classes.end(), c);
-        if(class_it == this->m_classes.end()){
-            this->m_classes.push_back(c);
-            this->class_distribution.push_back(0);
-        }
-        auto it_pos = std::find_if(this->m_classes.begin(), this->m_classes.end(), [&c](const int &_class){
-            return (_class == c);
-        });
-        this->class_distribution[(it_pos-this->m_classes.begin())]++;
-        
-        return c;
     }
 
     template<typename T>

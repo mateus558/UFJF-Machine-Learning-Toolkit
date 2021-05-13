@@ -132,7 +132,7 @@ namespace mltk{
          * \param item new class being added.
          * \return Id of the new class.
          **/
-        int process_class(std::string item);
+        int process_class(std::string& item);
         /**
          * \brief Returns the type of the file.
          * \param file (???) Path to the file.
