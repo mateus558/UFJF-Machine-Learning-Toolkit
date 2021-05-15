@@ -27,15 +27,23 @@ protected:
 TEST_F(ClassifierTest, BinClassifierTest){
     mltk::classifier::KNNClassifier<double> knn(bin, 3);
     mltk::classifier::IMAp<double> ima(bin);
+    mltk::classifier::IMAp<double> ima1(bin, -1);
+    mltk::classifier::IMAp<double> ima3(bin, 3);
+    mltk::classifier::IMAp<double> imainf(bin, 1);
     mltk::classifier::IMApFixedMargin<double> ima_fixed(mltk::make_data<double>(bin), 0.5);
     mltk::classifier::PerceptronPrimal<double> perc(bin);
     mltk::classifier::BalancedPerceptron<double> bperc(bin);
 
-    ima.setVerbose(0);
+    ima1.setVerbose(0);
+    imainf.setVerbose(0);
+    ima3.setVerbose(0);
 
     ASSERT_GT(mltk::validation::kkfold(bin, knn, 10, 10, 2).accuracy, 95);
     ASSERT_GT(mltk::validation::kfold(bin, knn, 10, 10, 2).accuracy, 95);
-    ASSERT_GT(mltk::validation::kfold(bin, ima, 10, 10, 0).accuracy, 80);
+    ASSERT_GT(mltk::validation::kfold(bin, ima, 10, 10, 0).accuracy, 90);
+    ASSERT_GT(mltk::validation::kfold(bin, ima1, 10, 10, 0).accuracy, 90);
+    ASSERT_GT(mltk::validation::kfold(bin, imainf, 10, 10, 0).accuracy, 90);
+    ASSERT_GT(mltk::validation::kfold(bin, ima3, 10, 10, 0).accuracy, 90);
     ASSERT_GT(mltk::validation::kfold(bin, ima_fixed, 10, 10, 0).accuracy, 30);
     ASSERT_GT(mltk::validation::kfold(bin, perc, 10, 10, 0).accuracy, 95);
     ASSERT_GT(mltk::validation::kfold(bin, bperc, 10, 10, 0).accuracy, 90);
@@ -45,9 +53,10 @@ TEST_F(ClassifierTest, MultiClassifierTest){
     mltk::classifier::KNNClassifier<double> knn(mult, 3);
     mltk::classifier::IMAp<double> ima(mult);
     mltk::classifier::PerceptronPrimal<double> perc;
-    ima.setVerbose(0);
     mltk::classifier::OneVsAll<double> ova(ima);
     mltk::classifier::OneVsOne<double> ovo(mult, perc);
+
+    ima.setVerbose(0);
 
     ASSERT_GT(mltk::validation::kkfold(mult, knn, 10, 10, 0).accuracy, 95);
     ASSERT_GT(mltk::validation::kfold(mult, knn, 10, 10, 0).accuracy, 95);
@@ -83,6 +92,7 @@ TEST_F(ClassifierTest, DualClassifier){
     mltk::classifier::IMADual<double> ima_dual(bin);
     mltk::classifier::IMADual<double> ima_dual_gaussian(bin, mltk::KernelType::GAUSSIAN, 0.5);
 
+    ima_dual_gaussian.setVerbose(3);
     ima_dual.setVerbose(0);
     std::cout << "Testing perceptron dual." << std::endl;
     ASSERT_GT(mltk::validation::kfold(bin, perc_dual, 10, 10, 0).accuracy, 40);

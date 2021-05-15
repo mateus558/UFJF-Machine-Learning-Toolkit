@@ -29,9 +29,10 @@ namespace mltk{
         }
 
         template<typename T>
-        IMAp<T>::IMAp(const Data<T> &samples, double margin, Solution *initial_solution) {
+        IMAp<T>::IMAp(const Data<T> &samples, int q, double margin, Solution *initial_solution) {
             this->samples = mltk::make_data<T>(samples);
             this->margin = margin;
+            this->q = q;
 
             this->hasInitialSolution = false;
 
@@ -632,7 +633,7 @@ namespace mltk{
                 if (this->verbose > 2) {
                     vector<int> fnames = this->samples->getFeaturesNames();
                     for (i = 0; i < dim; i++)
-                        cout << "W[" << fnames[i] << "]: " << this->solution.w[i] << endl;
+                        cout << "W[" << i << "]: " << this->solution.w[i] << endl;
                     cout << "Bias: " << this->solution.bias << "\n\n";
                 }
             }

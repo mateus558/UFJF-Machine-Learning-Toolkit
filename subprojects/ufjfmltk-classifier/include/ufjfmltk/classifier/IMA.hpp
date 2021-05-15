@@ -31,7 +31,7 @@ namespace mltk{
             explicit IMAp(std::shared_ptr<Data < T> > samples = nullptr,
             double margin = 0.0, Solution* initial_solution = nullptr);
 
-            explicit IMAp(const Data <T>& samples, double margin = 0.0, Solution* initial_solution = nullptr);
+            explicit IMAp(const Data <T>& samples, int q = 2, double margin = 0.0, Solution* initial_solution = nullptr);
 
             bool train() override;
 
