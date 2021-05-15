@@ -143,6 +143,18 @@ namespace mltk{
            return kfold_split;
        }
 
+        template< typename T >
+        std::vector<TrainTestPair<T>> kkfoldsplit(Data<T> &samples, const size_t qtde, const size_t folds, const size_t seed) {
+            std::vector<TrainTestPair<T> > kkfold_split;
+
+            kkfold_split.reserve(qtde*folds);
+            for(int i = 0; i < qtde; i++){
+                auto kfold_split = kfoldsplit(samples, folds, seed+i);
+                kkfold_split.insert(kkfold_split.end(), kfold_split.begin(), kfold_split.end());
+            }
+            return kkfold_split;
+        }
+
         /**
         * \brief Divide the samples in training and test set.
         * \param data Data to be splitted.

@@ -280,7 +280,17 @@ TEST_F(DataTest, DataSplit){
         ASSERT_EQ(s.train.classesDistribution(), dist_train);
         ASSERT_EQ(s.test.classesDistribution(), dist_test);
     }
+
+    split = mltk::validation::kkfoldsplit(mult, 10, 10, 42);
+    ASSERT_EQ(split.size(), 100);
+    for(const auto& s: split){
+        ASSERT_EQ(s.train.size(), 135);
+        ASSERT_EQ(s.test.size(), 15);
+        ASSERT_EQ(s.train.classesDistribution(), dist_train);
+        ASSERT_EQ(s.test.classesDistribution(), dist_test);
+    }
 }
+
 TEST_F(DataTest, DataTransformation){
     auto normalization = [](mltk::PointPointer<double> point){
         *point = mltk::normalize(*point, 2);
