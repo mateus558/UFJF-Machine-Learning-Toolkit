@@ -348,6 +348,7 @@ namespace mltk{
         std::vector< Data< T > > splitSample(const std::size_t &split_size, size_t seed = 0);
         Data< T > selectFeatures(std::vector<size_t> feats);
         Data< T > sampling(const size_t& samp_size, bool with_replacement = true, const int &seed=0);
+        void apply(std::function<void(mltk::PointPointer<T> point)> f);
         /**
          * \brief Merge one dataset with another.
          * \param data (???) Dataset to be joined.

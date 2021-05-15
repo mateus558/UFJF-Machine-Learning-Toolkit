@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.5)
-
 if(UNIX)
     set(CMAKE_INSTALL_PREFIX /usr)
 endif(UNIX)

@@ -10,6 +10,8 @@
 #include <utility>
 #include <cmath>
 #include <cstring>
+#include <ufjfmltk/core/Data.hpp>
+
 
 #include "ufjfmltk/core/Data.hpp"
 
@@ -1249,9 +1251,7 @@ namespace mltk{
         this->class_distribution = std::vector<size_t>(this->m_classes.size(), 0);
         for(auto p: m_points){
             int c = p->Y();
-            auto class_it = std::find_if(this->m_classes.begin(), this->m_classes.end(), [&c](int _c){
-                return c == _c;
-            });
+            auto class_it = std::find(this->m_classes.begin(), this->m_classes.end(), c);
             size_t class_pos = class_it - this->m_classes.begin();
             class_distribution[class_pos]++;
         }
@@ -1269,7 +1269,7 @@ namespace mltk{
         dist = (dist / size()) * new_size;
 
         for(size_t i = 0; i < dist.size(); i++){
-            dist[i] = (dist[i] < 1.0)?1.0:std::round(dist[i]);
+            dist[i] = (dist[i] < 1.0)?1.0:std::ceil(dist[i]);
         }
 
         for(size_t i = 0; i < split.size(); i++){
@@ -1413,6 +1413,11 @@ namespace mltk{
             labels[i] = m_points[i]->Y();
         }
         return labels;
+    }
+
+    template<typename T>
+    void Data<T>::apply(std::function<void(mltk::PointPointer<T> point)> f) {
+        std::for_each(this->m_points.begin(),this->m_points.end(), f);
     }
 
 
