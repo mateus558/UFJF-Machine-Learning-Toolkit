@@ -494,7 +494,7 @@ namespace mltk{
 
         template<typename T>
         bool IMADual<T>::train() {
-            double rmargin = 0, secs;
+            double rmargin = 0, old_rmargin = 0,secs;
             size_t i, j, it;
             size_t sv = 0, size = this->samples->size(), dim = this->samples->dim();
             double min, max, norm = 0, stime = 0;
@@ -573,6 +573,10 @@ namespace mltk{
                     cout << "    " << this->steps << "         " << this->ctot << "          " << rmargin << "         "
                          << norm << "     " << sv << "     " << secs << endl;
                 ++it; //IMA iteration increment
+                if((it > 0) && (rmargin - old_rmargin) < this->EPS){
+                    break;
+                }
+                old_rmargin = rmargin;
             }
 
             this->ctot = percDual.getCtot();

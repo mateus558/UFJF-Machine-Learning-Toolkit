@@ -21,10 +21,11 @@ namespace mltk{
         /**
          * \brief Solution for the validation of a ML method.
          */
-        struct ValidationSolution : public Solution {
+        struct ValidationReport : public Solution {
             // Attributes
             /// Accuracy of the validated model.
             double accuracy = 0.0;
+            double error = 0.0;
             /// Precision of the validated model.
             double precision = 0.0;
             /// Recall of the validated model.
@@ -144,7 +145,7 @@ namespace mltk{
        }
 
         template< typename T >
-        std::vector<TrainTestPair<T>> kkfoldsplit(Data<T> &samples, const size_t qtde, const size_t folds, const size_t seed) {
+        std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, const size_t qtde, const size_t seed) {
             std::vector<TrainTestPair<T> > kkfold_split;
 
             kkfold_split.reserve(qtde*folds);
@@ -195,29 +196,22 @@ namespace mltk{
          * \return Classification error estimative.
          */
         template <typename T>
-        double kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold, const size_t &seed=0, const int verbose=0){
+        ValidationReport kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold, const size_t &seed=0, const int verbose=0){
             double error = 0.0;
             std::vector<double> error_arr(fold);
             auto classes = sample.classes();
             sample.shuffle(seed);
-            std::vector<Data< T > > folds = sample.splitSample(fold, seed);
-            ValidationSolution solution;
+            std::vector<TrainTestPair<T>> folds = kfoldsplit(sample, fold, seed);
+            ValidationReport solution;
 
             //Start cross-validation
             for(size_t fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){
-                auto _test_sample = folds[j];
-                auto _train_sample = mltk::make_data< T >();
-                for(size_t i = 0; i < fold; i++){
-                    if(i != j){
-                        for(auto it = folds[i].begin(); it != folds[i].end(); it++){
-                            auto point = (*it);
-                            _train_sample->insertPoint(point);
-                        }
-                    }
-                }
+                auto _test_sample = folds[j].test;
+                auto _train_sample = folds[j].train;
+
                 if(verbose){
                     std::cout << "\nCross-Validation " << j + 1 << ": \n";
-                    std::cout << "Train points: " << _train_sample->size() << std::endl;
+                    std::cout << "Train points: " << _train_sample.size() << std::endl;
                     std::cout << "Test points: " << _test_sample.size() << std::endl;
                     std::cout << std::endl;
                 }
@@ -254,8 +248,8 @@ namespace mltk{
                 }else{
                     classifier::DualClassifier< T > *dual = dynamic_cast<classifier::DualClassifier< T > *>(&classifier);
                     std::shared_ptr<Data< T > > traintest_sample(std::make_shared<Data< T > >());
-                    *traintest_sample = _test_sample;
-                    traintest_sample->join(*_train_sample);
+                    traintest_sample = mltk::make_data<T>(_test_sample);
+                    traintest_sample->join(_train_sample);
                     traintest_sample->setClasses(classes);
                     dual->setSamples(traintest_sample);
                     if(!dual->train()){
@@ -281,8 +275,8 @@ namespace mltk{
 
                 }
 
-                if(verbose) std::cout << "Error " << j + 1 << ": " << error_arr[j] << " -- " << ((double)error_arr[j]/(double) folds[j].size()) * 100.0f << "%\n";
-                error += ((double)error_arr[j]/(double) folds[j].size()) * 100.0f;
+                if(verbose) std::cout << "Error " << j + 1 << ": " << error_arr[j] << " -- " << ((double)error_arr[j]/(double) _test_sample.size()) * 100.0f << "%\n";
+                error += ((double)error_arr[j]/(double) _test_sample.size()) * 100.0f;
                 if(classes.size() == 2){
                     solution.accuracy += (double)(tp + tn)/(double)(tp + tn + fp + fn);
                     solution.precision += (double)tp/(double)(tp + fp);
@@ -294,10 +288,9 @@ namespace mltk{
                     solution.truePositive += tp;
                 }
             }
-            if(classes.size() > 2){
-                solution.accuracy += 100.0 - (((double)error)/(double)fold);
-            }
-            return (((double)error)/(double)fold);
+            solution.error = (((double)error)/(double)fold);
+            solution.accuracy += 100.0 - solution.error;
+            return solution;
         }
 
         /**
@@ -309,14 +302,14 @@ namespace mltk{
          * @return double Validation error.
          */
         template <typename T>
-        ValidationSolution kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t &qtde, const size_t &fold, const size_t &seed = 0, const int &verbose = 0){
+        ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t &qtde, const size_t &fold, const size_t &seed = 0, const int &verbose = 0){
             auto valid_pair = partTrainTest(samples, fold, seed);
             int i;
             size_t fp = 0, fn = 0, tp = 0, tn = 0, erro=0;
             double error = 0, errocross = 0, func = 0.0, margin = 0, bias;
             std::vector<double> w;
             auto classes = samples.classes();
-            ValidationSolution solution;
+            ValidationReport solution;
 
             //sample = train_sample;
 
@@ -326,7 +319,7 @@ namespace mltk{
                 for(errocross = 0, i = 0; i < qtde; i++)
                 {
                     if(verbose) std::cout << "\nExecucao " << i + 1 << " / " << qtde << ":\n";
-                    errocross += kfold(samples, classifier, fold, seed + i, verbose);
+                    errocross += kfold(samples, classifier, fold, seed + i, verbose).error;
                 }
                 if(verbose >= 1)std::cout << "\n\nErro " << fold << "-Fold Cross Validation: " << errocross/qtde << "%\n";
                 solution.accuracy = 100.0 - errocross/qtde;
@@ -414,7 +407,7 @@ namespace mltk{
 
             if(verbose >= 1) std::cout << "Validation Error: " << erro << " -- " << ((double)erro/(double) valid_pair.test.size()) * 100.0f << "%\n";
             error += ((double)erro/(double) valid_pair.test.size()) * 100.0f;
-
+            solution.error = error;
             return solution;
         }
     }
