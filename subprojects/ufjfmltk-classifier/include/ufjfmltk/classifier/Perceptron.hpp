@@ -50,9 +50,9 @@ namespace mltk{
         private:
             Solution *initial = nullptr;
         public:
-            explicit PerceptronDual(std::shared_ptr<Data<T> > samples = nullptr, double rate = 0.5,
-                                    int kernel_type = KernelType::INNER_PRODUCT, double kernel_param = 0,
-                                    Solution *initial_solution = nullptr);
+            PerceptronDual(const Data<T>& samples,
+                            KernelType kernel_type = KernelType::INNER_PRODUCT, double kernel_param = 0,
+                            double rate = 0.5, Solution *initial_solution = nullptr);
 
             explicit PerceptronDual(const Data<T>& samples, double rate = 0.5,
                                     Solution *initial_solution = nullptr);

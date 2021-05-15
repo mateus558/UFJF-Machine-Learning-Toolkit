@@ -289,7 +289,7 @@ namespace mltk{
                 }
             }
             solution.error = (((double)error)/(double)fold);
-            solution.accuracy += 100.0 - solution.error;
+            solution.accuracy = 100.0 - solution.error;
             return solution;
         }
 

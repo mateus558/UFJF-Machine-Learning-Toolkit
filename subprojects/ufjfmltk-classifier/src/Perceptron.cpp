@@ -227,9 +227,9 @@ namespace mltk{
         }
 
         template<typename T>
-        PerceptronDual<T>::PerceptronDual(std::shared_ptr<Data<T> > samples, double rate, int kernel_type,
-                                          double kernel_param, Solution *initial_solution) {
-            this->samples = samples;
+        PerceptronDual<T>::PerceptronDual(const Data<T>& samples, KernelType kernel_type,
+                                          double kernel_param, double rate, Solution *initial_solution) {
+            this->samples = mltk::make_data<T>(samples);
             if (initial_solution) {
                 this->solution = *initial_solution;
                 this->alpha = (*initial_solution).alpha;
