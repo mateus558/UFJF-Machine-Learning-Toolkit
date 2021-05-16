@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 #include "ufjfmltk/core/DistanceMetric.hpp"
 #include "ufjfmltk/Clusterer.hpp"
+#include "ufjfmltk/Validation.hpp"
 #include "ufjfmltk/core/Utils.hpp"
 
 class ClustererTest: public ::testing::Test
