@@ -28,8 +28,7 @@ namespace mltk{
             std::vector<int> svs;
 
         public:
-            explicit IMAp(std::shared_ptr<Data < T> > samples = nullptr,
-            double margin = 0.0, Solution* initial_solution = nullptr);
+            IMAp() = default;
 
             explicit IMAp(const Data <T>& samples, int q = 2, double margin = 0.0, Solution* initial_solution = nullptr);
 
@@ -58,6 +57,7 @@ namespace mltk{
             std::vector<int> svs;
 
         public:
+            IMApFixedMargin() = default;
             explicit IMApFixedMargin(const mltk::Data<T>& samples, double gamma = 0,
                                      Solution *initial_solution = nullptr);
 
@@ -77,6 +77,7 @@ namespace mltk{
             /// Support vector.
             std::vector<int> svs;
         public:
+            IMADual() = default;
             explicit IMADual(const Data<T>& samples, KernelType kernel_type=KernelType::INNER_PRODUCT, double kernel_param=0,
                              double rate = 1, Solution* initial_solution = nullptr);
 

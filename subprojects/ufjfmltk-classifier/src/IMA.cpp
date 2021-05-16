@@ -13,22 +13,6 @@ namespace mltk{
         using namespace std;
 
         template<typename T>
-        IMAp<T>::IMAp(std::shared_ptr<Data<T> > samples, double margin, Solution *initial_solution) {
-            this->samples = samples;
-            this->margin = margin;
-
-            this->hasInitialSolution = false;
-
-            if (initial_solution) {
-                this->solution.w = initial_solution->w;
-                this->solution.bias = initial_solution->bias;
-                this->hasInitialSolution = true;
-            } else {
-                if (samples) this->w.resize(samples->dim());
-            }
-        }
-
-        template<typename T>
         IMAp<T>::IMAp(const Data<T> &samples, int q, double margin, Solution *initial_solution) {
             this->samples = mltk::make_data<T>(samples);
             this->margin = margin;
