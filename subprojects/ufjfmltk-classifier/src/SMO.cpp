@@ -19,20 +19,11 @@ namespace mltk{
         using namespace std;
 
         template<typename T>
-        SMO<T>::SMO(shared_ptr<Data<T> > samples, Kernel *k, int verbose) {
-            this->samples = samples;
-            this->verbose = verbose;
-            this->kernel = k;
-            if (this->kernel == nullptr) this->kernel = new Kernel();
-            this->head = nullptr;
-        }
-
-        template<typename T>
-        SMO<T>::SMO(const Data<T> &samples, std::string kernel_type, int verbose, double param) {
+        SMO<T>::SMO(const Data<T>& samples, KernelType kernel_type, double param, int verbose) {
             this->samples = mltk::make_data<T>(samples);
             this->verbose = verbose;
             this->kernel_type = kernel_type;
-            this->param = param;
+            this->kernel_param = param;
             this->head = nullptr;
         }
 
@@ -60,15 +51,12 @@ namespace mltk{
             this->solution.bias = 0;
             for (i = 0; i < size; i++)
                 (*this->samples)[i]->Alpha() = 0;
-
-            this->timer.Reset();
-
+            this->alpha.assign(size, 0.0);
             if(this->kernel) delete this->kernel;
-            if(kernel_type == "inner_product") this->kernel = new mltk::Kernel(KernelType::INNER_PRODUCT);
-            if(kernel_type == "poly") this->kernel = new mltk::Kernel(KernelType::POLYNOMIAL, param);
-            if(kernel_type == "gaussian") this->kernel = new mltk::Kernel(KernelType::GAUSSIAN, param);
+            this->kernel = new mltk::Kernel(this->kernel_type, this->kernel_param);
             this->kernel->compute(this->samples);
 
+            this->timer.Reset();
             /*run training algorithm*/
             ret = training_routine();
 
@@ -100,7 +88,7 @@ namespace mltk{
                 if (this->verbose > 1) {
                     vector<int> fnames = this->samples->getFeaturesNames();
                     for (i = 0; i < dim; i++)
-                        cout << "W[" << fnames[i] << "]: " << this->solution.w[i] << endl;
+                        cout << "W[" << i << "]: " << this->solution.w[i] << endl;
                     cout << "Bias: " << this->solution.bias << "\n\n";
                 }
             }
@@ -121,8 +109,8 @@ namespace mltk{
             double alpha1 = 0;
 
             /*cleaning up done list*/
-            for (i = 0; i < size; ++i) this->l_data[i].done = false;
-            this->l_data[i1].done = true;
+            for (i = 0; i < size; ++i) this->l_data[i].done = 0;
+            this->l_data[i1].done = 1;
 
             /*reading stuff from array*/
             auto p = (*this->samples)[i1];
@@ -227,7 +215,7 @@ namespace mltk{
             dMatrix *matrix = this->kernel->getKernelMatrixPointer();
 
             /*this sample is done*/
-            this->l_data[i2].done = true;
+            this->l_data[i2].done = 1;
 
             /*get info from sample struct*/
             b = -this->solution.bias;
@@ -386,20 +374,20 @@ namespace mltk{
             int k = 0;
             int num_changed = 0;
             int tot_changed = 0;
-            bool examine_all = 1;
+            int examine_all = 1;
 
             /*initialize variables*/
             this->solution.bias = 0;
             for (k = 0; k < size; ++k) {
                 (*this->samples)[k]->Alpha() = 0;
                 this->l_data[k].error = 0;
-                this->l_data[k].done = false;
+                this->l_data[k].done = 0;
             }
 
             /*training*/
             while (num_changed > 0 || examine_all) {
                 /*stop if iterated too much!*/
-                if (epoch > this->MAX_EPOCH) return 0;
+                if (epoch > this->MAX_EPOCH) return false;
 
                 num_changed = 0;
                 if (examine_all)
@@ -411,7 +399,7 @@ namespace mltk{
                         if ((*this->samples)[k]->Alpha() > 0 && (*this->samples)[k]->Alpha() < C)
                             num_changed += examine_example(k);
 
-                if (examine_all) examine_all = false;
+                if (examine_all == 1) examine_all = 0;
                 else if (num_changed == 0) examine_all = 1;
                 tot_changed += num_changed;
                 ++epoch;

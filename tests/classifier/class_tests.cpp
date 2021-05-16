@@ -79,20 +79,21 @@ TEST_F(ClassifierTest, MultiClassifierTest){
 }
 
 TEST_F(ClassifierTest, SMOClassifier){
-    mltk::classifier::SMO<double> smo_gauss(wine, "gaussian", 0, 0.5);
-    mltk::classifier::SMO<double> smo_inner(wine, "inner_product", 0, 1);
-    mltk::classifier::SMO<double> smo_poly(wine, "poly", 1, 3);
+    mltk::classifier::SMO<double> smo_gauss(wine, mltk::KernelType::GAUSSIAN, 0.5, 3);
+    mltk::classifier::SMO<double> smo_inner(wine, mltk::INNER_PRODUCT, 0, 0);
+    mltk::classifier::SMO<double> smo_poly(wine, mltk::POLYNOMIAL, 10, 0);
     double acc = 0;
+    std::cout << "Testing with polynomial kernel" << std::endl;
+    smo_poly.setMaxEpochs(100);
+    acc = mltk::validation::kfold(wine, smo_poly, 10, 0).accuracy;
+    std::cout << acc << std::endl;
+    ASSERT_GT(acc, 60);
     std::cout << "Testing with gaussian kernel" << std::endl;
     ASSERT_GT(mltk::validation::kfold(wine, smo_gauss, 10, 0).accuracy, 95);
     std::cout << "Testing with inner product kernel" << std::endl;
     smo_inner.setMaxEpochs(100);
     acc = mltk::validation::kfold(wine, smo_inner, 10, 0).accuracy;
     ASSERT_GE(acc, 74);
-    std::cout << "Testing with polynomial kernel" << std::endl;
-    smo_poly.setMaxEpochs(100);
-    acc = mltk::validation::kfold(wine, smo_poly, 10, 0).accuracy;
-    ASSERT_GT(acc, 60);
 }
 
 TEST_F(ClassifierTest, DualClassifier){

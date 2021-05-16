@@ -37,16 +37,15 @@ namespace mltk{
             private:
                 struct smo_learning_data {
                     double error;
-                    bool done;
+                    char done;
                     int_dll *sv = nullptr;
 
                     smo_learning_data() {
                         error = 0.0;
-                        done = false;
+                        done = 0;
                         sv = nullptr;
                     }
                 };
-                std::string kernel_type;
                 double param = 0;
                 const int C = 9999; //0.05
                 const double TOL = 0.0001;
@@ -72,8 +71,9 @@ namespace mltk{
                 int train_matrix(Kernel *matrix);
 
             public:
-                explicit SMO(std::shared_ptr<Data<T>> samples = nullptr, Kernel *k = nullptr, int verbose = 0);
-                explicit SMO(const Data<T>& samples, std::string kernel_type="inner_product", int verbose = 0, double param = 0);
+                SMO() = default;
+                explicit SMO(const Data<T>& samples, KernelType kernel_type = KernelType::INNER_PRODUCT,
+                             double param = 0, int verbose = 0);
 
                 bool train() override;
 
