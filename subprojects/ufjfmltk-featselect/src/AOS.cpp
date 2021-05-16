@@ -289,12 +289,7 @@ namespace mltk{
                     auto *primal = dynamic_cast<classifier::PrimalClassifier<T> *>(this->classifier);
 
                     if (primal->getQ() == 2) {
-                        Kernel K;
-
-                        K.setType(0);
-                        K.setParam(0);
-
-                        classifier::SMO<T> smo(this->samples, &K, 0);
+                        classifier::SMO<T> smo(*this->samples, KernelType::INNER_PRODUCT, 0, 0);
 
                         if (!smo.train()) {
                             //if (!smo_train(sample, &w, &margin, &svcount, 0)) {
@@ -318,12 +313,7 @@ namespace mltk{
                 } else if (this->ftime &&
                            this->samples->getTime_mult() == 2) //primeira dimens�o -- solu��o exata dual -- "gambiarra"
                 {
-                    Kernel K;
-
-                    K.setParam(0);
-                    K.setType(0);
-
-                    classifier::SMO<T> smo(this->samples, &K, 0);
+                    classifier::SMO<T> smo(*this->samples, KernelType::INNER_PRODUCT, 0, 0);
                     if (!smo.train()) {
                         //if (!smo_train(sample, &w, &margin, &svcount, 0)) {
                         if (this->verbose > 1) std::cout << "Training failed!\n";
