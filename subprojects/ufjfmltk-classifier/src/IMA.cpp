@@ -55,7 +55,7 @@ namespace mltk{
             vector<double> w_saved, func;
             vector<int> index = this->samples->getIndex(), fnames = this->samples->getFeaturesNames();
             auto points = this->samples->points();
-            IMApFixedMargin<T> imapFixMargin(this->samples, gamma);
+            IMApFixedMargin<T> imapFixMargin(*this->samples, gamma);
             Solution tempSol;
 
             this->timer.Reset();
@@ -298,18 +298,18 @@ namespace mltk{
 
 
         template<typename T>
-        IMApFixedMargin<T>::IMApFixedMargin(std::shared_ptr<Data<T> > samples, double gamma,
+        IMApFixedMargin<T>::IMApFixedMargin(const mltk::Data<T>& samples, double gamma,
                                             Solution *initial_solution) {
             this->gamma = gamma;
-            this->samples = samples;
+            this->samples = mltk::make_data<T>(samples);
 
             if (initial_solution) {
                 this->w = initial_solution->w;
                 this->solution.bias = initial_solution->bias;
                 this->solution.norm = initial_solution->norm;
             } else {
-                this->w.resize(samples->dim());
-                this->solution.func.resize(samples->size());
+                this->w.resize(samples.dim());
+                this->solution.func.resize(samples.size());
             }
         }
 
@@ -456,24 +456,6 @@ namespace mltk{
         }
 
         template<typename T>
-        IMADual<T>::IMADual(std::shared_ptr<Data<T> > samples, Kernel *k, double rate, Solution *initial_solution) {
-            this->samples = samples;
-            this->kernel = k;
-            this->rate = rate;
-
-            if (this->kernel == nullptr) {
-                this->kernel = new Kernel();
-            }
-
-            if (initial_solution) {
-                this->solution.w = initial_solution->w;
-                this->solution.bias = initial_solution->bias;
-                this->hasInitialSolution = true;
-            } else {
-                this->solution.w.resize(samples->dim());
-            }
-        }
-        template<typename T>
         IMADual<T>::IMADual(const Data<T> &samples, KernelType kernel_type, double kernel_param, double rate,
                             Solution *initial_solution) {
             this->samples = make_data<T>(samples);
@@ -504,6 +486,7 @@ namespace mltk{
             vector<double> w_saved(dim), saved_alphas(size), func(size);
             vector<shared_ptr<Point<T> > > points = this->samples->points();
 
+            this->kernel->compute(this->samples);
             this->timer.Reset();
 
             //Allocating space for index
@@ -514,9 +497,6 @@ namespace mltk{
                 for (i = 0; i < size; ++i) { index[i] = i; }
             }
             this->solution.bias = 0;
-
-            //Allocating space kernel matrix
-            this->kernel->compute(this->samples);
 
             if (this->verbose) {
                 cout << "-------------------------------------------------------------------\n";
@@ -529,10 +509,12 @@ namespace mltk{
             this->steps = 0;
             this->gamma = 0;
 
-            PerceptronFixedMarginDual<T> percDual(this->samples, this->gamma, this->rate, nullptr);
+            PerceptronFixedMarginDual<T> percDual;
             Solution sol, *solr;
 
+            percDual.setSamples(this->samples);
             percDual.setKernel(this->kernel);
+            percDual.setGamma(this->gamma);
             percDual.setLearningRate(this->rate);
             percDual.setMaxTime(this->max_time);
             percDual.setMaxUpdates(this->MAX_UP);
@@ -579,7 +561,6 @@ namespace mltk{
                 }
                 old_rmargin = rmargin;
             }
-
             this->ctot = percDual.getCtot();
             this->steps = percDual.getSteps();
             sol = percDual.getSolution();

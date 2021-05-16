@@ -84,9 +84,9 @@ namespace mltk{
         }
 
         template<typename T>
-        PerceptronFixedMarginPrimal<T>::PerceptronFixedMarginPrimal(std::shared_ptr<Data<T> > samples, double gamma,
+        PerceptronFixedMarginPrimal<T>::PerceptronFixedMarginPrimal(const mltk::Data<T>& samples, double gamma,
                                                                     double q, double rate, Solution *initial_solution) {
-            this->samples = samples;
+            this->samples = mltk::make_data<T>(samples);
             this->q = q;
             this->rate = rate;
             this->gamma = gamma;
@@ -317,36 +317,16 @@ namespace mltk{
         }
 
         template<typename T>
-        PerceptronFixedMarginDual<T>::PerceptronFixedMarginDual(std::shared_ptr<Data<T> > samples, double gamma,
-                                                                double rate, int kernel_type, double kernel_param,
+        PerceptronFixedMarginDual<T>::PerceptronFixedMarginDual(const mltk::Data<T>& samples, KernelType kernel_type,
+                                                                double kernel_param, double gamma, double rate,
                                                                 Solution *initial_solution) {
-            this->samples = samples;
+            this->samples = mltk::make_data<T>(samples);
             //this->solution = *initial_solution;
             this->rate = rate;
             this->kernel = new Kernel(kernel_type, kernel_param);
             this->gamma = gamma;
             if (initial_solution)
                 this->alpha = (*initial_solution).alpha;
-            else {
-                this->alpha.resize(samples->size());
-                this->solution.func.resize(samples->size());
-            }
-        }
-
-        template<typename T>
-        PerceptronFixedMarginDual<T>::PerceptronFixedMarginDual(std::shared_ptr<Data<T> > samples, double gamma,
-                                                                double rate, Solution *initial_solution) {
-            this->samples = samples;
-            //this->solution = *initial_solution;
-            this->rate = rate;
-            this->kernel = nullptr;
-            this->gamma = gamma;
-            if (initial_solution)
-                this->alpha = (*initial_solution).alpha;
-            else {
-                this->alpha.resize(samples->size());
-                this->solution.func.resize(samples->size());
-            }
         }
 
         template<typename T>
@@ -360,6 +340,10 @@ namespace mltk{
             vector<double> func = this->solution.func, Kv;
             this->kernel->compute(this->samples);
             dMatrix *K = this->kernel->getKernelMatrixPointer();
+
+            if(this->alpha.empty()){
+                this->alpha.resize(this->samples->size());
+            }
 
             if (func.empty()) { func.resize(size); }
             e = 1, s = 0;

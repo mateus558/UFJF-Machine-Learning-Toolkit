@@ -34,7 +34,8 @@ namespace mltk{
         template<typename T>
         class PerceptronFixedMarginPrimal : public PrimalClassifier<T> {
         public:
-            explicit PerceptronFixedMarginPrimal(std::shared_ptr<Data<T> > samples = nullptr, double gamma = 1.0,
+            PerceptronFixedMarginPrimal() = default;
+            explicit PerceptronFixedMarginPrimal(const mltk::Data<T>& samples, double gamma = 0,
                                                  double q = 2, double rate = 0.5, Solution *initial_solution = nullptr);
 
             bool train() override;
@@ -50,8 +51,9 @@ namespace mltk{
         private:
             Solution *initial = nullptr;
         public:
+            PerceptronDual() = default;
             PerceptronDual(const Data<T>& samples,
-                            KernelType kernel_type = KernelType::INNER_PRODUCT, double kernel_param = 0,
+                            KernelType kernel_type, double kernel_param = 0,
                             double rate = 0.5, Solution *initial_solution = nullptr);
 
             explicit PerceptronDual(const Data<T>& samples, double rate = 0.5,
@@ -66,11 +68,9 @@ namespace mltk{
         template<typename T>
         class PerceptronFixedMarginDual : public DualClassifier<T> {
         public:
-            explicit PerceptronFixedMarginDual(std::shared_ptr<Data<T> > samples = nullptr, double gamma = 1.0,
-                                               double rate = 0.5, int kernel_type = KernelType::INNER_PRODUCT,
-                                               double kernel_param = 0, Solution *initial_solution = nullptr);
-
-            explicit PerceptronFixedMarginDual(std::shared_ptr<Data<T> > samples, double gamma = 1.0, double rate = 0.5,
+            PerceptronFixedMarginDual() = default;
+            explicit PerceptronFixedMarginDual(const mltk::Data<T>& samples, KernelType kernel_type = KernelType::INNER_PRODUCT,
+                                               double kernel_param = 0, double gamma = 0, double rate = 0.5,
                                                Solution *initial_solution = nullptr);
 
             bool train() override;
