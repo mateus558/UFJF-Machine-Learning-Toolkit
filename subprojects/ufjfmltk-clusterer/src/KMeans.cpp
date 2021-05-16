@@ -2,16 +2,19 @@
 // Created by mateus558 on 26/03/2020.
 //
 
-#include <random>
+#include <utility>
 #include "ufjfmltk/clusterer/KMeans.hpp"
 
 namespace mltk{
     namespace clusterer {
         template<typename T, typename Callable>
-        KMeans<T, Callable>::KMeans(std::shared_ptr<Data<T>> _samples, size_t k, const std::string &_initialization)
-                : Clusterer<T>(_samples, k), initialization(_initialization) {
-            this->centers.assign(this->n_clusters, std::vector<T>(this->samples->dim(), 0.0));
-            this->clusters.assign(this->n_clusters, std::vector<size_t>());
+        KMeans<T, Callable>::KMeans(const mltk::Data<T>& samples, size_t k, std::string initialization, size_t seed,
+                                    int verbose)
+                : Clusterer<T>(mltk::make_data<T>(samples), k), initialization(std::move(initialization)){
+            this->m_centers.assign(this->n_clusters, std::vector<T>(this->samples->dim(), 0.0));
+            this->m_clusters.assign(this->n_clusters, std::vector<size_t>());
+            this->verbose = verbose;
+            this->seed = seed;
         }
 
         template<typename T, typename Callable>
@@ -21,38 +24,34 @@ namespace mltk{
             size_t time = this->start_time + this->max_time;
             auto points = this->samples->points();
             bool has_converged = true;
-            std::random_device rnd_device;
-            std::mt19937 mersenne_engine{rnd_device()};
-            std::uniform_int_distribution<size_t> dist{0, this->samples->size()};
+            mltk::random::init(this->seed);
 
-            std::shuffle(points.begin(), points.end(), std::mt19937(std::random_device()()));
+            std::shuffle(points.begin(), points.end(), std::mt19937(this->seed));
 
             if (initialization == "random") {
                 std::vector<size_t> centers_ids(this->n_clusters);
 
-                // create a random number generator function
-                auto gen = [&dist, &mersenne_engine]() {
-                    return dist(mersenne_engine);
-                };
                 // generate the ids of the centers in the dataset using the random number generator function
-                std::generate(centers_ids.begin(), centers_ids.end(), gen);
+                std::generate(centers_ids.begin(), centers_ids.end(), [&size](){
+                    return mltk::random::intInRange(0, size);
+                });
                 // get the values from the dataset for the centers
-                std::transform(centers_ids.begin(), centers_ids.end(), this->centers.begin(),
+                std::transform(centers_ids.begin(), centers_ids.end(), this->m_centers.begin(),
                                [this](const size_t &center_id) {
                                    return (*this->samples)[center_id]->X();
                                });
             } else if (initialization == "kmeanspp") {
                 // choose the first center randomly
-                this->centers[0] = points[dist(mersenne_engine)]->X();
+                this->m_centers[0] = points[mltk::random::intInRange(0, size)]->X();
                 // choose the next cluster in points with a probability directly proportional to the metrics from the
                 // last chosen cluster.
-                for (size_t i = 1; i < this->centers.size(); i++) {
+                for (size_t i = 1; i < this->m_centers.size(); i++) {
                     double sum_d = 0.0;
                     std::vector<double> distances(points.size(), 0.0);
                     //compute the distances from the points to the last cluster
                     std::transform(points.begin(), points.end(), distances.begin(),
                                    [&i, &sum_d, this](const std::shared_ptr<Point<T> > q) {
-                                       double d = this->dist_function(Point<T>(this->centers[i - 1]), *q);
+                                       double d = this->dist_function(Point<T>(this->m_centers[i - 1]), *q);
                                        sum_d += d;
                                        return d;
                                    });
@@ -62,8 +61,8 @@ namespace mltk{
                     // use the distances as a probability distribution
                     std::discrete_distribution<size_t> _dist(distances.begin(), distances.end());
                     // generate the id for the next cluster
-                    size_t center = _dist(mersenne_engine);
-                    this->centers[i] = points[center]->X();
+                    size_t center = mltk::random::intInRange(0, size);
+                    this->m_centers[i] = points[center]->X();
                 }
             }
 
@@ -77,9 +76,7 @@ namespace mltk{
                 old_cost = cost;
                 cost = 0.0;
                 has_converged = true;
-                for (size_t i = 0; i < this->n_clusters; i++) {
-                    this->clusters[i].erase(this->clusters[i].begin(), this->clusters[i].end());
-                }
+
                 // assign each point to the nearest cluster
                 for (size_t i = 0; i < size; i++) {
                     std::vector<double> distances(this->n_clusters, 0.0);
@@ -88,7 +85,7 @@ namespace mltk{
 
                     for (size_t c = 0; c < this->n_clusters; c++) {
                         auto point = (*this->samples)[i]->X();
-                        auto center = this->centers[c];
+                        auto center = this->m_centers[c];
                         std::vector<T> diff(dim);
                         // compute the difference between the pointer in a cluster to it's center
                         for (size_t j = 0; j < dim; j++) {
@@ -102,20 +99,20 @@ namespace mltk{
                         }
                     }
                     cost += distances[min_cluster] * distances[min_cluster];
-                    this->clusters[min_cluster].push_back(i);
+                    this->m_centers[min_cluster].push_back(i);
                 }
 
                 // update the centers of the clusters
                 for (size_t c = 0; c < this->n_clusters; c++) {
-                    size_t cluster_size = this->clusters[c].size();
-                    this->centers[c].assign(dim, T());
+                    size_t cluster_size = this->m_centers[c].size();
+                    this->m_centers[c].assign(dim, T());
                     for (size_t e = 0; e < cluster_size; e++) {
                         for (size_t j = 0; j < dim; j++) {
-                            this->centers[c][j] += points[e]->X()[j];
+                            this->m_centers[c][j] += points[e]->X()[j];
                         }
                     }
                     for (size_t j = 0; j < dim; j++) {
-                        this->centers[c][j] /= cluster_size;
+                        this->m_centers[c][j] /= cluster_size;
                     }
                 }
 
@@ -130,6 +127,17 @@ namespace mltk{
                 has_converged = fabs(cost - old_cost) <= this->EPS;
             } while (!has_converged);
 
+            for(size_t i = 0; i < this->samples->size(); i++){
+                auto point = (*this->samples)[i];
+                std::vector<double> dists(this->m_centers.size());
+                auto compute_distances = [point, this](std::vector<T> center){
+                    return this->dist_function(*point, mltk::Point<T>(center));
+                };
+                std::transform(this->m_centers.begin(), this->m_centers.end(), dists.begin(), compute_distances);
+                auto closest_center = std::min_element(dists.begin(), dists.end()) - dists.begin();
+                this->m_clusters[closest_center].push_back(i);
+            }
+
             return true;
         }
 
@@ -142,7 +150,7 @@ namespace mltk{
 
             for (size_t c = 0; c < this->n_clusters; c++) {
                 auto point = p.X();
-                auto center = this->centers[c];
+                auto center = this->m_centers[c];
                 std::vector<T> diff(dim);
                 // compute the difference between the pointer in a cluster to it's center
                 for (size_t j = 0; j < dim; j++) {

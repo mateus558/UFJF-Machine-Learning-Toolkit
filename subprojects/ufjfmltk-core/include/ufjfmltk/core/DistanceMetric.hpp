@@ -18,8 +18,7 @@
 #include "Point.hpp"
 #include <cmath>
 
-namespace mltk{
-    namespace metrics{ namespace dist{
+namespace mltk::metrics::dist{
         /**
          * \brief Base functor class for the implementation of new metrics metrics.
          */
@@ -514,7 +513,5 @@ namespace mltk{
             }
         };
     }
-    }
-}
 
 #endif

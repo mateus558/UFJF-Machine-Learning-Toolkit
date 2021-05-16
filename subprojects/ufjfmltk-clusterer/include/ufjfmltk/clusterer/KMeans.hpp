@@ -20,7 +20,9 @@ namespace mltk{
                 std::string initialization;
 
             public:
-                KMeans(std::shared_ptr<Data<T> > _samples, size_t k, const std::string &initialization = "random");
+                KMeans() = default;
+                KMeans(const Data<T>& samples, size_t k, std::string initialization = "random", size_t seed = 0,
+                       int verbose = 0);
 
                 bool train() override;
 
