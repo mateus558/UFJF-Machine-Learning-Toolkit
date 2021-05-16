@@ -45,7 +45,7 @@ TEST_F(ClassifierTest, BinClassifierTest){
     perc_fixed3.setMaxTime(300);
     perc_fixed1.setMaxTime(300);
     perc_fixed.setMaxTime(300);
-    ASSERT_GT(mltk::validation::kfold(bin, bperc, 10, 10, 0).accuracy, 90);
+    ASSERT_GT(mltk::validation::kfold(bin, bperc, 10, 10, 3).accuracy, 90);
     ASSERT_GT(mltk::validation::kfold(bin, perc_fixed, 10, 10, 0).accuracy, 95);
     ASSERT_GT(mltk::validation::kfold(bin, perc_fixed1, 10, 10, 0).accuracy, 90);
     ASSERT_GT(mltk::validation::kfold(bin, perc_fixed3, 10, 10, 0).accuracy, 90);
@@ -109,7 +109,7 @@ TEST_F(ClassifierTest, DualClassifier){
     std::cout << "Testing IMA dual with 10-fold." << std::endl;
     ASSERT_GT(mltk::validation::kfold(bin, ima_dual_gaussian, 10, 10, 0).accuracy, 95);
     std::cout << "Testing IMA dual with 10-10-fold." << std::endl;
-    ASSERT_GT(mltk::validation::kfold(bin, ima_dual_gaussian, 10, 0, 0).accuracy, 95);
+    ASSERT_GT(mltk::validation::kkfold(bin, ima_dual_gaussian, 10, 10, 3, 0).accuracy, 95);
 
     mltk::utils::printConfusionMatrix(bin.classes(), bin.classesNames(),
                                       mltk::validation::generateConfusionMatrix(bin, perc_dual_gaussian));
