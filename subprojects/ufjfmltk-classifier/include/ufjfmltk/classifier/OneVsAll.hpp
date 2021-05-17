@@ -43,9 +43,9 @@ namespace mltk{
                     }
                 }
                 template<template<typename> class ClassifierType>
-                OneVsAll(ClassifierType<T> &classifier, OverSampling<T> *samp_method = nullptr, int _verbose = 0) {
+                OneVsAll(const Data<T>& samples, ClassifierType<T> &classifier, OverSampling<T> *samp_method = nullptr, int _verbose = 0) {
                     this->samp_method = samp_method;
-                    this->samples = classifier.getSamples();
+                    this->samples = make_data<T>(samples);
                     // initialize the base m_learners if samples were given
                     if (this->samples && base_learners.size() == 0) {
                         base_learners.resize(this->samples->classes().size());

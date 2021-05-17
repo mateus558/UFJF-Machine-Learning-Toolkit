@@ -32,14 +32,15 @@ namespace mltk {
             bool train() override {
                 size_t samp_size = this->samples->size() / n_estimators;
                 for (size_t i = 0; i < n_estimators; i++) {
-                    this->m_learners[i]->setSamples(this->samples->sampling(samp_size, true, seed));
+                    this->m_learners[i]->setSeed(this->seed+i);
+                    this->m_learners[i]->setSamples(this->samples->sampling(samp_size, true, seed+i));
                     this->m_learners[i]->train();
                 }
                 return true;
             }
 
             double evaluate(const Point<T> &p, bool raw_value = false) override {
-                auto classes = this->samples->getClasses();
+                auto classes = this->samples->classes();
                 Point<int> votes(classes.size());
                 for (size_t i = 0; i < n_estimators; i++) {
                     int pred = this->m_learners[i]->evaluate(p);

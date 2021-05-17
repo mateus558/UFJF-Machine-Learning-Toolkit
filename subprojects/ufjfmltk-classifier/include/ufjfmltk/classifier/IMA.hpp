@@ -78,6 +78,8 @@ namespace mltk{
             std::vector<int> svs;
         public:
             IMADual() = default;
+            explicit IMADual(KernelType kernel_type, double kernel_param=0,
+                             double rate = 1, Solution* initial_solution = nullptr);
             explicit IMADual(const Data<T>& samples, KernelType kernel_type=KernelType::INNER_PRODUCT, double kernel_param=0,
                              double rate = 1, Solution* initial_solution = nullptr);
 

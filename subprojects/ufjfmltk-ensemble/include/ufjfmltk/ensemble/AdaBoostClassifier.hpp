@@ -29,7 +29,7 @@ namespace mltk {
             }
 
             bool train() override {
-                size_t _size = this->samples->size(), K = this->samples->getClasses().size();
+                size_t _size = this->samples->size(), K = this->samples->classes().size();
                 Point<double> err(n_estimators, 0.0);
                 Point<double> alpha(n_estimators, 0.0);
                 // Initialize weights to an uniform distribution
@@ -61,7 +61,7 @@ namespace mltk {
             }
 
             double evaluate(const Point<T>& p, bool raw_value=false) override {
-                auto classes = this->samples->getClasses();
+                auto classes = this->samples->classes();
                 Point<double> prob(classes.size(), 0.0);
                 for(size_t c = 0; c < classes.size(); c++) {
                     for(size_t m = 0; m < n_estimators; m++) {

@@ -927,7 +927,7 @@ namespace mltk{
     }
 
     template < typename T >
-    std::shared_ptr<Point< T > > mltk::Data< T >::point(int _index){
+    PointPointer<T> mltk::Data< T >::point(int _index) const{
         return m_points[_index];
     }
 
@@ -968,12 +968,22 @@ namespace mltk{
     }
 
     template < typename T >
+    Data<T> mltk::Data< T >::copy(){
+        mltk::Data<T> cp;
+        cp.copy(*this);
+        return cp;
+    }
+
+    template < typename T >
     void mltk::Data< T >::copy(const mltk::Data<T> &_data){
         size_t _size = _data.size();
+        this->m_points.clear();
         this->m_points.resize(_size);
         for(size_t i = 0; i < _size; i++){
             this->m_points[i] = std::make_shared<Point< T > >();
-            this->m_points[i]->X() = _data[i]->X();
+            this->m_points[i]->X().clear();
+            this->m_points[i]->X().resize(_data[i]->X().size());
+            std::copy(_data[i]->X().begin(), _data[i]->X().end(), this->m_points[i]->X().begin());
             this->m_points[i]->Y() = _data[i]->Y();
             this->m_points[i]->Alpha() = _data[i]->Alpha();
             this->m_points[i]->Id() = _data[i]->Id();
@@ -1153,7 +1163,15 @@ namespace mltk{
 
     template < typename T >
     mltk::Data< T >::~Data(){
-        this->clear();
+        fnames.clear();
+        index.clear();
+        m_classes.clear();
+        class_names.clear();
+        m_size = 0;
+        m_dim = 0;
+        normalized = false;
+        is_empty = true;
+        cdist_computed = false;
     }
 
     template < typename T >

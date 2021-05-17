@@ -32,34 +32,28 @@ namespace mltk{
         public:
             VotingClassifier() = default;
 
-            template<template<typename...> class WeakLearner>
-            VotingClassifier(Data<T> &samples, const std::string &voting_type, WeakLearner<T> flearner)
-                    : voting_type(voting_type) {
-                this->samples = std::make_shared<Data<T> >(samples);
-                this->m_learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
-            }
-
             template<template<typename...> class WeakLearner,
                     template<typename...> class... WeakLearners>
             VotingClassifier(Data<T> &samples, const std::string &voting_type, WeakLearner<T> flearner,
                              WeakLearners<T>... weak_learners): voting_type(voting_type) {
-                this->samples = std::make_shared<Data<T> >(samples);
+                this->samples = std::make_shared<Data<T> >(samples.copy());
                 fillLearnersVector(flearner, weak_learners...);
             }
 
-            VotingClassifier(Data<T> &samples, const std::string &voting_type, std::vector<LearnerPointer<T>>& _learners)
-                    : voting_type(voting_type) {
-                this->samples = std::make_shared<Data<T>>(samples);
-                this->learners = _learners;
-            }
-
             bool train() override {
-//#pragma omp parallel for default(none)
                 // train each one of the given m_learners
                 for (size_t i = 0; i < this->m_learners.size(); i++) {
-                    this->m_learners[i]->setSeed(this->seed);
-                    this->m_learners[i]->setSamples(this->samples);
-                    this->m_learners[i]->train();
+                    if (this->m_learners[i]->getFormulationString() == "Dual") {
+                        auto *dual = dynamic_cast<classifier::DualClassifier<T> *>(this->m_learners[i].get());
+                        dual->setSeed(this->seed);
+                        dual->setSamples(this->samples);
+                        dual->recomputeKernel();
+                        dual->train();
+                    } else {
+                        this->m_learners[i]->setSeed(this->seed);
+                        this->m_learners[i]->setSamples(this->samples);
+                        this->m_learners[i]->train();
+                    }
                 }
                 return true;
             }
@@ -71,7 +65,7 @@ namespace mltk{
                 if (voting_type == "soft") {
                     assert(this->weights.size() > 0);
                 } else {
-                    this->weights = 1;
+                    this->weights = Point<double>(this->m_learners.size(), 1);
                 }
 
                 for (size_t i = 0; i < this->m_learners.size(); i++) {

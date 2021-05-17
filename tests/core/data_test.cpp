@@ -120,7 +120,7 @@ TEST_F(DataTest, CopyMultDataset) {
     std::vector<size_t> dist = {50, 50, 50};
     mltk::Data<double> cp = mult, copy_mult;
 
-    copy_mult.copy(mult);
+    copy_mult = mult.copy();
     EXPECT_EQ(cp.size(), 150);
     EXPECT_EQ(cp.points().size(), 150);
     EXPECT_EQ(cp.dim(), 4);

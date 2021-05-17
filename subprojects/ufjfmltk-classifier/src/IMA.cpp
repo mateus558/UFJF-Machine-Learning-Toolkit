@@ -293,7 +293,6 @@ namespace mltk{
                 this->solution.norm = initial_solution->norm;
             } else {
                 this->w.resize(samples.dim());
-                this->solution.func.resize(samples.size());
             }
         }
 
@@ -440,15 +439,24 @@ namespace mltk{
         }
 
         template<typename T>
+        IMADual<T>::IMADual(KernelType kernel_type, double kernel_param, double rate, Solution *initial_solution) {
+            this->samples = nullptr;
+            this->kernel = new Kernel(kernel_type, kernel_param);
+            this->rate = rate;
+
+            if (initial_solution) {
+                this->solution.w = initial_solution->w;
+                this->solution.bias = initial_solution->bias;
+                this->hasInitialSolution = true;
+            }
+        }
+
+        template<typename T>
         IMADual<T>::IMADual(const Data<T> &samples, KernelType kernel_type, double kernel_param, double rate,
                             Solution *initial_solution) {
             this->samples = make_data<T>(samples);
             this->kernel = new Kernel(kernel_type, kernel_param);
             this->rate = rate;
-
-            if (this->kernel == nullptr) {
-                this->kernel = new Kernel();
-            }
 
             if (initial_solution) {
                 this->solution.w = initial_solution->w;
@@ -470,6 +478,9 @@ namespace mltk{
             vector<double> w_saved(dim), saved_alphas(size), func(size);
             vector<shared_ptr<Point<T> > > points = this->samples->points();
 
+            if(!this->samples){
+                return false;
+            }
             this->kernel->compute(this->samples);
             this->timer.Reset();
 
@@ -481,6 +492,7 @@ namespace mltk{
                 for (i = 0; i < size; ++i) { index[i] = i; }
             }
             this->solution.bias = 0;
+            this->solution.w.resize(this->samples->dim());
 
             if (this->verbose) {
                 cout << "-------------------------------------------------------------------\n";

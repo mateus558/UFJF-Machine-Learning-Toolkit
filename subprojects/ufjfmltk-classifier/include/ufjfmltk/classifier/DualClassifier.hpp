@@ -43,6 +43,8 @@ namespace mltk{
                 return (func >= 0) ? 1 : -1;
             }
 
+            inline void recomputeKernel(){ if(this->kernel) this->kernel->recompute(); }
+
             /*********************************************
              *               Setters                     *
              *********************************************/

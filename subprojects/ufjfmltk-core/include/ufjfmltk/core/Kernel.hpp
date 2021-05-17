@@ -185,18 +185,21 @@ namespace mltk{
     }
 
     template < typename T >
-    mltk::dMatrix* Kernel::generateMatrixHwithoutDim(const std::shared_ptr<Data< T > > samples, int dim) {
+    mltk::dMatrix* Kernel::generateMatrixHwithoutDim(const DataPointer<T> samples, int dim) {
         int i = 0, j = 0;
         size_t size = samples->size();
 
-        HwithoutDim.resize(size, std::vector<double>(size));
+        for(auto& row: HwithoutDim){
+            row.clear();
+        }
+        HwithoutDim.clear();
+        HwithoutDim = mltk::dMatrix(size, std::vector<double>(size, 0.0));
 
         /* Calculating Matrix */
         for(i = 0; i < size; ++i) {
             for (j = i; j < size; ++j) {
-                HwithoutDim[i][j] = functionWithoutDim((*samples)[i], (*samples)[j], dim, samples->dim()) *
-                                    samples->point(i)->Y() * samples->point(j)->Y();
-                HwithoutDim[j][i] = HwithoutDim[i][j];
+                HwithoutDim[i][j] = functionWithoutDim(samples->point(i), samples->point(j), dim, samples->dim());
+                HwithoutDim[j][i] = HwithoutDim[i][j]*samples->point(i)->Y() * samples->point(j)->Y();
             }
         }
     // clog << "\nH matrix without dim generated.\n";
@@ -239,7 +242,7 @@ namespace mltk{
     }
 
     template < typename T >
-    double Kernel::functionWithoutDim(std::shared_ptr<Point< T > > one, std::shared_ptr<Point< T > > two, int j, int dim) {
+    double Kernel::functionWithoutDim(const PointPointer<T> one, const PointPointer<T> two, int j, int dim) {
         int i = 0;
         double t, sum = 0.0;
 
@@ -248,20 +251,23 @@ namespace mltk{
             case 0: //Produto Interno
                 for(i = 0; i < dim; ++i)
                     if(i != j)
-                        sum += one->X()[i] * two->X()[i];
+                        sum += (*one)[i] * (*two)[i];
                 break;
 
             case 1: //Polinomial
                 for(i = 0; i < dim; ++i)
                     if(i != j)
-                        sum += one->X()[i] * two->X()[i];
+                        sum += (*one)[i] * (*two)[i];
                 sum = (param > 1) ? std::pow(sum+1, param) : sum;
                 break;
 
             case 2: //Gaussiano
-                for(i = 0; i < dim; ++i)
-                    if(i != j)
-                    { t = one->X()[i] - two->X()[i]; sum += t * t; }
+                for(i = 0; i < dim; ++i) {
+                    if (i != j) {
+                        t = (*one)[i] - (*two)[i];
+                        sum += t * t;
+                    }
+                }
                 sum = std::exp(-1 * sum * param);
                 break;
         }

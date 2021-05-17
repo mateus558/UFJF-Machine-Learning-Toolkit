@@ -225,7 +225,7 @@ namespace mltk{
          * \param index    Position of a point in the points array.
          * \return std::vector<Point< T > >
          */
-        std::shared_ptr<Point< T > > point (int index);
+        PointPointer<T> point (int index) const;
         Point< T > getFeature(int index) const;
         Point< double > getLabels() const;
         /**
@@ -334,6 +334,11 @@ namespace mltk{
          * \return Data
          */
         void classesCopy (const Data< T > &_data, std::vector<int> &classes);
+        /**
+         * \brief Returns a copy of itself.
+         * \return Data
+         */
+        mltk::Data<T> copy();
         /**
          * \brief Makes a deep copy from another data object.
          * \return Data

@@ -61,9 +61,9 @@ TEST_F(ClassifierTest, BinClassifierTest){
 
 TEST_F(ClassifierTest, MultiClassifierTest){
     mltk::classifier::KNNClassifier<double> knn(mult, 3);
-    mltk::classifier::IMAp<double> ima(mult);
+    mltk::classifier::IMAp<double> ima;
     mltk::classifier::PerceptronPrimal<double> perc;
-    mltk::classifier::OneVsAll<double> ova(ima);
+    mltk::classifier::OneVsAll<double> ova(mult, ima);
     mltk::classifier::OneVsOne<double> ovo(mult, perc);
 
     ima.setVerbose(0);
@@ -104,8 +104,9 @@ TEST_F(ClassifierTest, DualClassifier){
     mltk::classifier::IMADual<double> ima_dual_gaussian(bin, mltk::KernelType::GAUSSIAN, 0.5);
 
     ima_dual_gaussian.setVerbose(3);
+    perc_fixed_dual.setMaxTime(1000);
     std::cout << "Testing perceptron dual." << std::endl;
-    ASSERT_GT(mltk::validation::kfold(bin, perc_fixed_dual, 10, 10, 0).accuracy, 90);
+    ASSERT_GT(mltk::validation::kfold(bin, perc_fixed_dual, 10, 10, 0).accuracy, 85);
     ASSERT_GT(mltk::validation::kfold(bin, perc_dual_gaussian, 10, 10, 0).accuracy, 95);
     std::cout << "Testing IMA dual with 10-fold." << std::endl;
     ASSERT_GT(mltk::validation::kfold(bin, ima_dual_gaussian, 10, 10, 0).accuracy, 95);

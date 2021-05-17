@@ -218,7 +218,6 @@ namespace mltk{
 
                 // Training phase
                 classifier.setSamples(_train_sample);
-
                 Solution s = classifier.getSolution();
                 bool isPrimal = classifier.getFormulationString() == "Primal";
                 classifier.setSeed(seed);
@@ -252,6 +251,7 @@ namespace mltk{
                     traintest_sample->join(_train_sample);
                     traintest_sample->setClasses(classes);
                     dual->setSamples(traintest_sample);
+                    dual->recomputeKernel();
                     if(!dual->train()){
                         if(verbose)
                             std::cerr << "Validation error: The convergency wasn't reached in the training set!\n";
