@@ -968,7 +968,7 @@ namespace mltk{
     }
 
     template < typename T >
-    Data<T> mltk::Data< T >::copy(){
+    Data<T> mltk::Data< T >::copy() const{
         mltk::Data<T> cp;
         cp.copy(*this);
         return cp;

@@ -42,19 +42,6 @@ namespace mltk{
                         }
                     }
                 }
-                template<template<typename> class ClassifierType>
-                OneVsAll(const Data<T>& samples, ClassifierType<T> &classifier, OverSampling<T> *samp_method = nullptr, int _verbose = 0) {
-                    this->samp_method = samp_method;
-                    this->samples = make_data<T>(samples);
-                    // initialize the base m_learners if samples were given
-                    if (this->samples && base_learners.size() == 0) {
-                        base_learners.resize(this->samples->classes().size());
-                        for (size_t i = 0; i < this->samples->classes().size(); ++i) {
-                            // copy the parameters of the given classifier
-                            base_learners[i] = std::make_shared<ClassifierType<T> >(classifier);
-                        }
-                    }
-                }
 
                 bool train() override;
 

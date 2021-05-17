@@ -13,7 +13,7 @@ namespace mltk{
             size_t n = 0;
             double epslon = -1;
         public:
-            explicit PerceptronCommittee(Data<T> &samples, size_t size = 10, double epslon = -1) : n(size),
+            explicit PerceptronCommittee(const Data<T> &samples, size_t size = 10, double epslon = -1) : n(size),
                                                                                                    epslon(epslon) {
                 this->samples = std::make_shared<Data<T> >(samples);
             }
@@ -32,9 +32,6 @@ namespace mltk{
                 auto _classes = this->samples->classes();
                 mltk::Point<double> votes(_classes.size(), 0.0);
 
-                #if DEBUG == 1
-                #pragma omp parallel for
-                #endif
                 for (size_t i = 0; i < this->m_learners.size(); i++) {
                     auto pred = this->m_learners[i]->evaluate(p);
 

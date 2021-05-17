@@ -43,17 +43,9 @@ namespace mltk{
             bool train() override {
                 // train each one of the given m_learners
                 for (size_t i = 0; i < this->m_learners.size(); i++) {
-                    if (this->m_learners[i]->getFormulationString() == "Dual") {
-                        auto *dual = dynamic_cast<classifier::DualClassifier<T> *>(this->m_learners[i].get());
-                        dual->setSeed(this->seed);
-                        dual->setSamples(this->samples);
-                        dual->recomputeKernel();
-                        dual->train();
-                    } else {
-                        this->m_learners[i]->setSeed(this->seed);
-                        this->m_learners[i]->setSamples(this->samples);
-                        this->m_learners[i]->train();
-                    }
+                    this->m_learners[i]->setSeed(this->seed);
+                    this->m_learners[i]->setSamples(this->samples);
+                    this->m_learners[i]->train();
                 }
                 return true;
             }

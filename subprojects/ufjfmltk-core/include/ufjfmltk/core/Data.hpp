@@ -338,7 +338,7 @@ namespace mltk{
          * \brief Returns a copy of itself.
          * \return Data
          */
-        mltk::Data<T> copy();
+        mltk::Data<T> copy() const;
         /**
          * \brief Makes a deep copy from another data object.
          * \return Data
