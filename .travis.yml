@@ -43,6 +43,7 @@ before_script:
 
 script:
   - make
+  - ./bin/visualization_test
   - ctest
 
 after_success:
