@@ -3,14 +3,14 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include <experimental/filesystem>
+#include <filesystem>
 
 #define PLOT_FOLDER "temp/"
 
 namespace mltk{
     namespace visualize{
         using namespace std;
-        namespace fs = std::experimental::filesystem;
+        namespace fs = std::filesystem;
 
         template < typename T >
         Visualization< T >::Visualization(bool shared_session): is_shared(shared_session) {
