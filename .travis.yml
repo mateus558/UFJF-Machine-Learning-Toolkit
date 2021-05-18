@@ -3,6 +3,9 @@ sudo: require
 language: cpp
 compiler: gcc
 
+services:
+  - xvfb
+
 addons:
   apt:
     sources:
@@ -44,7 +47,7 @@ before_script:
 script:
   - make
   - ./bin/visualization_test
-  - ctest
+  - xvfb-run ctest
 
 after_success:
   # Create lcov report
