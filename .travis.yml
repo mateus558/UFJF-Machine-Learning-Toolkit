@@ -1,4 +1,4 @@
-dist: bionic
+dist: focal
 sudo: require
 language: cpp
 compiler: gcc
@@ -8,8 +8,6 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - gcc-9
-      - g++-9
       - cmake
       - lcov
       - gcovr
@@ -34,11 +32,11 @@ install:
   - PATH=${DEPS_DIR}/cmake-install:${DEPS_DIR}/cmake-install/bin:$PATH
   # don't forget to switch back to the main build directory once you are done
   - cd ${TRAVIS_BUILD_DIR}
-  - sudo ln -s /usr/bin/gcc-9 /usr/local/bin/gcc
-  - sudo ln -s /usr/bin/g++-9 /usr/local/bin/g++
 
 before_script:
   - cmake --version
+  - gnuplot --version
+  - gnuplot -e "set terminal"
   - mkdir build
   - cd build
   - cmake -DENABLE_TESTING=ON -DCODE_COVERAGE=ON ..
