@@ -1,8 +1,8 @@
 configure_file(${DATA_PATH}/iris.data ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/iris.data COPYONLY)
-configure_file(${DATA_PATH}/iris_mult.csv ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/iris_mult.csv COPYONLY)
 configure_file(${DATA_PATH}/iris.data ${CMAKE_BINARY_DIR}/tests/visualization/iris.data COPYONLY)
-configure_file(${DATA_PATH}/iris_mult.csv ${CMAKE_BINARY_DIR}/tests/visualization/iris_mult.csv COPYONLY)
 configure_file(${DATA_PATH}/iris.data ${CMAKE_BINARY_DIR}/iris.data COPYONLY)
+configure_file(${DATA_PATH}/iris_mult.csv ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/iris_mult.csv COPYONLY)
+configure_file(${DATA_PATH}/iris_mult.csv ${CMAKE_BINARY_DIR}/tests/visualization/iris_mult.csv COPYONLY)
 configure_file(${DATA_PATH}/iris_mult.csv ${CMAKE_BINARY_DIR}/iris_mult.csv COPYONLY)
 
 add_executable(${VISUALIZATION_TESTS} main.cpp vis_test.cpp)
