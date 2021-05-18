@@ -39,7 +39,7 @@ before_script:
   - gnuplot -e "set terminal"
   - mkdir build
   - cd build
-  - cmake -DENABLE_TESTING=ON -DCODE_COVERAGE=ON ..
+  - cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTING=ON -DCODE_COVERAGE=ON -DCMAKE_CXX_FLAGS=--coverage -DCMAKE_C_FLAGS=--coverage ..
 
 script:
   - make
