@@ -69,7 +69,7 @@ int main(){
   std::cout << "Dataset dimension: " << data.dim() << std::endl;
 
   std::cout << "KNN accuracy: ";
-  std::cout << 100.0 - mltk::validation::kfold(data, knn, 10, 42, 0) 
+  std::cout << mltk::validation::kfold(data, knn, 10, 42, 0).accuracy
             << "%" << std::endl;
 }
 ```
