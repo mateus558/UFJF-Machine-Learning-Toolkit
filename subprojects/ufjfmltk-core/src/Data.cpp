@@ -104,6 +104,7 @@ namespace mltk{
     template < typename T >
     bool mltk::Data< T >::load(const string& file, bool _atEnd){
         Type t = identifyFileType(file);
+        this->dataset_name = discover_dataset_name(file);
         this->cdist_computed = true;
 
         this->atEnd = _atEnd;
@@ -1436,6 +1437,13 @@ namespace mltk{
     template<typename T>
     void Data<T>::apply(std::function<void(mltk::PointPointer<T> point)> f) {
         std::for_each(this->m_points.begin(),this->m_points.end(), f);
+    }
+
+    template<typename T>
+    std::string Data<T>::discover_dataset_name(const string &path) {
+        auto tokens = mltk::utils::tokenize(path, '/');
+        tokens = mltk::utils::tokenize(tokens.back(), '.');
+        return (tokens.empty())?std::string():tokens[0];
     }
 
 

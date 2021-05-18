@@ -488,7 +488,41 @@ public:
                          const std::string &title = "");
     ///   from data
     template<typename X, typename Y>
-    Gnuplot& plot_xy(const X& x, const Y& y, const std::string &title = "");
+    Gnuplot& plot_xy(const X& x, const Y& y, const std::string &title = "")
+    {
+        if (x.size() == 0 || y.size() == 0)
+        {
+            throw GnuplotException("std::vectors too small");
+            return *this;
+        }
+
+        if (x.size() != y.size())
+        {
+            throw GnuplotException("Length of the std::vectors differs");
+            return *this;
+        }
+
+
+        std::ofstream tmp;
+        std::string name = create_tmpfile(tmp);
+        if (name == "")
+            return *this;
+
+        //
+        // write the data to file
+        //
+        for (unsigned int i = 0; i < x.size(); i++)
+            tmp << x[i] << " " << y[i] << std::endl;
+
+        tmp.flush();
+        tmp.close();
+
+
+        plotfile_xy(name, 1, 2, title);
+
+        return *this;
+    }
+
 
 
     /// plot x,y pairs with dy errorbars: x y dy
@@ -516,7 +550,40 @@ public:
     Gnuplot& plot_xyz(const X &x,
                       const Y &y,
                       const Z &z,
-                      const std::string &title = "");
+                      const std::string &title = ""){
+        if (x.size() == 0 || y.size() == 0 || z.size() == 0)
+        {
+            throw GnuplotException("std::vectors too small");
+            return *this;
+        }
+
+        if (x.size() != y.size() || x.size() != z.size())
+        {
+            throw GnuplotException("Length of the std::vectors differs");
+            return *this;
+        }
+
+
+        std::ofstream tmp;
+        std::string name = create_tmpfile(tmp);
+        if (name == "")
+            return *this;
+
+        //
+        // write the data to file
+        //
+        for (unsigned int i = 0; i < x.size(); i++)
+            tmp << x[i] << " " << y[i] << " " << z[i] <<std::endl;
+
+        tmp.flush();
+        tmp.close();
+
+
+        plotfile_xyz(name, 1, 2, 3, title);
+
+        return *this;
+    }
+
 
 
 

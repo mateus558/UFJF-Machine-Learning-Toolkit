@@ -71,6 +71,8 @@ namespace mltk{
      * \return string
      */
        DLLUtils std::string DLLUtilsDecl dtoa(double n);
+
+        std::vector<std::string> tokenize(const std::string &str, const char delim);
     }
 }
 #endif

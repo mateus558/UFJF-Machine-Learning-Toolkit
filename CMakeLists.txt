@@ -53,10 +53,6 @@ if(NOT CMAKE_CONFIGURATION_TYPES)
     endif()
 endif()
 
-if(CODE_COVERAGE)
-    include(CodeCoverage)
-    append_coverage_compiler_flags()
-endif(CODE_COVERAGE)
 ### Compile- and install-related commands.
 add_subdirectory(subprojects)
 
@@ -64,6 +60,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Add integration tests (unit tests for each library should be in each sublibrary directory).
 if(ENABLE_TESTING)
+    if(CODE_COVERAGE)
+        include(CodeCoverage)
+    endif(CODE_COVERAGE)
     set(DATA_PATH ${CMAKE_CURRENT_SOURCE_DIR}/datasets)
     enable_testing()
     add_subdirectory(tests)

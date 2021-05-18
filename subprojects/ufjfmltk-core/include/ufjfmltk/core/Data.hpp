@@ -84,6 +84,7 @@ namespace mltk{
         // Associations
         // Attributes
     private :
+        std::string dataset_name{""};
         /// Set of points.
         std::vector<SamplePointer<T> > m_points;
         /// Features names.
@@ -122,10 +123,6 @@ namespace mltk{
         const std::string &getType() const;
 
     private:
-        /**
-         * \brief Inform if the dataset is used for classification.
-         **/
-        bool isClassification() const { return (type == "Classification" || type == "MultiClassification" || type == "BinClassification");}
         // Private Operations
         /**
          * \brief Process a new class being added to the dataset.
@@ -164,10 +161,12 @@ namespace mltk{
          */
         bool load_txt (const std::string& path);
 
+        std::string discover_dataset_name(const std::string& path);
+
     public :
         void setType(const std::string &type);
 
-        Data() {}
+        Data() = default;
         Data(const Data<T>& other);
         Data(const std::string &dataset, bool atEnd);
         /**
@@ -189,22 +188,26 @@ namespace mltk{
          * \param pos_class String representing the positive class on the dataset.
          * \param neg_class String representing the negative class on the dataset.
          */
-        Data (const char* dataset);
+        explicit Data (const char* dataset);
 
         /*********************************************
          *               Getters                     *
          *********************************************/
-
+        /**
+        * \brief Inform if the dataset is used for classification.
+        **/
+        [[nodiscard]] bool isClassification() const { return (type == "Classification" || type == "MultiClassification" || type == "BinClassification");}
+        [[nodiscard]] std::string name() const{ return dataset_name; }
         /**
          * \brief Returns the size of the dataset.
          * \return int
          */
-        size_t size() const{ return m_size;};
+        [[nodiscard]] size_t size() const{ return m_size;};
         /**
          * \brief Returns the dimension of the dataset.
          * \return int
          */
-        size_t dim() const{ return (m_points.size() > 0) ? m_points[0]->size() : 0; }
+        [[nodiscard]] size_t dim() const{ return (!m_points.empty()) ? m_points[0]->size() : 0; }
         /**
          * \brief Returns a shared pointer to the vector of Points of the sample.
          * \return std::vector<std::shared_ptr<Point< T > > >
@@ -219,7 +222,7 @@ namespace mltk{
          * \brief Returns a vector containing the numeric values of the classes.
          * \return std::vector<int>
          **/
-        const std::vector<int> classes() const;
+        [[nodiscard]] const std::vector<int> classes() const;
         /**
          * \brief Returns a shared pointer to the point with the given index.
          * \param index    Position of a point in the points array.
@@ -227,32 +230,32 @@ namespace mltk{
          */
         PointPointer<T> point (int index) const;
         Point< T > getFeature(int index) const;
-        Point< double > getLabels() const;
+        [[nodiscard]] Point< double > getLabels() const;
         /**
          * \brief Returns a vector containing the frequency of the classes.
          * \return std::vector<size_t>
          **/
-        std::vector<size_t> classesDistribution() const ;
+        [[nodiscard]] std::vector<size_t> classesDistribution() const ;
         /**
          * \brief Returns a vector containing the name of the classes.
          * \return std::vector<std::string>
          **/
-        std::vector<std::string> classesNames() const;
+        [[nodiscard]] std::vector<std::string> classesNames() const;
         /**
          * \brief Returns the features names.
          * \return std::vector<int>
          */
-        std::vector<int> getFeaturesNames() const;
+        [[nodiscard]] std::vector<int> getFeaturesNames() const;
         /**
          * \brief Returns the vector of indexes.
          * \return std::vector<int>
          */
-        std::vector<int> getIndex() const;
+        [[nodiscard]] std::vector<int> getIndex() const;
         /**
          * \brief Return the time multiplier.
          * \return double
          */
-        double getTime_mult() const;
+        [[nodiscard]] double getTime_mult() const;
 
         /*********************************************
          *               Setters                     *

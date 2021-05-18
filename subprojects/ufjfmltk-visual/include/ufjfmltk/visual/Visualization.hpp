@@ -14,6 +14,7 @@
 #include "ufjfmltk/core/Data.hpp"
 #include "ufjfmltk/core/Solution.hpp"
 #include <string>
+#include <map>
 
     namespace mltk{
         /**
@@ -29,12 +30,10 @@
         private :
             /// Sample to be visualized.
             Data< T > *samples;
-            /// Interface to gnuplot.
-        #ifdef __unix__
-            Gnuplot g;
-        #elif _WIN32
+            std::map<std::string, std::string> configs;
+            Gnuplot *g{nullptr};
+            bool is_shared{true};
 
-        #endif
             /**
              * \brief Create temporary files to plot the negative and positive samples.
              * \return void
@@ -55,15 +54,18 @@
              * \brief removeTempFiles Remove the temporary files created in the temp folder.
              */
             void removeTempFiles();
+            void configurePlot(const std::string& outname, const std::string& format, const std::string& title, bool save=false,
+                               const std::string& x_label="", const std::string& y_label="", const std::string& z_label="");
+            std::string fetchConfigs();
             // Operations
         public :
-            Visualization ();
-            Visualization (Data<T> &sample);
+            Visualization (bool shared_session=true);
+            explicit Visualization (Data<T> &sample, bool shared_session=true);
 
             /*********************************************
              *               Setters                     *
              *********************************************/
-
+            void setTerminal(const std::string& terminal){ configs["terminal"] = terminal;}
             /**
              * \brief Set sample to be visualized.
              * \param sample (???) Data< T > to set for visualization.
@@ -89,7 +91,8 @@
              * \param y (???) Feature to be used in the y-axis.
              * \return void
              */
-            void plot2D(int x, int y);
+            void plot2D(int x, int y, bool save=false, const std::string& title="", const std::string& format="svg",
+                        const std::string& x_label="x", const std::string& y_label="y");
             /**
              * \brief Plot the selected features in 3D.
              * \param x (???) Feature to be used in the x-axis.
@@ -97,14 +100,17 @@
              * \param z (???) Feature to be used in the z-axis.
              * \return void
              */
-            void plot3D(int x, int y, int z);
+            void plot3D(int x, int y, int z, bool save=false, const std::string& title="", const std::string& format="svg",
+                        const std::string& x_label="x", const std::string& y_label="y", const std::string& z_label="z");
             /**
              * \brief Plot the data in 2D with separated by the hyperplane in the solution.
              * \param x (???) Feature to be used in the x-axis.
              * \param y (???) Feature to be used in the y-axis.
              * \return void
              */
-            void plot2DwithHyperplane(int x, int y, Solution w);
+            void plot2DwithHyperplane(int x, int y, Solution w, bool save=false, const std::string& title="",
+                                      const std::string& format="svg",
+                                      const std::string& x_label="x", const std::string& y_label="y");
             /**
              * \brief Plot the data in 2D with separated by the hyperplane in the solution.
              * \param x (???) Feature to be used in the x-axis.
@@ -112,7 +118,10 @@
              * \param z (???) Feature to be used in the z-axis.
              * \return void
              */
-            void plot3DwithHyperplane(int x, int y, int z, Solution w);
+            void plot3DwithHyperplane(int x, int y, int z, Solution w, bool save=false, const std::string& title="",
+                                      const std::string& format="svg",
+                                      const std::string& x_label="x", const std::string& y_label="y",
+                                      const std::string& z_label="z");
             ~Visualization();
         };
 }}
