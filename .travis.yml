@@ -46,8 +46,8 @@ before_script:
 
 script:
   - make
-  - ./bin/visualization_test
-  - xvfb-run ctest
+  - xvfb-run -a ./bin/visualization_test
+  - xvfb-run -a ctest
 
 after_success:
   # Create lcov report
