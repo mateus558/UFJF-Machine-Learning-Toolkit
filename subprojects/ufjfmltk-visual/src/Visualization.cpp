@@ -3,18 +3,19 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include <filesystem>
+#include <experimental/filesystem>
 
 #define PLOT_FOLDER "temp/"
 
 namespace mltk{
     namespace visualize{
         using namespace std;
+        namespace fs = std::experimental::filesystem;
 
         template < typename T >
         Visualization< T >::Visualization(bool shared_session): is_shared(shared_session) {
-            if(!std::filesystem::exists(PLOT_FOLDER)) {
-                std::filesystem::create_directory(PLOT_FOLDER);
+            if(!fs::exists(PLOT_FOLDER)) {
+                fs::create_directory(PLOT_FOLDER);
             }
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
@@ -23,8 +24,8 @@ namespace mltk{
         template < typename T >
         Visualization< T >::Visualization(Data<T> &sample, bool shared_session): is_shared(shared_session) {
             samples = &sample;
-            if(!std::filesystem::exists(PLOT_FOLDER)) {
-                std::filesystem::create_directory(PLOT_FOLDER);
+            if(!fs::exists(PLOT_FOLDER)) {
+                fs::create_directory(PLOT_FOLDER);
             }
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
@@ -391,7 +392,7 @@ namespace mltk{
             delete g;
             g = nullptr;
             removeTempFiles();
-            std::filesystem::remove(PLOT_FOLDER);
+            fs::remove(PLOT_FOLDER);
         }
 
         template class Visualization<int>;

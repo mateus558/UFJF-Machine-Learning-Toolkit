@@ -28,6 +28,7 @@
         class Visualization {
             // Attributes
         private :
+
             /// Sample to be visualized.
             Data< T > *samples;
             std::map<std::string, std::string> configs;
