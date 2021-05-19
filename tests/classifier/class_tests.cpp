@@ -37,14 +37,14 @@ TEST_F(ClassifierTest, BinClassifierTest){
     mltk::classifier::PerceptronFixedMarginPrimal<double> perc_fixed3(bin, 0, 3);
     mltk::classifier::PerceptronFixedMarginPrimal<double> perc_fixedinf(bin, 0, 1);
     mltk::classifier::BalancedPerceptron<double> bperc(bin);
-
+    ima.setVerbose(0);
     ima1.setVerbose(0);
     imainf.setVerbose(0);
     ima3.setVerbose(0);
-    perc_fixedinf.setMaxTime(300);
-    perc_fixed3.setMaxTime(300);
-    perc_fixed1.setMaxTime(300);
-    perc_fixed.setMaxTime(300);
+    perc_fixedinf.setMaxTime(100);
+    perc_fixed3.setMaxTime(100);
+    perc_fixed1.setMaxTime(100);
+    perc_fixed.setMaxTime(100);
     ASSERT_GT(mltk::validation::kfold(bin, bperc, 10, 10, 3).accuracy, 90);
     ASSERT_GT(mltk::validation::kfold(bin, perc_fixed, 10, 10, 0).accuracy, 95);
     ASSERT_GT(mltk::validation::kfold(bin, perc_fixed1, 10, 10, 0).accuracy, 90);
@@ -105,7 +105,7 @@ TEST_F(ClassifierTest, DualClassifier){
     mltk::classifier::IMADual<double> ima_dual_inner(bin, mltk::KernelType::INNER_PRODUCT);
 
     ima_dual_gaussian.setVerbose(3);
-    perc_fixed_dual.setMaxTime(1000);
+    perc_fixed_dual.setMaxTime(100);
     std::cout << "Testing perceptron dual." << std::endl;
     ASSERT_GT(mltk::validation::kfold(bin, perc_fixed_dual, 10, 10, 0).accuracy, 85);
     ASSERT_GT(mltk::validation::kfold(bin, perc_dual_gaussian, 10, 10, 0).accuracy, 95);

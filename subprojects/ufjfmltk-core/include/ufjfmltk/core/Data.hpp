@@ -430,6 +430,8 @@ namespace mltk{
 
         std::shared_ptr<Point< T > > & operator[](size_t i) {return m_points[i];}
 
+        Point< T > operator()(size_t i) const {return *(m_points[i]);}
+        
         Data< T >& operator=(const Data< T >&);
 
         bool operator==(const Data< T > &rhs) const;

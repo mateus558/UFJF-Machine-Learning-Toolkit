@@ -13,9 +13,10 @@ namespace mltk{
         using namespace std;
 
         template<typename T>
-        IMAp<T>::IMAp(const Data<T> &samples, int q, double margin, Solution *initial_solution) {
+        IMAp<T>::IMAp(const Data<T> &samples, int q, double flexible, double margin, Solution *initial_solution) {
             this->samples = mltk::make_data<T>(samples);
             this->margin = margin;
+            this->flexible = flexible;
             this->q = q;
 
             this->hasInitialSolution = false;
@@ -41,8 +42,6 @@ namespace mltk{
             auto points = this->samples->points();
             IMApFixedMargin<T> imapFixMargin(*this->samples, gamma);
             Solution tempSol;
-
-            this->timer.Reset();
 
             n = dim;
             this->rate = 1.0;
@@ -140,13 +139,12 @@ namespace mltk{
             imapFixMargin.setMaxUpdates(this->MAX_UP);
             imapFixMargin.setMaxIterations(this->MAX_IT);
             imapFixMargin.setMaxTime(this->max_time);
-            stime = this->timer.Elapsed();
+            this->timer.reset();
+            stime = this->timer.elapsed();
             imapFixMargin.setStartTime(stime);
             *imapFixMargin.getFlagNot1aDim() = flagNao1aDim;
-
             while (imapFixMargin.train()) {
-                stime += imapFixMargin.getElapsedTime();
-                //imapFixMargin.setStartTime(stime);
+                stime += this->timer.elapsed();
 
                 this->ctot = imapFixMargin.getCtot();
                 this->steps = imapFixMargin.getSteps();
@@ -220,6 +218,8 @@ namespace mltk{
                 this->solution.bias = bias;
                 this->solution.svs = this->svs.size();
                 //  break;
+                if(it > this->MAX_IT) break;
+                if(stime >= this->max_time) break;
                 if (flagNao1aDim) break;
             }
             // this->svs.erase(this->svs.begin(), this->svs.end());
@@ -247,7 +247,7 @@ namespace mltk{
                 cout << "Min: " << fabs(min) << " / Max: " << fabs(max) << "\n";
                 cout << "Number of Support Vectors: " << this->svs.size() << "\n\n";
                 if (this->verbose >= 2) {
-                    for (i = 0; i < dim; ++i) cout << "W[" << fnames[i] << "]: " << w_saved[i] << "\n";
+                    for (i = 0; i < dim; ++i) cout << "W[" << i << "]: " << w_saved[i] << "\n";
                     cout << "Bias: " << this->solution.bias << "\n\n";
                 }
             }
@@ -256,9 +256,9 @@ namespace mltk{
 
             if (!it) {
                 if (this->verbose) cout << "FMP convergency wasn't reached!\n";
-                return 0;
+                return false;
             }
-            return 1;
+            return true;
         }
 
         template<typename T>
@@ -310,11 +310,11 @@ namespace mltk{
             vector<double> func(size, 0.0);
             vector<int> index = this->samples->getIndex();
             vector<T> x;
-
+            this->timer.reset();
             if (!this->solution.w.empty())
                 this->w = this->solution.w;
 
-            while (this->timer.Elapsed() - time <= 0) {
+            while (this->timer.elapsed() - time <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
                     //shuffling data r = i + rand()%(size-i); j = index[i]; idx = index[i] = index[r]; index[r] = j;
                     idx = index[i];
@@ -482,7 +482,7 @@ namespace mltk{
                 return false;
             }
             this->kernel->compute(this->samples);
-            this->timer.Reset();
+            this->timer.reset();
 
             //Allocating space for index
             if (index.size() == 0) {
@@ -516,7 +516,7 @@ namespace mltk{
             percDual.setMaxUpdates(this->MAX_UP);
             percDual.setMaxIterations(this->MAX_IT);
 
-            stime = this->timer.Elapsed();
+            stime = this->timer.elapsed();
 
             while (percDual.train()) {
                 stime += percDual.getElapsedTime();
@@ -589,7 +589,7 @@ namespace mltk{
                 else
                     w_saved = DualClassifier<T>::getDualWeight();
                 if (it) {
-                    mltk::normalize(this->solution.w, 2.0);
+                    this->solution.w = mltk::normalize(this->solution.w, 2.0).X();
                 }
             }
 

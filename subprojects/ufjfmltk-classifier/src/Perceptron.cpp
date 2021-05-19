@@ -43,8 +43,8 @@ namespace mltk{
             this->solution.bias = 0;
             this->solution.norm = 0.0;
 
-            this->timer.Reset();
-            while (this->timer.Elapsed() - time <= 0) {
+            this->timer.reset();
+            while (this->timer.elapsed() - time <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
                     idx = index[i];
                     auto p = this->samples->point(idx);
@@ -110,8 +110,8 @@ namespace mltk{
             if (func.empty()) func.resize(size);
             if (w.empty()) w.resize(dim);
             e = s = 0;
-
-            while (this->timer.Elapsed() - time <= 0) {
+            this->timer.reset();
+            while (this->timer.elapsed() - time <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
                     idx = index[i];
                     p = this->samples->point(idx);
@@ -272,9 +272,9 @@ namespace mltk{
             if(!initial){
                 this->solution = Solution();
             }
-            this->timer.Reset();
+            this->timer.reset();
             e = 1;
-            auto time_elapsed = this->timer.Elapsed() - time;
+            auto time_elapsed = this->timer.elapsed() - time;
             while (time_elapsed <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
                     idx = index[i];
@@ -293,7 +293,7 @@ namespace mltk{
                         ++this->ctot, ++e;
                     } else if (this->steps > 0 && e > 1) break;
                 }
-                time_elapsed = this->timer.Elapsed() - time;
+                time_elapsed = this->timer.elapsed() - time;
                 ++this->steps;
 
                 //stop criterion
@@ -347,9 +347,9 @@ namespace mltk{
 
             if (func.empty()) { func.resize(size); }
             e = 1, s = 0;
-            this->timer.Reset();
+            this->timer.reset();
 
-            while (this->timer.Elapsed() - time <= 0) {
+            while (this->timer.elapsed() - time <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
                     idx = index[i];
                     y = (*this->samples)[idx]->Y();

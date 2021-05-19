@@ -33,7 +33,9 @@
             Data< T > *samples;
             std::map<std::string, std::string> configs;
             Gnuplot *g{nullptr};
+            std::string plot_folder;
             bool is_shared{true};
+            static size_t n_plots;
 
             /**
              * \brief Create temporary files to plot the negative and positive samples.

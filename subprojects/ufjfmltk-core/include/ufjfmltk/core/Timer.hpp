@@ -29,25 +29,29 @@ namespace mltk{
      * \brief Wrapper for the implementation of a simple timer.
      */
     class DLLTimer Timer {
+    private:
+        using Clock = std::chrono::high_resolution_clock;
+        typename Clock::time_point start_point;
     public:
         /**
          * \brief Contructor already initiate the timer to the current time.
          */
-        inline Timer() {start = std::chrono::high_resolution_clock::now();}
+        inline Timer() : start_point(Clock::now()) {}
         /**
          * \brief Set the timer to the current time.
          */
-        inline void Reset(){ start = std::chrono::high_resolution_clock::now(); }
+        inline void reset(){ start_point = Clock::now(); }
         /**
          * \brief Returns the elapsed time.
          * \returns double
          */
-        inline double Elapsed() const { return std::chrono::duration_cast<std::chrono::duration<double> >(std::chrono::high_resolution_clock::now() - start).count()*1000; }
-    private:
-        /// Initial time.
-        std::chrono::_V2::system_clock::time_point start = std::chrono::high_resolution_clock::now();
-        /// Elapsed time.
-        double duration;
+        template <typename Rep = double, typename Units = typename std::chrono::milliseconds>
+        inline double elapsed() const {
+            std::atomic_thread_fence(std::memory_order_relaxed);
+            auto counted_time = std::chrono::duration_cast<Units>(Clock::now() - start_point).count();
+            std::atomic_thread_fence(std::memory_order_relaxed);
+            return static_cast<Rep>(counted_time);
+        }
     };
 }
 #endif

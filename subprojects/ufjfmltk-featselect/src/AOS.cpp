@@ -59,8 +59,8 @@ namespace mltk{
 
             int parcial = 0; //verifica se �ltima solu��o � uma solu��o recuperada (parcial)
 
-            this->timer.Reset();
-            this->initial_time = this->timer.Elapsed();
+            this->timer.reset();
+            this->initial_time = this->timer.elapsed();
 
             /*checking arguments*/
             if (this->breadth > this->MAX_BREATH) { this->breadth = this->MAX_BREATH; }

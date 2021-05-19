@@ -109,7 +109,7 @@ namespace mltk{
       * \brief Get the elapsed time in the training phase of the Learner.
       * \return double
       */
-      inline double getElapsedTime() const { return timer.Elapsed(); }
+      inline double getElapsedTime() const { return timer.elapsed(); }
 
       /**
       * \brief Get the total number of updates of the Learner.

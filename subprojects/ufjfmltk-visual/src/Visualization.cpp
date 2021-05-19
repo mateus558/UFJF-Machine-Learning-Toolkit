@@ -5,30 +5,35 @@
 #include <fstream>
 #include <filesystem>
 
-#define PLOT_FOLDER "temp/"
+#define PLOT_FOLDER "temp"
 
 namespace mltk{
     namespace visualize{
         using namespace std;
         namespace fs = std::filesystem;
-
+        template<typename T>
+        size_t Visualization<T>::n_plots=0;
         template < typename T >
         Visualization< T >::Visualization(bool shared_session): is_shared(shared_session) {
-            if(!fs::exists(PLOT_FOLDER)) {
-                fs::create_directory(PLOT_FOLDER);
-            }
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
+            plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
+            n_plots++;
+            if(!fs::exists(plot_folder)) {
+                fs::create_directory(plot_folder);
+            }
         }
 
         template < typename T >
         Visualization< T >::Visualization(Data<T> &sample, bool shared_session): is_shared(shared_session) {
             samples = &sample;
-            if(!fs::exists(PLOT_FOLDER)) {
-                fs::create_directory(PLOT_FOLDER);
-            }
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
+            plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
+            n_plots++;
+            if(!fs::exists(plot_folder)) {
+                fs::create_directory(plot_folder);
+            }
         }
 
         template < typename T >
@@ -52,7 +57,7 @@ namespace mltk{
                 vector<ofstream> temp_files(class_names.size());
 
                 for(i = 0; i < class_names.size(); i++){
-                    std::string file_name = std::string(PLOT_FOLDER)+class_names[i]+std::string(".plt");
+                    std::string file_name = std::string(plot_folder)+class_names[i]+std::string(".plt");
                     temp_files[i].open(file_name);
                     if(!temp_files[i].is_open()){
                         std::cerr << "Error opening the file " + file_name + "." << std::endl;
@@ -76,7 +81,7 @@ namespace mltk{
                     temp_files[i].close();
                 }
             } else{
-                ofstream samples_file(std::string(PLOT_FOLDER) + "samples.plt");
+                ofstream samples_file(std::string(plot_folder) + "samples.plt");
 
                 for (i = 0; i < size; i++) {
                     for (j = 0; j < dim - 1; j++) {
@@ -86,7 +91,7 @@ namespace mltk{
                 }
 
                 samples_file.close();
-                file_names.emplace_back(std::string(PLOT_FOLDER) + "samples.plt");
+                file_names.emplace_back(std::string(plot_folder) + "samples.plt");
             }
             return file_names;
         }
@@ -120,7 +125,7 @@ namespace mltk{
         #ifdef __unix__
             DIR *dpdf;
             struct dirent *epdf;
-            string path = string(PLOT_FOLDER);
+            string path = string(plot_folder);
 
             dpdf = opendir(path.c_str());
             if(dpdf != nullptr){
@@ -164,7 +169,7 @@ namespace mltk{
             temps = getTempFilesNames();
 
             for(string file : temps){
-                remove(string(PLOT_FOLDER + file).c_str());
+                remove(string(plot_folder + file).c_str());
             }
         }
 
@@ -282,7 +287,7 @@ namespace mltk{
                 }
                 cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
             }else if(samples->getType() == "Regression"){
-                cmd += "'"+ std::string(PLOT_FOLDER) +"samples.plt' using "+feats+" title '+1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+                cmd += "'"+ std::string(plot_folder) +"samples.plt' using "+feats+" title '+1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
             }
         #ifdef __unix__
             cmd = fetchConfigs() + cmd;
@@ -324,7 +329,7 @@ namespace mltk{
                 cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, f(x,y) notitle with lines ls 1";
 
             }else if(samples->getType() == "Regression"){
-                cmd += "'"+ std::string(PLOT_FOLDER) +"samples.plt' using "+ feats +" with points, f(x,y) notitle with lines ls 1";
+                cmd += "'"+ std::string(plot_folder) +"samples.plt' using "+ feats +" with points, f(x,y) notitle with lines ls 1";
             }
         #ifdef __unix__
             cmd = fetchConfigs() + cmd;
@@ -344,6 +349,15 @@ namespace mltk{
         template < typename T >
         void Visualization< T >::setSample(Data<T> *sample) {
             this->samples = sample;
+            removeTempFiles();
+            if(fs::exists(plot_folder)) {
+                fs::remove(plot_folder);
+            }
+            plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
+            n_plots++;
+            if(!fs::exists(plot_folder)) {
+                fs::create_directory(plot_folder);
+            }
         }
 
         template<typename T>
@@ -353,10 +367,10 @@ namespace mltk{
             configs["save"] = (save)?"true":"false";
             configs["output_name"] = outname;
             configs["output_format"] = format;
-            configs["title"] = (title.empty())?configs["title"]:title;
-            configs["x_label"] = (x_label.empty())?configs["x_label"]:x_label;
-            configs["y_label"] = (y_label.empty())?configs["y_label"]:y_label;
-            configs["z_label"] = (z_label.empty())?configs["z_label"]:z_label;
+            configs["title"] = (title.empty())?"":title;
+            configs["x_label"] = (x_label.empty())?"":x_label;
+            configs["y_label"] = (y_label.empty())?"":y_label;
+            configs["z_label"] = (z_label.empty())?"":z_label;
         }
 
         template<typename T>
@@ -392,7 +406,7 @@ namespace mltk{
             delete g;
             g = nullptr;
             removeTempFiles();
-            fs::remove(PLOT_FOLDER);
+            fs::remove(plot_folder);
         }
 
         template class Visualization<int>;

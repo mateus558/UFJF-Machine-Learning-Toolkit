@@ -32,7 +32,7 @@ namespace mltk{
                 Clusterer(DataPointer <T> samples = nullptr, size_t clusters = 0)
                         : Learner<T>(samples), n_clusters(clusters) {}
 
-                std::vector<std::vector<size_t> > clusters() { return m_clusters; }
+                virtual std::vector<std::vector<size_t> > clusters() { return m_clusters; }
                 std::vector<std::vector<T> > centers() { return m_centers; }
             };
         }

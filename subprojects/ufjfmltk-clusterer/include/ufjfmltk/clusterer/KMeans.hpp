@@ -28,6 +28,8 @@ namespace mltk{
 
                 double evaluate(const Point<T> &p, bool raw_value = false) override;
 
+                std::vector<std::vector<size_t>> clusters() override;
+
                 std::string getFormulationString() override;
 
             };

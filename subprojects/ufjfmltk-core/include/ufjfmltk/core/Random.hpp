@@ -36,7 +36,7 @@ namespace mltk{
      */
     namespace random {
         /// Mersenne twister generator object.
-        static std::mt19937 m_gen;
+        static std::mt19937 generator;
         /// Seed used.
         static unsigned int m_seed;
 
@@ -48,7 +48,7 @@ namespace mltk{
         inline DLLRandom auto DLLRandomDecl init(unsigned int seed = 666) {
             if(seed != m_seed){
                 m_seed = (seed == 666)?std::random_device {} (): seed;
-                m_gen.seed(m_seed);
+                generator.seed(m_seed);
             }
             return m_seed;
         }
@@ -61,7 +61,7 @@ namespace mltk{
         inline DLLRandom int DLLRandomDecl intInRange(int low, int high) {
             std::uniform_int_distribution<int> dist(low, high);
 
-            return dist(m_gen);
+            return dist(generator);
         }
         /**
          * \brief Returns a float between low and high.
@@ -72,7 +72,7 @@ namespace mltk{
         inline DLLRandom float DLLRandomDecl floatInRange(float low, float high) {
             std::uniform_real_distribution<float> dist(low, high);
 
-            return dist(m_gen);
+            return dist(generator);
         }
         /**
          * \brief Get the seed used in the mersenne twister.

@@ -323,6 +323,7 @@ namespace mltk{
                 }
                 if(verbose >= 1)std::cout << "\n\nErro " << fold << "-Fold Cross Validation: " << errocross/qtde << "%\n";
                 solution.accuracy = 100.0 - errocross/qtde;
+                solution.error = 100.0 - solution.accuracy;
                 solution.precision /= qtde*fold;
                 solution.recall /= qtde*fold;
                 solution.tnrate /= qtde*fold;
@@ -406,8 +407,6 @@ namespace mltk{
             }
 
             if(verbose >= 1) std::cout << "Validation Error: " << erro << " -- " << ((double)erro/(double) valid_pair.test.size()) * 100.0f << "%\n";
-            error += ((double)erro/(double) valid_pair.test.size()) * 100.0f;
-            solution.error = error;
             return solution;
         }
     }

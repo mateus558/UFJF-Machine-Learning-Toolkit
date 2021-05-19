@@ -99,7 +99,7 @@ namespace mltk{
                 this->bias = 0;
                 mltk::random_init<double>(this->weights, this->samples->dim(), this->seed);
                 this->samples->shuffle(this->seed);
-                this->timer.Reset();
+                this->timer.reset();
 
                 while (epoch < this->MAX_EPOCH) {
                     errors = 0;
@@ -121,7 +121,7 @@ namespace mltk{
 
                     }
                     epoch++;
-                    if (stop || this->timer.Elapsed() > this->max_time || errors == 0) break;
+                    if (stop || this->timer.elapsed() > this->max_time || errors == 0) break;
                 }
 
                 for (auto it = this->samples->begin(); it != this->samples->end(); ++it) {

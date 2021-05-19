@@ -3,6 +3,8 @@
 //
 
 #include <utility>
+#include <ufjfmltk/clusterer/KMeans.hpp>
+
 #include "ufjfmltk/clusterer/KMeans.hpp"
 
 namespace mltk{
@@ -26,7 +28,7 @@ namespace mltk{
             bool has_converged = true;
             mltk::random::init(this->seed);
 
-            std::shuffle(points.begin(), points.end(), std::mt19937(this->seed));
+            std::shuffle(points.begin(), points.end(), mltk::random::generator);
 
             if (initialization == "random") {
                 std::vector<size_t> centers_ids(this->n_clusters);
@@ -68,10 +70,10 @@ namespace mltk{
 
             if (this->verbose) {
                 std::cout << "------------------------------------------------------------------------------------\n";
-                std::cout << " steps     updates              cost_function              diff          secs\n";
+                std::cout << " steps     updates              cost_function              diff          milli(ms)\n";
                 std::cout << "------------------------------------------------------------------------------------\n";
             }
-            this->timer.Reset();
+            this->timer.reset();
             do {
                 old_cost = cost;
                 cost = 0.0;
@@ -117,16 +119,37 @@ namespace mltk{
                 }
 
                 this->steps++;
-                double secs = this->timer.Elapsed();
+                double secs = this->timer.elapsed();
                 if (this->verbose) {
                     auto diff = fabs(cost - old_cost);
                     std::cout << " " << this->steps << "           " << this->ctot << "                   " << cost
                               << "            " << diff << "           " << secs << "\n";
                 }
-                if (time - this->timer.Elapsed() * 1000 <= 0) break;
+                if (time - this->timer.elapsed() <= 0) break;
                 has_converged = fabs(cost - old_cost) <= this->EPS;
             } while (!has_converged);
 
+            return true;
+        }
+
+        template<typename T, typename Callable>
+        double KMeans<T, Callable>::evaluate(const Point<T> &p, bool raw_value) {
+            std::vector<double> dists(this->m_centers.size());
+            auto compute_distances = [p, this](std::vector<T> center){
+                return this->dist_function(p, mltk::Point<T>(center));
+            };
+            std::transform(this->m_centers.begin(), this->m_centers.end(), dists.begin(), compute_distances);
+            auto closest_center = std::min_element(dists.begin(), dists.end()) - dists.begin()+1;
+            return closest_center;
+        }
+
+        template<typename T, typename Callable>
+        std::string KMeans<T, Callable>::getFormulationString() {
+            return "Clusterer";
+        }
+
+        template<typename T, typename Callable>
+        std::vector<std::vector<size_t>> KMeans<T, Callable>::clusters() {
             for(size_t i = 0; i < this->samples->size(); i++){
                 auto point = (*this->samples)[i];
                 std::vector<double> dists(this->m_centers.size());
@@ -137,38 +160,7 @@ namespace mltk{
                 auto closest_center = std::min_element(dists.begin(), dists.end()) - dists.begin();
                 this->m_clusters[closest_center].push_back(i);
             }
-
-            return true;
-        }
-
-        template<typename T, typename Callable>
-        double KMeans<T, Callable>::evaluate(const Point<T> &p, bool raw_value) {
-            std::vector<double> distances(this->n_clusters, 0.0);
-            double min_value = std::numeric_limits<double>::max();
-            size_t min_cluster = 0;
-            size_t dim = p.X().size();
-
-            for (size_t c = 0; c < this->n_clusters; c++) {
-                auto point = p.X();
-                auto center = this->m_centers[c];
-                std::vector<T> diff(dim);
-                // compute the difference between the pointer in a cluster to it's center
-                for (size_t j = 0; j < dim; j++) {
-                    diff[j] = point[j] - center[j];
-                }
-                double norm = std::sqrt((double) std::inner_product(diff.begin(), diff.end(), diff.begin(), 0.0));
-                distances[c] = norm;
-                if (distances[c] < min_value) {
-                    min_value = distances[c];
-                    min_cluster = c;
-                }
-            }
-            return min_cluster + 1;
-        }
-
-        template<typename T, typename Callable>
-        std::string KMeans<T, Callable>::getFormulationString() {
-            return "Clusterer";
+            return this->m_clusters;
         }
 
         template

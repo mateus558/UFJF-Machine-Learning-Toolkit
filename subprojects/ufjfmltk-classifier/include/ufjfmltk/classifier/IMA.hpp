@@ -30,7 +30,8 @@ namespace mltk{
         public:
             IMAp() = default;
 
-            explicit IMAp(const Data <T>& samples, int q = 2, double margin = 0.0, Solution* initial_solution = nullptr);
+            explicit IMAp(const Data <T>& samples, int q = 2, double flexible = 0.0, double margin = 0.0,
+                          Solution* initial_solution = nullptr);
 
             bool train() override;
 

@@ -56,7 +56,7 @@ namespace mltk{
             this->kernel = new mltk::Kernel(this->kernel_type, this->kernel_param);
             this->kernel->compute(this->samples);
 
-            this->timer.Reset();
+            this->timer.reset();
             /*run training algorithm*/
             ret = training_routine();
 

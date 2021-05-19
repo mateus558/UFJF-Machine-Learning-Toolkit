@@ -35,7 +35,7 @@ namespace mltk{
             }
 
             this->solution.w.assign(dim, 0.0);
-            this->timer.Reset();
+            this->timer.reset();
 
             for (this->steps = 0; this->steps < this->MAX_IT; this->steps++) {
                 cost_func = 0;
@@ -56,7 +56,7 @@ namespace mltk{
                     }
                 }
                 cost_func *= 0.5;
-                double secs = this->timer.Elapsed();
+                double secs = this->timer.elapsed();
                 if (this->verbose) {
                     diff = fabs(cost_func - diffAnt);
                     std::cout << " " << this->steps << "           " << this->ctot << "                   " << cost_func
@@ -64,7 +64,7 @@ namespace mltk{
                 }
                 if (fabs(cost_func - diffAnt) <= this->EPS) break;
                 diffAnt = cost_func;
-                if (time - this->timer.Elapsed() * 1000 <= 0) break;
+                if (time - this->timer.elapsed() * 1000 <= 0) break;
             }
             if (this->verbose >= 1) {
                 std::cout << "Number of steps through data: " << this->steps << std::endl;

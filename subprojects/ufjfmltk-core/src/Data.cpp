@@ -1320,15 +1320,16 @@ namespace mltk{
                 m_classes.push_back(_c);
                 class_names.push_back(std::to_string(_c));
                 class_distribution.push_back(1);
-            }else {
-                auto oldclass_pos = std::find(m_classes.begin(), m_classes.end(), old_value)- m_classes.begin();
-                class_distribution[class_pos - m_classes.begin()]++;
-                class_distribution[oldclass_pos]--;
-                if(class_distribution[oldclass_pos] == 0){
-                    class_distribution.erase(class_distribution.begin() + oldclass_pos);
-                    m_classes.erase(m_classes.begin() + oldclass_pos);
-                }
             }
+            auto oldclass_pos = std::find(m_classes.begin(), m_classes.end(), int(old_value))- m_classes.begin();
+            class_distribution[class_pos - m_classes.begin()]++;
+            class_distribution[oldclass_pos]--;
+            if(class_distribution[oldclass_pos] == 0){
+                class_distribution.erase(class_distribution.begin() + oldclass_pos);
+                m_classes.erase(m_classes.begin() + oldclass_pos);
+                class_names.erase(class_names.begin() + oldclass_pos);
+            }
+
         }
         m_points[idx]->Y() = value;
         return true;
