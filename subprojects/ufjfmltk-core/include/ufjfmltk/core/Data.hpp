@@ -353,7 +353,7 @@ namespace mltk{
          */
         void copyZero (const Data< T >& other);
         std::vector< Data< T > > splitByClasses();
-        std::vector< Data< T > > splitSample(const std::size_t &split_size, size_t seed = 0);
+        std::vector< Data< T > > splitSample(const std::size_t &split_size, bool stratified = true, size_t seed = 0);
         Data< T > selectFeatures(std::vector<size_t> feats);
         Data< T > sampling(const size_t& samp_size, bool with_replacement = true, const int &seed=0);
         void apply(std::function<void(mltk::PointPointer<T> point)> f);

@@ -271,7 +271,7 @@ TEST_F(DataTest, DataInsertion){
 
 TEST_F(DataTest, DataSplit){
     mltk::Data<double> data("pima.data");
-    auto split = mltk::validation::kfoldsplit(mult, 10, 42);
+    auto split = mltk::validation::kfoldsplit(mult, 10, true, 42);
     std::vector<size_t> dist_train = {45, 45, 45};
     std::vector<size_t> dist_test = {5, 5, 5};
     for(const auto& s: split){
@@ -281,13 +281,20 @@ TEST_F(DataTest, DataSplit){
         ASSERT_EQ(s.test.classesDistribution(), dist_test);
     }
 
-    split = mltk::validation::kfoldsplit(mult, 10, 10, 42);
+    split = mltk::validation::kfoldsplit(mult, 10, 10, true, 42);
     ASSERT_EQ(split.size(), 100);
     for(const auto& s: split){
         ASSERT_EQ(s.train.size(), 135);
         ASSERT_EQ(s.test.size(), 15);
         ASSERT_EQ(s.train.classesDistribution(), dist_train);
         ASSERT_EQ(s.test.classesDistribution(), dist_test);
+    }
+    split = mltk::validation::kfoldsplit(mult, 3, false, 42);
+    for(const auto& s: split){
+        ASSERT_EQ(s.train.size(), 100);
+        ASSERT_EQ(s.test.size(), 50);
+        std::cout << mltk::Point<size_t>(s.train.classesDistribution()) <<std::endl;
+        std::cout << mltk::Point<size_t>(s.test.classesDistribution()) <<std::endl;
     }
 }
 

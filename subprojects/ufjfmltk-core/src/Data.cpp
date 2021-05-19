@@ -1277,31 +1277,45 @@ namespace mltk{
     }
 
     template<typename T>
-    std::vector<Data<T>> Data<T>::splitSample(const std::size_t &split_size, const size_t seed) {
-        this->computeClassesDistribution();
-        Point< double > dist(class_distribution.size());
-        dist = class_distribution;
-        auto new_size = size_t(size() / split_size);
-        auto classes_split = this->splitByClasses();
-        std::vector<size_t> marker(m_classes.size(), 0);
+    std::vector<Data<T>> Data<T>::splitSample(const std::size_t &split_size, bool stratified, const size_t seed) {
         std::vector<Data<T>> split(split_size);
-        dist = (dist / size()) * new_size;
+        auto new_size = size_t(size() / split_size);
+        if(this->isClassification() && stratified){
+            this->computeClassesDistribution();
+            Point< double > dist(class_distribution.size());
+            dist = class_distribution;
+            auto classes_split = this->splitByClasses();
+            std::vector<size_t> marker(m_classes.size(), 0);
+            dist = (dist / size()) * new_size;
 
-        for(size_t i = 0; i < dist.size(); i++){
-            dist[i] = (dist[i] < 1.0)?1.0:std::ceil(dist[i]);
-        }
+            for(size_t i = 0; i < dist.size(); i++){
+                dist[i] = (dist[i] < 1.0)?1.0:std::ceil(dist[i]);
+            }
 
-        for(size_t i = 0; i < split.size(); i++){
-            for(size_t j = 0; j < classes_split.size(); j++){
-                for(size_t k = 0; k < dist[j]; k++){
-                    if(marker[j] == classes_split[j].size()) break;
-                    split[i].insertPoint(classes_split[j][marker[j]]);
-                    marker[j]++;
+            for(size_t i = 0; i < split.size(); i++){
+                for(size_t j = 0; j < classes_split.size(); j++){
+                    for(size_t k = 0; k < int(dist[j]); k++){
+                        if(marker[j] == classes_split[j].size()) break;
+                        split[i].insertPoint(classes_split[j][marker[j]]);
+                        marker[j]++;
+                    }
+                }
+                split[i].shuffle(seed+i);
+            }
+        }else{
+            auto data = this->copy();
+            data.shuffle(seed);
+            size_t counter = 0;
+            for(size_t i = 0; i < split.size(); i++){
+                for(size_t j = 0; j < new_size; j++){
+                    split[i].insertPoint(data[counter]);
+                    counter++;
+                    if(counter == this->size()){
+                        return split;
+                    }
                 }
             }
-            split[i].shuffle(seed+i);
         }
-
         return split;
     }
 

@@ -128,8 +128,8 @@ namespace mltk{
         }
 
         template< typename T >
-        std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, const size_t seed){
-           auto data_folds = samples.splitSample(folds, seed);
+        std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds=5, bool stratified=true, const size_t seed=0){
+           auto data_folds = samples.splitSample(folds, stratified, seed);
            std::vector<TrainTestPair<T> > kfold_split;
 
            for(int i = 0; i < folds; i++){
@@ -145,12 +145,12 @@ namespace mltk{
        }
 
         template< typename T >
-        std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, const size_t qtde, const size_t seed) {
+        std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, const size_t qtde, bool stratified=true, const size_t seed=0) {
             std::vector<TrainTestPair<T> > kkfold_split;
 
             kkfold_split.reserve(qtde*folds);
             for(int i = 0; i < qtde; i++){
-                auto kfold_split = kfoldsplit(samples, folds, seed+i);
+                auto kfold_split = kfoldsplit(samples, folds, stratified, seed+i);
                 kkfold_split.insert(kkfold_split.end(), kfold_split.begin(), kfold_split.end());
             }
             return kkfold_split;
@@ -196,12 +196,13 @@ namespace mltk{
          * \return Classification error estimative.
          */
         template <typename T>
-        ValidationReport kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold, const size_t &seed=0, const int verbose=0){
+        ValidationReport kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold,
+                                bool stratified=true, const size_t &seed=0, const int verbose=0){
             double error = 0.0;
             std::vector<double> error_arr(fold);
             auto classes = sample.classes();
             sample.shuffle(seed);
-            std::vector<TrainTestPair<T>> folds = kfoldsplit(sample, fold, seed);
+            std::vector<TrainTestPair<T>> folds = kfoldsplit(sample, fold, stratified, seed);
             ValidationReport solution;
 
             //Start cross-validation
@@ -219,9 +220,9 @@ namespace mltk{
                 // Training phase
                 classifier.setSamples(_train_sample);
                 Solution s = classifier.getSolution();
-                bool isPrimal = classifier.getFormulationString() == "Primal";
+                bool isDual = classifier.getFormulationString() == "Dual";
                 classifier.setSeed(seed);
-                if(isPrimal){
+                if(!isDual){
                     if(!classifier.train()){
                         if(verbose){
                             std::cerr << "Error at " << fold << "-fold: The convergency wasn't reached at the set " << j+1 << "!\n";
@@ -345,9 +346,9 @@ namespace mltk{
             classifier.setSamples(mltk::make_data<T>(valid_pair.train));
             classifier.setVerbose(0);
 
-            bool isPrimal = (classifier.getFormulationString() == "Primal");
+            bool isDual = (classifier.getFormulationString() == "Dual");
             classifier.setSeed(seed);
-            if(isPrimal){
+            if(!isDual){
                 if(!classifier.train()){
                     if(verbose)
                         std::cerr << "Validation error: The convergency wasn't reached in the training set!\n";
