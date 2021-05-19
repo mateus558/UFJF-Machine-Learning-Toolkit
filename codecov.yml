@@ -1,0 +1,4 @@
+ignore:
+  - "subprojects/ufjfmltk-visual/include/ufjfmltk/visual/gnuplot_i.hpp"
+  - "subprojects/ufjfmltk-visual/src/gnuplot_i.cpp"
+  - "subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/hnswlib"
