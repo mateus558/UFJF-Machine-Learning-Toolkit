@@ -2,7 +2,6 @@ set(REGRESSOR_TARGET ${PROJECT_NAME}-regressor)
 
 # List of CPP (source) library files.
 set(${REGRESSOR_TARGET}_SRC
-        src/KNNRegressor.cpp
         src/LMS.cpp
         )
 

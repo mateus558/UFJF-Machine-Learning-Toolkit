@@ -164,8 +164,8 @@ namespace mltk{
         * \return A pair containing the training and test data.
         */
         template<typename T>
-        TrainTestPair<T> partTrainTest(Data<T> &data, const size_t fold, const size_t seed=0) {
-            std::vector<Data<T> > folds = data.splitSample(fold, seed);
+        TrainTestPair<T> partTrainTest(Data<T> &data, const size_t fold, bool stratified=true, const size_t seed=0) {
+            std::vector<Data<T> > folds = data.splitSample(fold, stratified, seed);
             TrainTestPair<T> result;
 
             for(auto it = folds.begin(); it != folds.end()-1; it++){
@@ -303,7 +303,7 @@ namespace mltk{
          * @return double Validation error.
          */
         template <typename T>
-        ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t &qtde, const size_t &fold, const size_t &seed = 0, const int &verbose = 0){
+        ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t &qtde, const size_t &fold, bool stratified = true, const size_t &seed = 0, const int &verbose = 0){
             auto valid_pair = partTrainTest(samples, fold, seed);
             int i;
             size_t fp = 0, fn = 0, tp = 0, tn = 0, erro=0;
@@ -320,7 +320,7 @@ namespace mltk{
                 for(errocross = 0, i = 0; i < qtde; i++)
                 {
                     if(verbose) std::cout << "\nExecucao " << i + 1 << " / " << qtde << ":\n";
-                    errocross += kfold(samples, classifier, fold, seed + i, verbose).error;
+                    errocross += kfold(samples, classifier, fold, stratified, seed + i, verbose).error;
                 }
                 if(verbose >= 1)std::cout << "\n\nErro " << fold << "-Fold Cross Validation: " << errocross/qtde << "%\n";
                 solution.accuracy = 100.0 - errocross/qtde;
