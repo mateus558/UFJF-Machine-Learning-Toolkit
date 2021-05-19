@@ -17,11 +17,6 @@ namespace mltk{
         Visualization< T >::Visualization(bool shared_session): is_shared(shared_session) {
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
-            plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
-            n_plots++;
-            if(!fs::exists(plot_folder)) {
-                fs::create_directory(plot_folder);
-            }
         }
 
         template < typename T >
@@ -34,6 +29,7 @@ namespace mltk{
             if(!fs::exists(plot_folder)) {
                 fs::create_directory(plot_folder);
             }
+            createTempFiles();
         }
 
         template < typename T >
@@ -119,7 +115,7 @@ namespace mltk{
         }
 
         template < typename T >
-        vector<string> Visualization< T >::getTempFilesNames(){
+        vector<string> Visualization< T >::getTempFilesNames(bool append_path){
             vector<string> files;
 
         #ifdef __unix__
@@ -132,7 +128,7 @@ namespace mltk{
                 while((epdf = readdir(dpdf))){
                     string file = string(epdf->d_name);
                     if(valid_file(file) && !file.empty()){
-                        files.push_back(file);
+                        files.push_back((append_path)?(path+file):file);
                     }
                 }
             }else{
@@ -186,7 +182,7 @@ namespace mltk{
             configurePlot(out_name, format, title, save, x_label, y_label);
 
             if(samples->isClassification()){
-                temp_files_names = createTempFiles();
+                temp_files_names = getTempFilesNames(true);
                 for(i = 0; i < class_names.size() - 1; i++){
                     cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + class_names[i] + "\' with points, ";
                 }
@@ -226,7 +222,7 @@ namespace mltk{
             configurePlot(out_name, format, title, save, x_label, y_label, z_label);
 
             if(samples->isClassification()){
-                temp_files_names = createTempFiles();
+                temp_files_names = getTempFilesNames(true);
                 for(i = 0; i < class_names.size() - 1; i++){
                     cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + class_names[i] + "\' with points, ";
                 }
@@ -281,7 +277,7 @@ namespace mltk{
             cmd = fx + "; "+ gx +"; "+ hx +"; plot ";
 
             if(samples->isClassification()){
-                temp_files_names = createTempFiles();
+                temp_files_names = getTempFilesNames(true);
                 for(i = 0; i < class_names.size() - 1; i++){
                     cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, ";
                 }
@@ -322,7 +318,7 @@ namespace mltk{
             cmd = fxy + "; splot ";
 
             if(samples->isClassification()){
-                temp_files_names = createTempFiles();
+                temp_files_names = getTempFilesNames(true);
                 for(i = 0; i < class_names.size() - 1; i++){
                     cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, ";
                 }
@@ -347,10 +343,10 @@ namespace mltk{
         }
 
         template < typename T >
-        void Visualization< T >::setSample(Data<T> *sample) {
-            this->samples = sample;
-            removeTempFiles();
+        void Visualization< T >::setSample(Data<T>& sample) {
+            this->samples = &sample;
             if(fs::exists(plot_folder)) {
+                removeTempFiles();
                 fs::remove(plot_folder);
             }
             plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
@@ -358,6 +354,7 @@ namespace mltk{
             if(!fs::exists(plot_folder)) {
                 fs::create_directory(plot_folder);
             }
+            createTempFiles();
         }
 
         template<typename T>

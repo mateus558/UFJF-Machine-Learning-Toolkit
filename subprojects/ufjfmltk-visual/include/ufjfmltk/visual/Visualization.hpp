@@ -52,7 +52,7 @@
              * \brief getTempFilesNames Returns the name of the files in the temp folder.
              * \return vector<string>
              */
-            std::vector<std::string> getTempFilesNames();
+            std::vector<std::string> getTempFilesNames(bool append_path=false);
             /**
              * \brief removeTempFiles Remove the temporary files created in the temp folder.
              */
@@ -74,7 +74,7 @@
              * \param sample (???) Data< T > to set for visualization.
              * \return void
              */
-            void setSample (Data< T > *sample);
+            void setSample (Data< T >& sample);
             /**
              * \brief Set plot title.
              * \param title (???) Plot title.

@@ -24,7 +24,8 @@ protected:
 };
 
 TEST_F(VisualTest, PlotsTest){
-    mltk::visualize::Visualization<double> vis(bin);
+    mltk::visualize::Visualization<double> vis;
+    vis.setSample(bin);
     vis.setTerminal("dumb");
     vis.plot2D(0, 1, true, "Iris dataset 2D");
     vis.plot2D(0, 2, true, "Iris dataset 2D");

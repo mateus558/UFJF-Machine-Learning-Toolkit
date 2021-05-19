@@ -28,9 +28,9 @@ TEST_F(ClustererTest, KMeansTest){
     mltk::clusterer::KMeans<double> kmeans(mult, 4, "random", 42, 1);
     mltk::clusterer::KMeans<double> kmeanspp(mult, 4, "kmeanspp", 42, 1);
 
-    kmeans.setMaxTime(100000);
+    kmeans.setMaxTime(100);
     kmeans.train();
-    kmeanspp.setMaxTime(100000);
+    kmeanspp.setMaxTime(100);
     kmeanspp.train();
 
     auto conf = mltk::validation::generateConfusionMatrix(mult, kmeans);
