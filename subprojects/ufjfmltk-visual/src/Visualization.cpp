@@ -4,6 +4,8 @@
 #include <sstream>
 #include <fstream>
 #include <filesystem>
+#include <ufjfmltk/visual/Visualization.hpp>
+
 
 #define PLOT_FOLDER "temp"
 
@@ -43,9 +45,13 @@ namespace mltk{
         }
 
         template < typename T >
-        vector<string> Visualization< T >::createTempFiles(){
+        vector<string> Visualization< T >::createTempFiles(std::string plot_folder){
             size_t i, j, k, size = samples->size(), dim = samples->dim();
             vector<string> file_names;
+
+            if(plot_folder.empty()) {
+                plot_folder = this->plot_folder;
+            }
 
             if(samples->isClassification()) {
                 vector<std::string> class_names = samples->classesNames();
@@ -404,6 +410,13 @@ namespace mltk{
             g = nullptr;
             removeTempFiles();
             fs::remove(plot_folder);
+        }
+
+        template<typename T>
+        void Visualization<T>::cmd(const string &command) {
+            Gnuplot g;
+
+            g.cmd(command);
         }
 
         template class Visualization<int>;

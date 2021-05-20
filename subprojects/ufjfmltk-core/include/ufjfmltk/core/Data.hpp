@@ -75,11 +75,12 @@ namespace mltk{
     template < class T > using DataPointer = std::shared_ptr<mltk::Data< T > >;
     template < class T > using SamplePointer = std::shared_ptr<mltk::Point< T > >;
     template < class T > using SampleIterator = typename std::vector<SamplePointer< T > >::iterator;
+    template < class T > using ConstSampleIterator = typename std::vector<SamplePointer< T > >::const_iterator;
 
     /**
      * \brief Wrapper for the dataset data.
      */
-    template < typename T >
+    template < typename T = double >
     class DLLData Data {
         // Associations
         // Attributes
@@ -426,12 +427,17 @@ namespace mltk{
         
         SampleIterator<T> end() { return m_points.end(); }
 
+        ConstSampleIterator<T>  begin() const { return m_points.cbegin(); }
+
+        ConstSampleIterator<T> end() const { return m_points.cend(); }
+
         std::shared_ptr<Point< T > > operator[](size_t i) const {return m_points[i];}
 
         std::shared_ptr<Point< T > > & operator[](size_t i) {return m_points[i];}
 
         Point< T > operator()(size_t i) const {return *(m_points[i]);}
-        
+        Point< T >& operator()(size_t i) {return *m_points[i];}
+
         Data< T >& operator=(const Data< T >&);
 
         bool operator==(const Data< T > &rhs) const;

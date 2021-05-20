@@ -293,6 +293,12 @@ TEST_F(DataTest, DataSplit){
     for(const auto& s: split){
         ASSERT_EQ(s.train.size(), 100);
         ASSERT_EQ(s.test.size(), 50);
+        for(const auto& point: s.test){
+            for(auto& x: *point){
+                std::cout << x << " ";
+            }
+            std::cout << std::endl;
+        }
         std::cout << mltk::Point<size_t>(s.train.classesDistribution()) <<std::endl;
         std::cout << mltk::Point<size_t>(s.test.classesDistribution()) <<std::endl;
     }

@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <iostream>
 #include "ufjfmltk/core/Utils.hpp"
-
+#include <ctime>
 #define PRECISION 1E-9
 #define MAX_NUMBER_STRING_SIZE 32
 
@@ -214,6 +214,15 @@ namespace mltk{
             }
 
             return out;
+        }
+
+        std::string timestamp(){
+            time_t rawtime;
+            std::time(&rawtime);
+            struct tm *tinfo = std::localtime(&rawtime);
+            char buffer[21];
+            strftime(buffer, 21, "%F_%X", tinfo);
+            return std::string(buffer);
         }
     }
 }

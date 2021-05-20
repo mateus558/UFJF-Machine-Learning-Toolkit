@@ -75,3 +75,20 @@ TEST_F(VisualTest, PlotWithSolutionTest){
     vis.plot3DwithHyperplane(0, 1, 2, solution, true, "Iris dataset 3D");
     vis.plot3DwithHyperplane(1, 2, 3, solution, false, "Iris dataset 3D");
 }
+
+TEST_F(VisualTest, ContourTest){
+    mltk::classifier::KNNClassifier<double, mltk::metrics::dist::Hassanat<>> knn(mult, 3);
+    mltk::classifier::KNNClassifier knn_euc(mult, 3);
+    mltk::classifier::IMADual ima(bin, mltk::KernelType::GAUSSIAN, 0.5);
+
+    mltk::visualize::Visualization<double> vis(mult, false);
+    //vis.setTerminal("dumb");
+    vis.plotDecisionSurface2D(knn, 0, 1, 200, true, "KNN hassanat");
+    vis.plot2D(0, 1, true);
+    mltk::visualize::Visualization<double> vis2(mult, false);
+    vis2.setTerminal("dumb");
+    vis2.plotDecisionSurface2D(knn_euc, 0, 1, 200, true, "KNN euclidean");
+    mltk::visualize::Visualization<double> vis1(bin, false);
+    vis1.setTerminal("dumb");
+    vis1.plotDecisionSurface2D(ima, 0, 1, 200, true, "IMA dual decision surface");
+}

@@ -58,8 +58,10 @@ namespace mltk{
          * \param high Highest possible integer.
          * \return int
          */
-        inline DLLRandom int DLLRandomDecl intInRange(int low, int high) {
-            std::uniform_int_distribution<int> dist(low, high);
+        template < typename Integral = int, typename Integral1,
+                typename Distribution = std::uniform_int_distribution<Integral>  >
+        inline DLLRandom Integral DLLRandomDecl intInRange(Integral low, Integral1 high) {
+            Distribution dist(low, high);
 
             return dist(generator);
         }
@@ -69,8 +71,10 @@ namespace mltk{
          * \param high Highest possible float.
          * \return float
          */
-        inline DLLRandom float DLLRandomDecl floatInRange(float low, float high) {
-            std::uniform_real_distribution<float> dist(low, high);
+        template < typename Real = double, typename Real1,
+                typename Distribution = std::uniform_real_distribution<Real> >
+        inline DLLRandom Real DLLRandomDecl floatInRange(Real low, Real1 high) {
+            Distribution dist(low, high);
 
             return dist(generator);
         }

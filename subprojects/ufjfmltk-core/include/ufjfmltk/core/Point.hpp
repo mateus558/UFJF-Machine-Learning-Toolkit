@@ -43,7 +43,7 @@
  * \brief UFJF-MLTK main namespace for core functionalities.
  */
 namespace mltk {    
-    template <typename T, typename Rep> class Point;
+    template <typename T, typename Rep > class Point;
     template <typename T, typename Rep> std::ostream &operator<<( std::ostream &output, const Point<T, Rep> &p );
     template <class T, typename Rep = std::vector<T> > using PointPointer = std::shared_ptr<mltk::Point<T, Rep> >;
     template <class T, typename Rep = std::vector<T> > using PointIterator = typename Rep::iterator ;
@@ -51,7 +51,7 @@ namespace mltk {
     /**
      * \brief Wrapper for the point data.
      */
-    template <typename T, typename Rep = std::vector<T> >
+    template <typename T = double, typename Rep = std::vector<T> >
     class DLLPoint Point {
         private:
             /// Features values.
@@ -63,15 +63,15 @@ namespace mltk {
 
         public:
             auto begin() const {
-                return x.begin();
+                return x.cbegin();
             }
             auto end() const{
-                return x.end();
+                return x.cend();
             }
-            auto& begin() {
+            auto begin() {
                 return x.begin();
             }
-            auto& end() {
+            auto end() {
                 return x.end();
             }
             /**
@@ -530,7 +530,7 @@ namespace mltk {
     T min(const Point<T, R> &p){
         T _min = std::numeric_limits<T>::max();
         for(size_t i = 0; i < p.size(); i++){
-            if(p[i] > _min) _min = p[i];
+            if(p[i] < _min) _min = p[i];
         }
         return _min;
     }
@@ -541,7 +541,7 @@ namespace mltk {
 
         p.X().resize(size);
         for(size_t i = 0; i < p.size(); i++){
-            p[i] = mltk::random::floatInRange(0, 1);
+            p[i] = mltk::random::floatInRange(0.0, 1.0);
         }
         p.Y() = 0;
         return p;
@@ -553,7 +553,7 @@ namespace mltk {
         mltk::random::init(seed);
 
         for(size_t i = 0; i < p.size(); i++){
-            p[i] = mltk::random::floatInRange(0, 1);
+            p[i] = mltk::random::floatInRange(0.0, 1.0);
         }
         p.Y() = 0;
         return p;
@@ -564,7 +564,7 @@ namespace mltk {
         mltk::random::init(seed);
 
         for(size_t i = 0; i < p.size(); i++){
-            p[i] = mltk::random::floatInRange(0, 1);
+            p[i] = mltk::random::floatInRange(0.0, 1.0);
         }
         p.Y() = 0;
         return p;
@@ -615,7 +615,7 @@ namespace mltk {
         return result;
     }
 
-    template < typename T >
+    template < typename T = double>
     Point<T> linspace(double lower, double upper, size_t N){
         double h = (upper - lower) / static_cast<double>(N-1);
         std::vector<T> xs(N);
