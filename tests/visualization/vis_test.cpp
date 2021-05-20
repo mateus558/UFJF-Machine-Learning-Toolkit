@@ -77,12 +77,12 @@ TEST_F(VisualTest, PlotWithSolutionTest){
 }
 
 TEST_F(VisualTest, ContourTest){
-    mltk::classifier::KNNClassifier<double, mltk::metrics::dist::Hassanat<>> knn(mult, 3);
+    mltk::classifier::KNNClassifier<double, mltk::metrics::dist::Hassanat<double>> knn(mult, 3);
     mltk::classifier::KNNClassifier knn_euc(mult, 3);
     mltk::classifier::IMADual ima(bin, mltk::KernelType::GAUSSIAN, 0.5);
 
     mltk::visualize::Visualization<double> vis(mult, false);
-    //vis.setTerminal("dumb");
+    vis.setTerminal("dumb");
     vis.plotDecisionSurface2D(knn, 0, 1, 200, true, "KNN hassanat");
     vis.plot2D(0, 1, true);
     mltk::visualize::Visualization<double> vis2(mult, false);
