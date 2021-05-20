@@ -221,7 +221,7 @@ namespace mltk{
             std::time(&rawtime);
             struct tm *tinfo = std::localtime(&rawtime);
             char buffer[21];
-            strftime(buffer, 21, "%F_%X", tinfo);
+            strftime(buffer, 21, "%F-%X", tinfo);
             return std::string(buffer);
         }
     }

@@ -16,13 +16,17 @@ namespace mltk{
         template<typename T>
         size_t Visualization<T>::n_plots=0;
         template < typename T >
-        Visualization< T >::Visualization(bool shared_session): is_shared(shared_session) {
+        Visualization< T >::Visualization(bool shared_session, bool keep_temp_files):
+        is_shared(shared_session),
+        keep_temp_files(keep_temp_files) {
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
         }
 
         template < typename T >
-        Visualization< T >::Visualization(Data<T> &sample, bool shared_session): is_shared(shared_session) {
+        Visualization< T >::Visualization(Data<T> &sample, bool shared_session, bool keep_temp_files):
+        is_shared(shared_session),
+        keep_temp_files(keep_temp_files) {
             samples = &sample;
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
@@ -67,15 +71,18 @@ namespace mltk{
                         file_names.push_back(file_name);
                     }
                 }
-
                 for (i = 0; i < size; i++) {
-                    for(j = 0; j < classes.size(); j++){
-                        if (samples->point(i)->Y() == classes[j]) {
-                            for (k = 0; k < dim - 1; k++) {
-                                temp_files[j] << (double) (samples->point(i)->X()[k]) << " ";
-                            }
-                            temp_files[j] << (double) (samples->point(i)->X()[k]) << endl;
+                    auto point = (*samples)(i);
+                    auto class_pos = std::find(classes.begin(), classes.end(), point.Y()) - classes.begin();
+                    auto class_name = class_names[class_pos];
+                    int idx = 0;
+                    for(const auto& x: point) {
+                        if(idx < point.size()-1) {
+                            temp_files[class_pos] << x << " ";
+                        }else {
+                            temp_files[class_pos] << x << std::endl;
                         }
+                        idx++;
                     }
                 }
 
@@ -165,6 +172,7 @@ namespace mltk{
 
         template < typename T >
         void Visualization< T >::removeTempFiles(){
+            if(keep_temp_files) return;
             string path;
             vector<string> temps;
 
@@ -173,26 +181,32 @@ namespace mltk{
             for(string file : temps){
                 remove(string(plot_folder + file).c_str());
             }
+            fs::remove_all(plot_folder);
         }
 
         template < typename T >
-        void Visualization< T >::plot2D(int x, int y, bool save, const std::string& title, const std::string& format,
+        std::string Visualization< T >::plot2D(int x, int y, bool save, const double scale,
+                                        const std::string& title,
+                                        const std::string& format,
                                         const std::string& x_label, const std::string& y_label){
-            string dims = utils::itos(x) + ":" + utils::itos(y);
+            string dims = utils::itos(x+1) + ":" + utils::itos(y+1);
             string cmd("plot ");
             vector<string> temp_files_names, class_names = samples->classesNames();
+            Point<int> classes = samples->classes();
             size_t i;
             std::string out_name = (this->samples->name().empty())?"2dplot_"+utils::itos(x)+"_"+utils::itos(y):
                                    this->samples->name()+"_2d_"+utils::itos(x)+"_"+utils::itos(y);
 
+            configureRange(scale, x, y);
             configurePlot(out_name, format, title, save, x_label, y_label);
 
             if(samples->isClassification()){
                 temp_files_names = getTempFilesNames(true);
-                for(i = 0; i < class_names.size() - 1; i++){
-                    cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + class_names[i] + "\' with points, ";
+                auto names = sortLabels(temp_files_names);
+                for(i = 0; i < temp_files_names.size() - 1; i++){
+                    cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points, ";
                 }
-                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + class_names[i] + "\' with points";
+                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points";
                 cmd = fetchConfigs() + cmd;
     #ifdef __unix__
                 if(is_shared) g->cmd(cmd);
@@ -212,27 +226,31 @@ namespace mltk{
                     g_.plot_xy(samples->getFeature(x), samples->getFeature(y));
                 }
             }
+            return prepareScript(cmd);
         }
 
         template < typename T >
-        void Visualization< T >::plot3D(int x, int y, int z, bool save, const std::string& title,
+        std::string Visualization< T >::plot3D(int x, int y, int z, bool save, const double scale,
+                                        const std::string& title,
                                         const std::string& format,
                                         const std::string& x_label, const std::string& y_label, const std::string& z_label){
-            string dims = utils::itos(x) + ":" + utils::itos(y) + ":" + utils::itos(z);
+            string dims = utils::itos(x+1) + ":" + utils::itos(y+1) + ":" + utils::itos(z+1);
             string cmd("splot ");
             vector<string> temp_files_names, class_names = samples->classesNames();
             size_t i;
             std::string out_name = (this->samples->name().empty())?"3dplot_"+utils::itos(x)+"_"+utils::itos(y)+"_"+utils::itos(z):
                                    this->samples->name()+"_3d_"+utils::itos(x)+"_"+utils::itos(y)+"_"+utils::itos(z);
 
+            configureRange(scale, x, y, z);
             configurePlot(out_name, format, title, save, x_label, y_label, z_label);
 
             if(samples->isClassification()){
                 temp_files_names = getTempFilesNames(true);
+                auto names = sortLabels(temp_files_names);
                 for(i = 0; i < class_names.size() - 1; i++){
-                    cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + class_names[i] + "\' with points, ";
+                    cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points, ";
                 }
-                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + class_names[i] + "\' with points";
+                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points";
                 cmd = fetchConfigs() + cmd;
                 #ifdef __unix__
                 if(is_shared) g->cmd(cmd);
@@ -251,20 +269,23 @@ namespace mltk{
                     g_.plot_xyz(this->samples->getFeature(x), this->samples->getFeature(y), this->samples->getFeature(z));
                 }
             }
+            return prepareScript(cmd);
         }
 
         template < typename T >
-        void Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s, bool save, const std::string& title,
+        std::string Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s, bool save, const double scale,
+                                                      const std::string& title,
                                                       const std::string& format,
                                                       const std::string& x_label, const std::string& y_label){
             if(s.norm != s.norm) s.norm = 0.0;
-            string feats = utils::itos(x) + ":" + utils::itos(y);
+            string feats = utils::itos(x+1) + ":" + utils::itos(y+1);
             string fx, gx, hx, cmd;
             vector<string> temp_files_names, class_names = samples->classesNames();
             size_t i;
             std::string out_name = (this->samples->name().empty())?"2dplotsol_"+utils::itos(x)+"_"+utils::itos(y):
                                    this->samples->name()+"_2dsol_"+utils::itos(x)+"_"+utils::itos(y);
 
+            configureRange(scale, x, y);
             configurePlot(out_name, format, title, save, x_label, y_label);
 
             if(s.bias != 0) {
@@ -284,10 +305,11 @@ namespace mltk{
 
             if(samples->isClassification()){
                 temp_files_names = getTempFilesNames(true);
+                auto names = sortLabels(temp_files_names);
                 for(i = 0; i < class_names.size() - 1; i++){
-                    cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, ";
+                    cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
                 }
-                cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+                cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
             }else if(samples->getType() == "Regression"){
                 cmd += "'"+ std::string(plot_folder) +"samples.plt' using "+feats+" title '+1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
             }
@@ -304,20 +326,23 @@ namespace mltk{
             cmd = "echo " + cmd + " | gnuplot -persist";
                 system(cmd.c_str());
         #endif
+            return prepareScript(cmd);
         }
 
         template < typename T >
-        void Visualization< T >::plot3DwithHyperplane(int x, int y, int z, Solution s, bool save, const std::string& title,
+        std::string Visualization< T >::plot3DwithHyperplane(int x, int y, int z, Solution s, bool save, const double scale,
+                                                      const std::string& title,
                                                       const std::string& format,
                                                       const std::string& x_label, const std::string& y_label,
                                                       const std::string& z_label){
-            string feats = utils::itos(x) + ":" + utils::itos(y) + ":" + utils::itos(z);
+            string feats = utils::itos(x+1) + ":" + utils::itos(y+1) + ":" + utils::itos(z+1);
             string fxy, cmd;
             vector<string> temp_files_names, class_names = samples->classesNames();
             size_t i;
             std::string out_name = (this->samples->name().empty())?"3dplotsol_"+utils::itos(x)+"_"+utils::itos(y)+"_"+utils::itos(z):
                                    this->samples->name()+"_3dsol_"+utils::itos(x)+"_"+utils::itos(y)+"_"+utils::itos(z);
 
+            configureRange(scale, x, y, z);
             configurePlot(out_name, format, title, save, x_label, y_label, z_label);
 
             fxy = "f(x,y) = "+utils::dtoa(s.w[x]/s.w[z])+"*x + "+utils::dtoa(s.w[y]/s.w[z])+"*y + "+utils::dtoa(s.bias/s.w[z]);
@@ -325,10 +350,11 @@ namespace mltk{
 
             if(samples->isClassification()){
                 temp_files_names = getTempFilesNames(true);
+                auto names = sortLabels(temp_files_names);
                 for(i = 0; i < class_names.size() - 1; i++){
-                    cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, ";
+                    cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
                 }
-                cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + class_names[i] + "\' with points, f(x,y) notitle with lines ls 1";
+                cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, f(x,y) notitle with lines ls 1";
 
             }else if(samples->getType() == "Regression"){
                 cmd += "'"+ std::string(plot_folder) +"samples.plt' using "+ feats +" with points, f(x,y) notitle with lines ls 1";
@@ -346,6 +372,7 @@ namespace mltk{
             cmd = "echo " + cmd + " | gnuplot -persist";
                 system(cmd.c_str());
         #endif
+            return prepareScript(cmd);
         }
 
         template < typename T >
@@ -353,7 +380,6 @@ namespace mltk{
             this->samples = &sample;
             if(fs::exists(plot_folder)) {
                 removeTempFiles();
-                fs::remove(plot_folder);
             }
             plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
             n_plots++;
@@ -361,6 +387,41 @@ namespace mltk{
                 fs::create_directory(plot_folder);
             }
             createTempFiles();
+        }
+
+        template<typename T>
+        std::vector<std::string> Visualization<T>::sortLabels(vector<std::string> &files, const std::string& type) {
+            Point<int> classes = samples->classes();
+            auto class_names = samples->classesNames();
+            std::vector<std::string> names(files.size());
+            std::transform(files.begin(), files.end(), names.begin(), [type](std::string& path){
+                if(type == "decision") {
+                    return mltk::utils::tokenize(path, '_')[0];
+                }else{
+                    return mltk::utils::tokenize(mltk::utils::tokenize(path, '.')[0], '/')[1];
+                }
+            });
+            std::sort(names.begin(), names.end(),[&class_names, &classes](const auto& a, const auto& b){
+                auto aclass_pos = std::find(class_names.begin(), class_names.end(), a) - class_names.begin();
+                auto bclass_pos = std::find(class_names.begin(), class_names.end(), b) - class_names.begin();
+                return classes[aclass_pos] < classes[bclass_pos];
+            });
+            std::sort(files.begin(), files.end(), [&class_names, &classes, &type](const auto& a, const auto& b){
+                if(type == "decision") {
+                    auto aclass_pos = std::find(class_names.begin(), class_names.end(),
+                                                mltk::utils::tokenize(a, '_')[0]) - class_names.begin();
+                    auto bclass_pos = std::find(class_names.begin(), class_names.end(),
+                                                mltk::utils::tokenize(b, '_')[0]) - class_names.begin();
+                    return classes[aclass_pos] < classes[bclass_pos];
+                }else{
+                    auto aclass_pos = std::find(class_names.begin(), class_names.end(),
+                                                mltk::utils::tokenize(mltk::utils::tokenize(a, '.')[0], '/')[1]) - class_names.begin();
+                    auto bclass_pos = std::find(class_names.begin(), class_names.end(),
+                                                mltk::utils::tokenize(mltk::utils::tokenize(b, '.')[0], '/')[1]) - class_names.begin();
+                    return classes[aclass_pos] < classes[bclass_pos];
+                }
+            });
+            return names;
         }
 
         template<typename T>
@@ -391,6 +452,21 @@ namespace mltk{
             if(!configs["title"].empty()) {
                 confs += std::string("set title '") + configs["title"] + "';";
             }
+            if(!configs["xrange"].empty()) {
+                confs += "unset autoscale x;";
+                confs += "set xrange " + configs["xrange"] + ";";
+                configs["xrange"].clear();
+            }
+            if(!configs["yrange"].empty()) {
+                confs += "unset autoscale y;";
+                confs += "set yrange " + configs["yrange"] + ";";
+                configs["yrange"].clear();
+            }
+            if(!configs["zrange"].empty()) {
+                confs += "unset autoscale z;";
+                confs += "set zrange " + configs["zrange"] + ";";
+                configs["zrange"].clear();
+            }
             if(!configs["x_label"].empty()) {
                 confs += std::string("set xlabel '") + configs["x_label"] + "';";
             }
@@ -409,7 +485,6 @@ namespace mltk{
             delete g;
             g = nullptr;
             removeTempFiles();
-            fs::remove(plot_folder);
         }
 
         template<typename T>
@@ -417,6 +492,34 @@ namespace mltk{
             Gnuplot g;
 
             g.cmd(command);
+        }
+
+        template<typename T>
+        void Visualization<T>::configureRange(const double scale, const int x, const int y, const int z) {
+            if(x > -1) {
+                auto _x = this->samples->getFeature(x);
+                double x_min = mltk::min(_x), x_max = scale*mltk::max(_x);
+                x_min += (1.0-scale)*x_min;
+                configs["xrange"] = "[" + std::to_string(x_min) + ":" + std::to_string(x_max) + "]";
+            }
+            if(y > -1) {
+                auto _y = this->samples->getFeature(y);
+                double y_min = mltk::min(_y), y_max = scale*mltk::max(_y);
+                y_min += (1.0-scale)*y_min;
+                configs["yrange"] = "[" + std::to_string(y_min) + ":" + std::to_string(y_max) + "]";
+            }
+            if(z > -1) {
+                auto _z = this->samples->getFeature(z);
+                double z_min = mltk::min(_z), z_max = scale*mltk::max(_z);
+                z_min += (1.0-scale)*z_min;
+                configs["zrange"] = "[" + std::to_string(z_min) + ":" + std::to_string(z_max) + "]";
+            }
+        }
+
+        template<typename T>
+        std::string Visualization<T>::prepareScript(string cmd) {
+            std::replace(cmd.begin(), cmd.end(), ';', '\n');
+            return cmd;
         }
 
         template class Visualization<int>;

@@ -35,7 +35,7 @@ namespace mltk{
         std::map<std::string, std::string> configs;
         Gnuplot *g{nullptr};
         std::string plot_folder;
-        bool is_shared{true};
+        bool is_shared{true}, keep_temp_files{false};
         static size_t n_plots;
 
         /**
@@ -60,11 +60,14 @@ namespace mltk{
         void removeTempFiles();
         void configurePlot(const std::string& outname, const std::string& format, const std::string& title, bool save=false,
                            const std::string& x_label="", const std::string& y_label="", const std::string& z_label="");
+        void configureRange(const double scale = 1.0, const int x = -1, const int y = -1, const int z = -1);
+        std::string prepareScript(std::string cmd);
+        std::vector<std::string> sortLabels(std::vector<std::string>& files, const std::string& type="scatter");
         std::string fetchConfigs();
         // Operations
     public :
-        Visualization (bool shared_session=true);
-        explicit Visualization (Data<T> &sample, bool shared_session=true);
+        Visualization (bool shared_session=true, bool keep_temp_files=false);
+        explicit Visualization (Data<T> &sample, bool shared_session=true, bool keep_temp_files=false);
 
         /*********************************************
          *               Setters                     *
@@ -95,7 +98,9 @@ namespace mltk{
          * \param y (???) Feature to be used in the y-axis.
          * \return void
          */
-        void plot2D(int x, int y, bool save=false, const std::string& title="", const std::string& format="svg",
+        std::string plot2D(int x, int y, bool save=false, const double scale = 1.0,
+                    const std::string& title="",
+                    const std::string& format="svg",
                     const std::string& x_label="x", const std::string& y_label="y");
         /**
          * \brief Plot the selected features in 3D.
@@ -104,7 +109,9 @@ namespace mltk{
          * \param z (???) Feature to be used in the z-axis.
          * \return void
          */
-        void plot3D(int x, int y, int z, bool save=false, const std::string& title="", const std::string& format="svg",
+        std::string plot3D(int x, int y, int z, bool save=false, const double scale = 1.0,
+                    const std::string& title="",
+                    const std::string& format="svg",
                     const std::string& x_label="x", const std::string& y_label="y", const std::string& z_label="z");
         /**
          * \brief Plot the data in 2D with separated by the hyperplane in the solution.
@@ -112,7 +119,8 @@ namespace mltk{
          * \param y (???) Feature to be used in the y-axis.
          * \return void
          */
-        void plot2DwithHyperplane(int x, int y, Solution w, bool save=false, const std::string& title="",
+        std::string plot2DwithHyperplane(int x, int y, Solution w, bool save=false, const double scale = 1.0,
+                                  const std::string& title="",
                                   const std::string& format="svg",
                                   const std::string& x_label="x", const std::string& y_label="y");
         /**
@@ -122,13 +130,15 @@ namespace mltk{
          * \param z (???) Feature to be used in the z-axis.
          * \return void
          */
-        void plot3DwithHyperplane(int x, int y, int z, Solution w, bool save=false, const std::string& title="",
+        std::string plot3DwithHyperplane(int x, int y, int z, Solution w, bool save=false, const double scale = 1.0,
+                                  const std::string& title="",
                                   const std::string& format="svg",
                                   const std::string& x_label="x", const std::string& y_label="y",
                                   const std::string& z_label="z");
 
         template<class Learner>
-        void plotDecisionSurface2D(Learner& learner, int x, int y, size_t grid_dim = 50, bool save=false,
+        std::string plotDecisionSurface2D(Learner& learner, int x, int y, size_t grid_dim = 50, bool save=false,
+                                   const double scale = 1.0,
                                    const std::string& title="",
                                    const std::string& format="svg",
                                    const std::string& x_label="x", const std::string& y_label="y"){
@@ -136,15 +146,14 @@ namespace mltk{
             auto _x = this->samples->getFeature(x);
             auto _y = this->samples->getFeature(y);
             double x_min = mltk::min(_x), y_min = mltk::min(_y);
-            double x_max = mltk::max(_x), y_max = mltk::max(_y);
-            x_min -= 0.1*x_min;
-            y_min -= 0.1*y_min;
-            x_max += 0.1*x_max;
-            y_max += 0.1*y_max;
+            double x_max = scale*mltk::max(_x), y_max = scale*mltk::max(_y);
+            y_min += (1.0-scale)*y_min;
+            x_min += (1.0-scale)*x_min;
             mltk::Point xx = mltk::linspace(x_min, x_max, grid_dim);
             mltk::Point yy = mltk::linspace(y_min, y_max, grid_dim);
-            mltk::Data grid(grid_dim,grid_dim,0);
+            mltk::Data grid(grid_dim, grid_dim,0);
             auto data_copy = this->samples->selectFeatures({size_t(x), size_t(y)});
+
             learner.setSamples(data_copy);
             learner.setVerbose(0);
             learner.train();
@@ -152,7 +161,8 @@ namespace mltk{
             configurePlot("contour_"+this->samples->name()+"_"+mltk::utils::timestamp(), format, title, save,
                           x_label, y_label);
 
-            std::ofstream data_file(data_copy.name()+".dat");
+            std::string data_fname = data_copy.name()+mltk::utils::timestamp()+".dat";
+            std::ofstream data_file(data_fname);
             if(!data_file.is_open()){
                 std::cerr << "error opening file" << std::endl;
             }
@@ -166,26 +176,34 @@ namespace mltk{
             }
             data_file.close();
 
-            int i;
-            std::string dims = utils::itos(x) + ":" + utils::itos(y)+":(0)";
+            std::string dims = utils::itos(1) + ":" + utils::itos(2)+":(0)";
             std::string scatter_cmd;
-            std::vector<std::string> temp_files_names, class_names = data_copy.classesNames();
-            auto split = data_copy.splitByClasses();
+            std::vector<std::string> temp_files_names, class_names = this->samples->classesNames();
+            std::vector<std::ofstream> classes_files(classes.size());
 
-            for(int i = 0; i < split.size(); i++){
-                auto s = split[i];
-                std::string fname = std::to_string(i)+"_data.dat";
-                std::ofstream data(fname);
-                for(size_t j = 0; j < s.size(); j++){
-                    data << s(j)[x] << " " << s(j)[y] << " " << s(j).Y() << "\n";
-                }
-                data.close();
-                if(i < split.size()-1) {
-                    scatter_cmd += "'" + fname + "' title '"+ class_names[i] +"' with points,";
-                }else{
-                    scatter_cmd += "'" + fname + "' title '"+ class_names[i] +"' with points;";
+            for(int i = 0; i < classes_files.size(); i++){
+                std::string fname = class_names[i]+"_data"+mltk::utils::timestamp()+".dat";
+                classes_files[i].open(fname);
+                if(!classes_files[i].is_open()){
+                    std::cerr << "Error opening file!" << std::endl;
                 }
                 temp_files_names.push_back(fname);
+            }
+
+            for(int i = 0; i < data_copy.size(); i++){
+                auto class_pos = std::find(classes.begin(), classes.end(), data_copy(i).Y()) - classes.begin();
+                classes_files[class_pos] << data_copy(i)[0] << " " << data_copy(i)[1] << " " << data_copy(i).Y() << "\n";
+            }
+            for(auto & classes_file : classes_files){
+                classes_file.close();
+            }
+            auto names = sortLabels(temp_files_names, "decision");
+            for(int i = 0; i < temp_files_names.size(); i++){
+                if(i < classes_files.size()-1) {
+                    scatter_cmd += "'" + temp_files_names[i] + "' title '"+ names[i] +"' with points,";
+                }else{
+                    scatter_cmd += "'" + temp_files_names[i] + "' title '"+ names[i] +"' with points;";
+                }
             }
 
             std::string cmd;
@@ -196,16 +214,19 @@ namespace mltk{
             cmd += "set cbrange [" + std::to_string(mltk::min(classes)) +":" +  std::to_string(mltk::max(classes)) + "];";
             cmd += "set cbtics 1;";
             cmd += "set palette rgbformulae 22,13,10;";
-            cmd += "splot '"+data_copy.name()+".dat', " + scatter_cmd;
-            temp_files_names.push_back(data_copy.name()+".dat");
+            cmd += "splot '"+data_fname+"', " + scatter_cmd;
+            temp_files_names.push_back(data_fname);
             if(is_shared) g->cmd(cmd);
             else {
                 Gnuplot g_;
                 g_.cmd(cmd);
             }
-            for(auto& temp_file: temp_files_names){
-                std::filesystem::remove_all(temp_file);
+            if(!keep_temp_files) {
+                for (auto &temp_file: temp_files_names) {
+                    std::filesystem::remove_all(temp_file);
+                }
             }
+            return prepareScript(cmd);
         }
 
         static void cmd(const std::string& command);

@@ -1352,14 +1352,11 @@ namespace mltk{
     template<typename T>
     std::vector<Data<T>> Data<T>::splitByClasses() {
         int last_c = std::numeric_limits<int>::max();
-        size_t class_pos = 0;
         std::vector<Data<T>> class_split(m_classes.size());
 
         for(auto it = m_points.begin(); it != m_points.end(); it++){
             auto point = *(*it);
-            if(last_c != point.Y()) {
-                class_pos = std::find(m_classes.begin(), m_classes.end(), int(point.Y())) - m_classes.begin();
-            }
+            auto class_pos = std::find(m_classes.begin(), m_classes.end(), int(point.Y())) - m_classes.begin();
             class_split[class_pos].insertPoint(*it);
         }
         for(auto &data: class_split){
@@ -1421,6 +1418,7 @@ namespace mltk{
                 (*new_point).Alpha() = (*point).Alpha();
                 i++;
             }
+            new_data.setName(this->name());
             new_data.insertPoint(new_point);
         }
         return new_data;

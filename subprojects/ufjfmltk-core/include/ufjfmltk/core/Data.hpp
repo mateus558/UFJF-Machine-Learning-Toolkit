@@ -261,7 +261,8 @@ namespace mltk{
         /*********************************************
          *               Setters                     *
          *********************************************/
-        
+        void setName(const std::string& name){ this->dataset_name = name; }
+        inline void setClassesNames(const std::vector<std::string> class_names){ this->class_names = class_names; }
         /**
          * \brief Set the classes to use in the dataset.
          * \param classes Vector of classes that will be in the dataset.
