@@ -79,22 +79,20 @@ TEST_F(VisualTest, PlotWithSolutionTest){
 }
 
 TEST_F(VisualTest, ContourTest){
-    mltk::Data<double> blobs("blobs_2d.csv");
     mltk::classifier::KNNClassifier<double, mltk::metrics::dist::Hassanat<double>> knn(mult, 3);
     mltk::classifier::KNNClassifier knn_euc(mult, 3);
-    mltk::classifier::IMADual ima(blobs, mltk::KernelType::GAUSSIAN, 0.5);
+    mltk::classifier::IMADual ima(bin, mltk::KernelType::GAUSSIAN, 0.5);
 
-//    mltk::visualize::Visualization<double> vis(mult, false);
-//    vis.setTerminal("dumb");
-//    auto script = vis.plotDecisionSurface2D(knn, 0, 1, 100, false, 1.3);
-//    std::ofstream fscript("decision.script");
-//    fscript << script;
-//    fscript.close();
-//    mltk::visualize::Visualization<double> vis2(mult, false);
-//    vis2.setTerminal("dumb");
-//    vis2.plotDecisionSurface2D(knn_euc, 0, 1, 100, true, 1, "KNN euclidean");
-    mltk::visualize::Visualization<double> vis1(blobs);
-    vis1.setTerminal("wxt");
-    vis1.plot2D(0, 1, true);
-    vis1.plotDecisionSurface2D(ima, 0, 1, 100, false, 1, "IMA dual decision surface");
+    mltk::visualize::Visualization<double> vis(mult, false);
+    vis.setTerminal("dumb");
+    auto script = vis.plotDecisionSurface2D(knn, 0, 1, 100, false, 1.3);
+    std::ofstream fscript("decision.script");
+    fscript << script;
+    fscript.close();
+    mltk::visualize::Visualization<double> vis2(mult, false);
+    vis2.setTerminal("dumb");
+    vis2.plotDecisionSurface2D(knn_euc, 0, 1, 100, true, 1, "KNN euclidean");
+    mltk::visualize::Visualization<double> vis1(bin, false);
+    vis1.setTerminal("dumb");
+    vis1.plotDecisionSurface2D(ima, 0, 1, 100, true, 1, "IMA dual decision surface");
 }
