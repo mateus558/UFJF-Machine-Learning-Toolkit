@@ -53,11 +53,12 @@ TEST_F(VisualTest, PlotWithSolutionTest){
     mltk::visualize::Visualization<double> vis(bin, false);
 
     vis.setTerminal("dumb");
-    ima.setVerbose(0);
+    ima.setVerbose(1);
+    ima.setMaxTime(2000);
     ima.train();
 
     auto solution = ima.getSolution();
-    vis.plot2DwithHyperplane(0, 1, solution, true, 1, "Iris dataset 2D");
+    vis.plot2DwithHyperplane(0, 1, solution, false, 1, "Iris dataset 2D");
     vis.plot2DwithHyperplane(0, 2, solution, true, 1, "Iris dataset 2D");
     vis.plot2DwithHyperplane(0, 3, solution, true, 1, "Iris dataset 2D");
     vis.plot2DwithHyperplane(2, 0, solution, true, 1, "Iris dataset 2D");
@@ -72,8 +73,9 @@ TEST_F(VisualTest, PlotWithSolutionTest){
 
     vis.setTitle("2D test");
     vis.setStyle("qualquer");
+
     vis.plot3DwithHyperplane(0, 1, 2, solution, true, 1, "Iris dataset 3D");
-    vis.plot3DwithHyperplane(1, 2, 3, solution, false, 1, "Iris dataset 3D");
+    vis.plot3DwithHyperplane(1, 2, 3, solution, true, 1, "Iris dataset 3D");
 }
 
 TEST_F(VisualTest, ContourTest){

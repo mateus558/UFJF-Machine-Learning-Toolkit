@@ -336,7 +336,7 @@ namespace mltk{
                                                       const std::string& x_label, const std::string& y_label,
                                                       const std::string& z_label){
             string feats = utils::itos(x+1) + ":" + utils::itos(y+1) + ":" + utils::itos(z+1);
-            string fxy, cmd;
+            string fxy, gxy, hxy, cmd;
             vector<string> temp_files_names, class_names = samples->classesNames();
             size_t i;
             std::string out_name = (this->samples->name().empty())?"3dplotsol_"+utils::itos(x)+"_"+utils::itos(y)+"_"+utils::itos(z):
@@ -345,8 +345,10 @@ namespace mltk{
             configureRange(scale, x, y, z);
             configurePlot(out_name, format, title, save, x_label, y_label, z_label);
 
-            fxy = "f(x,y) = "+utils::dtoa(s.w[x]/s.w[z])+"*x + "+utils::dtoa(s.w[y]/s.w[z])+"*y + "+utils::dtoa(s.bias/s.w[z]);
-            cmd = fxy + "; splot ";
+            gxy = "g(x,y) = "+utils::dtoa(-s.w[x]/s.w[z])+"*x + "+utils::dtoa(-s.w[y]/s.w[z])+"*y + "+utils::dtoa((s.bias + s.margin * s.norm)/-s.w[z]);
+            fxy = "f(x,y) = "+utils::dtoa(-s.w[x]/s.w[z])+"*x + "+utils::dtoa(-s.w[y]/s.w[z])+"*y + "+utils::dtoa(s.bias/-s.w[z]);
+            hxy = "h(x,y) = "+utils::dtoa(-s.w[x]/s.w[z])+"*x + "+utils::dtoa(-s.w[y]/s.w[z])+"*y + "+utils::dtoa((s.bias - s.margin * s.norm)/-s.w[z]);
+            cmd = gxy + ";" + fxy + ";" + hxy + "; splot ";
 
             if(samples->isClassification()){
                 temp_files_names = getTempFilesNames(true);
@@ -354,8 +356,10 @@ namespace mltk{
                 for(i = 0; i < class_names.size() - 1; i++){
                     cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
                 }
-                cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, f(x,y) notitle with lines ls 1";
-
+                cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
+                cmd += "g(x,y) notitle with lines ls 1 lt rgb \"red\",";
+                cmd += "f(x,y) notitle with lines ls 1,";
+                cmd += "h(x,y) notitle with lines ls 1 lt rgb \"red\";";
             }else if(samples->getType() == "Regression"){
                 cmd += "'"+ std::string(plot_folder) +"samples.plt' using "+ feats +" with points, f(x,y) notitle with lines ls 1";
             }
