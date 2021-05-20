@@ -101,7 +101,7 @@ namespace mltk{
                         }
                     }
                     cost += distances[min_cluster] * distances[min_cluster];
-                    this->m_centers[min_cluster].push_back(i);
+                    this->m_clusters[min_cluster].push_back(i);
                 }
 
                 // update the centers of the clusters
@@ -110,14 +110,16 @@ namespace mltk{
                     this->m_centers[c].assign(dim, T());
                     for (size_t e = 0; e < cluster_size; e++) {
                         for (size_t j = 0; j < dim; j++) {
-                            this->m_centers[c][j] += points[e]->X()[j];
+                            this->m_centers[c][j] += points[this->m_clusters[c][e]]->X()[j];
                         }
                     }
                     for (size_t j = 0; j < dim; j++) {
                         this->m_centers[c][j] /= cluster_size;
                     }
                 }
-
+                for(auto& cluster: this->m_clusters){
+                    cluster.clear();
+                }
                 this->steps++;
                 double secs = this->timer.elapsed();
                 if (this->verbose) {
