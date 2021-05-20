@@ -301,7 +301,7 @@ namespace mltk{
                 hx = "h(x) = " + utils::dtoa(s.w[x] / s.w[y]) + "*x";
             }
 
-            cmd = fx + "; "+ gx +"; "+ hx +"; plot ";
+            cmd = fx + ";"+ gx +";"+ hx +";plot ";
 
             if(samples->isClassification()){
                 temp_files_names = getTempFilesNames(true);
@@ -313,8 +313,8 @@ namespace mltk{
             }else if(samples->getType() == "Regression"){
                 cmd += "'"+ std::string(plot_folder) +"samples.plt' using "+feats+" title '+1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
             }
-        #ifdef __unix__
             cmd = fetchConfigs() + cmd;
+        #ifdef __unix__
             if(is_shared) {
                 g->cmd(cmd);
             }else {
@@ -448,9 +448,9 @@ namespace mltk{
                 confs += std::string("set terminal ") + configs["output_format"]+"; ";
                 confs += std::string("set output '") + configs["output_name"] +"." + configs["output_format"]+"'; ";
             }else if(!configs["terminal"].empty()){
-                confs += std::string("set terminal ") + configs["terminal"]+"; ";
+                confs += std::string("set terminal ") + configs["terminal"]+";";
             }else {
-                confs += std::string("set terminal x11; ");
+                confs += std::string("set terminal x11;");
             }
 
             if(!configs["title"].empty()) {

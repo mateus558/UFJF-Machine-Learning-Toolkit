@@ -3,8 +3,8 @@
    \author Mateus Coutinho Marim
 */
 
-#ifndef VISUALIZATION__HPP
-#define VISUALIZATION__HPP
+#ifndef VISUALIZATION_HPP
+#define VISUALIZATION_HPP
 #ifdef __unix__
 #include <dirent.h>
 #include "gnuplot_i.hpp"
@@ -29,7 +29,6 @@ namespace mltk{
     class Visualization {
         // Attributes
     private :
-
         /// Sample to be visualized.
         Data< T > *samples;
         std::map<std::string, std::string> configs;
@@ -60,13 +59,13 @@ namespace mltk{
         void removeTempFiles();
         void configurePlot(const std::string& outname, const std::string& format, const std::string& title, bool save=false,
                            const std::string& x_label="", const std::string& y_label="", const std::string& z_label="");
-        void configureRange(const double scale = 1.0, const int x = -1, const int y = -1, const int z = -1);
+        void configureRange(double scale = 1.0, int x = -1, int y = -1, int z = -1);
         std::string prepareScript(std::string cmd);
         std::vector<std::string> sortLabels(std::vector<std::string>& files, const std::string& type="scatter");
         std::string fetchConfigs();
         // Operations
     public :
-        Visualization (bool shared_session=true, bool keep_temp_files=false);
+        explicit Visualization (bool shared_session=true, bool keep_temp_files=false);
         explicit Visualization (Data<T> &sample, bool shared_session=true, bool keep_temp_files=false);
 
         /*********************************************
@@ -98,7 +97,7 @@ namespace mltk{
          * \param y (???) Feature to be used in the y-axis.
          * \return void
          */
-        std::string plot2D(int x, int y, bool save=false, const double scale = 1.0,
+        std::string plot2D(int x, int y, bool save=false, double scale = 1.0,
                     const std::string& title="",
                     const std::string& format="svg",
                     const std::string& x_label="x", const std::string& y_label="y");
@@ -109,7 +108,7 @@ namespace mltk{
          * \param z (???) Feature to be used in the z-axis.
          * \return void
          */
-        std::string plot3D(int x, int y, int z, bool save=false, const double scale = 1.0,
+        std::string plot3D(int x, int y, int z, bool save=false, double scale = 1.0,
                     const std::string& title="",
                     const std::string& format="svg",
                     const std::string& x_label="x", const std::string& y_label="y", const std::string& z_label="z");
@@ -119,7 +118,7 @@ namespace mltk{
          * \param y (???) Feature to be used in the y-axis.
          * \return void
          */
-        std::string plot2DwithHyperplane(int x, int y, Solution w, bool save=false, const double scale = 1.0,
+        std::string plot2DwithHyperplane(int x, int y, Solution w, bool save=false, double scale = 1.0,
                                   const std::string& title="",
                                   const std::string& format="svg",
                                   const std::string& x_label="x", const std::string& y_label="y");
@@ -130,7 +129,7 @@ namespace mltk{
          * \param z (???) Feature to be used in the z-axis.
          * \return void
          */
-        std::string plot3DwithHyperplane(int x, int y, int z, Solution w, bool save=false, const double scale = 1.0,
+        std::string plot3DwithHyperplane(int x, int y, int z, Solution w, bool save=false, double scale = 1.0,
                                   const std::string& title="",
                                   const std::string& format="svg",
                                   const std::string& x_label="x", const std::string& y_label="y",
