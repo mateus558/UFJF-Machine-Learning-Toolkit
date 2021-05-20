@@ -85,14 +85,14 @@ TEST_F(VisualTest, ContourTest){
 
     mltk::visualize::Visualization<double> vis(mult, false);
     vis.setTerminal("dumb");
-    auto script = vis.plotDecisionSurface2D(knn, 0, 1, 100, false, 1.3);
+    auto script = vis.plotDecisionSurface2D(knn, 0, 1, false, 100, false, 1.3);
     std::ofstream fscript("decision.script");
     fscript << script;
     fscript.close();
     mltk::visualize::Visualization<double> vis2(mult, false);
     vis2.setTerminal("dumb");
-    vis2.plotDecisionSurface2D(knn_euc, 0, 1, 100, true, 1, "KNN euclidean");
+    vis2.plotDecisionSurface2D(knn_euc, 0, 1, false, 100, true, 1, "KNN euclidean");
     mltk::visualize::Visualization<double> vis1(bin, false);
     vis1.setTerminal("dumb");
-    vis1.plotDecisionSurface2D(ima, 0, 1, 100, true, 1, "IMA dual decision surface");
+    vis1.plotDecisionSurface2D(ima, 0, 1, false, 100, true, 1, "IMA dual decision surface");
 }

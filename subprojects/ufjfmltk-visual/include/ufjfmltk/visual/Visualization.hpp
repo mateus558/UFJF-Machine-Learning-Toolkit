@@ -136,7 +136,8 @@ namespace mltk{
                                   const std::string& z_label="z");
 
         template<class Learner>
-        std::string plotDecisionSurface2D(Learner& learner, int x, int y, size_t grid_dim = 50, bool save=false,
+        std::string plotDecisionSurface2D(Learner& learner, int x, int y, bool is_trained = true, size_t grid_dim = 50,
+                                          bool save=false,
                                    const double scale = 1.0,
                                    const std::string& title="",
                                    const std::string& format="svg",
@@ -146,8 +147,8 @@ namespace mltk{
             auto _y = this->samples->getFeature(y);
             double x_min = mltk::min(_x), y_min = mltk::min(_y);
             double x_max = scale*mltk::max(_x), y_max = scale*mltk::max(_y);
-            y_min += (1.0-scale)*y_min;
-            x_min += (1.0-scale)*x_min;
+            y_min += (y_min > 0)?(1.0-scale)*y_min:-(1.0-scale)*y_min;
+            x_min += (x_min > 0)?(1.0-scale)*x_min:-(1.0-scale)*x_min;
             mltk::Point xx = mltk::linspace(x_min, x_max, grid_dim);
             mltk::Point yy = mltk::linspace(y_min, y_max, grid_dim);
             mltk::Data grid(grid_dim, grid_dim,0);
@@ -155,8 +156,7 @@ namespace mltk{
 
             learner.setSamples(data_copy);
             learner.setVerbose(0);
-            learner.train();
-
+            if(!is_trained) learner.train();
             configurePlot("contour_"+this->samples->name()+"_"+mltk::utils::timestamp(), format, title, save,
                           x_label, y_label);
 
