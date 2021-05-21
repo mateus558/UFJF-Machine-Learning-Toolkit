@@ -319,11 +319,17 @@ TEST_F(DataTest, DataTransformation){
 TEST_F(DataTest, DatasetsTest){
     auto spirals = mltk::datasets::make_spirals(800, 5, false, 2.5);
     auto blobs = mltk::datasets::make_blobs(100, 5, 2).dataset;
+    auto reg = mltk::datasets::make_regression(100).dataset;
 
     ASSERT_EQ(spirals.size(), 800);
-    ASSERT_EQ(blobs.size(), 500);
     ASSERT_EQ(spirals.dim(), 2);
-    ASSERT_EQ(blobs.dim(), 2);
     ASSERT_EQ(spirals.classes().size(), 5);
+
+    ASSERT_EQ(blobs.size(), 500);
+    ASSERT_EQ(blobs.dim(), 2);
     ASSERT_EQ(blobs.classes().size(), 5);
+
+    ASSERT_EQ(reg.size(), 100);
+    ASSERT_EQ(reg.dim(), 100);
+    ASSERT_EQ(reg.classes().size(), 0);
 }

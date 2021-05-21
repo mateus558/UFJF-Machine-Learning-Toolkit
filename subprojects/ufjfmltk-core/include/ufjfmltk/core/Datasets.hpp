@@ -9,7 +9,11 @@
 
 namespace mltk::datasets{
     using Centers = std::vector<mltk::Point<double>>;
-    using RegPair = std::pair<mltk::Data<double>, std::vector<double>>;
+
+    struct RegPair{
+        mltk::Data<double> dataset;
+        mltk::Point<double> coef;
+    };
 
     struct BlobsPair{
         mltk::Data<double> dataset;
@@ -26,6 +30,10 @@ namespace mltk::datasets{
     BlobsPair make_blobs(const std::vector<size_t>& n_samples, const std::vector<mltk::Point<double>>& centers,
                                   std::vector<double> clusters_std, int n_dims=2, bool shuffle=true,
                                   bool has_classes=true, size_t seed = 0);
+
+    RegPair make_regression(size_t n_samples=100, size_t n_dims=100, size_t n_informative=10, double bias=0.0,
+                            double noise=0.0, bool shuffle=true, size_t seed=0);
+
 }
 
 #endif //UFJFMLTK_DATASETS_HPP
