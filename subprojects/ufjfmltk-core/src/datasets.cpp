@@ -64,7 +64,7 @@ namespace mltk::datasets {
                 for(int i = 0; i < n; i++){
                     mltk::Point<double> p(n_dims, 0.0);
                     for(int j = 0; j < n_dims; j++){
-                        p[j] = mltk::random::floatInRange<double, double, std::normal_distribution<double>>(center[j], clusters_std[c]);
+                        p[j] = mltk::random::floatInRange<double, std::normal_distribution<double>>(center[j], clusters_std[c]);
                     }
                     if(centers.size() == 2){
                         p.Y() = (c == 0)?-1:1;

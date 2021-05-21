@@ -71,9 +71,9 @@ namespace mltk{
          * \param high Highest possible float.
          * \return float
          */
-        template < typename Real = double, typename Real1,
+        template < typename Real = double,
                 typename Distribution = std::uniform_real_distribution<Real> >
-        inline DLLRandom Real DLLRandomDecl floatInRange(Real low, Real1 high) {
+        inline DLLRandom Real DLLRandomDecl floatInRange(Real low, Real high) {
             Distribution dist(low, high);
 
             return dist(generator);
