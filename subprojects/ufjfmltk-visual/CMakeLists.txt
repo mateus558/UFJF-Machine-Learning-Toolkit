@@ -14,6 +14,7 @@ set(${VISUAL_TARGET}_SRC
 set(${VISUAL_TARGET}_HDR
         include/ufjfmltk/visual/gnuplot_i.hpp
         include/ufjfmltk/visual/Visualization.hpp
+        include/ufjfmltk/Visualize.hpp
         )
 
 # You can add an external dependency using the find_package() function call

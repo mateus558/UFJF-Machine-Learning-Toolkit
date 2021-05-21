@@ -18,6 +18,7 @@ set(${CLASSIFIER_TARGET}_HDR
         include/ufjfmltk/classifier/Perceptron.hpp
         include/ufjfmltk/classifier/PrimalClassifier.hpp
         include/ufjfmltk/classifier/SMO.hpp
+        include/ufjfmltk/Classifier.hpp
         )
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")

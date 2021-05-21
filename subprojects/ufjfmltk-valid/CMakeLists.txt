@@ -7,6 +7,7 @@ set(VALID_TARGET ${PROJECT_NAME}-valid)
 # List of HPP (header) library files.
 set(${VALID_TARGET}_HDR
         include/ufjfmltk/valid/Validation.hpp
+        include/ufjfmltk/Validation.hpp
         )
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")

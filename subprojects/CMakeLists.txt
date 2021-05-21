@@ -13,6 +13,7 @@ add_library(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:ufjfmltk-core>
                                    $<TARGET_OBJECTS:ufjfmltk-featselect>
                                    $<TARGET_OBJECTS:ufjfmltk-regressor>
                                    $<TARGET_OBJECTS:ufjfmltk-visual>
+                                    ufjfmltk.hpp
         )
 
 install(TARGETS ${PROJECT_NAME}
@@ -22,7 +23,7 @@ install(TARGETS ${PROJECT_NAME}
         RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk" COMPONENT dev)
 
-install(FILES ../ufjfmltk.hpp
+install(FILES ufjfmltk.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
 message(STATUS "Created target ${PROJECT_NAME} for export ${PROJECT_NAME}.")

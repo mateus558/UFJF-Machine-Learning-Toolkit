@@ -9,6 +9,7 @@ set(${CLUSTERER_TARGET}_SRC
 set(${CLUSTERER_TARGET}_HDR
         include/ufjfmltk/clusterer/Clusterer.hpp
         include/ufjfmltk/clusterer/KMeans.hpp
+        include/ufjfmltk/Clusterer.hpp
         )
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")
