@@ -2,6 +2,7 @@
 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Generic badge](https://img.shields.io/badge/c++-17-blue.svg)](https://shields.io/)
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mateus558/UFJF-MLTK)
 [![codecov](https://codecov.io/gh/mateus558/UFJF-Machine-Learning-Toolkit/branch/main/graph/badge.svg?token=HOZTZONSZY)](https://codecov.io/gh/mateus558/UFJF-Machine-Learning-Toolkit)
