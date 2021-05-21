@@ -83,16 +83,15 @@ namespace mltk::datasets {
 
     RegPair make_regression(size_t n_samples, size_t n_dims, size_t n_informative, double bias, double noise,
                             bool shuffle, size_t seed){
+        mltk::random::init(seed);
         mltk::Data<double> dataset(n_samples, n_dims);
         RegPair pair;
-        mltk::random::init(seed);
-        dataset.setName("artificial regression");
-        dataset.setType("Regression");
-        n_informative = std::min(n_dims, n_informative);
         mltk::Point<double> ground_truth(n_dims, 0.0), y(n_samples);
+        n_informative = std::min(n_dims, n_informative);
         auto random_init = [&n_dims, seed](const mltk::PointPointer<double>& point){
             *point = mltk::random_init<double, std::normal_distribution<double>>(0, 1, n_dims, seed);
         };
+
         dataset.apply(random_init);
 
         for(size_t i = 0; i < n_informative; i++){
@@ -113,6 +112,8 @@ namespace mltk::datasets {
         if(shuffle){
             dataset.shuffle(seed);
         }
+        dataset.setName("artificial regression");
+        dataset.setType("Regression");
         pair.dataset = dataset;
         pair.coef = ground_truth;
         return pair;
