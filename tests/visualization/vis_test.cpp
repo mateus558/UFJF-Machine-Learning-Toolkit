@@ -99,9 +99,10 @@ TEST_F(VisualTest, ContourTest){
 }
 
 TEST_F(VisualTest, PlotArtificial){
-    auto spirals = mltk::datasets::make_spirals(800, 5, false, 2.5);
-    auto blobs = mltk::datasets::make_blobs(100, 5, 3).first;
-    mltk::visualize::Visualization<> vis(spirals, false);
+    auto spirals = mltk::datasets::make_spirals(800, 2, false, 2.5);
+    auto blobs = mltk::datasets::make_blobs(100, 2, 2).dataset;
+    mltk::classifier::IMADual<> ima(spirals, mltk::GAUSSIAN, 100);
+    mltk::visualize::Visualization<> vis(spirals, true, true);
 
     std::cout << blobs.name() << " dataset\n";
     std::cout << "dims: " << blobs.dim() << std::endl;
@@ -117,7 +118,9 @@ TEST_F(VisualTest, PlotArtificial){
 
     vis.setTerminal("dumb");
     vis.plot2D(0,1);
+    std::cout << vis.plotDecisionSurface2D(ima, 0, 1, false, 50,  false, 1.2) << std::endl;
     vis.setSample(blobs);
     vis.plot2D(0,1);
-    vis.plot3D(0,1,2);
+    std::cout << vis.plotDecisionSurface2D(ima, 0, 1, false, 50,  false, 1.2) << std::endl;
+    vis.plot3D(0,1,0);
 }

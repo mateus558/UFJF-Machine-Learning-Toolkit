@@ -16,6 +16,7 @@
 #include <string>
 #include <map>
 #include <filesystem>
+#include <array>
 
 namespace mltk{
     /**
@@ -34,8 +35,15 @@ namespace mltk{
         std::map<std::string, std::string> configs;
         Gnuplot *g{nullptr};
         std::string plot_folder;
+        std::vector<std::string> temp_fnames;
         bool is_shared{true}, keep_temp_files{false};
         static size_t n_plots;
+
+        struct AxisRange{
+            double min=0, max=0;
+        };
+
+        using AxisRanges = std::array<AxisRange, 3>;
 
         /**
          * \brief Create temporary files to plot the negative and positive samples.
@@ -59,7 +67,7 @@ namespace mltk{
         void removeTempFiles();
         void configurePlot(const std::string& outname, const std::string& format, const std::string& title, bool save=false,
                            const std::string& x_label="", const std::string& y_label="", const std::string& z_label="");
-        void configureRange(double scale = 1.0, int x = -1, int y = -1, int z = -1);
+        AxisRanges configureRange(double scale = 1.0, int x = -1, int y = -1, int z = -1);
         std::string prepareScript(std::string cmd);
         std::vector<std::string> sortLabels(std::vector<std::string>& files, const std::string& type="scatter");
         std::string fetchConfigs();
@@ -142,22 +150,17 @@ namespace mltk{
                                    const std::string& title="",
                                    const std::string& format="svg",
                                    const std::string& x_label="x", const std::string& y_label="y"){
+            configurePlot("contour_"+this->samples->name()+"_"+mltk::utils::timestamp(), format, title, save,
+                          x_label, y_label);
+            AxisRanges axis_ranges = configureRange(scale, x, y);
             mltk::Point<int> classes(this->samples->classes());
-            auto _x = this->samples->getFeature(x);
-            auto _y = this->samples->getFeature(y);
-            double x_min = mltk::min(_x), y_min = mltk::min(_y);
-            double x_max = scale*mltk::max(_x), y_max = scale*mltk::max(_y);
-            y_min += (y_min > 0)?(1.0-scale)*y_min:-(1.0-scale)*y_min;
-            x_min += (x_min > 0)?(1.0-scale)*x_min:-(1.0-scale)*x_min;
-            mltk::Point xx = mltk::linspace(x_min, x_max, grid_dim);
-            mltk::Point yy = mltk::linspace(y_min, y_max, grid_dim);
+            mltk::Point xx = mltk::linspace(axis_ranges[0].min, axis_ranges[0].max, grid_dim);
+            mltk::Point yy = mltk::linspace(axis_ranges[1].min, axis_ranges[1].max, grid_dim);
             mltk::Data grid(grid_dim, grid_dim,0);
             auto data_copy = this->samples->selectFeatures({size_t(x), size_t(y)});
 
             learner.setSamples(data_copy);
             if(!is_trained) learner.train();
-            configurePlot("contour_"+this->samples->name()+"_"+mltk::utils::timestamp(), format, title, save,
-                          x_label, y_label);
 
             std::string data_fname = data_copy.name()+mltk::utils::timestamp()+".dat";
             std::ofstream data_file(data_fname);
@@ -207,8 +210,7 @@ namespace mltk{
             std::string cmd;
             cmd += fetchConfigs();
             cmd += "set pm3d map;";
-            cmd += "set xrange ["+ std::to_string(x_min) + ":"+ std::to_string(x_max) + "];";
-            cmd += "set yrange ["+ std::to_string(y_min) + ":"+ std::to_string(y_max) + "];";
+            cmd += "set pm3d interpolate 0,0;";
             cmd += "set cbrange [" + std::to_string(mltk::min(classes)) +":" +  std::to_string(mltk::max(classes)) + "];";
             cmd += "set cbtics 1;";
             cmd += "set palette rgbformulae 22,13,10;";
@@ -219,11 +221,7 @@ namespace mltk{
                 Gnuplot g_;
                 g_.cmd(cmd);
             }
-            if(!keep_temp_files) {
-                for (auto &temp_file: temp_files_names) {
-                    std::filesystem::remove_all(temp_file);
-                }
-            }
+            temp_fnames.insert(temp_fnames.begin(), temp_files_names.begin(), temp_files_names.end());
             return prepareScript(cmd);
         }
 

@@ -312,11 +312,8 @@ namespace mltk {
             // assignment operator for arrays of different types
             template <typename T2, typename Rep2 >
             Point& operator=(Point<T2, Rep2> const& b) {
-                if(size() == 0){
-                    x.resize(b.size());
-                }
-
-                for(std::size_t idx = 0; idx < b.size(); ++idx){
+                assert(size() == b.size());
+                for(std::size_t idx = 0; idx < size(); ++idx){
                     x[idx] = b[idx];
                 }
 

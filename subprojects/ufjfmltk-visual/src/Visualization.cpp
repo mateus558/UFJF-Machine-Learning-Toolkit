@@ -30,10 +30,11 @@ namespace mltk{
             samples = &sample;
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
-            plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
+            this->plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
             n_plots++;
-            if(!fs::exists(plot_folder)) {
-                fs::create_directory(plot_folder);
+            bool exist_folder = fs::exists(this->plot_folder);
+            if(!exist_folder) {
+                fs::create_directory(this->plot_folder);
             }
             createTempFiles();
         }
@@ -179,9 +180,18 @@ namespace mltk{
             temps = getTempFilesNames();
 
             for(string file : temps){
-                remove(string(plot_folder + file).c_str());
+                std::string path = plot_folder + file;
+                if(fs::exists(path)) fs::remove_all(path);
             }
-            fs::remove_all(plot_folder);
+            if(fs::exists(plot_folder)) fs::remove_all(plot_folder);
+            if(!temp_fnames.empty()) {
+                for(const auto& file: temp_fnames) {
+                    if(fs::exists(file)) {
+                        fs::remove(file);
+                    }
+                }
+            }
+            temp_fnames.clear();
         }
 
         template < typename T >
@@ -457,17 +467,14 @@ namespace mltk{
                 confs += std::string("set title '") + configs["title"] + "';";
             }
             if(!configs["xrange"].empty()) {
-                confs += "unset autoscale x;";
                 confs += "set xrange " + configs["xrange"] + ";";
                 configs["xrange"].clear();
             }
             if(!configs["yrange"].empty()) {
-                confs += "unset autoscale y;";
                 confs += "set yrange " + configs["yrange"] + ";";
                 configs["yrange"].clear();
             }
             if(!configs["zrange"].empty()) {
-                confs += "unset autoscale z;";
                 confs += "set zrange " + configs["zrange"] + ";";
                 configs["zrange"].clear();
             }
@@ -499,25 +506,34 @@ namespace mltk{
         }
 
         template<typename T>
-        void Visualization<T>::configureRange(const double scale, const int x, const int y, const int z) {
+        typename Visualization<T>::AxisRanges Visualization<T>::configureRange(const double scale, const int x,
+                                                                               const int y, const int z) {
+            AxisRanges axis_ranges;
             if(x > -1) {
                 auto _x = this->samples->getFeature(x);
                 double x_min = mltk::min(_x), x_max = scale*mltk::max(_x);
                 x_min += (x_min > 0)?(1.0-scale)*x_min:-(1.0-scale)*x_min;
-                configs["xrange"] = "[" + std::to_string(x_min) + ":" + std::to_string(x_max) + "]";
+                axis_ranges[0].min = (x_min <= 0)?std::floor(x_min):std::ceil(x_min);
+                axis_ranges[0].max = (x_max <= 0)?std::floor(x_max):std::ceil(x_max);
+                configs["xrange"] = "[" + std::to_string(axis_ranges[0].min) + ":" + std::to_string(axis_ranges[0].max) + "]";
             }
             if(y > -1) {
                 auto _y = this->samples->getFeature(y);
                 double y_min = mltk::min(_y), y_max = scale*mltk::max(_y);
                 y_min += (y_min > 0)?(1.0-scale)*y_min:-(1.0-scale)*y_min;
-                configs["yrange"] = "[" + std::to_string(y_min) + ":" + std::to_string(y_max) + "]";
+                axis_ranges[1].min = (y_min <= 0)?std::floor(y_min):std::ceil(y_min);
+                axis_ranges[1].max = (y_max <= 0)?std::floor(y_max):std::ceil(y_max);
+                configs["yrange"] = "[" + std::to_string(axis_ranges[1].min) + ":" + std::to_string(axis_ranges[1].max) + "]";
             }
             if(z > -1) {
                 auto _z = this->samples->getFeature(z);
                 double z_min = mltk::min(_z), z_max = scale*mltk::max(_z);
                 z_min += (z_min > 0)?(1.0-scale)*z_min:-(1.0-scale)*z_min;
-                configs["zrange"] = "[" + std::to_string(z_min) + ":" + std::to_string(z_max) + "]";
+                axis_ranges[2].min = (z_min <= 0)?std::floor(z_min):std::ceil(z_min);
+                axis_ranges[2].max = (z_max <= 0)?std::floor(z_max):std::ceil(z_max);
+                configs["zrange"] = "[" + std::to_string(axis_ranges[2].min) + ":" + std::to_string(axis_ranges[2].max) + "]";
             }
+            return axis_ranges;
         }
 
         template<typename T>

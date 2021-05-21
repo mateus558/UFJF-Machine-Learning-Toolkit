@@ -318,7 +318,7 @@ TEST_F(DataTest, DataTransformation){
 
 TEST_F(DataTest, DatasetsTest){
     auto spirals = mltk::datasets::make_spirals(800, 5, false, 2.5);
-    auto blobs = mltk::datasets::make_blobs(100, 5, 2).first;
+    auto blobs = mltk::datasets::make_blobs(100, 5, 2).dataset;
 
     ASSERT_EQ(spirals.size(), 800);
     ASSERT_EQ(blobs.size(), 500);

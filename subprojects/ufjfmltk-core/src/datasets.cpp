@@ -13,16 +13,17 @@ namespace mltk::datasets {
 
         dataset.setName("spirals");
 
-        mltk::Point<double> theta = mltk::random_init<double>(samples_byclass, seed) * n_loops * 360.0 * M_PI / 180.0;
-        mltk::Point<double> r = theta * margin * n_classes;
+        mltk::Point<> theta = mltk::random_init<double>(samples_byclass, seed) * n_loops * 360.0 * M_PI / 180.0;
+        mltk::Point<> r = theta * margin * n_classes;
         for(int i = 0; i < n_classes; i++){
-            mltk::Point<double> rotated_theta = theta + i * 2.0 * M_PI / n_classes;
-            mltk::Point<double> x1 = r * mltk::cos(rotated_theta) + mltk::random_init<double>(samples_byclass, seed) * noise;
-            mltk::Point<double> x2 = r * mltk::sin(rotated_theta) + mltk::random_init<double>(samples_byclass, seed) * noise;
+            mltk::Point<> rotated_theta = theta + i * 2.0 * M_PI / n_classes;
+            mltk::Point<> x1 = r * mltk::cos(rotated_theta) + mltk::random_init<double>(samples_byclass, seed) * noise;
+            mltk::Point<> x2 = r * mltk::sin(rotated_theta) + mltk::random_init<double>(samples_byclass, seed) * noise;
 
             for(size_t j = 0; j < samples_byclass; j++){
                 auto point = mltk::Point<double>({x1[j], x2[j]});
-                point.Y() = i+1;
+                if(n_classes == 2) point.Y() = (i==0)?-1:1;
+                else if(n_classes > 0)               point.Y() = i+1;
                 dataset.insertPoint(point);
             }
         }
@@ -32,7 +33,7 @@ namespace mltk::datasets {
     }
 
     BlobsPair make_blobs(size_t n_samples, int n_centers, int n_dims, double cluster_std, double center_min,
-                                  double center_max, bool shuffle, size_t seed){
+                                  double center_max, bool shuffle, bool has_classes, size_t seed){
         mltk::random::init(seed);
         std::vector<mltk::Point<>> centers(n_centers, mltk::Point<>(n_dims, 0.0));
         std::vector<size_t> samples_per_center(n_centers, std::floor(n_samples/n_centers));
@@ -48,28 +49,35 @@ namespace mltk::datasets {
     }
 
     BlobsPair make_blobs(const std::vector<size_t>& n_samples, const std::vector<mltk::Point<double>>& centers,
-                                  std::vector<double> clusters_std, int n_dims, bool shuffle, size_t seed){
+                                  std::vector<double> clusters_std, int n_dims, bool shuffle, bool has_classes,
+                                  size_t seed){
         mltk::random::init(seed);
         mltk::Data<double> dataset;
+        BlobsPair pair;
 
         dataset.setName("blobs");
         dataset.setType("Classification");
 
         for(const auto& n: n_samples){
-            for(size_t c = 0; c < centers.size(); c++){
+            for(int c = 0; c < centers.size(); c++){
                 auto center = centers[c];
                 for(int i = 0; i < n; i++){
                     mltk::Point<double> p(n_dims, 0.0);
                     for(int j = 0; j < n_dims; j++){
                         p[j] = mltk::random::floatInRange<double, double, std::normal_distribution<double>>(center[j], clusters_std[c]);
                     }
-                    p.Y() = (double)c+1;
+                    if(centers.size() == 2){
+                        p.Y() = (c == 0)?-1:1;
+                    }else{
+                        p.Y() = c+1;
+                    }
                     dataset.insertPoint(p);
                 }
             }
         }
         if(shuffle) dataset.shuffle(seed);
-
-        return std::make_pair(dataset, centers);
+        pair.dataset = dataset;
+        pair.centers = centers;
+        return pair;
     }
 }
