@@ -4,9 +4,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Generic badge](https://img.shields.io/badge/c++-17-blue.svg)](https://shields.io/)
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+![Build Status](https://github.com/mateus558/UFJF-Machine-Learning-Toolkit/workflows/CMake/badge.svg)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mateus558/UFJF-MLTK)
 [![codecov](https://codecov.io/gh/mateus558/UFJF-Machine-Learning-Toolkit/branch/main/graph/badge.svg?token=HOZTZONSZY)](https://codecov.io/gh/mateus558/UFJF-Machine-Learning-Toolkit)
-[![Build Status](https://travis-ci.org/mateus558/UFJF-Machine-Learning-Toolkit.svg?branch=main)](https://travis-ci.org/mateus558/UFJF-Machine-Learning-Toolkit)
 [![Documentation Status](https://readthedocs.org/projects/ufjf-mltk/badge/?version=documentation)](https://ufjf-mltk.readthedocs.io/en/documentation/?badge=documentation)
 
 
