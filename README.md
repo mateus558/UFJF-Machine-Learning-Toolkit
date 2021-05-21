@@ -31,7 +31,8 @@ In order to make the project available for the majority of users and to be cross
 
 **Requirements**
 * meson or cmake
-* g++ >= 7
+* g++ >= 8
+* c++ >= 17
 * gnuplot >= 5 (only for visualization module)
 
 **CMake**
