@@ -6,6 +6,7 @@
 
 #include <gtest/gtest.h>
 #include "ufjfmltk/core/Data.hpp"
+#include "ufjfmltk/core/Datasets.hpp"
 #include "ufjfmltk/valid/Validation.hpp"
 
 class DataTest: public ::testing::Test
@@ -313,4 +314,16 @@ TEST_F(DataTest, DataTransformation){
         EXPECT_GT(p->norm(), 0.999);
         EXPECT_LT(p->norm(), 1.01);
     }
+}
+
+TEST_F(DataTest, DatasetsTest){
+    auto spirals = mltk::datasets::make_spirals(800, 5, false, 2.5);
+    auto blobs = mltk::datasets::make_blobs(100, 5, 2).first;
+
+    ASSERT_EQ(spirals.size(), 800);
+    ASSERT_EQ(blobs.size(), 500);
+    ASSERT_EQ(spirals.dim(), 2);
+    ASSERT_EQ(blobs.dim(), 2);
+    ASSERT_EQ(spirals.classes().size(), 5);
+    ASSERT_EQ(blobs.classes().size(), 5);
 }

@@ -283,18 +283,6 @@ namespace mltk {
                 return *this;
             }
 
-            Point& operator=(std::vector<T> const& b) {
-                if(size() == 0){
-                    x.resize(b.size());
-                }
-
-                for(std::size_t idx = 0; idx < b.size(); idx++) {
-                    x[idx] = b[idx];
-                }
-                
-                return *this;
-            }
-
             // assignment operator for arrays of different types
             template <typename T2, typename Rep2 >
             Point& operator=(Point<T2, Rep2> const& b) {
@@ -303,6 +291,18 @@ namespace mltk {
                 }
 
                 for(std::size_t idx = 0; idx < b.size(); ++idx){
+                    x[idx] = b[idx];
+                }
+
+                return *this;
+            }
+
+            Point& operator=(std::vector<T> const& b) {
+                if(size() == 0){
+                    x.resize(b.size());
+                }
+
+                for(std::size_t idx = 0; idx < b.size(); idx++) {
                     x[idx] = b[idx];
                 }
                 
@@ -535,20 +535,20 @@ namespace mltk {
         return _min;
     }
 
-    template < typename T, typename R = std::vector< T > >
+    template < typename T = double, typename R = std::vector< T > >
     Point<T, R> random_init(Point<T, R> &p, const size_t &size, const size_t &seed){
         mltk::random::init(seed);
 
         p.X().resize(size);
         for(size_t i = 0; i < p.size(); i++){
-            p[i] = mltk::random::floatInRange(0.0, 1.0);
+            p[i] = mltk::random::floatInRange<T>(0.0, 1.0);
         }
         p.Y() = 0;
         return p;
     }
 
-    template < typename T, typename R = std::vector< T > >
-    Point<T, R> random_init(const size_t &size, const size_t &seed){
+    template < typename T = double, typename R = std::vector< T > >
+    Point<T, R> random_init(const size_t &size, const size_t &seed=0){
         Point<T, R> p(size);
         mltk::random::init(seed);
 
@@ -559,8 +559,20 @@ namespace mltk {
         return p;
     }
 
-    template < typename T, typename R = std::vector< T > >
-    Point<T, R> random_init(Point<T, R> &p, const size_t &seed){
+    template < typename T = double, typename distribution = std::uniform_real_distribution<T> >
+    Point<T> random_init(T val1, T val2, const size_t &size, const size_t &seed=0){
+        Point<T> p(size);
+        mltk::random::init(seed);
+
+        for(size_t i = 0; i < p.size(); i++){
+            p[i] = mltk::random::floatInRange<T,T, distribution>(val1, val2);
+        }
+        p.Y() = 0;
+        return p;
+    }
+
+    template < typename T = double, typename R = std::vector< T > >
+    Point<T, R> random_init(Point<T, R> &p, const size_t &seed=0){
         mltk::random::init(seed);
 
         for(size_t i = 0; i < p.size(); i++){
@@ -573,6 +585,16 @@ namespace mltk {
     template < typename T, typename R>
     Point<T, F_Abs<T, R> > abs(const Point<T, R>& p){        
         return Point<T, F_Abs<T, R > >(F_Abs<T, R>(p.X()));
+    }
+
+    template < typename T, typename R>
+    Point<T, F_Cos<T, R> > cos(const Point<T, R>& p){
+        return Point<T, F_Cos<T, R > >(F_Cos<T, R>(p.X()));
+    }
+
+    template < typename T, typename R>
+    Point<T, F_Sin<T, R> > sin(const Point<T, R>& p){
+        return Point<T, F_Sin<T, R > >(F_Sin<T, R>(p.X()));
     }
 
     template < typename T, typename R>
@@ -697,9 +719,9 @@ namespace mltk {
     }
 
     // addition of point and scalar
-    template <typename T, typename R1>
-    Point<T, A_Add<T, R1, A_Scalar<int> > > operator+ (Point<T, R1> const& a, int const& s){
-        return Point<T, A_Add<T, R1, A_Scalar<int>>>(A_Add<T, R1, A_Scalar<int>>(a.X(), A_Scalar<int>(s)));
+    template <typename T, typename T2, typename R1>
+    Point<T, A_Add<T, R1, A_Scalar<T2> > > operator+ (Point<T, R1> const& a, T2 const& s){
+        return Point<T, A_Add<T, R1, A_Scalar<T2>>>(A_Add<T, R1, A_Scalar<T2>>(a.X(), A_Scalar<T2>(s)));
     }
 
     // subtraction of two points
@@ -745,9 +767,14 @@ namespace mltk {
     }
 
     // multiplication of scalar and point
-    template<typename T, typename T2, typename R2>
-    Point<T, A_Mult<T,A_Scalar<T2>,R2> > operator* (T2 const& s, Point<T,R2> const& b) {
-        return Point<T,A_Mult<T,A_Scalar<T2>,R2>>(A_Mult<T,A_Scalar<T2>,R2>(A_Scalar<T2>(s), b.X()));
+//    template<typename T, typename T2, typename R2>
+//    Point<T, A_Mult<T,A_Scalar<T2>,R2> > operator* (T2 const& s, Point<T,R2> const& b) {
+//        return Point<T,A_Mult<T,A_Scalar<T2>,R2>>(A_Mult<T,A_Scalar<T2>,R2>(A_Scalar<T2>(s), b.X()));
+//    }
+    // multiplication of scalar and point
+    template <typename T, typename T2, typename R1>
+    Point<T, A_Mult<T, A_Scalar<T2>, R1> > operator* (T2 const& s, Point<T, R1> const& b){
+        return Point<T, A_Mult<T, A_Scalar<T2>, R1>>(A_Mult<T, A_Scalar<T2>, R1>(A_Scalar<T2>(s), b.X()));
     }
 
     // multiplication of point and scalar
@@ -757,9 +784,9 @@ namespace mltk {
     }
 
     // multiplication of point and scalar
-    template <typename T, typename R1>
-    Point<T, A_Mult<T, R1, A_Scalar<int> > > operator* (Point<T, R1> const& a, int const& s){
-        return Point<T, A_Mult<T, R1, A_Scalar<int>>>(A_Mult<T, R1, A_Scalar<int>>(a.X(), A_Scalar<int>(s)));
+    template <typename T, typename T2, typename R1>
+    Point<T, A_Mult<T, R1, A_Scalar<T2> > > operator* (Point<T, R1> const& a, T2 const& s){
+        return Point<T, A_Mult<T, R1, A_Scalar<T2>>>(A_Mult<T, R1, A_Scalar<T2>>(a.X(), A_Scalar<T2>(s)));
     }
 
     // division of two points

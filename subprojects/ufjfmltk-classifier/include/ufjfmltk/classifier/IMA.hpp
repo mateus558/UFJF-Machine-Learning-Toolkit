@@ -47,7 +47,7 @@ namespace mltk{
         /**
          * \brief Wrapper for the implementation of the Incremental Margin Algorithm primal with fixed margin.
          */
-        template<typename T>
+        template<typename T = double>
         class IMApFixedMargin : public PrimalClassifier<T> {
         private:
             int n, maiorn = 0, flagNao1aDim;
@@ -71,7 +71,7 @@ namespace mltk{
             inline unsigned long *gettMax() { return &tMax; }
         };
 
-        template<typename T>
+        template<typename T = double>
         class IMADual : public DualClassifier<T> {
         private:
             double margin = 0;

@@ -78,7 +78,7 @@ namespace mltk{
         Template for multiplication operation implementation.
     */
     template <typename T, typename OP1, typename OP2>
-    class DLLPointOps A_Mult: public BExprOp< T, OP1, OP2 >{
+    class A_Mult: public BExprOp< T, OP1, OP2 >{
         public:
             A_Mult(OP1 const &a, OP2 const &b): BExprOp< T, OP1, OP2 >(a, b) {  }
             
@@ -167,6 +167,26 @@ namespace mltk{
             T operator[](const size_t& idx) const override {
                 return std::fabs(this->op[idx]);
             }
+    };
+
+    template <typename T, typename OP >
+    class F_Cos: public UExprOp< T, OP > {
+    public:
+        F_Cos(OP const& a): UExprOp<T, OP>(a) {}
+
+        T operator[](const size_t& idx) const override {
+            return std::cos(this->op[idx]);
+        }
+    };
+
+    template <typename T, typename OP >
+    class F_Sin: public UExprOp< T, OP > {
+    public:
+        F_Sin(OP const& a): UExprOp<T, OP>(a) {}
+
+        T operator[](const size_t& idx) const override {
+            return std::sin(this->op[idx]);
+        }
     };
 
     template <typename T, typename POWT, typename OP >

@@ -45,9 +45,9 @@ namespace mltk{
          * \param seed Seed used to generate the numbers.
          * \return unsigned int
          */
-        inline DLLRandom auto DLLRandomDecl init(unsigned int seed = 666) {
+        inline DLLRandom auto DLLRandomDecl init(unsigned int seed = 0) {
             if(seed != m_seed){
-                m_seed = (seed == 666)?std::random_device {} (): seed;
+                m_seed = (seed == 0)?std::random_device {} (): seed;
                 generator.seed(m_seed);
             }
             return m_seed;

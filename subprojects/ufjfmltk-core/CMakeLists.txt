@@ -3,6 +3,7 @@ set(CORE_TARGET ${PROJECT_NAME}-core)
 # List of CPP (source) library files.
 set(${CORE_TARGET}_SRC
         src/Data.cpp
+        src/datasets.cpp
         src/Kernel.cpp
         src/Utils.cpp
         )
@@ -10,6 +11,7 @@ set(${CORE_TARGET}_SRC
 # List of HPP (header) library files.
 set(${CORE_TARGET}_HDR
         include/ufjfmltk/core/Data.hpp
+        include/ufjfmltk/core/Datasets.hpp
         include/ufjfmltk/core/Point.hpp
         include/ufjfmltk/core/DistanceMetric.hpp
         include/ufjfmltk/core/Kernel.hpp

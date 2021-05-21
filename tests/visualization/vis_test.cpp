@@ -5,9 +5,10 @@
 
 #include <gtest/gtest.h>
 #include "ufjfmltk/core/Data.hpp"
+#include "ufjfmltk/core/Datasets.hpp"
 #include "ufjfmltk/Visualize.hpp"
 #include "ufjfmltk/Classifier.hpp"
-
+#include "ufjfmltk/Validation.hpp"
 
 class VisualTest: public ::testing::Test
 {
@@ -95,4 +96,26 @@ TEST_F(VisualTest, ContourTest){
     mltk::visualize::Visualization<double> vis1(bin, false);
     vis1.setTerminal("dumb");
     vis1.plotDecisionSurface2D(ima, 0, 1, false, 100, true, 1, "IMA dual decision surface");
+}
+
+TEST_F(VisualTest, PlotArtificial){
+    auto spirals = mltk::datasets::make_spirals(800, 5, false, 2.5);
+    auto blobs = mltk::datasets::make_blobs(100, 5, 3).first;
+    mltk::visualize::Visualization<> vis(spirals, false);
+
+    std::cout << blobs.name() << " dataset\n";
+    std::cout << "dims: " << blobs.dim() << std::endl;
+    std::cout << "size: " << blobs.size() << std::endl;
+    std::cout << "classes: " << mltk::Point<int>(blobs.classes()) << std::endl;
+    std::cout << "classes distribution: " << mltk::Point<size_t>(blobs.classesDistribution()) << std::endl;
+    std::cout << std::endl;
+    std::cout << spirals.name() << " dataset\n";
+    std::cout << "dims: " << spirals.dim() << std::endl;
+    std::cout << "size: " << spirals.size() << std::endl;
+    std::cout << "classes: " << mltk::Point<int>(spirals.classes()) << std::endl;
+    std::cout << "classes distribution: " << mltk::Point<size_t>(spirals.classesDistribution()) << std::endl;
+    vis.plot2D(0,1);
+    vis.setSample(blobs);
+    vis.plot2D(0,1);
+    vis.plot3D(0,1,2);
 }

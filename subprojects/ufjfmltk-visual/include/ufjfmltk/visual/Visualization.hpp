@@ -155,7 +155,6 @@ namespace mltk{
             auto data_copy = this->samples->selectFeatures({size_t(x), size_t(y)});
 
             learner.setSamples(data_copy);
-            learner.setVerbose(0);
             if(!is_trained) learner.train();
             configurePlot("contour_"+this->samples->name()+"_"+mltk::utils::timestamp(), format, title, save,
                           x_label, y_label);

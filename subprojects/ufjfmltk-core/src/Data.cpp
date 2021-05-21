@@ -50,7 +50,7 @@ namespace mltk{
         std::iota(index.begin(), index.end(), 0);
         this->m_size = size;
         this->m_dim = dim;
-        this->is_empty = false;
+        if(size > 0) this->is_empty = false;
     }
 
     template < typename T >
