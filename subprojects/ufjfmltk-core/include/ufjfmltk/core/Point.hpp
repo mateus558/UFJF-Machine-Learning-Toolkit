@@ -588,7 +588,7 @@ namespace mltk {
         mltk::random::init(seed);
 
         for(size_t i = 0; i < p.size(); i++){
-            p[i] = mltk::random::floatInRange<T,T, distribution>(val1, val2);
+            p[i] = mltk::random::floatInRange<T, distribution>(val1, val2);
         }
         p.Y() = 0;
         return p;

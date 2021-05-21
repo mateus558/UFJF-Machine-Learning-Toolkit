@@ -13,7 +13,7 @@ add_library(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:ufjfmltk-core>
                                    $<TARGET_OBJECTS:ufjfmltk-featselect>
                                    $<TARGET_OBJECTS:ufjfmltk-regressor>
                                    $<TARGET_OBJECTS:ufjfmltk-visual>
-                                    ufjfmltk.hpp
+                                    ../ufjfmltk.hpp
         )
 
 install(TARGETS ${PROJECT_NAME}

@@ -10,7 +10,7 @@ prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/regressor'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
-project_source_files = ['src/KNNRegressor.cpp', 'src/LMS.cpp']
+project_source_files = ['src/LMS.cpp']
 project_headers = ['include/ufjfmltk/regressor/Regressor.hpp', 
     'include/ufjfmltk/regressor/DualRegressor.hpp', 
     'include/ufjfmltk/regressor/KNNRegressor.hpp', 

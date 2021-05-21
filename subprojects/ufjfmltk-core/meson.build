@@ -10,7 +10,7 @@ prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/core'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
-project_source_files = ['src/Data.cpp', 'src/Kernel.cpp', 'src/Utils.cpp']
+project_source_files = ['src/Data.cpp', 'src/Kernel.cpp', 'src/Utils.cpp', 'src/datasets.cpp']
 project_headers = ['include/ufjfmltk/core/Data.hpp',
     'include/ufjfmltk/core/Point.hpp',
     'include/ufjfmltk/core/DistanceMetric.hpp',
@@ -26,7 +26,9 @@ project_headers = ['include/ufjfmltk/core/Data.hpp',
     'include/ufjfmltk/core/CoverTree.hpp',
     'include/ufjfmltk/core/ExprOps.hpp',
     'include/ufjfmltk/core/ExprScalar.hpp',
-    'include/ufjfmltk/core/ExprTraits.hpp']
+    'include/ufjfmltk/core/ExprTraits.hpp',
+    'include/ufjfmltk/core/Datasets.hpp'
+    ]
 
 public_headers = include_directories('include', is_system:true)
 lib_args = ['-DBUILDING_CORE']
