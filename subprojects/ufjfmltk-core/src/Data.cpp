@@ -1001,6 +1001,7 @@ namespace mltk{
         this->normalized = _data.isNormalized();
         this->time_mult = _data.getTime_mult();
         this->cdist_computed = _data.cdist_computed;
+        this->dataset_name = _data.dataset_name;
     }
 
     template < typename T >
@@ -1143,6 +1144,7 @@ namespace mltk{
         neg_class = data.neg_class;
         is_empty = data.is_empty;
         normalized = data.normalized;
+        dataset_name = data.dataset_name;
 
         return *this;
     }

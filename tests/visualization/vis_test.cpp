@@ -114,6 +114,8 @@ TEST_F(VisualTest, PlotArtificial){
     std::cout << "size: " << spirals.size() << std::endl;
     std::cout << "classes: " << mltk::Point<int>(spirals.classes()) << std::endl;
     std::cout << "classes distribution: " << mltk::Point<size_t>(spirals.classesDistribution()) << std::endl;
+
+    vis.setTerminal("dumb");
     vis.plot2D(0,1);
     vis.setSample(blobs);
     vis.plot2D(0,1);

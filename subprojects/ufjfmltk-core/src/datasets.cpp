@@ -10,20 +10,15 @@ namespace mltk::datasets {
         mltk::random::init(seed);
         size_t samples_byclass = std::ceil(n_samples/n_classes);
         mltk::Data<double> dataset;
-        mltk::Point<double> theta, r;
 
         dataset.setName("spirals");
 
-        theta = mltk::random_init<double>(samples_byclass, seed) * n_loops * 360.0 * M_PI / 180.0;
-        r = theta * margin * n_classes;
-
+        mltk::Point<double> theta = mltk::random_init<double>(samples_byclass, seed) * n_loops * 360.0 * M_PI / 180.0;
+        mltk::Point<double> r = theta * margin * n_classes;
         for(int i = 0; i < n_classes; i++){
-            mltk::Point<double> rotated_theta;
-            mltk::Point<double> x1, x2;
-
-            rotated_theta = theta + i * 2.0 * M_PI / n_classes;
-            x1 = r * mltk::cos(rotated_theta) + mltk::random_init<double>(samples_byclass, seed) * noise;
-            x2 = r * mltk::sin(rotated_theta) + mltk::random_init<double>(samples_byclass, seed) * noise;
+            mltk::Point<double> rotated_theta = theta + i * 2.0 * M_PI / n_classes;
+            mltk::Point<double> x1 = r * mltk::cos(rotated_theta) + mltk::random_init<double>(samples_byclass, seed) * noise;
+            mltk::Point<double> x2 = r * mltk::sin(rotated_theta) + mltk::random_init<double>(samples_byclass, seed) * noise;
 
             for(size_t j = 0; j < samples_byclass; j++){
                 auto point = mltk::Point<double>({x1[j], x2[j]});

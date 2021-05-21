@@ -85,6 +85,32 @@ namespace mltk {
                 this->id = p.Id();
                 this->alpha = p.Alpha();
             }
+
+            template<typename R1>
+            Point(Point<T, R1> const &p){
+                if(size() == 0){
+                    x.resize(p.size());
+                }
+                for(size_t i = 0; i < p.size(); i++){
+                    this->x[i] = p[i];
+                }
+                this->y = p.Y();
+                this->id = p.Id();
+                this->alpha = p.Alpha();
+            }
+
+            template<typename T2, typename R1>
+            Point(Point<T2, R1> const &p){
+                if(size() == 0){
+                    x.resize(p.size());
+                }
+                for(size_t i = 0; i < p.size(); i++){
+                    this->x[i] = p[i];
+                }
+                this->y = p.Y();
+                this->id = p.Id();
+                this->alpha = p.Alpha();
+            }
             /**
              * \brief Construct a point with initial dimension.
              * \param s Dimension of the point.

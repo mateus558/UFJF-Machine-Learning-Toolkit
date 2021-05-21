@@ -10,7 +10,7 @@
 namespace mltk::datasets{
     using Centers = std::vector<mltk::Point<double>>;
     using BlobsPair = std::pair<mltk::Data<double>, Centers>;
-
+    using RegPair = std::pair<mltk::Data<double>, std::vector<double>>;
     mltk::Data<double> make_spirals(size_t n_samples=100, int n_classes=2, bool shuffle=true, double noise=1.0,
                             size_t n_loops=2, double margin = 0.5, size_t seed = 0);
 
