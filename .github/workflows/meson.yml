@@ -18,6 +18,6 @@ jobs:
             pip install meson
             sudo apt install gnuplot gnuplot-x11 
     - name: Configure meson build
-      run: meson . -C build
+      run: meson . build
     - name: Compile project
       run: meson compile -C build
