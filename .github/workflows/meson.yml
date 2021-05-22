@@ -21,3 +21,16 @@ jobs:
       run: meson . build
     - name: Compile project
       run: meson compile -C build
+  macos-build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install gnuplot
+      run: brew install gnuplot meson
+      
+    - name: Configure meson build
+      run: meson . build
+    - name: Compile project
+      run: meson compile -C build
