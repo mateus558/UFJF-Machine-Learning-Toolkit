@@ -1,4 +1,4 @@
-name: Doxygen documentation
+name: Doxygen
 
 on:
   push:
