@@ -1,5 +1,5 @@
 //
-// Created by Mateus Coutinho Mari on 7/27/2018.
+// Created by Mateus Coutinho Marim on 7/27/2018.
 //
 
 #include "ufjfmltk/featselect/Fisher.hpp"

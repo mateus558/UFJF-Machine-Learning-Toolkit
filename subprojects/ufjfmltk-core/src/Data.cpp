@@ -12,9 +12,6 @@
 #include <cstring>
 #include <ufjfmltk/core/Data.hpp>
 
-
-#include "ufjfmltk/core/Data.hpp"
-
 namespace mltk{
     using namespace std;
 

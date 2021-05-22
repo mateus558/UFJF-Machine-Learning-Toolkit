@@ -22,4 +22,7 @@ namespace mltk{
         };
     }
 }
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#include "../../../src/LMS.cpp"
+#endif
 #endif //UFJF_MLTK_LMS_H
