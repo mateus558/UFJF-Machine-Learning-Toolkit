@@ -140,7 +140,7 @@ Gnuplot::Gnuplot(const std::vector<double> &x,
 //
 /// Plots a 2d graph from a list of doubles: x
 //
-template<typename X> inline
+template<typename X>
 Gnuplot& Gnuplot::plot_x(const X& x, const std::string &title)
 {
     if (x.size() == 0)

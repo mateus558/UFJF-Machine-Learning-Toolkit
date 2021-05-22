@@ -16,7 +16,7 @@
 
 namespace mltk{
     namespace featselect {
-        template<typename T> inline
+        template<typename T>
         AOS<T>::AOS(std::shared_ptr<Data<T> > samples, classifier::Classifier<T> *classifier,
                     typename validation::CrossValidation *cv,
                     int breadth, int depth, double bonus, int cut, int look_ahead_depth, int skip,
@@ -44,7 +44,7 @@ namespace mltk{
         }
 
 
-        template<typename T> inline
+        template<typename T>
         std::shared_ptr<Data<T>> AOS<T>::selectFeatures() {
             int i = 0;
             int tbreadth = 0;
@@ -261,7 +261,7 @@ namespace mltk{
         * Run A* feature selection main loop                       *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::mainLoop() {
             std::vector<int> ofnames;
             std::vector<double> w, w_manut;
@@ -508,7 +508,7 @@ namespace mltk{
         * look ahead for pruning value                             *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         double AOS<T>::lookAhead(std::vector<int> fnames_orig, std::vector<double> w_orig, int level_orig) {
             size_t i = 0, j = 0;
             int level = level_orig;
@@ -662,27 +662,27 @@ namespace mltk{
             return 0;
         }
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::setBreadth(int breadth) {
             AOS::breadth = breadth;
         }
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::setCut(int cut) {
             AOS::cut = cut;
         }
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::setSortingShape(int sortingShape) {
             sorting_shape = sortingShape;
         }
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::setChoiceShape(int choiceShape) {
             choice_shape = choiceShape;
         }
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::setLookAheadDepth(int lookAheadDepth) {
             look_ahead_depth = lookAheadDepth;
         }
@@ -695,7 +695,7 @@ namespace mltk{
         * creates a fresh new hash                                 *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         AOS<T>::Hash::Hash(size_t length, size_t width) {
             size_t i;
 
@@ -713,7 +713,7 @@ namespace mltk{
         * insert an element into my hash                           *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         bool AOS<T>::Hash::add(AOS<T>::select_gamma *elmt) {
             unsigned int i = 0;
             int index = 0;
@@ -783,7 +783,7 @@ namespace mltk{
         * erase an element from my hash                            *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::Hash::set_null(AOS<T>::select_gamma *elmt) {
             unsigned int i = 0, j = 0;
             int index = 0;
@@ -822,7 +822,7 @@ namespace mltk{
         * print hash table                                         *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::Hash::print(int dim) {
             size_t i = 0, j = 0, k = 0, d = 0;
             int cont = 0;
@@ -851,7 +851,7 @@ namespace mltk{
         * frees hash table                                         *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         AOS<T>::Hash::~Hash() {
             size_t i = 0;
 
@@ -863,37 +863,37 @@ namespace mltk{
             this->elements = nullptr;
         }
 
-        template<typename T> inline
+        template<typename T>
         size_t AOS<T>::Hash::getLength() const {
             return length;
         }
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::Hash::setLength(size_t length) {
             AOS<T>::Hash::length = length;
         }
 
-        template<typename T> inline
+        template<typename T>
         unsigned int AOS<T>::Hash::getWidth() const {
             return width;
         }
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::Hash::setWidth(size_t width) {
             AOS<T>::Hash::width = width;
         }
 
-        template<typename T> inline
+        template<typename T>
         unsigned int AOS<T>::Hash::getConthash() const {
             return conthash;
         }
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::Hash::setConthash(size_t conthash) {
             AOS<T>::Hash::conthash = conthash;
         }
 
-        template<typename T> inline
+        template<typename T>
         bool AOS<T>::select_gamma::operator==(const AOS<T>::select_gamma other) const {
             unsigned int i = 0;
             int eq = 0;
@@ -916,7 +916,7 @@ namespace mltk{
         * creates a heap                                           *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         AOS<T>::Heap::Heap() {
             size_t i = 0;
 
@@ -935,7 +935,7 @@ namespace mltk{
         * Insert into heap                                         *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         bool AOS<T>::Heap::insert(AOS<T>::select_gamma *tok, int cont) {
             int i = 0;
             double val = 0;
@@ -967,7 +967,7 @@ namespace mltk{
         * Returns top element                                      *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         typename AOS<T>::select_gamma *AOS<T>::Heap::pop() {
             AOS<T>::select_gamma *min_element = nullptr;
 
@@ -988,7 +988,7 @@ namespace mltk{
         * Prints heap                                              *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::Heap::print() {
             int i = 0, j = 0;
             std::vector<int> fnames;
@@ -1017,7 +1017,7 @@ namespace mltk{
         * Cont projected margin nodes in heap                      *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         size_t AOS<T>::Heap::projected() {
             size_t i = 0, projected = 0;
             AOS<T>::select_gamma *curr = nullptr;
@@ -1036,7 +1036,7 @@ namespace mltk{
         * percolates                                               *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::Heap::percolate(size_t i) {
             size_t child = i * 2;
             AOS<T>::select_gamma *last_element = nullptr;
@@ -1061,7 +1061,7 @@ namespace mltk{
         * removes old levels                                       *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         void AOS<T>::Heap::cut(std::unique_ptr<AOS<T>::Hash> hash, int levelat, int cut, double g_margin, int verbose) {
             size_t i = 0, count = 0;
             AOS<T>::select_gamma *curr = nullptr;
@@ -1088,7 +1088,7 @@ namespace mltk{
         * Frees heap                                               *
         *----------------------------------------------------------*/
 
-        template<typename T> inline
+        template<typename T>
         AOS<T>::Heap::~Heap() {
             size_t i;
 
@@ -1100,37 +1100,37 @@ namespace mltk{
             this->elements = nullptr;
         }
 
-        template<typename T> inline
+        template<typename T>
         size_t AOS<T>::Heap::getSize() const {
             return size;
         }
 
-        template<typename T> inline
+        template<typename T>
         typename AOS<T>::select_gamma **AOS<T>::Heap::getElements() const {
             return elements;
         }
 
-        template<typename T> inline
+        template<typename T>
         size_t AOS<T>::Heap::getContheap() const {
             return contheap;
         }
 
-        template<typename T> inline
+        template<typename T>
         size_t AOS<T>::Heap::getContheapreins() const {
             return contheapreins;
         }
 
-        template<typename T> inline
+        template<typename T>
         size_t AOS<T>::Heap::getContprooning() const {
             return contprooning;
         }
 
-        template<typename T> inline
+        template<typename T>
         size_t AOS<T>::Heap::getMaxheapsize() const {
             return maxheapsize;
         }
 
-        template<typename T> inline
+        template<typename T>
         bool AOS<T>::select_weight::operator==(AOS::select_weight other) const {
             return (fabs(other.w) > fabs(other.w)) - (fabs(other.w) < fabs(other.w));
         }

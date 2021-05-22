@@ -14,20 +14,20 @@ namespace mltk{
     namespace featselect {
         using namespace std;
 
-        template<typename T> inline
+        template<typename T> 
         int Fisher<T>::fisher_select_compare_score_greater(const Fisher::fisher_select_score &a,
                                                            const Fisher::fisher_select_score &b) {
             return a.score < b.score;
         }
 
-        template<typename T> inline
+        template<typename T> 
         Fisher<T>::Fisher(std::shared_ptr<Data<T> > samples, classifier::Classifier<T> *classifier, int final_dim) {
             this->samples = samples;
             this->classifier = classifier;
             this->final_dim = final_dim;
         }
 
-        template<typename T> inline
+        template<typename T> 
         shared_ptr<Data<T>> Fisher<T>::selectFeatures() {
             size_t i, j;
             size_t num_pos = 0, num_neg = 0, svs = 0, dim = this->samples->dim(), size = this->samples->size();
