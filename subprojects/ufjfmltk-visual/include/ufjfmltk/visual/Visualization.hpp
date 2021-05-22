@@ -17,6 +17,7 @@
 #include "ufjfmltk/visual/gnuplot_i.hpp"
 #include "ufjfmltk/core/Data.hpp"
 #include "ufjfmltk/core/Solution.hpp"
+#include "ufjfmltk/core/Utils.hpp"
 
 namespace mltk{
     /**
