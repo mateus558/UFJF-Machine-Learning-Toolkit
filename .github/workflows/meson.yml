@@ -1,0 +1,23 @@
+name: Meson
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install meson and dependencies
+      run: |
+            pip install meson
+            sudo apt install gnuplot gnuplot-x11 
+    - name: Configure meson build
+      run: meson . -C build
+    - name: Compile project
+      run: meson compile -C build
