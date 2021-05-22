@@ -33,10 +33,10 @@ namespace mltk{
         /// Sample to be visualized.
         Data< T > *samples;
         std::map<std::string, std::string> configs;
-        Gnuplot *g{nullptr};
+        Gnuplot *g;
         std::string plot_folder;
         std::vector<std::string> temp_fnames;
-        bool is_shared{true}, keep_temp_files{false};
+        bool is_shared, keep_temp_files;
         static size_t n_plots;
 
         struct AxisRange{
