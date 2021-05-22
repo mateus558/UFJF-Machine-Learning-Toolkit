@@ -477,7 +477,32 @@ public:
                         const std::string &title = "");
     ///   from std::vector
     template<typename X>
-    Gnuplot& plot_x(const X& x, const std::string &title = "");
+    Gnuplot& plot_x(const X& x, const std::string &title = ""){
+        if (x.size() == 0)
+        {
+            throw GnuplotException("std::vector too small");
+            return *this;
+        }
+
+        std::ofstream tmp;
+        std::string name = create_tmpfile(tmp);
+        if (name == "")
+            return *this;
+
+        //
+        // write the data to file
+        //
+        for (unsigned int i = 0; i < x.size(); i++)
+            tmp << x[i] << std::endl;
+
+        tmp.flush();
+        tmp.close();
+
+
+        plotfile_x(name, 1, title);
+
+        return *this;
+    }
 
 
     /// plot x,y pairs: x y
@@ -535,7 +560,40 @@ public:
     ///   from data
     template<typename X, typename Y, typename E>
     Gnuplot& plot_xy_err(const X &x, const Y &y, const E &dy,
-                         const std::string &title = "");
+                         const std::string &title = ""){
+        if (x.size() == 0 || y.size() == 0 || dy.size() == 0)
+        {
+            throw GnuplotException("std::vectors too small");
+            return *this;
+        }
+
+        if (x.size() != y.size() || y.size() != dy.size())
+        {
+            throw GnuplotException("Length of the std::vectors differs");
+            return *this;
+        }
+
+
+        std::ofstream tmp;
+        std::string name = create_tmpfile(tmp);
+        if (name == "")
+            return *this;
+
+        //
+        // write the data to file
+        //
+        for (unsigned int i = 0; i < x.size(); i++)
+            tmp << x[i] << " " << y[i] << " " << dy[i] << std::endl;
+
+        tmp.flush();
+        tmp.close();
+
+
+        // Do the actual plot
+        plotfile_xy_err(name, 1, 2, 3, title);
+
+        return *this;
+    }
 
 
     /// plot x,y,z triples: x y z
@@ -583,8 +641,6 @@ public:
 
         return *this;
     }
-
-
 
 
     /// plot an equation of the form: y = ax + b, you supply a and b
@@ -650,6 +706,41 @@ public:
     inline bool is_valid(){return(valid);};
 
 };
+template <typename Container>
+void stringtok (Container &container,
+                std::string const &in,
+                const char * const delimiters = " \t\n")
+{
+    const std::string::size_type len = in.length();
+    std::string::size_type i = 0;
+
+    while ( i < len )
+    {
+        // eat leading whitespace
+        i = in.find_first_not_of (delimiters, i);
+
+        if (i == std::string::npos)
+            return;   // nothing left but white space
+
+        // find the end of the token
+        std::string::size_type j = in.find_first_of (delimiters, i);
+
+        // push token
+        if (j == std::string::npos)
+        {
+            container.push_back (in.substr(i));
+            return;
+        }
+        else
+            container.push_back (in.substr(i, j-i));
+
+        // set up for next loop
+        i = j + 1;
+    }
+
+    return;
+}
+
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 #include "../../../src/gnuplot_i.cpp"
 #endif

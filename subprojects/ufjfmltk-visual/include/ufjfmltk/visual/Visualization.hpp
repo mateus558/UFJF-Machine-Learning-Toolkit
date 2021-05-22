@@ -7,16 +7,16 @@
 #define VISUALIZATION_HPP
 #ifdef __unix__
 #include <dirent.h>
-#include "gnuplot_i.hpp"
 #elif _WIN32
 #include <windows.h>
 #endif
-#include "ufjfmltk/core/Data.hpp"
-#include "ufjfmltk/core/Solution.hpp"
 #include <string>
 #include <map>
 #include <filesystem>
 #include <array>
+#include "ufjfmltk/visual/gnuplot_i.hpp"
+#include "ufjfmltk/core/Data.hpp"
+#include "ufjfmltk/core/Solution.hpp"
 
 namespace mltk{
     /**
