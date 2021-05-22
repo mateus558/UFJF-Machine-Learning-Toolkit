@@ -10,7 +10,10 @@
 #include <utility>
 #include <cmath>
 #include <cstring>
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#else
 #include <ufjfmltk/core/Data.hpp>
+#endif
 
 namespace mltk{
     using namespace std;

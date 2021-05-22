@@ -1,8 +1,10 @@
 //
 // Created by mateus558 on 03/01/19.
 //
-
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#else
 #include "ufjfmltk/regressor/LMS.hpp"
+#endif
 
 namespace mltk{
     namespace regressor {

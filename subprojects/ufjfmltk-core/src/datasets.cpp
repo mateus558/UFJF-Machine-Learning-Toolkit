@@ -2,7 +2,10 @@
 // Created by mateus on 20/05/2021.
 //
 
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#else
 #include "ufjfmltk/core/Datasets.hpp"
+#endif
 
 namespace mltk::datasets {
     mltk::Data<double> make_spirals(size_t n_samples, int n_classes, bool shuffle, double noise, size_t n_loops,

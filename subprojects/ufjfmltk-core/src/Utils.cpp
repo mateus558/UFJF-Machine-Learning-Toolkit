@@ -3,13 +3,15 @@
    \file Utils.cpp
    \author Mateus Coutinho Marim
 */
-
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#else
+#include "ufjfmltk/core/Utils.hpp"
+#endif
 #include <cmath>
 #include <cstring>
 #include <sstream>
 #include <algorithm>
 #include <iostream>
-#include "ufjfmltk/core/Utils.hpp"
 #include <ctime>
 #define PRECISION 1E-9
 #define MAX_NUMBER_STRING_SIZE 32

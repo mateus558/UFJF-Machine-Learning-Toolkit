@@ -1,12 +1,14 @@
 //
 // Created by Mateus Coutinho Mari on 6/26/2018.
 //
-
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#else
+#include "ufjfmltk/featselect/RFE.hpp"
+#endif
 #include <algorithm>
 #include <cmath>
 #include <memory>
 #include "ufjfmltk/valid/Validation.hpp"
-#include "ufjfmltk/featselect/RFE.hpp"
 
 #define first_decay 0.25
 

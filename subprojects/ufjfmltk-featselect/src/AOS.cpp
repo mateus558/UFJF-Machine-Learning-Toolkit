@@ -1,10 +1,12 @@
 //
 // Created by Mateus Coutinho Mari on 8/20/2018.
 //
-
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#else
+#include "ufjfmltk/featselect/AOS.hpp"
+#endif
 #include <algorithm>
 #include <functional>
-#include "ufjfmltk/featselect/AOS.hpp"
 #include "ufjfmltk/classifier/PrimalClassifier.hpp"
 #include "ufjfmltk/classifier/SMO.hpp"
 
