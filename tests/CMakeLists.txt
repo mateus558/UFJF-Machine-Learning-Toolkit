@@ -1,6 +1,5 @@
 message("Testing enabled.")
 enable_testing()
-append_coverage_compiler_flags()
 
 include(FetchContent)
 FetchContent_Declare(
@@ -23,8 +22,8 @@ add_subdirectory(clusterer)
 set(ENSEMBLE_TESTS ensemble_test)
 add_subdirectory(ensemble)
 
-set(COV_TARGETS ${ENSEMBLE_TESTS} ${CLUSTERER_TESTS} ${CLASSIFIER_TESTS} ${CORE_TESTS} ${VISUALIZATION_TESTS})
 if(CODE_COVERAGE)
+    set(COV_TARGETS ${ENSEMBLE_TESTS} ${CLUSTERER_TESTS} ${CLASSIFIER_TESTS} ${CORE_TESTS} ${VISUALIZATION_TESTS})
     setup_target_for_coverage_gcovr_html(
             NAME coverage
             EXECUTABLE ctest
