@@ -5,19 +5,6 @@
 #pragma once
 #ifndef KERNEL__HPP
 #define KERNEL__HPP
-#if defined _WIN32 || defined __CYGWIN__
-  #ifdef BUILDING_CORE
-    #define DLLKernel __declspec(dllexport)
-  #else
-    #define DLLKernel __declspec(dllimport)
-  #endif
-#else
-  #ifdef BUILDING_CORE
-      #define DLLKernel __attribute__ ((visibility ("default")))
-  #else
-      #define DLLKernel
-  #endif
-#endif
 
 #include <vector>
 #include <memory>
@@ -33,7 +20,7 @@ namespace mltk{
     /**
      * \brief Class for the kernel computations.
      */
-    class DLLKernel Kernel {
+    class  Kernel {
         // Attributes
     private :
         bool computed = false;

@@ -6,23 +6,6 @@
 #pragma once
 #ifndef POINT_HPP_INCLUDED
 #define POINT_HPP_INCLUDED
-#if defined _WIN32 || defined __CYGWIN__
-  #ifdef BUILDING_CORE
-    #define DLLPoint __declspec(dllexport)
-    #define DLLPointDecl __cdecl
-  #else
-    #define DLLPoint __declspec(dllimport)
-    #define DLLPointDecl
-  #endif
-#else
-  #ifdef BUILDING_CORE
-    #define DLLPoint __attribute__ ((visibility ("default")))
-    #define DLLPointDecl
-  #else
-      #define DLLPoint
-      #define DLLPointDecl
-  #endif
-#endif
 
 #include <cstddef>
 #include <cassert>
@@ -52,7 +35,7 @@ namespace mltk {
      * \brief Wrapper for the point data.
      */
     template <typename T = double, typename Rep = std::vector<T> >
-    class DLLPoint Point {
+    class  Point {
         private:
             /// Features values.
             Rep x; // (access to) the data of the array
@@ -621,22 +604,22 @@ namespace mltk {
     }
 
     template < typename T, typename R>
-    Point<T, F_Exp<T, R> > DLLPointDecl exp(const Point<T, R>& p){
+    Point<T, F_Exp<T, R> >  exp(const Point<T, R>& p){
         return Point<T, F_Exp<T, R > >(F_Exp<T, R>(p.X()));
     }
 
     template < typename T, typename R>
-    Point<T, F_Log<T, R> > DLLPointDecl log(const Point<T, R>& p){
+    Point<T, F_Log<T, R> >  log(const Point<T, R>& p){
         return Point<T, F_Log<T, R > >(F_Log<T, R>(p.X()));
     }
 
     template < typename T, typename R>
-    Point<T, F_Pow<T, T, R> > DLLPointDecl pow(const Point<T, R>& p, const T &power){        
+    Point<T, F_Pow<T, T, R> >  pow(const Point<T, R>& p, const T &power){        
         return Point<T, F_Pow<T, T, R > >(F_Pow<T, T, R>(p.X(), power));
     }
 
     template < typename T, typename P, typename R>
-    Point<T, F_Pow<T, P, R> > DLLPointDecl pow(const Point<T, R>& p, const P &power){        
+    Point<T, F_Pow<T, P, R> >  pow(const Point<T, R>& p, const P &power){        
         return Point<T, F_Pow<T, P, R > >(F_Pow<T, P, R>(p.X(), power));
     }
     /**

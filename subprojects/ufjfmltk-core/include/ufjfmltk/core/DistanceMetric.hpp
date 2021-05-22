@@ -1,19 +1,6 @@
 #pragma once
 #ifndef DISTANCEMETRIC_HPP_INCLUDED
 #define DISTANCEMETRIC_HPP_INCLUDED
-#if defined _WIN32 || defined __CYGWIN__
-  #ifdef BUILDING_CORE
-    #define DLLMetric __declspec(dllexport)
-  #else
-    #define DLLMetric __declspec(dllimport)
-  #endif
-#else
-  #ifdef BUILDING_CORE
-      #define DLLMetric __attribute__ ((visibility ("default")))
-  #else
-      #define DLLMetric
-  #endif
-#endif
 
 #include "Point.hpp"
 #include <cmath>
@@ -23,7 +10,7 @@ namespace mltk::metrics::dist{
          * \brief Base functor class for the implementation of new metrics metrics.
          */
         template<typename T = double>
-        class DLLMetric  DistanceMetric {
+        class   DistanceMetric {
         protected:
             std::string m_family, m_name;
         public:
@@ -41,7 +28,7 @@ namespace mltk::metrics::dist{
          * \brief Functor for the computation of the euclidean metrics between two points.
          */
         template<typename T = double>
-        class DLLMetric Euclidean : public DistanceMetric<T> {
+        class  Euclidean : public DistanceMetric<T> {
         public:
             Euclidean(){
                 this->m_family = "Lp Minkowski distances";
@@ -53,7 +40,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Manhattan : public DistanceMetric<T> {
+        class  Manhattan : public DistanceMetric<T> {
         public:
             Manhattan(){
                 this->m_family = "Lp Minkowski distances";
@@ -65,7 +52,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Chebyshev : public DistanceMetric<T> {
+        class  Chebyshev : public DistanceMetric<T> {
         public:
             Chebyshev(){
                 this->m_family = "Lp Minkowski distances";
@@ -79,7 +66,7 @@ namespace mltk::metrics::dist{
         // L1 Distance measures
 
         template<typename T = double>
-        class DLLMetric Lorentzian : public DistanceMetric<T> {
+        class  Lorentzian : public DistanceMetric<T> {
         public:
             Lorentzian(){
                 this->m_family = "L1 Distance measures";
@@ -91,7 +78,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Canberra : public DistanceMetric<T> {
+        class  Canberra : public DistanceMetric<T> {
         public:
             T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (mltk::abs(p1 - p2) / (mltk::abs(p1) + mltk::abs(p2))).sum();
@@ -99,7 +86,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Sorensen : public DistanceMetric<T> {
+        class  Sorensen : public DistanceMetric<T> {
         public:
             T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::abs(p1 - p2).sum() / (p1 + p2).sum();
@@ -107,7 +94,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric AvgManhattan : public DistanceMetric<T> {
+        class  AvgManhattan : public DistanceMetric<T> {
         public:
             T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return mltk::abs(p1 - p2).sum() / p1.size();
@@ -115,7 +102,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric NonIntersection : public DistanceMetric<T> {
+        class  NonIntersection : public DistanceMetric<T> {
         public:
             T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return (1 / 2) * mltk::abs(p1 - p2).sum();
@@ -125,7 +112,7 @@ namespace mltk::metrics::dist{
         // Inner product metrics measures
 
         template<typename T = double>
-        class DLLMetric Jaccard : public DistanceMetric<T> {
+        class  Jaccard : public DistanceMetric<T> {
         public:
             Jaccard(){
                 this->m_family = "Inner product metrics measures";
@@ -138,7 +125,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Cosine : public DistanceMetric<T> {
+        class  Cosine : public DistanceMetric<T> {
         public:
             Cosine(){
                 this->m_family = "Inner product metrics measures";
@@ -150,7 +137,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Dice : public DistanceMetric<T> {
+        class  Dice : public DistanceMetric<T> {
         public:
             Dice(){
                 this->m_family = "Inner product metrics measures";
@@ -162,7 +149,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Chord : public DistanceMetric<T> {
+        class  Chord : public DistanceMetric<T> {
         public:
             Chord(){
                 this->m_family = "Inner product metrics measures";
@@ -176,7 +163,7 @@ namespace mltk::metrics::dist{
         //Squared Chord distance measures
 
         template<typename T = double>
-        class DLLMetric Bhattacharyya : public DistanceMetric<T> {
+        class  Bhattacharyya : public DistanceMetric<T> {
         public:
             Bhattacharyya(){
                 this->m_family = "Squared Chord distance measures";
@@ -188,7 +175,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric SquaredChord : public DistanceMetric<T> {
+        class  SquaredChord : public DistanceMetric<T> {
         public:
             SquaredChord(){
                 this->m_family = "Squared Chord distance measures";
@@ -200,7 +187,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Matusita : public DistanceMetric<T> {
+        class  Matusita : public DistanceMetric<T> {
         public:
             Matusita(){
                 this->m_family = "Squared Chord distance measures";
@@ -212,7 +199,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Hellinger : public DistanceMetric<T> {
+        class  Hellinger : public DistanceMetric<T> {
         public:
             Hellinger(){
                 this->m_family = "Squared Chord distance measures";
@@ -226,7 +213,7 @@ namespace mltk::metrics::dist{
         // Squared L2 distance measures
 
         template<typename T = double>
-        class DLLMetric SquaredEuclidean : public DistanceMetric<T> {
+        class  SquaredEuclidean : public DistanceMetric<T> {
         public:
             SquaredEuclidean(){
                 this->m_family = "Squared L2 distance measures";
@@ -238,7 +225,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Clark: public DistanceMetric<T> {
+        class  Clark: public DistanceMetric<T> {
         public:
             Clark(){
                 this->m_family = "Squared L2 distance measures";
@@ -250,7 +237,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Neyman: public DistanceMetric<T> {
+        class  Neyman: public DistanceMetric<T> {
         public:
             Neyman(){
                 this->m_family = "Squared L2 distance measures";
@@ -262,7 +249,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Pearson: public DistanceMetric<T> {
+        class  Pearson: public DistanceMetric<T> {
         public:
             Pearson(){
                 this->m_family = "Squared L2 distance measures";
@@ -274,7 +261,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Squared: public DistanceMetric<T> {
+        class  Squared: public DistanceMetric<T> {
         public:
             Squared(){
                 this->m_family = "Squared L2 distance measures";
@@ -286,7 +273,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric ProbabilisticSymmetric: public DistanceMetric<T> {
+        class  ProbabilisticSymmetric: public DistanceMetric<T> {
         public:
             ProbabilisticSymmetric(){
                 this->m_family = "Squared L2 distance measures";
@@ -298,7 +285,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Divergence: public DistanceMetric<T> {
+        class  Divergence: public DistanceMetric<T> {
         public:
             Divergence(){
                 this->m_family = "Squared L2 distance measures";
@@ -310,7 +297,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric AdditiveSymmetric: public DistanceMetric<T> {
+        class  AdditiveSymmetric: public DistanceMetric<T> {
         public:
             AdditiveSymmetric(){
                 this->m_family = "Squared L2 distance measures";
@@ -322,7 +309,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Average: public DistanceMetric<T> {
+        class  Average: public DistanceMetric<T> {
         public:
             Average(){
                 this->m_family = "Squared L2 distance measures";
@@ -334,7 +321,7 @@ namespace mltk::metrics::dist{
         };
 
 //        template<typename T = double>
-//        class DLLMetric MeanCensoredEuclidean: public DistanceMetric<T> {
+//        class  MeanCensoredEuclidean: public DistanceMetric<T> {
 //        public:
 //            T operator()(const Point <T> &p1, const Point <T> &p2) const {
 //                return mltk::pow(p1-p2,2)/;
@@ -342,7 +329,7 @@ namespace mltk::metrics::dist{
 //        };
 
         template<typename T = double>
-        class DLLMetric SquaredChiSquared: public DistanceMetric<T> {
+        class  SquaredChiSquared: public DistanceMetric<T> {
         public:
             SquaredChiSquared(){
                 this->m_family = "Squared L2 distance measures";
@@ -356,7 +343,7 @@ namespace mltk::metrics::dist{
         // Shannon entropy distance measures
 
         template<typename T = double>
-        class DLLMetric KullbackLeibler: public DistanceMetric<T> {
+        class  KullbackLeibler: public DistanceMetric<T> {
         public:
             KullbackLeibler(){
                 this->m_family = "Shannon entropy distance measures";
@@ -368,7 +355,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Jeffreys: public DistanceMetric<T> {
+        class  Jeffreys: public DistanceMetric<T> {
         public:
             Jeffreys(){
                 this->m_family = "Shannon entropy distance measures";
@@ -380,7 +367,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric KDivergence: public DistanceMetric<T> {
+        class  KDivergence: public DistanceMetric<T> {
         public:
             KDivergence(){
                 this->m_family = "Shannon entropy distance measures";
@@ -392,7 +379,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Topsoe: public DistanceMetric<T> {
+        class  Topsoe: public DistanceMetric<T> {
         public:
             Topsoe(){
                 this->m_family = "Shannon entropy distance measures";
@@ -404,7 +391,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric JensenShannon: public DistanceMetric<T> {
+        class  JensenShannon: public DistanceMetric<T> {
         public:
             JensenShannon(){
                 this->m_family = "Shannon entropy distance measures";
@@ -416,7 +403,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric JensenDifference: public DistanceMetric<T> {
+        class  JensenDifference: public DistanceMetric<T> {
         public:
             JensenDifference(){
                 this->m_family = "Shannon entropy distance measures";
@@ -430,7 +417,7 @@ namespace mltk::metrics::dist{
         // Vicissitude distance measures
 
 //        template<typename T = double>
-//        class DLLMetric VicisWaveHedges: public DistanceMetric<T> {
+//        class  VicisWaveHedges: public DistanceMetric<T> {
 //        public:
 //            T operator()(const Point <T> &p1, const Point <T> &p2) const {
 //                return (mltk::abs(p1 - p2)/).sum();
@@ -438,7 +425,7 @@ namespace mltk::metrics::dist{
 //        };
 
         template<typename T = double>
-        class DLLMetric MaxSymmetric: public DistanceMetric<T> {
+        class  MaxSymmetric: public DistanceMetric<T> {
         public:
             T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return std::max((mltk::pow(p1 - p2, 2)/p1).sum(), (mltk::pow(p1 - p2, 2)/p2).sum());
@@ -446,7 +433,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric MinSymmetric: public DistanceMetric<T> {
+        class  MinSymmetric: public DistanceMetric<T> {
         public:
             T operator()(const Point <T> &p1, const Point <T> &p2) const {
                 return std::max((mltk::pow(p1 - p2, 2)/p1).sum(), (mltk::pow(p1 - p2, 2)/p2).sum());
@@ -456,7 +443,7 @@ namespace mltk::metrics::dist{
         // Other distance measures
 
         template<typename T = double>
-        class DLLMetric AverageL1Linf: public DistanceMetric<T> {
+        class  AverageL1Linf: public DistanceMetric<T> {
         public:
             AverageL1Linf(){
                 this->m_family = "Other distance measures";
@@ -468,7 +455,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric KumarJohnson: public DistanceMetric<T> {
+        class  KumarJohnson: public DistanceMetric<T> {
         public:
             KumarJohnson(){
                 this->m_family = "Other distance measures";
@@ -480,7 +467,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Taneja: public DistanceMetric<T> {
+        class  Taneja: public DistanceMetric<T> {
         public:
             Taneja(){
                 this->m_family = "Other distance measures";
@@ -492,7 +479,7 @@ namespace mltk::metrics::dist{
         };
 
         template<typename T = double>
-        class DLLMetric Hassanat: public DistanceMetric<T> {
+        class  Hassanat: public DistanceMetric<T> {
         public:
             Hassanat(){
                 this->m_family = "Other distance measures";

@@ -9,23 +9,6 @@
 #pragma once
 #ifndef RANDOM_H_INCLUDED
 #define RANDOM_H_INCLUDED
-#if defined _WIN32 || defined __CYGWIN__
-  #ifdef BUILDING_CORE
-    #define DLLRandom __declspec(dllexport)
-    #define DLLRandomDecl __cdecl
-  #else
-    #define DLLRandom 
-    #define DLLRandomDecl
-  #endif
-#else
-  #ifdef BUILDING_CORE
-      #define DLLRandom __attribute__ ((visibility ("default")))
-      #define DLLRandomDecl
-  #else
-      #define DLLRandom
-      #define DLLRandomDecl
-  #endif
-#endif
 
 #include <random>
 #include <functional>
@@ -45,7 +28,7 @@ namespace mltk{
          * \param seed Seed used to generate the numbers.
          * \return unsigned int
          */
-        inline DLLRandom auto DLLRandomDecl init(unsigned int seed = 0) {
+        inline  auto  init(unsigned int seed = 0) {
             if(seed != m_seed){
                 m_seed = (seed == 0)?std::random_device {} (): seed;
                 generator.seed(m_seed);
@@ -60,7 +43,7 @@ namespace mltk{
          */
         template < typename Integral = int, typename Integral1,
                 typename Distribution = std::uniform_int_distribution<Integral>  >
-        inline DLLRandom Integral DLLRandomDecl intInRange(Integral low, Integral1 high) {
+        inline  Integral  intInRange(Integral low, Integral1 high) {
             Distribution dist(low, high);
 
             return dist(generator);
@@ -73,7 +56,7 @@ namespace mltk{
          */
         template < typename Real = double,
                 typename Distribution = std::uniform_real_distribution<Real> >
-        inline DLLRandom Real DLLRandomDecl floatInRange(Real low, Real high) {
+        inline  Real  floatInRange(Real low, Real high) {
             Distribution dist(low, high);
 
             return dist(generator);
@@ -82,7 +65,7 @@ namespace mltk{
          * \brief Get the seed used in the mersenne twister.
          * \return unsigned int
          */
-        inline DLLRandom auto DLLRandomDecl getSeed(){
+        inline  auto  getSeed(){
             return m_seed;
         }
     }

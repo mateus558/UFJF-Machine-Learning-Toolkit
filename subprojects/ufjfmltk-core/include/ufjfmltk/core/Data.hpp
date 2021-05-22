@@ -33,19 +33,6 @@
 #pragma once
 #ifndef DATA_HPP_INCLUDED
 #define DATA_HPP_INCLUDED
-#if defined _WIN32 || defined __CYGWIN__
-  #ifdef BUILDING_CORE
-    #define DLLData __declspec(dllexport)
-  #else
-    #define DLLData __declspec(dllimport)
-  #endif
-#else
-  #ifdef BUILDING_CORE
-      #define DLLData __attribute__ ((visibility ("default")))
-  #else
-      #define DLLData
-  #endif
-#endif
 
 #include <vector>
 #include <string>
@@ -81,7 +68,7 @@ namespace mltk{
      * \brief Wrapper for the dataset data.
      */
     template < typename T = double >
-    class DLLData Data {
+    class Data {
         // Associations
         // Attributes
     private :

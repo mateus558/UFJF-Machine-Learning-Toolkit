@@ -7,19 +7,6 @@
 #pragma once
 #ifndef STATISTICS__HPP
 #define STATISTICS__HPP
-#if defined _WIN32 || defined __CYGWIN__
-  #ifdef BUILDING_CORE
-    #define DLLStatistics __declspec(dllexport)
-  #else
-    #define DLLStatistics __declspec(dllimport)
-  #endif
-#else
-  #ifdef BUILDING_CORE
-      #define DLLStatistics __attribute__ ((visibility ("default")))
-  #else
-      #define DLLStatistics
-  #endif
-#endif
 
 #include <vector>
 #include <cmath>
