@@ -16,7 +16,7 @@ jobs:
     - name: Install meson and dependencies
       run: |
             pip install meson
-            sudo apt install gnuplot gnuplot-x11 
+            sudo apt install gnuplot gnuplot-x11 ninja-build
     - name: Configure meson build
       run: meson . build
     - name: Compile project
