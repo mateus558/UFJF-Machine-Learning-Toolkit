@@ -5,14 +5,6 @@ and some already implemented methods.<br />
 It's not intended to be just a collection of algorithms, but also to auxiliate and create a pattern in future ML algorithms implementations
 through a set of interconected modules that can be used in most ML projects.<br />
 
-## Overview
-
-- [Documentation](#documentation)
-- [Installation](#installation)
-- [Code example](#code-example)
-- [Modules status](#modules-status)
-- [Authors](#authors)
-
 ## Documentation
 You can find the documentation at the project page: [UFJF-MLTK](https://mateus558.github.io/UFJF-MLTK/index.html). <br />
 And for examples and other information you can access the [wiki](https://github.com/mateus558/Machine-Learning-Toolkit/wiki).
