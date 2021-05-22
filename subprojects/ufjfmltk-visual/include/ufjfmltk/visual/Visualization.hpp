@@ -34,7 +34,7 @@ namespace mltk{
         /// Sample to be visualized.
         Data< T > *samples;
         std::map<std::string, std::string> configs;
-        Gnuplot *g;
+        Gnuplot *g{nullptr};
         std::string plot_folder;
         std::vector<std::string> temp_fnames;
         bool is_shared, keep_temp_files;
