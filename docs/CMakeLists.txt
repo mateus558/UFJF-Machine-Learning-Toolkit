@@ -4,8 +4,14 @@
 cmake_minimum_required(VERSION 3.5)
 
 # This variable should contain the argument of the project call in the main CMakeLists.txt
-set(ORIGINAL_PROJECT_NAME "LibTemplateCMake")
-project(${ORIGINAL_PROJECT_NAME}Docs)
+set(ORIGINAL_PROJECT_NAME "UFJF - Machine Learning Toolkit")
+set(ORIGINAL_PROJECT_DIR ${CMAKE_SOURCE_DIR}/subprojects)
+set(TOP_SRCDIR ${ORIGINAL_PROJECT_DIR})
+set(README_PATH ${CMAKE_SOURCE_DIR}/README.md)
+set(PROJECT_LOGO ${CMAKE_SOURCE_DIR}/docs/logo.png)
+set(VERSION ${CMAKE_PROJECT_VERSION})
+
+project(${ORIGINAL_PROJECT_NAME})
 
 include(GNUInstallDirs)
 
@@ -14,9 +20,9 @@ find_package(Doxygen QUIET)
 if(DOXYGEN_FOUND)
     # This variables are used inside the Doxyfile.in template
     set(DOXYGEN_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}" CACHE STRING "Build directory for Doxygen html output (absolute).")
-    set(DOXYGEN_INSTALL_DIR "${CMAKE_INSTALL_DATAROOTDIR}/doc/${ORIGINAL_PROJECT_NAME}" CACHE STRING "Installation directory for Doxygen html output (relative to CMAKE_INSTALL_PREFIX).")
+    set(DOXYGEN_INSTALL_DIR "${CMAKE_INSTALL_DATAROOTDIR}/docs/${ORIGINAL_PROJECT_NAME}" CACHE STRING "Installation directory for Doxygen html output (relative to CMAKE_INSTALL_PREFIX).")
     get_filename_component(ORIGINAL_PROJECT_DIR "${CMAKE_CURRENT_SOURCE_DIR}" DIRECTORY)
-    set(DOXYGEN_SOURCE_DIR "${ORIGINAL_PROJECT_DIR}/src")
+    set(DOXYGEN_SOURCE_DIR "${ORIGINAL_PROJECT_DIR}")
     set(DOXYGEN_DOC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 
 
@@ -26,7 +32,7 @@ if(DOXYGEN_FOUND)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
 
     # The dox target will generate the doxygen documentation in ${DOXYGEN_BUILD_DIR}
-    add_custom_target(dox COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+    add_custom_target(docs COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
                           COMMENT "Generating doxygen documentation in ${DOXYGEN_BUILD_DIR}")
 
     # Note: the install will install the documentation if present,
