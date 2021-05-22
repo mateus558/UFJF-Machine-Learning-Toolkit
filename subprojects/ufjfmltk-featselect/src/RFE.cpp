@@ -16,7 +16,7 @@ namespace mltk{
     namespace featselect {
         using namespace std;
 
-        template<typename T>
+        template<typename T> inline
         RFE<T>::RFE(std::shared_ptr<Data<T> > samples, classifier::Classifier<T> *classifier,
                     validation::CrossValidation *cv, int depth, int skip, int jump, bool leave_one_out) {
             this->samples = samples;
@@ -28,7 +28,7 @@ namespace mltk{
             this->leave_one_out = leave_one_out;
         }
 
-        template<typename T>
+        template<typename T> inline
         std::shared_ptr<Data<T> > RFE<T>::selectFeatures() {
             size_t dim = this->samples->dim(), partial_dim = 0, i = 0, j = 0;
             vector<int> features, partial_features, choosen_feats, fnames;
@@ -281,7 +281,7 @@ namespace mltk{
         /*----------------------------------------------------------*
         * Returns 1 for a > b, -1 a < b, 0 if a = b                *
         *----------------------------------------------------------*/
-        template<typename T>
+        template<typename T> inline
         int RFE<T>::compare_weight_greater(const select_weight &a, const select_weight &b) {
             /*                 V (greater)*/
             //printf("%d\n",(fabs(ia->w) > fabs(ib->w)) - (fabs(ia->w) < fabs(ib->w)));

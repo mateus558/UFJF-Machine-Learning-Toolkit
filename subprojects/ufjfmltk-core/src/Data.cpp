@@ -18,7 +18,7 @@
 namespace mltk{
     using namespace std;
 
-    template < typename T >
+    template<typename T> inline
     mltk::Data< T >::Data(const char* dataset){
         if(!load(string(dataset))){
             cerr << "Couldn't read the dataset." << endl;
@@ -53,7 +53,7 @@ namespace mltk{
         if(size > 0) this->is_empty = false;
     }
 
-    template < typename T >
+    template<typename T> inline
     mltk::Data< T >::Data(const char* dataset, const char* datasetType, const char* pos_class, const char* neg_class){
         this->pos_class = string(pos_class);
         this->neg_class = string(neg_class);
@@ -64,7 +64,7 @@ namespace mltk{
         }
     }
 
-    template < typename T >
+    template<typename T> inline
     Type mltk::Data< T >::identifyFileType(string file){
         size_t l , k, i, j, tsize = types.size();
 
@@ -101,7 +101,7 @@ namespace mltk{
         return Type::TYPE_INVALID;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::load(const string& file, bool _atEnd){
         Type t = identifyFileType(file);
         this->dataset_name = discover_dataset_name(file);
@@ -126,7 +126,7 @@ namespace mltk{
         return true;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::load_csv(const string& path){
         ifstream input(path.c_str());
         stringstream ss;
@@ -247,7 +247,7 @@ namespace mltk{
         return true;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::load_data(const string& path){
         ifstream input(path.c_str());
         string str, item, buffer;
@@ -371,7 +371,7 @@ namespace mltk{
         return true;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::load_arff(const string& path){
         ifstream input(path.c_str());
         istringstream ss;
@@ -483,7 +483,7 @@ namespace mltk{
         return true;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::load_txt(const string& path){
         ifstream input(path.c_str());
         istringstream ss;
@@ -616,7 +616,7 @@ namespace mltk{
         return c;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::removePoint(int pid){
         int i;
 
@@ -648,7 +648,7 @@ namespace mltk{
         return true;
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::write(const string& fname, string ext){
         int i, j;
         string path = fname + "." + ext;
@@ -684,7 +684,7 @@ namespace mltk{
         outstream.close();
     }
 
-    template < typename T >
+    template<typename T> inline
     vector<bool> mltk::Data< T >::removePoints(vector<int> ids){
         int idsize = ids.size(), i;
         bool save;
@@ -727,7 +727,7 @@ namespace mltk{
         return notFound;
     }
 
-    template < typename T >
+    template<typename T> inline
     mltk::Data< T >* mltk::Data< T >::insertFeatures(std::vector<int> ins_feat){
         size_t i, j, s, offset = 0, fsize = ins_feat.size();
         bool saveflag = false;
@@ -779,7 +779,7 @@ namespace mltk{
         return smout;
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::shuffle(const size_t &seed){
         std::mt19937 gen(seed);
         std::uniform_int_distribution<size_t> dist(0, m_size - 1);
@@ -793,7 +793,7 @@ namespace mltk{
         }
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::removeFeatures(std::vector<int> feats){
         size_t i, j, k, psize = m_points.size(), rsize = feats.size();
         typename vector< T >::iterator itr;
@@ -862,7 +862,7 @@ namespace mltk{
         return true;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::insertPoint(mltk::Data< T > sample, int _index){
         if(_index > sample.size() - 1){
             cerr << "Index out of bounds. (insertPoint)" << endl;
@@ -874,7 +874,7 @@ namespace mltk{
         return true;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::insertPoint(std::shared_ptr<Point< T > > p){
         //Dimension verification
         if(m_size > 0 && int(p->X().size()) >m_dim){
@@ -907,12 +907,12 @@ namespace mltk{
         return true;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::insertPoint(Point< T > &p){
         return this->insertPoint(std::make_shared<Point< T > >(p));
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::changeXVector(std::vector<int> _index){
         int i;
         std::vector<std::shared_ptr<Point< T > > > nPoints(m_size);
@@ -927,17 +927,17 @@ namespace mltk{
         m_points = nPoints;
     }
 
-    template < typename T >
+    template<typename T> inline
     PointPointer<T> mltk::Data< T >::point(int _index) const{
         return m_points[_index];
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::setPoint(int _index, std::shared_ptr<Point< T > > p){
         m_points[_index] = p;
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::classesCopy(const mltk::Data< T > &_data, std::vector<int> &classes){
         size_t _size = 0;
         std::set<int> _classes;
@@ -968,14 +968,14 @@ namespace mltk{
         this->cdist_computed = false;
     }
 
-    template < typename T >
+    template<typename T> inline
     Data<T> mltk::Data< T >::copy() const{
         mltk::Data<T> cp;
         cp.copy(*this);
         return cp;
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::copy(const mltk::Data<T> &_data){
         size_t _size = _data.size();
         this->m_points.clear();
@@ -1004,7 +1004,7 @@ namespace mltk{
         this->dataset_name = _data.dataset_name;
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::copyZero(const mltk::Data< T >& other){
         fnames = other.fnames;
         m_dim = other.m_dim;
@@ -1014,7 +1014,7 @@ namespace mltk{
         cdist_computed = false;
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::join(const Data< T >& data){
         size_t i, j, dim1 = data.dim(), antsize = m_size, size1 = data.size();
         std::vector<int> index1 = data.getIndex(), antindex = index;
@@ -1070,7 +1070,7 @@ namespace mltk{
         }
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::normalize(double p){
         int i = 0, j = 0;
         double norm = 0.0;
@@ -1094,42 +1094,42 @@ namespace mltk{
         normalized = true;
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::setDim(size_t _dim){
         this->m_dim = _dim;
     }
 
-    template < typename T >
+    template<typename T> inline
     std::vector<int> mltk::Data< T >::getFeaturesNames() const{
         return fnames;
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::setFeaturesNames(const std::vector<int>& _fnames){
         this->fnames = _fnames;
     }
 
-    template < typename T >
+    template<typename T> inline
     std::vector<std::shared_ptr<Point< T > > > mltk::Data< T >::points(){
         return m_points;
     }
 
-    template < typename T >
+    template<typename T> inline
     std::vector<std::shared_ptr<Point< T > > > mltk::Data< T >::points() const {
         return m_points;
     }
 
-    template < typename T >
+    template<typename T> inline
     std::vector<int> mltk::Data< T >::getIndex() const{
         return index;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::isEmpty() const{
         return is_empty;
     }
 
-    template < typename T >
+    template<typename T> inline
     mltk::Data< T >& mltk::Data< T >::operator=(const mltk::Data< T >& data){
         m_points = data.m_points;
         fnames = data.fnames;
@@ -1150,7 +1150,7 @@ namespace mltk{
     }
 
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::clear(){
         m_points.clear();
         fnames.clear();
@@ -1164,7 +1164,7 @@ namespace mltk{
         cdist_computed = false;
     }
 
-    template < typename T >
+    template<typename T> inline
     mltk::Data< T >::~Data(){
         fnames.clear();
         index.clear();
@@ -1177,23 +1177,23 @@ namespace mltk{
         cdist_computed = false;
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::setIndex(std::vector<int> _index) {
         this->index = _index;
     }
 
-    template < typename T >
+    template<typename T> inline
     void mltk::Data< T >::resetIndex(){
         index.assign(m_size, 0);
         iota(index.begin(), index.end(), 0);
     }
 
-    template < typename T >
+    template<typename T> inline
     double mltk::Data< T >::getTime_mult() const {
         return time_mult;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::operator==(const mltk::Data< T > &rhs) const {
         if(m_points.size() != rhs.m_points.size()) return false;
 
@@ -1229,7 +1229,7 @@ namespace mltk{
             normalized == rhs.normalized;
     }
 
-    template < typename T >
+    template<typename T> inline
     bool mltk::Data< T >::operator!=(const mltk::Data< T > &rhs) const {
         return !(rhs == *this);
     }

@@ -140,7 +140,7 @@ Gnuplot::Gnuplot(const std::vector<double> &x,
 //
 /// Plots a 2d graph from a list of doubles: x
 //
-template<typename X>
+template<typename X> inline
 Gnuplot& Gnuplot::plot_x(const X& x, const std::string &title)
 {
     if (x.size() == 0)
@@ -179,7 +179,7 @@ Gnuplot& Gnuplot::plot_x(const X& x, const std::string &title)
 ///
 /// plot x,y pairs with dy errorbars
 ///
-template<typename X, typename Y, typename E>
+template<typename X, typename Y, typename E> inline
 Gnuplot& Gnuplot::plot_xy_err(const X &x,
                               const Y &y,
                               const E &dy,
@@ -279,7 +279,7 @@ void Gnuplot::set_terminal_std(const std::string &type)
 // A string tokenizer taken from http://www.sunsite.ualberta.ca/Documentation/
 // /Gnu/libstdc++-2.90.8/html/21_strings/stringtok_std_h.txt
 //
-template <typename Container>
+template <typename Container> inline
 void stringtok (Container &container,
                 std::string const &in,
                 const char * const delimiters = " \t\n")

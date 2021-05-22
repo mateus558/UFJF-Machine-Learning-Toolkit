@@ -14,14 +14,14 @@ namespace mltk{
     namespace featselect {
         using namespace std;
 
-        template<typename T>
+        template<typename T> inline
         Golub<T>::Golub(shared_ptr<Data<T>> samples, classifier::Classifier<T> *classifier, int number) {
             this->samples = samples;
             this->classifier = classifier;
             this->number = number;
         }
 
-        template<typename T>
+        template<typename T> inline
         shared_ptr<Data<T> > Golub<T>::selectFeatures() {
             size_t i, j;
             size_t num_pos = 0, num_neg = 0, svs = 0, dim = this->samples->dim(), size = this->samples->size();
@@ -139,7 +139,7 @@ namespace mltk{
         /*----------------------------------------------------------*
         * Returns 1 for a > b, -1 a < b, 0 if a = b                *
         *----------------------------------------------------------*/
-        template<typename T>
+        template<typename T> inline
         int Golub<T>::golub_select_compare_score_greater(const golub_select_score &a, const golub_select_score &b) {
             //const golub_select_score *ia = (const golub_select_score*) a;
             //const golub_select_score *ib = (const golub_select_score*) b;

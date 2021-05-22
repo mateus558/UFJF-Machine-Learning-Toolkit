@@ -8,7 +8,7 @@
 
 namespace mltk{
     namespace regressor {
-        template<typename T>
+        template<typename T> inline
         LMSPrimal<T>::LMSPrimal(std::shared_ptr<Data<T>> samples, double rate, int verbose,
                                 Solution *initial_solution) {
             this->samples = samples;
@@ -23,7 +23,7 @@ namespace mltk{
             }
         }
 
-        template<typename T>
+        template<typename T> inline
         bool LMSPrimal<T>::train() {
             size_t j = 0, k = 0, size = this->samples->size(), dim = this->samples->dim();
             size_t time = this->start_time + this->max_time;

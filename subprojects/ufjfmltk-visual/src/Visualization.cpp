@@ -14,9 +14,9 @@ namespace mltk{
     namespace visualize{
         using namespace std;
         namespace fs = std::filesystem;
-        template<typename T>
+        template<typename T> inline
         size_t Visualization<T>::n_plots=0;
-        template < typename T >
+        template<typename T> inline
         Visualization< T >::Visualization(bool shared_session, bool keep_temp_files):
         is_shared(shared_session),
         keep_temp_files(keep_temp_files) {
@@ -24,7 +24,7 @@ namespace mltk{
             if(shared_session) g = new Gnuplot();
         }
 
-        template < typename T >
+        template<typename T> inline
         Visualization< T >::Visualization(Data<T> &sample, bool shared_session, bool keep_temp_files):
         is_shared(shared_session),
         keep_temp_files(keep_temp_files) {
@@ -40,17 +40,17 @@ namespace mltk{
             createTempFiles();
         }
 
-        template < typename T >
+        template<typename T> inline
         void Visualization< T >::setTitle(string title){
             configs["title"] = title;
         }
 
-        template < typename T >
+        template<typename T> inline
         void Visualization< T >::setStyle(string style){
             configs["style"] = style;
         }
 
-        template < typename T >
+        template<typename T> inline
         vector<string> Visualization< T >::createTempFiles(std::string plot_folder){
             size_t i, j, k, size = samples->size(), dim = samples->dim();
             vector<string> file_names;
@@ -107,7 +107,7 @@ namespace mltk{
             return file_names;
         }
 
-        template < typename T >
+        template<typename T> inline
         bool Visualization< T >::valid_file(string file){
             size_t i;
             bool flag = false;
@@ -129,7 +129,7 @@ namespace mltk{
             return flag;
         }
 
-        template < typename T >
+        template<typename T> inline
         vector<string> Visualization< T >::getTempFilesNames(bool append_path){
             vector<string> files;
 
@@ -172,7 +172,7 @@ namespace mltk{
             return files;
         }
 
-        template < typename T >
+        template<typename T> inline
         void Visualization< T >::removeTempFiles(){
             if(keep_temp_files) return;
             string path;
@@ -195,7 +195,7 @@ namespace mltk{
             temp_fnames.clear();
         }
 
-        template < typename T >
+        template<typename T> inline
         std::string Visualization< T >::plot2D(int x, int y, bool save, const double scale,
                                         const std::string& title,
                                         const std::string& format,
@@ -240,7 +240,7 @@ namespace mltk{
             return prepareScript(cmd);
         }
 
-        template < typename T >
+        template<typename T> inline
         std::string Visualization< T >::plot3D(int x, int y, int z, bool save, const double scale,
                                         const std::string& title,
                                         const std::string& format,
@@ -283,7 +283,7 @@ namespace mltk{
             return prepareScript(cmd);
         }
 
-        template < typename T >
+        template<typename T> inline
         std::string Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s, bool save, const double scale,
                                                       const std::string& title,
                                                       const std::string& format,
@@ -340,7 +340,7 @@ namespace mltk{
             return prepareScript(cmd);
         }
 
-        template < typename T >
+        template<typename T> inline
         std::string Visualization< T >::plot3DwithHyperplane(int x, int y, int z, Solution s, bool save, const double scale,
                                                       const std::string& title,
                                                       const std::string& format,
@@ -390,7 +390,7 @@ namespace mltk{
             return prepareScript(cmd);
         }
 
-        template < typename T >
+        template<typename T> inline
         void Visualization< T >::setSample(Data<T>& sample) {
             this->samples = &sample;
             if(fs::exists(plot_folder)) {
@@ -404,7 +404,7 @@ namespace mltk{
             createTempFiles();
         }
 
-        template<typename T>
+        template<typename T> inline
         std::vector<std::string> Visualization<T>::sortLabels(vector<std::string> &files, const std::string& type) {
             Point<int> classes = samples->classes();
             auto class_names = samples->classesNames();
@@ -439,7 +439,7 @@ namespace mltk{
             return names;
         }
 
-        template<typename T>
+        template<typename T> inline
         void
         Visualization<T>::configurePlot(const string &outname, const string &format, const string &title, bool save,
                                         const std::string& x_label, const std::string& y_label, const std::string& z_label) {
@@ -452,7 +452,7 @@ namespace mltk{
             configs["z_label"] = (z_label.empty())?"":z_label;
         }
 
-        template<typename T>
+        template<typename T> inline
         std::string Visualization<T>::fetchConfigs() {
             std::string confs;
             if(configs["save"] == "true") {
@@ -491,7 +491,7 @@ namespace mltk{
             return confs;
         }
 
-        template < typename T >
+        template<typename T> inline
         Visualization< T >::~Visualization(){
             this->samples = nullptr;
             delete g;
@@ -499,14 +499,14 @@ namespace mltk{
             removeTempFiles();
         }
 
-        template<typename T>
+        template<typename T> inline
         void Visualization<T>::cmd(const string &command) {
             Gnuplot g;
 
             g.cmd(command);
         }
 
-        template<typename T>
+        template<typename T> inline
         typename Visualization<T>::AxisRanges Visualization<T>::configureRange(const double scale, const int x,
                                                                                const int y, const int z) {
             AxisRanges axis_ranges;
@@ -537,7 +537,7 @@ namespace mltk{
             return axis_ranges;
         }
 
-        template<typename T>
+        template<typename T> inline
         std::string Visualization<T>::prepareScript(string cmd) {
             std::replace(cmd.begin(), cmd.end(), ';', '\n');
             return cmd;
