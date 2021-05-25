@@ -7,39 +7,45 @@
 #include "ufjfmltk/Visualize.hpp"
 #include <gtest/gtest.h>
 
-TEST(RegresorTests, Tests1D){
-    auto regressor_data = mltk::datasets::make_regression(100, 1, 2, 0.01).dataset;
+class RegressorTests: public ::testing::Test
+{
+protected:
+    void SetUp() override{
+        reg2d = mltk::datasets::make_regression(100, 2, 0, 2,  0, 30).dataset;
+        reg1d = mltk::datasets::make_regression(100, 1, 2, 0.01).dataset;
+    }
+    mltk::Data<double> reg1d, reg2d;
+};
 
-    std::cout << regressor_data.getType() << std::endl;
-    std::cout << regressor_data.name() << std::endl;
-    std::cout << "dim: " << regressor_data.dim() << std::endl;
+TEST_F(RegressorTests, Tests1D){
+    std::cout << reg1d.getType() << std::endl;
+    std::cout << reg1d.name() << std::endl;
+    std::cout << "dim: " << reg1d.dim() << std::endl;
 
-    mltk::visualize::Visualization<> vis(regressor_data, false);
+    mltk::visualize::Visualization<> vis(reg1d, false);
     vis.setTerminal("dumb");
     vis.plot1DRegresion();
 
-    mltk::regressor::LMSPrimal<double> lms(regressor_data, 0.5, 3);
+    mltk::regressor::LMSPrimal<double> lms(reg1d, 0.5, 3);
 
-    lms.train();
+    ASSERT_TRUE(lms.train());
 
     auto s = lms.getSolution();
     vis.plot1DRegresionHyperplane(0, s);
 }
 
-TEST(RegresorTests, Tests2D){
-    auto regressor_data = mltk::datasets::make_regression(100, 2, 0, 2,  0, 30).dataset;
+TEST_F(RegressorTests, Tests2D){
+    std::cout << reg2d.getType() << std::endl;
+    std::cout << reg2d.name() << std::endl;
+    std::cout << "dim: " << reg2d.dim() << std::endl;
 
-    std::cout << regressor_data.getType() << std::endl;
-    std::cout << regressor_data.name() << std::endl;
-    std::cout << "dim: " << regressor_data.dim() << std::endl;
-
-    mltk::visualize::Visualization<> vis(regressor_data, false);
+    mltk::visualize::Visualization<> vis(reg2d, false);
     vis.setTerminal("dumb");
     vis.plot2DRegresion();
 
-    mltk::regressor::LMSPrimal<double> lms(regressor_data, 0.001, 3);
+    mltk::regressor::LMSPrimal<double> lms(reg2d, 0.001, 3);
 
-    lms.train();
+    ASSERT_TRUE(lms.train());
 
     auto s = lms.getSolution();
     vis.plot2DRegresionHyperplane(0, 1, s);
