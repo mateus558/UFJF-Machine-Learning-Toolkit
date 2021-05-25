@@ -9,16 +9,16 @@
 namespace mltk{
     namespace regressor {
         template<typename T>
-        LMSPrimal<T>::LMSPrimal(std::shared_ptr<Data<T>> samples, double rate, int verbose,
+        LMSPrimal<T>::LMSPrimal(const Data<T>& samples, double rate, int verbose,
                                 Solution *initial_solution) {
-            this->samples = samples;
+            this->samples = mltk::make_data<T>(samples);
             this->rate = rate;
             this->verbose = verbose;
 
             if (initial_solution) {
                 this->solution = *initial_solution;
             } else {
-                this->solution.w.resize(samples->dim(), 0.0);
+                this->solution.w.resize(samples.dim(), 0.0);
                 this->solution.bias = 0.0;
             }
         }
@@ -27,7 +27,7 @@ namespace mltk{
         bool LMSPrimal<T>::train() {
             size_t j = 0, k = 0, size = this->samples->size(), dim = this->samples->dim();
             size_t time = this->start_time + this->max_time;
-            double error = 0.0, diff = 0.0, diffAnt = 0.0, cost_func = 0.0;
+            double diff = 0.0, diffAnt = 0.0, cost_func = 0.0;
             std::vector<double> func(size, 0.0);
 
             if (this->verbose) {
@@ -36,26 +36,23 @@ namespace mltk{
                 std::cout << "------------------------------------------------------------------------------------\n";
             }
 
-            this->solution.w.assign(dim, 0.0);
             this->timer.reset();
-
+            this->solution.w.assign(dim, 0.0);
+            mltk::Point<> w(this->samples->dim());
             for (this->steps = 0; this->steps < this->MAX_IT; this->steps++) {
                 cost_func = 0;
                 for (j = 0; j < size; j++) {
                     auto input = (*this->samples)[j];
                     //Compute function
                     for (func[j] = this->solution.bias, k = 0; k < dim; k++) {
-                        func[j] += (*input)[k] * this->solution.w[k];
+                        func[j] += (*input)[k] * w[k];
                     }
-                    cost_func += (func[j] - input->Y()) * (func[j] - input->Y());
+                    cost_func += (input->Y() - func[j]) * (input->Y() - func[j]);
                     //Verify if the point is a error
-                    error = (input->Y() - func[j]) * (*input)[j];
-                    if (error > this->EPS) {
-                        for (k = 0; k < dim; k++) {
-                            this->solution.w[k] += this->rate * error * (*input)[k];
-                        }
-                        ++this->ctot;
-                    }
+                    auto error = (input->Y() - func[j]);
+                    w += this->rate * error * (*input);
+                    this->solution.bias += (input->Y() - func[j]);
+                    ++this->ctot;
                 }
                 cost_func *= 0.5;
                 double secs = this->timer.elapsed();
@@ -66,7 +63,10 @@ namespace mltk{
                 }
                 if (fabs(cost_func - diffAnt) <= this->EPS) break;
                 diffAnt = cost_func;
-                if (time - this->timer.elapsed() * 1000 <= 0) break;
+                if (time - this->timer.elapsed() <= 0) break;
+            }
+            for(int i = 0; i < dim; i++){
+                this->solution.w[i] = w[i];
             }
             if (this->verbose >= 1) {
                 std::cout << "Number of steps through data: " << this->steps << std::endl;
@@ -74,7 +74,7 @@ namespace mltk{
 
                 if (this->verbose >= 2) {
                     for (j = 0; j < dim; ++j)
-                        std::cout << "W[" << this->samples->getFeaturesNames()[j] << "]: " << this->solution.w[j]
+                        std::cout << "W[" << j << "]: " << this->solution.w[j]
                                   << "\n";
                     std::cout << "Bias: " << this->solution.bias << "\n\n";
                 }

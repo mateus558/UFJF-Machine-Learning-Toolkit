@@ -15,7 +15,7 @@ namespace mltk{
         template<typename T>
         class LMSPrimal : public PrimalRegressor<T> {
         public:
-            explicit LMSPrimal(std::shared_ptr<Data<T> > samples = nullptr, double rate = 0.5, int verbose = 0,
+            explicit LMSPrimal(const Data<T>& samples, double rate = 0.5, int verbose = 0,
                                Solution *initial_solution = nullptr);
 
             bool train() override;

@@ -84,8 +84,8 @@ namespace mltk::datasets {
         return pair;
     }
 
-    RegPair make_regression(size_t n_samples, size_t n_dims, size_t n_informative, double bias, double noise,
-                            bool shuffle, size_t seed){
+    RegPair make_regression(size_t n_samples, size_t n_dims, double bias, double noise, double stdev,
+                            size_t n_informative, bool shuffle, size_t seed){
         mltk::random::init(seed);
         mltk::Data<double> dataset(n_samples, n_dims);
         RegPair pair;
@@ -101,10 +101,10 @@ namespace mltk::datasets {
             ground_truth[i] = mltk::random::floatInRange<double, std::normal_distribution<double>>(0,1);
         }
 
-        auto generate_values = [bias, &ground_truth, noise](mltk::PointPointer<double> p){
+        auto generate_values = [bias, &ground_truth, noise, stdev](mltk::PointPointer<double> p){
             if(noise > 0) {
                 p->Y() = mltk::dot(*p, ground_truth) + bias +
-                     mltk::random::floatInRange<double, std::normal_distribution<double> >(noise, 1.0);
+                     mltk::random::floatInRange<double, std::normal_distribution<double> >(stdev, noise);
             }else{
                 p->Y() = mltk::dot(*p, ground_truth) + bias;
             }

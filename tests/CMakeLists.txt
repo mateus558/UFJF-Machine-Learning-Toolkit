@@ -21,13 +21,15 @@ set(CLUSTERER_TESTS clusterer_test)
 add_subdirectory(clusterer)
 set(ENSEMBLE_TESTS ensemble_test)
 add_subdirectory(ensemble)
+set(REGRESSOR_TESTS regressor_test)
+add_subdirectory(regressor)
 
 if(CODE_COVERAGE)
-    set(COV_TARGETS ${ENSEMBLE_TESTS} ${CLUSTERER_TESTS} ${CLASSIFIER_TESTS} ${CORE_TESTS} ${VISUALIZATION_TESTS})
+    set(COV_TARGETS ${REGRESSOR_TESTS} ${ENSEMBLE_TESTS} ${CLUSTERER_TESTS} ${CLASSIFIER_TESTS} ${CORE_TESTS} ${VISUALIZATION_TESTS})
     setup_target_for_coverage_gcovr_html(
             NAME coverage
             EXECUTABLE ctest
-            DEPENDENCIES ${COV_TARGETS} ufjfmltk-core ufjfmltk-clusterer ufjfmltk-classifier ufjfmltk-ensemble ufjfmltk-valid ufjfmltk-visual
+            DEPENDENCIES ${COV_TARGETS} ufjfmltk-core ufjfmltk-clusterer ufjfmltk-classifier ufjfmltk-ensemble ufjfmltk-valid ufjfmltk-visual ufjfmltk-regressor
             EXCLUDE "cmake*;subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/hnswlib/*;subprojects/ufjfmltk-visual/src/gnuplot_i.cpp;subprojects/ufjfmltk-visual/include/ufjfmltk/visual/gnuplot_i.hpp"
     )
 endif(CODE_COVERAGE)

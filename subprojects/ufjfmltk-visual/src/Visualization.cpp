@@ -95,14 +95,15 @@ namespace mltk{
                 ofstream samples_file(std::string(plot_folder) + "samples.plt");
 
                 for (i = 0; i < size; i++) {
-                    for (j = 0; j < dim - 1; j++) {
+                    for (j = 0; j < dim; j++) {
                         samples_file << (double) (samples->point(i)->X()[j]) << " ";
                     }
-                    samples_file << (double) (samples->point(i)->X()[j]) << endl;
+                    samples_file << (double) (samples->point(i)->Y()) << endl;
                 }
 
                 samples_file.close();
-                file_names.emplace_back(std::string(plot_folder) + "samples.plt");
+                std::string fname = (this->samples->name().empty())?"samples.plt":this->samples->name()+".plt";
+                file_names.emplace_back(std::string(plot_folder) + fname);
             }
             return file_names;
         }
@@ -196,6 +197,79 @@ namespace mltk{
         }
 
         template<typename T>
+        std::string
+        Visualization<T>::plot1DRegresion(int x, bool save, double scale, const string &title, const string &format,
+                                          const string &x_label, const string &y_label) {
+            string dims = utils::itos(x+1) + ":" + utils::itos(2);
+            string cmd("plot ");
+            vector<string> temp_files_names;
+            size_t i;
+            std::string out_name = (this->samples->name().empty())?"2dplot_"+utils::itos(x)+"_regression":
+                                   this->samples->name()+"_2d_"+utils::itos(x)+"_regression";
+
+            configureRange(scale, x);
+            configurePlot(out_name, format, title, save, x_label, y_label);
+
+            temp_files_names = getTempFilesNames(true);
+            for(i = 0; i < temp_files_names.size() - 1; i++){
+                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " with points, ";
+            }
+            cmd += "\'" + temp_files_names[i] + "\' using " + dims + " with points";
+            cmd = fetchConfigs() + cmd;
+#ifdef __unix__
+            if(is_shared) g->cmd(cmd);
+            else {
+                Gnuplot g_;
+                g_.cmd(cmd);
+            }
+#elif _WIN32
+            cmd = "set terminal windows; " + cmd;
+                cmd = "echo " + cmd + " | gnuplot -persist";
+                system(cmd.c_str());
+#endif
+            return prepareScript(cmd);
+        }
+
+        template<typename T>
+        std::string
+        Visualization<T>::plot1DRegresionHyperplane(int x, Solution s, bool save, double scale, const string &title,
+                                                    const string &format, const string &x_label,
+                                                    const string &y_label) {
+            string dims = utils::itos(x+1) + ":" + utils::itos(this->samples->dim()+1);
+            string fx, cmd;
+            vector<string> temp_files_names;
+            size_t i;
+            std::string out_name = (this->samples->name().empty())?"2dplot_"+utils::itos(x)+"_regression":
+                                   this->samples->name()+"_2d_"+utils::itos(x)+"_regression";
+
+            configureRange(scale, x);
+            configurePlot(out_name, format, title, save, x_label, y_label);
+
+            fx = "f(x) = " + utils::dtoa(s.w[x]) + "*x + " + utils::dtoa(s.bias);
+            cmd = fx + ";" + "plot ";
+
+            temp_files_names = getTempFilesNames(true);
+            for(i = 0; i < temp_files_names.size() - 1; i++){
+                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " with points, ";
+            }
+            cmd += "\'" + temp_files_names[i] + "\' using " + dims + " notitle with points, f(x) notitle with lines ls 1 lt rgb \"red\"";
+            cmd = fetchConfigs() + cmd;
+
+#ifdef __unix__
+            if(is_shared) g->cmd(cmd);
+            else {
+                Gnuplot g_;
+                g_.cmd(cmd);
+            }
+#elif _WIN32
+            cmd = "set terminal windows; " + cmd;
+                cmd = "echo " + cmd + " | gnuplot -persist";
+                system(cmd.c_str());
+#endif
+            return prepareScript(cmd);
+        }
+
+        template<typename T>
         std::string Visualization< T >::plot2D(int x, int y, bool save, const double scale,
                                         const std::string& title,
                                         const std::string& format,
@@ -241,6 +315,138 @@ namespace mltk{
         }
 
         template<typename T>
+        std::string Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s, bool save, const double scale,
+                                                             const std::string& title,
+                                                             const std::string& format,
+                                                             const std::string& x_label, const std::string& y_label){
+            if(s.norm != s.norm) s.norm = 0.0;
+            string feats = utils::itos(x+1) + ":" + utils::itos(y+1);
+            string fx, gx, hx, cmd;
+            vector<string> temp_files_names, class_names = samples->classesNames();
+            size_t i;
+            std::string out_name = (this->samples->name().empty())?"2dplotsol_"+utils::itos(x)+"_"+utils::itos(y):
+                                   this->samples->name()+"_2dsol_"+utils::itos(x)+"_"+utils::itos(y);
+
+            configureRange(scale, x, y);
+            configurePlot(out_name, format, title, save, x_label, y_label);
+
+            if(s.bias != 0) {
+                fx = "f(x) = " + utils::dtoa(s.w[x] / -s.w[y]) + "*x + " +
+                     utils::dtoa(s.bias / -s.w[y]);
+                gx = "g(x) = " + utils::dtoa(s.w[x] / -s.w[y]) + "*x + " +
+                     utils::dtoa((s.bias + s.margin * s.norm) / -s.w[y]);
+                hx = "h(x) = " + utils::dtoa(s.w[x] / -s.w[y]) + "*x + " +
+                     utils::dtoa((s.bias - s.margin * s.norm) / -s.w[y]);
+            }else{
+                fx = "f(x) = " + utils::dtoa(s.w[x] / s.w[y]) + "*x";
+                gx = "g(x) = " + utils::dtoa(s.w[x] / s.w[y]) + "*x";
+                hx = "h(x) = " + utils::dtoa(s.w[x] / s.w[y]) + "*x";
+            }
+
+            cmd = fx + ";"+ gx +";"+ hx +";plot ";
+
+            if(samples->isClassification()){
+                temp_files_names = getTempFilesNames(true);
+                auto names = sortLabels(temp_files_names);
+                for(i = 0; i < class_names.size() - 1; i++){
+                    cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
+                }
+                cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+            }else if(samples->getType() == "Regression"){
+                cmd += "'"+ std::string(plot_folder) +"samples.plt' using "+feats+" title '+1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+            }
+            cmd = fetchConfigs() + cmd;
+#ifdef __unix__
+            if(is_shared) {
+                g->cmd(cmd);
+            }else {
+                Gnuplot g_;
+                g_.cmd(cmd);
+            }
+#elif _WIN32
+            cmd = "set terminal windows; " + cmd;
+            cmd = "echo " + cmd + " | gnuplot -persist";
+                system(cmd.c_str());
+#endif
+            return prepareScript(cmd);
+        }
+
+
+        template<typename T>
+        std::string Visualization<T>::plot2DRegresion(int x, int y, bool save, double scale, const string &title,
+                                                      const string &format, const string &x_label,
+                                                      const string &y_label, const string &z_label) {
+            string dims = utils::itos(x+1) + ":" + utils::itos(y+1) + ":"  + utils::itos(this->samples->dim()+1);
+            string fx, cmd("splot ");
+            vector<string> temp_files_names;
+            size_t i;
+            std::string out_name = (this->samples->name().empty())?"2dplot_"+utils::itos(x)+"_regression":
+                                   this->samples->name()+"_2d_"+utils::itos(x)+"_regression";
+
+            configureRange(scale, x);
+            configurePlot(out_name, format, title, save, x_label, y_label, z_label);
+
+            temp_files_names = getTempFilesNames(true);
+            for(i = 0; i < temp_files_names.size() - 1; i++){
+                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " with points, ";
+            }
+            cmd += "\'" + temp_files_names[i] + "\' using " + dims + " notitle with points";
+            cmd = fetchConfigs() + cmd;
+
+#ifdef __unix__
+            if(is_shared) g->cmd(cmd);
+            else {
+                Gnuplot g_;
+                g_.cmd(cmd);
+            }
+#elif _WIN32
+            cmd = "set terminal windows; " + cmd;
+                cmd = "echo " + cmd + " | gnuplot -persist";
+                system(cmd.c_str());
+#endif
+            return prepareScript(cmd);
+        }
+
+        template<typename T>
+        std::string Visualization<T>::plot2DRegresionHyperplane(int x, int y, Solution s, bool save, double scale,
+                                                                const string &title, const string &format,
+                                                                const string &x_label, const string &y_label,
+                                                                const string &z_label) {
+            string dims = utils::itos(x+1) + ":" + utils::itos(y+1) + ":"  + utils::itos(this->samples->dim()+1);
+            string fxy, cmd;
+            vector<string> temp_files_names;
+            size_t i;
+            std::string out_name = (this->samples->name().empty())?"2dplot_"+utils::itos(x)+"_regression":
+                                   this->samples->name()+"_2d_"+utils::itos(x)+"_regression";
+
+            configureRange(scale, x);
+            configurePlot(out_name, format, title, save, x_label, y_label, z_label);
+
+            fxy = "f(x,y) = "+utils::dtoa(s.w[x])+"*x + "+utils::dtoa(s.w[y])+"*y + "+utils::dtoa(s.bias);
+            cmd = fxy + "; splot ";
+
+            temp_files_names = getTempFilesNames(true);
+            for(i = 0; i < temp_files_names.size() - 1; i++){
+                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " with points, ";
+            }
+            cmd += "\'" + temp_files_names[i] + "\' using " + dims + " notitle with points, f(x,y) notitle with lines ls 1 lt rgb \"red\"";
+            cmd = fetchConfigs() + cmd;
+
+#ifdef __unix__
+            if(is_shared) g->cmd(cmd);
+            else {
+                Gnuplot g_;
+                g_.cmd(cmd);
+            }
+#elif _WIN32
+            cmd = "set terminal windows; " + cmd;
+                cmd = "echo " + cmd + " | gnuplot -persist";
+                system(cmd.c_str());
+#endif
+            return prepareScript(cmd);
+        }
+
+        template<typename T>
         std::string Visualization< T >::plot3D(int x, int y, int z, bool save, const double scale,
                                         const std::string& title,
                                         const std::string& format,
@@ -280,63 +486,6 @@ namespace mltk{
                     g_.plot_xyz(this->samples->getFeature(x), this->samples->getFeature(y), this->samples->getFeature(z));
                 }
             }
-            return prepareScript(cmd);
-        }
-
-        template<typename T>
-        std::string Visualization< T >::plot2DwithHyperplane(int x, int y, Solution s, bool save, const double scale,
-                                                      const std::string& title,
-                                                      const std::string& format,
-                                                      const std::string& x_label, const std::string& y_label){
-            if(s.norm != s.norm) s.norm = 0.0;
-            string feats = utils::itos(x+1) + ":" + utils::itos(y+1);
-            string fx, gx, hx, cmd;
-            vector<string> temp_files_names, class_names = samples->classesNames();
-            size_t i;
-            std::string out_name = (this->samples->name().empty())?"2dplotsol_"+utils::itos(x)+"_"+utils::itos(y):
-                                   this->samples->name()+"_2dsol_"+utils::itos(x)+"_"+utils::itos(y);
-
-            configureRange(scale, x, y);
-            configurePlot(out_name, format, title, save, x_label, y_label);
-
-            if(s.bias != 0) {
-                fx = "f(x) = " + utils::dtoa(s.w[x] / -s.w[y]) + "*x + " +
-                                utils::dtoa(s.bias / -s.w[y]);
-                gx = "g(x) = " + utils::dtoa(s.w[x] / -s.w[y]) + "*x + " +
-                                utils::dtoa((s.bias + s.margin * s.norm) / -s.w[y]);
-                hx = "h(x) = " + utils::dtoa(s.w[x] / -s.w[y]) + "*x + " +
-                                utils::dtoa((s.bias - s.margin * s.norm) / -s.w[y]);
-            }else{
-                fx = "f(x) = " + utils::dtoa(s.w[x] / s.w[y]) + "*x";
-                gx = "g(x) = " + utils::dtoa(s.w[x] / s.w[y]) + "*x";
-                hx = "h(x) = " + utils::dtoa(s.w[x] / s.w[y]) + "*x";
-            }
-
-            cmd = fx + ";"+ gx +";"+ hx +";plot ";
-
-            if(samples->isClassification()){
-                temp_files_names = getTempFilesNames(true);
-                auto names = sortLabels(temp_files_names);
-                for(i = 0; i < class_names.size() - 1; i++){
-                    cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
-                }
-                cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
-            }else if(samples->getType() == "Regression"){
-                cmd += "'"+ std::string(plot_folder) +"samples.plt' using "+feats+" title '+1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
-            }
-            cmd = fetchConfigs() + cmd;
-        #ifdef __unix__
-            if(is_shared) {
-                g->cmd(cmd);
-            }else {
-                Gnuplot g_;
-                g_.cmd(cmd);
-            }
-        #elif _WIN32
-            cmd = "set terminal windows; " + cmd;
-            cmd = "echo " + cmd + " | gnuplot -persist";
-                system(cmd.c_str());
-        #endif
             return prepareScript(cmd);
         }
 

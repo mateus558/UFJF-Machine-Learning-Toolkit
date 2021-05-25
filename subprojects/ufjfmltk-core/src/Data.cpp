@@ -1145,6 +1145,7 @@ namespace mltk{
         is_empty = data.is_empty;
         normalized = data.normalized;
         dataset_name = data.dataset_name;
+        type = data.type;
 
         return *this;
     }

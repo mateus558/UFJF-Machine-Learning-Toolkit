@@ -100,27 +100,26 @@ namespace mltk{
          */
         void setStyle (std::string style);
 
+        std::string plot1DRegresion(int x=0, bool save=false, double scale = 1.0,
+                                    const std::string& title="",
+                                    const std::string& format="svg",
+                                    const std::string& x_label="x", const std::string& y_label="y");
+
+        std::string plot1DRegresionHyperplane(int x, Solution s, bool save=false, double scale = 1.0,
+                                              const std::string& title="",
+                                              const std::string& format="svg",
+                                              const std::string& x_label="x", const std::string& y_label="y");
+
         /**
          * \brief Plot the selected features in 2D.
          * \param x (???) Feature to be used in the x-axis.
          * \param y (???) Feature to be used in the y-axis.
          * \return void
          */
-        std::string plot2D(int x, int y, bool save=false, double scale = 1.0,
+        std::string plot2D(int x = 0, int y=1, bool save=false, double scale = 1.0,
                     const std::string& title="",
                     const std::string& format="svg",
                     const std::string& x_label="x", const std::string& y_label="y");
-        /**
-         * \brief Plot the selected features in 3D.
-         * \param x (???) Feature to be used in the x-axis.
-         * \param y (???) Feature to be used in the y-axis.
-         * \param z (???) Feature to be used in the z-axis.
-         * \return void
-         */
-        std::string plot3D(int x, int y, int z, bool save=false, double scale = 1.0,
-                    const std::string& title="",
-                    const std::string& format="svg",
-                    const std::string& x_label="x", const std::string& y_label="y", const std::string& z_label="z");
         /**
          * \brief Plot the data in 2D with separated by the hyperplane in the solution.
          * \param x (???) Feature to be used in the x-axis.
@@ -128,9 +127,33 @@ namespace mltk{
          * \return void
          */
         std::string plot2DwithHyperplane(int x, int y, Solution w, bool save=false, double scale = 1.0,
-                                  const std::string& title="",
-                                  const std::string& format="svg",
-                                  const std::string& x_label="x", const std::string& y_label="y");
+                                         const std::string& title="",
+                                         const std::string& format="svg",
+                                         const std::string& x_label="x", const std::string& y_label="y");
+
+        std::string plot2DRegresion(int x=0, int y=1, bool save=false, double scale = 1.0,
+                                    const std::string& title="",
+                                    const std::string& format="svg",
+                                    const std::string& x_label="x", const std::string& y_label="y",
+                                    const std::string& z_label="z");
+
+        std::string plot2DRegresionHyperplane(int x, int y, Solution s, bool save=false, double scale = 1.0,
+                                              const std::string& title="",
+                                              const std::string& format="svg",
+                                              const std::string& x_label="x", const std::string& y_label="y",
+                                              const std::string& z_label="z");
+
+        /**
+         * \brief Plot the selected features in 3D.
+         * \param x (???) Feature to be used in the x-axis.
+         * \param y (???) Feature to be used in the y-axis.
+         * \param z (???) Feature to be used in the z-axis.
+         * \return void
+         */
+        std::string plot3D(int x=0, int y=1, int z=2, bool save=false, double scale = 1.0,
+                    const std::string& title="",
+                    const std::string& format="svg",
+                    const std::string& x_label="x", const std::string& y_label="y", const std::string& z_label="z");
         /**
          * \brief Plot the data in 2D with separated by the hyperplane in the solution.
          * \param x (???) Feature to be used in the x-axis.
@@ -145,7 +168,7 @@ namespace mltk{
                                   const std::string& z_label="z");
 
         template<class Learner>
-        std::string plotDecisionSurface2D(Learner& learner, int x, int y, bool is_trained = true, size_t grid_dim = 50,
+        std::string plotDecisionSurface2D(Learner& learner, int x=0, int y=1, bool is_trained = true, size_t grid_dim = 50,
                                           bool save=false,
                                    const double scale = 1.0,
                                    const std::string& title="",

@@ -31,8 +31,8 @@ namespace mltk::datasets{
                                   std::vector<double> clusters_std, int n_dims=2, bool shuffle=true,
                                   bool has_classes=true, size_t seed = 0);
 
-    RegPair make_regression(size_t n_samples=100, size_t n_dims=100, size_t n_informative=10, double bias=0.0,
-                            double noise=0.0, bool shuffle=true, size_t seed=0);
+    RegPair make_regression(size_t n_samples=100, size_t n_dims=100, double bias=0.0, double noise=0.1, double stdev=0.01,
+                            size_t n_informative=10, bool shuffle=true, size_t seed=0);
 
 }
 
