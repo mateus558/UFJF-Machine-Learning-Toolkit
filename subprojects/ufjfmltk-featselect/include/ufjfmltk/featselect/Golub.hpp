@@ -9,7 +9,7 @@
 
 namespace mltk{
     namespace featselect {
-        template<typename T>
+        template<typename T = double>
         class Golub : public FeatureSelection<T> {
         private:
             int number;
@@ -22,10 +22,10 @@ namespace mltk{
             static int golub_select_compare_score_greater(const golub_select_score &a, const golub_select_score &b);
 
         public:
-            explicit Golub(std::shared_ptr<Data<T> > samples = nullptr, classifier::Classifier<T> *classifier = nullptr,
+            explicit Golub(const Data<T>& samples, classifier::Classifier<T> *classifier = nullptr,
                            int number = 0);
 
-            std::shared_ptr<Data<T> > selectFeatures() override;
+            Data<T> selectFeatures() override;
         };
     }
 }

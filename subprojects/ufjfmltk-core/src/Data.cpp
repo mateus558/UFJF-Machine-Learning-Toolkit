@@ -122,7 +122,8 @@ namespace mltk{
                 cerr << "Invalid file type." << endl;
                 return false;
         }
-
+        fnames.assign(this->dim(), 0);
+        std::iota(fnames.begin(), fnames.end(), 0);
         return true;
     }
 
@@ -728,18 +729,18 @@ namespace mltk{
     }
 
     template<typename T>
-    mltk::Data< T >* mltk::Data< T >::insertFeatures(std::vector<int> ins_feat){
+    mltk::Data< T > mltk::Data< T >::insertFeatures(std::vector<int> ins_feat){
         size_t i, j, s, offset = 0, fsize = ins_feat.size();
         bool saveflag = false;
         vector<int> new_fnames(fsize, 0);
         std::shared_ptr<Point< T > > p;
         auto *smout = new mltk::Data< T >;
 
-        if(fsize == 0) return this;
+        if(fsize == 0) return this->copy();
         sort(ins_feat.begin(), ins_feat.end());
 
         //error check
-        if(fsize > m_dim){ cerr << "Error: InsertFeature, fsize(" << ins_feat.size() << ")>dim(" << m_dim << ")\n"; return smout; }
+        if(fsize > m_dim){ cerr << "Error: InsertFeature, fsize(" << ins_feat.size() << ")>dim(" << m_dim << ")\n"; return *smout; }
         smout->setDim(fsize);
 
         //Copying information to new data array
@@ -770,13 +771,13 @@ namespace mltk{
                 cerr << "Error: Something went wrong on InsertFeature\n";
                 cerr << "s = " << s << ", dim = " << m_dim << ", fsize = " << fsize << endl;
                 smout->clear();
-                return smout;
+                return *smout;
             }
             smout->insertPoint(p);
         }
         smout->setFeaturesNames(new_fnames);
 
-        return smout;
+        return *smout;
     }
 
     template<typename T>
@@ -817,7 +818,7 @@ namespace mltk{
         //Check the existence of the features to be removed
         for(i = 0; i < rsize; i++){
             for(j = 0; j < m_dim; j++){
-                if(feats[i] == fnames[j]){
+                if((feats[i] > -1) && feats[i] == fnames[j]){
                     break;
                 }
             }
@@ -877,13 +878,16 @@ namespace mltk{
     template<typename T>
     bool mltk::Data< T >::insertPoint(std::shared_ptr<Point< T > > p){
         //Dimension verification
-        if(m_size > 0 && int(p->X().size()) >m_dim){
+        if(m_size > 0 && int(p->X().size()) > this->dim()){
             cerr << "Point with dimension different from the data. (insertPoint)" << endl;
             cerr << "Point dim = " << p->X().size() << " dim = " << m_dim << endl;
             return false;
         }
 
-        if(m_size == 0) m_dim = p->X().size();
+        if(p->size() > 0) {
+            this->fnames = std::vector<int>(p->size(), 0);
+            std::iota(this->fnames.begin(), this->fnames.end(), 0);
+        }
         //Insert the point p at the end of the points vector
         m_points.insert(m_points.end(), p);
         m_size++;
@@ -978,7 +982,7 @@ namespace mltk{
     template<typename T>
     void mltk::Data< T >::copy(const mltk::Data<T> &_data){
         size_t _size = _data.size();
-        this->m_points.clear();
+        if(this->m_points.size() > 0) this->m_points.clear();
         this->m_points.resize(_size);
         for(size_t i = 0; i < _size; i++){
             this->m_points[i] = std::make_shared<Point< T > >();

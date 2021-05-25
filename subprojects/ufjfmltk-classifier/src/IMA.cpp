@@ -617,7 +617,7 @@ namespace mltk{
 
             if (!it) {
                 if (this->verbose) cout << "FMP convergency wasn't reached!\n";
-                return 0;
+                return false;
             }
             return true;
         }

@@ -383,7 +383,7 @@ namespace mltk{
          * @param ins_feat (???) Array with features that will be in the Data object.
          * @return Data If the object is empty something wrong happened.
          */
-        Data< T >* insertFeatures(std::vector<int> ins_feat);
+        Data< T > insertFeatures(std::vector<int> ins_feat);
         /**
          * \brief Remove several features from the sample.
          * \param feats (???) Names of the features to be removed (must be sorted).

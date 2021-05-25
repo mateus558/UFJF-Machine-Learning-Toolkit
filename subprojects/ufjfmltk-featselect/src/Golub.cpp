@@ -15,14 +15,14 @@ namespace mltk{
         using namespace std;
 
         template<typename T>
-        Golub<T>::Golub(shared_ptr<Data<T>> samples, classifier::Classifier<T> *classifier, int number) {
-            this->samples = samples;
+        Golub<T>::Golub(const Data<T>& samples, classifier::Classifier<T> *classifier, int number) {
+            this->samples = mltk::make_data<T>(samples);
             this->classifier = classifier;
             this->number = number;
         }
 
         template<typename T>
-        shared_ptr<Data<T> > Golub<T>::selectFeatures() {
+        Data<T> Golub<T>::selectFeatures() {
             size_t i, j;
             size_t num_pos = 0, num_neg = 0, svs = 0, dim = this->samples->dim(), size = this->samples->size();
             int partial = 0;
@@ -32,8 +32,6 @@ namespace mltk{
             vector<golub_select_score> scores(dim);
             shared_ptr<Data<T> > stmp(make_shared<Data<T> >()), stmp_partial(make_shared<Data<T> >());
             Solution sol;
-
-            this->number = this->final_dim;
 
             /*calc average*/
             for (i = 0; i < dim; ++i) {
@@ -129,10 +127,10 @@ namespace mltk{
 
             if (partial) {
                 stmp.reset();
-                return stmp_partial;
+                return *stmp_partial;
             } else {
                 stmp_partial.reset();
-                return stmp;
+                return *stmp;
             }
         }
 

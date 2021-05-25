@@ -21,25 +21,24 @@ namespace mltk{
         }
 
         template<typename T> 
-        Fisher<T>::Fisher(std::shared_ptr<Data<T> > samples, classifier::Classifier<T> *classifier, int final_dim) {
-            this->samples = samples;
+        Fisher<T>::Fisher(const Data<T>& samples, classifier::Classifier<T> *classifier, int final_dim) {
+            this->samples = mltk::make_data<T>(samples);
             this->classifier = classifier;
             this->final_dim = final_dim;
+            this->number = final_dim;
         }
 
         template<typename T> 
-        shared_ptr<Data<T>> Fisher<T>::selectFeatures() {
+        Data<T> Fisher<T>::selectFeatures() {
             size_t i, j;
             size_t num_pos = 0, num_neg = 0, svs = 0, dim = this->samples->dim(), size = this->samples->size();
             int partial = 0;
             double margin = 0.0;
-            vector<int> remove(dim - number), fnames;
+            vector<int> remove(dim - number, -1), fnames;
             vector<double> avg_neg(dim), avg_pos(dim), sd_neg(dim), sd_pos(dim), w;
             vector<fisher_select_score> scores(dim);
             shared_ptr<Data<T> > stmp(make_shared<Data<T> >()), stmp_partial(make_shared<Data<T> >());
             Solution sol;
-
-            this->number = this->final_dim;
 
             /*calc average*/
             for (i = 0; i < dim; ++i) {
@@ -135,10 +134,10 @@ namespace mltk{
 
             if (partial) {
                 stmp.reset();
-                return stmp_partial;
+                return *stmp_partial;
             } else {
                 stmp_partial.reset();
-                return stmp;
+                return *stmp;
             }
         }
 

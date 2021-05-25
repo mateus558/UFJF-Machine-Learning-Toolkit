@@ -56,12 +56,11 @@ endif()
 if(CODE_COVERAGE)
     include(CodeCoverage)
     append_coverage_compiler_flags()
+    add_compile_definitions(CODECOV_ENABLED)
 endif(CODE_COVERAGE)
 
 ### Compile- and install-related commands.
 add_subdirectory(subprojects)
-
-set(CMAKE_CXX_STANDARD 17)
 
 # Add integration tests (unit tests for each library should be in each sublibrary directory).
 if(ENABLE_TESTING)

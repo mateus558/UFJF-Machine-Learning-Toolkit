@@ -10,7 +10,7 @@
 
 namespace mltk{
     namespace featselect {
-        template<typename T>
+        template<typename T = double>
         class RFE : public FeatureSelection<T> {
         private:
             struct select_weight {
@@ -22,11 +22,11 @@ namespace mltk{
             static int compare_weight_greater(const select_weight &a, const select_weight &b);
 
         public:
-            explicit RFE(std::shared_ptr<Data<T> > samples = nullptr, classifier::Classifier<T> *classifier = nullptr,
-                         validation::CrossValidation *cv = nullptr, int depth = 0, int skip = 0, int jump = 0,
+            explicit RFE(const Data<T>& samples, classifier::Classifier<T> *classifier, int final_dim,
+                         validation::CrossValidation *cv = nullptr, int skip = 1, int jump = 1,
                          bool leave_one_out = false);
 
-            std::shared_ptr<Data<T> > selectFeatures() override;
+            Data<T> selectFeatures() override;
         };
     }
 }

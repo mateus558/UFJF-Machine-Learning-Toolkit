@@ -17,19 +17,27 @@ namespace mltk{
         using namespace std;
 
         template<typename T>
-        RFE<T>::RFE(std::shared_ptr<Data<T> > samples, classifier::Classifier<T> *classifier,
-                    validation::CrossValidation *cv, int depth, int skip, int jump, bool leave_one_out) {
-            this->samples = samples;
+        RFE<T>::RFE(const Data<T>& samples, classifier::Classifier<T> *classifier, int final_dim,
+                    validation::CrossValidation *cv, int skip, int jump, bool leave_one_out) {
+            this->samples = mltk::make_data<T>(samples);
             this->classifier = classifier;
-            this->depth = depth;
+            this->depth = this->samples->dim()-final_dim;
+            this->final_dim = final_dim;
             this->skip = skip;
             this->jump = jump;
             this->cv = cv;
+            if(!this->cv){
+                this->cv = new validation::CrossValidation();
+                this->cv->seed = std::vector<unsigned int>(1, 0);
+                this->cv->fold = 10;
+                this->cv->qtde = 0;
+                this->cv->jump = this->jump;
+            }
             this->leave_one_out = leave_one_out;
         }
 
         template<typename T>
-        std::shared_ptr<Data<T> > RFE<T>::selectFeatures() {
+        Data<T> RFE<T>::selectFeatures() {
             size_t dim = this->samples->dim(), partial_dim = 0, i = 0, j = 0;
             vector<int> features, partial_features, choosen_feats, fnames;
             vector<double> w, new_w;
@@ -47,10 +55,10 @@ namespace mltk{
             /*error check*/
             if (this->depth < 1 || this->depth >= dim) {
                 cerr << "Invalid depth!\n";
-                return 0;
+                return Data<T>();
             }
 
-            features.resize(this->depth);
+            features.assign(this->depth, -1);
             /*inicializando o cross-validation*/
             if (this->cv->qtde > 0) {
                 //utils_initialize_random();
@@ -96,7 +104,7 @@ namespace mltk{
                         if (this->cv->qtde > 0) {
                             if ((dim - partial_dim) % this->cv->jump != 0) {
                                 for (this->cv->actual_error = 0, i = 0; i < this->cv->qtde; i++) {
-                                    this->cv->actual_error +=100- validation::kfold(*stmp, *this->classifier,
+                                    this->cv->actual_error += 100- validation::kfold(*stmp, *this->classifier,
                                                                                 this->cv->fold, this->cv->seed[i], 0).accuracy;
                                 }
                                 kfolderror = this->cv->actual_error / this->cv->qtde;
@@ -140,7 +148,8 @@ namespace mltk{
                 if (this->cv->qtde > 0) {
                     if (level == 0) {
                         for (this->cv->initial_error = 0, i = 0; i < this->cv->qtde; i++) {
-                            validation::kfold(*stmp, *this->classifier, this->cv->fold, this->cv->seed[i], 0);
+                            auto report = validation::kfold(*stmp, *this->classifier, this->cv->fold, this->cv->seed[i], 0);
+                            this->cv->initial_error = report.error;
                         }
                         kfolderror = this->cv->initial_error / this->cv->qtde;
                     } else if (level % this->cv->jump == 0) {
@@ -179,14 +188,14 @@ namespace mltk{
 
                 cout << "---------------------\n";
                 if (this->verbose > 1) {
-                    for (i = 0; i < dim; ++i)
+                    for (i = 0; i < stmp->dim(); ++i)
                         cout << weight[i].fname << ": " << weight[i].w << endl;
                     cout << "---------------------\n";
                 }
 
                 /*stopping criterion*/
                 if (level >= this->depth ||
-                    (this->cv->qtde > 0 && this->cv->actual_error - this->cv->initial_error > this->cv->limit_error)) {
+                    (this->cv->qtde > 0 && (this->cv->actual_error - this->cv->initial_error) > this->cv->limit_error)) {
                     cout << "---------------\n :: FINAL :: \n---------------\n";
                     choosen_feats = stmp->getFeaturesNames();
                     cout << "Choosen Features: ";
@@ -271,10 +280,10 @@ namespace mltk{
             //samples.reset();
             if (partial) {
                 stmp.reset();
-                return std::move(stmp_partial);
+                return *stmp_partial;
             } else {
                 stmp_partial.reset();
-                return std::move(stmp);
+                return *stmp;
             }
         }
 

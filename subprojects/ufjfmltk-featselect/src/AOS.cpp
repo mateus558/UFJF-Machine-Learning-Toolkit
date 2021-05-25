@@ -17,18 +17,25 @@
 namespace mltk{
     namespace featselect {
         template<typename T>
-        AOS<T>::AOS(std::shared_ptr<Data<T> > samples, classifier::Classifier<T> *classifier,
-                    typename validation::CrossValidation *cv,
-                    int breadth, int depth, double bonus, int cut, int look_ahead_depth, int skip,
-                    int startover, double g_margin, bool doleave_oo, int sorting_shape, int choice_shape, int verbose) {
+        AOS<T>::AOS(const Data<T>& samples, classifier::Classifier<T> *classifier, int final_dim,
+                    typename validation::CrossValidation *cv, int breadth, double bonus, int cut,
+                    int look_ahead_depth, int skip, int startover, double g_margin, bool doleave_oo,
+                    int sorting_shape, int choice_shape, int verbose) {
             if (cv == nullptr) {
                 this->cv = new validation::CrossValidation;
             }
-            this->samples = samples;
+            this->samples = mltk::make_data<T>(samples);
             this->classifier = classifier;
             this->cv = cv;
+            if(!this->cv){
+                this->cv = new validation::CrossValidation();
+                this->cv->seed = std::vector<unsigned int>(1, 0);
+                this->cv->fold = 10;
+                this->cv->qtde = 0;
+                this->cv->jump = this->jump;
+            }
             this->breadth = breadth;
-            this->depth = depth;
+            this->depth = this->samples->dim()-final_dim;
             this->bonus = bonus;
             this->cut = cut;
             this->look_ahead_depth = look_ahead_depth;
@@ -45,7 +52,7 @@ namespace mltk{
 
 
         template<typename T>
-        std::shared_ptr<Data<T>> AOS<T>::selectFeatures() {
+        Data<T> AOS<T>::selectFeatures() {
             int i = 0;
             int tbreadth = 0;
             int level = 0;
@@ -82,6 +89,9 @@ namespace mltk{
                 this->cv->initial_error = 0;
                 this->cv->actual_error = 0;
             }
+
+            stmp_partial = mltk::make_data<T>(this->samples->copy());
+            this->ftime = ftime;
 
             /*do this while my depth permits*/
             while (1) {
@@ -250,10 +260,10 @@ namespace mltk{
             /*free stuff*/
             if (parcial) {
                 stmp.clear();
-                return this->stmp_partial;
+                return *this->stmp_partial;
             } else {
                 this->stmp_partial.reset();
-                return std::make_shared<Data<T> >(stmp);
+                return stmp;
             }
         }
 
@@ -278,12 +288,15 @@ namespace mltk{
             AOS<T>::select_gamma *gtmp = nullptr;
             AOS<T>::select_weight *weight = nullptr;
             bool isPrimal = this->classifier->getFormulationString() == "Primal";
+            auto data_copy = this->samples->copy();
 
             size_t dim = this->samples->dim();
             size_t size = this->samples->size();
             //double q = sample->q;
 
             int loolflag = 0; //fechar uma dimensao
+
+            this->classifier->setSamples(this->samples);
 
             if (this->heap->getSize() == 0) {
                 if (this->ftime && isPrimal) //primeira dimens�o -- solu��o exata primal
@@ -374,8 +387,8 @@ namespace mltk{
                     this->contprojtrained++;
 
                     /*verifica se realmente eh o melhor ou se jah chegou na profundidade desejada*/
-                    if (gtmp->value < this->heap->getElements()[1]->value ||
-                        gtmp->level == this->depth) {   /*reinsert the node into heap*/
+                    if ((gtmp->value < this->heap->getElements()[1]->value) ||
+                        (gtmp->level == this->depth)) {   /*reinsert the node into heap*/
                         gtmp->w = w;
                         gtmp->sv = svcount;
                         this->heap->insert(gtmp, 0);
@@ -475,8 +488,8 @@ namespace mltk{
                 this->contprojetados_parcial = this->contexpanded;
                 this->contprojtreinados_parcial = this->contprojtrained;
                 //sobraprojecoes_parcial = aos_select_heap_projected(heap);
-                this->stmp_partial.reset();
-                this->stmp_partial->copy(*this->samples);
+                this->stmp_partial = mltk::make_data<T>();
+                this->stmp_partial->copy(data_copy);
                 if (look_ahead_depth > 0) {
                     if (isPrimal) {
                         /*criar um w de manutencao pra volta do look_ahead*/

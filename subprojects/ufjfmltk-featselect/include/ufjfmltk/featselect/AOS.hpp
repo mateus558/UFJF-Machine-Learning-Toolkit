@@ -9,7 +9,7 @@
 
 namespace mltk{
     namespace featselect {
-        template<typename T>
+        template<typename T = double>
         class AOS : public FeatureSelection<T> {
         public:
             struct select_weight {
@@ -135,16 +135,16 @@ namespace mltk{
             std::string filename;
             std::unique_ptr<Heap> heap;
             std::unique_ptr<Hash> hash;
-            std::shared_ptr<Data<T> > stmp_partial;
+            std::shared_ptr<Data<T> > stmp_partial{nullptr};
 
         public:
-            AOS(std::shared_ptr<Data<T> > samples = nullptr, classifier::Classifier<T> *classifier = nullptr,
+            AOS(const Data<T>& samples, classifier::Classifier<T> *classifier, int final_dim,
                 typename validation::CrossValidation *cv = nullptr,
-                int breadth = 0, int depth = 0, double bonus = 0, int cut = 0, int look_ahead_depth = 0, int skip = 0,
-                int startover = 0, double g_margin = 0, bool doleave_oo = 0, int sorting_shape = 0,
+                int breadth = 3, double bonus = 0, int cut = 0, int look_ahead_depth = 0, int skip = 1,
+                int startover = 999999, double g_margin = 0, bool doleave_oo = 0, int sorting_shape = 0,
                 int choice_shape = 0, int verbose = 0);
 
-            std::shared_ptr<Data<T> > selectFeatures() override;
+            Data<T> selectFeatures() override;
 
             void mainLoop();
 

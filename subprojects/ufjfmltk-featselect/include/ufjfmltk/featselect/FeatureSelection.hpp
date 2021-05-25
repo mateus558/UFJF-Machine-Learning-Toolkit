@@ -55,7 +55,7 @@ namespace mltk{
              * \brief Function that executes the feature selection phase.
              * \return void std::shared_ptr<Data< T > >
              */
-            virtual std::shared_ptr<Data<T> > selectFeatures() = 0;
+            virtual Data<T> selectFeatures() = 0;
 
             /*********************************************
              *               Setters                     *

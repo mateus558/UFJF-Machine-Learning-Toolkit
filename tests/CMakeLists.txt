@@ -21,11 +21,13 @@ set(CLUSTERER_TESTS clusterer_test)
 add_subdirectory(clusterer)
 set(ENSEMBLE_TESTS ensemble_test)
 add_subdirectory(ensemble)
+set(FEATSELECT_TESTS featselect_test)
+add_subdirectory(featselect)
 set(REGRESSOR_TESTS regressor_test)
 add_subdirectory(regressor)
 
 if(CODE_COVERAGE)
-    set(COV_TARGETS ${REGRESSOR_TESTS} ${ENSEMBLE_TESTS} ${CLUSTERER_TESTS} ${CLASSIFIER_TESTS} ${CORE_TESTS} ${VISUALIZATION_TESTS})
+    set(COV_TARGETS ${FEATSELECT_TESTS} ${REGRESSOR_TESTS} ${ENSEMBLE_TESTS} ${CLUSTERER_TESTS} ${CLASSIFIER_TESTS} ${CORE_TESTS} ${VISUALIZATION_TESTS})
     setup_target_for_coverage_gcovr_html(
             NAME coverage
             EXECUTABLE ctest
