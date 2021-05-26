@@ -93,11 +93,11 @@ KNN accuracy: 100%
 
 ## Modules status
 * Data manipulation [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
-* Artificial datasets [![Generic badge](https://img.shields.io/badge/status-WIP-yellow.svg)](https://shields.io/)
+* Artificial datasets [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 * Data visualization [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 * Classifiers (Primal and Dual) [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 * Ensemble [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
-* Regression [![Generic badge](https://img.shields.io/badge/status-WIP-yellow.svg)](https://shields.io/)
+* Regression [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 * Validation (K-Fold Cross-Validation) [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 * Feature Selection [![Generic badge](https://img.shields.io/badge/status-WIP-yellow.svg)](https://shields.io/)
 * Documentation [![Generic badge](https://img.shields.io/badge/status-WIP-yellow.svg)](https://shields.io/)
