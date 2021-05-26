@@ -3,6 +3,7 @@
 //
 
 #include "ufjfmltk/core/Datasets.hpp"
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 namespace mltk::datasets {
