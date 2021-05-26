@@ -138,6 +138,7 @@ namespace mltk{
             std::shared_ptr<Data<T> > stmp_partial{nullptr};
 
         public:
+            AOS() = default;
             AOS(const Data<T>& samples, classifier::Classifier<T> *classifier, int final_dim,
                 typename validation::CrossValidation *cv = nullptr,
                 int breadth = 3, double bonus = 0, int cut = 0, int look_ahead_depth = 0, int skip = 1,

@@ -12,9 +12,10 @@ namespace mltk{
         /**
          * \brief Wrapper for the implementation of the Least Mean Square primal algorithm.
          */
-        template<typename T>
+        template<typename T = double>
         class LMSPrimal : public PrimalRegressor<T> {
         public:
+            LMSPrimal() = default;
             explicit LMSPrimal(const Data<T>& samples, double rate = 0.5, int verbose = 0,
                                Solution *initial_solution = nullptr);
 

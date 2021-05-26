@@ -29,7 +29,12 @@ TEST_F(RegressorTests, Tests1D){
     mltk::regressor::LMSPrimal<double> lms(reg1d, 0.5, 3);
 
     ASSERT_TRUE(lms.train());
+    mltk::Point<double> predictions(reg1d.size());
 
+    for(size_t i = 0; i < reg1d.size(); i++){
+        predictions[i] = lms.evaluate(reg1d(i));
+    }
+    ASSERT_LT(mltk::metrics::MSE(reg1d.getLabels(), predictions), 10);
     auto s = lms.getSolution();
     vis.plot1DRegresionHyperplane(0, s);
 }
@@ -46,7 +51,12 @@ TEST_F(RegressorTests, Tests2D){
     mltk::regressor::LMSPrimal<double> lms(reg2d, 0.001, 3);
 
     ASSERT_TRUE(lms.train());
+    mltk::Point<double> predictions(reg2d.size());
 
+    for(size_t i = 0; i < reg2d.size(); i++){
+        predictions[i] = lms.evaluate(reg2d(i));
+    }
+    ASSERT_LT(mltk::metrics::MSE(reg2d.getLabels(), predictions), 10);
     auto s = lms.getSolution();
     vis.plot2DRegresionHyperplane(0, 1, s);
 }

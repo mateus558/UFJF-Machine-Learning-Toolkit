@@ -22,6 +22,7 @@ namespace mltk{
             static int compare_weight_greater(const select_weight &a, const select_weight &b);
 
         public:
+            RFE() = default;
             explicit RFE(const Data<T>& samples, classifier::Classifier<T> *classifier, int final_dim,
                          validation::CrossValidation *cv = nullptr, int skip = 1, int jump = 1,
                          bool leave_one_out = false);

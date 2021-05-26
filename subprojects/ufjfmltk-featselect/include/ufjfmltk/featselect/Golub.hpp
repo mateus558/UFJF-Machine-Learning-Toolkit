@@ -22,6 +22,7 @@ namespace mltk{
             static int golub_select_compare_score_greater(const golub_select_score &a, const golub_select_score &b);
 
         public:
+            Golub() = default;
             explicit Golub(const Data<T>& samples, classifier::Classifier<T> *classifier = nullptr,
                            int number = 0);
 

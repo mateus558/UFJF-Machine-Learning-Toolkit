@@ -23,6 +23,7 @@ namespace mltk{
             static int fisher_select_compare_score_greater(const fisher_select_score &a, const fisher_select_score &b);
 
         public:
+            Fisher() = default;
             explicit Fisher(const Data<T>& samples = nullptr,
                             classifier::Classifier<T> *classifier = nullptr, int number = 0);
 
