@@ -4,7 +4,7 @@ if(UNIX)
 endif(UNIX)
 project(ufjfmltk
         LANGUAGES CXX C
-        VERSION 0.0.0.0)
+        VERSION 0.40.0)
 set (CMAKE_CXX_STANDARD 17)
 
 # Defines the CMAKE_INSTALL_LIBDIR, CMAKE_INSTALL_BINDIR and many other useful macros.

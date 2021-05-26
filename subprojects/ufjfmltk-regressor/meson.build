@@ -15,6 +15,7 @@ project_headers = ['include/ufjfmltk/regressor/Regressor.hpp',
     'include/ufjfmltk/regressor/DualRegressor.hpp', 
     'include/ufjfmltk/regressor/KNNRegressor.hpp', 
     'include/ufjfmltk/regressor/LMS.hpp',
+    'include/ufjfmltk/regressor/Metrics.hpp',
     'include/ufjfmltk/regressor/PrimalRegressor.hpp']
 
 project_dependencies = []
