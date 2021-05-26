@@ -3,6 +3,7 @@
 //
 
 #include "ufjfmltk/core/Datasets.hpp"
+#include <cmath>
 
 namespace mltk::datasets {
     mltk::Data<double> make_spirals(size_t n_samples, int n_classes, bool shuffle, double noise, size_t n_loops,
