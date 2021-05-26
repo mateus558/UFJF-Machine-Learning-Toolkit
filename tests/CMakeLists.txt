@@ -1,6 +1,4 @@
 message("Testing enabled.")
-enable_testing()
-
 include(FetchContent)
 FetchContent_Declare(
         googletest

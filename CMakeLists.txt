@@ -28,8 +28,11 @@ endif()
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+if(CODE_COVERAGE)
+    include(CodeCoverage)
+    append_coverage_compiler_flags()
+endif(CODE_COVERAGE)
 
 ### Options
 # Shared/Dynamic or Static library?
@@ -52,12 +55,6 @@ if(NOT CMAKE_CONFIGURATION_TYPES)
         set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE "Release")
     endif()
 endif()
-
-if(CODE_COVERAGE)
-    include(CodeCoverage)
-    append_coverage_compiler_flags()
-    add_compile_definitions(CODECOV_ENABLED)
-endif(CODE_COVERAGE)
 
 ### Compile- and install-related commands.
 add_subdirectory(subprojects)
