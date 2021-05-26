@@ -45,7 +45,7 @@ jobs:
       run: pip install meson ninja
       
     - name: Configure meson build
-      run: meson . build
+      run: meson . build --backend=ninja
       
     - name: Compile project
       run: meson compile -C build
