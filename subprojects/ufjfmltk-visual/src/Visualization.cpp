@@ -1,7 +1,4 @@
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-#else
 #include "ufjfmltk/visual/Visualization.hpp"
-#endif
 #include <cstdio>
 #include <string>
 #include <sstream>

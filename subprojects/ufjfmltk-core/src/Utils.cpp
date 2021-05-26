@@ -3,10 +3,7 @@
    \file Utils.cpp
    \author Mateus Coutinho Marim
 */
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-#else
 #include "ufjfmltk/core/Utils.hpp"
-#endif
 #include <cmath>
 #include <cstring>
 #include <sstream>

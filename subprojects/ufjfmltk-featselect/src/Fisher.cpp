@@ -1,10 +1,7 @@
 //
 // Created by Mateus Coutinho Marim on 7/27/2018.
 //
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-#else
 #include "ufjfmltk/featselect/Fisher.hpp"
-#endif
 #include <algorithm>
 #include <cmath>
 #include "ufjfmltk/valid/Validation.hpp"

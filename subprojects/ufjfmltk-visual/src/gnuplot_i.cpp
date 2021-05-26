@@ -28,10 +28,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-#else
 #include "ufjfmltk/visual/gnuplot_i.hpp"
-#endif
 #include <stdio.h>
 
 //------------------------------------------------------------------------------
