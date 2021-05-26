@@ -11,7 +11,7 @@ namespace mltk{
             /**
              * \brief Wrapper for the implementation of the K-Nearest Neighbors regression algorithm.
              */
-            template<typename T, typename Callable = metrics::dist::Euclidean <T> >
+            template<typename T = double, typename Callable = metrics::dist::Euclidean <T> >
             class KNNRegressor : public PrimalRegressor<T> {
             private:
                 /// Number k of neighbors considered during training

@@ -17,7 +17,7 @@ protected:
     mltk::Data<double> reg1d, reg2d;
 };
 
-TEST_F(RegressorTests, Tests1D){
+TEST_F(RegressorTests, Tests1DLMS){
     std::cout << reg1d.getType() << std::endl;
     std::cout << reg1d.name() << std::endl;
     std::cout << "dim: " << reg1d.dim() << std::endl;
@@ -34,12 +34,14 @@ TEST_F(RegressorTests, Tests1D){
     for(size_t i = 0; i < reg1d.size(); i++){
         predictions[i] = lms.evaluate(reg1d(i));
     }
-    ASSERT_LT(mltk::metrics::MSE(reg1d.getLabels(), predictions), 10);
+    auto mse = mltk::metrics::MSE(reg1d.getLabels(), predictions);
+    std::cout << "LMS 1D MSE: " << mse << std::endl;
+    ASSERT_LT(mse, 10);
     auto s = lms.getSolution();
     vis.plot1DRegresionHyperplane(0, s);
 }
 
-TEST_F(RegressorTests, Tests2D){
+TEST_F(RegressorTests, Tests2DLMS){
     std::cout << reg2d.getType() << std::endl;
     std::cout << reg2d.name() << std::endl;
     std::cout << "dim: " << reg2d.dim() << std::endl;
@@ -56,7 +58,45 @@ TEST_F(RegressorTests, Tests2D){
     for(size_t i = 0; i < reg2d.size(); i++){
         predictions[i] = lms.evaluate(reg2d(i));
     }
-    ASSERT_LT(mltk::metrics::MSE(reg2d.getLabels(), predictions), 10);
+    auto mse = mltk::metrics::MSE(reg1d.getLabels(), predictions);
+    std::cout << "LMS 2D MSE: " << mse << std::endl;
+    ASSERT_LT(mse, 15);
     auto s = lms.getSolution();
     vis.plot2DRegresionHyperplane(0, 1, s);
+}
+
+TEST_F(RegressorTests, Tests1DKNN){
+    std::cout << reg1d.getType() << std::endl;
+    std::cout << reg1d.name() << std::endl;
+    std::cout << "dim: " << reg1d.dim() << std::endl;
+
+    mltk::regressor::KNNRegressor<> knn(reg1d, 3);
+
+    ASSERT_TRUE(knn.train());
+    mltk::Point<double> predictions(reg1d.size());
+
+    for(size_t i = 0; i < reg1d.size(); i++){
+        predictions[i] = knn.evaluate(reg1d(i));
+    }
+    auto mse = mltk::metrics::MSE(reg1d.getLabels(), predictions);
+    std::cout << "KNN 1D MSE: " << mse << std::endl;
+    ASSERT_LT(mse, 10);
+}
+
+TEST_F(RegressorTests, Tests2DKNN){
+    std::cout << reg2d.getType() << std::endl;
+    std::cout << reg2d.name() << std::endl;
+    std::cout << "dim: " << reg2d.dim() << std::endl;
+
+    mltk::regressor::KNNRegressor<> knn(reg2d, 3);
+
+    ASSERT_TRUE(knn.train());
+    mltk::Point<double> predictions(reg2d.size());
+
+    for(size_t i = 0; i < reg1d.size(); i++){
+        predictions[i] = knn.evaluate(reg2d(i));
+    }
+    auto mse = mltk::metrics::MSE(reg2d.getLabels(), predictions);
+    std::cout << "KNN 2D MSE: " << mse << std::endl;
+    ASSERT_LT(mse, 10);
 }
