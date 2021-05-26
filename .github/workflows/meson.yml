@@ -34,3 +34,17 @@ jobs:
       run: meson . build
     - name: Compile project
       run: meson compile -C build
+      
+  windows-build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install dependencies
+      run: pip install meson
+      
+    - name: Configure meson build
+      run: meson . build
+    - name: Compile project
+      run: meson compile -C build
