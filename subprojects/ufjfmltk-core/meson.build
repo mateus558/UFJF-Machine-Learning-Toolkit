@@ -30,8 +30,8 @@ project_headers = ['include/ufjfmltk/core/Data.hpp',
     'include/ufjfmltk/core/Datasets.hpp'
     ]
 
-public_headers = include_directories('include', is_system:true)
-lib_args = ['-DBUILDING_CORE']
+public_headers = include_directories('include')
+lib_args = []
 
 project_target = library(meson.project_name(), [project_source_files, project_headers],
   install : true,
@@ -47,13 +47,14 @@ install_headers('include/ufjfmltk/Core.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(
-  include_directories: [include_directories('include','src','.', is_system : true)],
+  include_directories: [include_directories('include','src','.')],
   sources: project_headers,
   link_with : project_target,
 )
 
+meson.override_dependency('ufjfmltk-core', project_target_dep)
+
 varprefix = '_'.join(meson.project_name().split('-'))
-set_variable(varprefix + '_dep', project_target_dep)
 set_variable(varprefix + '_tgt', project_target)
 
 pkg_mod = import('pkgconfig')

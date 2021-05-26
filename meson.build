@@ -18,15 +18,14 @@ project_sources = []
 message('Build type: ' + build_type)
 message('Install directory: ' + prefix / project_install_dir)
 message('Default library type: ' + library_type)
-message('\nInstalling the necessary submodules, this can take some time. \n')
 
 combined = []
 project_dependencies = []
 foreach module_name : modules_names
   module = subproject(module_name)
+  project_dependencies += dependency(module_name)
   module_name = '_'.join(module_name.split('-'))
   combined += module.get_variable(module_name+'_tgt').extract_all_objects()
-  project_dependencies += module.get_variable(module_name+'_dep')
 endforeach
 
 subdir('docs')
@@ -48,7 +47,8 @@ project_target_dep = declare_dependency(
   dependencies: project_dependencies
 )
 
-set_variable(meson.project_name() + '_dep', project_target_dep)
+meson.override_dependency('ufjfmltk', project_target_dep)
+
 set_variable(meson.project_name() + '_tgt', project_target)
 
 pkg_mod = import('pkgconfig')

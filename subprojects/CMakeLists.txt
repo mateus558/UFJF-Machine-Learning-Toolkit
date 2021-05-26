@@ -23,7 +23,7 @@ install(TARGETS ${PROJECT_NAME}
         RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk" COMPONENT dev)
 
-install(FILES ufjfmltk.hpp
+install(FILES ../ufjfmltk.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
 message(STATUS "Created target ${PROJECT_NAME} for export ${PROJECT_NAME}.")

@@ -25,11 +25,10 @@ if not meson.is_subproject()
   project_dependencies += cpp_compiler.find_library('ufjfmltk-valid', required : true)
   public_headers = include_directories('include') 
 else
-  project_dependencies += subproject('ufjfmltk-core').get_variable('ufjfmltk_core_dep')
-  project_dependencies += subproject('ufjfmltk-classifier').get_variable('ufjfmltk_classifier_dep')
-  project_dependencies += subproject('ufjfmltk-valid').get_variable('ufjfmltk_valid_dep')
-  public_headers = include_directories('include', '../ufjfmltk-core/include',
-                   '../ufjfmltk-classifier/include','../ufjfmltk-valid/include')
+  project_dependencies += dependency('ufjfmltk-core')
+  project_dependencies += dependency('ufjfmltk-classifier')
+  project_dependencies += dependency('ufjfmltk-valid')
+  public_headers = include_directories('include')
 endif
 
 project_target = library(meson.project_name(), [project_source_files, project_headers],
@@ -49,9 +48,9 @@ project_target_dep = declare_dependency(
   sources: project_headers,
   link_with : project_target,
 )
+meson.override_dependency('ufjfmltk-featselect', project_target_dep)
 
 varprefix = '_'.join(meson.project_name().split('-'))
-set_variable(varprefix + '_dep', project_target_dep)
 set_variable(varprefix + '_tgt', project_target)
 
 pkg_mod = import('pkgconfig')
