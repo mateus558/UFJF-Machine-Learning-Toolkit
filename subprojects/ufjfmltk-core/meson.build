@@ -39,8 +39,6 @@ project_target = library(meson.project_name(), [project_source_files, project_he
   include_directories : public_headers,
   version: meson.project_version(),
   soversion: '0',
-  cpp_args : lib_args,
-  gnu_symbol_visibility : 'default',
 )
 
 install_headers('include/ufjfmltk/Core.hpp', subdir: 'ufjfmltk')
