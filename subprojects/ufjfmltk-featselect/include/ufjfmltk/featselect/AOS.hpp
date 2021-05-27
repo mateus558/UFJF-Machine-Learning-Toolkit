@@ -6,6 +6,7 @@
 #define UFJF_MLTK_AOS_H
 
 #include "FeatureSelection.hpp"
+#include "ufjfmltk/Core.hpp"
 
 namespace mltk{
     namespace featselect {
@@ -28,18 +29,18 @@ namespace mltk{
 
             struct select_gamma {
                 std::vector<int> fnames;
-                int level;
-                int sv;
-                int train;
-                double value; /*valor usado como criterio de escolha*/
-                double pgamma; /*projected gamma*/
-                double rgamma; /*real gamma p/ display*/
-                double radius; /*raio*/
-                double dcents; /*distancia entre os centros*/
-                double golub; /*golub - estatistica*/
-                double fisher; /*fisher - estatistica*/
+                int level{0};
+                int sv{0};
+                int train{0};
+                double value{0}; /*valor usado como criterio de escolha*/
+                double pgamma{0}; /*projected gamma*/
+                double rgamma{0}; /*real gamma p/ display*/
+                double radius{0}; /*raio*/
+                double dcents{0}; /*distancia entre os centros*/
+                double golub{0}; /*golub - estatistica*/
+                double fisher{0}; /*fisher - estatistica*/
                 std::vector<double> w;
-                double bias;
+                double bias{0};
 
                 bool operator==(AOS::select_gamma other) const;
             };
@@ -104,7 +105,7 @@ namespace mltk{
 
                 void percolate(size_t i);
 
-                void cut(std::unique_ptr<AOS::Hash> hash, int levelat, int cut, double g_margin, int verbose);
+                void cut(std::shared_ptr<AOS::Hash> hash, int levelat, int cut, double g_margin, int verbose);
 
                 ~Heap();
             };
@@ -131,25 +132,39 @@ namespace mltk{
             double partial_margin, partial_svs, partial_time, partial_dim;
             double START_TIME, initial_time, max_time_orig;
             bool doleave_oo = false;
+            double mult_tempo = 2;
+        public:
+            void setMultTempo(double multTempo) {
+                mult_tempo = multTempo;
+            }
+
+        private:
+            int q = 2;
+            mltk::KernelType kernel_type = INNER_PRODUCT;
 
             std::string filename;
             std::unique_ptr<Heap> heap;
-            std::unique_ptr<Hash> hash;
+            std::shared_ptr<Hash> hash;
             std::shared_ptr<Data<T> > stmp_partial{nullptr};
+
+        private:
+            static bool select_gamma_equal(const select_gamma *a, const select_gamma *b);
 
         public:
             AOS() = default;
             AOS(const Data<T>& samples, classifier::Classifier<T> *classifier, int final_dim,
                 typename validation::CrossValidation *cv = nullptr,
-                int breadth = 3, double bonus = 0, int cut = 0, int look_ahead_depth = 0, int skip = 1,
-                int startover = 999999, double g_margin = 0, bool doleave_oo = 0, int sorting_shape = 0,
-                int choice_shape = 0, int verbose = 0);
+                int breadth = 3, int sorting_shape = 1,
+                int choice_shape = 1, int look_ahead_depth = 0, int cut = 0, int skip = 1, double bonus = 0,
+                int startover = 999999, double g_margin = 0, bool doleave_oo = 0, int verbose = 0);
 
             Data<T> selectFeatures() override;
 
-            void mainLoop();
+            void mainLoop(Data<T>& sample);
 
-            double lookAhead(std::vector<int> fnames_orig, std::vector<double> w_orig, int level_orig);
+            double lookAhead(Data<T>& sample, std::vector<int> fnames_orig, std::vector<double> w_orig, int level_orig);
+
+            void setQ(int q);
         };
     }
 }

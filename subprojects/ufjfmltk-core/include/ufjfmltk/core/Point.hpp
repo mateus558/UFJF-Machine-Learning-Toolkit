@@ -255,12 +255,8 @@ namespace mltk {
              * \param p p of the norm (euclidean norm is the default).
              * \return double
              */
-            double norm (int p = NormType::NORM_L2){
-                if(p == NormType::NORM_LINF){
-                    return max(abs(*this));
-                }
-                return std::pow(pow(abs(*this), p).sum(), 1.0/p);
-            }
+            double norm (int p = NormType::NORM_L2) const;
+
             /**
              * \brief Compute the sum of the components of the point.
              * \return The sum of the components of the point.
@@ -496,6 +492,10 @@ namespace mltk {
     /*********************************************
      *               Point functions             *
      *********************************************/
+    template<typename T>
+    double norm(const Point<T>& p, int q){
+        return p.norm(q);
+    }
 
     /**
      * \brief Computes the dot product with a vector.
@@ -621,6 +621,14 @@ namespace mltk {
     template < typename T, typename P, typename R>
     Point<T, F_Pow<T, P, R> >  pow(const Point<T, R>& p, const P &power){        
         return Point<T, F_Pow<T, P, R > >(F_Pow<T, P, R>(p.X(), power));
+    }
+
+    template<typename T, typename Rep>
+    double mltk::Point<T, Rep>::norm (int p) const{
+        if(p == NormType::NORM_LINF){
+            return mltk::max(mltk::abs(*this));
+        }
+        return std::pow(mltk::pow(mltk::abs(*this), p).sum(), 1.0/p);
     }
     /**
      * \brief normalize Normalize a vector using a Lp-norm.

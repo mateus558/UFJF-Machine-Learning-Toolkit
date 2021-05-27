@@ -4,6 +4,7 @@
 #include "ufjfmltk/featselect/AOS.hpp"
 #include <algorithm>
 #include <functional>
+#include <ufjfmltk/featselect/AOS.hpp>
 #include "ufjfmltk/classifier/PrimalClassifier.hpp"
 #include "ufjfmltk/classifier/SMO.hpp"
 
@@ -15,9 +16,9 @@ namespace mltk{
     namespace featselect {
         template<typename T>
         AOS<T>::AOS(const Data<T>& samples, classifier::Classifier<T> *classifier, int final_dim,
-                    typename validation::CrossValidation *cv, int breadth, double bonus, int cut,
-                    int look_ahead_depth, int skip, int startover, double g_margin, bool doleave_oo,
-                    int sorting_shape, int choice_shape, int verbose) {
+                    typename validation::CrossValidation *cv, int breadth,
+                    int sorting_shape, int choice_shape, int look_ahead_depth, int cut, int skip, double bonus,
+                    int startover, double g_margin, bool doleave_oo, int verbose) {
             if (cv == nullptr) {
                 this->cv = new validation::CrossValidation;
             }
@@ -74,7 +75,7 @@ namespace mltk{
             if (this->depth > this->MAX_DEPTH) { this->depth = this->MAX_DEPTH; }
 
             /*create a hash*/
-            this->hash = std::make_unique<AOS<T>::Hash>(this->HASH_SIZE, this->HASH_WIDTH);
+            this->hash = std::make_shared<AOS<T>::Hash>(this->HASH_SIZE, this->HASH_WIDTH);
             this->heap = std::make_unique<AOS<T>::Heap>();
 
             /*inicializando o cross-validation*/
@@ -151,7 +152,7 @@ namespace mltk{
                     if (this->breadth > dim) this->breadth = dim;
 
                     /*run select*/
-                    this->mainLoop();
+                    this->mainLoop(*this->samples);
                     std::cout << this->heap->getSize() << std::endl;
                     if (this->heap->getSize() == 0) {
                         std::cout << "Initial training failed!!!\n\n";
@@ -237,7 +238,7 @@ namespace mltk{
                     if (tbreadth > stmp.dim()) tbreadth = stmp.dim();
 
                     /*run select*/
-                    this->mainLoop();
+                    this->mainLoop(stmp);
 
                     /*free stuff*/
                     stmp.clear();
@@ -269,7 +270,7 @@ namespace mltk{
         *----------------------------------------------------------*/
 
         template<typename T>
-        void AOS<T>::mainLoop() {
+        void AOS<T>::mainLoop(Data<T>& sample) {
             std::vector<int> ofnames;
             std::vector<double> w, w_manut;
             size_t i = 0, j = 0, k = 0;
@@ -282,72 +283,29 @@ namespace mltk{
             double tpmargin = 0;
             double sumnorm = 0;
             double leave_oo = -1;
+            size_t dim = sample.dim();
+            size_t size = sample.size();
             AOS<T>::select_gamma *gtmp = nullptr;
-            AOS<T>::select_weight *weight = nullptr;
+            std::vector<AOS<T>::select_weight> weight(dim);
             bool isPrimal = this->classifier->getFormulationString() == "Primal";
-            auto data_copy = this->samples->copy();
+            auto data_copy = sample.copy();
 
-            size_t dim = this->samples->dim();
-            size_t size = this->samples->size();
             //double q = sample->q;
 
             int loolflag = 0; //fechar uma dimensao
 
-            this->classifier->setSamples(this->samples);
+            this->classifier->setSamples(sample);
 
             if (this->heap->getSize() == 0) {
-                if (this->ftime && isPrimal) //primeira dimens�o -- solu��o exata primal
-                {
-                    auto *primal = dynamic_cast<classifier::PrimalClassifier<T> *>(this->classifier);
-
-                    if (primal->getQ() == 2) {
-                        classifier::SMO<T> smo(*this->samples, KernelType::INNER_PRODUCT, 0, 0);
-
-                        if (!smo.train()) {
-                            //if (!smo_train(sample, &w, &margin, &svcount, 0)) {
-                            if (this->verbose > 1) std::cout << "Training failed!\n";
-                            return;
-                        }
-
-                        Solution sol = smo.getSolution();
-
-                        w = sol.w;
-                        margin = sol.margin;
-                        svcount = sol.svs;
-
-                    } else if (primal->getQ() == 1) {
-                        /* Implementar solução exata por programação linear
-                        if (!linear_programming(sample, &w, &margin, &svcount, 0)) {
-                            if (this->verbose > 1) std::cout << "Treinamento falhou!\n";
-                            return;
-                        }*/
-                    }
-                } else if (this->ftime &&
-                           this->samples->getTime_mult() == 2) //primeira dimens�o -- solu��o exata dual -- "gambiarra"
-                {
-                    classifier::SMO<T> smo(*this->samples, KernelType::INNER_PRODUCT, 0, 0);
-                    if (!smo.train()) {
-                        //if (!smo_train(sample, &w, &margin, &svcount, 0)) {
-                        if (this->verbose > 1) std::cout << "Training failed!\n";
-                        return;
-                    }
-
-                    Solution sol = smo.getSolution();
-
-                    w = sol.w;
-                    margin = sol.margin;
-                    svcount = sol.svs;
-                } else {
-                    if (!this->classifier->train()) {
-                        if (this->verbose > 1) std::cout << "Training failed!\n";
-                        return;
-                    }
-
-                    Solution sol = this->classifier->getSolution();
-
-                    w = sol.w;
-                    margin = sol.margin;
-                    svcount = sol.svs;
+                if(!this->classifier->train()){
+                    std::cerr << "Training failed!" << std::endl;
+                }
+                auto solution = this->classifier->getSolution();
+                w = solution.w;
+                margin = solution.margin;
+                svcount = solution.svs;
+                if(ftime){
+                    max_time /= mult_tempo;
                 }
             } else {
                 gtmp = this->heap->pop();
@@ -366,7 +324,7 @@ namespace mltk{
                     margin = gtmp->pgamma;
 
                     this->classifier->getSolutionRef()->bias = gtmp->bias;
-                    this->classifier->setSamples(this->samples);
+                    this->classifier->setSamples(sample);
 
                     if (!this->classifier->train()) {   /*training failed, remove this option*/
                         gtmp = nullptr;
@@ -374,8 +332,13 @@ namespace mltk{
                         return;
                     }
 
+                    auto solution = this->classifier->getSolution();
+                    w = solution.w;
+                    margin = solution.margin;
+                    svcount = solution.svs;
+
                     if (this->choice_shape == 2)
-                        gtmp->value = margin * mltk::stats::distCenters(*this->samples, -1);
+                        gtmp->value = margin * mltk::stats::distCenters(sample, -1);
                     else
                         gtmp->value = margin;
                     gtmp->rgamma = margin;
@@ -423,12 +386,12 @@ namespace mltk{
                 if (this->cv->qtde > 0) {
                     if (level == 0) {
                         for (this->cv->initial_error = 0, i = 0; i < this->cv->qtde; i++)
-                            this->cv->initial_error += 100-validation::kfold(*this->samples, *this->classifier,
+                            this->cv->initial_error += 100-validation::kfold(sample, *this->classifier,
                                                                          this->cv->fold, this->cv->seed[i], 0).accuracy;
                         kfolderror = this->cv->initial_error / this->cv->qtde;
                     } else if (level % this->cv->jump == 0) {
                         for (this->cv->actual_error = 0, i = 0; i < this->cv->qtde; i++)
-                            this->cv->actual_error += 100-validation::kfold(*this->samples, *this->classifier,
+                            this->cv->actual_error += 100-validation::kfold(sample, *this->classifier,
                                                                         this->cv->fold, this->cv->seed[i], 0).accuracy;
                         kfolderror = this->cv->actual_error / this->cv->qtde;
                     }
@@ -441,7 +404,6 @@ namespace mltk{
                               << leave_oo << ", SVs: " << svcount << ", Time: "
                               << ((100.0f * clock() / CLOCKS_PER_SEC) - this->initial_time) / 100.0f << "\n";
                 } else {
-                    std::cout << this->startdim << " " << level << std::endl;
                     leave_oo = -1;
                     std::cout << "--- --- --- --- --- --- --- ---\n";
                     if (this->cv->qtde > 0 && level % this->cv->jump == 0)
@@ -495,14 +457,14 @@ namespace mltk{
                     }
 
                     /*get new look ahead margin*/
-                    g_margin = this->lookAhead(ofnames, w, level);
+                    g_margin = this->lookAhead(sample, ofnames, w, level);
 
                     if (isPrimal) {
                         w = w_manut;
                     }
                 }
                 /*cut heap based on its level and look ahead margin*/
-                //this->heap->cut(this->hash, lool, cut, g_margin, this->verbose);
+                this->heap->cut(this->hash, lool, cut, g_margin, this->verbose);
 
                 if (this->verbose > 2) {
                     std::cout << " (" << this->heap->getSize() << ")\t";
@@ -511,7 +473,217 @@ namespace mltk{
                     std::cout << "\n";
                 }
             }
+            for(i = 0; i < dim; i++){
+                weight[i].w = w[i];
+                weight[i].indice = i;
+                weight[i].fname = sample.getFeaturesNames()[i];
+                weight[i].radius = -1;
+                weight[i].dcents = -1;
+                weight[i].golub = -1;
+                weight[i].fisher = -1;
+            }
 
+            if(sorting_shape == 2){
+                for(i = 0; i < dim; i++){
+                    weight[i].dcents = mltk::stats::distCenters(sample, weight[i].fname);
+                }
+            }else if(sorting_shape == 3){
+                for(i = 0; i < dim; i++){
+                    weight[i].radius = mltk::stats::radius(sample, weight[i].fname, q);
+                    weight[i].dcents = mltk::stats::distCenters(sample, weight[i].fname);
+                }
+            }else if(sorting_shape == 4){
+                for(i = 0; i < dim; i++){
+                    weight[i].radius = mltk::stats::radius(sample, weight[i].fname, q);;
+                }
+            }else if(sorting_shape == 5 || sorting_shape == 6){
+                int num_pos = 0, num_neg = 0;
+
+                auto classes = sample.classes();
+                auto neg_id = std::find(classes.begin(), classes.end(), -1) - classes.begin();
+                auto pos_id = std::find(classes.begin(), classes.end(), 1) - classes.begin();
+
+                num_pos = sample.classesDistribution()[pos_id];
+                num_neg = sample.classesDistribution()[neg_id];
+
+                std::vector<double> avg_pos(dim), avg_neg(dim), sd_pos(dim), sd_neg(dim);
+
+                // calc average
+                for(i = 0; i < dim; i++){
+                    avg_neg[i] = 0; avg_pos[i] = 0;
+                    for(j = 0; j < size; j++){
+                        if(sample.point(j)->Y() == -1){
+                            avg_neg[i] += sample.point(j)->X()[i];
+                        }else{
+                            avg_pos[i] += sample.point(j)->X()[i];
+                        }
+                    }
+                    avg_neg[i] /= num_neg;
+                    avg_pos[i] /= num_pos;
+                }
+                // calc variance
+                for(i = 0; i < dim; i++){
+                    sd_neg[i] = 0; sd_pos[i] = 0;
+                    for(j = 0; j < size; j++){
+                        if(sample.point(j)->Y() == -1){
+                            sd_neg[i] += std::pow(sample.point(j)->X()[i]-avg_neg[i], 2);
+                        }else{
+                            sd_pos[i] += std::pow(sample.point(j)->X()[i]-avg_pos[i], 2);
+                        }
+                    }
+                }
+
+                for(i = 0; i < dim; i++){
+                    weight[i].golub = std::fabs(avg_pos[i] - avg_pos[i])/(std::sqrt(sd_pos[i]/num_pos-1)) +
+                            std::sqrt(sd_neg[i]/num_neg-1);
+                    weight[i].fisher = std::pow(avg_pos[i] - avg_neg[i], 2)/(sd_pos[i] + sd_neg[i]);
+                }
+            }
+
+            // sorting shape
+            if(sorting_shape == 6){ // w* fisher
+                std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
+                    return (std::fabs(a.w * a.fisher) > std::fabs(b.w * b.fisher)) -
+                    (std::fabs(a.w * a.fisher) < std::fabs(b.w * b.fisher));
+                });
+            }else if(sorting_shape == 5){ // w * golub
+                std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
+                    return (std::fabs(a.w * a.golub) > std::fabs(b.w * b.golub)) -
+                    (std::fabs(a.w * a.golub) < std::fabs(b.w * b.golub));
+                });
+            }else if(sorting_shape == 4){  // w * radius
+                std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
+                    return (std::fabs(a.w * a.radius) > std::fabs(b.w * b.radius)) -
+                    (std::fabs(a.w * a.radius) < std::fabs(b.w * b.radius));
+                });
+            }else if(sorting_shape == 3){ // w * radius / distcenter
+                std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
+                    return (std::fabs((a.w * a.radius)/a.dcents) > std::fabs((b.w * b.radius)/b.dcents)) -
+                    (std::fabs((a.w * a.radius)/a.dcents) < std::fabs((b.w * b.radius)/b.dcents));
+                });
+            }else if(sorting_shape == 2){ // w / distcenter
+                std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
+                    return (std::fabs(a.w / a.dcents) > std::fabs(b.w / b.dcents)) -
+                    (std::fabs(a.w / a.dcents) < std::fabs(b.w / b.dcents));
+                });
+            }else{
+                std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
+                    return (std::fabs(a.w)>std::fabs(b.w)) - (std::fabs(a.w)<std::fabs(b.w));
+                });
+            }
+
+            if(kernel_type == INNER_PRODUCT){
+                wnorm = mltk::norm(mltk::Point<double>(w), q);
+            }else{
+                mltk::Kernel kernel(INNER_PRODUCT);
+                kernel.compute(make_data<T>(sample));
+                wnorm = kernel.featureSpaceNorm(make_data<T>(sample));
+            }
+
+            // branching nodes
+            for(i = 0; i < breadth; i++){
+                if(kernel_type == INNER_PRODUCT){
+                    // projected margin computation on IMA primal
+                    if(dim > 1){
+                        for(sumnorm = 0, j = 0; j < dim; j++){
+                            if(i != j){
+                                sumnorm += std::pow(std::fabs(weight[i].w/wnorm)*margin, q);
+                            }
+                        }
+                        tpmargin = std::pow(sumnorm, 1.0/q);
+                    }
+                }else{ // projected margin computation on IMA dual and SMO
+                    mltk::Kernel kernel;
+                    auto Hk = kernel.generateMatrixHwithoutDim(make_data<T>(sample), weight[i].indice);
+                    std::vector<double> alphaaux(size);
+
+                    for(k = 0; k < size; ++k){
+                        for(alphaaux[k] = 0, j = 0; j < size; ++j){
+                            alphaaux[k] += sample.point(j)->Alpha() * (*Hk)[k][j];
+                        }
+                    }
+
+                    for(sumnorm = 0, k = 0; k < size; k++){
+                        sumnorm += alphaaux[k] * sample.point(k)->Alpha();
+                    }
+
+                    tpmargin = std::sqrt(sumnorm)/wnorm*margin;
+                }
+                // creating nodes for heap
+                gtmp = new select_gamma;
+
+                // setting values
+                if(choice_shape == 2){
+                    gtmp->value = tpmargin*weight[i].dcents;
+                }else{
+                    gtmp->value = tpmargin;
+                }
+                gtmp->pgamma = tpmargin;
+                gtmp->rgamma = -1;
+                gtmp->train = 0;
+                gtmp->sv = 0;
+                gtmp->level = level+1;
+                gtmp->radius = weight[i].radius;
+                gtmp->dcents = weight[i].dcents;
+                gtmp->golub = weight[i].golub;
+                gtmp->fisher = weight[i].fisher;
+
+                // father node W maintenance
+                if(kernel_type == INNER_PRODUCT){
+                    gtmp->w.resize(dim);
+
+                    for(k = 0, j < 0; k < dim; k++){
+                        if(sample.getFeaturesNames()[j] != weight[i].fname){
+                            gtmp->w[k++] = w[j];
+                        }
+                    }
+                }
+
+                // resizing fnames array
+                gtmp->fnames.resize(level+1);
+
+                for(j = 0; j < level; j++){
+                    gtmp->fnames[j] = ofnames[j];
+                }
+                gtmp->fnames[j] = weight[i].fname;
+
+                // sorting new feature array
+                std::sort(gtmp->fnames.begin(), gtmp->fnames.end(), [](const auto& a, const auto& b){
+                    return (a > b) - (a < b);
+                });
+                if(choice_shape == 2){
+                    if(i != 0 && tpmargin*weight[i].dcents < (1-NUM_ERROR_EPS)*(g_margin)){
+                        hash->add(gtmp);
+                        contnotheap++; continue;
+                    }
+                }else{
+                    if(i != 0 && tpmargin < (1-NUM_ERROR_EPS)*g_margin){
+                        hash->add(gtmp);
+                        contnotheap++; continue;
+                    }
+                }
+
+                if(this->verbose){
+                    if(sorting_shape == 5 || sorting_shape == 6){
+                        std::cout << "  -- New Node - Feature " << weight[i].fname << ", Value: " << gtmp->value <<
+                        ", pMargin: " << gtmp->pgamma << ", DCent: " << gtmp->dcents << ", Radius: " << gtmp->radius <<
+                        ", Golub: " << gtmp->golub << ", Fisher: " << gtmp->fisher << ", Level: " << gtmp->level <<
+                        std::endl;
+                    }else{
+                        std::cout << "  -- New Node - Feature " << weight[i].fname << ", Value: " << gtmp->value <<
+                        ", pMargin: " << gtmp->pgamma << ", DCent: " << gtmp->dcents << ", Radius: " << gtmp->radius <<
+                        gtmp->level << std::endl;
+                    }
+                }
+
+                // push node into heap if it is not redundant in hash
+                if(hash->add(gtmp)){
+                    heap->insert(gtmp, 1);
+                    contprojected++;
+                }else{
+                    conthashnotheap++;
+                }
+            }
         }
 
         /*----------------------------------------------------------*
@@ -519,7 +691,7 @@ namespace mltk{
         *----------------------------------------------------------*/
 
         template<typename T>
-        double AOS<T>::lookAhead(std::vector<int> fnames_orig, std::vector<double> w_orig, int level_orig) {
+        double AOS<T>::lookAhead(Data<T>& sample, std::vector<int> fnames_orig, std::vector<double> w_orig, int level_orig) {
             size_t i = 0, j = 0;
             int level = level_orig;
             int svcount = 0;
@@ -532,15 +704,15 @@ namespace mltk{
             double g_margin = 0;
             std::vector<double> w = w_orig;
             std::vector<double> novo_w;
-            auto stmp = this->samples;
+            auto stmp = make_data<T>(sample);
             select_gamma *gtmp = nullptr;
             double distcents = 0;
             Solution sol;
 
             while (true) {
                 /*stopping criterion*/
-                if (count == this->look_ahead_depth || count == this->samples->dim() - 1 ||
-                        stmp->dim() == this->samples->dim() - this->depth || level == this->depth)
+                if (count == this->look_ahead_depth || count == sample.dim() - 1 ||
+                        stmp->dim() == sample.dim() - this->depth || level == this->depth)
                     break;
                 if (this->choice_shape == 2) {
                     /*selecting one feature with least w / dist. centers*/
@@ -566,8 +738,8 @@ namespace mltk{
 
                 /*manutencao do w do pai para o IMA Primal*/
                 if (isPrimal) {
-                    size_t dim = this->samples->dim() - 1;
-                    std::vector<int> fnames = this->samples->getFeaturesNames();
+                    size_t dim = sample.dim() - 1;
+                    std::vector<int> fnames = sample.getFeaturesNames();
                     novo_w.resize(dim - 1);
                     for (i = 0, j = 0; j < dim; ++j)
                         if (fnames[j] != feat)
@@ -578,9 +750,10 @@ namespace mltk{
                 features[count] = feat;
 
                 /*removing old data sample*/
-                if (*stmp != *this->samples) stmp.reset();
+                if (*stmp != sample) stmp.reset();
 
                 /*get temp data struct*/
+                stmp = make_data<T>(sample.copy());
                 stmp->removeFeatures(features);
 
                 if (level == 0)
@@ -667,7 +840,7 @@ namespace mltk{
             w_orig = w;
 
             /*free stuff*/
-            if (*stmp != *this->samples) stmp.reset();
+            if (*stmp != sample) stmp.reset();
 
             return 0;
         }
@@ -697,6 +870,26 @@ namespace mltk{
             look_ahead_depth = lookAheadDepth;
         }
 
+        template<typename T>
+        void AOS<T>::setQ(int q) {
+            AOS::q = q;
+        }
+
+        template<typename T>
+        bool AOS<T>::select_gamma_equal(const AOS::select_gamma *a, const AOS::select_gamma *b) {
+            int i = 0;
+            int eq = 0;
+
+            if(a->level != b->level){
+                return false;
+            }
+            for(i = 0; i < a->level; i++){
+                if(a->fnames[i] == b->fnames[i]) eq++;
+                else break;
+            }
+            return (eq == a->level);
+        }
+
         /***********************************************************
          *              HASH FUNCTIONS                             *
          ***********************************************************/
@@ -707,7 +900,7 @@ namespace mltk{
 
         template<typename T>
         AOS<T>::Hash::Hash(size_t length, size_t width) {
-            size_t i;
+            size_t i, j;
 
             this->length = length;
             this->width = width;
@@ -716,6 +909,10 @@ namespace mltk{
 
             for (i = 0; i < length; i++) {
                 elements[i] = new AOS<T>::select_gamma *[width];
+
+                for(j = 0; j < width; j++){
+                    elements[i][j] = nullptr;
+                }
             }
         }
 
@@ -744,7 +941,7 @@ namespace mltk{
             i = 0;
             while (i < this->width && this->elements[index][i] != nullptr) {
                 /*check equality between nodes*/
-                if (*elmt == *(this->elements[index][i])) {
+                if (select_gamma_equal(elmt, this->elements[index][i])) {
                     /*this node is identical to some other node*/
                     /*check if this node has real gamma*/
                     if (this->elements[index][i]->rgamma < 0) {
@@ -812,7 +1009,7 @@ namespace mltk{
             i = 0;
             while (i < this->width && this->elements[index][i] != nullptr) {
                 /*check equality between nodes*/
-                if (*elmt == *(this->elements[index][i])) {
+                if (select_gamma_equal(elmt, this->elements[index][i])) {
                     /*shift elements*/
                     j = i + 1;
                     while (j < this->width && this->elements[index][j] != nullptr) {
@@ -955,7 +1152,7 @@ namespace mltk{
                     i = MAX_HEAP;
                 else return false;
             } else i = ++(this->size);
-            std::cout << this->size << std::endl;
+
             val = (this->elements[i / 2] != nullptr) ? this->elements[i / 2]->value : 0;
 
             while (i > 1 && val < tok->value) {
@@ -1072,7 +1269,7 @@ namespace mltk{
         *----------------------------------------------------------*/
 
         template<typename T>
-        void AOS<T>::Heap::cut(std::unique_ptr<AOS<T>::Hash> hash, int levelat, int cut, double g_margin, int verbose) {
+        void AOS<T>::Heap::cut(std::shared_ptr<AOS<T>::Hash> hash, int levelat, int cut, double g_margin, int verbose) {
             size_t i = 0, count = 0;
             AOS<T>::select_gamma *curr = nullptr;
 
@@ -1082,7 +1279,7 @@ namespace mltk{
                     if (curr->value < (1 - NUM_ERROR_EPS) * g_margin || levelat - curr->level >= cut) {
                         /*errase it from hash*/
                         delete curr;
-
+                        curr = nullptr;
                         /*percolate heap*/
                         this->size--;
                         this->percolate(i);

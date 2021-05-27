@@ -115,30 +115,25 @@ TEST_F(FeatselectTests, RFECVTest){
     vis.plot3D();
 }
 
-//TEST_F(FeatselectTests, AOSCVTest){
-//    auto cv = mltk::validation::CrossValidation();
-//    cv.qtde = 1;
-//    cv.fold = 5;
-//    cv.jump = 1;
-//    cv.limit_error = 4;
-//    mltk::classifier::IMAp<> ima;
-//    ima.setMaxTime(500);
-//    mltk::featselect::AOS<> aos(iris, &ima, 2);
-//
-//    aos.setVerbose(3);
-//    auto selec_data = aos.selectFeatures();
-//    ASSERT_EQ(selec_data.dim(), 3);
-//
-//    mltk::visualize::Visualization<> vis(selec_data);
-//   // vis.setTerminal("dumb");
-//    vis.plot3D();
-//
-////    mltk::featselect::AOS<> aos1(data_100, &ima, 3, &cv);
-////
-////    aos1.setVerbose(3);
-////    auto selec_data1 = aos1.selectFeatures();
-////    ASSERT_EQ(selec_data1.dim(), 3);
-////
-////    vis.setSample(selec_data1);
-////    vis.plot3D();
-//}
+TEST_F(FeatselectTests, AOSTest){
+    mltk::classifier::IMAp<> ima;
+    ima.setMaxTime(500);
+    mltk::featselect::AOS<> aos(iris, &ima, 2, nullptr, 2, 1, 2, 2);
+    mltk::visualize::Visualization<> vis;
+    vis.setTerminal("dumb");
+    aos.setVerbose(3);
+
+    auto selec_data = aos.selectFeatures();
+    ASSERT_EQ(selec_data.dim(), 2);
+    vis.setSample(selec_data);
+    vis.plot2D();
+
+    for(int sorting_shape = 2; sorting_shape < 7; sorting_shape++){
+        mltk::featselect::AOS<> aos1(iris, &ima, 2, nullptr, 2, sorting_shape);
+        aos1.setVerbose(0);
+        auto selec_data1 = aos1.selectFeatures();
+        ASSERT_EQ(selec_data1.dim(), 2);
+        vis.setSample(selec_data1);
+        vis.plot2D();
+    }
+}
