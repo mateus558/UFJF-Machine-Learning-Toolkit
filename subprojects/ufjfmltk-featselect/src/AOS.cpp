@@ -990,69 +990,69 @@ namespace mltk{
         * erase an element from my hash                            *
         *----------------------------------------------------------*/
 
-        template<typename T>
-        void AOS<T>::Hash::set_null(AOS<T>::select_gamma *elmt) {
-            unsigned int i = 0, j = 0;
-            int index = 0;
-            double func = 0;
-
-            /*error check*/
-            if (elmt == nullptr || this->elements == nullptr) return;
-
-            /*hashing function*/
-            for (i = 0; i < elmt->level; ++i)
-                func += std::pow(elmt->fnames[i], 2);
-
-            index = (unsigned int) fmod(func, this->length);
-
-            /*finding it*/
-            i = 0;
-            while (i < this->width && this->elements[index][i] != nullptr) {
-                /*check equality between nodes*/
-                if (select_gamma_equal(elmt, this->elements[index][i])) {
-                    /*shift elements*/
-                    j = i + 1;
-                    while (j < this->width && this->elements[index][j] != nullptr) {
-                        this->elements[index][j - 1] = this->elements[index][j];
-                        j++;
-                    }
-                    /*setting last element as null*/
-                    this->elements[index][j - 1] = nullptr;
-
-                    break;
-                }
-                i++;
-            }
-        }
+//        template<typename T>
+//        void AOS<T>::Hash::set_null(AOS<T>::select_gamma *elmt) {
+//            unsigned int i = 0, j = 0;
+//            int index = 0;
+//            double func = 0;
+//
+//            /*error check*/
+//            if (elmt == nullptr || this->elements == nullptr) return;
+//
+//            /*hashing function*/
+//            for (i = 0; i < elmt->level; ++i)
+//                func += std::pow(elmt->fnames[i], 2);
+//
+//            index = (unsigned int) fmod(func, this->length);
+//
+//            /*finding it*/
+//            i = 0;
+//            while (i < this->width && this->elements[index][i] != nullptr) {
+//                /*check equality between nodes*/
+//                if (select_gamma_equal(elmt, this->elements[index][i])) {
+//                    /*shift elements*/
+//                    j = i + 1;
+//                    while (j < this->width && this->elements[index][j] != nullptr) {
+//                        this->elements[index][j - 1] = this->elements[index][j];
+//                        j++;
+//                    }
+//                    /*setting last element as null*/
+//                    this->elements[index][j - 1] = nullptr;
+//
+//                    break;
+//                }
+//                i++;
+//            }
+//        }
 
         /*----------------------------------------------------------*
         * print hash table                                         *
         *----------------------------------------------------------*/
 
-        template<typename T>
-        void AOS<T>::Hash::print(int dim) {
-            size_t i = 0, j = 0, k = 0, d = 0;
-            int cont = 0;
-
-            for (i = 0; i < this->length; ++i)
-                for (j = 0; j < this->width; ++j)
-                    if (this->elements[i][j] != nullptr) {
-                        cont++;
-                    }
-            std::cout << "Cont = " << cont << "\n";
-            if (dim <= 10)
-                for (d = 0; d < dim; d++) {
-                    for (i = 0; i < this->length; ++i)
-                        for (j = 0; j < this->width; ++j)
-                            if (this->elements[i][j] != nullptr)
-                                if (this->elements[i][j]->level == d) {
-                                    for (k = 0; k < (this->elements[i][j]->level) - 1; ++k)
-                                        std::cout << this->elements[i][j]->fnames[k] << ",";
-                                    std::cout << this->elements[i][j]->fnames[k] << "\n";
-                                }
-                    std::cout << "\n";
-                }
-        }
+//        template<typename T>
+//        void AOS<T>::Hash::print(int dim) {
+//            size_t i = 0, j = 0, k = 0, d = 0;
+//            int cont = 0;
+//
+//            for (i = 0; i < this->length; ++i)
+//                for (j = 0; j < this->width; ++j)
+//                    if (this->elements[i][j] != nullptr) {
+//                        cont++;
+//                    }
+//            std::cout << "Cont = " << cont << "\n";
+//            if (dim <= 10)
+//                for (d = 0; d < dim; d++) {
+//                    for (i = 0; i < this->length; ++i)
+//                        for (j = 0; j < this->width; ++j)
+//                            if (this->elements[i][j] != nullptr)
+//                                if (this->elements[i][j]->level == d) {
+//                                    for (k = 0; k < (this->elements[i][j]->level) - 1; ++k)
+//                                        std::cout << this->elements[i][j]->fnames[k] << ",";
+//                                    std::cout << this->elements[i][j]->fnames[k] << "\n";
+//                                }
+//                    std::cout << "\n";
+//                }
+//        }
 
         /*---------------------------------q-------------------------*
         * frees hash table                                         *

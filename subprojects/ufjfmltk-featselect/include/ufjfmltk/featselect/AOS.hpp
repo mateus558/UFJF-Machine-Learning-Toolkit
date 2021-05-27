@@ -56,9 +56,9 @@ namespace mltk{
 
                 bool add(AOS::select_gamma *elmt);
 
-                void set_null(AOS::select_gamma *elmt);
+                //void set_null(AOS::select_gamma *elmt);
 
-                void print(int dim);
+                //void print(int dim);
 
                 size_t getLength() const;
 

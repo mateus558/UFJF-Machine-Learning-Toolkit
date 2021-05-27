@@ -137,3 +137,31 @@ TEST_F(FeatselectTests, AOSTest){
         vis.plot2D();
     }
 }
+
+TEST_F(FeatselectTests, AOSCVTest){
+    mltk::validation::CrossValidation cv;
+    cv.fold = 5;
+    cv.qtde = 1;
+    cv.jump = 1;
+    cv.limit_error = 1;
+    mltk::classifier::IMAp<> ima;
+    ima.setMaxTime(500);
+    mltk::featselect::AOS<> aos(iris, &ima, 2, &cv, 2, 1, 2, 2);
+    mltk::visualize::Visualization<> vis;
+    vis.setTerminal("dumb");
+    aos.setVerbose(3);
+
+    auto selec_data = aos.selectFeatures();
+    ASSERT_EQ(selec_data.dim(), 2);
+    vis.setSample(selec_data);
+    vis.plot2D();
+
+    for(int sorting_shape = 2; sorting_shape < 7; sorting_shape++){
+        mltk::featselect::AOS<> aos1(iris, &ima, 2, &cv, 2, sorting_shape);
+        aos1.setVerbose(0);
+        auto selec_data1 = aos1.selectFeatures();
+        ASSERT_EQ(selec_data1.dim(), 2);
+        vis.setSample(selec_data1);
+        vis.plot2D();
+    }
+}
