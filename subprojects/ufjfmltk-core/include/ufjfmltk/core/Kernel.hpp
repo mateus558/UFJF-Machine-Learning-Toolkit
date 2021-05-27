@@ -109,7 +109,7 @@ namespace mltk{
          * \return double
          */
         template < typename T >
-        double function(std::shared_ptr<Point< T > > one, std::shared_ptr<Point< T > > two, int dim);
+        double function(std::shared_ptr<Point< T > > one, std::shared_ptr<Point< T > > two, int dim) const;
         /**
          * \brief function Compute the kernel function between two points without a dimension.
          * \param one first point.
@@ -134,6 +134,22 @@ namespace mltk{
          */
         template < typename T >
         double featureSpaceNorm(std::shared_ptr<Data< T > > data);
+
+        template< typename T >
+        double operator()(const Point<T>& a, const Point<T>& b) const{
+            assert(a.size() == b.size());
+            return function(make_point<T>(a), make_point<T>(b), a.size());
+        }
+
+        template< typename T >
+        void operator()(const Data<T>& samples){
+            compute<T>(make_data<T>(samples));
+        }
+
+        std::vector<double> operator[](const size_t& idx) const {
+            assert(idx < K.size());
+            return K[idx];
+        }
     };
 
     template < typename T >
@@ -194,7 +210,7 @@ namespace mltk{
     }
 
     template < typename T >
-    double Kernel::function(std::shared_ptr<Point< T > > one, std::shared_ptr<Point< T > > two, int dim){
+    double Kernel::function(std::shared_ptr<Point< T > > one, std::shared_ptr<Point< T > > two, int dim) const{
         int i = 0;
         double t, sum = 0.0;
         std::vector< T > a = one->X(), b = two->X();

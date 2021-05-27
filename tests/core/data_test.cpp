@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 #include "ufjfmltk/core/Data.hpp"
 #include "ufjfmltk/core/Datasets.hpp"
+#include "ufjfmltk/core/Kernel.hpp"
 #include "ufjfmltk/valid/Validation.hpp"
 
 class DataTest: public ::testing::Test
@@ -332,4 +333,15 @@ TEST_F(DataTest, DatasetsTest){
     ASSERT_EQ(reg.size(), 100);
     ASSERT_EQ(reg.dim(), 100);
     ASSERT_EQ(reg.classes().size(), 0);
+}
+
+TEST_F(DataTest, KernelTest){
+    mltk::Data<double> blobs = mltk::datasets::make_blobs(100, 2, 2, 1, -10, 10, true, true, 42).dataset;
+    mltk::Kernel kernel(mltk::INNER_PRODUCT);
+
+    kernel(blobs);
+
+    ASSERT_EQ((blobs(0)*blobs(1)).sum(), kernel(blobs(0), blobs(1)));
+    ASSERT_LT(kernel[0][0], 31.37);
+    ASSERT_GT(kernel[0][0], 31.36);
 }
