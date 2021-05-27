@@ -22,7 +22,7 @@ namespace mltk{
             KernelType kernel_type = KernelType::INNER_PRODUCT;
             double kernel_param = 0;
             /// Object for kernel computations.
-            Kernel *kernel = nullptr;
+            Kernel<T> *kernel = nullptr;
         public:
 
             virtual double evaluate(const Point <T> &p, bool raw_value = false) override {
@@ -53,7 +53,7 @@ namespace mltk{
              * \brief setKernel Set the kernel used by the dual classifier.
              * \param q Norm that will be used by the classifier.
              */
-            inline void setKernel(Kernel *K) { this->kernel = K; }
+            inline void setKernel(Kernel<T> *K) { this->kernel = K; }
 
             /**
              * \brief Set the type of the kernel.
@@ -79,7 +79,7 @@ namespace mltk{
 
             virtual std::string getFormulationString() override { return "Dual"; }
 
-            inline Kernel *getKernel() { return kernel; }
+            inline Kernel<T> *getKernel() { return kernel; }
 
             /**
              * \brief Get the parameter of the kernel.

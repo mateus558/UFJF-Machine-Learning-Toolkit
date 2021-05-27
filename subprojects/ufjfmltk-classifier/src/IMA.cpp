@@ -441,7 +441,7 @@ namespace mltk{
         template<typename T>
         IMADual<T>::IMADual(KernelType kernel_type, double kernel_param, double rate, Solution *initial_solution) {
             this->samples = nullptr;
-            this->kernel = new Kernel(kernel_type, kernel_param);
+            this->kernel = new Kernel<T>(kernel_type, kernel_param);
             this->rate = rate;
 
             if (initial_solution) {
@@ -455,7 +455,7 @@ namespace mltk{
         IMADual<T>::IMADual(const Data<T> &samples, KernelType kernel_type, double kernel_param, double rate,
                             Solution *initial_solution) {
             this->samples = make_data<T>(samples);
-            this->kernel = new Kernel(kernel_type, kernel_param);
+            this->kernel = new Kernel<T>(kernel_type, kernel_param);
             this->rate = rate;
 
             if (initial_solution) {

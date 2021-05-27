@@ -336,12 +336,27 @@ TEST_F(DataTest, DatasetsTest){
 }
 
 TEST_F(DataTest, KernelTest){
-    mltk::Data<double> blobs = mltk::datasets::make_blobs(100, 2, 2, 1, -10, 10, true, true, 42).dataset;
+    mltk::Data<double> blobs = mltk::datasets::make_blobs(100, 2, 2, 1, -10,
+                                                          10, true, true, 42).dataset;
     mltk::Kernel kernel(mltk::INNER_PRODUCT);
 
     kernel(blobs);
 
     ASSERT_EQ((blobs(0)*blobs(1)).sum(), kernel(blobs(0), blobs(1)));
-    ASSERT_LT(kernel[0][0], 31.37);
+    ASSERT_LT(kernel[0][0], 50);
     ASSERT_GT(kernel[0][0], 31.36);
+
+    mltk::Kernel ckernel(mltk::CUSTOM);
+
+    auto f = [](mltk::Point<double>& a, mltk::Point<double>& b, double param){
+        return (a*b).sum();
+    };
+
+    ckernel(blobs, f);
+    ASSERT_EQ(kernel.size(), ckernel.size());
+    for(int i = 0; i < ckernel.size(); i++){
+        for(int j = 0; j < ckernel.size(); j++){
+            ASSERT_EQ(ckernel[i][j], kernel[i][j]);
+        }
+    }
 }

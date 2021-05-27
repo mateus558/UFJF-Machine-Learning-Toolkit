@@ -18,7 +18,7 @@ namespace mltk{
         /// Weights vector
         std::vector<double> w, func;
         ///Kernel for Dual methods
-        Kernel K;
+        Kernel<double> K;
         /// Alpha Vector for Dual methods
         std::vector<double> alpha;
         /// Bias of the solution.

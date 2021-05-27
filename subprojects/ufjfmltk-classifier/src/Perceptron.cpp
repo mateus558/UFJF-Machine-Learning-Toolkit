@@ -235,7 +235,7 @@ namespace mltk{
                 this->alpha = (*initial_solution).alpha;
             }
             this->rate = rate;
-            this->kernel = new Kernel(kernel_type, kernel_param);
+            this->kernel = new Kernel<T>(kernel_type, kernel_param);
         }
 
         template<typename T>
@@ -261,7 +261,7 @@ namespace mltk{
             vector<int> index(size); //= this->samples->getIndex();
             vector<double> func(size, 0.0), Kv;
             vector<shared_ptr<Point<T> > > points = this->samples->points();
-            if(!this->kernel) this->kernel = new Kernel(mltk::KernelType::INNER_PRODUCT);
+            if(!this->kernel) this->kernel = new Kernel<T>(mltk::KernelType::INNER_PRODUCT);
             this->kernel->compute(this->samples);
             dMatrix *K = this->kernel->getKernelMatrixPointer();
             int y;
@@ -323,7 +323,7 @@ namespace mltk{
             this->samples = mltk::make_data<T>(samples);
             //this->solution = *initial_solution;
             this->rate = rate;
-            this->kernel = new Kernel(kernel_type, kernel_param);
+            this->kernel = new Kernel<T>(kernel_type, kernel_param);
             this->gamma = gamma;
             if (initial_solution)
                 this->alpha = (*initial_solution).alpha;

@@ -53,7 +53,7 @@ namespace mltk{
                 (*this->samples)[i]->Alpha() = 0;
             this->alpha.assign(size, 0.0);
             if(this->kernel) delete this->kernel;
-            this->kernel = new mltk::Kernel(this->kernel_type, this->kernel_param);
+            this->kernel = new mltk::Kernel<T>(this->kernel_type, this->kernel_param);
             this->kernel->compute(this->samples);
 
             this->timer.reset();
@@ -423,7 +423,7 @@ namespace mltk{
         }
 
         template<typename T>
-        int SMO<T>::train_matrix(Kernel *matrix) {
+        int SMO<T>::train_matrix(Kernel<T> *matrix) {
             size_t i = 0, size = this->samples->size();
             bool ret = true;
             double norm = 1;

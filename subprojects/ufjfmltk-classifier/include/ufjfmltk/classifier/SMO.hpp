@@ -68,7 +68,7 @@ namespace mltk{
 
                 void test_learning();
 
-                int train_matrix(Kernel *matrix);
+                int train_matrix(Kernel<T> *matrix);
 
             public:
                 SMO() = default;
