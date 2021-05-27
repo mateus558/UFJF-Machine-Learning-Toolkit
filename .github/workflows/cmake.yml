@@ -115,8 +115,8 @@ jobs:
       
     - name: Test
       working-directory: ${{github.workspace}}/build
-      run: xvfb-run ctest -C ${{env.TESTS_BUILD_TYPE}}
-    
+      run: Xvfb :1337 & export DISPLAY=:1337 & ctest -C ${{env.TESTS_BUILD_TYPE}}
+
   windows-build:
     runs-on: windows-latest
     steps:
