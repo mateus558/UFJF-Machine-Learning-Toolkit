@@ -99,7 +99,7 @@ KNN accuracy: 100%
 * Ensemble [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 * Regression [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 * Validation (K-Fold Cross-Validation) [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
-* Feature Selection [![Generic badge](https://img.shields.io/badge/status-WIP-yellow.svg)](https://shields.io/)
+* Feature Selection [![Generic badge](https://img.shields.io/badge/status-Ready-green.svg)](https://shields.io/)
 * Documentation [![Generic badge](https://img.shields.io/badge/status-WIP-yellow.svg)](https://shields.io/)
 
 
