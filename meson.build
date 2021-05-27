@@ -2,8 +2,6 @@ project('ufjfmltk', 'cpp',
   version : '0.40.0',
   default_options : ['warning_level=0', 'cpp_std=c++17','default_library=shared'])
 
-add_global_arguments('-lstdc++fs', language : 'cpp')
-
 modules_names = ['ufjfmltk-core', 'ufjfmltk-classifier', 'ufjfmltk-regressor', 'ufjfmltk-valid', 
                  'ufjfmltk-ensemble', 'ufjfmltk-featselect', 'ufjfmltk-clusterer', 'ufjfmltk-visual']
 
