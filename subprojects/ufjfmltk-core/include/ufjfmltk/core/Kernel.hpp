@@ -146,6 +146,9 @@ namespace mltk{
         }
 
         void operator()(const Data<T>& samples, typename FunctionType<T>::Type f = nullptr){
+            if(this->type == mltk::CUSTOM){
+                assert(f && "A function must be provided for a custom kernel.");
+            }
             compute(make_data<T>(samples), f);
         }
 

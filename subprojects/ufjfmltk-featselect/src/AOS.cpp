@@ -575,7 +575,7 @@ namespace mltk{
             if(kernel_type == INNER_PRODUCT){
                 wnorm = mltk::norm(mltk::Point<double>(w), q);
             }else{
-                mltk::Kernel kernel(INNER_PRODUCT);
+                mltk::Kernel<T> kernel(INNER_PRODUCT);
                 kernel.compute(make_data<T>(sample));
                 wnorm = kernel.featureSpaceNorm(make_data<T>(sample));
             }
@@ -593,7 +593,7 @@ namespace mltk{
                         tpmargin = std::pow(sumnorm, 1.0/q);
                     }
                 }else{ // projected margin computation on IMA dual and SMO
-                    mltk::Kernel kernel;
+                    mltk::Kernel<T> kernel;
                     auto Hk = kernel.generateMatrixHwithoutDim(make_data<T>(sample), weight[i].indice);
                     std::vector<double> alphaaux(size);
 

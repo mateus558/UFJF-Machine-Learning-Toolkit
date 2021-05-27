@@ -16,7 +16,7 @@ namespace mltk{
                 /// Alphas vector.
                 std::vector<double> alpha;
                 /// Object for kernel computations.
-                Kernel *kernel = nullptr;
+                Kernel<T> *kernel = nullptr;
             public:
 
                 double evaluate(const Point< T >  &p, bool raw_value=false) override {
