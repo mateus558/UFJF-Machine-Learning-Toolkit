@@ -39,6 +39,7 @@ project_target_dep = declare_dependency(
   include_directories: [include_directories('include','src','.')],
   sources: project_headers,
   link_with : project_target,
+  link_args : '-lstdc++fs'
 )
 
 meson.override_dependency('ufjfmltk-visual', project_target_dep)
