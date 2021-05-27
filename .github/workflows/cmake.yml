@@ -98,35 +98,38 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
       
-  macos-tests:
-    runs-on: macos-latest
+#   macos-tests:
+#     runs-on: macos-latest
         
-    steps:
-    - uses: actions/checkout@v2
+#     steps:
+#     - uses: actions/checkout@v2
 
-    - name: Install gnuplot
-      run: brew install gnuplot
+#     - name: Install gnuplot
+#       run: brew install gnuplot
     
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.TESTS_BUILD_TYPE}} -DENABLE_TESTING=ON
+#     - name: Configure CMake
+#       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.TESTS_BUILD_TYPE}} -DENABLE_TESTING=ON
     
-    - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.TESTS_BUILD_TYPE}}
+#     - name: Build
+#       run: cmake --build ${{github.workspace}}/build --config ${{env.TESTS_BUILD_TYPE}}
       
-    - name: Test
-      working-directory: ${{github.workspace}}/build
-      run: Xvfb :1337 & export DISPLAY=:1337 & ctest -C ${{env.TESTS_BUILD_TYPE}}
+#     - name: Test
+#       working-directory: ${{github.workspace}}/build
+#       run: Xvfb :1337 & export DISPLAY=:1337 & ctest -C ${{env.TESTS_BUILD_TYPE}}
 
-  windows-build:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: CMake info
-      run: cmake --help
-    - name: Configure CMake
-      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -G "MSYS Makefiles" -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-    - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+#   windows-build:
+#     runs-on: windows-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: CMake info
+#       run: |  
+#             cmake --help
+#             mingw-get update
+#             mingw-get upgrade
+#     - name: Configure CMake
+#       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+#       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+#       run: cmake -G "MinGW Makefiles" -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+#     - name: Build
+#       # Build your program with the given configuration
+#       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
