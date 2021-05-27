@@ -10,7 +10,6 @@
 namespace mltk{
     namespace visualize{
         using namespace std;
-        namespace fs = std::filesystem;
         template<typename T>
         size_t Visualization<T>::n_plots=0;
         template<typename T>
