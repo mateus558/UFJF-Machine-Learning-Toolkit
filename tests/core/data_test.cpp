@@ -359,4 +359,21 @@ TEST_F(DataTest, KernelTest){
             ASSERT_EQ(ckernel[i][j], kernel[i][j]);
         }
     }
+
+    mltk::Kernel gkernel(mltk::GAUSSIAN, 0.5);
+    mltk::Kernel cgkernel(mltk::CUSTOM, 0.5);
+
+    gkernel(blobs);
+
+    auto gaussian = [](mltk::Point<double>& a, mltk::Point<double>& b, double param){
+        return std::exp(-1*((a-b)*(a-b)).sum() * param);
+    };
+
+    cgkernel(blobs, gaussian);
+    ASSERT_EQ(gkernel.size(), cgkernel.size());
+    for(int i = 0; i < cgkernel.size(); i++){
+        for(int j = 0; j < cgkernel.size(); j++){
+            ASSERT_EQ(cgkernel[i][j], gkernel[i][j]);
+        }
+    }
 }
