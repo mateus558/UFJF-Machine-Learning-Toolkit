@@ -12,7 +12,7 @@ set(${CLUSTERER_TARGET}_HDR
         include/ufjfmltk/Clusterer.hpp
         )
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")
+#include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")
 # Adds a library target called ${LIBRARY_TARGET_NAME} to be built from the
 # source and header files listed in the command invocation.
 add_library(${CLUSTERER_TARGET} ${${CLUSTERER_TARGET}_SRC} ${${CLUSTERER_TARGET}_HDR})
@@ -30,6 +30,8 @@ set_target_properties(${CLUSTERER_TARGET} PROPERTIES VERSION       ${${PROJECT_N
 # relocatable configuration files, see https://cmake.org/cmake/help/latest/manual/cmake-packages.7.html#creating-relocatable-packages
 target_include_directories(${CLUSTERER_TARGET} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+
+target_link_libraries(${CLUSTERER_TARGET} ufjfmltk-core)
 
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${CLUSTERER_TARGET}

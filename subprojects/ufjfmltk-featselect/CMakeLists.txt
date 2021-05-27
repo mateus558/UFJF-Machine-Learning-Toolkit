@@ -18,9 +18,6 @@ set(${FEATSELECT_TARGET}_HDR
         include/ufjfmltk/FeatureSelection.hpp
         )
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-classifier/include")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-valid/include")
 # Adds a library target called ${LIBRARY_TARGET_NAME} to be built from the
 # source and header files listed in the command invocation.
 add_library(${FEATSELECT_TARGET} ${${FEATSELECT_TARGET}_SRC} ${${FEATSELECT_TARGET}_HDR})
@@ -33,6 +30,8 @@ set_target_properties(${FEATSELECT_TARGET} PROPERTIES VERSION       ${${PROJECT_
 # Specify include directories for both compilation and installation process.
 target_include_directories(${FEATSELECT_TARGET} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+
+target_link_libraries(${FEATSELECT_TARGET} ufjfmltk-core ufjfmltk-classifier ufjfmltk-valid)
 
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${FEATSELECT_TARGET}

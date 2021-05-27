@@ -21,7 +21,7 @@ set(${CLASSIFIER_TARGET}_HDR
         include/ufjfmltk/Classifier.hpp
         )
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")
+#include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")
 add_library(${CLASSIFIER_TARGET} ${${CLASSIFIER_TARGET}_SRC} ${${CLASSIFIER_TARGET}_HDR})
 
 add_library(${PROJECT_NAME}::${CLASSIFIER_TARGET} ALIAS ${CLASSIFIER_TARGET})
@@ -31,6 +31,8 @@ set_target_properties(${CLASSIFIER_TARGET} PROPERTIES VERSION       ${${PROJECT_
 
 target_include_directories(${CLASSIFIER_TARGET} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+
+target_link_libraries(${CLASSIFIER_TARGET} ufjfmltk-core)
 
 install(TARGETS ${CLASSIFIER_TARGET}
         EXPORT  ${PROJECT_NAME}

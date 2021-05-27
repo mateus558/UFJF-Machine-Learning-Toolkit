@@ -17,7 +17,6 @@ set(${REGRESSOR_TARGET}_HDR
         )
 
 # You can add an external dependency using the find_package() function call
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")
 # Adds a library target called ${LIBRARY_TARGET_NAME} to be built from the
 # source and header files listed in the command invocation.
 add_library(${REGRESSOR_TARGET} ${${REGRESSOR_TARGET}_SRC} ${${REGRESSOR_TARGET}_HDR})
@@ -30,6 +29,8 @@ set_target_properties(${REGRESSOR_TARGET} PROPERTIES VERSION       ${${PROJECT_N
 # Specify include directories for both compilation and installation process.
 target_include_directories(${REGRESSOR_TARGET} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+
+target_link_libraries(${REGRESSOR_TARGET} ufjfmltk-core)
 
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${REGRESSOR_TARGET}

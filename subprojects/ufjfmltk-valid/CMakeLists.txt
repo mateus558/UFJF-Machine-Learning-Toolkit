@@ -10,9 +10,6 @@ set(${VALID_TARGET}_HDR
         include/ufjfmltk/Validation.hpp
         )
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-classifier/include")
-
 # Adds a library target called ${VALID_TARGET} to be built from the
 # source and header files listed in the command invocation.
 add_library(${VALID_TARGET} INTERFACE)
@@ -21,6 +18,9 @@ add_library(${PROJECT_NAME}::${VALID_TARGET} ALIAS ${VALID_TARGET})
 # Specify include directories for both compilation and installation process.
 target_include_directories(${VALID_TARGET} INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+
+target_link_libraries(${VALID_TARGET} INTERFACE ufjfmltk-core ufjfmltk-classifier)
+
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${VALID_TARGET}
         EXPORT  ${PROJECT_NAME})

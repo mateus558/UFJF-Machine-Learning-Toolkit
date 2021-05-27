@@ -11,9 +11,6 @@ set(${ENSEMBLE_TARGET}_HDR
         include/ufjfmltk/Ensemble.hpp
         )
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-classifier/include")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-valid/include")
 # Adds a library target called ${ENSEMBLE_TARGET} to be built from the
 # source and header files listed in the command invocation.
 add_library(${ENSEMBLE_TARGET} INTERFACE)
@@ -22,6 +19,8 @@ add_library(${PROJECT_NAME}::${ENSEMBLE_TARGET} ALIAS ${ENSEMBLE_TARGET})
 # Specify include directories for both compilation and installation process.
 target_include_directories(${ENSEMBLE_TARGET} INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+
+target_link_libraries(${ENSEMBLE_TARGET} INTERFACE ufjfmltk-core ufjfmltk-classifier ufjfmltk-valid)
 
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${ENSEMBLE_TARGET}
