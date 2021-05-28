@@ -14,15 +14,15 @@ namespace mltk{
         class AOS : public FeatureSelection<T> {
         public:
             struct select_weight {
-                int fname;
-                int indice;
-                double w;
-                double val;
-                double pmargin;
-                double radius;
-                double dcents;
-                double golub;
-                double fisher;
+                int fname{0};
+                int indice{0};
+                double w{0};
+                double val{0};
+                double pmargin{0};
+                double radius{-1};
+                double dcents{-1};
+                double golub{-1};
+                double fisher{-1};
 
                 bool operator==(AOS::select_weight other) const;
             };
@@ -35,10 +35,10 @@ namespace mltk{
                 double value{0}; /*valor usado como criterio de escolha*/
                 double pgamma{0}; /*projected gamma*/
                 double rgamma{0}; /*real gamma p/ display*/
-                double radius{0}; /*raio*/
-                double dcents{0}; /*distancia entre os centros*/
-                double golub{0}; /*golub - estatistica*/
-                double fisher{0}; /*fisher - estatistica*/
+                double radius{-1}; /*raio*/
+                double dcents{-1}; /*distancia entre os centros*/
+                double golub{-1}; /*golub - estatistica*/
+                double fisher{-1}; /*fisher - estatistica*/
                 std::vector<double> w;
                 double bias{0};
 

@@ -120,7 +120,7 @@ namespace mltk{
                 return false;
         }
         fnames.assign(this->dim(), 0);
-        std::iota(fnames.begin(), fnames.end(), 0);
+        std::iota(fnames.begin(), fnames.end(), 1);
         return true;
     }
 
@@ -790,6 +790,14 @@ namespace mltk{
             std::iter_swap(it, pos);
         }
     }
+    template < typename T >
+    Data<T> Data<T>::removeFeatures(std::vector<int> feats, int fsize) const {
+        auto data_copy = this->copy();
+        size_t feats_size = (fsize==-1)?feats.size():fsize;
+        std::vector<int> to_remove(feats.begin(), feats.begin()+feats_size);
+        data_copy.removeFeatures(to_remove);
+        return data_copy;
+    }
 
     template<typename T>
     bool mltk::Data< T >::removeFeatures(std::vector<int> feats){
@@ -883,7 +891,7 @@ namespace mltk{
 
         if(p->size() > 0) {
             this->fnames = std::vector<int>(p->size(), 0);
-            std::iota(this->fnames.begin(), this->fnames.end(), 0);
+            std::iota(this->fnames.begin(), this->fnames.end(), 1);
         }
         //Insert the point p at the end of the points vector
         m_points.insert(m_points.end(), p);
@@ -980,15 +988,16 @@ namespace mltk{
     void mltk::Data< T >::copy(const mltk::Data<T> &_data){
         size_t _size = _data.size();
         if(this->m_points.size() > 0) this->m_points.clear();
-        this->m_points.resize(_size);
+        //this->m_points.reserve(_size);
         for(size_t i = 0; i < _size; i++){
-            this->m_points[i] = std::make_shared<Point< T > >();
-            this->m_points[i]->X().clear();
-            this->m_points[i]->X().resize(_data[i]->X().size());
-            std::copy(_data[i]->X().begin(), _data[i]->X().end(), this->m_points[i]->X().begin());
-            this->m_points[i]->Y() = _data[i]->Y();
-            this->m_points[i]->Alpha() = _data[i]->Alpha();
-            this->m_points[i]->Id() = _data[i]->Id();
+            auto point = std::make_shared<Point< T > >();
+            point->X().clear();
+            point->X().resize(_data[i]->X().size());
+            std::copy(_data[i]->X().begin(), _data[i]->X().end(), point->X().begin());
+            point->Y() = _data[i]->Y();
+            point->Alpha() = _data[i]->Alpha();
+            point->Id() = _data[i]->Id();
+            this->m_points.push_back(point);
         }
         this->fnames = _data.getFeaturesNames();
         this->m_size = _data.size();
@@ -1408,19 +1417,28 @@ namespace mltk{
     }
 
     template<typename T>
-    Data<T> Data<T>::selectFeatures(std::vector<size_t> feats) {
+    Data<T> Data<T>::selectFeatures(std::vector<size_t> feats, int size) {
         std::sort(feats.begin(), feats.end());
+        size_t _size = (size == -1)?feats.size():size;
         Data<T> new_data;
+        std::vector<size_t> feats_pos(_size);
+        int i, j, invalid;
+        for(i = 0, j = 0, invalid=0; (i < _size) && (invalid < _size) && (j < _size); ){
+            if(feats[j] < 1) { invalid++; j++; continue; }
+            if(fnames[i] == feats[j]){
+                feats_pos[j] = i;
+                j++;
+            }
+            i++;
+        }
+        assert((j == _size) && "There are non-existing features on remove set.");
         for(auto const& point: this->m_points){
-            auto new_point = make_point<T>(feats.size());
-            size_t i = 0;
-            for(auto const& feat: feats){
-                assert(feat < point->size());
-                (*new_point)[i] = (*point)[feat];
+            auto new_point = make_point<T>(_size-invalid);
+            for(i = 0; i < (_size-invalid); i++){
+                (*new_point)[i] = (*point)[feats_pos[i]];
                 (*new_point).Y() = (*point).Y();
                 (*new_point).Id() = (*point).Id();
                 (*new_point).Alpha() = (*point).Alpha();
-                i++;
             }
             new_data.setName(this->name());
             new_data.insertPoint(new_point);

@@ -210,16 +210,16 @@ TEST_F(DataTest, DataInsertion){
     ASSERT_EQ(copy_bin.classes(), classes);
 
     auto red = copy_bin.insertFeatures({1,2});
-    auto red1 = copy_bin.selectFeatures({1,2});
+    auto red1 = copy_bin.selectFeatures({1,2}, -1);
 
     for(int i = 0; i < copy_bin.size(); i++){
-        ASSERT_EQ(copy_bin(i)[1], red1(i)[0]);
-        ASSERT_EQ(copy_bin(i)[2], red1(i)[1]);
+        ASSERT_EQ(copy_bin(i)[0], red1(i)[0]);
+        ASSERT_EQ(copy_bin(i)[1], red1(i)[1]);
     }
 
     for(int i = 0; i < copy_bin.size(); i++){
-        ASSERT_EQ(copy_bin(i)[1], red1(i)[0]);
-        ASSERT_EQ(copy_bin(i)[2], red1(i)[1]);
+        ASSERT_EQ(copy_bin(i)[0], red1(i)[0]);
+        ASSERT_EQ(copy_bin(i)[1], red1(i)[1]);
     }
 
     auto sample = mult.sampling(75);

@@ -165,3 +165,22 @@ TEST_F(FeatselectTests, AOSCVTest){
         vis.plot2D();
     }
 }
+
+TEST_F(FeatselectTests, AOSBlobsTest){
+    auto blobs = mltk::datasets::make_blobs(100, 2, 50).dataset;
+    mltk::validation::CrossValidation cv;
+    cv.fold = 5;
+    cv.qtde = 1;
+    cv.jump = 2;
+    mltk::classifier::IMAp<> ima;
+    ima.setMaxTime(500);
+    mltk::featselect::AOS<> aos(blobs, &ima, 3, &cv, 2, 1, 2, 2,0, 2);
+    mltk::visualize::Visualization<> vis;
+    vis.setTerminal("dumb");
+    aos.setVerbose(3);
+
+    auto selec_data = aos.selectFeatures();
+    ASSERT_EQ(selec_data.dim(), 3);
+    vis.setSample(selec_data);
+    vis.plot3D();
+}

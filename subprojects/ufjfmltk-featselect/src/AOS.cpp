@@ -60,7 +60,7 @@ namespace mltk{
             int ftime = 1;
             int lool = 0;    /*leave one out level*/
             double g_margin = 0;
-            Data<T> stmp;
+            std::shared_ptr<Data<T>> stmp = make_data<T>();
             max_time_orig = this->max_time;
             this->startdim = dim;
 
@@ -165,40 +165,40 @@ namespace mltk{
                     /*create new data struct*/
                     level = this->heap->getElements()[1]->level;
                     fnames = this->heap->getElements()[1]->fnames;
-                    stmp.copy(*this->samples);
-                    stmp.removeFeatures(fnames);
+                    stmp->copy(*this->samples);
+                    stmp->removeFeatures(fnames);
 
                     if (level == 1)
                         this->n0 = this->max_time *= FIRST_DECAY;
                     else if (level > 1)
                         this->max_time =
-                                this->n0 * std::exp(-stmp.getTime_mult() * ((double) startdim / (startdim - level)));
+                                this->n0 * std::exp(-stmp->getTime_mult() * ((double) startdim / (startdim - level)));
 
                     /*stop criterium*/
                     if (this->samples->dim() == dim - this->depth && this->heap->getElements()[1]->rgamma > 0) {
                         std::cout << "---------------\n :: FINAL :: \n---------------\n";
                         std::cout << "Chosen Features: ";
-                        std::vector<int> fnamesp = stmp.getFeaturesNames();
-                        for (i = 0; i < stmp.dim() - 1; ++i)
+                        std::vector<int> fnamesp = stmp->getFeaturesNames();
+                        for (i = 0; i < stmp->dim() - 1; ++i)
                             std::cout << fnamesp[i] << ",";
                         std::cout << fnamesp[i] << std::endl;
 
                         std::cout << "---------------\nRemoved Features: ";
-                        for (i = 0; i < this->samples->dim() - stmp.dim() - 1; ++i)
+                        for (i = 0; i < this->samples->dim() - stmp->dim() - 1; ++i)
                             std::cout << this->heap->getElements()[1]->fnames[i] << ", ";
                         std::cout << this->heap->getElements()[1]->fnames[i] << std::endl;
 
                         if (this->cv->qtde > 0) {
                             for (this->cv->actual_error = 0, i = 0; i < this->cv->qtde; i++)
-                                this->cv->actual_error += 100-validation::kfold(stmp, *this->classifier, this->cv->fold,
+                                this->cv->actual_error += 100-validation::kfold(*stmp, *this->classifier, this->cv->fold,
                                                                             this->cv->seed[i], 0).accuracy;
                             this->kfolderror = this->cv->actual_error / this->cv->qtde;
-                            std::cout << "Dim: " << stmp.dim() << ", Margin: "
+                            std::cout << "Dim: " << stmp->dim() << ", Margin: "
                                       << this->heap->getElements()[1]->rgamma
                                       << ", SVs: " << this->heap->getElements()[1]->sv << ", Error " << this->cv->fold
                                       << "-fold: " << this->kfolderror << "%\n";
                         } else {
-                            std::cout << "Dim: " << stmp.dim() << ", Margin: "
+                            std::cout << "Dim: " << stmp->dim() << ", Margin: "
                                       << this->heap->getElements()[1]->rgamma
                                       << ", SVs: " << this->heap->getElements()[1]->sv << "\n";
                         }
@@ -220,7 +220,7 @@ namespace mltk{
                                   << (((100.0f * clock() / CLOCKS_PER_SEC) - this->initial_time) / 100.0f) << std::endl;
 
                         /*Save data to file*/
-                        stmp.write(this->filename, "data");
+                        stmp->write(this->filename, "data");
                         break;
                     }
 
@@ -235,13 +235,14 @@ namespace mltk{
 
                     /*check breadth*/
                     tbreadth = this->breadth;
-                    if (tbreadth > stmp.dim()) tbreadth = stmp.dim();
+                    if (tbreadth > stmp->dim()) tbreadth = stmp->dim();
 
                     /*run select*/
-                    this->mainLoop(stmp);
+                    auto stmp_copy = stmp->copy();
+                    this->mainLoop(stmp_copy);
 
                     /*free stuff*/
-                    stmp.clear();
+                    stmp.reset(new Data<T>());
                 }
 
                 /*verbose*/
@@ -257,11 +258,11 @@ namespace mltk{
 
             /*free stuff*/
             if (parcial) {
-                stmp.clear();
+                stmp.reset();
                 return *this->stmp_partial;
             } else {
                 this->stmp_partial.reset();
-                return stmp;
+                return *stmp;
             }
         }
 
@@ -473,7 +474,7 @@ namespace mltk{
                     std::cout << "\n";
                 }
             }
-            for(i = 0; i < dim; i++){
+            for(i = 0; i < weight.size(); i++){
                 weight[i].w = w[i];
                 weight[i].indice = i;
                 weight[i].fname = sample.getFeaturesNames()[i];
@@ -543,32 +544,32 @@ namespace mltk{
             // sorting shape
             if(sorting_shape == 6){ // w* fisher
                 std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
-                    return (std::fabs(a.w * a.fisher) > std::fabs(b.w * b.fisher)) -
-                    (std::fabs(a.w * a.fisher) < std::fabs(b.w * b.fisher));
+                    return (((std::fabs(a.w * a.fisher) > std::fabs(b.w * b.fisher)) -
+                    (std::fabs(a.w * a.fisher) < std::fabs(b.w * b.fisher)))<=0)?false:true;
                 });
             }else if(sorting_shape == 5){ // w * golub
                 std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
-                    return (std::fabs(a.w * a.golub) > std::fabs(b.w * b.golub)) -
-                    (std::fabs(a.w * a.golub) < std::fabs(b.w * b.golub));
+                    return (((std::fabs(a.w * a.golub) > std::fabs(b.w * b.golub)) -
+                    (std::fabs(a.w * a.golub) < std::fabs(b.w * b.golub))) <= 0)?false:true;
                 });
             }else if(sorting_shape == 4){  // w * radius
                 std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
-                    return (std::fabs(a.w * a.radius) > std::fabs(b.w * b.radius)) -
-                    (std::fabs(a.w * a.radius) < std::fabs(b.w * b.radius));
+                    return (((std::fabs(a.w * a.radius) > std::fabs(b.w * b.radius)) -
+                    (std::fabs(a.w * a.radius) < std::fabs(b.w * b.radius))) <= 0)?false:true;
                 });
             }else if(sorting_shape == 3){ // w * radius / distcenter
                 std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
-                    return (std::fabs((a.w * a.radius)/a.dcents) > std::fabs((b.w * b.radius)/b.dcents)) -
-                    (std::fabs((a.w * a.radius)/a.dcents) < std::fabs((b.w * b.radius)/b.dcents));
+                    return ((std::fabs((a.w * a.radius)/a.dcents) > std::fabs((b.w * b.radius)/b.dcents)) -
+                    (std::fabs((a.w * a.radius)/a.dcents) < std::fabs((b.w * b.radius)/b.dcents))<=0)?false:true;
                 });
             }else if(sorting_shape == 2){ // w / distcenter
                 std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
-                    return (std::fabs(a.w / a.dcents) > std::fabs(b.w / b.dcents)) -
-                    (std::fabs(a.w / a.dcents) < std::fabs(b.w / b.dcents));
+                    return ((std::fabs(a.w / a.dcents) > std::fabs(b.w / b.dcents)) -
+                    (std::fabs(a.w / a.dcents) < std::fabs(b.w / b.dcents)) <= 0)?false:true;
                 });
             }else{
                 std::sort(weight.begin(), weight.end(), [](const auto& a, const auto& b){
-                    return (std::fabs(a.w)>std::fabs(b.w)) - (std::fabs(a.w)<std::fabs(b.w));
+                    return (((std::fabs(a.w)>std::fabs(b.w)) - (std::fabs(a.w)<std::fabs(b.w))) <= 0)?false:true;
                 });
             }
 
@@ -632,7 +633,7 @@ namespace mltk{
                 if(kernel_type == INNER_PRODUCT){
                     gtmp->w.resize(dim);
 
-                    for(k = 0, j < 0; k < dim; k++){
+                    for(k = 0, j = 0; k < dim; k++){
                         if(sample.getFeaturesNames()[j] != weight[i].fname){
                             gtmp->w[k++] = w[j];
                         }
@@ -649,7 +650,7 @@ namespace mltk{
 
                 // sorting new feature array
                 std::sort(gtmp->fnames.begin(), gtmp->fnames.end(), [](const auto& a, const auto& b){
-                    return (a > b) - (a < b);
+                    return (((a>b)-(a < b)) <= 0)?false:true;
                 });
                 if(choice_shape == 2){
                     if(i != 0 && tpmargin*weight[i].dcents < (1-NUM_ERROR_EPS)*(g_margin)){
@@ -698,13 +699,13 @@ namespace mltk{
             int count = 0;
             int feat = 0;
             bool isPrimal = this->classifier->getFormulationString() == "Primal";
-            std::vector<int> features((unsigned int) look_ahead_depth + 1);
+            std::vector<int> features((unsigned int) look_ahead_depth + 1, 0);
             double min = 0;
             double margin = 0;
             double g_margin = 0;
             std::vector<double> w = w_orig;
             std::vector<double> novo_w;
-            auto stmp = make_data<T>(sample);
+            auto stmp = make_data<T>(sample.copy());
             select_gamma *gtmp = nullptr;
             double distcents = 0;
             Solution sol;
@@ -720,9 +721,11 @@ namespace mltk{
                     feat = stmp->getFeaturesNames()[0];
                     for (i = 1; i < stmp->dim(); i++) {
                         distcents = mltk::stats::distCenters(*stmp, stmp->getFeaturesNames()[i]);
+//                        std::cout << "feat: " << feat << " feati: " << stmp->getFeaturesNames()[i] << " w[i]: " << w[i] << std::endl;
+//                        std::cout << "distcenters: " << distcents << std::endl;
                         if (fabs(w[i]) / distcents < min) {
                             min = fabs(w[i]) / distcents;
-                            feat = (int) mltk::stats::distCenters(*stmp, stmp->getFeaturesNames()[i]);
+                            feat = stmp->getFeaturesNames()[i];
                         }
                     }
                 } else {
@@ -740,10 +743,10 @@ namespace mltk{
                 if (isPrimal) {
                     size_t dim = sample.dim() - 1;
                     std::vector<int> fnames = sample.getFeaturesNames();
-                    novo_w.resize(dim - 1);
+                    novo_w.reserve(dim - 1);
                     for (i = 0, j = 0; j < dim; ++j)
                         if (fnames[j] != feat)
-                            novo_w[i++] = w[j];
+                            novo_w.push_back(w[j]);
                 }
 
                 /*saving removed feature name*/
@@ -753,8 +756,7 @@ namespace mltk{
                 if (*stmp != sample) stmp.reset();
 
                 /*get temp data struct*/
-                stmp = make_data<T>(sample.copy());
-                stmp->removeFeatures(features);
+                stmp = make_data<T>(sample.removeFeatures(features, count+1));
 
                 if (level == 0)
                     this->n0 = this->max_time = max_time_orig * FIRST_DECAY;
@@ -953,8 +955,8 @@ namespace mltk{
                     }
 
                     /*free stuff*/
-                    delete elmt;
-
+                    if(elmt) delete elmt;
+                    elmt = nullptr;
                     return false;
                 } else {
                     /*
@@ -1278,7 +1280,7 @@ namespace mltk{
                 if (curr->level < levelat)
                     if (curr->value < (1 - NUM_ERROR_EPS) * g_margin || levelat - curr->level >= cut) {
                         /*errase it from hash*/
-                        delete curr;
+                        if(curr) delete curr;
                         curr = nullptr;
                         /*percolate heap*/
                         this->size--;
@@ -1297,12 +1299,11 @@ namespace mltk{
 
         template<typename T>
         AOS<T>::Heap::~Heap() {
-            size_t i;
-
-            for (i = 0; i < this->size; i++) {
-                delete[] this->elements[i];
+            size_t i = 0;
+            for (i = 1; i <= this->size; ++i) {
+                if(this->elements[i])delete this->elements[i];
+                this->elements[i] = nullptr;
             }
-
             delete[] this->elements;
             this->elements = nullptr;
         }

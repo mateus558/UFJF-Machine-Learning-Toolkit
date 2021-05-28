@@ -189,7 +189,7 @@ namespace mltk{
             mltk::Point xx = mltk::linspace(axis_ranges[0].min, axis_ranges[0].max, grid_dim);
             mltk::Point yy = mltk::linspace(axis_ranges[1].min, axis_ranges[1].max, grid_dim);
             mltk::Data grid(grid_dim, grid_dim,0);
-            auto data_copy = this->samples->selectFeatures({size_t(x), size_t(y)});
+            auto data_copy = this->samples->selectFeatures({size_t(x+1), size_t(y+1)});
 
             learner.setSamples(data_copy);
             if(!is_trained) learner.train();

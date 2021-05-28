@@ -343,7 +343,7 @@ namespace mltk{
         void copyZero (const Data< T >& other);
         std::vector< Data< T > > splitByClasses();
         std::vector< Data< T > > splitSample(const std::size_t &split_size, bool stratified = true, size_t seed = 0);
-        Data< T > selectFeatures(std::vector<size_t> feats);
+        Data< T > selectFeatures(std::vector<size_t> feats, int size=-1);
         Data< T > sampling(const size_t& samp_size, bool with_replacement = true, const int &seed=0);
         void apply(std::function<void(mltk::PointPointer<T> point)> f);
         /**
@@ -389,6 +389,7 @@ namespace mltk{
          * \param feats (???) Names of the features to be removed (must be sorted).
          * \return boolean informing if all features were succesfully removed.
          */
+        Data<T> removeFeatures (std::vector<int> feats, int fsize) const;
         bool removeFeatures (std::vector<int> feats);
         bool updatePointValue(const size_t &idx, double value);
         /**
