@@ -12,16 +12,10 @@ project_headers = [
 ]
 
 project_dependencies = []
-if not meson.is_subproject()
-  cpp_compiler = meson.get_compiler('cpp')
-  project_dependencies += cpp_compiler.find_library('ufjfmltk-core', required : true)
-  project_dependencies += cpp_compiler.find_library('ufjfmltk-classifier', required : true)
-  public_headers = include_directories('include') 
-else
-  project_dependencies += dependency('ufjfmltk-core')
-  project_dependencies += dependency('ufjfmltk-classifier')
-  public_headers = include_directories('include')
-endif
+
+project_dependencies += dependency('ufjfmltk-core')
+project_dependencies += dependency('ufjfmltk-classifier')
+public_headers = include_directories('include')
 
 project_target = library(meson.project_name(), [project_headers],
   install : true,
