@@ -7,19 +7,14 @@ add_subdirectory(ufjfmltk-featselect)
 add_subdirectory(ufjfmltk-regressor)
 add_subdirectory(ufjfmltk-visual)
 
-add_library(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:ufjfmltk-core>
-                                   $<TARGET_OBJECTS:ufjfmltk-visual>
-                                    ../ufjfmltk.hpp
+add_library(${PROJECT_NAME} SHARED
+        $<TARGET_OBJECTS:ufjfmltk-core>
+        $<TARGET_OBJECTS:ufjfmltk-visual>
+        ../ufjfmltk.hpp
         )
 
-install(TARGETS ${PROJECT_NAME}
-        EXPORT  ${PROJECT_NAME}
-        LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT shlib
-        ARCHIVE       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT lib
-        RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
-        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk" COMPONENT dev)
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION       ${${PROJECT_NAME}_VERSION}
+        PUBLIC_HEADER "../ufjfmltk.hpp")
 
-install(FILES ../ufjfmltk.hpp
-        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
-
-message(STATUS "Created target ${PROJECT_NAME} for export ${PROJECT_NAME}.")
+target_link_libraries(${PROJECT_NAME} INTERFACE ufjfmltk-core ufjfmltk-regressor ufjfmltk-classifier ufjfmltk-ensemble
+        ufjfmltk-visual ufjfmltk-clusterer ufjfmltk-featselect ufjfmltk-valid)
