@@ -12,7 +12,7 @@ library_type = get_option('default_library')
 
 project_description = 'UFJF Machine Learning Toolkit'
 project_subdir = 'ufjfmltk'
-project_headers = ['ufjfmltk.hpp']
+project_headers = ['include/ufjfmltk/ufjfmltk.hpp']
 project_sources = []
 
 message('Build type: ' + build_type)
@@ -38,7 +38,7 @@ project_target = library(meson.project_name(), [project_headers, project_sources
   install_dir : project_install_dir,
   version: meson.project_version(),
   soversion: '0',
-  include_directories : include_directories('.'),
+  include_directories : include_directories('.', 'include'),
 )
 
 project_target_dep = declare_dependency(

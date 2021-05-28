@@ -58,7 +58,7 @@ endif()
 ### Compile- and install-related commands.
 add_subdirectory(subprojects)
 
-target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
 
 install(TARGETS ${PROJECT_NAME}
@@ -68,7 +68,7 @@ install(TARGETS ${PROJECT_NAME}
         RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk" COMPONENT dev)
 
-install(FILES ufjfmltk.hpp
+install(FILES include/ufjfmltk/ufjfmltk.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 message(STATUS "Created target ${PROJECT_NAME} for export ${PROJECT_NAME}.")
