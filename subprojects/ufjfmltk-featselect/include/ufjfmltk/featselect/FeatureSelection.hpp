@@ -66,7 +66,7 @@ namespace mltk{
              * \param samples Samples to be used.
              */
             void setSamples(const std::shared_ptr<Data<T> > &samples) { this->samples = samples; }
-            void setSamples(const Data<T>& samples) { this->samples = std::make_data<T>(samples); }
+            void setSamples(const Data<T>& samples) { this->samples = mltk::make_data<T>(samples); }
             /**
              * \brief setClassifier Set the classifier used for the FeatureSelection.
              * \param classifier Reference to the classifier to be used.
