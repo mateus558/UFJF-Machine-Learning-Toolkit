@@ -1,6 +1,6 @@
 project('ufjfmltk', 'cpp',
-  version : '0.40.0',
-  default_options : ['warning_level=0', 'cpp_std=c++17','default_library=shared'])
+  version : '0.50.0',
+  default_options : ['warning_level=0', 'cpp_std=c++17'])
 
 modules_names = ['ufjfmltk-core', 'ufjfmltk-classifier', 'ufjfmltk-regressor', 'ufjfmltk-valid', 
                  'ufjfmltk-ensemble', 'ufjfmltk-featselect', 'ufjfmltk-clusterer', 'ufjfmltk-visual']
@@ -20,20 +20,20 @@ message('Build type: ' + build_type)
 message('Install directory: ' + prefix / project_install_dir)
 message('Default library type: ' + library_type)
 
-combined = []
+#combined = []
 project_dependencies = []
 foreach module_name : modules_names
   module = subproject(module_name)
   project_dependencies += dependency(module_name)
   module_name = '_'.join(module_name.split('-'))
-  combined += module.get_variable(module_name+'_tgt').extract_all_objects()
+  #combined += module.get_variable(module_name+'_tgt').extract_all_objects()
 endforeach
 
 subdir('docs')
 
 project_target = library(meson.project_name(), [project_sources],
   dependencies: project_dependencies,
-  objects: combined,
+  #objects: combined,
   install : true,
   install_dir : project_install_dir,
   version: meson.project_version(),

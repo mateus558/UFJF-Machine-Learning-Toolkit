@@ -19,9 +19,9 @@ namespace mltk{
                 ///Regressor solution.
                 Solution solution;
             public:
-                Regressor() {}
+                Regressor() = default;
 
-                Regressor(DataPointer <T> samples) : Learner<T>(samples) {}
+                explicit Regressor(DataPointer <T> samples) : Learner<T>(samples) {}
 
                 /*********************************************
                  *               Getters                     *
@@ -31,7 +31,7 @@ namespace mltk{
                  * \brief getSolution Returns the solution of the regressor.
                  * \return Solution
                  */
-                Solution getSolution() const { return solution; }
+                [[nodiscard]] Solution getSolution() const { return solution; }
 
                 /**
                  * \brief getSolution Returns a reference to the solution of the regressor.

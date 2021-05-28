@@ -34,7 +34,7 @@ namespace ensemble{
              * \brief getSolution Returns the solution of the Ensemble method.
              * \return Solution
              */
-            Solution getSolution() const {return solution;}
+            [[nodiscard]] Solution getSolution() const {return solution;}
             /**
              * \brief getSolution Returns a reference to the solution of the Ensemble method.
              * \return Solution

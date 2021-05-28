@@ -6,6 +6,11 @@
 #pragma once
 #ifndef POINT_HPP_INCLUDED
 #define POINT_HPP_INCLUDED
+#ifndef NOMINMAX
+    #define NOMINMAX
+#endif
+#undef min
+#undef max
 
 #include <cstddef>
 #include <cassert>

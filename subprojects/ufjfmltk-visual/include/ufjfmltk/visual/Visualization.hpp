@@ -407,7 +407,7 @@ namespace mltk{
                 hFind = FindFirstFile(".\\temp\\*.*", &data);
                 if (hFind != INVALID_HANDLE_VALUE) {
                 do {
-                    string file_name(data.cFileName);
+                    std::string file_name(data.cFileName);
                     if(valid_file(file_name) && !file_name.empty()){
                         files.push_back(file_name);
                     }

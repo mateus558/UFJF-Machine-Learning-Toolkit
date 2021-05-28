@@ -35,11 +35,13 @@ namespace mltk{
             virtual T operator[](const size_t& idx) const = 0;
             
             // size is maximum size
-            virtual size_t size() const { 
+            [[nodiscard]] virtual size_t size() const {
                 assert((op1.size() == 0) || (op2.size() == 0)
                        || (op1.size() == op2.size()));
                 return (op1.size() != 0) ? op1.size() : op2.size();
             }
+
+            virtual ~BExprOp() = default;
     };
     /*! 
     \class A_Add
@@ -117,19 +119,21 @@ namespace mltk{
         protected:
             OP const &op;
         public:
-            UExprOp(OP const &op) : op(op) {}
+            explicit UExprOp(OP const &op) : op(op) {}
 
             virtual T operator[](const size_t& idx) const = 0;
     
-            virtual std::size_t size() const {
+            [[nodiscard]] virtual std::size_t size() const {
                 return op.size();
             }
+
+            virtual ~UExprOp() = default;
     };
 
     template<typename T, typename OP>
     class F_Exp: public UExprOp<T, OP> {
     public:
-        F_Exp(OP const & a): UExprOp<T, OP>(a) {}
+        explicit F_Exp(OP const & a): UExprOp<T, OP>(a) {}
 
         T operator[](const size_t& idx) const override{
             return std::exp(this->op[idx]);
@@ -139,7 +143,7 @@ namespace mltk{
     template<typename T, typename OP>
     class F_Log: public UExprOp<T, OP> {
     public:
-        F_Log(OP const & a): UExprOp<T, OP>(a) {}
+        explicit F_Log(OP const & a): UExprOp<T, OP>(a) {}
 
         T operator[](const size_t& idx) const override{
             return std::log(this->op[idx]);
@@ -149,7 +153,7 @@ namespace mltk{
     template <typename T, typename OP >
     class F_Abs: public UExprOp< T, OP > {
         public:
-            F_Abs(OP const& a): UExprOp<T, OP>(a) {}
+            explicit F_Abs(OP const& a): UExprOp<T, OP>(a) {}
 
             T operator[](const size_t& idx) const override {
                 return std::fabs(this->op[idx]);
@@ -159,7 +163,7 @@ namespace mltk{
     template <typename T, typename OP >
     class F_Cos: public UExprOp< T, OP > {
     public:
-        F_Cos(OP const& a): UExprOp<T, OP>(a) {}
+        explicit F_Cos(OP const& a): UExprOp<T, OP>(a) {}
 
         T operator[](const size_t& idx) const override {
             return std::cos(this->op[idx]);
@@ -169,7 +173,7 @@ namespace mltk{
     template <typename T, typename OP >
     class F_Sin: public UExprOp< T, OP > {
     public:
-        F_Sin(OP const& a): UExprOp<T, OP>(a) {}
+        explicit F_Sin(OP const& a): UExprOp<T, OP>(a) {}
 
         T operator[](const size_t& idx) const override {
             return std::sin(this->op[idx]);
@@ -242,7 +246,7 @@ namespace mltk{
             }
             
             // size is size of inner array
-            std::size_t size() const {
+            [[nodiscard]] std::size_t size() const {
                 return a2.size();
             }
     };

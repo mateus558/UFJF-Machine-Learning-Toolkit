@@ -7,8 +7,7 @@
 
 #include "Regressor.hpp"
 
-namespace mltk{
-        namespace regressor {
+namespace mltk::regressor {
             template<typename T>
             class PrimalRegressor : public Regressor<T> {
                 // Attributes
@@ -18,9 +17,9 @@ namespace mltk{
 
             public:
 
-                PrimalRegressor() {}
+                PrimalRegressor() = default;
 
-                PrimalRegressor(DataPointer<T> samples) : Regressor<T>(samples) {}
+                explicit PrimalRegressor(DataPointer<T> samples) : Regressor<T>(samples) {}
 
                 double evaluate(const Point<T> &p, bool raw_value = false) override {
                     double func = 0.0;
@@ -50,6 +49,5 @@ namespace mltk{
 
             };
         }
-}
 
 #endif //UFJF_MLTK_PRIMALREGRESSOR_HPP
