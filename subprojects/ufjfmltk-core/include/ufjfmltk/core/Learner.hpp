@@ -49,7 +49,9 @@ namespace mltk{
       double pred_prob = 1.0;
 
   public:
-      Learner< T > (){}
+      virtual ~Learner() = default;
+
+      Learner< T >() = default;
 
       Learner< T > (DataPointer< T > _samples): samples(_samples) {}
 
