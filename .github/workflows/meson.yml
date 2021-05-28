@@ -2,9 +2,9 @@ name: Meson
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   linux-build:
@@ -52,6 +52,6 @@ jobs:
       with:
         architecture: x64
     - name: Prepare Build
-      run: meson setup build
+      run: meson setup build -Ddefault_library=static
     - name: Run Build
       run: meson compile -v -C build
