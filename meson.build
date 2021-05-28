@@ -19,13 +19,13 @@ message('Build type: ' + build_type)
 message('Install directory: ' + prefix / project_install_dir)
 message('Default library type: ' + library_type)
 
-combined = []
+#combined = []
 project_dependencies = []
 foreach module_name : modules_names
   module = subproject(module_name)
   project_dependencies += dependency(module_name)
   module_name = '_'.join(module_name.split('-'))
-  combined += module.get_variable(module_name+'_tgt').extract_all_objects()
+  #combined += module.get_variable(module_name+'_tgt').extract_all_objects()
 endforeach
 
 subdir('docs')
@@ -33,7 +33,7 @@ install_headers(project_headers, subdir: project_subdir)
 
 project_target = library(meson.project_name(), [project_headers, project_sources],
   dependencies: project_dependencies,
-  objects: combined,
+  #objects: combined,
   install : true,
   install_dir : project_install_dir,
   version: meson.project_version(),
