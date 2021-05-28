@@ -19,12 +19,7 @@ project_headers = ['include/ufjfmltk/classifier/Classifier.hpp',
     'include/ufjfmltk/classifier/Perceptron.hpp',
     'include/ufjfmltk/classifier/PrimalClassifier.hpp',
     'include/ufjfmltk/classifier/SMO.hpp',
-    'include/ufjfmltk/classifier/hnswlib/bruteforce.h',
-    'include/ufjfmltk/classifier/hnswlib/hnswalg.h',
-    'include/ufjfmltk/classifier/hnswlib/hnswlib.h',
-    'include/ufjfmltk/classifier/hnswlib/space_ip.h',
-    'include/ufjfmltk/classifier/hnswlib/space_l2.h',
-    'include/ufjfmltk/classifier/hnswlib/visited_list_pool.h']
+]
 
 project_dependencies = []
 
