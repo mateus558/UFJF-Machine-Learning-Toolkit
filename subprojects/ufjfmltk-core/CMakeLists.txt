@@ -2,8 +2,6 @@ set(CORE_TARGET ${PROJECT_NAME}-core)
 
 # List of CPP (source) library files.
 set(${CORE_TARGET}_SRC
-        src/Data.cpp
-        src/datasets.cpp
         src/Utils.cpp
         )
 

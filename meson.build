@@ -12,8 +12,9 @@ library_type = get_option('default_library')
 
 project_description = 'UFJF Machine Learning Toolkit'
 project_subdir = 'ufjfmltk'
-project_headers = ['ufjfmltk.hpp']
+project_headers = ['include/ufjfmltk/ufjfmltk.hpp']
 project_sources = []
+project_public_headers = include_directories('include')
 
 message('Build type: ' + build_type)
 message('Install directory: ' + prefix / project_install_dir)
@@ -29,21 +30,23 @@ foreach module_name : modules_names
 endforeach
 
 subdir('docs')
-install_headers(project_headers, subdir: project_subdir)
 
-project_target = library(meson.project_name(), [project_headers, project_sources],
+project_target = library(meson.project_name(), [project_sources],
   dependencies: project_dependencies,
   #objects: combined,
   install : true,
   install_dir : project_install_dir,
   version: meson.project_version(),
   soversion: '0',
-  include_directories : include_directories('.'),
+  include_directories : project_public_headers,
 )
+
+install_headers(project_headers, subdir: project_subdir)
 
 project_target_dep = declare_dependency(
   link_with : project_target,
-  include_directories : include_directories('.'),
+  sources : project_headers,
+  include_directories : project_public_headers,
   dependencies: project_dependencies
 )
 

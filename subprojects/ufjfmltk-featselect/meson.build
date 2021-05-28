@@ -10,7 +10,7 @@ prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/featselect'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
-project_source_files = ['src/AOS.cpp', 'src/Fisher.cpp', 'src/Golub.cpp', 'src/RFE.cpp']
+project_source_files = []
 project_headers = ['include/ufjfmltk/featselect/AOS.hpp', 
     'include/ufjfmltk/featselect/FeatureSelection.hpp', 
     'include/ufjfmltk/featselect/Fisher.hpp', 
@@ -18,18 +18,11 @@ project_headers = ['include/ufjfmltk/featselect/AOS.hpp',
     'include/ufjfmltk/featselect/RFE.hpp']
 
 project_dependencies = []
-if not meson.is_subproject()
-  cpp_compiler = meson.get_compiler('cpp')
-  project_dependencies += cpp_compiler.find_library('ufjfmltk-core', required : true)
-  project_dependencies += cpp_compiler.find_library('ufjfmltk-classifier', required : true)
-  project_dependencies += cpp_compiler.find_library('ufjfmltk-valid', required : true)
-  public_headers = include_directories('include') 
-else
-  project_dependencies += dependency('ufjfmltk-core')
-  project_dependencies += dependency('ufjfmltk-classifier')
-  project_dependencies += dependency('ufjfmltk-valid')
-  public_headers = include_directories('include')
-endif
+
+project_dependencies += dependency('ufjfmltk-core')
+project_dependencies += dependency('ufjfmltk-classifier')
+project_dependencies += dependency('ufjfmltk-valid')
+public_headers = include_directories('include')
 
 project_target = library(meson.project_name(), [project_source_files, project_headers],
   install : true,
@@ -44,7 +37,7 @@ install_headers('include/ufjfmltk/FeatureSelection.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(
-  include_directories: [include_directories('include','src','.')],
+  include_directories: [include_directories('include','.')],
   sources: project_headers,
   link_with : project_target,
 )

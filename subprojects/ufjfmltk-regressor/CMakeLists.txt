@@ -1,10 +1,5 @@
 set(REGRESSOR_TARGET ${PROJECT_NAME}-regressor)
 
-# List of CPP (source) library files.
-set(${REGRESSOR_TARGET}_SRC
-        src/LMS.cpp
-        )
-
 # List of HPP (header) library files.
 set(${REGRESSOR_TARGET}_HDR
         include/ufjfmltk/regressor/Regressor.hpp
@@ -19,28 +14,23 @@ set(${REGRESSOR_TARGET}_HDR
 # You can add an external dependency using the find_package() function call
 # Adds a library target called ${LIBRARY_TARGET_NAME} to be built from the
 # source and header files listed in the command invocation.
-add_library(${REGRESSOR_TARGET} ${${REGRESSOR_TARGET}_SRC} ${${REGRESSOR_TARGET}_HDR})
+add_library(${REGRESSOR_TARGET} INTERFACE )
 add_library(${PROJECT_NAME}::${REGRESSOR_TARGET} ALIAS ${REGRESSOR_TARGET})
 
-# Set two minimum target properties for the library.
-set_target_properties(${REGRESSOR_TARGET} PROPERTIES VERSION       ${${PROJECT_NAME}_VERSION}
-        PUBLIC_HEADER "${${REGRESSOR_TARGET}_HDR}")
-
 # Specify include directories for both compilation and installation process.
-target_include_directories(${REGRESSOR_TARGET} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+target_include_directories(${REGRESSOR_TARGET} INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${REGRESSOR_TARGET} ufjfmltk-core)
+target_link_libraries(${REGRESSOR_TARGET} INTERFACE ufjfmltk-core)
 
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${REGRESSOR_TARGET}
-        EXPORT  ${PROJECT_NAME}
-        LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT shlib
-        ARCHIVE       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT lib
-        RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
-        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/regressor" COMPONENT dev)
+        EXPORT  ${PROJECT_NAME})
+
+install(FILES ${${REGRESSOR_TARGET}_HDR}
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/regressor")
 
 install(FILES include/ufjfmltk/Regressor.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
-message(STATUS "Created target ${REGRESSOR_TARGET} for export ${PROJECT_NAME}.")
+message(STATUS "Created target ${VALID_TARGET} for export ${PROJECT_NAME}.")
