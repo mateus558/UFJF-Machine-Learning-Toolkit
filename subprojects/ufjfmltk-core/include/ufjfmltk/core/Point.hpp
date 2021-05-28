@@ -9,6 +9,8 @@
 #ifndef NOMINMAX
     #define NOMINMAX
 #endif
+#undef min
+#undef max
 
 #include <cstddef>
 #include <cassert>
