@@ -1,12 +1,5 @@
 set(CLASSIFIER_TARGET ${PROJECT_NAME}-classifier)
 
-# List of CPP (source) library files.
-set(${CLASSIFIER_TARGET}_SRC
-        src/IMA.cpp
-        src/Perceptron.cpp
-        src/SMO.cpp
-        )
-
 # List of HPP (header) library files.
 set(${CLASSIFIER_TARGET}_HDR
         include/ufjfmltk/classifier/Classifier.hpp
@@ -21,25 +14,21 @@ set(${CLASSIFIER_TARGET}_HDR
         include/ufjfmltk/Classifier.hpp
         )
 
-#include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../ufjfmltk-core/include")
-add_library(${CLASSIFIER_TARGET} ${${CLASSIFIER_TARGET}_SRC} ${${CLASSIFIER_TARGET}_HDR})
-
+add_library(${CLASSIFIER_TARGET} INTERFACE)
 add_library(${PROJECT_NAME}::${CLASSIFIER_TARGET} ALIAS ${CLASSIFIER_TARGET})
 
-set_target_properties(${CLASSIFIER_TARGET} PROPERTIES VERSION       ${${PROJECT_NAME}_VERSION}
-        PUBLIC_HEADER "${${CLASSIFIER_TARGET}_HDR}")
-
-target_include_directories(${CLASSIFIER_TARGET} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+# Specify include directories for both compilation and installation process.
+target_include_directories(${CLASSIFIER_TARGET} INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${CLASSIFIER_TARGET} ufjfmltk-core)
+target_link_libraries(${CLASSIFIER_TARGET} INTERFACE ufjfmltk-core)
 
+# Specify installation targets, typology and destination folders.
 install(TARGETS ${CLASSIFIER_TARGET}
-        EXPORT  ${PROJECT_NAME}
-        LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT shlib
-        ARCHIVE       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT lib
-        RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
-        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/classifier" COMPONENT dev)
+        EXPORT  ${PROJECT_NAME})
+
+install(FILES ${${CLASSIFIER_TARGET}_HDR}
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk/classifier")
 
 install(FILES include/ufjfmltk/Classifier.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")

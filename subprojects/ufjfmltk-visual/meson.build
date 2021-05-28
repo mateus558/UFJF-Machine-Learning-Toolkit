@@ -9,7 +9,7 @@ project_description = 'UFJF-MLTK visualization library.'
 prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/visual'
 project_install_dir = get_option('libdir')
-project_source_files = ['src/gnuplot_i.cpp', 'src/Visualization.cpp']
+project_source_files = ['src/gnuplot_i.cpp']
 project_headers = ['include/ufjfmltk/visual/gnuplot_i.hpp', 
     'include/ufjfmltk/visual/Visualization.hpp']
 

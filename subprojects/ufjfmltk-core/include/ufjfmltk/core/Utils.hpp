@@ -7,12 +7,16 @@
 #pragma once
 #ifndef UTILS_H_INCLUDED
 #define UTILS_H_INCLUDED
+#define PRECISION 1E-9
+#define MAX_NUMBER_STRING_SIZE 32
+#define INF 1E8
 
 #include <vector>
+#include <cstring>
 #include <string>
 #include <sstream>
 #include <iterator>
-#define INF 1E8
+#include <ctime>
 
 namespace mltk{
     enum NormType {NORM_LINF = 0, NORM_L1 = 1, NORM_L2 = 2};

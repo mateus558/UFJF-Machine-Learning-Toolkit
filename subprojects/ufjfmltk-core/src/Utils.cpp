@@ -3,27 +3,21 @@
    \file Utils.cpp
    \author Mateus Coutinho Marim
 */
-#include "ufjfmltk/core/Utils.hpp"
 #include <cmath>
-#include <cstring>
 #include <sstream>
 #include <algorithm>
 #include <iostream>
-#include <ctime>
-#define PRECISION 1E-9
-#define MAX_NUMBER_STRING_SIZE 32
+#include "ufjfmltk/core/Utils.hpp"
 
 using namespace std;
 
-namespace mltk{
-    namespace utils{
-
-        bool is_number(string s){
+namespace mltk::utils{
+        bool is_number(std::string s){
             return !s.empty() && std::find_if(s.begin(),
-                                            s.end(), [](unsigned char c) { return !(std::isdigit(c) || c == '.' || c == '-' || c == '+' || c == 'e'); }) == s.end();
+                                              s.end(), [](unsigned char c) { return !(std::isdigit(c) || c == '.' || c == '-' || c == '+' || c == 'e'); }) == s.end();
         }
 
-        int stoin(string str){
+        int stoin(std::string str){
             int i = 1, m = 1, num = 0, sign = 0, size = str.size();
 
             if(str[0] == '0'){
@@ -63,7 +57,7 @@ namespace mltk{
             return sign * val / power;
         }
 
-        string itos(int n){
+        std::string itos(int n){
             char buffer[50];
             int i = 0;
 
@@ -94,19 +88,19 @@ namespace mltk{
                 buffer[1] = '\0';
             }
 
-            return string(buffer);
+            return std::string(buffer);
         }
 
-        string dtoa(double n){
+        std::string dtoa(double n){
             char s[MAX_NUMBER_STRING_SIZE];
 
             // handle special cases
             if (n != n) {
-                strcpy(s, "nan");
+                std::strcpy(s, "nan");
             } else if (std::isinf(n)) {
-                strcpy(s, "inf");
+                std::strcpy(s, "inf");
             } else if (n == 0.0) {
-                strcpy(s, "0");
+                std::strcpy(s, "0");
             } else {
                 int digit, m, m1 = 0;
                 char *c = s;
@@ -168,35 +162,35 @@ namespace mltk{
                 }
                 *(c) = '\0';
             }
-            return string(s);
+            return std::string(s);
         }
 
         void printConfusionMatrix(const std::vector<int> &classes, const std::vector<std::string>& classes_names, const std::vector<std::vector<size_t> > &confusion_m, bool show_names) {
             size_t i, j, n_classes = classes.size();
-            cout << "    ";
+            std::cout << "    ";
             for(i = 0; i < n_classes; i++){
                 if(!show_names) {
-                    cout << classes[i] << "\t";
+                    std::cout << classes[i] << "\t";
                 }else{
-                    cout << classes_names[i] << "\t";
+                    std::cout << classes_names[i] << "\t";
                 }
             }
-            cout << endl;
-            cout << "    ";
+            std::cout << std::endl;
+            std::cout << "    ";
             for(i = 0; i < n_classes; i++){
-                cout << "----";
+                std::cout << "----";
             }
-            cout << endl;
+            std::cout << std::endl;
             for(i = 0; i < n_classes; i++){
                 if(!show_names) {
-                    cout << classes[i] << " | ";
+                    std::cout << classes[i] << " | ";
                 }else {
-                    cout << classes_names[i] << " | ";
+                    std::cout << classes_names[i] << " | ";
                 }
                 for(j = 0; j < n_classes; j++){
-                    cout << confusion_m[i][j] << "\t";
+                    std::cout << confusion_m[i][j] << "\t";
                 }
-                cout << endl;
+                std::cout << std::endl;
             }
         }
 
@@ -223,5 +217,5 @@ namespace mltk{
             strftime(buffer, 21, "%F-%X", tinfo);
             return std::string(buffer);
         }
+
     }
-}

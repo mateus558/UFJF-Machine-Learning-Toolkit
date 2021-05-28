@@ -343,8 +343,6 @@ TEST_F(DataTest, KernelTest){
     kernel(blobs);
 
     ASSERT_EQ((blobs(0)*blobs(1)).sum(), kernel(blobs(0), blobs(1)));
-    ASSERT_LT(kernel[0][0], 50);
-    ASSERT_GT(kernel[0][0], 31.36);
 
     mltk::Kernel ckernel(mltk::CUSTOM);
 

@@ -7,7 +7,6 @@ set(VISUAL_TARGET ${PROJECT_NAME}-visual)
 # List of CPP (source) library files.
 set(${VISUAL_TARGET}_SRC
         src/gnuplot_i.cpp
-        src/Visualization.cpp
         )
 
 # List of HPP (header) library files.

@@ -8,10 +8,6 @@ add_subdirectory(ufjfmltk-regressor)
 add_subdirectory(ufjfmltk-visual)
 
 add_library(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:ufjfmltk-core>
-                                   $<TARGET_OBJECTS:ufjfmltk-classifier>
-                                   $<TARGET_OBJECTS:ufjfmltk-clusterer>
-                                   $<TARGET_OBJECTS:ufjfmltk-featselect>
-                                   $<TARGET_OBJECTS:ufjfmltk-regressor>
                                    $<TARGET_OBJECTS:ufjfmltk-visual>
                                     ../ufjfmltk.hpp
         )

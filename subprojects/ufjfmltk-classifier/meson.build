@@ -10,7 +10,7 @@ prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/classifier'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
-project_source_files = ['src/IMA.cpp', 'src/Perceptron.cpp', 'src/SMO.cpp']
+project_source_files = []
 project_headers = ['include/ufjfmltk/classifier/Classifier.hpp', 
     'include/ufjfmltk/classifier/DualClassifier.hpp', 
     'include/ufjfmltk/classifier/IMA.hpp', 
@@ -50,7 +50,7 @@ install_headers('include/ufjfmltk/Classifier.hpp', subdir: 'ufjfmltk')
 install_headers(project_headers, subdir : project_subdir)
 
 project_target_dep = declare_dependency(
-  include_directories: [include_directories('include', 'src', '.')],
+  include_directories: [include_directories('include', '.')],
   sources: project_headers,
   link_with : project_target,
 )
