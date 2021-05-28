@@ -25,7 +25,7 @@ namespace mltk{
 
         public:
             Fisher() = default;
-            explicit Fisher(const Data<T>& samples = nullptr,
+            explicit Fisher(const Data<T>& samples,
                             classifier::Classifier<T> *classifier = nullptr, int number = 0);
 
             Data<T> selectFeatures() override;
