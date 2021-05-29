@@ -17,7 +17,7 @@ namespace mltk{
         
         public:
             // Constructor initializes value
-            constexpr A_Scalar (T const& v): value (v) {}
+            constexpr explicit A_Scalar (T const& v): value (v) {}
 
             // for index operations, the scalar is the value of each element
             constexpr T const& operator[] (std::size_t ) const {
@@ -25,7 +25,7 @@ namespace mltk{
             }
 
             // scalars have zero as size
-            constexpr std::size_t size () const { 
+            [[nodiscard]] constexpr std::size_t size () const {
                 return 0; 
             }
     };

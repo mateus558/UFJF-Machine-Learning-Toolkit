@@ -2,7 +2,7 @@ project(
   'ufjfmltk-visual',
   'cpp',
   version : '0.40.0',
-  default_options : ['warning_level=0', 'cpp_std=c++17']
+  default_options : ['warning_level=1', 'cpp_std=c++17']
 )
 
 project_description = 'UFJF-MLTK visualization library.'

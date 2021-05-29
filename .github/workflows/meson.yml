@@ -2,9 +2,9 @@ name: Meson
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   linux-build:
@@ -35,17 +35,23 @@ jobs:
     - name: Compile project
       run: meson compile -C build
       
-#   windows-build:
-#     runs-on: windows-latest
+  windows-build:
+    runs-on: windows-latest
 
-#     steps:
-#     - uses: actions/checkout@v2
+    steps:
+    - uses: actions/checkout@v2
     
-#     - name: Install meson
-#       run: pip install meson ninja
-      
-#     - name: Configure meson build
-#       run: meson . build --backend=vs
-      
-#     - name: Compile project
-#       run: meson compile -C build
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install Python Dependencies
+      run: pip install meson ninja
+    - name: Prepare MSVC
+      uses: bus1/cabuild/action/msdevshell@v1
+      with:
+        architecture: x64
+    - name: Prepare Build
+      run: meson setup build -Ddefault_library=static
+    - name: Run Build
+      run: meson compile -v -C build
