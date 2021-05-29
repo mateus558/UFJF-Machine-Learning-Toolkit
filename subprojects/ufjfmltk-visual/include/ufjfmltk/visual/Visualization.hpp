@@ -19,7 +19,7 @@
 #else
 error "Missing the <filesystem> header."
 #endif
-#define PLOT_FOLDER "temp"
+#define PLOT_FOLDER "plottemp"
 #include <string>
 #include <map>
 #include <array>
@@ -197,7 +197,7 @@ namespace mltk{
             learner.setSamples(data_copy);
             if(!is_trained) learner.train();
 
-            std::string data_fname = data_copy.name()+mltk::utils::timestamp()+".dat";
+            std::string data_fname = this->plot_folder+data_copy.name()+"_"+mltk::utils::timestamp()+".dat";
             std::ofstream data_file(data_fname);
             if(!data_file.is_open()){
                 std::cerr << "error opening file" << std::endl;
@@ -218,7 +218,7 @@ namespace mltk{
             std::vector<std::ofstream> classes_files(classes.size());
 
             for(int i = 0; i < classes_files.size(); i++){
-                std::string fname = class_names[i]+"_data"+mltk::utils::timestamp()+".dat";
+                std::string fname = this->plot_folder+class_names[i]+"_data"+mltk::utils::timestamp()+".dat";
                 classes_files[i].open(fname);
                 if(!classes_files[i].is_open()){
                     std::cerr << "Error opening file!" << std::endl;
@@ -432,7 +432,12 @@ namespace mltk{
 
         template<typename T>
         void Visualization< T >::removeTempFiles(){
-            if(keep_temp_files) return;
+            if(keep_temp_files) {
+                auto fname = this->plot_folder;
+                fname.erase(std::remove(fname.begin(), fname.end(), '/'), fname.end());
+                fs::rename(fname, fname+"_saved_"+mltk::utils::timestamp());
+                return;
+            }
             std::string path;
             std::vector<std::string> temps;
 
@@ -813,7 +818,8 @@ namespace mltk{
             std::vector<std::string> names(files.size());
             std::transform(files.begin(), files.end(), names.begin(), [type](std::string& path){
                 if(type == "decision") {
-                    return mltk::utils::tokenize(path, '_')[0];
+                    auto res = mltk::utils::tokenize(mltk::utils::tokenize(path, '_')[0], '/');
+                    return mltk::utils::tokenize(mltk::utils::tokenize(path, '_')[0], '/')[1];
                 }else{
                     return mltk::utils::tokenize(mltk::utils::tokenize(path, '.')[0], '/')[1];
                 }
@@ -826,9 +832,9 @@ namespace mltk{
             std::sort(files.begin(), files.end(), [&class_names, &classes, &type](const auto& a, const auto& b){
                 if(type == "decision") {
                     auto aclass_pos = std::find(class_names.begin(), class_names.end(),
-                                                mltk::utils::tokenize(a, '_')[0]) - class_names.begin();
+                                                mltk::utils::tokenize(mltk::utils::tokenize(a, '_')[0], '/')[1]) - class_names.begin();
                     auto bclass_pos = std::find(class_names.begin(), class_names.end(),
-                                                mltk::utils::tokenize(b, '_')[0]) - class_names.begin();
+                                                mltk::utils::tokenize(mltk::utils::tokenize(b, '_')[0], '/')[1]) - class_names.begin();
                     return classes[aclass_pos] < classes[bclass_pos];
                 }else{
                     auto aclass_pos = std::find(class_names.begin(), class_names.end(),
