@@ -1091,6 +1091,7 @@ namespace mltk{
         int i, j;
         std::string path = fname + "." + ext;
         std::ofstream outstream(path.c_str(), std::ios::out);
+        m_dim =(this->m_points.size()>0)?this->m_points[0]->size():0;
 
         if(!outstream.is_open()){
             std::cerr << "Can't write in file." << std::endl;
