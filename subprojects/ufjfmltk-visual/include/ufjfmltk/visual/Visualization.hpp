@@ -45,6 +45,7 @@ namespace mltk{
         std::map<std::string, std::string> configs;
         Gnuplot *g{nullptr};
         std::string plot_folder;
+        std::vector<std::string> plot_folders;
         std::vector<std::string> temp_fnames;
         bool is_shared, keep_temp_files;
         static size_t n_plots;
@@ -81,6 +82,7 @@ namespace mltk{
         std::string prepareScript(std::string cmd);
         std::vector<std::string> sortLabels(std::vector<std::string>& files, const std::string& type="scatter");
         std::string fetchConfigs();
+        void create_plotfolder();
         // Operations
     public :
         explicit Visualization (bool shared_session=true, bool keep_temp_files=false);
@@ -279,13 +281,20 @@ namespace mltk{
             samples = &sample;
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
-            this->plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
-            n_plots++;
-            bool exist_folder = fs::exists(this->plot_folder);
-            if(!exist_folder) {
-                fs::create_directory(this->plot_folder);
-            }
+            create_plotfolder();
             createTempFiles();
+        }
+
+        template<typename T>
+        void Visualization<T>::create_plotfolder() {
+            do{
+                this->plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
+                if(std::find(plot_folders.begin(), plot_folders.end(), this->plot_folder) == plot_folders.end()) {
+                    plot_folders.push_back(this->plot_folder);
+                }
+                n_plots++;
+            }while(fs::exists(this->plot_folder));
+            fs::create_directory(this->plot_folder);
         }
 
         template<typename T>
@@ -793,11 +802,7 @@ namespace mltk{
             if(fs::exists(plot_folder)) {
                 removeTempFiles();
             }
-            plot_folder = PLOT_FOLDER+std::to_string(n_plots)+"/";
-            n_plots++;
-            if(!fs::exists(plot_folder)) {
-                fs::create_directory(plot_folder);
-            }
+            create_plotfolder();
             createTempFiles();
         }
 
@@ -894,6 +899,12 @@ namespace mltk{
             delete g;
             g = nullptr;
             removeTempFiles();
+            for(auto& pfolder: plot_folders) {
+                if(fs::exists(pfolder)) {
+                    fs::remove_all(pfolder);
+                }
+            }
+            plot_folders.clear();
         }
 
         template<typename T>
