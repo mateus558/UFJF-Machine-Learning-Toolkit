@@ -1,8 +1,9 @@
-set(CORE_TARGET ${PROJECT_NAME}-core)
+set(CORE_TARGET core)
 
 # List of CPP (source) library files.
 set(${CORE_TARGET}_SRC
         src/Utils.cpp
+        src/Datasets.cpp
         )
 
 # List of HPP (header) library files.

@@ -2,7 +2,7 @@
 # The actual file name of the library built is constructed based on conventions
 # of the native platform, such as lib<VALID_TARGET>.a,
 # lib<VALID_TARGET>.dylib or <VALID_TARGET>.lib.
-set(VALID_TARGET ${PROJECT_NAME}-valid)
+set(VALID_TARGET valid)
 
 # List of HPP (header) library files.
 set(${VALID_TARGET}_HDR
@@ -19,7 +19,7 @@ add_library(${PROJECT_NAME}::${VALID_TARGET} ALIAS ${VALID_TARGET})
 target_include_directories(${VALID_TARGET} INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${VALID_TARGET} INTERFACE ufjfmltk-core ufjfmltk-classifier)
+target_link_libraries(${VALID_TARGET} INTERFACE ufjfmltk::core ufjfmltk::classifier)
 
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${VALID_TARGET}

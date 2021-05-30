@@ -9,7 +9,7 @@ add_executable(${CLUSTERER_TESTS} main.cpp clusterer_tests.cpp)
 ######################################
 # Configure the test to use GoogleTest
 #
-target_link_libraries(${CLUSTERER_TESTS} gtest gtest_main ufjfmltk-core ufjfmltk-classifier ufjfmltk-clusterer ufjfmltk-valid)
+target_link_libraries(${CLUSTERER_TESTS} gtest gtest_main core classifier clusterer valid)
 
 ##################################
 # Just make the test runnable with

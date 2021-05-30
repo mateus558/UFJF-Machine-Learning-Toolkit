@@ -21,7 +21,7 @@ add_executable(${CORE_TESTS} main.cpp data_test.cpp stats_test.cpp)
 ######################################
 # Configure the test to use GoogleTest
 #
-target_link_libraries(${CORE_TESTS} gtest gtest_main ufjfmltk-core ufjfmltk-valid ufjfmltk-classifier)
+target_link_libraries(${CORE_TESTS} gtest gtest_main core valid classifier)
 
 ##################################
 # Just make the test runnable with

@@ -6,7 +6,7 @@ add_executable(${FEATSELECT_TESTS} main.cpp featselect_tests.cpp)
 ######################################
 # Configure the test to use GoogleTest
 #
-target_link_libraries(${FEATSELECT_TESTS} gtest gtest_main ufjfmltk-core ufjfmltk-classifier ufjfmltk-valid ufjfmltk-visual ufjfmltk-featselect)
+target_link_libraries(${FEATSELECT_TESTS} gtest gtest_main core classifier valid visual featselect)
 
 ##################################
 # Just make the test runnable with
