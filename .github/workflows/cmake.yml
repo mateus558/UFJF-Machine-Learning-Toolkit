@@ -98,27 +98,6 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
       
-  macos-tests:
-    runs-on: macos-latest
-        
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Install gnuplot
-      run: brew install gnuplot
-    
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.TESTS_BUILD_TYPE}} -DENABLE_TESTING=ON
-    
-    - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.TESTS_BUILD_TYPE}}
-      
-    - name: Test
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: ctest -C ${{env.TESTS_BUILD_TYPE}}
-        working-directory: ${{github.workspace}}/build
-
   windows-build:
     runs-on: windows-latest
     steps:
