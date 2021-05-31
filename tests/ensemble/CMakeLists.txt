@@ -9,7 +9,7 @@ add_executable(${ENSEMBLE_TESTS} main.cpp ensemble_tests.cpp)
 ######################################
 # Configure the test to use GoogleTest
 #
-target_link_libraries(${ENSEMBLE_TESTS} gtest gtest_main ufjfmltk-core ufjfmltk-classifier ufjfmltk-ensemble ufjfmltk-valid)
+target_link_libraries(${ENSEMBLE_TESTS} gtest gtest_main core classifier ensemble valid)
 
 ##################################
 # Just make the test runnable with

@@ -9,7 +9,7 @@ add_executable(${VISUALIZATION_TESTS} main.cpp vis_test.cpp)
 ######################################
 # Configure the test to use GoogleTest
 #
-target_link_libraries(${VISUALIZATION_TESTS} gtest gtest_main ufjfmltk-core ufjfmltk-valid ufjfmltk-visual ufjfmltk-classifier)
+target_link_libraries(${VISUALIZATION_TESTS} gtest gtest_main core valid visual classifier)
 
 ##################################
 # Just make the test runnable with

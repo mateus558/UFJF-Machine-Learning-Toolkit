@@ -9,7 +9,7 @@ add_executable(${CLASSIFIER_TESTS} main.cpp class_tests.cpp)
 ######################################
 # Configure the test to use GoogleTest
 #
-target_link_libraries(${CLASSIFIER_TESTS} gtest gtest_main ufjfmltk-core ufjfmltk-classifier ufjfmltk-valid)
+target_link_libraries(${CLASSIFIER_TESTS} gtest gtest_main core classifier valid)
 
 ##################################
 # Just make the test runnable with

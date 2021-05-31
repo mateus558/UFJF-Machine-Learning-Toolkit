@@ -1,4 +1,4 @@
-set(REGRESSOR_TARGET ${PROJECT_NAME}-regressor)
+set(REGRESSOR_TARGET regressor)
 
 # List of HPP (header) library files.
 set(${REGRESSOR_TARGET}_HDR
@@ -17,11 +17,11 @@ set(${REGRESSOR_TARGET}_HDR
 add_library(${REGRESSOR_TARGET} INTERFACE )
 add_library(${PROJECT_NAME}::${REGRESSOR_TARGET} ALIAS ${REGRESSOR_TARGET})
 
+target_link_libraries(${REGRESSOR_TARGET} INTERFACE ufjfmltk::core)
+
 # Specify include directories for both compilation and installation process.
 target_include_directories(${REGRESSOR_TARGET} INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
-
-target_link_libraries(${REGRESSOR_TARGET} INTERFACE ufjfmltk-core)
 
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${REGRESSOR_TARGET}

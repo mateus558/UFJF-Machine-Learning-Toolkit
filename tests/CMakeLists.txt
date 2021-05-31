@@ -29,7 +29,7 @@ if(CODE_COVERAGE)
     setup_target_for_coverage_gcovr_html(
             NAME coverage
             EXECUTABLE ctest
-            DEPENDENCIES ${COV_TARGETS} ufjfmltk-core ufjfmltk-clusterer ufjfmltk-classifier ufjfmltk-ensemble ufjfmltk-valid ufjfmltk-visual ufjfmltk-regressor
+            DEPENDENCIES ${COV_TARGETS} core clusterer classifier ensemble valid visual regressor
             EXCLUDE "cmake*;subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/hnswlib/*;subprojects/ufjfmltk-visual/src/gnuplot_i.cpp;subprojects/ufjfmltk-visual/include/ufjfmltk/visual/gnuplot_i.hpp"
     )
 endif(CODE_COVERAGE)

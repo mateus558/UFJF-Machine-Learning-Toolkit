@@ -2,7 +2,7 @@ add_executable(${REGRESSOR_TESTS} main.cpp regressor_tests.cpp)
 ######################################
 # Configure the test to use GoogleTest
 #
-target_link_libraries(${REGRESSOR_TESTS} gtest gtest_main ufjfmltk-core ufjfmltk-visual ufjfmltk-regressor)
+target_link_libraries(${REGRESSOR_TESTS} gtest gtest_main core visual regressor)
 
 ##################################
 # Just make the test runnable with

@@ -2,7 +2,7 @@
 # The actual file name of the library built is constructed based on conventions
 # of the native platform, such as lib<LIBRARY_TARGET_NAME>.a,
 # lib<LIBRARY_TARGET_NAME>.dylib or <LIBRARY_TARGET_NAME>.lib.
-set(VISUAL_TARGET ${PROJECT_NAME}-visual)
+set(VISUAL_TARGET visual)
 
 # List of CPP (source) library files.
 set(${VISUAL_TARGET}_SRC
@@ -30,7 +30,7 @@ set_target_properties(${VISUAL_TARGET} PROPERTIES VERSION       ${${PROJECT_NAME
 target_include_directories(${VISUAL_TARGET} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${VISUAL_TARGET} ufjfmltk-core)
+target_link_libraries(${VISUAL_TARGET} PRIVATE ufjfmltk::core)
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${VISUAL_TARGET}
         EXPORT  ${PROJECT_NAME}

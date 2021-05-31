@@ -10,6 +10,7 @@ prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/classifier'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
+project_source_files = ['src/int_dll.cpp']
 project_headers = ['include/ufjfmltk/classifier/Classifier.hpp',
     'include/ufjfmltk/classifier/DualClassifier.hpp', 
     'include/ufjfmltk/classifier/IMA.hpp', 
@@ -19,6 +20,7 @@ project_headers = ['include/ufjfmltk/classifier/Classifier.hpp',
     'include/ufjfmltk/classifier/Perceptron.hpp',
     'include/ufjfmltk/classifier/PrimalClassifier.hpp',
     'include/ufjfmltk/classifier/SMO.hpp',
+    'include/ufjfmltk/classifier/int_dll.h'
 ]
 
 project_dependencies = []
@@ -26,7 +28,7 @@ project_dependencies = []
 project_dependencies += dependency('ufjfmltk-core')
 public_headers = include_directories('include')
 
-project_target = library(meson.project_name(), project_headers,
+project_target = library(meson.project_name(), [project_source_files, project_headers],
   install : true,
   install_dir : project_install_dir,
   include_directories : public_headers,

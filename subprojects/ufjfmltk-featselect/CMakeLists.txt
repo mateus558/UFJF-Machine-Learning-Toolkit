@@ -1,4 +1,4 @@
-set(FEATSELECT_TARGET ${PROJECT_NAME}-featselect)
+set(FEATSELECT_TARGET featselect)
 
 # List of HPP (header) library files.
 set(${FEATSELECT_TARGET}_HDR
@@ -19,7 +19,7 @@ add_library(${PROJECT_NAME}::${FEATSELECT_TARGET} ALIAS ${FEATSELECT_TARGET})
 target_include_directories(${FEATSELECT_TARGET} INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${FEATSELECT_TARGET} INTERFACE ufjfmltk-core ufjfmltk-classifier ufjfmltk-valid)
+target_link_libraries(${FEATSELECT_TARGET} INTERFACE ufjfmltk::core ufjfmltk::classifier ufjfmltk::valid)
 
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${FEATSELECT_TARGET}

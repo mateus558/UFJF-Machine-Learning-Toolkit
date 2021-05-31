@@ -1,4 +1,4 @@
-set(CLUSTERER_TARGET ${PROJECT_NAME}-clusterer)
+set(CLUSTERER_TARGET clusterer)
 
 # List of HPP (header) library files.
 set(${CLUSTERER_TARGET}_HDR
@@ -16,7 +16,7 @@ add_library(${PROJECT_NAME}::${CLUSTERER_TARGET} ALIAS ${CLUSTERER_TARGET})
 target_include_directories(${CLUSTERER_TARGET} INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${CLUSTERER_TARGET} INTERFACE ufjfmltk-core)
+target_link_libraries(${CLUSTERER_TARGET} INTERFACE ufjfmltk::core)
 
 # Specify installation targets, typology and destination folders.
 install(TARGETS ${CLUSTERER_TARGET}
