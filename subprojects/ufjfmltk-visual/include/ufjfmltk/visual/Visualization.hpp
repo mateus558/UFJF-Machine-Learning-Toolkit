@@ -23,6 +23,7 @@ error "Missing the <filesystem> header."
 #include <string>
 #include <map>
 #include <array>
+#include <utility>
 #include "ufjfmltk/visual/gnuplot_i.hpp"
 #include "ufjfmltk/core/Data.hpp"
 #include "ufjfmltk/core/Solution.hpp"
@@ -111,6 +112,8 @@ namespace mltk{
          */
         void setStyle (std::string style);
 
+        std::string execute_command(const std::string& cmd, bool fetch_configs=true);
+
         std::string plot1DRegresion(int x=0, bool save=false, double scale = 1.0,
                                     const std::string& title="",
                                     const std::string& format="svg",
@@ -185,6 +188,7 @@ namespace mltk{
                                    const std::string& title="",
                                    const std::string& format="svg",
                                    const std::string& x_label="x", const std::string& y_label="y"){
+            assert(samples->isClassification());
             configurePlot("contour_"+this->samples->name()+"_"+mltk::utils::timestamp(), format, title, save,
                           x_label, y_label);
             AxisRanges axis_ranges = configureRange(scale, x, y);
@@ -251,11 +255,7 @@ namespace mltk{
             cmd += "set palette rgbformulae 22,13,10;";
             cmd += "splot '"+data_fname+"', " + scatter_cmd;
             temp_files_names.push_back(data_fname);
-            if(is_shared) g->cmd(cmd);
-            else {
-                Gnuplot g_;
-                g_.cmd(cmd);
-            }
+            cmd = execute_command(cmd, false);
             temp_fnames.insert(temp_fnames.begin(), temp_files_names.begin(), temp_files_names.end());
             return prepareScript(cmd);
         }
@@ -299,12 +299,12 @@ namespace mltk{
 
         template<typename T>
         void Visualization< T >::setTitle(std::string title){
-            configs["title"] = title;
+            configs["title"] = std::move(title);
         }
 
         template<typename T>
         void Visualization< T >::setStyle(std::string style){
-            configs["style"] = style;
+            configs["style"] = std::move(style);
         }
 
         template<typename T>
@@ -394,7 +394,7 @@ namespace mltk{
 #ifdef __unix__
             DIR *dpdf;
             struct dirent *epdf;
-            std::string path = std::string(plot_folder);
+            auto path = std::string(plot_folder);
 
             dpdf = opendir(path.c_str());
             if(dpdf != nullptr){
@@ -443,9 +443,9 @@ namespace mltk{
 
             temps = getTempFilesNames();
 
-            for(std::string file : temps){
-                std::string path = plot_folder + file;
-                if(fs::exists(path)) fs::remove_all(path);
+            for(const std::string& file : temps){
+                std::string _path = plot_folder + file;
+                if(fs::exists(_path)) fs::remove_all(_path);
             }
             if(fs::exists(plot_folder)) fs::remove_all(plot_folder);
             if(!temp_fnames.empty()) {
@@ -477,18 +477,8 @@ namespace mltk{
                 cmd += "\'" + temp_files_names[i] + "\' using " + dims + " with points, ";
             }
             cmd += "\'" + temp_files_names[i] + "\' using " + dims + " with points";
-            cmd = fetchConfigs() + cmd;
-#ifdef __unix__
-            if(is_shared) g->cmd(cmd);
-            else {
-                Gnuplot g_;
-                g_.cmd(cmd);
-            }
-#elif _WIN32
-            cmd = "set terminal windows; " + cmd;
-                cmd = "echo " + cmd + " | gnuplot -persist";
-                system(cmd.c_str());
-#endif
+
+            cmd = execute_command(cmd);
             return prepareScript(cmd);
         }
 
@@ -517,17 +507,7 @@ namespace mltk{
             cmd += "\'" + temp_files_names[i] + "\' using " + dims + " notitle with points, f(x) notitle with lines ls 1 lt rgb \"red\"";
             cmd = fetchConfigs() + cmd;
 
-#ifdef __unix__
-            if(is_shared) g->cmd(cmd);
-            else {
-                Gnuplot g_;
-                g_.cmd(cmd);
-            }
-#elif _WIN32
-            cmd = "set terminal windows; " + cmd;
-                cmd = "echo " + cmd + " | gnuplot -persist";
-                system(cmd.c_str());
-#endif
+            cmd = execute_command(cmd);
             return prepareScript(cmd);
         }
 
@@ -536,6 +516,7 @@ namespace mltk{
                                                const std::string& title,
                                                const std::string& format,
                                                const std::string& x_label, const std::string& y_label){
+            assert(samples->isClassification());
             std::string dims = utils::itos(x+1) + ":" + utils::itos(y+1);
             std::string cmd("plot ");
             std::vector<std::string> temp_files_names, class_names = samples->classesNames();
@@ -547,32 +528,14 @@ namespace mltk{
             configureRange(scale, x, y);
             configurePlot(out_name, format, title, save, x_label, y_label);
 
-            if(samples->isClassification()){
-                temp_files_names = getTempFilesNames(true);
-                auto names = sortLabels(temp_files_names);
-                for(i = 0; i < temp_files_names.size() - 1; i++){
-                    cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points, ";
-                }
-                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points";
-                cmd = fetchConfigs() + cmd;
-#ifdef __unix__
-                if(is_shared) g->cmd(cmd);
-                else {
-                    Gnuplot g_;
-                    g_.cmd(cmd);
-                }
-#elif _WIN32
-                cmd = "set terminal windows; " + cmd;
-                cmd = "echo " + cmd + " | gnuplot -persist";
-                system(cmd.c_str());
-#endif
-            }else{
-                if(is_shared) g->plot_xy(samples->getFeature(x), samples->getFeature(y));
-                else {
-                    Gnuplot g_;
-                    g_.plot_xy(samples->getFeature(x), samples->getFeature(y));
-                }
+            temp_files_names = getTempFilesNames(true);
+            auto names = sortLabels(temp_files_names);
+            for(i = 0; i < temp_files_names.size() - 1; i++){
+                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points, ";
             }
+            cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points";
+
+            cmd = execute_command(cmd);
             return prepareScript(cmd);
         }
 
@@ -581,6 +544,7 @@ namespace mltk{
                                                              const std::string& title,
                                                              const std::string& format,
                                                              const std::string& x_label, const std::string& y_label){
+            assert(samples->isClassification());
             if(s.norm != s.norm) s.norm = 0.0;
             std::string feats = utils::itos(x+1) + ":" + utils::itos(y+1);
             std::string fx, gx, hx, cmd;
@@ -607,29 +571,13 @@ namespace mltk{
 
             cmd = fx + ";"+ gx +";"+ hx +";plot ";
 
-            if(samples->isClassification()){
-                temp_files_names = getTempFilesNames(true);
-                auto names = sortLabels(temp_files_names);
-                for(i = 0; i < class_names.size() - 1; i++){
-                    cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
-                }
-                cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
-            }else if(samples->getType() == "Regression"){
-                cmd += "'"+ std::string(plot_folder) +"samples.plt' using "+feats+" title '+1' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+            temp_files_names = getTempFilesNames(true);
+            auto names = sortLabels(temp_files_names);
+            for(i = 0; i < class_names.size() - 1; i++){
+                cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
             }
-            cmd = fetchConfigs() + cmd;
-#ifdef __unix__
-            if(is_shared) {
-                g->cmd(cmd);
-            }else {
-                Gnuplot g_;
-                g_.cmd(cmd);
-            }
-#elif _WIN32
-            cmd = "set terminal windows; " + cmd;
-            cmd = "echo " + cmd + " | gnuplot -persist";
-                system(cmd.c_str());
-#endif
+            cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+            cmd = execute_command(cmd);
             return prepareScript(cmd);
         }
 
@@ -653,19 +601,7 @@ namespace mltk{
                 cmd += "\'" + temp_files_names[i] + "\' using " + dims + " with points, ";
             }
             cmd += "\'" + temp_files_names[i] + "\' using " + dims + " notitle with points";
-            cmd = fetchConfigs() + cmd;
-
-#ifdef __unix__
-            if(is_shared) g->cmd(cmd);
-            else {
-                Gnuplot g_;
-                g_.cmd(cmd);
-            }
-#elif _WIN32
-            cmd = "set terminal windows; " + cmd;
-                cmd = "echo " + cmd + " | gnuplot -persist";
-                system(cmd.c_str());
-#endif
+            cmd = execute_command(cmd);
             return prepareScript(cmd);
         }
 
@@ -692,19 +628,7 @@ namespace mltk{
                 cmd += "\'" + temp_files_names[i] + "\' using " + dims + " with points, ";
             }
             cmd += "\'" + temp_files_names[i] + "\' using " + dims + " notitle with points, f(x,y) notitle with lines ls 1 lt rgb \"red\"";
-            cmd = fetchConfigs() + cmd;
-
-#ifdef __unix__
-            if(is_shared) g->cmd(cmd);
-            else {
-                Gnuplot g_;
-                g_.cmd(cmd);
-            }
-#elif _WIN32
-            cmd = "set terminal windows; " + cmd;
-                cmd = "echo " + cmd + " | gnuplot -persist";
-                system(cmd.c_str());
-#endif
+            cmd = execute_command(cmd);
             return prepareScript(cmd);
         }
 
@@ -713,6 +637,7 @@ namespace mltk{
                                                const std::string& title,
                                                const std::string& format,
                                                const std::string& x_label, const std::string& y_label, const std::string& z_label){
+            assert(samples->isClassification());
             std::string dims = utils::itos(x+1) + ":" + utils::itos(y+1) + ":" + utils::itos(z+1);
             std::string cmd("splot ");
             std::vector<std::string> temp_files_names, class_names = samples->classesNames();
@@ -723,31 +648,13 @@ namespace mltk{
             configureRange(scale, x, y, z);
             configurePlot(out_name, format, title, save, x_label, y_label, z_label);
 
-            if(samples->isClassification()){
-                temp_files_names = getTempFilesNames(true);
-                auto names = sortLabels(temp_files_names);
-                for(i = 0; i < class_names.size() - 1; i++){
-                    cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points, ";
-                }
-                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points";
-                cmd = fetchConfigs() + cmd;
-#ifdef __unix__
-                if(is_shared) g->cmd(cmd);
-                else {
-                    Gnuplot g_;
-                    g_.cmd(cmd);
-                }
-#elif _WIN32
-                cmd = "echo " + cmd + " | gnuplot -persist";
-                system(cmd.c_str());
-#endif
-            }else if(samples->getType() == "Regression"){
-                if(is_shared) g->plot_xyz(this->samples->getFeature(x), this->samples->getFeature(y), this->samples->getFeature(z));
-                else {
-                    Gnuplot g_;
-                    g_.plot_xyz(this->samples->getFeature(x), this->samples->getFeature(y), this->samples->getFeature(z));
-                }
+            temp_files_names = getTempFilesNames(true);
+            auto names = sortLabels(temp_files_names);
+            for(i = 0; i < class_names.size() - 1; i++){
+                cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points, ";
             }
+            cmd += "\'" + temp_files_names[i] + "\' using " + dims + " title \'" + names[i] + "\' with points";
+            cmd = execute_command(cmd);
             return prepareScript(cmd);
         }
 
@@ -757,6 +664,7 @@ namespace mltk{
                                                              const std::string& format,
                                                              const std::string& x_label, const std::string& y_label,
                                                              const std::string& z_label){
+            assert(samples->isClassification());
             std::string feats = utils::itos(x+1) + ":" + utils::itos(y+1) + ":" + utils::itos(z+1);
             std::string fxy, gxy, hxy, cmd;
             std::vector<std::string> temp_files_names, class_names = samples->classesNames();
@@ -772,32 +680,16 @@ namespace mltk{
             hxy = "h(x,y) = "+utils::dtoa(-s.w[x]/s.w[z])+"*x + "+utils::dtoa(-s.w[y]/s.w[z])+"*y + "+utils::dtoa((s.bias - s.margin * s.norm)/-s.w[z]);
             cmd = gxy + ";" + fxy + ";" + hxy + "; splot ";
 
-            if(samples->isClassification()){
-                temp_files_names = getTempFilesNames(true);
-                auto names = sortLabels(temp_files_names);
-                for(i = 0; i < class_names.size() - 1; i++){
-                    cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
-                }
+            temp_files_names = getTempFilesNames(true);
+            auto names = sortLabels(temp_files_names);
+            for(i = 0; i < class_names.size() - 1; i++){
                 cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
-                cmd += "g(x,y) notitle with lines ls 1 lt rgb \"red\",";
-                cmd += "f(x,y) notitle with lines ls 1,";
-                cmd += "h(x,y) notitle with lines ls 1 lt rgb \"red\";";
-            }else if(samples->getType() == "Regression"){
-                cmd += "'"+ std::string(plot_folder) +"samples.plt' using "+ feats +" with points, f(x,y) notitle with lines ls 1";
             }
-#ifdef __unix__
-            cmd = fetchConfigs() + cmd;
-            if(is_shared) {
-                g->cmd(cmd);
-            }else {
-                Gnuplot g_;
-                g_.cmd(cmd);
-            }
-#elif _WIN32
-            cmd = "set terminal windows; " + cmd;
-            cmd = "echo " + cmd + " | gnuplot -persist";
-                system(cmd.c_str());
-#endif
+            cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
+            cmd += "g(x,y) notitle with lines ls 1 lt rgb \"red\",";
+            cmd += "f(x,y) notitle with lines ls 1,";
+            cmd += "h(x,y) notitle with lines ls 1 lt rgb \"red\";";
+            execute_command(cmd);
             return prepareScript(cmd);
         }
 
@@ -955,6 +847,24 @@ namespace mltk{
         std::string Visualization<T>::prepareScript(std::string cmd) {
             std::replace(cmd.begin(), cmd.end(), ';', '\n');
             return cmd;
+        }
+
+        template<typename T>
+        std::string Visualization<T>::execute_command(const std::string& _cmd, bool fetch_configs) {
+            auto cmd = (fetch_configs)?fetchConfigs() + _cmd:_cmd;
+#ifdef __unix__
+            if(is_shared) {
+                g->cmd(cmd);
+            }else {
+                Gnuplot g_;
+                g_.cmd(cmd);
+            }
+#elif _WIN32
+            cmd = "set terminal windows; " + cmd;
+            cmd = "echo " + cmd + " | gnuplot -persist";
+                system(cmd.c_str());
+#endif
+                return cmd;
         }
     }}
 #endif
