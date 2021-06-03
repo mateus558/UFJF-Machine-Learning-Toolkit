@@ -33,4 +33,4 @@ install(FILES ${${REGRESSOR_TARGET}_HDR}
 install(FILES include/ufjfmltk/Regressor.hpp
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ufjfmltk")
 
-message(STATUS "Created target ${VALID_TARGET} for export ${PROJECT_NAME}.")
+message(STATUS "Created target ${REGRESSOR_TARGET} for export ${PROJECT_NAME}.")

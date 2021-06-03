@@ -5,6 +5,10 @@ add_subdirectory(ufjfmltk-clusterer)
 add_subdirectory(ufjfmltk-ensemble)
 add_subdirectory(ufjfmltk-featselect)
 add_subdirectory(ufjfmltk-regressor)
+find_package(Gnuplot)
+if(NOT GNUPLOT_FOUND)
+    message("gnuplot not found, install it in order to the visualization library to work.")
+endif()
 add_subdirectory(ufjfmltk-visual)
 
 add_library(${PROJECT_NAME}
@@ -13,9 +17,6 @@ add_library(${PROJECT_NAME}
         $<TARGET_OBJECTS:ufjfmltk::visual>
         ../include/ufjfmltk/ufjfmltk.hpp
         )
-
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION  ${${PROJECT_NAME}_VERSION}
-        PUBLIC_HEADER "../include/ufjfmltk/ufjfmltk.hpp")
 
 target_link_libraries(${PROJECT_NAME} INTERFACE ufjfmltk::regressor ufjfmltk::ensemble
         ufjfmltk::clusterer ufjfmltk::featselect ufjfmltk::valid ufjfmltk::visual)
