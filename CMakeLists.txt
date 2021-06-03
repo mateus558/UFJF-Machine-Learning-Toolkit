@@ -4,7 +4,7 @@ if(UNIX)
 endif(UNIX)
 project(ufjfmltk
         LANGUAGES CXX C
-        VERSION 0.51.0)
+        VERSION 0.51.1)
 set (CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
