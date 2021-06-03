@@ -4,7 +4,6 @@ set(CLUSTERER_TARGET clusterer)
 set(${CLUSTERER_TARGET}_HDR
         include/ufjfmltk/clusterer/Clusterer.hpp
         include/ufjfmltk/clusterer/KMeans.hpp
-        include/ufjfmltk/Clusterer.hpp
         )
 
 # Adds a library target called ${LIBRARY_TARGET_NAME} to be built from the

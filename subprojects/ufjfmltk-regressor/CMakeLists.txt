@@ -8,7 +8,6 @@ set(${REGRESSOR_TARGET}_HDR
         include/ufjfmltk/regressor/LMS.hpp
         include/ufjfmltk/regressor/PrimalRegressor.hpp
         include/ufjfmltk/regressor/Metrics.hpp
-        include/ufjfmltk/Regressor.hpp
         )
 
 # You can add an external dependency using the find_package() function call

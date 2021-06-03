@@ -15,7 +15,6 @@ add_library(${PROJECT_NAME}
         $<TARGET_OBJECTS:ufjfmltk::core>
         $<TARGET_OBJECTS:ufjfmltk::classifier>
         $<TARGET_OBJECTS:ufjfmltk::visual>
-        ../include/ufjfmltk/ufjfmltk.hpp
         )
 
 target_link_libraries(${PROJECT_NAME} INTERFACE ufjfmltk::regressor ufjfmltk::ensemble

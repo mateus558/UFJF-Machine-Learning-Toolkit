@@ -7,7 +7,6 @@ set(${FEATSELECT_TARGET}_HDR
         include/ufjfmltk/featselect/Fisher.hpp
         include/ufjfmltk/featselect/Golub.hpp
         include/ufjfmltk/featselect/RFE.hpp
-        include/ufjfmltk/FeatureSelection.hpp
         )
 
 # Adds a library target called ${LIBRARY_TARGET_NAME} to be built from the

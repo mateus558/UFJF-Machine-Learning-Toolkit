@@ -17,7 +17,6 @@ set(${CLASSIFIER_TARGET}_HDR
         include/ufjfmltk/classifier/PrimalClassifier.hpp
         include/ufjfmltk/classifier/int_dll.h
         include/ufjfmltk/classifier/SMO.hpp
-        include/ufjfmltk/Classifier.hpp
         )
 
 # Adds a library target called ${LIBRARY_TARGET_NAME} to be built from the
