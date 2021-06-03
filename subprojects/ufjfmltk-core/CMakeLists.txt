@@ -24,7 +24,6 @@ set(${CORE_TARGET}_HDR
         include/ufjfmltk/core/ExprOps.hpp
         include/ufjfmltk/core/ExprScalar.hpp
         include/ufjfmltk/core/ExprTraits.hpp
-        include/ufjfmltk/Core.hpp
         )
 
 # Adds a library target called ${LIBRARY_TARGET_NAME} to be built from the

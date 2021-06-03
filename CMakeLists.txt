@@ -4,7 +4,7 @@ if(UNIX)
 endif(UNIX)
 project(ufjfmltk
         LANGUAGES CXX C
-        VERSION 0.51.0)
+        VERSION 0.51.1)
 set (CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -57,6 +57,9 @@ endif()
 
 ### Compile- and install-related commands.
 add_subdirectory(subprojects)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION  ${${PROJECT_NAME}_VERSION}
+        PUBLIC_HEADER include/ufjfmltk/ufjfmltk.hpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")

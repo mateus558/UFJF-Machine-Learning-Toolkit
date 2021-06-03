@@ -6,7 +6,7 @@
 #define UFJF_MLTK_KMEANS_HPP
 #pragma once
 
-#include "Clusterer.hpp"
+#include "ufjfmltk/clusterer/Clusterer.hpp"
 
 namespace mltk{
         namespace clusterer {

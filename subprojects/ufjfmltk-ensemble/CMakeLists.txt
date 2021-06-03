@@ -8,7 +8,6 @@ set(${ENSEMBLE_TARGET}_HDR
         include/ufjfmltk/ensemble/Ensemble.hpp
         include/ufjfmltk/ensemble/PerceptronCommittee.hpp
         include/ufjfmltk/ensemble/VotingClassifier.hpp
-        include/ufjfmltk/Ensemble.hpp
         )
 
 # Adds a library target called ${ENSEMBLE_TARGET} to be built from the

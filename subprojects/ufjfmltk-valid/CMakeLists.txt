@@ -7,7 +7,6 @@ set(VALID_TARGET valid)
 # List of HPP (header) library files.
 set(${VALID_TARGET}_HDR
         include/ufjfmltk/valid/Validation.hpp
-        include/ufjfmltk/Validation.hpp
         )
 
 # Adds a library target called ${VALID_TARGET} to be built from the
