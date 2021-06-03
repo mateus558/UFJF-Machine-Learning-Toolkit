@@ -26,7 +26,7 @@ through a set of interconected modules that can be used in most ML projects.<br 
 - [Authors](#authors)
 
 ## Documentation
-You can find the documentation at the project page: [UFJF-MLTK](https://mateus558.github.io/UFJF-MLTK/index.html). <br />
+You can find the documentation at the project page: [UFJF-MLTK](https://mateus558.github.io/UFJF-Machine-Learning-Toolkit/). <br />
 And for examples and other information you can access the [wiki](https://github.com/mateus558/Machine-Learning-Toolkit/wiki).
 
 ## Installation
