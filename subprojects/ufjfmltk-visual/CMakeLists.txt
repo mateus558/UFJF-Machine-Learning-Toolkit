@@ -29,9 +29,12 @@ set_target_properties(${VISUAL_TARGET} PROPERTIES VERSION       ${${PROJECT_NAME
 # Specify include directories for both compilation and installation process.
 target_include_directories(${VISUAL_TARGET} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
-
-target_link_libraries(${VISUAL_TARGET} PRIVATE ufjfmltk::core "-lstdc++fs")
-# Specify installation targets, typology and destination folders.
+if(NOT APPLE)
+    target_link_libraries(${VISUAL_TARGET} PRIVATE ufjfmltk::core "-lstdc++fs")
+else(APPLE)
+    target_link_libraries(${VISUAL_TARGET} PRIVATE ufjfmltk::core)
+endif()
+    # Specify installation targets, typology and destination folders.
 install(TARGETS ${VISUAL_TARGET}
         EXPORT  ${PROJECT_NAME}
         LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT shlib
