@@ -51,5 +51,5 @@ TEST_F(EnsembleTest, VotingTest){
     //ima_dual.setVerbose(0);
     imap.setVerbose(0);
     mltk::ensemble::VotingClassifier<double> voting(wine, "hard", bp, knn, imap);
-    ASSERT_GT(mltk::validation::kfold(wine, voting, 10, 0).accuracy, 70);
+    ASSERT_GT(mltk::validation::kfold(wine, voting, 10, 0).accuracy, 60);
 }

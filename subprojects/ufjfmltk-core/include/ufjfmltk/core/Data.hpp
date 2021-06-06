@@ -1125,11 +1125,13 @@ namespace mltk{
 
     template<typename T>
     std::vector<bool> mltk::Data< T >::removePoints(std::vector<int> ids){
-        int idsize = ids.size(), i;
+        int idsize = ids.size(), i, j;
         bool save;
         std::shared_ptr<Point< T > > po;
         auto p = m_points.begin();
         std::vector<bool> notFound(idsize, true);
+
+        std::sort(ids.begin(), ids.end());
 
         for(; p != m_points.end();){
             save = true;
@@ -1149,9 +1151,9 @@ namespace mltk{
                 if(!index.empty()){
                     index.resize(m_size);
 
-                    for(i = 0; i < m_size; ++i){
-                        if(i >= ids[i]){
-                            index[i-1] = index[i] - 1;
+                    for(j = 0; j < m_size; ++j){
+                        if(j >= ids[i]){
+                            index[j-1] = index[j] - 1;
                         }
                     }
                 }
@@ -1279,7 +1281,7 @@ namespace mltk{
 
             // Iterate through the point features
             for(itr = m_points[i]->X().begin(),k = 0, j = 0; itr != m_points[i]->X().end();){
-                while(!exist[k] && k < rsize) k++; // go to next existent feature
+                while(k < rsize && !exist[k]) k++; // go to next existent feature
                 if(k == rsize) break;              // Verify if is in the end of the feats vector
 
                 // Feature to remove found, remove it from the point and go to the next feat to remove
@@ -1532,7 +1534,6 @@ namespace mltk{
             }
             m_points[i]->X().resize(m_dim+1);
             m_points[i]->X()[j] = 1;
-            fnames[j] = j+1;
             norm += std::pow(fabs(m_points[i]->X()[j]),p);
             norm = std::pow(norm, 1.0/p);
             for(j = 0; j < m_dim+1; ++j){
