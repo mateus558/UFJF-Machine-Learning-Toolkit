@@ -117,7 +117,7 @@ namespace mltk{
             unsigned int tMax = 0;
             int i, j, n, maiorn = 0, flagNao1aDim = 0, y, it, sign = 1, svs = 0;
             size_t size = this->samples->size(), dim = this->samples->dim(), t1 = 1, t3 = 1;
-            double gamma, secs, bias = 0.0, alpha, rmargin = margin, inc, stime;
+            double gamma = 0.0, secs, bias = 0.0, alpha, rmargin = margin, inc, stime;
             double min = 0.0, max = 0.0, norm = 1.0, maiorw = 0.0;
             std::vector<double> w_saved, func;
             std::vector<int> index = this->samples->getIndex(), fnames = this->samples->getFeaturesNames();
