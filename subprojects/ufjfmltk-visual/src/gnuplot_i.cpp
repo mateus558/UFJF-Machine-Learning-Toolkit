@@ -38,7 +38,7 @@
 int Gnuplot::tmpfile_num = 0;
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
-std::string Gnuplot::m_sGNUPlotFileName = "pgnuplot.exe";
+std::string Gnuplot::m_sGNUPlotFileName = "gnuplot.exe";
 std::string Gnuplot::m_sGNUPlotPath = "C:/program files/gnuplot/bin/";
 #elif defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__)
 std::string Gnuplot::m_sGNUPlotFileName = "gnuplot";
@@ -131,31 +131,6 @@ Gnuplot::Gnuplot(const std::vector<double> &x,
 
     plot_xyz(x,y,z,title);
 }
-
-
-//------------------------------------------------------------------------------
-//
-/// Plots a 2d graph from a list of doubles: x
-//
-
-
-//------------------------------------------------------------------------------
-//
-/// Plots a 2d graph from a list of doubles: x y
-//
-
-///-----------------------------------------------------------------------------
-///
-/// plot x,y pairs with dy errorbars
-///
-
-
-
-//------------------------------------------------------------------------------
-//
-// Plots a 3d graph from a list of doubles: x y z
-//
-
 
 //------------------------------------------------------------------------------
 //

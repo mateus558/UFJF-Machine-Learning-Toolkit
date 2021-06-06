@@ -390,11 +390,11 @@ namespace mltk{
         template<typename T>
         std::vector<std::string> Visualization< T >::getTempFilesNames(bool append_path){
             std::vector<std::string> files;
+            auto path = std::string(plot_folder);
 
 #ifdef __unix__
             DIR *dpdf;
             struct dirent *epdf;
-            auto path = std::string(plot_folder);
 
             dpdf = opendir(path.c_str());
             if(dpdf != nullptr){
@@ -413,12 +413,12 @@ namespace mltk{
             HANDLE hFind;
                 WIN32_FIND_DATA data;
 
-                hFind = FindFirstFile(".\\temp\\*.*", &data);
+                hFind = FindFirstFile((".\\"+plot_folder+"\\*.*").c_str(), &data);
                 if (hFind != INVALID_HANDLE_VALUE) {
                 do {
                     std::string file_name(data.cFileName);
                     if(valid_file(file_name) && !file_name.empty()){
-                        files.push_back(file_name);
+                        files.push_back((append_path) ? (path + file_name) : file_name);
                     }
                 } while (FindNextFile(hFind, &data));
                 FindClose(hFind);
