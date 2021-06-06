@@ -197,14 +197,17 @@ namespace mltk{
             mltk::Point yy = mltk::linspace(axis_ranges[1].min, axis_ranges[1].max, grid_dim);
             mltk::Data grid(grid_dim, grid_dim,0);
             auto data_copy = this->samples->selectFeatures({size_t(x+1), size_t(y+1)});
+            auto timestamp = mltk::utils::timestamp();
+            timestamp.erase(std::remove(timestamp.begin(), timestamp.end(), ':'), timestamp.end());
 
             learner.setSamples(data_copy);
             if(!is_trained) learner.train();
 
-            std::string data_fname = this->plot_folder+data_copy.name()+"_"+mltk::utils::timestamp()+".dat";
+            std::string data_fname = this->plot_folder+data_copy.name()+"_"+ timestamp +".dat";
             std::ofstream data_file(data_fname);
             if(!data_file.is_open()){
-                std::cerr << "error opening file" << std::endl;
+                std::cerr << "Error opening file (" << data_fname << ")" << std::endl;
+                return "";
             }
             for(int i = 0; i < grid.size(); i++){
                 int j;
@@ -222,10 +225,11 @@ namespace mltk{
             std::vector<std::ofstream> classes_files(classes.size());
 
             for(int i = 0; i < classes_files.size(); i++){
-                std::string fname = this->plot_folder+class_names[i]+"_data"+mltk::utils::timestamp()+".dat";
+                std::string fname = this->plot_folder+class_names[i]+"_data"+ timestamp +".dat";
                 classes_files[i].open(fname);
-                if(!classes_files[i].is_open()){
-                    std::cerr << "Error opening file!" << std::endl;
+                if (!classes_files[i].is_open()) {
+                    std::cerr << "Error opening file (" << fname << ")" << std::endl;
+                    return "";
                 }
                 temp_files_names.push_back(fname);
             }

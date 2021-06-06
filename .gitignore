@@ -13,6 +13,7 @@ teste
 .github
 install_old.sh
 Others
+.vs
 Exec
 build
 debug
@@ -31,3 +32,4 @@ install_modules.sh
 datasets/Untitled.ipynb
 cmake-*
 cmake-build-debug-coverage
+out
