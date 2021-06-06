@@ -1,3 +1,4 @@
+.vs
 builddir
 papers
 DB
@@ -16,6 +17,8 @@ Others
 Exec
 build
 debug
+out
+CMakeSettings.json
 release
 .vscode
 *.bat
