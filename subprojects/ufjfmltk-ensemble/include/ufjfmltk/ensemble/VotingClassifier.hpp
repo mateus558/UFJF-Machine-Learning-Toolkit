@@ -16,28 +16,22 @@ namespace mltk{
             mltk::Point<double> weights;
             std::string voting_type;
 
-            template<template<typename...> class WeakLearner,
-                    template<typename...> class... WeakLearners>
-            void fillLearnersVector(WeakLearner<T> flearner) {
-                this->m_learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
-            }
-
-            template<template<typename...> class WeakLearner,
-                    template<typename...> class... WeakLearners>
-            void fillLearnersVector(WeakLearner<T> flearner, WeakLearners<T>... weak_learners) {
-                this->m_learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
-                fillLearnersVector(weak_learners...);
-            }
-
         public:
             VotingClassifier() = default;
 
-            template<template<typename...> class WeakLearner,
-                    template<typename...> class... WeakLearners>
-            VotingClassifier(Data<T> &samples, const std::string &voting_type, WeakLearner<T> flearner,
-                             WeakLearners<T>... weak_learners): voting_type(voting_type) {
+            template<template<typename...> class WeakLearner>
+            VotingClassifier(Data<T>& samples, const std::string& voting_type, WeakLearner<T> flearner) : voting_type(voting_type) {
                 this->samples = std::make_shared<Data<T> >(samples.copy());
-                fillLearnersVector(flearner, weak_learners...);
+                this->m_learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
+            }
+
+            template<template<typename...> class WeakLearner, template<typename...> class... Learners>
+            VotingClassifier(Data<T> &samples, const std::string &voting_type, WeakLearner<T> flearner,
+                Learners<T>... weak_learners): voting_type(voting_type) {
+
+                this->samples = std::make_shared<Data<T> >(samples.copy());
+                this->m_learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
+                VotingClassifier(weak_learners...);
             }
 
             bool train() override {
