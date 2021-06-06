@@ -31,7 +31,7 @@ namespace mltk{
 
                 this->samples = std::make_shared<Data<T> >(samples.copy());
                 this->m_learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
-                VotingClassifier(weak_learners...);
+                VotingClassifier(samples, voting_type, weak_learners...);
             }
 
             bool train() override {
