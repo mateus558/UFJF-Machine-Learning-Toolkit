@@ -286,7 +286,7 @@ namespace mltk{
                 imapFixMargin.setGamma(gamma);
                 imapFixMargin.setSolution(tempSol);
                 imapFixMargin.setLearningRate(this->rate);
-                this->svs.erase(this->svs.begin(), this->svs.end());
+                this->svs.clear();
                 for (i = 0; i < size; ++i) {
                     y = points[i]->Y();
                     alpha = points[i]->Alpha();

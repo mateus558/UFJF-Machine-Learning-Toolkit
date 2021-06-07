@@ -41,6 +41,7 @@ TEST_F(ClassifierTest, BinClassifierTest){
     ima1.setVerbose(0);
     imainf.setVerbose(0);
     ima3.setVerbose(0);
+    ima.setMaxTime(200);
     perc_fixedinf.setMaxTime(100);
     perc_fixed3.setMaxTime(100);
     perc_fixed1.setMaxTime(100);
@@ -52,11 +53,11 @@ TEST_F(ClassifierTest, BinClassifierTest){
     ASSERT_GT(mltk::validation::kfold(bin, perc_fixedinf, 10, true, 10, 0).accuracy, 90);
     ASSERT_GT(mltk::validation::kkfold(bin, knn, 10, 10, true, 10, 2).accuracy, 95);
     ASSERT_GT(mltk::validation::kfold(bin, knn, 10, true, 10, 0).accuracy, 95);
-    ASSERT_GT(mltk::validation::kfold(bin, ima, 10, true, 10, 0).accuracy, 90);
-    ASSERT_GT(mltk::validation::kfold(bin, ima1, 10, true, 10, 0).accuracy, 85);
+    ASSERT_GT(mltk::validation::kfold(bin, ima, 10, true, 10, 0).accuracy, 80);
+    ASSERT_GT(mltk::validation::kfold(bin, ima1, 10, true, 10, 0).accuracy, 80);
     ASSERT_GT(mltk::validation::kfold(bin, imainf, 10, true, 10, 0).accuracy, 80);
-    ASSERT_GT(mltk::validation::kfold(bin, ima3, 10, true, 10, 0).accuracy, 90);
-    ASSERT_GT(mltk::validation::kfold(bin, ima_fixed, 10, true, 10, 0).accuracy, 30);
+    ASSERT_GT(mltk::validation::kfold(bin, ima3, 10, true, 10, 0).accuracy, 80);
+    ASSERT_GT(mltk::validation::kfold(bin, ima_fixed, 10, true, 10, 0).accuracy, 90);
 }
 
 TEST_F(ClassifierTest, MultiClassifierTest){
@@ -100,12 +101,12 @@ TEST_F(ClassifierTest, DualClassifier){
     mltk::classifier::PerceptronDual<double> perc_dual_gaussian(bin,mltk::KernelType::GAUSSIAN,
                                                                 0.5);
     mltk::classifier::PerceptronFixedMarginDual<double> perc_fixed_dual(bin, mltk::KernelType::GAUSSIAN,
-                                                                        0.5, 0);
+                                                                        1, 0);
     mltk::classifier::IMADual<double> ima_dual_gaussian(bin, mltk::KernelType::GAUSSIAN, 0.5);
     mltk::classifier::IMADual<double> ima_dual_inner(bin, mltk::KernelType::INNER_PRODUCT);
 
     ima_dual_gaussian.setVerbose(3);
-    perc_fixed_dual.setMaxTime(200);
+    perc_fixed_dual.setMaxTime(300);
     std::cout << "Testing perceptron dual." << std::endl;
     ASSERT_GT(mltk::validation::kfold(bin, perc_fixed_dual, 10, true, 10, 0).accuracy, 85);
     ASSERT_GT(mltk::validation::kfold(bin, perc_dual_gaussian, 10, true, 10, 0).accuracy, 95);

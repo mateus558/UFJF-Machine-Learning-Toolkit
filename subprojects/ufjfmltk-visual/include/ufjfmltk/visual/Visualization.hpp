@@ -274,6 +274,9 @@ namespace mltk{
         Visualization< T >::Visualization(bool shared_session, bool keep_temp_files):
                 is_shared(shared_session),
                 keep_temp_files(keep_temp_files) {
+#ifdef _WIN32
+            shared_session = false;
+#endif
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
         }
@@ -282,6 +285,9 @@ namespace mltk{
         Visualization< T >::Visualization(Data<T> &sample, bool shared_session, bool keep_temp_files):
                 is_shared(shared_session),
                 keep_temp_files(keep_temp_files) {
+#ifdef _WIN32
+            shared_session = false;
+#endif
             samples = &sample;
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
@@ -298,7 +304,18 @@ namespace mltk{
                 }
                 n_plots++;
             }while(fs::exists(this->plot_folder));
-            fs::create_directory(this->plot_folder);
+            try {
+                fs::create_directory(this->plot_folder);
+            }
+            catch (fs::filesystem_error const& ex) {
+                std::cout
+                    << "what():  " << ex.what() << '\n'
+                    << "path1(): " << ex.path1() << '\n'
+                    << "path2(): " << ex.path2() << '\n'
+                    << "code().value():    " << ex.code().value() << '\n'
+                    << "code().message():  " << ex.code().message() << '\n'
+                    << "code().category(): " << ex.code().category().name() << '\n';
+            }
         }
 
         template<typename T>
@@ -438,8 +455,22 @@ namespace mltk{
         void Visualization< T >::removeTempFiles(){
             if(keep_temp_files) {
                 auto fname = this->plot_folder;
+                auto timestamp = mltk::utils::timestamp();
+                timestamp.erase(std::remove(timestamp.begin(), timestamp.end(), ':'));
                 fname.erase(std::remove(fname.begin(), fname.end(), '/'), fname.end());
-                fs::rename(fname, fname+"_saved_"+mltk::utils::timestamp());
+                try {
+                    fs::rename(fname, fname + "_saved_" + timestamp);
+                }
+                catch (fs::filesystem_error const& ex) {
+                    std::cout
+                        << "what():  " << ex.what() << '\n'
+                        << "path1(): " << ex.path1() << '\n'
+                        << "path2(): " << ex.path2() << '\n'
+                        << "code().value():    " << ex.code().value() << '\n'
+                        << "code().message():  " << ex.code().message() << '\n'
+                        << "code().category(): " << ex.code().category().name() << '\n';
+                }
+
                 return;
             }
             std::string path;
@@ -802,8 +833,19 @@ namespace mltk{
             g = nullptr;
             removeTempFiles();
             for(auto& pfolder: plot_folders) {
-                if(fs::exists(pfolder)) {
-                    fs::remove_all(pfolder);
+                try {
+                    if (fs::exists(pfolder)) {
+                        fs::remove_all(pfolder);
+                    }
+                }
+                catch (fs::filesystem_error const& ex) {
+                    std::cout
+                        << "what():  " << ex.what() << '\n'
+                        << "path1(): " << ex.path1() << '\n'
+                        << "path2(): " << ex.path2() << '\n'
+                        << "code().value():    " << ex.code().value() << '\n'
+                        << "code().message():  " << ex.code().message() << '\n'
+                        << "code().category(): " << ex.code().category().name() << '\n';
                 }
             }
             plot_folders.clear();
