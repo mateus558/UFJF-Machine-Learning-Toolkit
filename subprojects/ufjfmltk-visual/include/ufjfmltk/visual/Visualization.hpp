@@ -388,7 +388,7 @@ namespace mltk{
 
         template<typename T>
         bool Visualization< T >::valid_file(std::string file){
-            size_t i;
+            int i = 0;
             bool flag = false;
             std::string ext;
 
