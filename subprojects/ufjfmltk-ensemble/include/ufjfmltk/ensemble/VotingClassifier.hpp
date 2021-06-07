@@ -22,12 +22,13 @@ namespace mltk{
             template<template<typename... > class... Learners>
             VotingClassifier(Data<T> &samples, const std::string &voting_type,
                 Learners<T>... weak_learners): voting_type(voting_type) {
-
                 this->samples = std::make_shared<Data<T> >(samples);
-                std::vector<mltk::Learner<T>*> args = { &weak_learners... };
-                for (int i = 0; i < args.size(); i++) {
-                    this->m_learners.emplace_back(args[i], [](mltk::Learner<T>*) {});
-                }
+                this->m_learners = {std::make_shared<Learners<T>>(std::forward<Learners<T>>(weak_learners))...};
+                //this->m_learners = std::make_shared<mltk::Learner<T>*>({weak_learners...});
+                //                std::vector<mltk::Learner<T>*> args = { &weak_learners... };
+//                for (int i = 0; i < args.size(); i++) {
+//                    this->m_learners.emplace_back(args[i], [](mltk::Learner<T>*) {});
+//                }
             }
 
             bool train() override {
@@ -78,7 +79,7 @@ namespace mltk{
             }
 
             std::string getFormulationString() override {
-                return this->m_learners[0]->getFormulationString();
+                return "Primal";
             }
 
             VotingClassifier<T>& operator=(VotingClassifier<T> const& voter){
