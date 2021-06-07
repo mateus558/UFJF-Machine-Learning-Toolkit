@@ -19,20 +19,15 @@ namespace mltk{
         public:
             VotingClassifier() = default;
 
-            template<template<typename... > class... Learners>
+            template<class... Learners>
             VotingClassifier(Data<T> &samples, const std::string &voting_type,
-                Learners<T>... weak_learners): voting_type(voting_type) {
+                Learners... weak_learners): voting_type(voting_type) {
                 this->samples = std::make_shared<Data<T> >(samples);
-                this->m_learners = {std::make_shared<Learners<T>>(std::forward<Learners<T>>(weak_learners))...};
-                //this->m_learners = std::make_shared<mltk::Learner<T>*>({weak_learners...});
-                //                std::vector<mltk::Learner<T>*> args = { &weak_learners... };
-//                for (int i = 0; i < args.size(); i++) {
-//                    this->m_learners.emplace_back(args[i], [](mltk::Learner<T>*) {});
-//                }
+                this->m_learners = {std::make_shared<Learners>(std::forward<Learners>(weak_learners))...};
             }
 
             bool train() override {
-                // train each one of the given m_learners
+                // train each one of the given weak learners
                 for (size_t i = 0; i < this->m_learners.size(); i++) {
                     this->m_learners[i]->setSeed(this->seed);
                     this->m_learners[i]->setSamples(this->samples);

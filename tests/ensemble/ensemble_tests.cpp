@@ -46,7 +46,7 @@ TEST_F(EnsembleTest, BaggingTest){
 TEST_F(EnsembleTest, VotingTest){
     mltk::classifier::BalancedPerceptron<double> bp;
     mltk::classifier::IMAp<double> imap;
-    mltk::classifier::KNNClassifier<double> knn(3);
+    mltk::classifier::KNNClassifier<double, mltk::metrics::dist::Hassanat<double>> knn(3);
     //mltk::classifier::IMADual<double> ima_dual(mltk::KernelType::GAUSSIAN, 0.5);
     //ima_dual.setVerbose(0);
     imap.setVerbose(0);

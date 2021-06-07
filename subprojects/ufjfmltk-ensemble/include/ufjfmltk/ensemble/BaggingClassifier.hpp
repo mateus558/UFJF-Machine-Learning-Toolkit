@@ -18,14 +18,14 @@ namespace mltk {
         public:
             BaggingClassifier() = default;
 
-            template<template<typename> class Estimator>
-            explicit BaggingClassifier(const Data<T> &samples, const Estimator<T> &estimator, size_t n_estimators = 10,
+            template<class Estimator>
+            explicit BaggingClassifier(const Data<T> &samples, const Estimator &estimator, size_t n_estimators = 10,
                                        size_t seed = 0)
                     : n_estimators(n_estimators), seed(seed) {
                 this->samples = mltk::make_data<T>(samples);
                 this->m_learners.resize(n_estimators);
                 for (size_t i = 0; i < n_estimators; i++) {
-                    this->m_learners[i] = std::make_shared<Estimator<T> >(estimator);
+                    this->m_learners[i] = std::make_shared<Estimator>(estimator);
                 }
             }
 
