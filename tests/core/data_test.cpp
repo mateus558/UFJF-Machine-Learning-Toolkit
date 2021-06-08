@@ -139,6 +139,8 @@ TEST_F(DataTest, CopyMultDataset) {
     ASSERT_TRUE(mult != copy_mult);
     ASSERT_FALSE(mult == copy_mult);
     mult.normalize();
+    ASSERT_EQ(mult.dim(), 5);
+    std::cout << mltk::Point<int>(mult.getFeaturesNames()) << std::endl;
 }
 
 TEST_F(DataTest, PointRemoval) {

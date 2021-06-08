@@ -1541,7 +1541,7 @@ namespace mltk{
             }
         }
         m_dim++;
-        fnames.push_back(m_dim);
+        fnames.push_back(this->dim());
 
         normalized = true;
     }
