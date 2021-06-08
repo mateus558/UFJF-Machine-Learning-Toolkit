@@ -213,9 +213,9 @@ namespace mltk{
                 int j;
                 for(j = 0; j < grid.dim(); j++){
                     grid(i)[j] = learner.evaluate(mltk::Point({xx[i], yy[j]}));
-                    data_file << xx[i] << " " << yy[j] << " " << std::to_string(grid(i)[j]) << "\n";
+                    data_file << xx[i] << " " << yy[j] << " " << std::to_string(grid(i)[j]) << std::endl;
                 }
-                data_file << "\n";
+                data_file << std::endl;
             }
             data_file.close();
 
@@ -236,7 +236,7 @@ namespace mltk{
 
             for(int i = 0; i < data_copy.size(); i++){
                 auto class_pos = std::find(classes.begin(), classes.end(), data_copy(i).Y()) - classes.begin();
-                classes_files[class_pos] << data_copy(i)[0] << " " << data_copy(i)[1] << " " << data_copy(i).Y() << "\n";
+                classes_files[class_pos] << data_copy(i)[0] << " " << data_copy(i)[1] << " " << data_copy(i).Y() << std::endl;
             }
             for(auto & classes_file : classes_files){
                 classes_file.close();
@@ -798,7 +798,6 @@ namespace mltk{
             }else {
                 confs += std::string("set terminal x11;");
             }
-
             if(!configs["title"].empty()) {
                 confs += std::string("set title '") + configs["title"] + "';";
             }
@@ -882,8 +881,8 @@ namespace mltk{
                 auto _z = this->samples->getFeature(z);
                 double z_min = mltk::min(_z), z_max = scale*mltk::max(_z);
                 z_min += (z_min > 0)?(1.0-scale)*z_min:-(1.0-scale)*z_min;
-                axis_ranges[2].min = (z_min <= 0)?std::floor(z_min):std::ceil(z_min);
-                axis_ranges[2].max = (z_max <= 0)?std::floor(z_max):std::ceil(z_max);
+                axis_ranges[2].min = std::round(z_min);
+                axis_ranges[2].max = std::round(z_max);
                 configs["zrange"] = "[" + std::to_string(axis_ranges[2].min) + ":" + std::to_string(axis_ranges[2].max) + "]";
             }
             return axis_ranges;
