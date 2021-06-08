@@ -865,16 +865,16 @@ namespace mltk{
                 auto _x = this->samples->getFeature(x);
                 double x_min = mltk::min(_x), x_max = scale*mltk::max(_x);
                 x_min += (x_min > 0)?(1.0-scale)*x_min:-(1.0-scale)*x_min;
-                axis_ranges[0].min = (x_min <= 0)?std::floor(x_min):std::ceil(x_min);
-                axis_ranges[0].max = (x_max <= 0)?std::floor(x_max):std::ceil(x_max);
+                axis_ranges[0].min = std::round(x_min);
+                axis_ranges[0].max = std::round(x_max);
                 configs["xrange"] = "[" + std::to_string(axis_ranges[0].min) + ":" + std::to_string(axis_ranges[0].max) + "]";
             }
             if(y > -1) {
                 auto _y = this->samples->getFeature(y);
                 double y_min = mltk::min(_y), y_max = scale*mltk::max(_y);
                 y_min += (y_min > 0)?(1.0-scale)*y_min:-(1.0-scale)*y_min;
-                axis_ranges[1].min = (y_min <= 0)?std::floor(y_min):std::ceil(y_min);
-                axis_ranges[1].max = (y_max <= 0)?std::floor(y_max):std::ceil(y_max);
+                axis_ranges[1].min = std::round(y_min);
+                axis_ranges[1].max = std::round(y_max);
                 configs["yrange"] = "[" + std::to_string(axis_ranges[1].min) + ":" + std::to_string(axis_ranges[1].max) + "]";
             }
             if(z > -1) {

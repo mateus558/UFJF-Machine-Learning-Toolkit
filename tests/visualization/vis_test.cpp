@@ -126,5 +126,5 @@ TEST_F(VisualTest, PlotArtificial){
     spirals.normalize();
     vis.setSample(spirals);
     std::cout << vis.plot3D(0,1,2) << std::endl;
-
+    vis.plot2D(1,2);
 }
