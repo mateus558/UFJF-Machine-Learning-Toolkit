@@ -79,7 +79,7 @@ int main(){
 ```
 Compiling:
 ```
-g++ main.cpp -o main -lufjfmltk
+g++ -std=c++17 main.cpp -o main -lufjfmltk
 ```
 
 This program outputs the following:
