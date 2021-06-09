@@ -96,3 +96,7 @@ include(AddUninstallTarget)
 
 # Add targets related to doxygen documention generation
 add_subdirectory(docs)
+
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    add_subdirectory(packaging) # include(CPack) will happen in here
+endif()
