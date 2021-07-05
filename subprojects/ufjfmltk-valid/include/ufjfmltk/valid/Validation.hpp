@@ -109,6 +109,28 @@ namespace mltk{
             return confusion_m;
         }
 
+        /*
+         * \brief computes the classifier accuracy based on the data passed.
+         * \param data Data to make predictions on.
+         * \param model Classifier model to make predictions.
+         * \param trained if set to false, will train the classifier model.
+         * \return Accuracy of the model on passed data.
+         */
+        template<typename T, typename Classifier>
+        inline double accuracy(mltk::Data<T> data, Classifier model, bool trained = true){
+            if(!trained){
+                model.train();
+            }
+            double acc = 0.0;
+            for(int i = 0; i < data.size(); i++){
+                auto point = data(i);
+                if(model.evaluate(point) == point.Y()){
+                    acc++;
+                }
+            }
+            return acc/data.size();
+        }
+
        /**
         * \brief Compute the accuracy based on a confusion matrix.
         * \param conf_matrix A confusion matrix.
