@@ -30,6 +30,10 @@ namespace mltk{
             double precision = 0.0;
             /// Recall of the validated model.
             double recall = 0.0;
+            double sensitivity{0.0}, specificity{0.0};
+            double fscore{0.0};
+            size_t errors{0};
+            size_t tp{0}, tn{0}, fp{0}, fn{0};
             /// True negative rate.
             double tnrate = 0.0;
             /// True positive rate.
@@ -60,7 +64,7 @@ namespace mltk{
 
         /**
          * \brief A struct representing a pair with training and test data.
-         */        
+         */
         template <typename T>
         struct TrainTestPair{
             /// Train data
@@ -110,6 +114,62 @@ namespace mltk{
         }
 
         /*
+         * \brief compute model metrics based on its confusion matrix.
+         * \param data Samples where confusion matrix were generated from.
+         * \param cfm Model confusion matrix.
+         * \param positive_labels Labels from the positive samples.
+         * \return a report with model evaluation metrics.
+         */
+        template <typename T>
+        inline ValidationReport metricsReport(const Data<T>& data, const std::vector<std::vector<size_t> > &cfm,
+                                              std::vector<int> positive_labels = std::vector<int>()){
+            auto classes = data.classes();
+            ValidationReport report;
+
+            std::vector<char> is_positive;
+
+            if(positive_labels.empty()){
+                is_positive.resize(classes.size(), true);
+            }else{
+                is_positive.resize(classes.size(), false);
+                std::for_each(positive_labels.begin(), positive_labels.end(), [&](const int& label){
+                    int pos = std::find(classes.begin(), classes.end(), label) - classes.begin();
+                    assert((pos < classes.size()) && "Label not found.");
+                    is_positive[pos] = true;
+                });
+            }
+
+            for(int i = 0; i < cfm.size(); i++){
+                for(int j = 0; j < cfm.size(); j++){
+                    if(i == j){
+                        if(is_positive[i]){
+                            report.tp += cfm[i][j];
+                        }else{
+                            report.tn += cfm[i][j];
+                        }
+                    }else{
+                        if(is_positive[i]){
+                            report.fn += cfm[i][j];
+                        }else{
+                            report.fp += cfm[i][j];
+                        }
+                    }
+                }
+            }
+
+            report.accuracy = (double)report.tp / data.size();
+            report.error = 1.0 - report.accuracy;
+            report.errors = report.fp+report.fn;
+            report.sensitivity = (double)report.tp/(report.tp + report.fn);
+            report.specificity = (double)report.tn/(report.tn + report.fp);
+            report.precision = (double)report.tp/(report.tp + report.fp);
+            report.recall = report.sensitivity;
+            report.fscore = 2*report.precision*report.recall/(report.precision + report.recall);
+
+            return report;
+        }
+
+        /*
          * \brief computes the classifier accuracy based on the data passed.
          * \param data Data to make predictions on.
          * \param model Classifier model to make predictions.
@@ -117,7 +177,7 @@ namespace mltk{
          * \return Accuracy of the model on passed data.
          */
         template<typename T, typename Classifier>
-        inline double accuracy(mltk::Data<T> data, Classifier model, bool trained = true){
+        inline double accuracy(Data<T> data, Classifier model, bool trained = true){
             if(!trained){
                 model.train();
             }
@@ -131,12 +191,12 @@ namespace mltk{
             return acc/data.size();
         }
 
-       /**
-        * \brief Compute the accuracy based on a confusion matrix.
-        * \param conf_matrix A confusion matrix.
-        * \return Accuracy based on a confusion matrix.
-        */
-       inline double confusionMatrixAccuracy(const std::vector<std::vector<size_t> > &conf_matrix){
+        /**
+         * \brief Compute the accuracy based on a confusion matrix.
+         * \param conf_matrix A confusion matrix.
+         * \return Accuracy based on a confusion matrix.
+         */
+        inline double confusionMatrixAccuracy(const std::vector<std::vector<size_t> > &conf_matrix){
             double errors = 0, total = 0;
             for(size_t i = 0; i < conf_matrix.size(); i++){
                 for(size_t j = 0; j < conf_matrix[i].size(); j++){
@@ -151,20 +211,20 @@ namespace mltk{
 
         template< typename T >
         std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds=5, bool stratified=true, const size_t seed=0){
-           auto data_folds = samples.splitSample(folds, stratified, seed);
-           std::vector<TrainTestPair<T> > kfold_split;
+            auto data_folds = samples.splitSample(folds, stratified, seed);
+            std::vector<TrainTestPair<T> > kfold_split;
 
-           for(int i = 0; i < folds; i++){
-               Data<T> train;
-               for(int j = 0; j < folds; j++){
-                   if(j != i){
-                       train.join(data_folds[j]);
-                   }
-               }
-               kfold_split.emplace_back(train, data_folds[i]);
-           }
-           return kfold_split;
-       }
+            for(int i = 0; i < folds; i++){
+                Data<T> train;
+                for(int j = 0; j < folds; j++){
+                    if(j != i){
+                        train.join(data_folds[j]);
+                    }
+                }
+                kfold_split.emplace_back(train, data_folds[i]);
+            }
+            return kfold_split;
+        }
 
         template< typename T >
         std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, const size_t qtde, bool stratified=true, const size_t seed=0) {
