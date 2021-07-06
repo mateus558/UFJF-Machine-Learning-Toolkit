@@ -429,7 +429,7 @@ namespace mltk{
                         std::cerr << "Validation error: The convergency wasn't reached in the training set!\n";
                 }
                 Solution s = classifier.getSolution();
-                w = s.w;
+                w = s.w.X();
                 bias = s.bias;
 
                 i = 0;
