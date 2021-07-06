@@ -474,7 +474,7 @@ namespace mltk{
                     return;
                 }
 
-                w = gtmp->w.X();
+                w = gtmp->w;
                 if (gtmp->rgamma > 0) {
                     //trained = heap->elements[1]->train;
                     margin = gtmp->rgamma;
