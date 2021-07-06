@@ -16,7 +16,7 @@ namespace mltk{
         // Attributes
     public :
         /// Weights vector
-        std::vector<double> w, func;
+        mltk::Point<double> w, func;
         ///Kernel for Dual methods
         Kernel<double> K;
         /// Alpha Vector for Dual methods

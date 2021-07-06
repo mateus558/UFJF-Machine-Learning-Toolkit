@@ -122,7 +122,8 @@ namespace mltk{
             std::vector<double> w_saved, func;
             std::vector<int> index = this->samples->getIndex(), fnames = this->samples->getFeaturesNames();
             auto points = this->samples->points();
-            IMApFixedMargin<T> imapFixMargin(*this->samples, gamma);
+            IMApFixedMargin<T> imapFixMargin;
+            imapFixMargin.setGamma(gamma);
             Solution tempSol;
 
             n = dim;
@@ -209,6 +210,7 @@ namespace mltk{
             this->steps = 0;
             gamma = 0.0;
 
+            imapFixMargin.setSamples(this->samples);
             imapFixMargin.setCtot(this->ctot);
             imapFixMargin.setqNorm(this->q);
             imapFixMargin.setSteps(this->steps);
@@ -234,7 +236,7 @@ namespace mltk{
                 tempSol = imapFixMargin.getSolution();
                 norm = tempSol.norm;
                 bias = tempSol.bias;
-                func = tempSol.func;
+                func = tempSol.func.X();
 
                 for (min = DBL_MAX, max = -DBL_MAX, i = 0; i < size; ++i) {
                     y = points[i]->Y();
@@ -304,21 +306,22 @@ namespace mltk{
                 if(stime >= this->max_time) break;
                 if (flagNao1aDim) break;
             }
-            // this->svs.erase(this->svs.begin(), this->svs.end());
-            // for(i = 0; i < size; ++i)
-            // {
-            //     y = points[i]->Y();
-            //     alpha = points[i]->Alpha();
-            //     if(alpha > this->EPS * this->rate) { this->svs.push_back(i); }
-            // }
+             this->svs.erase(this->svs.begin(), this->svs.end());
+             for(i = 0; i < size; ++i)
+             {
+                 y = points[i]->Y();
+                 alpha = points[i]->Alpha();
+                 if(alpha > this->EPS * this->rate) { this->svs.push_back(i); }
+             }
 
-            // this->steps = imapFixMargin.getSteps();
-            // this->ctot = imapFixMargin.getCtot();
-            // this->solution.w = w_saved;
-            // this->solution.margin = rmargin;
-            // this->solution.norm = norm;
-            // this->solution.bias = bias;
-            // this->solution.svs = this->svs.size();
+             this->steps = imapFixMargin.getSteps();
+             this->ctot = imapFixMargin.getCtot();
+             this->solution.w.clear();
+             this->solution.w = w_saved;
+             this->solution.margin = rmargin;
+             this->solution.norm = norm;
+             this->solution.bias = bias;
+             this->solution.svs = this->svs.size();
 
             if (this->verbose) {
                 std::cout << "\n-----------------------------------------------------------------------------\n";
@@ -370,7 +373,7 @@ namespace mltk{
             this->samples = mltk::make_data<T>(samples);
 
             if (initial_solution) {
-                this->w = initial_solution->w;
+                this->w = initial_solution->w.X();
                 this->solution.bias = initial_solution->bias;
                 this->solution.norm = initial_solution->norm;
             } else {
@@ -394,7 +397,8 @@ namespace mltk{
             std::vector<T> x;
             this->timer.reset();
             if (!this->solution.w.empty())
-                this->w = this->solution.w;
+                this->w = this->solution.w.X();
+            else this->w.resize(this->samples->dim(), 0.0);
 
             while (this->timer.elapsed() - time <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
@@ -645,7 +649,7 @@ namespace mltk{
             this->alpha = percDual.getAlphaVector();
             norm = sol.norm;
             this->solution.bias = sol.bias;
-            func = sol.func;
+            func = sol.func.X();
 
             for (i = 0; i < size; ++i) {
                 if (points[i]->Alpha() > this->EPS * this->rate) { this->svs.push_back(i); }
@@ -667,9 +671,9 @@ namespace mltk{
                 }
             else {
                 if (kernel_type == 1 && kernel_param == 1)
-                    w_saved = DualClassifier<T>::getDualWeightProdInt();
+                    w_saved = DualClassifier<T>::getDualWeightProdInt().X();
                 else
-                    w_saved = DualClassifier<T>::getDualWeight();
+                    w_saved = DualClassifier<T>::getDualWeight().X();
                 if (it) {
                     this->solution.w = mltk::normalize(this->solution.w, 2.0).X();
                 }

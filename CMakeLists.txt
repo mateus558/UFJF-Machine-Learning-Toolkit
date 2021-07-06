@@ -40,6 +40,14 @@ option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
 # Build test related commands?
 option(ENABLE_TESTING "Create tests using CMake" OFF)
 
+# Tells wheter a module should be compiled
+option(BUILD_LIBCLASSIFIER "Tells if the classifier module must be built" ON)
+option(BUILD_LIBREGRESSOR "Tells if the regression module must be built" ON)
+option(BUILD_LIBVISUALIZE "Tells if the visualization module must be built" ON)
+option(BUILD_LIBCLUSTERER "Tells if the clusterer module must be built" ON)
+option(BUILD_LIBFEATSELECT "Tells if the feature selection module must be built" ON)
+option(BUILD_LIBVALIDATION "Tells if the validation module must be built" ON)
+
 # Enable RPATH support for installed binaries and libraries
 include(AddInstallRPATHSupport)
 add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"

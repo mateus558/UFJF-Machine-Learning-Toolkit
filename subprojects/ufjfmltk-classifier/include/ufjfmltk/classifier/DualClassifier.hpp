@@ -103,7 +103,7 @@ namespace mltk{
              * \brief getWeight Get the vector of weights when the linear kernel is used.
              * \return std::vector<double>
              */
-            std::vector<double> getWeight() {
+            Point<double> getWeight() {
                 size_t i, j, dim = this->samples->dim(), size = this->samples->size();
                 std::vector<double> w(dim);
 
@@ -120,7 +120,7 @@ namespace mltk{
              * \brief Compute the weights of the dual classifier (with H matrix).
              * \return std::vector<double>
              */
-            std::vector<double> getDualWeight() {
+            Point<double> getDualWeight() {
                 int i = 0, j = 0, k = 0;
                 size_t size = this->samples->size(), dim = this->samples->dim();
                 dMatrix *H, *Hk, matrixdif(size, std::vector<double>(size));
@@ -152,7 +152,7 @@ namespace mltk{
              * \brief Compute the weights with inner product of the dual classifier.
              * \return std::vector<double>
              */
-            std::vector<double> getDualWeightProdInt() {
+            Point<double> getDualWeightProdInt() {
                 int i = 0, j = 0, k = 0;
                 size_t size = this->samples->size(), dim = this->samples->dim();
                 std::vector<double> alphaaux(size);

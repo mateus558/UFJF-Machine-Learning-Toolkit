@@ -64,7 +64,7 @@ namespace mltk{
 
         /**
          * \brief A struct representing a pair with training and test data.
-         */
+         */        
         template <typename T>
         struct TrainTestPair{
             /// Train data
@@ -113,13 +113,6 @@ namespace mltk{
             return confusion_m;
         }
 
-        /*
-         * \brief compute model metrics based on its confusion matrix.
-         * \param data Samples where confusion matrix were generated from.
-         * \param cfm Model confusion matrix.
-         * \param positive_labels Labels from the positive samples.
-         * \return a report with model evaluation metrics.
-         */
         template <typename T>
         inline ValidationReport metricsReport(const Data<T>& data, const std::vector<std::vector<size_t> > &cfm,
                                               std::vector<int> positive_labels = std::vector<int>()){
@@ -191,12 +184,12 @@ namespace mltk{
             return acc/data.size();
         }
 
-        /**
-         * \brief Compute the accuracy based on a confusion matrix.
-         * \param conf_matrix A confusion matrix.
-         * \return Accuracy based on a confusion matrix.
-         */
-        inline double confusionMatrixAccuracy(const std::vector<std::vector<size_t> > &conf_matrix){
+       /**
+        * \brief Compute the accuracy based on a confusion matrix.
+        * \param conf_matrix A confusion matrix.
+        * \return Accuracy based on a confusion matrix.
+        */
+       inline double confusionMatrixAccuracy(const std::vector<std::vector<size_t> > &conf_matrix){
             double errors = 0, total = 0;
             for(size_t i = 0; i < conf_matrix.size(); i++){
                 for(size_t j = 0; j < conf_matrix[i].size(); j++){
@@ -211,20 +204,20 @@ namespace mltk{
 
         template< typename T >
         std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds=5, bool stratified=true, const size_t seed=0){
-            auto data_folds = samples.splitSample(folds, stratified, seed);
-            std::vector<TrainTestPair<T> > kfold_split;
+           auto data_folds = samples.splitSample(folds, stratified, seed);
+           std::vector<TrainTestPair<T> > kfold_split;
 
-            for(int i = 0; i < folds; i++){
-                Data<T> train;
-                for(int j = 0; j < folds; j++){
-                    if(j != i){
-                        train.join(data_folds[j]);
-                    }
-                }
-                kfold_split.emplace_back(train, data_folds[i]);
-            }
-            return kfold_split;
-        }
+           for(int i = 0; i < folds; i++){
+               Data<T> train;
+               for(int j = 0; j < folds; j++){
+                   if(j != i){
+                       train.join(data_folds[j]);
+                   }
+               }
+               kfold_split.emplace_back(train, data_folds[i]);
+           }
+           return kfold_split;
+       }
 
         template< typename T >
         std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, const size_t qtde, bool stratified=true, const size_t seed=0) {
@@ -436,7 +429,7 @@ namespace mltk{
                         std::cerr << "Validation error: The convergency wasn't reached in the training set!\n";
                 }
                 Solution s = classifier.getSolution();
-                w = s.w;
+                w = s.w.X();
                 bias = s.bias;
 
                 i = 0;

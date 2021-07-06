@@ -27,9 +27,10 @@ namespace mltk{
             public:
 
                 PrimalClassifier<T>() {}
-
                 PrimalClassifier<T>(DataPointer<T> samples) : Classifier<T>(samples) {}
-
+                PrimalClassifier<T>(mltk::Data<T>& samples) {
+                    this->samples = mltk::make_data<T>(samples);
+                }
                 PrimalClassifier<T>(const PrimalClassifier<T> &primal_learner)
                         : Classifier<T>(primal_learner) {
                     this->q = primal_learner.q;
