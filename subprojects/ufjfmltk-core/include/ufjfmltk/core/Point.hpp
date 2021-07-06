@@ -232,8 +232,8 @@ namespace mltk {
                 return this->x.erase(b, e);
             }
 
-            bool empty() const {
-                return this->X.empty();
+            [[nodiscard]] bool empty() const {
+                return this->x.empty();
             }
 
             /*********************************************
