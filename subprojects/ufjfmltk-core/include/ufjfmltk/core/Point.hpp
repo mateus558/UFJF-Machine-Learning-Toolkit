@@ -228,7 +228,7 @@ namespace mltk {
             }
 
             template<typename Iter>
-            void erase(Iter b, Iter e){
+            Iter erase(Iter b, Iter e){
                 return this->x.erase(b, e);
             }
 
