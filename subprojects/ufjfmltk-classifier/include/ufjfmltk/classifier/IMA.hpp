@@ -667,9 +667,9 @@ namespace mltk{
                 }
             else {
                 if (kernel_type == 1 && kernel_param == 1)
-                    w_saved = DualClassifier<T>::getDualWeightProdInt();
+                    w_saved = DualClassifier<T>::getDualWeightProdInt().X();
                 else
-                    w_saved = DualClassifier<T>::getDualWeight();
+                    w_saved = DualClassifier<T>::getDualWeight().X();
                 if (it) {
                     this->solution.w = mltk::normalize(this->solution.w, 2.0).X();
                 }
