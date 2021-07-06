@@ -19,9 +19,9 @@ namespace mltk{
      */
     namespace random {
         /// Mersenne twister generator object.
-        static std::mt19937 generator;
+        static std::mt19937 generator{std::random_device {} ()};
         /// Seed used.
-        static unsigned int m_seed;
+        static unsigned int m_seed = 0;
 
         /**
          * \brief Initialize the mersenne twister pseudorandom number generator.
