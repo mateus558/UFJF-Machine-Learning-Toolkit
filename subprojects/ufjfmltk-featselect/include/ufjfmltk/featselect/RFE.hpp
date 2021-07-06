@@ -107,7 +107,7 @@ namespace mltk{
                     sol = this->classifier->getSolution();
                     svcount = sol.svs;
                     margin = sol.margin;
-                    sol.w.erase(sol.w.begin(), sol.w.end());
+                    sol.w.X().erase(sol.w.X().begin(), sol.w.X().end());
 
                     if (this->verbose) std::cerr << "Training Failed!\n";
                     if (level > 0) {
@@ -263,6 +263,8 @@ namespace mltk{
                     //novo_w[i] = w[j]; //bias nao copia mais
                     w.clear();
                     w = new_w;
+                    sol.w.clear();
+                    sol.w = w;
                 } else //IMA Dual e SMO
                 {
                     w.clear();

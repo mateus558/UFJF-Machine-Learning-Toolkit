@@ -76,7 +76,7 @@ namespace mltk {
 
             template<typename R1>
             Point(Point<T, R1> const &p){
-                if(size() == 0){
+                if(p.size() > size()){
                     x.resize(p.size());
                 }
                 for(size_t i = 0; i < p.size(); i++){
@@ -89,7 +89,7 @@ namespace mltk {
 
             template<typename T2, typename R1>
             Point(Point<T2, R1> const &p){
-                if(size() == 0){
+                if(p.size() > size()){
                     x.resize(p.size());
                 }
                 for(size_t i = 0; i < p.size(); i++){
@@ -118,6 +118,8 @@ namespace mltk {
             Point(Rep const& rb): x(rb) {}
 
             Point(std::initializer_list<T> init): x(init) {}
+
+            ~Point() = default;
 
             /*********************************************
              *               Getters                     *
@@ -264,6 +266,10 @@ namespace mltk {
             void assign(Types... args){
                 this->x.assign(args...);
             }
+
+            void clear(){
+                this->x.clear();
+            }
             /**
              * \brief Returns the p-norm of the point.
              * \param p p of the norm (euclidean norm is the default).
@@ -291,7 +297,7 @@ namespace mltk {
 
             // assignment operator from same type
             Point& operator=(Point const& b) {
-                if(size() == 0){
+                if(b.size() > size()){
                     x.resize(b.size());
                 }
 
@@ -314,7 +320,7 @@ namespace mltk {
             }
 
             Point& operator=(std::vector<T> const& b) {
-                if(size() == 0){
+                if(b.size() > size()){
                     x.resize(b.size());
                 }
 
@@ -327,7 +333,7 @@ namespace mltk {
 
             template< typename T2 >
             Point& operator=(std::vector<T2> const& b) {
-                if(size() == 0){
+                if(b.size() > size()){
                     x.resize(b.size());
                 }
 

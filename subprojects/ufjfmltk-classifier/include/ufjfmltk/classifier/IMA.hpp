@@ -122,7 +122,8 @@ namespace mltk{
             std::vector<double> w_saved, func;
             std::vector<int> index = this->samples->getIndex(), fnames = this->samples->getFeaturesNames();
             auto points = this->samples->points();
-            IMApFixedMargin<T> imapFixMargin(*this->samples, gamma);
+            IMApFixedMargin<T> imapFixMargin;
+            imapFixMargin.setGamma(gamma);
             Solution tempSol;
 
             n = dim;
@@ -209,6 +210,7 @@ namespace mltk{
             this->steps = 0;
             gamma = 0.0;
 
+            imapFixMargin.setSamples(this->samples);
             imapFixMargin.setCtot(this->ctot);
             imapFixMargin.setqNorm(this->q);
             imapFixMargin.setSteps(this->steps);
@@ -304,21 +306,22 @@ namespace mltk{
                 if(stime >= this->max_time) break;
                 if (flagNao1aDim) break;
             }
-            // this->svs.erase(this->svs.begin(), this->svs.end());
-            // for(i = 0; i < size; ++i)
-            // {
-            //     y = points[i]->Y();
-            //     alpha = points[i]->Alpha();
-            //     if(alpha > this->EPS * this->rate) { this->svs.push_back(i); }
-            // }
+             this->svs.erase(this->svs.begin(), this->svs.end());
+             for(i = 0; i < size; ++i)
+             {
+                 y = points[i]->Y();
+                 alpha = points[i]->Alpha();
+                 if(alpha > this->EPS * this->rate) { this->svs.push_back(i); }
+             }
 
-            // this->steps = imapFixMargin.getSteps();
-            // this->ctot = imapFixMargin.getCtot();
-            // this->solution.w = w_saved;
-            // this->solution.margin = rmargin;
-            // this->solution.norm = norm;
-            // this->solution.bias = bias;
-            // this->solution.svs = this->svs.size();
+             this->steps = imapFixMargin.getSteps();
+             this->ctot = imapFixMargin.getCtot();
+             this->solution.w.clear();
+             this->solution.w = w_saved;
+             this->solution.margin = rmargin;
+             this->solution.norm = norm;
+             this->solution.bias = bias;
+             this->solution.svs = this->svs.size();
 
             if (this->verbose) {
                 std::cout << "\n-----------------------------------------------------------------------------\n";
@@ -395,6 +398,7 @@ namespace mltk{
             this->timer.reset();
             if (!this->solution.w.empty())
                 this->w = this->solution.w.X();
+            else this->w.resize(this->samples->dim(), 0.0);
 
             while (this->timer.elapsed() - time <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
