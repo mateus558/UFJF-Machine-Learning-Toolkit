@@ -191,7 +191,7 @@ namespace mltk{
                     //printf("Dim: %d, Margem: %lf, Distancia entre os centros: %f, SVs: %d\n", (dim-level), data_get_dist_centers(stmp), margin, svcount);
                 }
 
-                w = this->classifier->getSolutionRef()->w;
+                w = this->classifier->getSolutionRef()->w.X();
                 weight.resize(stmp->dim());
                 auto fnames = stmp->getFeaturesNames();
 
