@@ -115,12 +115,12 @@ namespace mltk{
 
                 norm = this->kernel->featureSpaceNorm(this->samples);
                 if (this->kernel->getType() == 0)
-                    w_saved = this->getWeight();
+                    w_saved = this->getWeight().X();
                 else {
                     if (this->kernel->getType() == 1 && this->kernel->getParam() == 1)
-                        w_saved = this->getDualWeightProdInt();
+                        w_saved = this->getDualWeightProdInt().X();
                     else
-                        w_saved = this->getDualWeight();
+                        w_saved = this->getDualWeight().X();
                 }
 
                 this->solution.w = w_saved;

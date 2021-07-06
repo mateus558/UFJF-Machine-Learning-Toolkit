@@ -460,7 +460,7 @@ namespace mltk{
                     std::cerr << "Training failed!" << std::endl;
                 }
                 auto solution = this->classifier->getSolution();
-                w = solution.w;
+                w = solution.w.X();
                 margin = solution.margin;
                 svcount = solution.svs;
                 if(ftime){
@@ -492,7 +492,7 @@ namespace mltk{
                     }
 
                     auto solution = this->classifier->getSolution();
-                    w = solution.w;
+                    w = solution.w.X();
                     margin = solution.margin;
                     svcount = solution.svs;
 
@@ -866,7 +866,7 @@ namespace mltk{
             auto stmp = make_data<T>(sample.copy());
             select_gamma *gtmp = nullptr;
             double distcents = 0;
-            Solution sol;
+            Solution solution;
 
             while (true) {
                 /*stopping criterion*/
@@ -931,7 +931,7 @@ namespace mltk{
 
                 /*setting values*/
                 gtmp->value = -1;
-                gtmp->pgamma = sol.margin;
+                gtmp->pgamma = solution.margin;
                 gtmp->rgamma = -1;
                 gtmp->train = 0;
                 gtmp->sv = 0;
@@ -966,16 +966,16 @@ namespace mltk{
                 if (hash->add(gtmp)) {
                     /*training sample*/
                     svcount = 0;
-                    sol.margin = gtmp->pgamma;
-                    sol.bias = gtmp->bias;
-                    sol.w = novo_w;
-                    this->classifier->setSolution(sol);
+                    solution.margin = gtmp->pgamma;
+                    solution.bias = gtmp->bias;
+                    solution.w = novo_w;
+                    this->classifier->setSolution(solution);
                     if (!this->classifier->train()) {
                         if (this->verbose) std::cout << "Training failed!\n";
                         break;
                     }
 
-                    gtmp->w = this->classifier->getSolutionRef()->w;
+                    gtmp->w = this->classifier->getSolutionRef()->w.X();
                     gtmp->bias = this->classifier->getSolutionRef()->bias;
                     gtmp->sv = this->classifier->getSolutionRef()->svs;
                     gtmp->rgamma = this->classifier->getSolutionRef()->margin;
@@ -989,7 +989,7 @@ namespace mltk{
                 }
                 if (isPrimal) {
                     w.resize(stmp->dim());
-                    w = this->classifier->getSolutionRef()->w;
+                    w = this->classifier->getSolutionRef()->w.X();
                 }
 
                 /*increment*/
