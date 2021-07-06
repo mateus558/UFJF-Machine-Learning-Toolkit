@@ -69,7 +69,7 @@ jobs:
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.TESTS_BUILD_TYPE}} -DENABLE_TESTING=ON -DCODE_COVERAGE=ON -DCMAKE_CXX_FLAGS=--coverage -DCMAKE_C_FLAGS=--coverage
     
     - name: Build and run code coverage
-      run:  xvfb-run cmake --build ${{github.workspace}}/build --config ${{env.TESTS_BUILD_TYPE}} --target coverage
+      run:  xvfb-run cmake --build ${{github.workspace}}/build --config ${{env.TESTS_BUILD_TYPE}} --target coverage --rerun-failed --output-on-failure
              
     - name: Generate codecov report
       run: | 
