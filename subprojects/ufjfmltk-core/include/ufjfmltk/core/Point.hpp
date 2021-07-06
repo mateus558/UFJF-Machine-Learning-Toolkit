@@ -227,6 +227,11 @@ namespace mltk {
                 return p;
             }
 
+            template<typename Iter>
+            void erase(Iter b, Iter e){
+                return this->x.erase(b, e);
+            }
+
             /*********************************************
              *               Access operators            *
              *********************************************/

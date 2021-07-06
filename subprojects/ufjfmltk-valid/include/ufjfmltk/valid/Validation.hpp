@@ -30,6 +30,10 @@ namespace mltk{
             double precision = 0.0;
             /// Recall of the validated model.
             double recall = 0.0;
+            double sensitivity{0.0}, specificity{0.0};
+            double fscore{0.0};
+            size_t errors{0};
+            size_t tp{0}, tn{0}, fp{0}, fn{0};
             /// True negative rate.
             double tnrate = 0.0;
             /// True positive rate.
@@ -107,6 +111,77 @@ namespace mltk{
 //            }
 //            std::cout << "Purity: " << acc / size << std::endl;
             return confusion_m;
+        }
+
+        template <typename T>
+        inline ValidationReport metricsReport(const Data<T>& data, const std::vector<std::vector<size_t> > &cfm,
+                                              std::vector<int> positive_labels = std::vector<int>()){
+            auto classes = data.classes();
+            ValidationReport report;
+
+            std::vector<char> is_positive;
+
+            if(positive_labels.empty()){
+                is_positive.resize(classes.size(), true);
+            }else{
+                is_positive.resize(classes.size(), false);
+                std::for_each(positive_labels.begin(), positive_labels.end(), [&](const int& label){
+                    int pos = std::find(classes.begin(), classes.end(), label) - classes.begin();
+                    assert((pos < classes.size()) && "Label not found.");
+                    is_positive[pos] = true;
+                });
+            }
+
+            for(int i = 0; i < cfm.size(); i++){
+                for(int j = 0; j < cfm.size(); j++){
+                    if(i == j){
+                        if(is_positive[i]){
+                            report.tp += cfm[i][j];
+                        }else{
+                            report.tn += cfm[i][j];
+                        }
+                    }else{
+                        if(is_positive[i]){
+                            report.fn += cfm[i][j];
+                        }else{
+                            report.fp += cfm[i][j];
+                        }
+                    }
+                }
+            }
+
+            report.accuracy = (double)report.tp / data.size();
+            report.error = 1.0 - report.accuracy;
+            report.errors = report.fp+report.fn;
+            report.sensitivity = (double)report.tp/(report.tp + report.fn);
+            report.specificity = (double)report.tn/(report.tn + report.fp);
+            report.precision = (double)report.tp/(report.tp + report.fp);
+            report.recall = report.sensitivity;
+            report.fscore = 2*report.precision*report.recall/(report.precision + report.recall);
+
+            return report;
+        }
+
+        /*
+         * \brief computes the classifier accuracy based on the data passed.
+         * \param data Data to make predictions on.
+         * \param model Classifier model to make predictions.
+         * \param trained if set to false, will train the classifier model.
+         * \return Accuracy of the model on passed data.
+         */
+        template<typename T, typename Classifier>
+        inline double accuracy(Data<T> data, Classifier model, bool trained = true){
+            if(!trained){
+                model.train();
+            }
+            double acc = 0.0;
+            for(int i = 0; i < data.size(); i++){
+                auto point = data(i);
+                if(model.evaluate(point) == point.Y()){
+                    acc++;
+                }
+            }
+            return acc/data.size();
         }
 
        /**
