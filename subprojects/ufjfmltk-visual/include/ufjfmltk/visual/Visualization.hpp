@@ -197,22 +197,25 @@ namespace mltk{
             mltk::Point yy = mltk::linspace(axis_ranges[1].min, axis_ranges[1].max, grid_dim);
             mltk::Data grid(grid_dim, grid_dim,0);
             auto data_copy = this->samples->selectFeatures({size_t(x+1), size_t(y+1)});
+            auto timestamp = mltk::utils::timestamp();
+            timestamp.erase(std::remove(timestamp.begin(), timestamp.end(), ':'), timestamp.end());
 
             learner.setSamples(data_copy);
             if(!is_trained) learner.train();
 
-            std::string data_fname = this->plot_folder+data_copy.name()+"_"+mltk::utils::timestamp()+".dat";
+            std::string data_fname = this->plot_folder+data_copy.name()+"_"+ timestamp +".dat";
             std::ofstream data_file(data_fname);
             if(!data_file.is_open()){
-                std::cerr << "error opening file" << std::endl;
+                std::cerr << "Error opening file (" << data_fname << ")" << std::endl;
+                return "";
             }
             for(int i = 0; i < grid.size(); i++){
                 int j;
                 for(j = 0; j < grid.dim(); j++){
                     grid(i)[j] = learner.evaluate(mltk::Point({xx[i], yy[j]}));
-                    data_file << xx[i] << " " << yy[j] << " " << std::to_string(grid(i)[j]) << "\n";
+                    data_file << xx[i] << " " << yy[j] << " " << std::to_string(grid(i)[j]) << std::endl;
                 }
-                data_file << "\n";
+                data_file << std::endl;
             }
             data_file.close();
 
@@ -222,17 +225,18 @@ namespace mltk{
             std::vector<std::ofstream> classes_files(classes.size());
 
             for(int i = 0; i < classes_files.size(); i++){
-                std::string fname = this->plot_folder+class_names[i]+"_data"+mltk::utils::timestamp()+".dat";
+                std::string fname = this->plot_folder+class_names[i]+"_data"+ timestamp +".dat";
                 classes_files[i].open(fname);
-                if(!classes_files[i].is_open()){
-                    std::cerr << "Error opening file!" << std::endl;
+                if (!classes_files[i].is_open()) {
+                    std::cerr << "Error opening file (" << fname << ")" << std::endl;
+                    return "";
                 }
                 temp_files_names.push_back(fname);
             }
 
             for(int i = 0; i < data_copy.size(); i++){
                 auto class_pos = std::find(classes.begin(), classes.end(), data_copy(i).Y()) - classes.begin();
-                classes_files[class_pos] << data_copy(i)[0] << " " << data_copy(i)[1] << " " << data_copy(i).Y() << "\n";
+                classes_files[class_pos] << data_copy(i)[0] << " " << data_copy(i)[1] << " " << data_copy(i).Y() << std::endl;
             }
             for(auto & classes_file : classes_files){
                 classes_file.close();
@@ -270,6 +274,9 @@ namespace mltk{
         Visualization< T >::Visualization(bool shared_session, bool keep_temp_files):
                 is_shared(shared_session),
                 keep_temp_files(keep_temp_files) {
+#ifdef _WIN32
+            shared_session = false;
+#endif
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
         }
@@ -278,6 +285,9 @@ namespace mltk{
         Visualization< T >::Visualization(Data<T> &sample, bool shared_session, bool keep_temp_files):
                 is_shared(shared_session),
                 keep_temp_files(keep_temp_files) {
+#ifdef _WIN32
+            shared_session = false;
+#endif
             samples = &sample;
             configs["terminal"] = "wxt";
             if(shared_session) g = new Gnuplot();
@@ -294,7 +304,18 @@ namespace mltk{
                 }
                 n_plots++;
             }while(fs::exists(this->plot_folder));
-            fs::create_directory(this->plot_folder);
+            try {
+                fs::create_directory(this->plot_folder);
+            }
+            catch (fs::filesystem_error const& ex) {
+                std::cout
+                    << "what():  " << ex.what() << '\n'
+                    << "path1(): " << ex.path1() << '\n'
+                    << "path2(): " << ex.path2() << '\n'
+                    << "code().value():    " << ex.code().value() << '\n'
+                    << "code().message():  " << ex.code().message() << '\n'
+                    << "code().category(): " << ex.code().category().name() << '\n';
+            }
         }
 
         template<typename T>
@@ -367,7 +388,7 @@ namespace mltk{
 
         template<typename T>
         bool Visualization< T >::valid_file(std::string file){
-            size_t i;
+            int i = 0;
             bool flag = false;
             std::string ext;
 
@@ -434,8 +455,22 @@ namespace mltk{
         void Visualization< T >::removeTempFiles(){
             if(keep_temp_files) {
                 auto fname = this->plot_folder;
+                auto timestamp = mltk::utils::timestamp();
+                timestamp.erase(std::remove(timestamp.begin(), timestamp.end(), ':'));
                 fname.erase(std::remove(fname.begin(), fname.end(), '/'), fname.end());
-                fs::rename(fname, fname+"_saved_"+mltk::utils::timestamp());
+                try {
+                    fs::rename(fname, fname + "_saved_" + timestamp);
+                }
+                catch (fs::filesystem_error const& ex) {
+                    std::cout
+                        << "what():  " << ex.what() << '\n'
+                        << "path1(): " << ex.path1() << '\n'
+                        << "path2(): " << ex.path2() << '\n'
+                        << "code().value():    " << ex.code().value() << '\n'
+                        << "code().message():  " << ex.code().message() << '\n'
+                        << "code().category(): " << ex.code().category().name() << '\n';
+                }
+
                 return;
             }
             std::string path;
@@ -763,7 +798,6 @@ namespace mltk{
             }else {
                 confs += std::string("set terminal x11;");
             }
-
             if(!configs["title"].empty()) {
                 confs += std::string("set title '") + configs["title"] + "';";
             }
@@ -798,8 +832,19 @@ namespace mltk{
             g = nullptr;
             removeTempFiles();
             for(auto& pfolder: plot_folders) {
-                if(fs::exists(pfolder)) {
-                    fs::remove_all(pfolder);
+                try {
+                    if (fs::exists(pfolder)) {
+                        fs::remove_all(pfolder);
+                    }
+                }
+                catch (fs::filesystem_error const& ex) {
+                    std::cout
+                        << "what():  " << ex.what() << '\n'
+                        << "path1(): " << ex.path1() << '\n'
+                        << "path2(): " << ex.path2() << '\n'
+                        << "code().value():    " << ex.code().value() << '\n'
+                        << "code().message():  " << ex.code().message() << '\n'
+                        << "code().category(): " << ex.code().category().name() << '\n';
                 }
             }
             plot_folders.clear();
@@ -820,24 +865,24 @@ namespace mltk{
                 auto _x = this->samples->getFeature(x);
                 double x_min = mltk::min(_x), x_max = scale*mltk::max(_x);
                 x_min += (x_min > 0)?(1.0-scale)*x_min:-(1.0-scale)*x_min;
-                axis_ranges[0].min = (x_min <= 0)?std::floor(x_min):std::ceil(x_min);
-                axis_ranges[0].max = (x_max <= 0)?std::floor(x_max):std::ceil(x_max);
+                axis_ranges[0].min = std::round(x_min);
+                axis_ranges[0].max = std::round(x_max);
                 configs["xrange"] = "[" + std::to_string(axis_ranges[0].min) + ":" + std::to_string(axis_ranges[0].max) + "]";
             }
             if(y > -1) {
                 auto _y = this->samples->getFeature(y);
                 double y_min = mltk::min(_y), y_max = scale*mltk::max(_y);
                 y_min += (y_min > 0)?(1.0-scale)*y_min:-(1.0-scale)*y_min;
-                axis_ranges[1].min = (y_min <= 0)?std::floor(y_min):std::ceil(y_min);
-                axis_ranges[1].max = (y_max <= 0)?std::floor(y_max):std::ceil(y_max);
+                axis_ranges[1].min = std::round(y_min);
+                axis_ranges[1].max = std::round(y_max);
                 configs["yrange"] = "[" + std::to_string(axis_ranges[1].min) + ":" + std::to_string(axis_ranges[1].max) + "]";
             }
             if(z > -1) {
                 auto _z = this->samples->getFeature(z);
                 double z_min = mltk::min(_z), z_max = scale*mltk::max(_z);
                 z_min += (z_min > 0)?(1.0-scale)*z_min:-(1.0-scale)*z_min;
-                axis_ranges[2].min = (z_min <= 0)?std::floor(z_min):std::ceil(z_min);
-                axis_ranges[2].max = (z_max <= 0)?std::floor(z_max):std::ceil(z_max);
+                axis_ranges[2].min = std::round(z_min);
+                axis_ranges[2].max = std::round(z_max);
                 configs["zrange"] = "[" + std::to_string(axis_ranges[2].min) + ":" + std::to_string(axis_ranges[2].max) + "]";
             }
             return axis_ranges;

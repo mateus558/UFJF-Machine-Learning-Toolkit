@@ -460,7 +460,7 @@ namespace mltk{
                     std::cerr << "Training failed!" << std::endl;
                 }
                 auto solution = this->classifier->getSolution();
-                w = solution.w;
+                w = solution.w.X();
                 margin = solution.margin;
                 svcount = solution.svs;
                 if(ftime){
@@ -492,7 +492,7 @@ namespace mltk{
                     }
 
                     auto solution = this->classifier->getSolution();
-                    w = solution.w;
+                    w = solution.w.X();
                     margin = solution.margin;
                     svcount = solution.svs;
 
@@ -975,7 +975,7 @@ namespace mltk{
                         break;
                     }
 
-                    gtmp->w = this->classifier->getSolutionRef()->w;
+                    gtmp->w = this->classifier->getSolutionRef()->w.X();
                     gtmp->bias = this->classifier->getSolutionRef()->bias;
                     gtmp->sv = this->classifier->getSolutionRef()->svs;
                     gtmp->rgamma = this->classifier->getSolutionRef()->margin;
@@ -989,7 +989,7 @@ namespace mltk{
                 }
                 if (isPrimal) {
                     w.resize(stmp->dim());
-                    w = this->classifier->getSolutionRef()->w;
+                    w = this->classifier->getSolutionRef()->w.X();
                 }
 
                 /*increment*/

@@ -243,7 +243,7 @@ namespace mltk{
             double norm = this->solution.norm, lambda = 1.0, y, time = this->start_time + this->max_time;
             double sumnorm = 0.0, bias = this->solution.bias, largw = 0.0, largw_temp = 0.0;
             bool cond;
-            std::vector<double> func = this->solution.func, w = this->solution.w;
+            std::vector<double> func = this->solution.func.X(), w = this->solution.w.X();
             std::vector<T> x;
             std::vector<int> index = this->samples->getIndex();
             std::shared_ptr<Point<T> > p;
@@ -478,7 +478,7 @@ namespace mltk{
             const double sqrate = this->rate * this->rate;
             const double tworate = 2 * this->rate;
             std::vector<int> index = this->samples->getIndex();
-            std::vector<double> func = this->solution.func, Kv;
+            std::vector<double> func = this->solution.func.X(), Kv;
             this->kernel->compute(this->samples);
             dMatrix *K = this->kernel->getKernelMatrixPointer();
 

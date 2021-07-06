@@ -139,6 +139,11 @@ TEST_F(DataTest, CopyMultDataset) {
     ASSERT_TRUE(mult != copy_mult);
     ASSERT_FALSE(mult == copy_mult);
     mult.normalize();
+    ASSERT_EQ(mult.dim(), 5);
+    auto spirals = mltk::datasets::make_spirals();
+    spirals.normalize();
+    std::cout << mltk::Point<int>(spirals.getFeaturesNames()) << std::endl;
+    ASSERT_EQ(spirals.dim(), 3);
 }
 
 TEST_F(DataTest, PointRemoval) {

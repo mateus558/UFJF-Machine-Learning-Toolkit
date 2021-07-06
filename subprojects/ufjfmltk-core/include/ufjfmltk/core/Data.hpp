@@ -1526,22 +1526,23 @@ namespace mltk{
     template<typename T>
     void mltk::Data< T >::normalize(double p){
         int i = 0, j = 0;
+        int old_dim = this->dim();
         double norm = 0.0;
 
         for(i = 0; i < m_size; ++i){
-            for(norm = 0, j = 0; j < m_dim; ++j){
+            for(norm = 0, j = 0; j < old_dim; ++j){
                 norm += std::pow(fabs(m_points[i]->X()[j]),p);
             }
-            m_points[i]->X().resize(m_dim+1);
+            m_points[i]->X().resize(old_dim+1);
             m_points[i]->X()[j] = 1;
             norm += std::pow(fabs(m_points[i]->X()[j]),p);
             norm = std::pow(norm, 1.0/p);
-            for(j = 0; j < m_dim+1; ++j){
+            for(j = 0; j < old_dim+1; ++j){
                 m_points[i]->X()[j] /= norm;
             }
         }
-        m_dim++;
-        fnames.push_back(m_dim);
+        m_dim = old_dim + 1;
+        fnames.push_back(this->dim());
 
         normalized = true;
     }

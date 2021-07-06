@@ -19,23 +19,15 @@ namespace mltk{
         public:
             VotingClassifier() = default;
 
-            template<template<typename...> class WeakLearner>
-            VotingClassifier(Data<T>& samples, const std::string& voting_type, WeakLearner<T> flearner) : voting_type(voting_type) {
-                this->samples = std::make_shared<Data<T> >(samples.copy());
-                this->m_learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
-            }
-
-            template<template<typename...> class WeakLearner, template<typename...> class... Learners>
-            VotingClassifier(Data<T> &samples, const std::string &voting_type, WeakLearner<T> flearner,
-                Learners<T>... weak_learners): voting_type(voting_type) {
-
-                this->samples = std::make_shared<Data<T> >(samples.copy());
-                this->m_learners.push_back(std::make_shared<WeakLearner<T> >(flearner));
-                VotingClassifier(samples, voting_type, weak_learners...);
+            template<class... Learners>
+            VotingClassifier(Data<T> &samples, const std::string &voting_type,
+                Learners... weak_learners): voting_type(voting_type) {
+                this->samples = std::make_shared<Data<T> >(samples);
+                this->m_learners = {std::make_shared<Learners>(std::forward<Learners>(weak_learners))...};
             }
 
             bool train() override {
-                // train each one of the given m_learners
+                // train each one of the given weak learners
                 for (size_t i = 0; i < this->m_learners.size(); i++) {
                     this->m_learners[i]->setSeed(this->seed);
                     this->m_learners[i]->setSamples(this->samples);
@@ -82,7 +74,7 @@ namespace mltk{
             }
 
             std::string getFormulationString() override {
-                return this->m_learners[0]->getFormulationString();
+                return "Primal";
             }
 
             VotingClassifier<T>& operator=(VotingClassifier<T> const& voter){

@@ -123,4 +123,8 @@ TEST_F(VisualTest, PlotArtificial){
     vis.plot2D(0,1);
     std::cout << vis.plotDecisionSurface2D(ima, 0, 1, false, 50,  false, 1.2) << std::endl;
     vis.plot3D(0,1,0);
+    spirals.normalize();
+    vis.setSample(spirals);
+    std::cout << vis.plot3D(0,1,2) << std::endl;
+    vis.plot2D(1,2);
 }

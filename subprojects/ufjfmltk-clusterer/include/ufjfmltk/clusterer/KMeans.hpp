@@ -131,7 +131,7 @@ namespace mltk{
 
                     // update the centers of the clusters
                     for (size_t c = 0; c < this->n_clusters; c++) {
-                        size_t cluster_size = this->m_centers[c].size();
+                        size_t cluster_size = this->m_clusters[c].size();
                         this->m_centers[c].assign(dim, T());
                         for (size_t e = 0; e < cluster_size; e++) {
                             for (size_t j = 0; j < dim; j++) {

@@ -227,6 +227,15 @@ namespace mltk {
                 return p;
             }
 
+            template<typename Iter>
+            Iter erase(Iter b, Iter e){
+                return this->x.erase(b, e);
+            }
+
+            [[nodiscard]] bool empty() const {
+                return this->x.empty();
+            }
+
             /*********************************************
              *               Access operators            *
              *********************************************/
