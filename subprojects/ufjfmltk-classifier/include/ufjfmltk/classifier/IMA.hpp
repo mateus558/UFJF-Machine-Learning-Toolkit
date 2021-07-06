@@ -234,7 +234,7 @@ namespace mltk{
                 tempSol = imapFixMargin.getSolution();
                 norm = tempSol.norm;
                 bias = tempSol.bias;
-                func = tempSol.func;
+                func = tempSol.func.X();
 
                 for (min = DBL_MAX, max = -DBL_MAX, i = 0; i < size; ++i) {
                     y = points[i]->Y();
@@ -645,7 +645,7 @@ namespace mltk{
             this->alpha = percDual.getAlphaVector();
             norm = sol.norm;
             this->solution.bias = sol.bias;
-            func = sol.func;
+            func = sol.func.X();
 
             for (i = 0; i < size; ++i) {
                 if (points[i]->Alpha() > this->EPS * this->rate) { this->svs.push_back(i); }
