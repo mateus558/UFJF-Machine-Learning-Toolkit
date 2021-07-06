@@ -460,7 +460,7 @@ namespace mltk{
                     std::cerr << "Training failed!" << std::endl;
                 }
                 auto solution = this->classifier->getSolution();
-                w = solution.w;
+                w = solution.w.X();
                 margin = solution.margin;
                 svcount = solution.svs;
                 if(ftime){
@@ -492,7 +492,7 @@ namespace mltk{
                     }
 
                     auto solution = this->classifier->getSolution();
-                    w = solution.w;
+                    w = solution.w.X();
                     margin = solution.margin;
                     svcount = solution.svs;
 
