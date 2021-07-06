@@ -370,7 +370,7 @@ namespace mltk{
             this->samples = mltk::make_data<T>(samples);
 
             if (initial_solution) {
-                this->w = initial_solution->w;
+                this->w = initial_solution->w.X();
                 this->solution.bias = initial_solution->bias;
                 this->solution.norm = initial_solution->norm;
             } else {
@@ -394,7 +394,7 @@ namespace mltk{
             std::vector<T> x;
             this->timer.reset();
             if (!this->solution.w.empty())
-                this->w = this->solution.w;
+                this->w = this->solution.w.X();
 
             while (this->timer.elapsed() - time <= 0) {
                 for (e = 0, i = 0; i < size; ++i) {
