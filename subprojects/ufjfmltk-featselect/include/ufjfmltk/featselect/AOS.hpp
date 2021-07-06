@@ -474,7 +474,7 @@ namespace mltk{
                     return;
                 }
 
-                w = gtmp->w;
+                w = gtmp->w.X();
                 if (gtmp->rgamma > 0) {
                     //trained = heap->elements[1]->train;
                     margin = gtmp->rgamma;
@@ -975,7 +975,7 @@ namespace mltk{
                         break;
                     }
 
-                    gtmp->w = this->classifier->getSolutionRef()->w;
+                    gtmp->w = this->classifier->getSolutionRef()->w.X();
                     gtmp->bias = this->classifier->getSolutionRef()->bias;
                     gtmp->sv = this->classifier->getSolutionRef()->svs;
                     gtmp->rgamma = this->classifier->getSolutionRef()->margin;
@@ -989,7 +989,7 @@ namespace mltk{
                 }
                 if (isPrimal) {
                     w.resize(stmp->dim());
-                    w = this->classifier->getSolutionRef()->w;
+                    w = this->classifier->getSolutionRef()->w.X();
                 }
 
                 /*increment*/
