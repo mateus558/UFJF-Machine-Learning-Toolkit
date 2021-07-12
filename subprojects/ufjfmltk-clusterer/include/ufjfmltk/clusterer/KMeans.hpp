@@ -138,7 +138,6 @@ namespace mltk{
                 this->timer.reset();
                 do {
                     old_cost = cost;
-                    cost = 0.0;
                     has_converged = true;
                     // assign each point to the nearest cluster
                     cost = assign_clusters(points);
