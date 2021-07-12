@@ -26,9 +26,13 @@ namespace mltk{
 
                 bool train() override;
 
+                double assign_clusters(const auto& points);
+
+                void compute_centers();
+
                 double evaluate(const Point<T> &p, bool raw_value = false) override;
 
-                std::vector<std::vector<size_t>> clusters() override;
+                std::vector<mltk::Point<size_t>> clusters() override;
 
                 std::string getFormulationString() override;
 
@@ -42,6 +46,39 @@ namespace mltk{
                 this->m_clusters.assign(this->n_clusters, std::vector<size_t>());
                 this->verbose = verbose;
                 this->seed = seed;
+            }
+
+            template<typename T, typename Callable>
+            double KMeans<T, Callable>::assign_clusters(const auto& points) {
+                double sum_d = 0;
+                double cost = 0.0;
+
+                std::for_each(points.begin(), points.end(), [&](const std::shared_ptr<Point<T> > q){
+                    std::vector<double> distances(this->m_centers.size(), 0.0);
+                    std::transform(this->m_centers.begin(), this->m_centers.end(), distances.begin(), [&](const Point<T>& center){
+                        return this->dist_function(*q, center);
+                    });
+                    size_t cluster_id = std::min_element(distances.begin(), distances.end()) - distances.begin();
+                    this->m_clusters[cluster_id].X().push_back(q->Id()-1);
+                    cost += distances[cluster_id] * distances[cluster_id];
+                });
+                return cost;
+            }
+
+            template<typename T, typename Callable>
+            void KMeans<T, Callable>::compute_centers(){
+                int i = 0;
+                std::for_each(this->m_clusters.begin(), this->m_clusters.end(), [&](const auto& cluster){
+                    for(const size_t id: cluster){
+                        this->m_centers[i] += *this->samples->point(id);
+                    }
+                    i++;
+                });
+                i = 0;
+                std::for_each(this->m_centers.begin(), this->m_centers.end(), [&](auto& center){
+                   center /= this->m_clusters[i].size();
+                   i++;
+                });
             }
 
             template<typename T, typename Callable>
@@ -103,45 +140,10 @@ namespace mltk{
                     old_cost = cost;
                     cost = 0.0;
                     has_converged = true;
-
                     // assign each point to the nearest cluster
-                    for (size_t i = 0; i < size; i++) {
-                        std::vector<double> distances(this->n_clusters, 0.0);
-                        double min_value = std::numeric_limits<double>::max();
-                        size_t min_cluster = 0;
-
-                        for (size_t c = 0; c < this->n_clusters; c++) {
-                            auto point = (*this->samples)[i]->X();
-                            auto center = this->m_centers[c];
-                            std::vector<T> diff(dim);
-                            // compute the difference between the pointer in a cluster to it's center
-                            for (size_t j = 0; j < dim; j++) {
-                                diff[j] = point[j] - center[j];
-                            }
-                            distances[c] = std::sqrt(
-                                    (double) std::inner_product(diff.begin(), diff.end(), diff.begin(), 0.0));
-                            if (distances[c] < min_value) {
-                                min_value = distances[c];
-                                min_cluster = c;
-                            }
-                        }
-                        cost += distances[min_cluster] * distances[min_cluster];
-                        this->m_clusters[min_cluster].push_back(i);
-                    }
-
+                    cost = assign_clusters(points);
                     // update the centers of the clusters
-                    for (size_t c = 0; c < this->n_clusters; c++) {
-                        size_t cluster_size = this->m_clusters[c].size();
-                        this->m_centers[c].assign(dim, T());
-                        for (size_t e = 0; e < cluster_size; e++) {
-                            for (size_t j = 0; j < dim; j++) {
-                                this->m_centers[c][j] += points[this->m_clusters[c][e]]->X()[j];
-                            }
-                        }
-                        for (size_t j = 0; j < dim; j++) {
-                            this->m_centers[c][j] /= cluster_size;
-                        }
-                    }
+                    compute_centers();
                     for(auto& cluster: this->m_clusters){
                         cluster.clear();
                     }
@@ -161,13 +163,12 @@ namespace mltk{
 
             template<typename T, typename Callable>
             double KMeans<T, Callable>::evaluate(const Point<T> &p, bool raw_value) {
-                std::vector<double> dists(this->m_centers.size());
-                auto compute_distances = [p, this](std::vector<T> center){
-                    return this->dist_function(p, mltk::Point<T>(center));
-                };
-                std::transform(this->m_centers.begin(), this->m_centers.end(), dists.begin(), compute_distances);
-                auto closest_center = std::min_element(dists.begin(), dists.end()) - dists.begin()+1;
-                return closest_center;
+                std::vector<double> distances(this->m_centers.size(), 0.0);
+                std::transform(this->m_centers.begin(), this->m_centers.end(), distances.begin(), [&](const Point<T>& center){
+                    return this->dist_function(center, p);
+                });
+                size_t cluster_id = std::min_element(distances.begin(), distances.end()) - distances.begin();
+                return cluster_id;
             }
 
             template<typename T, typename Callable>
@@ -176,17 +177,8 @@ namespace mltk{
             }
 
             template<typename T, typename Callable>
-            std::vector<std::vector<size_t>> KMeans<T, Callable>::clusters() {
-                for(size_t i = 0; i < this->samples->size(); i++){
-                    auto point = (*this->samples)[i];
-                    std::vector<double> dists(this->m_centers.size());
-                    auto compute_distances = [point, this](std::vector<T> center){
-                        return this->dist_function(*point, mltk::Point<T>(center));
-                    };
-                    std::transform(this->m_centers.begin(), this->m_centers.end(), dists.begin(), compute_distances);
-                    auto closest_center = std::min_element(dists.begin(), dists.end()) - dists.begin();
-                    this->m_clusters[closest_center].push_back(i);
-                }
+            std::vector<mltk::Point<size_t>> KMeans<T, Callable>::clusters() {
+                assign_clusters(this->samples->points());
                 return this->m_clusters;
             }
 

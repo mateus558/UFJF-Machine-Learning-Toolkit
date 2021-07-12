@@ -25,8 +25,8 @@ protected:
 };
 
 TEST_F(ClustererTest, KMeansTest){
-    mltk::clusterer::KMeans<double> kmeans(mult, 4, "random", 42, 1);
-    mltk::clusterer::KMeans<double> kmeanspp(mult, 4, "kmeanspp", 42, 1);
+    mltk::clusterer::KMeans<double> kmeans(mult, 3, "random", 0, 1);
+    mltk::clusterer::KMeans<double> kmeanspp(mult, 3, "kmeanspp", 0, 1);
 
     kmeans.setMaxTime(100);
     kmeans.train();
