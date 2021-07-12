@@ -26,7 +26,7 @@ namespace mltk{
 
                 bool train() override;
 
-                double assign_clusters(const auto& points);
+                double assign_clusters(const std::vector<mltk::PointPointer<T>>& points);
 
                 void compute_centers();
 
@@ -49,7 +49,7 @@ namespace mltk{
             }
 
             template<typename T, typename Callable>
-            double KMeans<T, Callable>::assign_clusters(const auto& points) {
+            double KMeans<T, Callable>::assign_clusters(const std::vector<mltk::PointPointer<T>>& points) {
                 double sum_d = 0;
                 double cost = 0.0;
 
