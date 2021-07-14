@@ -33,7 +33,7 @@ namespace mltk::datasets {
     }
 
     BlobsPair make_blobs(size_t n_samples, int n_centers, int n_dims, double cluster_std, double center_min,
-                         double center_max, bool shuffle, bool has_classes, size_t seed) {
+                         double center_max, bool shuffle, const bool has_classes, const size_t seed) {
         mltk::random::init(seed);
         std::vector<mltk::Point<>> centers(n_centers, mltk::Point<>(n_dims, 0.0));
         std::vector<size_t> samples_per_center(n_centers, std::floor(n_samples / n_centers));
@@ -45,7 +45,7 @@ namespace mltk::datasets {
             }
         });
 
-        return make_blobs(samples_per_center, centers, clusters_std, n_dims, shuffle, seed);
+        return make_blobs(samples_per_center, centers, clusters_std, n_dims, shuffle, has_classes, seed);
     }
 
     BlobsPair make_blobs(const std::vector<size_t> &n_samples, const std::vector<mltk::Point<double>> &centers,
@@ -56,7 +56,7 @@ namespace mltk::datasets {
         BlobsPair pair;
 
         dataset.setName("blobs");
-        dataset.setType("Classification");
+        if(has_classes) dataset.setType("Classification");
 
         for (const auto &n: n_samples) {
             for (int c = 0; c < centers.size(); c++) {
@@ -67,10 +67,12 @@ namespace mltk::datasets {
                         p[j] = mltk::random::floatInRange<double, std::normal_distribution<double>>(center[j],
                                                                                                     clusters_std[c]);
                     }
-                    if (centers.size() == 2) {
-                        p.Y() = (c == 0) ? -1 : 1;
-                    } else {
-                        p.Y() = c + 1;
+                    if(has_classes) {
+                        if (centers.size() == 2) {
+                            p.Y() = (c == 0) ? -1 : 1;
+                        } else {
+                            p.Y() = c + 1;
+                        }
                     }
                     dataset.insertPoint(p);
                 }
