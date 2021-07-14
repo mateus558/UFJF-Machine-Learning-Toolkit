@@ -54,9 +54,9 @@ namespace mltk::datasets {
         mltk::random::init(seed);
         mltk::Data<double> dataset;
         BlobsPair pair;
-
         dataset.setName("blobs");
         if(has_classes) dataset.setType("Classification");
+        else dataset.setType("Clustering");
 
         for (const auto &n: n_samples) {
             for (int c = 0; c < centers.size(); c++) {

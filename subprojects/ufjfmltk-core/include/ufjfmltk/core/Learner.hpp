@@ -82,9 +82,9 @@ namespace mltk{
        * \param Point< T >  x (???) Features point to be evaluated.
        * \return int
        */
-      virtual double evaluate (const Point< T > &p, bool raw_value) = 0;
+      virtual double evaluate (const Point< T > &p, bool raw_value=false) = 0;
 
-      Data<T> batchEvaluate (const Data< T >& data){
+      virtual Data<T> batchEvaluate (const Data< T >& data){
           Data<T> result;
           std::for_each(data.begin(), data.end(), [&](const mltk::PointPointer<T> p){
               mltk::Point<T> q(*p);
