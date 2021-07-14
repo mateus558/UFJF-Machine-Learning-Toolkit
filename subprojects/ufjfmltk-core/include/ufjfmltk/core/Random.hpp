@@ -62,7 +62,7 @@ namespace mltk{
          * \brief Get the seed used in the mersenne twister.
          * \return unsigned int
          */
-        auto getSeed();
+        size_t getSeed();
     }
 }
 
