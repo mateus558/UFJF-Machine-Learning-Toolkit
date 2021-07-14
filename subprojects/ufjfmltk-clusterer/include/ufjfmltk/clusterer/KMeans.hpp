@@ -90,7 +90,7 @@ namespace mltk{
                 bool has_converged = true;
                 mltk::random::init(this->seed);
 
-                std::shuffle(points.begin(), points.end(), std::mt19937(mltk::random::getSeed()));
+                std::shuffle(points.begin(), points.end(), std::mt19937(this->seed));
 
                 if (initialization == "random") {
                     std::vector<size_t> centers_ids(this->n_clusters);
