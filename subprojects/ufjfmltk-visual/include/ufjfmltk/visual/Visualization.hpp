@@ -551,7 +551,6 @@ namespace mltk{
                                                const std::string& title,
                                                const std::string& format,
                                                const std::string& x_label, const std::string& y_label){
-            assert(samples->isClassification());
             std::string dims = utils::itos(x+1) + ":" + utils::itos(y+1);
             std::string cmd("plot ");
             std::vector<std::string> temp_files_names, class_names = samples->classesNames();
@@ -672,7 +671,6 @@ namespace mltk{
                                                const std::string& title,
                                                const std::string& format,
                                                const std::string& x_label, const std::string& y_label, const std::string& z_label){
-            assert(samples->isClassification());
             std::string dims = utils::itos(x+1) + ":" + utils::itos(y+1) + ":" + utils::itos(z+1);
             std::string cmd("splot ");
             std::vector<std::string> temp_files_names, class_names = samples->classesNames();

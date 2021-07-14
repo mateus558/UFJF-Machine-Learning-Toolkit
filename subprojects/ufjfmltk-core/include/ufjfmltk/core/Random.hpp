@@ -18,56 +18,51 @@ namespace mltk{
      * \brief Namespace for random number generation (Mersenne Twister pseudorandom generator).
      */
     namespace random {
-        /// Mersenne twister generator object.
-        static std::mt19937 generator{std::random_device {} ()};
         /// Seed used.
-        static unsigned int m_seed = 0;
+        extern unsigned int m_seed;
+        extern unsigned int seed_param;
+        extern std::mt19937 m_generator;
 
         /**
          * \brief Initialize the mersenne twister pseudorandom number generator.
          * \param seed Seed used to generate the numbers.
          * \return unsigned int
          */
-        inline  auto  init(unsigned int seed = 0) {
-            if(seed != m_seed){
-                m_seed = (seed == 0)?std::random_device {} (): seed;
-                generator.seed(m_seed);
-            }
-            return m_seed;
-        }
+        size_t init(unsigned int seed = 0);
+
         /**
          * \brief Returns a integer between low and high.
          * \param low Lowest possible integer.
          * \param high Highest possible integer.
          * \return int
          */
-        template < typename Integral = int, typename Integral1,
-                typename Distribution = std::uniform_int_distribution<Integral>  >
-        inline  Integral  intInRange(Integral low, Integral1 high) {
+        template<typename Integral = int, typename Integral1,
+                typename Distribution = std::uniform_int_distribution<Integral> >
+        inline Integral intInRange(Integral low, Integral1 high){
             Distribution dist(low, high);
 
-            return dist(generator);
+            return dist(m_generator);
         }
+
         /**
          * \brief Returns a float between low and high.
          * \param low Lowest possible float.
          * \param high Highest possible float.
          * \return float
          */
-        template < typename Real = double,
+        template<typename Real = double,
                 typename Distribution = std::uniform_real_distribution<Real> >
-        inline  Real  floatInRange(Real low, Real high) {
+        Real floatInRange(Real low, Real high) {
             Distribution dist(low, high);
 
-            return dist(generator);
+            return dist(m_generator);
         }
+
         /**
          * \brief Get the seed used in the mersenne twister.
          * \return unsigned int
          */
-        inline  auto  getSeed(){
-            return m_seed;
-        }
+        auto getSeed();
     }
 }
 

@@ -4,6 +4,7 @@ set(CORE_TARGET core)
 set(${CORE_TARGET}_SRC
         src/Utils.cpp
         src/Datasets.cpp
+        src/Random.cpp
         )
 
 # List of HPP (header) library files.
@@ -28,7 +29,7 @@ set(${CORE_TARGET}_HDR
 
 # Adds a library target called ${LIBRARY_TARGET_NAME} to be built from the
 # source and header files listed in the command invocation.
-add_library(${CORE_TARGET} ${${CORE_TARGET}_SRC} ${${LIBRARY_TARGET_NAME}_HDR})
+add_library(${CORE_TARGET} ${${CORE_TARGET}_SRC} ${${LIBRARY_TARGET_NAME}_HDR} src/Random.cpp)
 
 add_library(${PROJECT_NAME}::${CORE_TARGET} ALIAS ${CORE_TARGET})
 

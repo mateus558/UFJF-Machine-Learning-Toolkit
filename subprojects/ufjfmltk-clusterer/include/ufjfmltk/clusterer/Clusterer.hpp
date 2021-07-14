@@ -20,20 +20,20 @@ namespace mltk{
                 /// Function used to compute the metrics between two points
                 Callable dist_function;
                 /// Number of clusters for the cluster method
-                size_t n_clusters;
+                size_t n_clusters{};
                 /// Vector with the centers of the clusters
-                std::vector<std::vector<T> > m_centers;
+                std::vector<mltk::Point<T> > m_centers;
                 /// Clusters of points
-                std::vector<std::vector<size_t> > m_clusters;
+                std::vector<mltk::Point<size_t> > m_clusters;
 
             public:
-                Clusterer() {}
+                Clusterer() = default;
 
-                Clusterer(DataPointer <T> samples = nullptr, size_t clusters = 0)
+                explicit Clusterer(DataPointer <T> samples = nullptr, size_t clusters = 0)
                         : Learner<T>(samples), n_clusters(clusters) {}
 
-                virtual std::vector<std::vector<size_t> > clusters() { return m_clusters; }
-                std::vector<std::vector<T> > centers() { return m_centers; }
+                virtual std::vector<mltk::Point<size_t> > clusters() { return m_clusters; }
+                std::vector<mltk::Point<T> > centers() { return m_centers; }
             };
         }
 }
