@@ -13,6 +13,10 @@
 #include <iostream>
 #include "Data.hpp"
 
+namespace mltk{
+    template < typename T > class Data;
+}
+
 //! Namespace for statistical methods.
 namespace mltk::stats {
     /**
@@ -20,10 +24,8 @@ namespace mltk::stats {
      * \param p Point to compute the mean.
      * \return double
      */
-    template < typename T > class Data;
-
     template < typename T, typename R >
-    T mean (const mltk::Point<T, R> &p);
+    double mean (const mltk::Point<T, R> &p);
     /**
      * \brief Compute the mean (average) of a feature in data.
      * \param feat Feature to compute the mean.
@@ -37,7 +39,7 @@ namespace mltk::stats {
      * \return double
      */
     template < typename T, typename R >
-    T std_dev(const mltk::Point<T, R> &p);
+    double std_dev(const mltk::Point<T, R> &p);
     /**
      * \brief Compute the standard deviation of a feature in data.
      * \param feat Feature to compute the standard deviation.
@@ -51,7 +53,7 @@ namespace mltk::stats {
      * \return double
      */
     template < typename T, typename R >
-    T var(const mltk::Point<T, R> &p);
+    double var(const mltk::Point<T, R> &p);
     /**
      * \brief Compute the variance of a feature in data.
      * \param feat Feature to compute the variance.
@@ -66,7 +68,7 @@ namespace mltk::stats {
      * \return double
      */
     template < typename T, typename R >
-    T covar(const mltk::Point<T, R> &p, const mltk::Point<T, R> &p1);
+    double covar(const mltk::Point<T, R> &p, const mltk::Point<T, R> &p1);
     /**
      * \brief Returns radius of the ball that circ. the data.
      * \param data  Dataset to compute the radius.
@@ -94,12 +96,13 @@ namespace mltk::stats {
      */
     template < typename T >
     double distCentersWithoutFeats(const Data<T>& data, const std::vector<int>& feats, int index);
-}
 
-namespace mltk::stats {
-    using namespace std;
+    /*********************************************
+     *               Implementation              *
+     *********************************************/
+
     template < typename T, typename R >
-    T mean (const Point<T, R> &p){
+    double mean (const Point<T, R> &p){
         assert(p.size() > 0);
         return p.sum()/p.size();
     }
@@ -115,7 +118,7 @@ namespace mltk::stats {
     }
 
     template < typename T, typename R >
-    T std_dev(const Point<T, R> &p){
+    double std_dev(const Point<T, R> &p){
         assert(p.size() > 0);
         return std::sqrt((mltk::pow(p-mltk::stats::mean(p), 2)).sum()/p.size());
     }
@@ -124,7 +127,7 @@ namespace mltk::stats {
     double std_dev(const Data<T>& data, size_t feat){
         int i, size = data.size();
         double avg, sd;
-        std::vector<shared_ptr<Point< T > > > points = data.points();
+        std::vector<std::shared_ptr<Point< T > > > points = data.points();
 
         if(size == 1) return 0.0;
 
@@ -138,7 +141,7 @@ namespace mltk::stats {
     }
 
     template < typename T, typename R >
-    T var(const Point<T, R> &p){
+    double var(const Point<T, R> &p){
         assert(p.size() > 0);
         return mltk::pow(p-mltk::stats::mean(p), 2).sum()/p.size();
     }
@@ -147,9 +150,9 @@ namespace mltk::stats {
     double var(const Data<T>& data, size_t feat){
         int i, j;
         int dim = data.dim(), size = data.size();
-        vector<int> fnames = data.getFeaturesNames();
-        vector<double> avg(dim);
-        vector<shared_ptr<Point< T > > > points = data.points();
+        std::vector<int> fnames = data.getFeaturesNames();
+        std::vector<double> avg(dim);
+        std::vector<std::shared_ptr<Point< T > > > points = data.points();
 
         for(j = 0; j < dim; ++j){
             if(feat < 0 || fnames[j] != feat){
@@ -176,7 +179,7 @@ namespace mltk::stats {
     }
 
     template < typename T, typename R >
-    T covar(const Point<T, R> &p, const Point<T, R> &p1){
+    double covar(const Point<T, R> &p, const Point<T, R> &p1){
         assert(p.size() == p1.size());
         return ((p-mltk::stats::mean(p))*(p1-mltk::stats::mean(p1))).sum()/(p1.size()-1.0);
     }
@@ -186,9 +189,9 @@ namespace mltk::stats {
         int i = 0, j = 0, dim = data.dim(), size = data.size();
         double norm = 0.0;
         double max = 1.0;
-        vector<int> fnames = data.getFeaturesNames();
-        vector<double> avg(dim, 0.0);
-        vector<shared_ptr<Point< T > > > points = data.points();
+        std::vector<int> fnames = data.getFeaturesNames();
+        std::vector<double> avg(dim, 0.0);
+        std::vector<std::shared_ptr<Point< T > > > points = data.points();
 
         if(q == 2){
             for(j = 0; j < dim; ++j){
@@ -229,9 +232,9 @@ namespace mltk::stats {
         int i = 0, j = 0, dim = data.dim(), size = data.size();
         double dist = 0.0;
         int size_pos = 0, size_neg = 0;
-        vector<int> fnames = data.getFeaturesNames();
-        vector<double> avg_pos(dim, 0.0), avg_neg(dim, 0.0);
-        vector<shared_ptr<Point< T > > > points = data.points();
+        std::vector<int> fnames = data.getFeaturesNames();
+        std::vector<double> avg_pos(dim, 0.0), avg_neg(dim, 0.0);
+        std::vector<std::shared_ptr<Point< T > > > points = data.points();
 
         for(size_pos = 0, size_neg = 0, i = 0; i < size; ++i){
             if(points[i]->Y() == 1)	size_pos++;
@@ -263,9 +266,9 @@ namespace mltk::stats {
         int i = 0, j = 0, dim = data.dim(), size = data.size();
         double dist = 0.0;
         int size_pos = 0, size_neg = 0, featsize = feats.size();
-        vector<int> fnames = data.getFeaturesNames();
-        vector<double> avg_pos(dim, 0.0), avg_neg(dim, 0.0);
-        vector<shared_ptr<Point< T > > > points = data.points();
+        std::vector<int> fnames = data.getFeaturesNames();
+        std::vector<double> avg_pos(dim, 0.0), avg_neg(dim, 0.0);
+        std::vector<std::shared_ptr<Point< T > > > points = data.points();
 
         for(size_pos = 0, size_neg = 0, i = 0; i < size; ++i){
             if(points[i]->Y() == 1)	size_pos++;
@@ -294,5 +297,6 @@ namespace mltk::stats {
         return std::sqrt(std::fabs(dist));
     }
 }
+
 
 #endif

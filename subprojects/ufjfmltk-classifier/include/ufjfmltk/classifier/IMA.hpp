@@ -181,8 +181,7 @@ namespace mltk{
 
                 if (margin == 0) tMax = this->MAX_UP;
                 else {
-                    double raio = mltk::stats::radius(*this->samples, -1,
-                                                      this->q);//data_get_radius(sample, -1, this->q);
+                    double raio = mltk::stats::radius(*this->samples, -1, this->q);//data_get_radius(sample, -1, this->q);
                     tMax = (raio * raio - rmargin * rmargin) / std::pow(this->margin - rmargin, 2);
                     if (rmargin == 0) tMax *= 1.5;
                 }

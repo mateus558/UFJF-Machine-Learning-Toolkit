@@ -10,6 +10,10 @@
 
 namespace mltk{
         namespace clusterer {
+
+            using Cluster = mltk::Point<size_t>;
+            using Clusters = std::vector<Cluster>;
+
             /**
              * \brief Wrapper for the implementation of the K-Means clustering algorithm.
              */
@@ -27,6 +31,8 @@ namespace mltk{
                 bool train() override;
 
                 double assign_clusters(const std::vector<mltk::PointPointer<T>>& points);
+
+                double clusters_variance(const Clusters& clusters);
 
                 void compute_centers();
 
@@ -131,9 +137,9 @@ namespace mltk{
                 }
 
                 if (this->verbose) {
-                    std::cout << "------------------------------------------------------------------------------------\n";
-                    std::cout << " steps     updates              cost_function              diff          milli(ms)\n";
-                    std::cout << "------------------------------------------------------------------------------------\n";
+                    std::cout << "----------------------------------------------------------------------------------------\n";
+                    std::cout << " steps     updates              cost_function      diff   variance       milli(ms)\n";
+                    std::cout << "----------------------------------------------------------------------------------------\n";
                 }
                 this->timer.reset();
                 do {
@@ -143,18 +149,19 @@ namespace mltk{
                     cost = assign_clusters(points);
                     // update the centers of the clusters
                     compute_centers();
-                    for(auto& cluster: this->m_clusters){
-                        cluster.clear();
-                    }
+
                     this->steps++;
                     double secs = this->timer.elapsed();
                     if (this->verbose) {
                         auto diff = fabs(cost - old_cost);
                         std::cout << " " << this->steps << "           " << this->ctot << "                   " << cost
-                                  << "            " << diff << "           " << secs << "\n";
+                                 << "            " << diff  << "   " << clusters_variance(this->m_clusters) << "           " << secs << "\n";
                     }
                     if (time - this->timer.elapsed() <= 0) break;
                     has_converged = fabs(cost - old_cost) <= this->EPS;
+                    for(auto& cluster: this->m_clusters){
+                        cluster.clear();
+                    }
                 } while (!has_converged);
 
                 return true;
@@ -179,6 +186,24 @@ namespace mltk{
             std::vector<mltk::Point<size_t>> KMeans<T, Callable>::clusters() {
                 assign_clusters(this->samples->points());
                 return this->m_clusters;
+            }
+
+            template<typename T, typename Callable>
+            double KMeans<T, Callable>::clusters_variance(const Clusters &clusters) {
+                double var = 0.0;
+                std::for_each(clusters.begin(), clusters.end(), [&](const Cluster& cluster){
+                   Point<double> mean(this->samples->dim());
+
+                   for(const size_t id: cluster){
+                       mean += (*this->samples)(id);
+                   }
+                   mean /= cluster.size();
+                   for(const size_t id: cluster){
+                       var += mltk::pow((*this->samples)(id)-mean, 2).sum();
+                   }
+                });
+
+                return var;
             }
 
         }
