@@ -763,7 +763,8 @@ namespace mltk{
             return prepareScript(cmd);
         }
 
-        template<typename T, typename Learner>
+        template<typename T>
+        template<class Learner>
         std::string Visualization< T >::plotDecisionSurface2D(Learner& learner, int x, int y, bool is_trained, size_t grid_dim,
                                           bool save, const double scale, const std::string& title, const std::string& format,
                                           const std::string& x_label, const std::string& y_label){
