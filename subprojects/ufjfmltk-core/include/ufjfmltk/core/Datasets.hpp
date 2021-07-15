@@ -29,7 +29,7 @@ namespace mltk::datasets{
         Centers centers;
     };
 
-    /*
+    /**
      * \brief generates a synthetic data set composed of interlaced Archimedean spirals [<a href="https://github.com/KNODIS-Research-Group/make_spirals">source</a>].
      * \param n_samples number of samples on the dataset.
      * \param n_classes number of classes or spirals.
@@ -43,7 +43,7 @@ namespace mltk::datasets{
     mltk::Data<double> make_spirals(size_t n_samples=100, int n_classes=2, bool shuffle=true, double noise=1.0,
                             size_t n_loops=2, double margin = 0.5, size_t seed = 0);
 
-    /*
+    /**
      * \brief Generate isotropic Gaussian blobs for clustering or classification [<a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_blobs.html">source</a>].
      * \param n_samples number of samples on each gaussian blob.
      * \param n_centers number of classes or gaussian blobs.
@@ -60,7 +60,7 @@ namespace mltk::datasets{
                                   double center_min=-10.0, double center_max=10.0, bool shuffle=true,
                                   bool has_classes=true, size_t seed = 0);
 
-    /*
+    /**
      * \brief Generate isotropic Gaussian blobs for clustering or classification from given centers and samples distribution.
      * \param n_samples number of samples in each gaussian blob.
      * \param centers centers of the gaussian blobs.
@@ -75,7 +75,7 @@ namespace mltk::datasets{
                          std::vector<double> clusters_std, int n_dims=2, bool shuffle=true,
                          bool has_classes=true, size_t seed = 0);
 
-    /*
+    /**
      * \brief Generate a random regression problem [<a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_regression.html">source</a>].
      * \param n_samples number of samples on the dataset.
      * \param n_dims dimensionality of the data.

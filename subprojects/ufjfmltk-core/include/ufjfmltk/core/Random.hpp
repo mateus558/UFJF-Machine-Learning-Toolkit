@@ -13,9 +13,8 @@
 #include <random>
 #include <functional>
 
-/**
- * \brief Namespace for random number generation (Mersenne Twister pseudorandom generator).
- */
+
+//! Namespace for random number generation (Mersenne Twister pseudorandom generator).
 namespace mltk::random {
         /// Seed used.
         extern unsigned int m_seed;
