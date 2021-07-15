@@ -11,13 +11,12 @@
 #include "Timer.hpp"
 
 namespace mltk{
-
     template <typename T>
     class Learner;
     
     template < class T > using LearnerPointer = std::shared_ptr<mltk::Learner< T > >;
     
-    template < typename T >
+    template < typename T = double >
     class  Learner {
     protected:
       /// Samples used in the model training.

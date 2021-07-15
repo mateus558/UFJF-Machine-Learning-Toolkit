@@ -25,7 +25,7 @@ namespace mltk::random {
          * \param seed Seed used to generate the numbers.
          * \return unsigned int
          */
-        extern inline size_t init(unsigned int seed = 0);
+        size_t init(unsigned int seed = 0);
 
         /**
          * \brief Returns a integer between low and high.
@@ -51,7 +51,7 @@ namespace mltk::random {
          * \brief Get the seed used in the mersenne twister.
          * \return unsigned int
          */
-        extern inline size_t getSeed();
+        size_t getSeed();
 
         /*********************************************
          *               Implementation              *
