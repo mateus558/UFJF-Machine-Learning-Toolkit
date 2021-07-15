@@ -54,7 +54,7 @@ namespace mltk{
     
       Learner< T >() = default;
     
-      Learner< T > (DataPointer< T > _samples): samples(_samples) {}
+      explicit Learner< T > (DataPointer< T > _samples): samples(_samples) {}
     
       Learner< T > (const Learner< T > &learner){
         this->samples = learner.samples;
@@ -105,32 +105,32 @@ namespace mltk{
        * @brief Get the Data used by the learner.
        * @return Data object.
        */
-      inline const auto getSamples() { return this->samples; }
+      inline auto getSamples() { return this->samples; }
       /**
       * \brief Get the elapsed time in the training phase of the Learner.
       * \return double
       */
-      inline double getElapsedTime() const { return timer.elapsed(); }
+      [[nodiscard]] inline double getElapsedTime() const { return timer.elapsed(); }
       /**
       * \brief Get the total number of updates of the Learner.
       * \return int
       */
-      inline int getCtot() const { return ctot; }
+      [[nodiscard]] inline int getCtot() const { return ctot; }
       /**
        * \brief getSteps Returns the number of steps through the data by the Learner.
        * \return int
        */
-      inline int getSteps() const { return steps; }
+      [[nodiscard]] inline int getSteps() const { return steps; }
       /**
        * \brief getUpdates Returns the number of updates needed to get to the the solution.
        * \return int
        */
-      inline int getUpdates() const { return ctot; }
+      [[nodiscard]] inline int getUpdates() const { return ctot; }
       /**
        * \brief getMaxTime Returns the maximum running time in the training phase of the Learner.
        * \return double
        */
-      inline double getMaxTime() const { return max_time; }
+      [[nodiscard]] inline double getMaxTime() const { return max_time; }
       /**
        * @brief Get the probability of the last prediction.
        * @return Last prediction probability.
@@ -148,54 +148,54 @@ namespace mltk{
       void setSeed(const size_t _seed){ this->seed = _seed; }
       /**
        * \brief setSamples Set the samples used by the Learner.
-       * \param samples Samples to be used.
+       * \param data Samples to be used.
        */
-      virtual void setSamples(const Data< T > &samples) { this->samples = make_data<T>(samples); }
+      virtual void setSamples(const Data< T > &data) { this->samples = make_data<T>(data); }
       /**
        * \brief setSamples Set the samples used by the Learner.
-       * \param samples Samples to be used.
+       * \param data Samples to be used.
        */
-      virtual void setSamples(DataPointer< T > samples) { this->samples = samples; }
+      virtual void setSamples(DataPointer< T > data) { this->samples = data; }
       /**
        * \brief setTimer Set the timer used by the Learner.
-       * \param timer Timer to be used.
+       * \param _timer Timer to be used.
        */
-      void setTimer(Timer timer) { this->timer = timer; }
+      void setTimer(Timer _timer) { this->timer = _timer; }
       /**
        * \brief Set the partial number of steps used in the training phase of the Learner.
-       * \param steps Number of steps.
+       * \param _steps Number of steps.
        */
-      inline void setSteps(int steps) { this->steps = steps; }
+      inline void setSteps(int _steps) { this->steps = _steps; }
       /**
         * \brief Set the partial number of updates of the Learner.
-        * \param ctot Number of updates.
+        * \param _ctot Number of updates.
         */
-      void setCtot(int ctot) {this->ctot = ctot;}
+      void setCtot(int _ctot) { this->ctot = _ctot;}
       /**
        * \brief Set the level of verbose.
-       * \param verbose level of verbose.
+       * \param _verbose level of verbose.
        */
-      void setVerbose(int verbose) {this->verbose = verbose;}
+      void setVerbose(int _verbose) { this->verbose = _verbose;}
       /**
        * \brief setStartTime Set the initial time of the Learner.
-       * \param start_time Initial time.
+       * \param stime Initial time.
        */
-      void setStartTime(double start_time) { this->start_time = start_time;}
+      void setStartTime(double stime) { this->start_time = stime;}
       /**
        * \brief Set the max time of execution.
-       * \param max_time  Max time.
+       * \param maxtime  Max time.
        */
-      void setMaxTime(double max_time) {this->max_time = max_time;}
+      void setMaxTime(double maxtime) { this->max_time = maxtime;}
       /**
        * \brief setEPS Set the precision of the Learner.
-       * \param EPS Precision.
+       * \param eps Precision.
        */
-      void setEPS(double EPS) {this->EPS = EPS;}
+      void setEPS(double eps) { this->EPS = eps;}
       /**
        * \brief setMaxIterations Set the max number of iterations of the Learner.
-       * \param MAX_IT Number max of iterations.
+       * \param max_it Number max of iterations.
        */
-      void setMaxIterations(int MAX_IT) {this->MAX_IT = MAX_IT;}
+      void setMaxIterations(int max_it) { this->MAX_IT = max_it;}
       /**
        * @brief Set the max number of epochs for the learner training.
        * @param MAX_EPOCHS Max number of epochs.
@@ -205,14 +205,18 @@ namespace mltk{
        * \brief setMaxIterations Set the max number of updates of the Learner.
        * \param MAX_IT Number max of updates.
        */
-      void setMaxUpdates(int MAX_UP) {this->MAX_UP = MAX_UP;}
+      void setMaxUpdates(int max_up) { this->MAX_UP = max_up;}
       /**
        * \brief Set the learning rate of the Learner.
-       * \param rate Learning rate.
+       * \param learning_rate Learning rate.
        */
-      void setLearningRate(double rate) {this->rate = rate;}
+      void setLearningRate(double learning_rate) { this->rate = learning_rate;}
     };
-    
+
+    /*********************************************
+     *               Implementation              *
+     *********************************************/
+
     template<typename T>
     Data<T> Learner<T>::batchEvaluate (const Data< T >& data){
         Data<T> result;
