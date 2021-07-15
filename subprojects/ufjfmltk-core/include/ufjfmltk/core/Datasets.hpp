@@ -10,6 +10,9 @@
 
 #include "ufjfmltk/core/Data.hpp"
 
+/**
+* \brief Namespace for artificial datasets generation.
+*/
 namespace mltk::datasets{
     using Centers = std::vector<mltk::Point<double>>;
 
@@ -22,7 +25,16 @@ namespace mltk::datasets{
         mltk::Data<double> dataset;
         Centers centers;
     };
-
+    /* \brief generates a synthetic data set composed of interlaced Archimedean spirals [<a href="https://github.com/KNODIS-Research-Group/make_spirals">source</a>].
+     * \param n_samples number of samples on the dataset.
+     * \param n_classes number of classes or spirals.
+     * \param shuffle tells if the dataset must be shuffled after generation.
+     * \param noise value of the noise added to the dataset.
+     * \param n_loops how many loops each spiral must have.
+     * \param margin margin between spirals.
+     * \param seed seed for random data generation.
+     * \return spirals artificial dataset.
+     */
     mltk::Data<double> make_spirals(size_t n_samples=100, int n_classes=2, bool shuffle=true, double noise=1.0,
                             size_t n_loops=2, double margin = 0.5, size_t seed = 0);
 
