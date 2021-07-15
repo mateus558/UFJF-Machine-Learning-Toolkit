@@ -13,11 +13,10 @@
 #include <random>
 #include <functional>
 
-namespace mltk{
-    /**
-     * \brief Namespace for random number generation (Mersenne Twister pseudorandom generator).
-     */
-    namespace random {
+/**
+ * \brief Namespace for random number generation (Mersenne Twister pseudorandom generator).
+ */
+namespace mltk::random {
         /// Seed used.
         extern unsigned int m_seed;
         extern unsigned int seed_param;
@@ -64,6 +63,5 @@ namespace mltk{
          */
         size_t getSeed();
     }
-}
 
 #endif //DONKEY_KONG_TRAB_RANDOM_H
