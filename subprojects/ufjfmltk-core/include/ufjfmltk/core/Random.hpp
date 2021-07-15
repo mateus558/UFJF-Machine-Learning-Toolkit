@@ -13,11 +13,10 @@
 #include <random>
 #include <functional>
 
-
 //! Namespace for random number generation (Mersenne Twister pseudorandom generator).
 namespace mltk::random {
         /// Seed used.
-        extern unsigned int m_seed;
+        static unsigned int m_seed = 1;
         extern unsigned int seed_param;
         extern std::mt19937 m_generator;
 
@@ -36,11 +35,7 @@ namespace mltk::random {
          */
         template<typename Integral = int, typename Integral1,
                 typename Distribution = std::uniform_int_distribution<Integral> >
-        inline Integral intInRange(Integral low, Integral1 high){
-            Distribution dist(low, high);
-
-            return dist(m_generator);
-        }
+        extern inline Integral intInRange(Integral low, Integral1 high);
 
         /**
          * \brief Returns a float between low and high.
@@ -50,17 +45,31 @@ namespace mltk::random {
          */
         template<typename Real = double,
                 typename Distribution = std::uniform_real_distribution<Real> >
-        Real floatInRange(Real low, Real high) {
-            Distribution dist(low, high);
-
-            return dist(m_generator);
-        }
+        extern inline Real floatInRange(Real low, Real high);
 
         /**
          * \brief Get the seed used in the mersenne twister.
          * \return unsigned int
          */
         size_t getSeed();
+
+        /*********************************************
+         *               Implementation              *
+         *********************************************/
+
+        template<typename Integral, typename Integral1, typename Distribution>
+        Integral intInRange(Integral low, Integral1 high){
+            Distribution dist(low, high);
+
+            return dist(mltk::random::m_generator);
+        }
+
+        template<typename Real, typename Distribution >
+        Real floatInRange(Real low, Real high) {
+            Distribution dist(low, high);
+
+            return dist(mltk::random::m_generator);
+        }
     }
 
 #endif //DONKEY_KONG_TRAB_RANDOM_H

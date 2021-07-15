@@ -33,11 +33,6 @@ TEST_F(ClustererTest, KMeansTest){
     kmeanspp.setMaxTime(100);
     kmeanspp.train();
 
-    auto conf = mltk::validation::generateConfusionMatrix(mult, kmeans);
-    mltk::utils::printConfusionMatrix(mult.classes(), mult.classesNames(), conf);
-    conf = mltk::validation::generateConfusionMatrix(mult, kmeanspp);
-    mltk::utils::printConfusionMatrix(mult.classes(), mult.classesNames(), conf);
-
     auto centers_rand = kmeans.centers();
     for(const auto& center: centers_rand){
         std::cout << mltk::Point<double>(center) << std::endl;

@@ -110,7 +110,7 @@ namespace mltk{
          * \brief Returns the type of the dataset.
          * \return std::string
          **/
-        const std::string &getType() const;
+        [[nodiscard]] const std::string &getType() const;
 
     private:
         // Private Operations
@@ -122,35 +122,39 @@ namespace mltk{
         int process_class(std::string& item);
         /**
          * \brief Returns the type of the file.
-         * \param file (???) Path to the file.
+         * \param file Path to the file.
          * \return int
          */
         Type identifyFileType (std::string file);
         /**
          * \brief Load a dataset from a csv file.
-         * \param path (???) Path to csv file.
+         * \param path Path to csv file.
          * \return bool
          */
         bool load_csv (const std::string& path);
         /**
          * \brief Load a dataset from a arff file.
-         * \param path (???) Path to arff file.
+         * \param path Path to arff file.
          * \return bool
          */
         bool load_arff (const std::string& path);
         /**
          * \brief Load a dataset from a data file.
-         * \param path (???) Path to data file.
+         * \param path Path to data file.
          * \return bool
          */
         bool load_data (const std::string& path);
         /**
          * \brief Load a dataset from a txt file.
-         * \param path (???) Path to txt file.
+         * \param path Path to txt file.
          * \return bool
          */
         bool load_txt (const std::string& path);
-
+        /**
+         * @brief Gets the dataset name from its path.
+         * @param path Path to the dataset.
+         * @return Dataset name.
+         */
         std::string discover_dataset_name(const std::string& path);
 
     public :
@@ -158,10 +162,14 @@ namespace mltk{
 
         Data() = default;
         Data(const Data<T>& other);
+        /**
+         * @param dataset Dataset path.
+         * @param atEnd Indicates if labels are at end of the columns of the dataset.
+         */
         Data(const std::string &dataset, bool atEnd);
         /**
          * \brief Data constructor to load a dataset from a file.
-         * \param dataset (???) Path to the dataset to be loaded.
+         * \param dataset Path to the dataset to be loaded.
          * \param pos_class String representing the positive class on the dataset.
          * \param neg_class String representing the negative class on the dataset.
          */
@@ -187,6 +195,10 @@ namespace mltk{
         * \brief Inform if the dataset is used for classification.
         **/
         [[nodiscard]] bool isClassification() const { return (type == "Classification" || type == "MultiClassification" || type == "BinClassification");}
+        /**
+         * @brief The name of the dataset is defined as the name ofthe file where it were loaded from.
+         * @return Name of the dataset.
+         */
         [[nodiscard]] std::string name() const{ return dataset_name; }
         /**
          * \brief Returns the size of the dataset.
@@ -219,16 +231,21 @@ namespace mltk{
          * \return std::vector<Point< T > >
          */
         PointPointer<T> point (int index) const;
+        /**
+         * @brief Get the values of a feature from all points.
+         * @param index Index of the feature on the dataset.
+         * @return Point containing feature values.
+         */
         Point< T > getFeature(int index) const;
         [[nodiscard]] Point< double > getLabels() const;
         /**
-         * \brief Returns a vector containing the frequency of the classes.
-         * \return std::vector<size_t>
+         * \brief Returns a vector containing the frequency of the classes. Only valid for classification datasets.
+         * \return std::vector<size_t> containing the distribution of the classes.
          **/
         [[nodiscard]] std::vector<size_t> classesDistribution() const ;
         /**
-         * \brief Returns a vector containing the name of the classes.
-         * \return std::vector<std::string>
+         * \brief Returns a vector containing the name of the classes. Only valid for classification datasets.
+         * \return std::vector<std::string> containing the names of the classes.
          **/
         [[nodiscard]] std::vector<std::string> classesNames() const;
         /**
@@ -250,7 +267,15 @@ namespace mltk{
         /*********************************************
          *               Setters                     *
          *********************************************/
+         /**
+          * @brief Set the name of the dataset.
+          * @param name Name of the dataset.
+          */
         void setName(const std::string& name){ this->dataset_name = name; }
+        /**
+         * @brief Set classes names.
+         * @param class_names strings represeting the classes names.
+         */
         inline void setClassesNames(const std::vector<std::string> class_names){ this->class_names = class_names; }
         /**
          * \brief Set the classes to use in the dataset.
@@ -264,13 +289,13 @@ namespace mltk{
         void setClassesAtEnd(bool atEnd){ this->atEnd = atEnd; }
         /**
          * \brief setPoint Set the point in a position of the data.
-         * \param index (???) Index of the point that will be set.
-         * \param p (???) Point to be set.
+         * \param index Index of the point that will be set.
+         * \param p Point to be set.
          */
         void setPoint (int index, std::shared_ptr<Point< T > > p);
         /**
          * \brief setFeaturesNames Set the name of the features of the data.
-         * \param fnames (???) Name of the features.
+         * \param fnames Name of the features.
          */
         void setFeaturesNames(const std::vector<int>& fnames);
         /**
@@ -299,7 +324,7 @@ namespace mltk{
         void shuffle(const size_t& seed = 42);
         /**
          * \brief Load a dataset from a file.
-         * \param file (???) Path to dataset file.
+         * \param file Path to dataset file.
          * \return bool
          */
         bool load (const std::string& file, bool _atEnd=false);
@@ -313,12 +338,12 @@ namespace mltk{
          * \brief Returns if there's a dataset loaded.
          * \return bool
          */
-        bool isEmpty () const;
+        [[nodiscard]] bool isEmpty () const;
         /**
          * \brief Returns if the dataset is normalized.
          * \return bool
          */
-        bool isNormalized() const{ return normalized; };
+        [[nodiscard]] bool isNormalized() const{ return normalized; };
         /**
          * \brief clear Clear the data.
          */
@@ -343,60 +368,104 @@ namespace mltk{
          * \return Data
          */
         void copyZero (const Data< T >& other);
+        /**
+         * @brief Split the dataset by its labels. Only valid for classification datasets.
+         * @return Vector containing Data split by classes.
+         */
         std::vector< Data< T > > splitByClasses();
+        /**
+         * @brief Split the data by a given size.
+         * @param split_size Number of samples on each split.
+         * @param stratified If true, the split will be done in a stratified manner.
+         * @param seed Random generator seed.
+         * @return Vector containing the data split.
+         */
         std::vector< Data< T > > splitSample(const std::size_t &split_size, bool stratified = true, size_t seed = 0);
+        /**
+         * @brief Returns a Data object with selected features.
+         * @param feats Features to be selected from the dataset.
+         * @param size 
+         * @return Data object with selected features.
+         */
         Data< T > selectFeatures(std::vector<size_t> feats, int size=-1);
+        /**
+         * @brief Sample the dataset with the given size.
+         * @param samp_size Sampling size.
+         * @param with_replacement Tells if sampling must be made with replacement.
+         * @param seed Random generator seed.
+         * @return Data object with sampled data.
+         */
         Data< T > sampling(const size_t& samp_size, bool with_replacement = true, const int &seed=0);
+        /**
+         * @brief Apply a function to all points on the dataset.
+         * @param f Function to be applied to the data, must receive a PointPointer.
+         */
         void apply(std::function<void(mltk::PointPointer<T> point)> f);
         /**
          * \brief Merge one dataset with another.
-         * \param data (???) Dataset to be joined.
+         * \param data Dataset to be joined.
          * \return bool
          */
         void join(const Data< T >& data);
         /**
          * \brief Insert a point to the data from another sample.
-         * \param sample (???) Sample with the point to be added.
-         * \param id (???) Index of the point to be added.
+         * \param sample Sample with the point to be added.
+         * \param _index Index of the point to be added.
          * \return bool
          */
-        bool insertPoint (Data< T > sample, int id);
+        bool insertPoint (const Data< T >& samples, int _index);
         /**
          * \brief Insert a point to the end of points vector.
          * \param p  Point to be inserted.
          * \return bool
          */
         bool insertPoint (std::shared_ptr<Point< T > > p);
+        /**
+         * \brief Insert a point to the end of points vector.
+         * \param p  Point to be inserted.
+         * \return bool
+         */
         bool insertPoint (Point< T > &p);
         /**
          * \brief Remove several points from the sample.
-         * \param ids (???) Ids of the points to be removed (must be sorted).
+         * \param ids Ids of the points to be removed (must be sorted).
          * \return booleans informing which points were removed succesfully.
          */
         std::vector<bool> removePoints (std::vector<int> ids);
         /**
          * \brief Remove a point from the data.
-         * \param pid (???) Index of the point to be removed.
+         * \param pid Index of the point to be removed.
          * \return bool
          */
         bool removePoint (int pid);
         /**
          * @brief insertFeatures Returns Data object with only features in array.
-         * @param ins_feat (???) Array with features that will be in the Data object.
+         * @param ins_feat Array with features that will be in the Data object.
          * @return Data If the object is empty something wrong happened.
          */
         Data< T > insertFeatures(std::vector<int> ins_feat);
         /**
          * \brief Remove several features from the sample.
-         * \param feats (???) Names of the features to be removed (must be sorted).
+         * \param feats Names of the features to be removed (must be sorted).
          * \return boolean informing if all features were succesfully removed.
          */
         Data<T> removeFeatures (std::vector<int> feats, int fsize) const;
+        /**
+         * @brief Remove features from the dataset.
+         * @param feats Features to be removed.
+         * @return Success of feature removal.
+         */
         bool removeFeatures (std::vector<int> feats);
+        /**
+         * @brief Updates a Point value.
+         * @param idx Index of the point to be updated.
+         * @param value New value of the point.
+         * @return Success of the point value update.
+         */
         bool updatePointValue(const size_t &idx, double value);
         /**
          * \brief Change the x vector of a sample.
-         * \param index (???) Indexes of the change to be made.
+         * \param index Indexes of the change to be made.
          * \return void
          */
         void changeXVector(std::vector<int> index);
@@ -441,6 +510,13 @@ namespace mltk{
         ~Data();
     };
 
+    /**
+     * @brief Makes a shared_pointer for a data object.
+     * @tparam T Type of the underlying data.
+     * @tparam Types
+     * @param args Arguments for make_shared function.
+     * @return
+     */
     template < typename T, typename... Types >
     DataPointer< T > make_data(Types... args) {
         return std::make_shared< Data < T > >(args...);
@@ -1312,13 +1388,13 @@ namespace mltk{
     }
 
     template<typename T>
-    bool mltk::Data< T >::insertPoint(mltk::Data< T > sample, int _index){
-        if(_index > sample.size() - 1){
+    bool mltk::Data< T >::insertPoint(const Data< T >& samples, int _index){
+        if(_index > samples.size() - 1){
             std::cerr << "Index out of bounds. (insertPoint)" << std::endl;
             return false;
         }
 
-        insertPoint(sample.point(_index));
+        insertPoint(samples.point(_index));
 
         return true;
     }

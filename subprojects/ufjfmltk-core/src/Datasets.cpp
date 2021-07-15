@@ -52,7 +52,6 @@ namespace mltk::datasets {
                          std::vector<double> clusters_std, int n_dims, bool shuffle, bool has_classes,
                          size_t seed) {
         mltk::random::init(seed);
-        std::cout << seed << std::endl;
         mltk::Data<double> dataset;
         BlobsPair pair;
         dataset.setName("blobs");
