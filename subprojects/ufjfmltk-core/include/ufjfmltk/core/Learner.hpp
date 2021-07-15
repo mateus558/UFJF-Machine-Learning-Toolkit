@@ -45,6 +45,7 @@ namespace mltk{
       int verbose = 1;
       /// Timer used to measure the time elapsed in the execution of a Learner.
       Timer timer = Timer();
+      /// seed for random operations.
       size_t seed = 0;
       double pred_prob = 1.0;
 
@@ -84,6 +85,11 @@ namespace mltk{
        */
       virtual double evaluate (const Point< T > &p, bool raw_value=false) = 0;
 
+      /**
+       * @brief evaluate a batch of points.
+       * @param data dataset containing points for evaluation.
+       * @return copy of the passed data already evaluated.
+       */
       virtual Data<T> batchEvaluate (const Data< T >& data){
           Data<T> result;
           std::for_each(data.begin(), data.end(), [&](const mltk::PointPointer<T> p){
