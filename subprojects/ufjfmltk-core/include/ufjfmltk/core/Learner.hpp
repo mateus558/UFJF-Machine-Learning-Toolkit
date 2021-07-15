@@ -12,14 +12,14 @@
 
 namespace mltk{
 
-  template <typename T>
-  class Learner;
-
-  template < class T > using LearnerPointer = std::shared_ptr<mltk::Learner< T > >;
-
-  template < typename T >
-  class  Learner {
-  protected:
+    template <typename T>
+    class Learner;
+    
+    template < class T > using LearnerPointer = std::shared_ptr<mltk::Learner< T > >;
+    
+    template < typename T >
+    class  Learner {
+    protected:
       /// Samples used in the model training.
       std::shared_ptr<Data< T > > samples;
       /// Learning rate
@@ -48,14 +48,14 @@ namespace mltk{
       /// seed for random operations.
       size_t seed = 0;
       double pred_prob = 1.0;
-
-  public:
+    
+    public:
       virtual ~Learner() = default;
-
+    
       Learner< T >() = default;
-
+    
       Learner< T > (DataPointer< T > _samples): samples(_samples) {}
-
+    
       Learner< T > (const Learner< T > &learner){
         this->samples = learner.samples;
         this->EPS = learner.EPS;
@@ -71,8 +71,8 @@ namespace mltk{
         this->verbose = learner.verbose;
         this->seed = learner.seed;
       }
-
-
+    
+    
       /**
        * \brief Function that execute the training phase of a Learner.
        * \return void
@@ -80,44 +80,37 @@ namespace mltk{
       virtual bool train () = 0;
       /**
        * \brief Returns the class of a feature point based on the trained Learner.
-       * \param Point< T >  x (???) Features point to be evaluated.
-       * \return int
+       * \param p Point to be evaluated.
+       * \return Prediction made by the learner.
        */
       virtual double evaluate (const Point< T > &p, bool raw_value=false) = 0;
-
+    
       /**
        * @brief evaluate a batch of points.
        * @param data dataset containing points for evaluation.
        * @return copy of the passed data already evaluated.
        */
-      virtual Data<T> batchEvaluate (const Data< T >& data){
-          Data<T> result;
-          std::for_each(data.begin(), data.end(), [&](const mltk::PointPointer<T> p){
-              mltk::Point<T> q(*p);
-
-              q.Y() = this->evaluate(q, false);
-              result.insertPoint(q);
-          });
-          return result;
-      }
-
+      virtual Data<T> batchEvaluate (const Data< T >& data);
       
       /*********************************************
        *               Getters                     *
        *********************************************/
-
+    
       /**
        * \brief getFormulationString Returns a string that represents the formulation of the learner (Primal or Dual).
        * \return std::string
        */
       virtual std::string getFormulationString() = 0;
+      /**
+       * @brief Get the Data used by the learner.
+       * @return Data object.
+       */
       inline const auto getSamples() { return this->samples; }
       /**
       * \brief Get the elapsed time in the training phase of the Learner.
       * \return double
       */
       inline double getElapsedTime() const { return timer.elapsed(); }
-
       /**
       * \brief Get the total number of updates of the Learner.
       * \return int
@@ -138,18 +131,30 @@ namespace mltk{
        * \return double
        */
       inline double getMaxTime() const { return max_time; }
-
-      double getPredictionProbability() const { return pred_prob; }
+      /**
+       * @brief Get the probability of the last prediction.
+       * @return Last prediction probability.
+       */
+      [[nodiscard]] double getPredictionProbability() const { return pred_prob; }
+    
       /*********************************************
       *               Setters                     *
       *********************************************/
+    
+      /**
+       * @brief Set the seed to be used by the learner.
+       * @param _seed Seed to be used.
+       */
       void setSeed(const size_t _seed){ this->seed = _seed; }
-
       /**
        * \brief setSamples Set the samples used by the Learner.
        * \param samples Samples to be used.
        */
       virtual void setSamples(const Data< T > &samples) { this->samples = make_data<T>(samples); }
+      /**
+       * \brief setSamples Set the samples used by the Learner.
+       * \param samples Samples to be used.
+       */
       virtual void setSamples(DataPointer< T > samples) { this->samples = samples; }
       /**
        * \brief setTimer Set the timer used by the Learner.
@@ -191,6 +196,10 @@ namespace mltk{
        * \param MAX_IT Number max of iterations.
        */
       void setMaxIterations(int MAX_IT) {this->MAX_IT = MAX_IT;}
+      /**
+       * @brief Set the max number of epochs for the learner training.
+       * @param MAX_EPOCHS Max number of epochs.
+       */
       void setMaxEpochs(int MAX_EPOCHS) {this->MAX_EPOCH = MAX_EPOCHS;}
       /**
        * \brief setMaxIterations Set the max number of updates of the Learner.
@@ -202,8 +211,19 @@ namespace mltk{
        * \param rate Learning rate.
        */
       void setLearningRate(double rate) {this->rate = rate;}
-  };
-
+    };
+    
+    template<typename T>
+    Data<T> Learner<T>::batchEvaluate (const Data< T >& data){
+        Data<T> result;
+        std::for_each(data.begin(), data.end(), [&](const mltk::PointPointer<T> p){
+            mltk::Point<T> q(*p);
+    
+            q.Y() = this->evaluate(q, false);
+            result.insertPoint(q);
+        });
+        return result;
+    }
 }
 
 #endif //UFJF_MLTK_LEARNER_H
