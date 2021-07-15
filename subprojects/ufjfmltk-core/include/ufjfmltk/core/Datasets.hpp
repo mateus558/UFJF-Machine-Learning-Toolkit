@@ -10,9 +10,8 @@
 
 #include "ufjfmltk/core/Data.hpp"
 
-/**
-* \brief Namespace for artificial datasets generation.
-*/
+
+//! Namespace for artificial datasets generation.
 namespace mltk::datasets{
     using Centers = std::vector<mltk::Point<double>>;
 
