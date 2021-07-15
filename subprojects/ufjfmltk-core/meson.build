@@ -10,7 +10,7 @@ prefix = get_option('prefix')
 project_subdir = 'ufjfmltk/core'
 project_install_dir = get_option('libdir')
 message('Install directory: ' + prefix / project_install_dir)
-project_source_files = ['src/Utils.cpp', 'src/Datasets.cpp']
+project_source_files = ['src/Utils.cpp', 'src/Datasets.cpp', 'src/Random.cpp']
 project_headers = ['include/ufjfmltk/core/Data.hpp',
     'include/ufjfmltk/core/Point.hpp',
     'include/ufjfmltk/core/DistanceMetric.hpp',

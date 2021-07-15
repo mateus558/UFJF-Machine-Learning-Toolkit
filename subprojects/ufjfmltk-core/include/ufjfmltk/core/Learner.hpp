@@ -83,6 +83,18 @@ namespace mltk{
        * \return int
        */
       virtual double evaluate (const Point< T > &p, bool raw_value=false) = 0;
+
+      virtual Data<T> batchEvaluate (const Data< T >& data){
+          Data<T> result;
+          std::for_each(data.begin(), data.end(), [&](const mltk::PointPointer<T> p){
+              mltk::Point<T> q(*p);
+
+              q.Y() = this->evaluate(q, false);
+              result.insertPoint(q);
+          });
+          return result;
+      }
+
       
       /*********************************************
        *               Getters                     *
@@ -185,6 +197,7 @@ namespace mltk{
        */
       void setLearningRate(double rate) {this->rate = rate;}
   };
+
 }
 
 #endif //UFJF_MLTK_LEARNER_H
