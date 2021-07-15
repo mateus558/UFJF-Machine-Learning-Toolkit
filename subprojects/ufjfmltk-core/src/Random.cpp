@@ -19,7 +19,7 @@ namespace mltk::random {
         return m_seed;
     }
 
-    auto  getSeed(){
+    size_t  getSeed(){
         return m_seed;
     }
 }
