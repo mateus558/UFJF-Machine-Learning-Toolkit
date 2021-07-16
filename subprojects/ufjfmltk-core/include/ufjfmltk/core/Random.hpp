@@ -52,24 +52,6 @@ namespace mltk::random {
          * \return unsigned int
          */
         size_t getSeed();
-
-        /*********************************************
-         *               Implementation              *
-         *********************************************/
-
-        template<typename Integral, typename Integral1, typename Distribution>
-        Integral intInRange(Integral low, Integral1 high){
-            Distribution dist(low, high);
-
-            return dist(m_generator);
-        }
-
-        template<typename Real, typename Distribution >
-        Real floatInRange(Real low, Real high) {
-            Distribution dist(low, high);
-
-            return dist(m_generator);
-        }
     }
 
 #endif //DONKEY_KONG_TRAB_RANDOM_H
