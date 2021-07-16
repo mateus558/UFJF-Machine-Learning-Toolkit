@@ -149,7 +149,7 @@ namespace mltk::validation {
         * \return A pair containing the training and test data.
         */
         template<typename T>
-        TrainTestPair<T> partTrainTest(Data<T> &data, const size_t fold, bool stratified=true, const size_t seed=0);
+        TrainTestPair<T> partTrainTest(Data<T> &data, size_t fold, bool stratified=true, size_t seed=0);
 
         /**
          * \brief Executes k-fold stratified cross-validation
@@ -160,8 +160,8 @@ namespace mltk::validation {
          * \return struct containing the validation metrics.
          */
         template <typename T>
-        ValidationReport kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold,
-                                bool stratified=true, const size_t &seed=0, const int verbose=0);
+        ValidationReport kfold (Data<T> &sample, classifier::Classifier<T> &classifier, size_t fold,
+                                bool stratified=true, size_t seed=0, int verbose=0);
 
         /**
          * @brief Executes the validation with several executions of the k fold algorithm
@@ -175,16 +175,16 @@ namespace mltk::validation {
          * @return struct containing the validation metrics.
          */
         template <typename T>
-        ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t &qtde,
-                                const size_t &fold, bool stratified = true, const size_t &seed = 0, const int &verbose = 0);
+        ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, size_t qtde,
+                                size_t fold, bool stratified = true, size_t seed = 0, int verbose = 0);
 
     /*********************************************
      *               Implementation              *
      *********************************************/
 
     template <typename T>
-    ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t &qtde,
-                            const size_t &fold, bool stratified, const size_t &seed, const int &verbose){
+    ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t qtde,
+                            const size_t fold, bool stratified, const size_t seed, const int verbose){
         auto valid_pair = partTrainTest(samples, fold, seed);
         int i;
         size_t fp = 0, fn = 0, tp = 0, tn = 0, erro=0;
@@ -293,8 +293,8 @@ namespace mltk::validation {
     }
 
     template <typename T>
-    ValidationReport kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t &fold,
-                            bool stratified, const size_t &seed, const int verbose){
+    ValidationReport kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t fold,
+                            bool stratified, const size_t seed, const int verbose){
         double error = 0.0;
         std::vector<double> error_arr(fold);
         auto classes = sample.classes();
