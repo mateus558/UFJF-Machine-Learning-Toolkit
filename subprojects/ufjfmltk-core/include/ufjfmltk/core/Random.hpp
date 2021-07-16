@@ -60,7 +60,6 @@ namespace mltk::random {
         template<typename Integral, typename Integral1, typename Distribution>
         Integral intInRange(Integral low, Integral1 high){
             Distribution dist(low, high);
-            std::mt19937 m_generator(m_seed);
 
             return dist(m_generator);
         }
@@ -68,7 +67,6 @@ namespace mltk::random {
         template<typename Real, typename Distribution >
         Real floatInRange(Real low, Real high) {
             Distribution dist(low, high);
-            std::mt19937 m_generator(m_seed);
 
             return dist(m_generator);
         }
