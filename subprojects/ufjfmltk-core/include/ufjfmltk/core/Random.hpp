@@ -35,7 +35,7 @@ namespace mltk::random {
          */
         template<typename Integral = int, typename Integral1,
                 typename Distribution = std::uniform_int_distribution<Integral> >
-        extern inline Integral intInRange(Integral low, Integral1 high);
+        inline Integral intInRange(Integral low, Integral1 high);
 
         /**
          * \brief Returns a float between low and high.
@@ -45,7 +45,7 @@ namespace mltk::random {
          */
         template<typename Real = double,
                 typename Distribution = std::uniform_real_distribution<Real> >
-        extern inline Real floatInRange(Real low, Real high);
+        inline Real floatInRange(Real low, Real high);
 
         /**
          * \brief Get the seed used in the mersenne twister.
@@ -60,15 +60,17 @@ namespace mltk::random {
         template<typename Integral, typename Integral1, typename Distribution>
         Integral intInRange(Integral low, Integral1 high){
             Distribution dist(low, high);
+            std::mt19937 m_generator(m_seed);
 
-            return dist(mltk::random::m_generator);
+            return dist(m_generator);
         }
 
         template<typename Real, typename Distribution >
         Real floatInRange(Real low, Real high) {
             Distribution dist(low, high);
+            std::mt19937 m_generator(m_seed);
 
-            return dist(mltk::random::m_generator);
+            return dist(m_generator);
         }
     }
 
