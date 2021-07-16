@@ -49,5 +49,4 @@ namespace mltk::random {
     template size_t intInRange<size_t, size_t, std::uniform_int_distribution<size_t> >(size_t, size_t);
     template int intInRange<int, unsigned long, std::uniform_int_distribution<int> >(int, unsigned long);
     template int intInRange<int, unsigned int, std::uniform_int_distribution<int> >(int, unsigned int);
-    template int intInRange<int, size_t, std::uniform_int_distribution<int> >(int, size_t);
 }
