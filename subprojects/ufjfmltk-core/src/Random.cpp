@@ -47,4 +47,6 @@ namespace mltk::random {
     template float floatInRange<float, std::fisher_f_distribution<float> >(float, float);
     template int intInRange<int, int, std::uniform_int_distribution<int> >(int, int);
     template size_t intInRange<size_t, size_t, std::uniform_int_distribution<size_t> >(size_t, size_t);
+    template int intInRange<int, unsigned long, std::uniform_int_distribution<int> >(int, unsigned long);
+    template int intInRange<int, unsigned int, std::uniform_int_distribution<int> >(int, unsigned int);
 }
