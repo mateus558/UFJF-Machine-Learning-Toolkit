@@ -1167,7 +1167,7 @@ namespace mltk{
         int i, j;
         std::string path = fname + "." + ext;
         std::ofstream outstream(path.c_str(), std::ios::out);
-        m_dim =(this->m_points.size()>0)?this->m_points[0]->size():0;
+        m_dim =this->dim();
 
         if(!outstream.is_open()){
             std::cerr << "Can't write in file." << std::endl;
@@ -1188,6 +1188,7 @@ namespace mltk{
                 }
                 outstream << fnames[j] << ":" << m_points[i]->X()[j] << "\n";
             }else if(ext == "csv"){
+                outstream << m_points[i]->Y() << ",";
                 for(j = 0; j < m_dim-1; j++){
                     outstream << m_points[i]->X()[j] << ",";
                 }
