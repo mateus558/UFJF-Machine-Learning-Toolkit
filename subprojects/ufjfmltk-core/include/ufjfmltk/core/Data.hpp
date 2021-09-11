@@ -837,10 +837,11 @@ namespace mltk{
 
             ss.str(str);
             ss.clear();
-            _dim = 0;
             new_point->X().resize(this->m_dim, 0.0);
 
             //Read features from line
+            _dim = 0;
+            std::cout << str << std::endl;
             while(std::getline(ss, item, ' ')){
                 const char * pch = std::strchr(item.c_str(), ':');
                 if(!pch){
@@ -850,9 +851,8 @@ namespace mltk{
                         c = utils::atod(item.c_str());
                     }
                     new_point->Y() = c;
-                }
-                //Verify if the class is at the beggining or at the end
-                if(!ss.eof()){
+                }else{
+                    //Verify if the class is at the beggining or at the end
                     is_feature = false; //Verify if it's including value or fname
                     ss1.str(item);
                     ss1.clear();
@@ -863,10 +863,13 @@ namespace mltk{
                             is_feature = true;
                         }else{
                             if(utils::is_number(item)){
-                                new_point->X()[_dim] = utils::atod(item.c_str());
-                                _dim++;
+                                new_point->X()[_dim++] = utils::atod(item.c_str());
                             }
+                            is_feature = false;
                         }
+                    }
+                    if(utils::is_number(item)){
+                        new_point->X()[_dim] = utils::atod(item.c_str());
                     }
                 }
             }

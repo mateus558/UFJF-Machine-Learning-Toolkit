@@ -28,6 +28,7 @@ error "Missing the <filesystem> header."
 #include "ufjfmltk/core/Data.hpp"
 #include "ufjfmltk/core/Solution.hpp"
 #include "ufjfmltk/core/Utils.hpp"
+#include "ufjfmltk/core/Statistics.hpp"
 
 //! Namespace for data visualization methods.
 namespace mltk::visualize{
@@ -624,27 +625,25 @@ namespace mltk::visualize{
         configureRange(scale, x, y);
         configurePlot(out_name, format, title, save, x_label, y_label);
 
-        if(s.bias != 0) {
-            fx = "f(x) = " + utils::dtoa(s.w[x] / -s.w[y]) + "*x + " +
-                 utils::dtoa(s.bias / -s.w[y]);
-            gx = "g(x) = " + utils::dtoa(s.w[x] / -s.w[y]) + "*x + " +
-                 utils::dtoa((s.bias + s.margin * s.norm) / -s.w[y]);
-            hx = "h(x) = " + utils::dtoa(s.w[x] / -s.w[y]) + "*x + " +
-                 utils::dtoa((s.bias - s.margin * s.norm) / -s.w[y]);
+        fx = "f(x) = " + utils::dtoa(-s.w[x]/s.w[y]) + "*x + " + utils::dtoa((-s.bias+mltk::norm(s.w,2))/s.w[y]);
+        if(s.margin != 0) {
+            gx = "g(x) = " + utils::dtoa(s.w[x]) + "*x + " +
+                 utils::dtoa(s.bias + s.margin * s.norm);
+            hx = "h(x) = " + utils::dtoa(s.w[x]) + "*x + " +
+                 utils::dtoa(s.bias - s.margin * s.norm);
+            cmd = fx + ";"+ gx +";"+ hx +";plot ";
         }else{
-            fx = "f(x) = " + utils::dtoa(s.w[x] / s.w[y]) + "*x";
-            gx = "g(x) = " + utils::dtoa(s.w[x] / s.w[y]) + "*x";
-            hx = "h(x) = " + utils::dtoa(s.w[x] / s.w[y]) + "*x";
+            cmd = fx + ";plot ";
         }
-
-        cmd = fx + ";"+ gx +";"+ hx +";plot ";
-
         temp_files_names = getTempFilesNames(true);
         auto names = sortLabels(temp_files_names);
         for(i = 0; i < class_names.size() - 1; i++){
             cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, ";
         }
-        cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+        if(s.margin != 0) cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, f(x) notitle with lines ls 1, g(x) notitle with lines ls 2, h(x) notitle with lines ls 2";
+        else cmd += "\'" + temp_files_names[i] + "\' using " + feats + " title \'" + names[i] + "\' with points, f(x) title \'h(x)\' with lines ls 2";
+        std::cout << cmd << std::endl;
+
         cmd = execute_command(cmd);
         return prepareScript(cmd);
     }
