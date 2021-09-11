@@ -857,7 +857,7 @@ namespace mltk{
                     ss1.clear();
                     //Get feature name and value
                     while(std::getline(ss1, item, ':')){
-                        if(ss1.eof()) item.pop_back();
+                        item.erase( std::remove(item.begin(), item.end(), '\r'), item.end() );
                         if(!is_feature){
                             fnames[_dim] = utils::stoin(item);
                             is_feature = true;
