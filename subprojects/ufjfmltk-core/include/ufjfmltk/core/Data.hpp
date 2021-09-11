@@ -841,7 +841,6 @@ namespace mltk{
 
             //Read features from line
             _dim = 0;
-            std::cout << str << std::endl;
             while(std::getline(ss, item, ' ')){
                 const char * pch = std::strchr(item.c_str(), ':');
                 if(!pch){
@@ -858,6 +857,7 @@ namespace mltk{
                     ss1.clear();
                     //Get feature name and value
                     while(std::getline(ss1, item, ':')){
+                        if(ss1.eof()) item.pop_back();
                         if(!is_feature){
                             fnames[_dim] = utils::stoin(item);
                             is_feature = true;
@@ -867,9 +867,6 @@ namespace mltk{
                             }
                             is_feature = false;
                         }
-                    }
-                    if(utils::is_number(item)){
-                        new_point->X()[_dim] = utils::atod(item.c_str());
                     }
                 }
             }
@@ -1191,7 +1188,6 @@ namespace mltk{
                 }
                 outstream << fnames[j] << ":" << m_points[i]->X()[j] << "\n";
             }else if(ext == "csv"){
-                outstream << m_points[i]->Y() << ",";
                 for(j = 0; j < m_dim-1; j++){
                     outstream << m_points[i]->X()[j] << ",";
                 }
