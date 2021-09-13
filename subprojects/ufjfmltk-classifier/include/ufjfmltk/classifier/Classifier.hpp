@@ -39,6 +39,8 @@ namespace mltk{
                 this->gamma = classifier.gamma;
             }
 
+            virtual double evaluateProbability(const mltk::Point<double>& p){return 0.0;}
+            mltk::Point<int> batchEvaluateProbability(const mltk::Data<T>& data);
             /*********************************************
              *               Getters                     *
              *********************************************/
@@ -76,6 +78,15 @@ namespace mltk{
              */
             void setSolution(Solution solution) { this->solution = solution; }
         };
+
+        template<typename T>
+        mltk::Point<int> Classifier<T>::batchEvaluateProbability(const Data <T> &data) {
+            mltk::Point<int> preds(data.size());
+            std::transform(data.begin(), data.end(), preds.begin(), [this](auto point){
+                return this->evaluateProbability(*point);
+            });
+            return preds;
+        }
     }
 }
 

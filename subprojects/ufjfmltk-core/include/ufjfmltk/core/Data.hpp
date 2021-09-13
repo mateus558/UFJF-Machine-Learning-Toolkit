@@ -238,6 +238,7 @@ namespace mltk{
          */
         Point< T > getFeature(int index) const;
         [[nodiscard]] Point< double > getLabels() const;
+        Point< double > labels() const;
         /**
          * \brief Returns a vector containing the frequency of the classes. Only valid for classification datasets.
          * \return std::vector<size_t> containing the distribution of the classes.
@@ -253,6 +254,7 @@ namespace mltk{
          * \return std::vector<int>
          */
         [[nodiscard]] std::vector<int> getFeaturesNames() const;
+        mltk::Point<int> featuresNames() const;
         /**
          * \brief Returns the vector of indexes.
          * \return std::vector<int>
@@ -1992,6 +1994,11 @@ namespace mltk{
     }
 
     template<typename T>
+    Point<double> Data<T>::labels() const{
+        return getLabels();
+    }
+
+    template<typename T>
     void Data<T>::apply(std::function<void(mltk::PointPointer<T> point)> f) {
         std::for_each(this->m_points.begin(),this->m_points.end(), f);
     }
@@ -2001,6 +2008,11 @@ namespace mltk{
         auto tokens = mltk::utils::tokenize(path, '/');
         tokens = mltk::utils::tokenize(tokens.back(), '.');
         return (tokens.empty())?std::string():tokens[0];
+    }
+
+    template<typename T>
+    mltk::Point<int> Data<T>::featuresNames() const {
+        return getFeaturesNames();
     }
 }
 

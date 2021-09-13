@@ -625,7 +625,7 @@ namespace mltk::visualize{
         configureRange(scale, x, y);
         configurePlot(out_name, format, title, save, x_label, y_label);
 
-        fx = "f(x) = " + utils::dtoa(-s.w[x]) + "*x + " + utils::dtoa((-s.bias+mltk::norm(s.w,2)));
+        fx = "f(x) = " + utils::dtoa(s.w[x]/s.w[y]) + "*x + " + utils::dtoa((s.bias)/-s.w[y]);
         if(s.margin != 0) {
             gx = "g(x) = " + utils::dtoa(s.w[x]) + "*x + " +
                  utils::dtoa(s.bias + s.margin * s.norm);
