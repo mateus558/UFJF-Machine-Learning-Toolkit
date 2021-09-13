@@ -17,11 +17,11 @@ configure_file(${DATA_PATH}/teste.txt ${CMAKE_BINARY_DIR}/teste.txt COPYONLY)
 configure_file(${DATA_PATH}/teste.txt ${CMAKE_BINARY_DIR}/tests/core/teste.txt COPYONLY)
 configure_file(${DATA_PATH}/teste.txt ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/teste.txt COPYONLY)
 
-add_executable(${CORE_TESTS} main.cpp data_test.cpp stats_test.cpp)
+add_executable(${CORE_TESTS} main.cpp data_test.cpp stats_test.cpp samp_test.cpp)
 ######################################
 # Configure the test to use GoogleTest
 #
-target_link_libraries(${CORE_TESTS} gtest gtest_main core valid classifier)
+target_link_libraries(${CORE_TESTS} gtest gtest_main core valid classifier visual)
 
 ##################################
 # Just make the test runnable with
