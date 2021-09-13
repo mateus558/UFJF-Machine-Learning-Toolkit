@@ -26,7 +26,12 @@ class SamplingTest: public ::testing::Test
 
 TEST_F(SamplingTest, SMOTETest) {
     mltk::SMOTE smote;
+    mltk::BorderlineSMOTEOne bsmote;
+    mltk::visualize::Visualization vis(bin, false);
     auto smote_bin = smote(bin);
+    auto bsmote_bin = bsmote(bin);
 
     ASSERT_EQ(smote_bin.size(), 200);
+    ASSERT_EQ(bsmote_bin.size(), 300);
+
 }

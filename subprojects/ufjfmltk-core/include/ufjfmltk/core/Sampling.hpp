@@ -209,7 +209,7 @@ namespace mltk{
     /**
      * \brief Functor for the implementation of the Borderline SMOTE 1 over sampling algorithm.
      */
-    template < typename T, typename Callable = metrics::dist::Euclidean< T > >
+    template < typename T=double, typename Callable = metrics::dist::Euclidean< T > >
     class  BorderlineSMOTEOne: public OverSampling< T, Callable > {
     private:
         /// Seed used for randomization
@@ -227,8 +227,8 @@ namespace mltk{
 
         Data< T > operator()(Data< T > &data) override {
             // Find the majority class
-            auto classes = data.getClasses();
-            auto class_distribution = data.getClassesDistribution();
+            auto classes = data.classes();
+            auto class_distribution = data.classesDistribution();
             int maj_class = classes[std::max_element(class_distribution.begin(), class_distribution.end()) - class_distribution.begin()];
             // Initialize the danger subset
             Data< T > danger_subset;

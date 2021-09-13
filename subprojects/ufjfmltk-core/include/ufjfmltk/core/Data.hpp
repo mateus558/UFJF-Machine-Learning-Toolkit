@@ -1940,9 +1940,9 @@ namespace mltk{
         std::sort(feats.begin(), feats.end());
         size_t _size = (size == -1)?feats.size():size;
         Data<T> new_data;
-        std::vector<size_t> feats_pos(_size);
+        std::vector<size_t> feats_pos(feats.size());
         int i, j, invalid;
-        for(i = 0, j = 0, invalid=0; (i < _size) && (invalid < _size) && (j < _size); ){
+        for(i = 0, j = 0, invalid=0; (i < fnames.size()) && (invalid < feats.size()) && (j < feats.size()); ){
             if(feats[j] < 1) { invalid++; j++; continue; }
             if(fnames[i] == feats[j]){
                 feats_pos[j] = i;
@@ -1950,7 +1950,10 @@ namespace mltk{
             }
             i++;
         }
-        assert((j == _size) && "There are non-existing features on remove set.");
+        std::cout << mltk::Point<size_t>(feats) << std::endl;
+        std::cout << mltk::Point<int>(fnames) << std::endl;
+        std::cout << mltk::Point<size_t>(feats_pos) << std::endl;
+        assert((j == feats.size()) && "There are non-existing features on remove set.");
         for(auto const& point: this->m_points){
             auto new_point = make_point<T>(_size-invalid);
             for(i = 0; i < (_size-invalid); i++){
