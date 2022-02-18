@@ -31,8 +31,7 @@
 */
 
 #pragma once
-#ifndef DATA_HPP_INCLUDED
-#define DATA_HPP_INCLUDED
+
 #include <utility>
 #include <cmath>
 #include <vector>
@@ -2015,5 +2014,3 @@ namespace mltk{
         return getFeaturesNames();
     }
 }
-
-#endif

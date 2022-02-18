@@ -1,5 +1,4 @@
-#ifndef PERCEPTRONCOMMITTEE_HPP_INCLUDED
-#define PERCEPTRONCOMMITTEE_HPP_INCLUDED
+#pragma once
 
 #include "Ensemble.hpp"
 #include <ufjfmltk/classifier/PrimalClassifier.hpp>
@@ -53,5 +52,3 @@ namespace mltk{
     }
 
 }
-
-#endif

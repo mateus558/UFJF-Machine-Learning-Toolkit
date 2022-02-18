@@ -1,6 +1,4 @@
 #pragma once
-#ifndef DISTANCEMETRIC_HPP_INCLUDED
-#define DISTANCEMETRIC_HPP_INCLUDED
 
 #include "Point.hpp"
 #include <cmath>
@@ -35,7 +33,11 @@ namespace mltk::metrics::dist{
                 this->m_name = "Euclidean";
             }
             T operator()(const Point <T> &p1, const Point <T> &p2) const {
-                return sqrt(mltk::pow(p1 - p2, 2).sum());
+                T sum = 0;
+                Point<T> p = mltk::pow(p1 - p2, 2);
+                for(int i = 0; i < p.size(); i++)
+                    sum += p[i];
+                return std::sqrt(sum);
             }
         };
 
@@ -500,5 +502,3 @@ namespace mltk::metrics::dist{
             }
         };
     }
-
-#endif

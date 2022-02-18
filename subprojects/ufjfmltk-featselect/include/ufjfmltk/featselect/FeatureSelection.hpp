@@ -2,8 +2,6 @@
 // Created by Mateus Coutinho Marim on 6/26/2018.
 //
 
-#ifndef UFJF_MLTK_FEATURESELECTION_H
-#define UFJF_MLTK_FEATURESELECTION_H
 #pragma once
 
 #include "ufjfmltk/core/Data.hpp"
@@ -114,4 +112,3 @@ namespace mltk{
         };
     }
 }
-#endif //UFJF_MLTK_FEATURESELECTION_H

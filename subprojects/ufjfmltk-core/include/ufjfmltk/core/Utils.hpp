@@ -5,8 +5,6 @@
 
 
 #pragma once
-#ifndef UTILS_H_INCLUDED
-#define UTILS_H_INCLUDED
 #define PRECISION 1E-9
 #define MAX_NUMBER_STRING_SIZE 32
 #define INF 1E8
@@ -64,4 +62,3 @@ namespace mltk{
         std::string timestamp();
     }
 }
-#endif

@@ -4,8 +4,6 @@
 */
 
 #pragma once
-#ifndef POINT_HPP_INCLUDED
-#define POINT_HPP_INCLUDED
 #ifndef NOMINMAX
     #define NOMINMAX
 #endif
@@ -633,13 +631,16 @@ namespace mltk {
         return Point<T, F_Log<T, R > >(F_Log<T, R>(p.X()));
     }
 
-    template < typename T, typename R>
-    Point<T, F_Pow<T, T, R> >  pow(const Point<T, R>& p, const T &power){        
-        return Point<T, F_Pow<T, T, R > >(F_Pow<T, T, R>(p.X(), power));
-    }
+//    template < typename T, typename R>
+//    Point<T, F_Pow<T, T, R> >  pow(const Point<T, R>& p, const T &power){
+//        return Point<T, F_Pow<T, T, R > >(F_Pow<T, T, R>(p.X(), power));
+//    }
 
     template < typename T, typename P, typename R>
-    Point<T, F_Pow<T, P, R> >  pow(const Point<T, R>& p, const P &power){        
+    Point<T, F_Pow<T, P, R> >  pow(const Point<T, R>& p, const P &power){
+        if constexpr (std::is_same_v<P, T>) {
+            return Point<T, F_Pow<T, T, R > >(F_Pow<T, T, R>(p.X(), power));
+        }
         return Point<T, F_Pow<T, P, R > >(F_Pow<T, P, R>(p.X(), power));
     }
 
@@ -854,5 +855,3 @@ namespace mltk {
     }
 
 }
-
-#endif

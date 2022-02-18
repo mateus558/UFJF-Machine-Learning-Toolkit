@@ -2,8 +2,7 @@
 // Created by mateus558 on 06/03/2020.
 //
 
-#ifndef UFJF_MLTK_DUALREGRESSOR_HPP
-#define UFJF_MLTK_DUALREGRESSOR_HPP
+#pragma once
 
 #include "Regressor.hpp"
 
@@ -48,5 +47,3 @@ namespace mltk{
             };
         }
 }
-
-#endif //UFJF_MLTK_DUALREGRESSOR_HPP

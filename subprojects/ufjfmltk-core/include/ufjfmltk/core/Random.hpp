@@ -7,8 +7,6 @@
 // Created by mateus558 on 25/08/17.
 //
 #pragma once
-#ifndef RANDOM_H_INCLUDED
-#define RANDOM_H_INCLUDED
 
 #include <random>
 #include <functional>
@@ -53,5 +51,3 @@ namespace mltk::random {
          */
         size_t getSeed();
     }
-
-#endif //DONKEY_KONG_TRAB_RANDOM_H

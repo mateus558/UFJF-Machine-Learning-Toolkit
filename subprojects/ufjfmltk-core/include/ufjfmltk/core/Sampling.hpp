@@ -1,7 +1,5 @@
 
 #pragma once
-#ifndef OVERSAMPLING_HPP_INCLUDED
-#define OVERSAMPLING_HPP_INCLUDED
 
 #include "Data.hpp"
 #include "DistanceMetric.hpp"
@@ -296,5 +294,3 @@ namespace mltk{
         }
     };
 }
-
-#endif //OVERSAMPLING_HPP_INCLUDED

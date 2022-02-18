@@ -2,8 +2,7 @@
 // Created by mateus on 20/05/2021.
 //
 
-#ifndef UFJFMLTK_DATASETS_HPP
-#define UFJFMLTK_DATASETS_HPP
+#pragma once
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
@@ -91,5 +90,3 @@ namespace mltk::datasets{
                             size_t n_informative=10, bool shuffle=true, size_t seed=0);
 
 }
-
-#endif //UFJFMLTK_DATASETS_HPP

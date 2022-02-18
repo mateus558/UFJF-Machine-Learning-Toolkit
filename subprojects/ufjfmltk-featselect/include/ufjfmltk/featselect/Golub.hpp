@@ -2,8 +2,6 @@
 // Created by Mateus Coutinho Mari on 7/27/2018.
 //
 
-#ifndef UFJF_MLTK_GOLUB_H
-#define UFJF_MLTK_GOLUB_H
 #pragma once
 #include "FeatureSelection.hpp"
 
@@ -163,4 +161,3 @@ namespace mltk{
         }
     }
 }
-#endif //UFJF_MLTK_GOLUB_H

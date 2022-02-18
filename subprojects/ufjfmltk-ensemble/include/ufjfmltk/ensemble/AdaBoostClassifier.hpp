@@ -2,8 +2,7 @@
 // Created by mateuscmarim on 20/11/2020.
 //
 
-#ifndef UFJF_MLTK_ADABOOSTCLASSIFIER_HPP
-#define UFJF_MLTK_ADABOOSTCLASSIFIER_HPP
+#pragma once
 
 #include "Ensemble.hpp"
 
@@ -80,5 +79,3 @@ namespace mltk {
         };
     }
 }
-
-#endif //UFJF_MLTK_ADABOOSTCLASSIFIER_HPP

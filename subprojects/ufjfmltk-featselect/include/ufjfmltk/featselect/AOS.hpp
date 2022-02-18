@@ -2,8 +2,7 @@
 // Created by Mateus Coutinho Mari on 8/20/2018.
 //
 
-#ifndef UFJF_MLTK_AOS_H
-#define UFJF_MLTK_AOS_H
+#pragma once
 #define MAX_HEAP 500000
 #define NUM_ERROR_EPS 0.05
 #define FIRST_DECAY 0.5
@@ -1502,4 +1501,3 @@ namespace mltk{
         }
     }
 }
-#endif //UFJF_MLTK_AOS_H

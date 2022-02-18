@@ -2,8 +2,7 @@
 // Created by mateus on 25/05/2021.
 //
 
-#ifndef UFJFMLTK_METRICS_HPP
-#define UFJFMLTK_METRICS_HPP
+#pragma once
 #include <cassert>
 #include "ufjfmltk/core/Point.hpp"
 
@@ -16,4 +15,3 @@ namespace mltk{
     }
 }
 
-#endif //UFJFMLTK_METRICS_HPP

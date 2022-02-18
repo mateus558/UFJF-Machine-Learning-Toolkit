@@ -3,8 +3,6 @@
 //
 
 #pragma once
-#ifndef LEARNER_HPP
-#define LEARNER_HPP
 
 #include "Solution.hpp"
 #include "Data.hpp"
@@ -225,5 +223,3 @@ namespace mltk{
         return preds;
     }
 }
-
-#endif //UFJF_MLTK_LEARNER_H

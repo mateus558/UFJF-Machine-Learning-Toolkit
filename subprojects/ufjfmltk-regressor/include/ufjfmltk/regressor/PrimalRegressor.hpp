@@ -2,8 +2,7 @@
 // Created by mateus558 on 03/11/18.
 //
 
-#ifndef UFJF_MLTK_PRIMALREGRESSOR_HPP
-#define UFJF_MLTK_PRIMALREGRESSOR_HPP
+#pragma once
 
 #include "Regressor.hpp"
 
@@ -49,5 +48,3 @@ namespace mltk::regressor {
 
             };
         }
-
-#endif //UFJF_MLTK_PRIMALREGRESSOR_HPP

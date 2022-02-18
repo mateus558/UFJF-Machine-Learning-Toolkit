@@ -2,8 +2,7 @@
 // Created by mateuscmarim on 05/01/2021.
 //
 
-#ifndef UFJF_MLTK_AUTOWEIGHTEDVOTING_HPP
-#define UFJF_MLTK_AUTOWEIGHTEDVOTING_HPP
+#pragma once
 
 #include "VotingClassifier.hpp"
 #include <ufjfmltk/Validation.hpp>
