@@ -127,7 +127,7 @@ namespace mltk {
              * \brief Returns the dimension of the point.
              * \return std::size_t
              **/
-            std::size_t size() const {
+            [[nodiscard]] std::size_t size() const {
                 return x.size();
             }
             /**
@@ -146,7 +146,7 @@ namespace mltk {
              * \brief Returns the class or value of the point.
              * \return double
              **/
-            double const& Y() const{
+            [[nodiscard]] double const& Y() const{
                 return y;
             }
             /**
@@ -160,7 +160,7 @@ namespace mltk {
              * \brief Return the alpha value of the point.
              * \return double
              **/
-            double const& Alpha() const{
+            [[nodiscard]] double const& Alpha() const{
                 return alpha;
             }
             /**
@@ -174,7 +174,7 @@ namespace mltk {
              * \brief Returns the id of the point.
              * \return size_t
              **/
-            size_t const& Id() const{
+            [[nodiscard]] size_t const& Id() const{
                 return id;
             }
             /**
@@ -273,7 +273,7 @@ namespace mltk {
              * \param p p of the norm (euclidean norm is the default).
              * \return double
              */
-            double norm (int p = NormType::NORM_L2) const;
+            [[nodiscard]] double norm (int p = NormType::NORM_L2) const;
 
             /**
              * \brief Compute the sum of the components of the point.
