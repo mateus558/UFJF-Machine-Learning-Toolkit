@@ -660,6 +660,7 @@ namespace mltk{
 
         //Verify if the class is at the begining or at the end and error check
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             ssize = str.size();
             _dim = -1;
             ss.str(str);
@@ -721,6 +722,7 @@ namespace mltk{
         _size = 0;
         //Read sample (line) from file
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             auto new_point = std::make_shared<Point< T > >();
 
             ss.str(str);
@@ -778,12 +780,14 @@ namespace mltk{
         _dim = ldim = _size = c = 0;
         //get dimension of the points and do error check
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             _dim = -1;
 
             ss.str(str);
             ss.clear();
 
             while(std::getline(ss, item, ' ')){
+                item = mltk::utils::trim_copy(item);
                 const char * pch = std::strchr(item.c_str(), ':');
                 _dim++;
                 /*if(_size > 0 && _dim < ldim && pch == nullptr){
@@ -834,6 +838,7 @@ namespace mltk{
 
         //get lines from file
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             auto new_point = std::make_shared<Point< T > >();
 
             ss.str(str);
@@ -843,6 +848,7 @@ namespace mltk{
             //Read features from line
             _dim = 0;
             while(std::getline(ss, item, ' ')){
+                item = mltk::utils::trim_copy(item);
                 const char * pch = std::strchr(item.c_str(), ':');
                 if(!pch){
                     if(this->isClassification()) {
@@ -904,6 +910,7 @@ namespace mltk{
 
         //Verify if the class is at the begining or at the end and error check
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             _dim = 0;
             ss.str(str);
 
@@ -961,6 +968,7 @@ namespace mltk{
 
         //Read line (sample) from file
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             auto new_point = std::make_shared<Point< T > >();
             _dim = -1;
             ss.str(str);
@@ -1014,6 +1022,7 @@ namespace mltk{
 
         //error check
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             ss.str(str);
             n1 = 0;
             _dim = 0;
@@ -1056,6 +1065,7 @@ namespace mltk{
 
         //get line from file (sample)
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             auto new_point = std::make_shared<Point< T > >();
 
             //Allocate memory for features
