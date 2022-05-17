@@ -624,13 +624,15 @@ namespace mltk::visualize{
 
         configureRange(scale, x, y);
         configurePlot(out_name, format, title, save, x_label, y_label);
-
-        fx = "f(x) = " + utils::dtoa(s.w[x]/s.w[y]) + "*x + " + utils::dtoa((s.bias)/-s.w[y]);
+        
+        if(s.margin == 0.0){
+            fx = "f(x) = " + utils::dtoa(-s.w[x]/s.w[y]) + "*x + " + utils::dtoa((s.bias)/-s.w[y]);
+        }else{
+            fx = "f(x) = " + utils::dtoa(-s.w[x]/s.w[y]) + "*x + " + utils::dtoa((s.bias)/-s.w[y]);
+        }
         if(s.margin != 0) {
-            gx = "g(x) = " + utils::dtoa(s.w[x]) + "*x + " +
-                 utils::dtoa(s.bias + s.margin * s.norm);
-            hx = "h(x) = " + utils::dtoa(s.w[x]) + "*x + " +
-                 utils::dtoa(s.bias - s.margin * s.norm);
+            gx = "g(x) = " + utils::dtoa(-s.w[x]/s.w[y]) + "*x + " + utils::dtoa((s.bias + s.margin*s.norm)/-s.w[y]);
+            hx = "h(x) = " + utils::dtoa(-s.w[x]/s.w[y]) + "*x + " + utils::dtoa((s.bias - s.margin*s.norm)/-s.w[y]);
             cmd = fx + ";"+ gx +";"+ hx +";plot ";
         }else{
             cmd = fx + ";plot ";

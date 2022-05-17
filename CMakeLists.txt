@@ -104,6 +104,8 @@ include(AddUninstallTarget)
 
 # Add targets related to doxygen documention generation
 add_subdirectory(docs)
+add_executable(teste main.cpp)
+target_link_libraries(teste ${PROJECT_NAME})
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     add_subdirectory(packaging) # include(CPack) will happen in here
