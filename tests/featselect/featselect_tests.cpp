@@ -24,7 +24,7 @@ protected:
 TEST_F(FeatselectTests, GolubTest){
     mltk::classifier::IMADual<> ima(mltk::INNER_PRODUCT);
     mltk::featselect::Golub<> golub(data, &ima, 3);
-
+    std::cout << data << std::endl;
     golub.setVerbose(1);
     auto selec_data = golub.selectFeatures();
 

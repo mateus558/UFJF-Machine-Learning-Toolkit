@@ -227,6 +227,7 @@ TEST_F(DataTest, DataInsertion){
         ASSERT_EQ(copy_bin(i)[1], red1(i)[1]);
     }
 
+    std::cout << mult << std::endl;
     auto sample = mult.sampling(75);
     std::vector<size_t> samp_dist = {25,25,25};
     ASSERT_EQ(sample.classesDistribution(), samp_dist);

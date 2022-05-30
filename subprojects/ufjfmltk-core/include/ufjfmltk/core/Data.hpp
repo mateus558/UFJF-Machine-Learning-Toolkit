@@ -1948,15 +1948,16 @@ namespace mltk{
         Data< T > sample;
         std::set<std::size_t> ids;
         auto classes_split = splitByClasses();
-        Point<size_t> class_dist(m_classes.size());
+        Point<double> class_dist(m_classes.size());
         std::vector<std::uniform_int_distribution<size_t>> dist;
 
-        class_dist = classesDistribution();
+        auto temp_dist = classesDistribution();
+        for(int i = 0; i < temp_dist.size(); i++){
+            class_dist[i] = (double(temp_dist[i])/ size())*samp_size;
+        }
         for(int i = 0; i < class_dist.size(); i++){
             dist.emplace_back(0, class_dist[i]-1);
         }
-        class_dist = (class_dist / size()) * samp_size;
-
         for(size_t i = 0; i < class_dist.size(); i++){
             class_dist[i] = (class_dist[i] < 1)?1:std::floor(class_dist[i]);
         }
