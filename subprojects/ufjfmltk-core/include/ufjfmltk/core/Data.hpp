@@ -1836,7 +1836,7 @@ namespace mltk{
             bool try_next = false;
             int tries = 0;
             for(int i = 0, j = 0, k = 0, l = split_size-1; j < classes_split.size(), i < size(); i++, k++, l--){
-                if(l == -1){
+                if(l < 0){
                     l = split_size-1;
                 }
                 //std::cout << i << " " << j << " " << k << " " << l << std::endl;
@@ -1869,6 +1869,7 @@ namespace mltk{
                     }
                 }else{
                     i--;
+                    l++;
                     j++;
                     k = -1;
                 }

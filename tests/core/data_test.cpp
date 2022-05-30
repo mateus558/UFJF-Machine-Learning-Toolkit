@@ -283,7 +283,8 @@ TEST_F(DataTest, DataSplit){
     std::vector<size_t> dist_train = {45, 45, 45};
     std::vector<size_t> dist_test = {5, 5, 5};
     for(const auto& s: split){
-        ASSERT_EQ(s.train.size(), 135);
+        ASSERT_GT(s.train.size(), 134);
+        ASSERT_LT(s.train.size(), 137);
         ASSERT_EQ(s.test.size(), 15);
         ASSERT_EQ(s.train.classesDistribution(), dist_train);
         ASSERT_EQ(s.test.classesDistribution(), dist_test);

@@ -461,7 +461,7 @@ namespace mltk::validation {
 
         kfold_split.reserve(folds);
         for(int i = 0; i < folds; i++){
-            // std::cout << "fold " << i << ": " << mltk::Point<double>(data_folds[i].classesDistribution()) << std::endl;
+            //std::cout << "fold " << i << ": " << mltk::Point<size_t>(data_folds[i].classesDistribution()) << std::endl;
             Data<T> train;
             train.join(data_folds[i]);
             //std::cout << data_folds[i] << std::endl;
