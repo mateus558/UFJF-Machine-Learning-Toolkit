@@ -85,7 +85,7 @@ namespace mltk{
         /// Numeric values of the classes.
         std::vector<int> m_classes;
         /// Frequency of each class in the dataset.
-        std::vector<double> class_distribution;
+        std::vector<size_t> class_distribution;
         /// Number of points in the dataset.
         size_t m_size = 0;
         /// Dataset points dimension.
@@ -242,7 +242,7 @@ namespace mltk{
          * \brief Returns a vector containing the frequency of the classes. Only valid for classification datasets.
          * \return std::vector<double> containing the distribution of the classes.
          **/
-        [[nodiscard]] std::vector<double> classesDistribution() const ;
+        [[nodiscard]] std::vector<size_t> classesDistribution() const ;
         /**
          * \brief Returns a vector containing the name of the classes. Only valid for classification datasets.
          * \return std::vector<std::string> containing the names of the classes.
@@ -1791,7 +1791,7 @@ namespace mltk{
     }
 
     template<typename T>
-    std::vector<double> mltk::Data<T>::classesDistribution() const{
+    std::vector<size_t> mltk::Data<T>::classesDistribution() const{
         return this->class_distribution;
     }
 
@@ -1810,7 +1810,7 @@ namespace mltk{
     template <typename T>
     void mltk::Data< T >::computeClassesDistribution(){
         if(cdist_computed) return;
-        this->class_distribution = std::vector<double>(this->m_classes.size(), 0);
+        this->class_distribution = std::vector<size_t>(this->m_classes.size(), 0);
         for(auto p: m_points){
             int c = p->Y();
             auto class_it = std::find(this->m_classes.begin(), this->m_classes.end(), c);
@@ -1825,71 +1825,45 @@ namespace mltk{
         auto new_size = std::floor(double(size()) / split_size);
         if(this->isClassification() && stratified){
             this->computeClassesDistribution();
-            Point< double > dist = class_distribution;
-            dist /= double(size());
+            Point< double > dist(class_distribution.size());
+            for(size_t i = 0; i < class_distribution.size(); i++){
+                dist[i] = (class_distribution[i]/double(size()))*new_size;
+            }
             auto classes_split = this->splitByClasses();
             std::sort(classes_split.begin(), classes_split.end(), [](const Data<T> &a, const Data<T> &b){
                 return a.size() > b.size();
             });
-            int i = 0;
             bool try_next = false;
-            while(i < size()){
-                for(int j = 0,k = 0, l = 0; j < classes_split.size(), i < size(); i++, k++, l = (l+1)%split_size){
-                    // std::cout << i << " " << j << " " << k << " " << l;
-                    if(split[l].size() == new_size && !try_next){
-                        i--;
-                        k--;
-                        // std::cout << " " << split[l].size() << std::endl;
-                        try_next = true;
-                        continue;
-                    }
-                    if(k < classes_split[j].size()){
+            for(int i = 0, j = 0, k = 0, l = split_size-1; j < classes_split.size(), i < size(); i++, k++, l--){
+                if(l == -1){
+                    l = split_size-1;
+                }
+                if(split[l].size() == new_size && !try_next){
+                    i--;
+                    k--;
+                    try_next = true;
+                    continue;
+                }
+                if(k < classes_split[j].size()){
+                    int current_class = classes_split[j][k]->Y();
+                    auto count = split[l].classesDistribution();
+                    if((split[l].classes().empty() || count.empty() || count[j] < dist[j]) || split[j].size() < new_size){
                         split[l].insertPoint(classes_split[j][k]);
                         try_next = false;
                     }else{
-                        k = -1;
+                        try_next = true;
                         i--;
-                        j++;
-                        // if(split[l].size() < new_size){
-                        //     l--;
-                        //     change_j = true;
-                        //     continue;
-                        // }
+                        k--;
                     }
-
-                    // std::cout << " " << split[l].size() << std::endl;
-                    
+                }else{
+                    i--;
+                    j++;
+                    k = -1;
                 }
             }
-            // std::cout << new_size << " " << size() << std::endl;
-
-            // for(size_t i = 0; i < classes_split.size(); i++){
-            //     auto class_limit = std::ceil(classes_split[i].size()*dist[i]);
-            //     auto count = split[0].classesDistribution();
-            //     for(size_t j = 0, k = 0, attempts = 0; (count.empty() || (count[i] < class_limit)) && j < classes_split[i].size(); j++, k = (k + 1) % (split_size)){
-            //         if(split[k].size() == size()/split_size){
-            //             j--;
-            //             continue;
-            //         }
-            //         split[k].insertPoint(classes_split[i][j]);
-            //         count = split[(k + 1) % (split_size)].classesDistribution();
-            //     }
-
-            // }
-
             for(size_t i = 0; i < split.size(); i++){
                 split[i].shuffle(seed+i);
             }
-            // for(size_t i = 0; i < split.size(); i++){
-            //     for(size_t j = 0; j < classes_split.size(); j++){
-            //         for(size_t k = 0; k < int(dist[j]); k++){
-            //             if(marker[j] == classes_split[j].size()) break;
-            //             split[i].insertPoint(classes_split[j][marker[j]]);
-            //             marker[j]++;
-            //         }
-            //     }
-            //     split[i].shuffle(seed+i);
-            // }
         }else{
             auto data = this->copy();
             data.shuffle(seed);
@@ -1962,7 +1936,7 @@ namespace mltk{
         Data< T > sample;
         std::set<std::size_t> ids;
         auto classes_split = splitByClasses();
-        Point<double> class_dist(m_classes.size());
+        Point<size_t> class_dist(m_classes.size());
         std::vector<std::uniform_int_distribution<size_t>> dist;
 
         class_dist = classesDistribution();
