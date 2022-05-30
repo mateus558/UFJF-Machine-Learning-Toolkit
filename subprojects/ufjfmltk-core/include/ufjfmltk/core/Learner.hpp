@@ -3,8 +3,6 @@
 //
 
 #pragma once
-#ifndef LEARNER_HPP
-#define LEARNER_HPP
 
 #include "Solution.hpp"
 #include "Data.hpp"
@@ -83,13 +81,13 @@ namespace mltk{
        * \return Prediction made by the learner.
        */
       virtual double evaluate (const Point< T > &p, bool raw_value=false) = 0;
-    
+
       /**
        * @brief evaluate a batch of points.
        * @param data dataset containing points for evaluation.
        * @return copy of the passed data already evaluated.
        */
-      virtual Data<T> batchEvaluate (const Data< T >& data);
+      virtual mltk::Point<double> batchEvaluate (const Data< T >& data);
       
       /*********************************************
        *               Getters                     *
@@ -217,16 +215,11 @@ namespace mltk{
      *********************************************/
 
     template<typename T>
-    Data<T> Learner<T>::batchEvaluate (const Data< T >& data){
-        Data<T> result;
-        std::for_each(data.begin(), data.end(), [&](const mltk::PointPointer<T> p){
-            mltk::Point<T> q(*p);
-    
-            q.Y() = this->evaluate(q, false);
-            result.insertPoint(q);
+    mltk::Point<double> Learner<T>::batchEvaluate (const Data< T >& data){
+        mltk::Point<double> preds(data.size());
+        std::transform(data.begin(), data.end(), preds.begin(), [this](auto point){
+            return this->evaluate(*point);
         });
-        return result;
+        return preds;
     }
 }
-
-#endif //UFJF_MLTK_LEARNER_H

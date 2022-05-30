@@ -104,7 +104,7 @@ namespace mltk{
 
                     // generate the ids of the centers in the dataset using the random number generator function
                     std::generate(centers_ids.begin(), centers_ids.end(), [&size](){
-                        return mltk::random::intInRange(0, size);
+                        return mltk::random::intInRange(0, int(size));
                     });
                     // get the values from the dataset for the centers
                     std::transform(centers_ids.begin(), centers_ids.end(), this->m_centers.begin(),
@@ -113,7 +113,7 @@ namespace mltk{
                                    });
                 } else if (initialization == "kmeanspp") {
                     // choose the first center randomly
-                    this->m_centers[0] = points[mltk::random::intInRange(0, size)]->X();
+                    this->m_centers[0] = points[mltk::random::intInRange(0, int(size))]->X();
                     // choose the next cluster in points with a probability directly proportional to the metrics from the
                     // last chosen cluster.
                     for (size_t i = 1; i < this->m_centers.size(); i++) {
@@ -132,7 +132,7 @@ namespace mltk{
                         // use the distances as a probability distribution
                         std::discrete_distribution<size_t> _dist(distances.begin(), distances.end());
                         // generate the id for the next cluster
-                        size_t center = mltk::random::intInRange(0, size);
+                        size_t center = mltk::random::intInRange(0, int(size));
                         this->m_centers[i] = points[center]->X();
                     }
                 }

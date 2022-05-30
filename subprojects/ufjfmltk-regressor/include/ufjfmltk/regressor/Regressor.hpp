@@ -2,8 +2,7 @@
 // Created by mateus558 on 18/10/18.
 //
 
-#ifndef UFJF_MLTK_REGRESSOR_H
-#define UFJF_MLTK_REGRESSOR_H
+#pragma once
 
 #include "ufjfmltk/core/Learner.hpp"
 
@@ -57,5 +56,3 @@ namespace mltk{
             };
         }
 }
-
-#endif //UFJF_MLTK_REGRESSOR_H

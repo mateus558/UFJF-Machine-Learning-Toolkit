@@ -2,8 +2,7 @@
 // Created by mateus558 on 29/07/19.
 //
 
-#ifndef UFJF_MLTK_ENSEMBLE_HPP
-#define UFJF_MLTK_ENSEMBLE_HPP
+#pragma once
 
 #include <ufjfmltk/core/Learner.hpp>
 #include <ufjfmltk/classifier/Classifier.hpp>
@@ -85,5 +84,3 @@ namespace ensemble{
         };
 }
 }
-
-#endif //UFJF_MLTK_ENSEMBLE_HPP

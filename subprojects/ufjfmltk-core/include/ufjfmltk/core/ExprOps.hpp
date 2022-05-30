@@ -1,6 +1,4 @@
 #pragma once
-#ifndef EXPROPS_HPP_INCLUDED
-#define EXPROPS_HPP_INCLUDED
 
 #include <cstddef>
 #include <cassert>
@@ -265,5 +263,3 @@ namespace mltk{
         }
     };
 }
-
-#endif

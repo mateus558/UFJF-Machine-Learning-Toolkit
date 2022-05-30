@@ -4,8 +4,6 @@
 */
 
 #pragma once
-#ifndef TIMER_H_INCLUDED
-#define TIMER_H_INCLUDED
 
 #include <cstdio>
 #include <ctime>
@@ -41,4 +39,3 @@ namespace mltk{
         }
     };
 }
-#endif

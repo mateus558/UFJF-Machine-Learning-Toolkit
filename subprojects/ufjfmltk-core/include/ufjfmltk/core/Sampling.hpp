@@ -1,7 +1,5 @@
 
 #pragma once
-#ifndef OVERSAMPLING_HPP_INCLUDED
-#define OVERSAMPLING_HPP_INCLUDED
 
 #include "Data.hpp"
 #include "DistanceMetric.hpp"
@@ -121,7 +119,7 @@ namespace mltk{
     /**
      * \brief Functor for the implementation of the SMOTE over sampling algorithm.
      */
-    template < typename T, typename Callable = metrics::dist::Euclidean< T > >
+    template < typename T=double, typename Callable = metrics::dist::Euclidean< T > >
     class  SMOTE: public OverSampling< T, Callable > {
     private:
         /// Seed used for randomization
@@ -143,8 +141,8 @@ namespace mltk{
             // number of generated artificial points
             size_t n_apoints = r * data.size();
             // find the minority class
-            auto classes = data.getClasses();
-            auto class_distribution = data.getClassesDistribution();
+            auto classes = data.classes();
+            auto class_distribution = data.classesDistribution();
             int min_class = classes[std::min_element(class_distribution.begin(), class_distribution.end()) - class_distribution.begin()];
             // copy all the points from the minority class to the Z set
             std::vector<int> class_copy = {min_class};
@@ -209,7 +207,7 @@ namespace mltk{
     /**
      * \brief Functor for the implementation of the Borderline SMOTE 1 over sampling algorithm.
      */
-    template < typename T, typename Callable = metrics::dist::Euclidean< T > >
+    template < typename T=double, typename Callable = metrics::dist::Euclidean< T > >
     class  BorderlineSMOTEOne: public OverSampling< T, Callable > {
     private:
         /// Seed used for randomization
@@ -227,8 +225,8 @@ namespace mltk{
 
         Data< T > operator()(Data< T > &data) override {
             // Find the majority class
-            auto classes = data.getClasses();
-            auto class_distribution = data.getClassesDistribution();
+            auto classes = data.classes();
+            auto class_distribution = data.classesDistribution();
             int maj_class = classes[std::max_element(class_distribution.begin(), class_distribution.end()) - class_distribution.begin()];
             // Initialize the danger subset
             Data< T > danger_subset;
@@ -296,5 +294,3 @@ namespace mltk{
         }
     };
 }
-
-#endif //OVERSAMPLING_HPP_INCLUDED

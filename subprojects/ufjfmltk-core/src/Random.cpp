@@ -22,4 +22,31 @@ namespace mltk::random {
     size_t  getSeed(){
         return m_seed;
     }
+
+    template<typename Integral, typename Integral1, typename Distribution>
+    Integral intInRange(Integral low, Integral1 high){
+        Distribution dist(low, high);
+
+        return dist(m_generator);
+    }
+
+    template<typename Real, typename Distribution >
+    Real floatInRange(Real low, Real high) {
+        Distribution dist(low, high);
+
+        return dist(m_generator);
+    }
+
+    template double floatInRange<double, std::uniform_real_distribution<double> >(double, double);
+    template double floatInRange<double, std::normal_distribution<double> >(double, double);
+    template float floatInRange<float, std::uniform_real_distribution<float> >(float, float);
+    template float floatInRange<float, std::normal_distribution<float> >(float, float);
+    template double floatInRange<double, std::gamma_distribution<double> >(double, double);
+    template float floatInRange<float, std::gamma_distribution<float> >(float, float);
+    template double floatInRange<double, std::fisher_f_distribution<double> >(double, double);
+    template float floatInRange<float, std::fisher_f_distribution<float> >(float, float);
+    template int intInRange<int, int, std::uniform_int_distribution<int> >(int, int);
+    template size_t intInRange<size_t, size_t, std::uniform_int_distribution<size_t> >(size_t, size_t);
+    template int intInRange<int, unsigned long, std::uniform_int_distribution<int> >(int, unsigned long);
+    template int intInRange<int, unsigned int, std::uniform_int_distribution<int> >(int, unsigned int);
 }

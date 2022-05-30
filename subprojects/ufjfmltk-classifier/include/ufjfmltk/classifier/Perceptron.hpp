@@ -131,11 +131,17 @@ namespace mltk{
                     if (point.Y() == 1 && func < gamma1) gamma1 = func;
                     if (point.Y() == -1 && func < gamma2) gamma2 = func;
                 }
+                double rmargin = (fabs(gamma1) > fabs(gamma2)) ? fabs(gamma2) : fabs(gamma1);
+                double mmargin = (fabs(gamma1) + fabs(gamma2)) / 2;
+                if(fabs(gamma2) > fabs(gamma1)){
+                    bias += fabs(mmargin - rmargin);
+                }else{
+                    bias -= fabs(mmargin - rmargin);
+                }
+                this->solution.w = weights;
+                this->solution.bias = bias;
 
-                double displacement = (gamma1 + gamma2) / 2;
-                bias = bias - gamma2 + displacement;
-
-                return true;
+                return (errors == 0);
             }
 
             double evaluate(const Point<T> &p, bool raw_value) override {

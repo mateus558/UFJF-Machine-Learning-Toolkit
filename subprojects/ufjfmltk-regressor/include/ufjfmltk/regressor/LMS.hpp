@@ -2,8 +2,7 @@
 // Created by mateus558 on 03/01/19.
 //
 
-#ifndef UFJF_MLTK_LMS_H
-#define UFJF_MLTK_LMS_H
+#pragma once
 
 #include "PrimalRegressor.hpp"
 
@@ -98,4 +97,3 @@ namespace mltk{
         }
     }
 }
-#endif //UFJF_MLTK_LMS_H

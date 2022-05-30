@@ -1,5 +1,4 @@
-#ifndef VOTING_CLASSIFIER_HPP_DEFINED
-#define VOTING_CLASSIFIER_HPP_DEFINED
+#pragma once
 
 #include "Ensemble.hpp"
 #include <ufjfmltk/classifier/Classifier.hpp>
@@ -85,5 +84,3 @@ namespace mltk{
         };
     }
 }
-
-#endif

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef EXPRTRAITS_HPP_INCLUDED
-#define EXPRTRAITS_HPP_INCLUDED
 
 namespace mltk{
     template <typename T> class A_Scalar;
@@ -19,5 +17,3 @@ namespace mltk{
             using ExprRef = A_Scalar<T>; // type to refer to is ordinary reference
     };
 }
-
-#endif

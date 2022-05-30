@@ -31,8 +31,7 @@
 */
 
 #pragma once
-#ifndef DATA_HPP_INCLUDED
-#define DATA_HPP_INCLUDED
+
 #include <utility>
 #include <cmath>
 #include <vector>
@@ -238,6 +237,7 @@ namespace mltk{
          */
         Point< T > getFeature(int index) const;
         [[nodiscard]] Point< double > getLabels() const;
+        Point< double > labels() const;
         /**
          * \brief Returns a vector containing the frequency of the classes. Only valid for classification datasets.
          * \return std::vector<double> containing the distribution of the classes.
@@ -253,6 +253,7 @@ namespace mltk{
          * \return std::vector<int>
          */
         [[nodiscard]] std::vector<int> getFeaturesNames() const;
+        mltk::Point<int> featuresNames() const;
         /**
          * \brief Returns the vector of indexes.
          * \return std::vector<int>
@@ -659,6 +660,7 @@ namespace mltk{
 
         //Verify if the class is at the begining or at the end and error check
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             ssize = str.size();
             _dim = -1;
             ss.str(str);
@@ -720,6 +722,7 @@ namespace mltk{
         _size = 0;
         //Read sample (line) from file
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             auto new_point = std::make_shared<Point< T > >();
 
             ss.str(str);
@@ -777,12 +780,14 @@ namespace mltk{
         _dim = ldim = _size = c = 0;
         //get dimension of the points and do error check
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             _dim = -1;
 
             ss.str(str);
             ss.clear();
 
             while(std::getline(ss, item, ' ')){
+                item = mltk::utils::trim_copy(item);
                 const char * pch = std::strchr(item.c_str(), ':');
                 _dim++;
                 /*if(_size > 0 && _dim < ldim && pch == nullptr){
@@ -833,15 +838,17 @@ namespace mltk{
 
         //get lines from file
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             auto new_point = std::make_shared<Point< T > >();
 
             ss.str(str);
             ss.clear();
-            _dim = 0;
             new_point->X().resize(this->m_dim, 0.0);
 
             //Read features from line
+            _dim = 0;
             while(std::getline(ss, item, ' ')){
+                item = mltk::utils::trim_copy(item);
                 const char * pch = std::strchr(item.c_str(), ':');
                 if(!pch){
                     if(this->isClassification()) {
@@ -850,22 +857,22 @@ namespace mltk{
                         c = utils::atod(item.c_str());
                     }
                     new_point->Y() = c;
-                }
-                //Verify if the class is at the beggining or at the end
-                if(!ss.eof()){
+                }else{
+                    //Verify if the class is at the beggining or at the end
                     is_feature = false; //Verify if it's including value or fname
                     ss1.str(item);
                     ss1.clear();
                     //Get feature name and value
                     while(std::getline(ss1, item, ':')){
+                        item.erase( std::remove(item.begin(), item.end(), '\r'), item.end() );
                         if(!is_feature){
                             fnames[_dim] = utils::stoin(item);
                             is_feature = true;
                         }else{
                             if(utils::is_number(item)){
-                                new_point->X()[_dim] = utils::atod(item.c_str());
-                                _dim++;
+                                new_point->X()[_dim++] = utils::atod(item.c_str());
                             }
+                            is_feature = false;
                         }
                     }
                 }
@@ -903,6 +910,7 @@ namespace mltk{
 
         //Verify if the class is at the begining or at the end and error check
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             _dim = 0;
             ss.str(str);
 
@@ -960,6 +968,7 @@ namespace mltk{
 
         //Read line (sample) from file
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             auto new_point = std::make_shared<Point< T > >();
             _dim = -1;
             ss.str(str);
@@ -1013,6 +1022,7 @@ namespace mltk{
 
         //error check
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             ss.str(str);
             n1 = 0;
             _dim = 0;
@@ -1055,6 +1065,7 @@ namespace mltk{
 
         //get line from file (sample)
         while(std::getline(input, str)){
+            str = mltk::utils::trim_copy(str);
             auto new_point = std::make_shared<Point< T > >();
 
             //Allocate memory for features
@@ -1167,7 +1178,7 @@ namespace mltk{
         int i, j;
         std::string path = fname + "." + ext;
         std::ofstream outstream(path.c_str(), std::ios::out);
-        m_dim =(this->m_points.size()>0)?this->m_points[0]->size():0;
+        m_dim =this->dim();
 
         if(!outstream.is_open()){
             std::cerr << "Can't write in file." << std::endl;
@@ -1985,9 +1996,9 @@ namespace mltk{
         std::sort(feats.begin(), feats.end());
         size_t _size = (size == -1)?feats.size():size;
         Data<T> new_data;
-        std::vector<size_t> feats_pos(_size);
+        std::vector<size_t> feats_pos(feats.size());
         int i, j, invalid;
-        for(i = 0, j = 0, invalid=0; (i < _size) && (invalid < _size) && (j < _size); ){
+        for(i = 0, j = 0, invalid=0; (i < fnames.size()) && (invalid < feats.size()) && (j < feats.size()); ){
             if(feats[j] < 1) { invalid++; j++; continue; }
             if(fnames[i] == feats[j]){
                 feats_pos[j] = i;
@@ -1995,7 +2006,10 @@ namespace mltk{
             }
             i++;
         }
-        assert((j == _size) && "There are non-existing features on remove set.");
+        std::cout << mltk::Point<size_t>(feats) << std::endl;
+        std::cout << mltk::Point<int>(fnames) << std::endl;
+        std::cout << mltk::Point<size_t>(feats_pos) << std::endl;
+        assert((j == feats.size()) && "There are non-existing features on remove set.");
         for(auto const& point: this->m_points){
             auto new_point = make_point<T>(_size-invalid);
             for(i = 0; i < (_size-invalid); i++){
@@ -2034,6 +2048,11 @@ namespace mltk{
     }
 
     template<typename T>
+    Point<double> Data<T>::labels() const{
+        return getLabels();
+    }
+
+    template<typename T>
     void Data<T>::apply(std::function<void(mltk::PointPointer<T> point)> f) {
         std::for_each(this->m_points.begin(),this->m_points.end(), f);
     }
@@ -2044,6 +2063,9 @@ namespace mltk{
         tokens = mltk::utils::tokenize(tokens.back(), '.');
         return (tokens.empty())?std::string():tokens[0];
     }
-}
 
-#endif
+    template<typename T>
+    mltk::Point<int> Data<T>::featuresNames() const {
+        return getFeaturesNames();
+    }
+}

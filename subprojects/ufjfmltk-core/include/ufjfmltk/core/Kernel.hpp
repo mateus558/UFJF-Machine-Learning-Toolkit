@@ -3,8 +3,6 @@
    \author Mateus Coutinho Marim
 */
 #pragma once
-#ifndef KERNEL__HPP
-#define KERNEL__HPP
 
 #include <vector>
 #include <memory>
@@ -385,5 +383,3 @@ namespace mltk{
         return &K;
     }
 }
-
-#endif

@@ -5,8 +5,6 @@
 
 
 #pragma once
-#ifndef STATISTICS__HPP
-#define STATISTICS__HPP
 
 #include <vector>
 #include <cmath>
@@ -297,6 +295,3 @@ namespace mltk::stats {
         return std::sqrt(std::fabs(dist));
     }
 }
-
-
-#endif

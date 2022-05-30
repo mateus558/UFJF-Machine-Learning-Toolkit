@@ -4,7 +4,7 @@ if(UNIX)
 endif(UNIX)
 project(ufjfmltk
         LANGUAGES CXX C
-        VERSION 0.51.5)
+        VERSION 0.51.8)
 set (CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -104,6 +104,8 @@ include(AddUninstallTarget)
 
 # Add targets related to doxygen documention generation
 add_subdirectory(docs)
+add_executable(teste main.cpp)
+target_link_libraries(teste ${PROJECT_NAME})
 
 add_executable(teste teste.cpp)
 target_link_libraries(teste ${PROJECT_NAME})

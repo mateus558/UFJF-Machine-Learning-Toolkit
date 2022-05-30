@@ -5,8 +5,6 @@
 
 
 #pragma once
-#ifndef SOLUTION__HPP
-#define SOLUTION__HPP
 
 #include <vector>
 #include "Kernel.hpp"
@@ -47,4 +45,3 @@ namespace mltk{
         }
     };
 }
-#endif

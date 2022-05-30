@@ -3,8 +3,6 @@
 //
 
 #pragma once
-#ifndef UFJF_MLTK_RFE_H
-#define UFJF_MLTK_RFE_H
 #define first_decay 0.25
 
 #include "FeatureSelection.hpp"
@@ -317,4 +315,3 @@ namespace mltk{
         }
     }
 }
-#endif //UFJF_MLTK_RFE_H

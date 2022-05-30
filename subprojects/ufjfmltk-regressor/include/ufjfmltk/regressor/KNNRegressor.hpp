@@ -1,10 +1,9 @@
-#ifndef UFJF_MLTK_KNNREGRESSOR_HPP
-#define UFJF_MLTK_KNNREGRESSOR_HPP
+#pragma once
 
 
 #include "PrimalRegressor.hpp"
 #include "ufjfmltk/core/DistanceMetric.hpp"
-#include <assert.h>
+#include <cassert>
 
 namespace mltk{
         namespace regressor {
@@ -20,9 +19,9 @@ namespace mltk{
                 Callable dist_function;
             public:
                 KNNRegressor() = default;
-                KNNRegressor(const Data<T>& _samples, size_t _k=3):
+                explicit KNNRegressor(const Data<T>& _samples, size_t _k=3):
                     PrimalRegressor<T> (mltk::make_data<T>(_samples)), k(_k) {}
-                KNNRegressor(size_t _k=3): k(_k) {}
+                explicit KNNRegressor(size_t _k=3): k(_k) {}
 
                 bool train() override{
                     return true;
@@ -62,5 +61,3 @@ namespace mltk{
             };
         }
 }
-
-#endif

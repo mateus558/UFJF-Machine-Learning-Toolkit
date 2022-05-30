@@ -7,8 +7,6 @@
 // Created by mateus558 on 25/08/17.
 //
 #pragma once
-#ifndef RANDOM_H_INCLUDED
-#define RANDOM_H_INCLUDED
 
 #include <random>
 #include <functional>
@@ -35,7 +33,7 @@ namespace mltk::random {
          */
         template<typename Integral = int, typename Integral1,
                 typename Distribution = std::uniform_int_distribution<Integral> >
-        extern inline Integral intInRange(Integral low, Integral1 high);
+        inline Integral intInRange(Integral low, Integral1 high);
 
         /**
          * \brief Returns a float between low and high.
@@ -45,31 +43,11 @@ namespace mltk::random {
          */
         template<typename Real = double,
                 typename Distribution = std::uniform_real_distribution<Real> >
-        extern inline Real floatInRange(Real low, Real high);
+        inline Real floatInRange(Real low, Real high);
 
         /**
          * \brief Get the seed used in the mersenne twister.
          * \return unsigned int
          */
         size_t getSeed();
-
-        /*********************************************
-         *               Implementation              *
-         *********************************************/
-
-        template<typename Integral, typename Integral1, typename Distribution>
-        Integral intInRange(Integral low, Integral1 high){
-            Distribution dist(low, high);
-
-            return dist(mltk::random::m_generator);
-        }
-
-        template<typename Real, typename Distribution >
-        Real floatInRange(Real low, Real high) {
-            Distribution dist(low, high);
-
-            return dist(mltk::random::m_generator);
-        }
     }
-
-#endif //DONKEY_KONG_TRAB_RANDOM_H
