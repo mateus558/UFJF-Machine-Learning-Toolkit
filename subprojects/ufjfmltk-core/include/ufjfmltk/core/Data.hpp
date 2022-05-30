@@ -1827,31 +1827,43 @@ namespace mltk{
             this->computeClassesDistribution();
             Point< double > dist(class_distribution.size());
             for(size_t i = 0; i < class_distribution.size(); i++){
-                dist[i] = (class_distribution[i]/double(size()))*new_size;
+                dist[i] = std::ceil((class_distribution[i]/double(size()))*new_size);
             }
             auto classes_split = this->splitByClasses();
             std::sort(classes_split.begin(), classes_split.end(), [](const Data<T> &a, const Data<T> &b){
                 return a.size() > b.size();
             });
             bool try_next = false;
+            int tries = 0;
             for(int i = 0, j = 0, k = 0, l = split_size-1; j < classes_split.size(), i < size(); i++, k++, l--){
                 if(l == -1){
                     l = split_size-1;
                 }
+                //std::cout << i << " " << j << " " << k << " " << l << std::endl;
+                // std::cout<< split[l].size() << " " <<new_size << " " << dist << " " << classes_split[j].size() << std::endl;
+                // for(auto slice: split){
+                //     auto slice_dist = mltk::Point<size_t>(slice.classesDistribution());
+                //     if(!slice_dist.empty()) std::cout << " " << slice.size() << " " << slice_dist;
+                // }
+                //std::cout << std::endl;
                 if(split[l].size() == new_size && !try_next){
                     i--;
                     k--;
                     try_next = true;
+                    tries++;
                     continue;
                 }
                 if(k < classes_split[j].size()){
                     int current_class = classes_split[j][k]->Y();
                     auto count = split[l].classesDistribution();
-                    if((split[l].classes().empty() || count.empty() || count[j] < dist[j]) || split[j].size() < new_size){
+                    //if(!count.empty()) std::cout << mltk::Point<size_t>(count) << " " << dist[j] << std::endl;
+                    if((split[l].classes().empty() || count.empty() || count[j] < dist[j]) || split[j].size() < new_size || tries == split_size-1){
                         split[l].insertPoint(classes_split[j][k]);
                         try_next = false;
+                        tries = 0;
                     }else{
                         try_next = true;
+                        tries++;
                         i--;
                         k--;
                     }

@@ -86,7 +86,7 @@ TEST_F(ClassifierTest, SMOClassifier){
     double acc = 0;
     std::cout << "Testing with polynomial kernel" << std::endl;
     smo_poly.setMaxEpochs(100);
-    acc = mltk::validation::kfold(wine, smo_poly, 10, true, 10, 0).accuracy;
+    acc = mltk::validation::kfold(wine, smo_poly, 10, true, 10, 3).accuracy;
     std::cout << acc << std::endl;
     ASSERT_GT(acc, 60);
     std::cout << "Testing with gaussian kernel" << std::endl;
