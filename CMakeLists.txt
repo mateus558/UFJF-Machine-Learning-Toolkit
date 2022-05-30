@@ -24,7 +24,7 @@ if(MSVC)
     set(CMAKE_DEBUG_POSTFIX "d")
 endif()
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE OFF)
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -38,7 +38,7 @@ endif(CODE_COVERAGE)
 option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
 
 # Build test related commands?
-option(ENABLE_TESTING "Create tests using CMake" OFF)
+option(ENABLE_TESTING "Create tests using CMake" ON)
 
 # Tells wheter a module should be compiled
 option(BUILD_LIBCLASSIFIER "Tells if the classifier module must be built" ON)
@@ -87,6 +87,8 @@ message(STATUS "Created target ${PROJECT_NAME} for export ${PROJECT_NAME}.")
 
 # Add integration tests (unit tests for each library should be in each sublibrary directory).
 if(ENABLE_TESTING)
+    message(STATUS "Creating tests for ${PROJECT_NAME}.")
+
     set(DATA_PATH ${CMAKE_CURRENT_SOURCE_DIR}/datasets)
     enable_testing()
     add_subdirectory(tests)
@@ -104,8 +106,9 @@ include(AddUninstallTarget)
 
 # Add targets related to doxygen documention generation
 add_subdirectory(docs)
-add_executable(teste main.cpp)
-target_link_libraries(teste ${PROJECT_NAME})
+
+# add_executable(teste teste.cpp)
+# target_link_libraries(teste ${PROJECT_NAME})
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     add_subdirectory(packaging) # include(CPack) will happen in here
