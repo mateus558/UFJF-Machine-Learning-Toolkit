@@ -37,3 +37,4 @@ cmake-*
 cmake-build-debug-coverage
 out
 build
+main*
