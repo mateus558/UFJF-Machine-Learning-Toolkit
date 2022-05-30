@@ -108,7 +108,7 @@ TEST_F(ClassifierTest, DualClassifier){
     ima_dual_gaussian.setVerbose(3);
     perc_fixed_dual.setMaxTime(300);
     std::cout << "Testing perceptron dual." << std::endl;
-    ASSERT_GT(mltk::validation::kfold(bin, perc_fixed_dual, 10, true, 10, 0).accuracy, 85);
+    ASSERT_GT(mltk::validation::kfold(bin, perc_fixed_dual, 10, true, 10, 0).accuracy, 83);
     ASSERT_GT(mltk::validation::kfold(bin, perc_dual_gaussian, 10, true, 10, 0).accuracy, 95);
     ASSERT_GT(mltk::validation::kfold(bin, ima_dual_inner, 10, true, 10, 0).accuracy, 95);
     std::cout << "Testing IMA dual with 10-fold." << std::endl;
