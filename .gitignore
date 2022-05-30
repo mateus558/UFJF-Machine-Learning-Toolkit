@@ -10,7 +10,7 @@ scripts
 notebooks
 figs
 Doc
-teste
+teste*
 .github
 install_old.sh
 Others
@@ -36,3 +36,4 @@ datasets/Untitled.ipynb
 cmake-*
 cmake-build-debug-coverage
 out
+build

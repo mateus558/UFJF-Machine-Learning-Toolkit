@@ -431,17 +431,35 @@ namespace mltk::validation {
     template< typename T >
     std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, bool stratified,
                                              const size_t seed){
-        auto data_folds = samples.splitSample(folds, stratified, seed);
+        // auto classes_split = samples.splitByClasses();
+        // for(auto data: classes_split){
+        //     std::cout << data.size() << std::endl;
+        // }
+        samples.shuffle(seed);
+        std::vector<Data<T> > data_folds = samples.splitSample(folds, stratified, seed);
         std::vector<TrainTestPair<T> > kfold_split;
+        
+        // for(auto class_split: classes_split){
+        //     std::cout << "samples in class: " << class_split.size() << std::endl;
+        //     for(int i = 0, j = 0; i < class_split.size(); i++, j = (j+1)%folds){
+        //         data_folds[j].insertPoint(class_split[i]);
+        //     }
+        // }
 
+        kfold_split.reserve(folds);
         for(int i = 0; i < folds; i++){
+            // std::cout << "fold " << i << ": " << mltk::Point<double>(data_folds[i].classesDistribution()) << std::endl;
             Data<T> train;
-            for(int j = 0; j < folds; j++){
-                if(j != i){
-                    train.join(data_folds[j]);
-                }
+            train.join(data_folds[i]);
+            int gone = 0;
+            int next_j = (i+1)%folds;
+            for(int j = next_j; gone < folds-2; gone++, j = (j+1)%folds){
+                // std::cout << i  << " " << j%folds;
+                train.join(data_folds[j]);
+                next_j = (j+1)%folds;
             }
-            kfold_split.emplace_back(train, data_folds[i]);
+            // std::cout <<" " << next_j<< std::endl;
+            kfold_split.emplace_back(train, data_folds[(next_j)%folds]);
         }
         return kfold_split;
     }
