@@ -473,8 +473,11 @@ namespace mltk::validation {
                 train.join(data_folds[j]);
                 next_j = (j+1)%folds;
             }
+            auto test = data_folds[(next_j)%folds];
+            train.shuffle(seed);
+            test.shuffle(seed);
             //std::cout <<" " << next_j<< std::endl;
-            kfold_split.emplace_back(train, data_folds[(next_j)%folds]);
+            kfold_split.emplace_back(train, test);
         }
         return kfold_split;
     }
