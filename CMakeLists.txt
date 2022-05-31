@@ -38,7 +38,7 @@ endif(CODE_COVERAGE)
 option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
 
 # Build test related commands?
-option(ENABLE_TESTING "Create tests using CMake" ON)
+option(ENABLE_TESTING "Create tests using CMake" OFF)
 
 # Tells wheter a module should be compiled
 option(BUILD_LIBCLASSIFIER "Tells if the classifier module must be built" ON)
