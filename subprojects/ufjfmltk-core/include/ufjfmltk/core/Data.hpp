@@ -45,6 +45,7 @@
 #include <memory>
 #include <random>
 #include <set>
+#include <chrono>
 
 #include "Point.hpp"
 #include "Statistics.hpp"
@@ -1567,16 +1568,16 @@ namespace mltk{
 
         m_size += size1;
 
-        if(!index.empty() && !index1.empty()){
-            index.resize(m_size, 0);
-            for(i = 0; i < antsize; i++) index[i] = antindex[i];
-            for(i = 0; i < size1; i++) index[i + antsize] = index1[i];
-        }
+        // if(!index.empty() && !index1.empty()){
+        //     index.resize(m_size, 0);
+        //     for(i = 0; i < antsize; i++) index[i] = antindex[i];
+        //     for(i = 0; i < size1; i++) index[i + antsize] = index1[i];
+        // }
 
-        if(index.empty()){
-            index.resize(m_size);
-            iota(index.begin(), index.end(), 0);
-        }
+        // if(index.empty()){
+        //     index.resize(m_size);
+        //     iota(index.begin(), index.end(), 0);
+        // }
 
         m_points.resize(m_size);
 
@@ -1587,6 +1588,8 @@ namespace mltk{
             m_points[i]->Alpha() = points1[j]->Alpha();
             m_points[i]->Id() = m_points[j]->Id();
         }
+        index.resize(m_size);
+        iota(index.begin(), index.end(), 0);
         std::vector<int> diff, classes1 = data.classes(), classes = m_classes;
         std::sort(classes.begin(), classes.end());
         std::sort(classes1.begin(), classes1.end());
@@ -1822,6 +1825,7 @@ namespace mltk{
     template<typename T>
     std::vector<Data<T>> Data<T>::splitSample(const std::size_t &split_size, bool stratified, const size_t seed) {
         std::vector<Data<T>> split(split_size);
+        size_t _seed = (seed == 0) ? std::chrono::system_clock::now().time_since_epoch().count() : seed;
         auto new_size = std::floor(double(size()) / split_size);
         if(this->isClassification() && stratified){
             this->computeClassesDistribution();
@@ -1875,11 +1879,11 @@ namespace mltk{
                 }
             }
             for(size_t i = 0; i < split.size(); i++){
-                split[i].shuffle(seed+i);
+                split[i].shuffle(_seed+i);
             }
         }else{
             auto data = this->copy();
-            data.shuffle(seed);
+            data.shuffle(_seed);
             size_t counter = 0;
             for(size_t i = 0; i < split.size(); i++){
                 for(size_t j = 0; j < new_size; j++){

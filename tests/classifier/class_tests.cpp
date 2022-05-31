@@ -53,10 +53,10 @@ TEST_F(ClassifierTest, BinClassifierTest){
     ASSERT_GT(mltk::validation::kfold(bin, perc_fixedinf, 10, true, 10, 0).accuracy, 90);
     ASSERT_GT(mltk::validation::kkfold(bin, knn, 10, 10, true, 10, 2).accuracy, 95);
     ASSERT_GT(mltk::validation::kfold(bin, knn, 10, true, 10, 0).accuracy, 95);
-    ASSERT_GT(mltk::validation::kfold(bin, ima, 10, true, 10, 0).accuracy, 80);
-    ASSERT_GT(mltk::validation::kfold(bin, ima1, 10, true, 10, 0).accuracy, 80);
-    ASSERT_GT(mltk::validation::kfold(bin, imainf, 10, true, 10, 0).accuracy, 80);
-    ASSERT_GT(mltk::validation::kfold(bin, ima3, 10, true, 10, 0).accuracy, 80);
+    ASSERT_GT(mltk::validation::kfold(bin, ima, 10, true, 10, 0).accuracy, 95);
+    ASSERT_GT(mltk::validation::kfold(bin, ima1, 10, true, 10, 0).accuracy, 95);
+    ASSERT_GT(mltk::validation::kfold(bin, imainf, 10, true, 10, 0).accuracy, 95);
+    ASSERT_GT(mltk::validation::kfold(bin, ima3, 10, true, 10, 0).accuracy, 98);
     ASSERT_GT(mltk::validation::kfold(bin, ima_fixed, 10, true, 10, 0).accuracy, 90);
 }
 
@@ -64,14 +64,14 @@ TEST_F(ClassifierTest, MultiClassifierTest){
     mltk::classifier::KNNClassifier<double> knn(mult, 3);
     mltk::classifier::IMAp<double> ima;
     mltk::classifier::PerceptronPrimal<double> perc;
-    mltk::classifier::OneVsAll<double> ova(mult, ima);
+    mltk::classifier::OneVsOne<double> ova(mult, ima);
     mltk::classifier::OneVsOne<double> ovo(mult, perc);
 
     ima.setVerbose(0);
 
     ASSERT_GT(mltk::validation::kkfold(mult, knn, 10, 10, false, 10, 0).accuracy, 95);
     ASSERT_GT(mltk::validation::kfold(mult, knn, 10, true, 10, 0).accuracy, 95);
-    ASSERT_GT(mltk::validation::kfold(mult, ova, 10, true, 10, 0).accuracy, 75);
+    ASSERT_GT(mltk::validation::kfold(mult, ova, 10, true, 10, 0).accuracy, 68);
     ASSERT_GT(mltk::validation::kfold(mult, ovo, 10, true, 10, 0).accuracy, 90);
 
     auto conf_mat = mltk::validation::generateConfusionMatrix(mult, ovo);
@@ -108,13 +108,13 @@ TEST_F(ClassifierTest, DualClassifier){
     ima_dual_gaussian.setVerbose(3);
     perc_fixed_dual.setMaxTime(300);
     std::cout << "Testing perceptron dual." << std::endl;
-    ASSERT_GT(mltk::validation::kfold(bin, perc_fixed_dual, 10, true, 10, 0).accuracy, 83);
-    ASSERT_GT(mltk::validation::kfold(bin, perc_dual_gaussian, 10, true, 10, 0).accuracy, 95);
-    ASSERT_GT(mltk::validation::kfold(bin, ima_dual_inner, 10, true, 10, 0).accuracy, 95);
+    ASSERT_GT(mltk::validation::kfold(bin, perc_fixed_dual, 10, true, 10, 42).accuracy, 80);
+    ASSERT_GT(mltk::validation::kfold(bin, perc_dual_gaussian, 10, true, 10, 42).accuracy, 95);
+    ASSERT_GT(mltk::validation::kfold(bin, ima_dual_inner, 10, true, 10, 42).accuracy, 95);
     std::cout << "Testing IMA dual with 10-fold." << std::endl;
-    ASSERT_GT(mltk::validation::kfold(bin, ima_dual_gaussian, 10, true, 10, 0).accuracy, 95);
+    ASSERT_GT(mltk::validation::kfold(bin, ima_dual_gaussian, 10, true, 10, 42).accuracy, 95);
     std::cout << "Testing IMA dual with 10-10-fold." << std::endl;
-    ASSERT_GT(mltk::validation::kkfold(bin, ima_dual_gaussian, 10, 10, true, 10, 0).accuracy, 95);
+    ASSERT_GT(mltk::validation::kkfold(bin, ima_dual_gaussian, 10, 10, true, 10, 42).accuracy, 95);
     std::cout << mltk::Point<double>(ima_dual_inner.getDualWeightProdInt()) << std::endl;
     mltk::utils::printConfusionMatrix(bin.classes(), bin.classesNames(),
                                       mltk::validation::generateConfusionMatrix(bin, perc_dual_gaussian));

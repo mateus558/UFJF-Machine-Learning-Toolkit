@@ -311,7 +311,8 @@ namespace mltk::validation {
         double error = 0.0;
         std::vector<double> error_arr(fold);
         auto classes = sample.classes();
-        sample.shuffle(seed);
+        size_t _seed = (seed == 0) ? std::chrono::system_clock::now().time_since_epoch().count() : seed;
+        sample.shuffle(_seed);
         std::vector<TrainTestPair<T>> folds = kfoldsplit(sample, fold, stratified, seed);
         ValidationReport solution;
 
@@ -323,7 +324,9 @@ namespace mltk::validation {
             if(verbose){
                 std::cout << "\nCross-Validation " << j + 1 << ": \n";
                 std::cout << "Train points: " << _train_sample.size() << std::endl;
+                std::cout << "Train distribution: " << mltk::Point<size_t>(_train_sample.classesDistribution()) << std::endl;
                 std::cout << "Test points: " << _test_sample.size() << std::endl;
+                std::cout << "Test distribution: " << mltk::Point<size_t>(_test_sample.classesDistribution()) << std::endl;
                 std::cout << std::endl;
             }
 
@@ -331,7 +334,7 @@ namespace mltk::validation {
             classifier.setSamples(_train_sample);
             Solution s = classifier.getSolution();
             bool isDual = classifier.getFormulationString() == "Dual";
-            classifier.setSeed(seed);
+            classifier.setSeed(_seed);
             if(!isDual){
                 if(!classifier.train()){
                     if(verbose){
@@ -448,7 +451,8 @@ namespace mltk::validation {
         // for(auto data: classes_split){
         //     std::cout << data.size() << std::endl;
         // }
-        samples.shuffle(seed);
+        size_t _seed = (seed == 0) ? std::chrono::system_clock::now().time_since_epoch().count() : seed;
+        samples.shuffle(_seed);
         std::vector<Data<T> > data_folds = samples.splitSample(folds, stratified, seed);
         std::vector<TrainTestPair<T> > kfold_split;
         
@@ -474,8 +478,8 @@ namespace mltk::validation {
                 next_j = (j+1)%folds;
             }
             auto test = data_folds[(next_j)%folds];
-            train.shuffle(seed);
-            test.shuffle(seed);
+            train.shuffle(_seed+i);
+            test.shuffle(_seed+i);
             //std::cout <<" " << next_j<< std::endl;
             kfold_split.emplace_back(train, test);
         }

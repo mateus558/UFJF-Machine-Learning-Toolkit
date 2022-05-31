@@ -125,7 +125,6 @@ namespace mltk{
             IMApFixedMargin<T> imapFixMargin;
             imapFixMargin.setGamma(gamma);
             Solution tempSol;
-
             n = dim;
             this->rate = 1.0;
             //Initializing data struct
@@ -197,7 +196,7 @@ namespace mltk{
             this->samples->setIndex(index);
 
             //Initializing alpha
-            for (i = 0; i < size; ++i) { points[i]->Alpha() = 0.0; }
+            for (i = 0; i < size; ++i) { (*this->samples)[i]->Alpha() = 0.0; }
             if (this->verbose) {
                 std::cout << "-----------------------------------------------------------------------------\n";
                 std::cout << " pmf    steps     updates              margin              norm          secs\n";
@@ -236,7 +235,7 @@ namespace mltk{
                 norm = tempSol.norm;
                 bias = tempSol.bias;
                 func = tempSol.func.X();
-
+                //std::cout << mltk::Point<double>(func) << std::endl;
                 for (min = DBL_MAX, max = -DBL_MAX, i = 0; i < size; ++i) {
                     y = points[i]->Y();
                     alpha = points[i]->Alpha();
@@ -249,6 +248,7 @@ namespace mltk{
                         max = (func[i] + y * alpha * this->flexible) / norm;
                 }
                 //Saving good weights
+                //std::cout << min << " " << max << std::endl;
                 for (i = 0; i < dim; i++) w_saved[i] = tempSol.w[i];
 
                 //Obtaining real margin
@@ -283,7 +283,7 @@ namespace mltk{
                          << "              " << rmargin << "            " << norm << "           " << secs << " ";
 
                 ++it; //IMA iteration increment
-
+                //std::cout << tempSol.w << std::endl;
                 imapFixMargin.setGamma(gamma);
                 imapFixMargin.setSolution(tempSol);
                 imapFixMargin.setLearningRate(this->rate);
@@ -321,7 +321,7 @@ namespace mltk{
              this->solution.norm = norm;
              this->solution.bias = bias;
              this->solution.svs = this->svs.size();
-
+             
             if (this->verbose) {
                 std::cout << "\n-----------------------------------------------------------------------------\n";
                 std::cout << "Number of times that the Fixed Margin Perceptron was called: " << it + 1 << "\n";
@@ -395,11 +395,11 @@ namespace mltk{
             std::vector<int> index = this->samples->getIndex();
             std::vector<T> x;
             this->timer.reset();
+            
             if (!this->solution.w.empty())
                 this->w = this->solution.w.X();
             else this->w.resize(this->samples->dim(), 0.0);
-
-            while (this->timer.elapsed() - time <= 0) {
+            while (time - this->timer.elapsed() > 0) {
                 for (e = 0, i = 0; i < size; ++i) {
                     //shuffling data r = i + rand()%(size-i); j = index[i]; idx = index[i] = index[r]; index[r] = j;
                     idx = index[i];
@@ -485,21 +485,19 @@ namespace mltk{
                         e++;
                     } else if (this->steps > 0 && e > 1 && i > s) break;
                 }
+                //std::cout << mltk::Point<double>(this->w) << std::endl;
                 this->steps++; //Number of iterations update
-                //cout << e << endl;
                 //stop criterion
                 if (e == 0) break;
                 if (this->steps > this->MAX_IT) break;
                 if (this->ctot > this->MAX_UP) break;
                 if (this->flagNao1aDim) if (this->ctot > tMax) break;
             }
-
             this->samples->setIndex(index);
             this->solution.norm = norm;
             this->solution.bias = bias;
             this->solution.w = this->w;
             this->solution.func = func;
-
             if (e == 0) return 1;
             else return 0;
         }
