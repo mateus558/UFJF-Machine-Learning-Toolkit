@@ -35,7 +35,7 @@ endif(CODE_COVERAGE)
 
 ### Options
 # Shared/Dynamic or Static library?
-option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
+option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" OFF)
 
 # Build test related commands?
 option(ENABLE_TESTING "Create tests using CMake" OFF)
