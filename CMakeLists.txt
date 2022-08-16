@@ -113,3 +113,6 @@ add_subdirectory(docs)
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     add_subdirectory(packaging) # include(CPack) will happen in here
 endif()
+
+#add_executable(teste main.cpp)
+#target_link_libraries(teste ${PROJECT_NAME})
