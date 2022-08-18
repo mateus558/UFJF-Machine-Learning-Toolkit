@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libvisual.a CMakeFiles/visual.dir/src/gnuplot_i.cpp.o
+/usr/bin/ranlib ../../lib/libvisual.a

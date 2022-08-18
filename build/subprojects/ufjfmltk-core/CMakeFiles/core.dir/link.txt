@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libcore.a CMakeFiles/core.dir/src/Utils.cpp.o CMakeFiles/core.dir/src/Datasets.cpp.o CMakeFiles/core.dir/src/Random.cpp.o
+/usr/bin/ranlib ../../lib/libcore.a

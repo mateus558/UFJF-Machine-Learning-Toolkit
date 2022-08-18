@@ -1,0 +1,170 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install",
+			"install_basic_package_files"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt",
+			"cmake/InstallBasicPackageFiles.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 75,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 82,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 98,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 1,
+				"line" : 553,
+				"parent" : 3
+			},
+			{
+				"command" : 0,
+				"file" : 1,
+				"line" : 660,
+				"parent" : 3
+			},
+			{
+				"command" : 0,
+				"file" : 1,
+				"line" : 672,
+				"parent" : 3
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "lib",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"lib/libufjfmltk.a"
+			],
+			"targetId" : "ufjfmltk::@87e12db96556e9e83a62",
+			"targetIndex" : 2,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "dev",
+			"destination" : "include/ufjfmltk",
+			"paths" : 
+			[
+				"include/ufjfmltk/ufjfmltk.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "include",
+			"paths" : 
+			[
+				"include/ufjfmltk/ufjfmltk.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "ufjfmltk",
+			"destination" : "lib/cmake/ufjfmltk",
+			"paths" : 
+			[
+				"build/ufjfmltkConfigVersion.cmake"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 5,
+			"component" : "ufjfmltk",
+			"destination" : "lib/cmake/ufjfmltk",
+			"paths" : 
+			[
+				{
+					"from" : "build/ufjfmltkConfig.cmake.install",
+					"to" : "ufjfmltkConfig.cmake"
+				}
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 6,
+			"component" : "ufjfmltk",
+			"destination" : "lib/cmake/ufjfmltk",
+			"exportName" : "ufjfmltk",
+			"exportTargets" : 
+			[
+				{
+					"id" : "core::@07907566ecf213a7242a",
+					"index" : 1
+				},
+				{
+					"id" : "classifier::@0fe45a3b1038348cb506",
+					"index" : 0
+				},
+				{
+					"id" : "valid::@317306e857fc32367ddf",
+					"index" : 0
+				},
+				{
+					"id" : "clusterer::@2f1a83128e16eb4ce6ec",
+					"index" : 0
+				},
+				{
+					"id" : "ensemble::@7ddd5bc24d393a7a7bd9",
+					"index" : 0
+				},
+				{
+					"id" : "featselect::@d0e5d1f200880d18e06e",
+					"index" : 0
+				},
+				{
+					"id" : "regressor::@79b5ed744380be23370c",
+					"index" : 0
+				},
+				{
+					"id" : "visual::@990d8d8346a714388a1f",
+					"index" : 4
+				},
+				{
+					"id" : "ufjfmltk::@87e12db96556e9e83a62",
+					"index" : 2
+				}
+			],
+			"paths" : 
+			[
+				"CMakeFiles/Export/lib/cmake/ufjfmltk/ufjfmltkTargets.cmake"
+			],
+			"type" : "export"
+		}
+	],
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	}
+}

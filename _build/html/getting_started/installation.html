@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Installation &mdash; UFJF - Machine Learning Toolkit 0.51.1-beta.8 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data management" href="datamanagement.html" />
+    <link rel="prev" title="Architecture" href="../overview/architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> UFJF - Machine Learning Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Framework overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-on-any-system">Build on any system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#including-to-your-cmake-project">Including to your CMake project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-ufjf-mltk-libraries-to-windows-environment">Adding UFJF-MLTK libraries to Windows environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compiling-your-project-including-ufjf-mltk">Compiling your project including UFJF-MLTK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#going-through-installers">Going through installers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu-and-debian-based-os">Ubuntu and Debian based OS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-linux-based-os">Other linux based OS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="datamanagement.html">Data management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html">Classification</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/extending.html">Extending the framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/codeconduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">GNU GENERAL PUBLIC LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">UFJF - Machine Learning Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/getting_started/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>As one of the main pourposes of UFJF-MLTK is the easy of use, the compilation and installation can’t be different, for
+that the project was made using the cross-platform build management tool <code class="docutils literal notranslate"><span class="pre">cmake</span></code> as most of the known C++ open source
+projects.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>CMake</p></li>
+<li><p>C++ compiler with support to C++17</p></li>
+<li><p>Gnuplot &gt;= 5 (Optional, but needed for the Visualization module)</p></li>
+</ul>
+</div>
+<div class="section" id="build-on-any-system">
+<h2>Build on any system<a class="headerlink" href="#build-on-any-system" title="Permalink to this headline">¶</a></h2>
+<p>The project can be compiled using the same commands in any system, the only difference is that on <code class="docutils literal notranslate"><span class="pre">Windows</span></code> you’ll need
+to make sure that the folder containing UFJF-MLTK is in your include path, so you can use include statements as
+<code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;ufjfmltk/Core.hpp&gt;</span></code>. For the standart instalation you only need to execute the following commands on
+the project folder:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">B</span> <span class="n">build</span>
+<span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="n">build</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CMake</span></code> can generate projects for several IDEs, if you have more than one C++ IDE in your operational
+system you can especify which one you want to use by adding the flag -G to CMake, for example, if you want to configure the
+project for Visual Studio, you could execute the command as <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-B</span> <span class="pre">build</span> <span class="pre">-G</span> <span class="pre">&quot;Visual</span> <span class="pre">Studio</span> <span class="pre">16</span> <span class="pre">2019&quot;</span></code> and then open the
+generated project on it.</p>
+<p>UFJF-MLTK was projected to be as modular as possible, so if you don’t want to compile some module, you could just turn
+off it’s configuration on cmake, keeping in mind that it would be compiled in the same way if it’s a dependency for
+another module to be compiled. The available options to be set on cmake are listed below:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 16%" />
+<col style="width: 58%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>CMake option</p></td>
+<td><p>Default value</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p>-DBUILD_LIBVISUALIZE</p></td>
+<td><p>ON</p></td>
+<td><p>Tells if the visualization module must be built</p></td>
+</tr>
+<tr class="row-odd"><td><p>-DBUILD_LIBCLASSIFIER</p></td>
+<td><p>ON</p></td>
+<td><p>Tells if the classifier module must be built</p></td>
+</tr>
+<tr class="row-even"><td><p>-DBUILD_LIBREGRESSOR</p></td>
+<td><p>ON</p></td>
+<td><p>Tells if the regressor module must be built</p></td>
+</tr>
+<tr class="row-odd"><td><p>-DBUILD_LIBCLUSTERER</p></td>
+<td><p>ON</p></td>
+<td><p>Tells if the clusterer module must be built</p></td>
+</tr>
+<tr class="row-even"><td><p>-DBUILD_LIBFEATSELECT</p></td>
+<td><p>ON</p></td>
+<td><p>Tells if the feature selection module must be built</p></td>
+</tr>
+<tr class="row-odd"><td><p>-DBUILD_LIBVALIDATION</p></td>
+<td><p>ON</p></td>
+<td><p>Tells if the validation module must be built</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="including-to-your-cmake-project">
+<h2>Including to your CMake project<a class="headerlink" href="#including-to-your-cmake-project" title="Permalink to this headline">¶</a></h2>
+<p>Following are minimal scripts to include ufjfmltk to your CMake project. The first method is by simply cloning
+ufjfmltk repository into the main project folder and include it with <code class="docutils literal notranslate"><span class="pre">add_subdirectory</span></code>, it’s a good method if
+you wish to use the latest updates on the framework, but it may break your application in future updates.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.15</span><span class="p">)</span>
+<span class="n">project</span><span class="p">(</span><span class="n">project_name</span><span class="p">)</span>
+
+<span class="n">set</span><span class="p">(</span><span class="n">CMAKE_CXX_STANDARD</span> <span class="mi">17</span><span class="p">)</span>
+
+<span class="n">add_subdirectory</span><span class="p">(</span><span class="n">ufjfmltk</span><span class="p">)</span>
+<span class="n">add_executable</span><span class="p">(</span><span class="n">project_name</span> <span class="n">main</span><span class="p">.</span><span class="n">cpp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The second and most recommended method is by using <code class="docutils literal notranslate"><span class="pre">FetchContent</span></code>, with this approach you need to select one of the releases on the repository
+and copy the link to its code <code class="docutils literal notranslate"><span class="pre">tar.gz</span></code> file, this way you garantee that your project will work even when the framework receive major updates.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.15</span><span class="p">)</span>
+<span class="n">project</span><span class="p">(</span><span class="n">project_name</span><span class="p">)</span>
+<span class="n">set</span><span class="p">(</span><span class="n">CMAKE_CXX_STANDARD</span> <span class="mi">17</span><span class="p">)</span>
+
+<span class="n">include</span><span class="p">(</span><span class="n">FetchContent</span><span class="p">)</span>
+<span class="n">FetchContent_Declare</span><span class="p">(</span>
+        <span class="n">ufjfmltk</span>
+        <span class="cp"># Specify the commit you depend on and update it regularly.</span>
+        <span class="n">URL</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/mateus558/UFJF-Machine-Learning-Toolkit/archive/refs/tags/v0.51.1-beta.7.tar.gz</span>
+<span class="p">)</span>
+<span class="n">FetchContent_MakeAvailable</span><span class="p">(</span><span class="n">ufjfmltk</span><span class="p">)</span>
+
+<span class="n">add_executable</span><span class="p">(</span><span class="n">project_name</span> <span class="n">main</span><span class="p">.</span><span class="n">cpp</span><span class="p">)</span>
+<span class="n">target_link_libraries</span><span class="p">(</span><span class="n">project_name</span> <span class="n">ufjfmltk</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-ufjf-mltk-libraries-to-windows-environment">
+<h2>Adding UFJF-MLTK libraries to Windows environment<a class="headerlink" href="#adding-ufjf-mltk-libraries-to-windows-environment" title="Permalink to this headline">¶</a></h2>
+<p>You need to enter into “System properties” and the environment variable CPATH with the value pointing to the folder containing the binaries, the default folder is “C:/UFJF-MLTK/bin”.</p>
+</div>
+<div class="section" id="compiling-your-project-including-ufjf-mltk">
+<h2>Compiling your project including UFJF-MLTK<a class="headerlink" href="#compiling-your-project-including-ufjf-mltk" title="Permalink to this headline">¶</a></h2>
+<p>With the libraries compiled and installed on the system you only need to add the UFJF-MLTK flag to the compiler to link the libraries to your program. Supose that we want to compile a source called <code class="docutils literal notranslate"><span class="pre">foo.cpp</span></code> containing a main function, to compile it on the command line, you just need to add the flag <code class="docutils literal notranslate"><span class="pre">-lufjfmltk</span></code>, for example, <code class="docutils literal notranslate"><span class="pre">g++</span> <span class="pre">foo.cpp</span> <span class="pre">-o</span> <span class="pre">foo</span> <span class="pre">-lufjfmltk</span></code> and on Windows <code class="docutils literal notranslate"><span class="pre">g++</span> <span class="pre">foo.cpp</span> <span class="pre">-o</span> <span class="pre">foo</span> <span class="pre">-L&lt;install_folder&gt;</span> <span class="pre">-lufjfmltk</span></code>.</p>
+<p>Unix systems: <code class="docutils literal notranslate"><span class="pre">g++</span> <span class="pre">foo.cpp</span> <span class="pre">-o</span> <span class="pre">foo</span> <span class="pre">-lufjfmltk</span></code></p>
+<p>Windows: <code class="docutils literal notranslate"><span class="pre">g++</span> <span class="pre">foo.cpp</span> <span class="pre">-o</span> <span class="pre">foo</span> <span class="pre">-L&lt;install_folder&gt;</span> <span class="pre">-lufjfmltk</span></code></p>
+<p>With these steps complete, everything is set up and ready to use!</p>
+</div>
+<div class="section" id="going-through-installers">
+<h2>Going through installers<a class="headerlink" href="#going-through-installers" title="Permalink to this headline">¶</a></h2>
+<p>To make the framework installation easier for whom only whants to use the framework API, at each release are generated
+installers that installs the framework and make it available to all system. You can find all <a class="reference external" href="https://github.com/mateus558/UFJF-Machine-Learning-Toolkit/releases">releases here</a>.</p>
+<div class="section" id="ubuntu-and-debian-based-os">
+<h3>Ubuntu and Debian based OS<a class="headerlink" href="#ubuntu-and-debian-based-os" title="Permalink to this headline">¶</a></h3>
+<p>Download the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file corresponding to the desired framework release and execute the following command.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dpkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">ufjfmltk</span><span class="o">-&lt;</span><span class="n">version</span><span class="o">&gt;-</span><span class="n">Linux</span><span class="o">-&lt;</span><span class="n">cpu_architecture</span><span class="o">&gt;</span><span class="p">.</span><span class="n">deb</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/w1.png"><img alt="Click **Next** button." src="../_images/w1.png" style="width: 600px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">1 - Click <strong>Next</strong> button.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/w2.png"><img alt="Click **I agree** button." src="../_images/w2.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">2 - Click <strong>I agree</strong> button.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/w3.png"><img alt="Add ufjfmltk to system PATH so it'll be available to all system and click **Next**." src="../_images/w3.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">3 - Add ufjfmltk to system PATH so it’ll be available to all system and click <strong>Next</strong>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/w4.png"><img alt="Click **Next** button." src="../_images/w4.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">4 - Click <strong>Next</strong> button.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/w5.png"><img alt="Check **Don't create shortcuts** and click **Next** button." src="../_images/w5.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">5 - Check <strong>Don’t create shortcuts</strong> and click <strong>Next</strong> button.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id6">
+<a class="reference internal image-reference" href="../_images/w6.png"><img alt="Click **Install** button" src="../_images/w6.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">6 - Click <strong>Install</strong> button.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id7">
+<a class="reference internal image-reference" href="../_images/w7.png"><img alt="Click **Finish** button." src="../_images/w7.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">7 - Click <strong>Finish</strong> button.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="other-linux-based-os">
+<h3>Other linux based OS<a class="headerlink" href="#other-linux-based-os" title="Permalink to this headline">¶</a></h3>
+<p>Download the <code class="docutils literal notranslate"><span class="pre">.run</span></code> file corresponding to the desired framework release and follow these steps.</p>
+<div class="figure align-center" id="id8">
+<a class="reference internal image-reference" href="../_images/l1.png"><img alt="Click **Next** button." src="../_images/l1.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">1 - Click <strong>Next</strong> button.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id9">
+<a class="reference internal image-reference" href="../_images/l2.png"><img alt="Choose where do you want to install ufjfmltk." src="../_images/l2.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">2- Choose where do you want to install ufjfmltk.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id10">
+<a class="reference internal image-reference" href="../_images/l3.png"><img alt="Click **Next** button." src="../_images/l3.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">3 - Click <strong>Next</strong> button.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id11">
+<a class="reference internal image-reference" href="../_images/l4.png"><img alt="Click **Install** button." src="../_images/l4.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">4 - Click <strong>Install</strong> button.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id12">
+<a class="reference internal image-reference" href="../_images/l5.png"><img alt="If you had choosen to install the framework in a system folder, you need to provide your ``sudo`` password." src="../_images/l5.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">5 - If you had choosen to install the framework in a system folder, you need to provide your <code class="docutils literal notranslate"><span class="pre">sudo</span></code> password.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-center" id="id13">
+<a class="reference internal image-reference" href="../_images/l6.png"><img alt="Click **Finish** button." src="../_images/l6.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 13 </span><span class="caption-text">6 - Click <strong>Finish</strong> button.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="datamanagement.html" class="btn btn-neutral float-right" title="Data management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../overview/architecture.html" class="btn btn-neutral float-left" title="Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Mateus Coutinho Marim.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

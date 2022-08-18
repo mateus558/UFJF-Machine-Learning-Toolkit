@@ -1,0 +1,73 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"subprojects/ufjfmltk-visual/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 34,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 41,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "lib",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"lib/libvisual.a"
+			],
+			"targetId" : "visual::@990d8d8346a714388a1f",
+			"targetIndex" : 4,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "dev",
+			"destination" : "include/ufjfmltk/visual",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-visual/include/ufjfmltk/visual/gnuplot_i.hpp",
+				"subprojects/ufjfmltk-visual/include/ufjfmltk/visual/Visualization.hpp",
+				"subprojects/ufjfmltk-visual/include/ufjfmltk/Visualize.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "include/ufjfmltk",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-visual/include/ufjfmltk/Visualize.hpp"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "subprojects/ufjfmltk-visual",
+		"source" : "subprojects/ufjfmltk-visual"
+	}
+}

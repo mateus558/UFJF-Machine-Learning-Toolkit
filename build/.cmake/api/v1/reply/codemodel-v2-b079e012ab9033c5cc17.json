@@ -1,0 +1,278 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						10,
+						11
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-562eb1e6743ceee7b8aa.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "subprojects",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-subprojects-Release-2409546a38fe98ced4d2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "subprojects",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "subprojects/ufjfmltk-core",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-subprojects.ufjfmltk-core-Release-fda2e99727138c99aa53.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "subprojects/ufjfmltk-core",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "subprojects/ufjfmltk-classifier",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-subprojects.ufjfmltk-classifier-Release-d77a8bb1a51cd773b99e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "subprojects/ufjfmltk-classifier",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "subprojects/ufjfmltk-valid",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-subprojects.ufjfmltk-valid-Release-de8614cd5903be7d8fc3.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "subprojects/ufjfmltk-valid"
+				},
+				{
+					"build" : "subprojects/ufjfmltk-clusterer",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-subprojects.ufjfmltk-clusterer-Release-acb307c41d8e4b1e9089.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "subprojects/ufjfmltk-clusterer"
+				},
+				{
+					"build" : "subprojects/ufjfmltk-ensemble",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-subprojects.ufjfmltk-ensemble-Release-5125119b0e82b48ee430.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "subprojects/ufjfmltk-ensemble"
+				},
+				{
+					"build" : "subprojects/ufjfmltk-featselect",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-subprojects.ufjfmltk-featselect-Release-d681c5c036863fe424f2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "subprojects/ufjfmltk-featselect"
+				},
+				{
+					"build" : "subprojects/ufjfmltk-regressor",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-subprojects.ufjfmltk-regressor-Release-06f78f582561a4907521.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "subprojects/ufjfmltk-regressor"
+				},
+				{
+					"build" : "subprojects/ufjfmltk-visual",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-subprojects.ufjfmltk-visual-Release-5a455f60fc7594a06c4b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "subprojects/ufjfmltk-visual",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "docs",
+					"jsonFile" : "directory-docs-Release-c463161ff6ebad611835.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "docs"
+				},
+				{
+					"build" : "packaging",
+					"jsonFile" : "directory-packaging-Release-ff77023bacb79ceeabe0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "packaging"
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						11
+					],
+					"name" : "ufjfmltk",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						10
+					],
+					"name" : "UFJF - Machine Learning Toolkit",
+					"parentIndex" : 0
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "classifier::@0fe45a3b1038348cb506",
+					"jsonFile" : "target-classifier-Release-039cb10d981c6a0ab27e.json",
+					"name" : "classifier",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "core::@07907566ecf213a7242a",
+					"jsonFile" : "target-core-Release-22c460952f57a7dc9b05.json",
+					"name" : "core",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ufjfmltk::@87e12db96556e9e83a62",
+					"jsonFile" : "target-ufjfmltk-Release-e08d0191f22e23849730.json",
+					"name" : "ufjfmltk",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-5a0f59105f7ac9098c03.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "visual::@990d8d8346a714388a1f",
+					"jsonFile" : "target-visual-Release-905d91c015604566ce2d.json",
+					"name" : "visual",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/mateuscmarim/Documents/UFJF-Machine-Learning-Toolkit/build",
+		"source" : "/home/mateuscmarim/Documents/UFJF-Machine-Learning-Toolkit"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

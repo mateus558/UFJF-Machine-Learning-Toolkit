@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libufjfmltk.a ufjfmltk-core/CMakeFiles/core.dir/src/Utils.cpp.o ufjfmltk-core/CMakeFiles/core.dir/src/Datasets.cpp.o ufjfmltk-core/CMakeFiles/core.dir/src/Random.cpp.o ufjfmltk-classifier/CMakeFiles/classifier.dir/src/int_dll.cpp.o ufjfmltk-visual/CMakeFiles/visual.dir/src/gnuplot_i.cpp.o
+/usr/bin/ranlib ../lib/libufjfmltk.a

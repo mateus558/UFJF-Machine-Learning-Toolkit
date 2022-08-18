@@ -1,0 +1,60 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"subprojects/ufjfmltk-clusterer/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 24,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 27,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "include/ufjfmltk/clusterer",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-clusterer/include/ufjfmltk/clusterer/Clusterer.hpp",
+				"subprojects/ufjfmltk-clusterer/include/ufjfmltk/clusterer/KMeans.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "include/ufjfmltk",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-clusterer/include/ufjfmltk/Clusterer.hpp"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "subprojects/ufjfmltk-clusterer",
+		"source" : "subprojects/ufjfmltk-clusterer"
+	}
+}

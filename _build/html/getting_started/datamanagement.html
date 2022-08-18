@@ -1,0 +1,477 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Data management &mdash; UFJF - Machine Learning Toolkit 0.51.1-beta.8 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Classification" href="classification.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> UFJF - Machine Learning Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Framework overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-point-template">The Point template</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-expressions-and-operations">Point expressions and operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#algorithms">Algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-data-template">The Data template</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#memory-sharing-between-data-objects">Memory sharing between Data objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-a-dataset-to-a-data-object">Loading a dataset to a Data object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-information-about-the-dataset">Getting information about the dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scanning-through-the-data-points">Scanning through the data points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#applying-transformations-to-data">Applying transformations to data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html">Classification</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/extending.html">Extending the framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/codeconduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">GNU GENERAL PUBLIC LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">UFJF - Machine Learning Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Data management</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/getting_started/datamanagement.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-management">
+<h1>Data management<a class="headerlink" href="#data-management" title="Permalink to this headline">¶</a></h1>
+<p>All the framework is composed of templates that make the development and use of ML (Machine Learning) algorithms easy and allow to the user to select the best available data type for the points of the data features.</p>
+<p>One of the main concerns on ufjfmltk is to make ML algorithms development and usage simple, to accomplish that its necessary for the framework to have algorithms that can be applied on the underlying data structures,
+one problem with that is that the user needs to get familiar with the available methods which can increase the framework learning curve. To solve that problem, data structures like the Data and Point templates are implemented
+trying to keep compatibility with C++ STL library whethever is possible. With that, there’s no need to implement a, for example, sorting algorithm when there’s already the STL implementation for sorting operations.</p>
+<p>In all the examples we’ll be using the double data type as default, but you can substitute by any type that makes sense for your problem.</p>
+<div class="section" id="the-point-template">
+<h2>The Point template<a class="headerlink" href="#the-point-template" title="Permalink to this headline">¶</a></h2>
+<p>This class is a wrapper for the n-dimension variables of the dataset in the feature space, it also includes
+along with the features values <strong>X</strong>, the target function <strong>Y</strong> and the _alpha_ weight associated to each point used in dual versions of ML algorithms.</p>
+<p>In this section we’ll be learning the basics of a point manipulation and the operations that can be aplied to it, at the end I’ll also show
+point expressions, a feature that can make the code easier to read and less error prone than the raw usage of loops.</p>
+<div class="section" id="initialization">
+<span id="pointusage"></span><h3>Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h3>
+<p>There are several ways to instantiate the Point template, the most simple instatiation is to just initialize the point
+with <em>n</em> positions filled with zeros. The other properties can be initialized with its own methods.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+<span class="n">mltk</span><span class="o">::</span><span class="n">Point</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+
+<span class="n">p</span><span class="p">.</span><span class="n">Y</span><span class="p">()</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">p</span><span class="p">.</span><span class="n">Alpha</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">p</span><span class="p">.</span><span class="n">Id</span><span class="p">()</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>A more advanced initialization would be, for example, filling it with random values following a uniform distribution, something
+that can be accomplished calling the <code class="docutils literal notranslate"><span class="pre">random_init</span></code> method.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">mltk</span><span class="o">::</span><span class="n">Point</span><span class="o">&lt;&gt;</span> <span class="n">p1</span><span class="p">;</span>
+
+<span class="n">mltk</span><span class="o">::</span><span class="n">random_init</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In the code snipet above we initialized <em>p1</em> with 3 dimensions and values following a uniform random distribution with seed 42.
+Bellow we can see another example using a different distribution.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">mltk</span><span class="o">::</span><span class="n">Point</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">p1</span><span class="p">;</span>
+
+<span class="n">p1</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">random_init</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">fisher_f_distribution</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="point-expressions-and-operations">
+<h3>Point expressions and operations<a class="headerlink" href="#point-expressions-and-operations" title="Permalink to this headline">¶</a></h3>
+<p>The main advantages of the Point template is the possibility to write code similar to math equations, taking away the burden of writting complex loops
+to implement functions. Point expressions are made possible through the implementation of a expression template, it makes possible to overload the math equations
+with similar sintax as the paper written version without losing performance when compiler optimizations are turned on (<code class="docutils literal notranslate"><span class="pre">-O3</span></code>). Even on debug mode, the performance loss is acceptable
+given that the code is less error prone and easier to read. One example of application is on the implementation of distance metrics like the euclidean distance.</p>
+<p>Euclidean distance:</p>
+<div class="math notranslate nohighlight">
+\[d = \sqrt { \sum_{i=0}^{n-1} (p1_{i} - p2_{i})^{2}}\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">mltk</span><span class="o">::</span><span class="n">Point</span><span class="o">&lt;&gt;</span> <span class="n">p1</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">p2</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">);</span>
+
+<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mltk</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">,</span> <span class="mi">2</span><span class="p">).</span><span class="n">sum</span><span class="p">());</span> <span class="c1">// Euclidean distance between p1 and p2</span>
+</pre></div>
+</div>
+<p>Another advantage is that the equation is lazy evaluated, i.e only evaluated when it’s result is required, like when doing a point assignment. This becomes an advantage on multithreaded environments, when
+we want to evaluate an equation when a thread requires it.</p>
+<p>Alongside with the Point template there are some operations that can be applied on the points, they are the basic arithmetic operations and some common math functions.</p>
+<p>Examples of arithmetic operations:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">mltk</span><span class="o">::</span><span class="n">Point</span><span class="o">&lt;&gt;</span> <span class="n">a</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">);</span>
+<span class="n">mltk</span><span class="o">::</span><span class="n">Point</span><span class="o">&lt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">c</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">c</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">c</span> <span class="o">*=</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Also were implemented on the framework common math functions that can be aplied directly to the point objects.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">mltk</span><span class="o">::</span><span class="n">Point</span><span class="o">&lt;&gt;</span> <span class="n">a</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">);</span>
+<span class="n">mltk</span><span class="o">::</span><span class="n">Point</span><span class="o">&lt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">mltk</span><span class="o">::</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+
+<span class="k">auto</span> <span class="n">d</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="n">mltk</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="mi">3</span><span class="p">);</span>
+<span class="kt">double</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">sum</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>This example above only shows a subset of operations that can be applied, for more you can see the list below.</p>
+<ul class="simple">
+<li><p>abs <code class="docutils literal notranslate"><span class="pre">mltk::abs(p)</span></code> - absolute values;</p></li>
+<li><p>max <code class="docutils literal notranslate"><span class="pre">mltk::max(p)</span></code> - maximum value;</p></li>
+<li><p>min <code class="docutils literal notranslate"><span class="pre">mltk::min(p)</span></code> - minimum value;</p></li>
+<li><p>norm <code class="docutils literal notranslate"><span class="pre">mltk::norm(p,</span> <span class="pre">norm_type)</span></code> - computes the norm of a point, by default <code class="docutils literal notranslate"><span class="pre">norm_value</span> <span class="pre">=</span> <span class="pre">2</span></code>;</p></li>
+<li><p>dot <code class="docutils literal notranslate"><span class="pre">mltk::dot(p,</span> <span class="pre">q)</span></code> - computes the dot product between <em>p</em> and <em>q</em>;</p></li>
+<li><p>log <code class="docutils literal notranslate"><span class="pre">mltk::log(p)</span></code> - natural log values;</p></li>
+<li><p>normalize <code class="docutils literal notranslate"><span class="pre">mltk::normalize(p,</span> <span class="pre">norm_type)</span></code> - normalize a point, by default <code class="docutils literal notranslate"><span class="pre">norm_value</span> <span class="pre">=</span> <span class="pre">2</span></code>;</p></li>
+<li><p>linspace <code class="docutils literal notranslate"><span class="pre">mltk::linspace(lower,</span> <span class="pre">upper,</span> <span class="pre">N)</span></code> - returns a point with <em>N</em> linear values from <em>lower</em> to <em>upper</em>.</p></li>
+</ul>
+<p>We can also print the point content using the stream overload operator.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">p</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>You can access the features values of a point accessing the elemens of the <strong>x</strong> vector member or by treating the point as a container:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// using iterators</span>
+<span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">p</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="algorithms">
+<h3>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h3>
+<p>As we are keeping the compatibility with STL, there are several algorithms that are supported by the framework, for example if we want to
+fill a Point with integers we can use the <code class="docutils literal notranslate"><span class="pre">std::iota</span></code> algorithm for that, like standart C++ containers.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">mltk</span><span class="o">::</span><span class="n">Point</span><span class="o">&lt;&gt;</span> <span class="n">p</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">iota</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">p</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This code will fill <em>p</em> with values ranging from 1 to 5.</p>
+<p>We also could initialize a point with random values ranging from 1 to 10 and sort it after.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">mltk</span><span class="o">::</span><span class="n">Point</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">random_init</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">uniform_int_distribution</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">p</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-data-template">
+<h2>The Data template<a class="headerlink" href="#the-data-template" title="Permalink to this headline">¶</a></h2>
+<p>As we’re normally dealing with datasets we have multiple points to work, so there’s the necessity to have a class to wrap all the information about this dataset and the operations that we can apply to these data. As the
+Point the Data template is also compatible with STL algorithms.</p>
+<p>These are the supported formats to load datasets:</p>
+<ul class="simple">
+<li><p>arff</p></li>
+<li><p>csv</p></li>
+<li><p>data</p></li>
+<li><p>txt (Embrapa datasets format)</p></li>
+</ul>
+<div class="section" id="memory-sharing-between-data-objects">
+<span id="datamemorysharing"></span><h3>Memory sharing between Data objects<a class="headerlink" href="#memory-sharing-between-data-objects" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes we need to run several algorithms in the same dataset and, if we’ll not transform the feature space of the variables, copying all the data to each algorithm that we’ll run can be a waste of memory and at sometimes a simple computer can’t handle the memory consumption.
+Thinking in that the Data class was developed using smart pointers, a tool introduced at C++11 that handles the sharing of memory between objects with almost the same speed of raw pointers, but memory safe.</p>
+<p>Because of that an array of points in the data class is defined with T as a generic data type as:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&lt;</span> <span class="n">T</span> <span class="o">&gt;</span> <span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">points</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>So if you use the = operator with other data object, they will be point to the same memory space of the original object, to make a deep copy the content of an object to another you’ll have to use the <code class="docutils literal notranslate"><span class="pre">copy()</span></code> method.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">other</span><span class="p">;</span>
+
+<span class="n">other</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-a-dataset-to-a-data-object">
+<span id="loadingdataset"></span><h3>Loading a dataset to a Data object<a class="headerlink" href="#loading-a-dataset-to-a-data-object" title="Permalink to this headline">¶</a></h3>
+<p>This can be easily done with the Data class initialization, accomplished with only one line of code.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">(</span><span class="s">&quot;wine.csv&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Or if you want the data object initially empty.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
+
+<span class="n">data</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;wine.csv&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If the target function value or expected value is at the end of the dataset, it must be informed to the constructor.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">(</span><span class="s">&quot;wine.arff&quot;</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Note that in all formats the target function must be at the beginning or at the end of each line of the file. You can print
+all the dataset with the C++ standard output stream operator.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">(</span><span class="s">&quot;wine.csv&quot;</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-information-about-the-dataset">
+<span id="datasetinformation"></span><h3>Getting information about the dataset<a class="headerlink" href="#getting-information-about-the-dataset" title="Permalink to this headline">¶</a></h3>
+<p>After the data is loaded into the memory, we can get some useful information about the data.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Dataset information: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Number of points: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Dimension: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Classes: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">.</span><span class="n">classes</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Classes distribution: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">.</span><span class="n">classesDistribution</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scanning-through-the-data-points">
+<span id="scanningpoints"></span><h3>Scanning through the data points<a class="headerlink" href="#scanning-through-the-data-points" title="Permalink to this headline">¶</a></h3>
+<p>There are two ways to access the points contained on a Data object, the first is the operator <code class="docutils literal notranslate"><span class="pre">[]</span></code> that returns a smart pointer to a point contained in the Data object, the other
+way is through the function call operator <code class="docutils literal notranslate"><span class="pre">()</span></code> that returns a reference to the Point object. Almost all the times we would want to use the second option to avoid the pointer sintax.</p>
+<p>Though the smart pointers are intended to be preferred in the place of the raw pointers, they work almost the same way as we are used with the classic pointers, so there’s no much difference in this.</p>
+<p>In this example we’ll see how we can print each point of the dataset:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">dim</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">dim</span><span class="p">();</span>
+
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Treating the Data object as a container:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">data</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="applying-transformations-to-data">
+<h3>Applying transformations to data<a class="headerlink" href="#applying-transformations-to-data" title="Permalink to this headline">¶</a></h3>
+<p>Often we dont want only to load the data but also want to apply transformations to it, be it a point/feature removal or a preprocessing step.
+For it the Data template provide methods for point and features removal/insertion and the method <code class="docutils literal notranslate"><span class="pre">apply</span></code> that allows to apply a function to
+the points contained in the object.</p>
+<p>We could normalize the dataset points like this, instead of looping through the points:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">mltk</span><span class="o">::</span><span class="n">Data</span><span class="o">&lt;&gt;</span> <span class="n">data</span><span class="p">(</span><span class="s">&quot;iris.csv&quot;</span><span class="p">);</span>
+
+<span class="k">auto</span> <span class="n">normalization</span> <span class="o">=</span> <span class="p">[](</span><span class="n">mltk</span><span class="o">::</span><span class="n">PointPointer</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">point</span><span class="p">){</span>
+    <span class="o">*</span><span class="n">point</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">normalize</span><span class="p">(</span><span class="o">*</span><span class="n">point</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="n">data</span><span class="p">.</span><span class="n">apply</span><span class="p">(</span><span class="n">normalization</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Initializing a data object with 10 uniform distributed random points:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">mltk</span><span class="o">::</span><span class="n">Data</span><span class="o">&lt;&gt;</span> <span class="n">data</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="k">auto</span> <span class="n">p</span>  <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">random_init</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+
+    <span class="n">data</span><span class="p">.</span><span class="n">insertPoint</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Below are the methods of insertion/removal:</p>
+<ul class="simple">
+<li><p>insertPoint - insert a point to the dataset;</p></li>
+<li><p>removePoint - remove a point with the given unique id;</p></li>
+<li><p>removeFeature - remove a dimension with the given id (1..dim) from the dataset.</p></li>
+</ul>
+<p>You can see the concepts presented here in practice on the implementation of <a class="reference external" href="https://github.com/mateus558/UFJF-Machine-Learning-Toolkit/blob/main/subprojects/ufjfmltk-core/src/Datasets.cpp">algorithms for artificial datasets generation</a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="classification.html" class="btn btn-neutral float-right" title="Classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Mateus Coutinho Marim.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

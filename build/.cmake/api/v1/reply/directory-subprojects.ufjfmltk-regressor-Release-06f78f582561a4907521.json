@@ -1,0 +1,64 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"subprojects/ufjfmltk-regressor/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 29,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 32,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "include/ufjfmltk/regressor",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-regressor/include/ufjfmltk/regressor/Regressor.hpp",
+				"subprojects/ufjfmltk-regressor/include/ufjfmltk/regressor/DualRegressor.hpp",
+				"subprojects/ufjfmltk-regressor/include/ufjfmltk/regressor/KNNRegressor.hpp",
+				"subprojects/ufjfmltk-regressor/include/ufjfmltk/regressor/LMS.hpp",
+				"subprojects/ufjfmltk-regressor/include/ufjfmltk/regressor/PrimalRegressor.hpp",
+				"subprojects/ufjfmltk-regressor/include/ufjfmltk/regressor/Metrics.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "include/ufjfmltk",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-regressor/include/ufjfmltk/Regressor.hpp"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "subprojects/ufjfmltk-regressor",
+		"source" : "subprojects/ufjfmltk-regressor"
+	}
+}

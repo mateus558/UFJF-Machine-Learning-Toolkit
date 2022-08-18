@@ -1,0 +1,86 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"subprojects/ufjfmltk-core/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 43,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 50,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "lib",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"lib/libcore.a"
+			],
+			"targetId" : "core::@07907566ecf213a7242a",
+			"targetIndex" : 1,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "dev",
+			"destination" : "include/ufjfmltk/core",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Data.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Datasets.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Point.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/DistanceMetric.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Kernel.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Learner.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Point.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Random.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Sampling.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Solution.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Statistics.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Timer.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/Utils.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/ExprOps.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/ExprScalar.hpp",
+				"subprojects/ufjfmltk-core/include/ufjfmltk/core/ExprTraits.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "include/ufjfmltk",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-core/include/ufjfmltk/Core.hpp"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "subprojects/ufjfmltk-core",
+		"source" : "subprojects/ufjfmltk-core"
+	}
+}

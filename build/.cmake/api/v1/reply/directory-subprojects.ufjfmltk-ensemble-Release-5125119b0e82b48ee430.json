@@ -1,0 +1,64 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"subprojects/ufjfmltk-ensemble/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 28,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 31,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "include/ufjfmltk/ensemble",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-ensemble/include/ufjfmltk/ensemble/AdaBoostClassifier.hpp",
+				"subprojects/ufjfmltk-ensemble/include/ufjfmltk/ensemble/AutoWeightedVoting.hpp",
+				"subprojects/ufjfmltk-ensemble/include/ufjfmltk/ensemble/BaggingClassifier.hpp",
+				"subprojects/ufjfmltk-ensemble/include/ufjfmltk/ensemble/Ensemble.hpp",
+				"subprojects/ufjfmltk-ensemble/include/ufjfmltk/ensemble/PerceptronCommittee.hpp",
+				"subprojects/ufjfmltk-ensemble/include/ufjfmltk/ensemble/VotingClassifier.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "include/ufjfmltk",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-ensemble/include/ufjfmltk/Ensemble.hpp"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "subprojects/ufjfmltk-ensemble",
+		"source" : "subprojects/ufjfmltk-ensemble"
+	}
+}

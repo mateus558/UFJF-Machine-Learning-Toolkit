@@ -1,0 +1,80 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"subprojects/ufjfmltk-classifier/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 37,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 44,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "lib",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"lib/libclassifier.a"
+			],
+			"targetId" : "classifier::@0fe45a3b1038348cb506",
+			"targetIndex" : 0,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "dev",
+			"destination" : "include/ufjfmltk/classifier",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/Classifier.hpp",
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/DualClassifier.hpp",
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/IMA.hpp",
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/KNNClassifier.hpp",
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/OneVsAll.hpp",
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/OneVsOne.hpp",
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/Perceptron.hpp",
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/PrimalClassifier.hpp",
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/int_dll.h",
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/classifier/SMO.hpp"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "include/ufjfmltk",
+			"paths" : 
+			[
+				"subprojects/ufjfmltk-classifier/include/ufjfmltk/Classifier.hpp"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "subprojects/ufjfmltk-classifier",
+		"source" : "subprojects/ufjfmltk-classifier"
+	}
+}

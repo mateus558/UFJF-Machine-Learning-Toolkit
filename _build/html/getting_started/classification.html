@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Classification &mdash; UFJF - Machine Learning Toolkit 0.51.1-beta.8 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Extending the framework" href="../contribute/extending.html" />
+    <link rel="prev" title="Data management" href="datamanagement.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> UFJF - Machine Learning Toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Framework overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/architecture.html">Architecture</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datamanagement.html">Data management</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Classification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#binary-classification">Binary classification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-perceptron-algorithm">The Perceptron algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#kernel-methods">Kernel methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-perceptron-dual-algorithm">The Perceptron dual algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#multi-class-classification">Multi-class classification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-one-vs-all-algorithm">The One-vs-All algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-one-vs-one-algorithm">The One-vs-One algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#model-evaluation-and-selection">Model evaluation and selection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#holdout-method-and-random-subsampling">Holdout method and random subsampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cross-validation">Cross-validation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/extending.html">Extending the framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/codeconduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">GNU GENERAL PUBLIC LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">UFJF - Machine Learning Toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Classification</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/getting_started/classification.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="classification">
+<h1>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h1>
+<p>Often we are given the task, from ourselves or from others, to label things according to a set of already existing classes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Is the object in the image a vehicle or a cat?</p></li>
+<li><p>Is this animal a dog or a cat?</p></li>
+</ul>
+</div></blockquote>
+<p><em>Classification</em> is the problem of giving the right label to a record given as input. The task is different from regression because
+here we have discrete labels instead of continuous values <a class="reference internal" href="#skiena2017" id="id1"><span>[SKIENA2017]</span></a>. In this chapter we’ll give a brief introduction on binary
+and multi-class classification tasks and show how to tackle these problems using <strong>UFJF-MLTK</strong>.</p>
+<p>Add <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;ufjfmltk/Classification.hpp&gt;</span></code> to include the classification module.</p>
+<div class="section" id="binary-classification">
+<h2>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id14">
+<a class="reference internal image-reference" href="../_images/binclass.png"><img alt="Example of a binary classification problem with a linear discriminant." src="../_images/binclass.png" style="width: 400px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text">Example of a binary classification problem with a linear discriminant.</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+<p>Let <span class="math notranslate nohighlight">\(Z = (x_{i}, y_{i})\)</span> be a set of samples of size <span class="math notranslate nohighlight">\(m\)</span>, where <span class="math notranslate nohighlight">\(x_{i} \in R^{d}\)</span>, called input space of the problem,
+<span class="math notranslate nohighlight">\(y_{i}\)</span> is a scalar representing the class of each vector <span class="math notranslate nohighlight">\(x_{i}\)</span> and for binary classification <span class="math notranslate nohighlight">\(y_{i} \in \{+1,-1\}\)</span>,
+for <span class="math notranslate nohighlight">\(i = \{1, \dots, m\}\)</span>. A linear classifier, in a linearly separable input space, is represented by a hyperplane with the following equation <a class="reference internal" href="#villela2011" id="id2"><span>[VILLELA2011]</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[h(x) = \langle w, x \rangle + b\]</div>
+<p>The classification result can be obtained through a signal function <span class="math notranslate nohighlight">\(\varphi\)</span> applied to the discriminant value associated to the hyperplane equation, i.e:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\varphi (h(x)) =
+\begin{cases}
+  +1,&amp; \text{if } h(x) \geq 0\\
+  -1,&amp; \text{otherwise}
+\end{cases}\end{split}\]</div>
+<div class="section" id="the-perceptron-algorithm">
+<h3>The Perceptron algorithm<a class="headerlink" href="#the-perceptron-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>Considered the first learning algorithm, the Perceptron model is a pattern recognition model proposed by <a class="reference internal" href="#rosenblatt1958" id="id3"><span>[ROSENBLATT1958]</span></a>. It’s structured by
+a input layer connecting each input unit to a component from a <span class="math notranslate nohighlight">\(d\)</span>-dimension vector, and a output layer composed of <span class="math notranslate nohighlight">\(m\)</span> units.
+Therefore, it’s an artificial neural network model with only one processing layer. In its simplest form, the Perceptron algorithm is a classification
+algorithm involving only two classes <a class="reference internal" href="#villela2011" id="id4"><span>[VILLELA2011]</span></a>.</p>
+<div class="figure align-center" id="id15">
+<a class="reference internal image-reference" href="../_images/perceptron-topology.png"><img alt="Perceptron model topology." src="../_images/perceptron-topology.png" style="width: 300px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">Perceptron model topology.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
+<p>The algorithm developed by Rosenblatt can be utilized to determine the <span class="math notranslate nohighlight">\(w\)</span> vector in a limited number of iterations, where the number of
+iterations is related to the number of updates of the weights vector. As the weights vector <span class="math notranslate nohighlight">\(w\)</span> is determined by successive corrections in order
+to minimize a loss function, we can say that the separating hyperplane is constructed in a iterative way characterizing an <em>online</em> learning process <a class="reference internal" href="#villela2011" id="id5"><span>[VILLELA2011]</span></a>.</p>
+<div class="literal-block-wrapper docutils container" id="primal-perc">
+<div class="code-block-caption"><span class="caption-number">Listing 1 </span><span class="caption-text">Primal Perceptron example</span><a class="headerlink" href="#primal-perc" title="Permalink to this code">¶</a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;ufjfmltk/ufjfmltk.hpp&gt;</span><span class="cp"></span>
+
+<span class="k">namespace</span> <span class="n">vis</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">visualize</span><span class="p">;</span>
+<span class="k">namespace</span> <span class="n">classifier</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">classifier</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">mltk</span><span class="o">::</span><span class="n">Data</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">(</span><span class="s">&quot;iris.data&quot;</span><span class="p">);</span>
+    <span class="n">vis</span><span class="o">::</span><span class="n">Visualization</span><span class="o">&lt;&gt;</span> <span class="n">vis</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="hll">    <span class="n">classifier</span><span class="o">::</span><span class="n">PerceptronPrimal</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">perceptron</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+</span>
+<span class="hll">    <span class="n">perceptron</span><span class="p">.</span><span class="n">train</span><span class="p">();</span>
+</span>
+    <span class="n">vis</span><span class="p">.</span><span class="n">plot2DwithHyperplane</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">perceptron</span><span class="p">.</span><span class="n">getSolution</span><span class="p">(),</span> <span class="nb">true</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>On <a class="reference internal" href="#primal-perc"><span class="std std-numref">Listing 1</span></a> we can see a simple usage of the <strong>UFJF-MLTK</strong> perceptron implementation in it’s primal form. In this example we first
+load the binary <code class="docutils literal notranslate"><span class="pre">iris.data</span></code> dataset where two of the three original classes were merged into one in order to generate a binary problem, after that we instantiate
+the <code class="docutils literal notranslate"><span class="pre">PerceptronPrimal</span></code> wrapper with the same data type as the dataset and the default parameters. With the object from the algorithm wrapper we call the
+method <code class="docutils literal notranslate"><span class="pre">train</span></code> to learn a model from the data and, finally, the decision boundary is ploted with features 1 and 2 from the dataset and passing the perceptron solution. <a class="reference internal" href="#primal-perc-hyp"><span class="std std-numref">Fig. 16</span></a>
+shows the hyperplane generated by the model.</p>
+<div class="figure align-center" id="primal-perc-hyp">
+<a class="reference internal image-reference" href="../_images/ima-iris-2dsol.png"><img alt="Solution generated from the model trained by the Perceptron classifier." src="../_images/ima-iris-2dsol.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">Solution generated from the model trained by the Perceptron classifier.</span><a class="headerlink" href="#primal-perc-hyp" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="kernel-methods">
+<h2>Kernel methods<a class="headerlink" href="#kernel-methods" title="Permalink to this headline">¶</a></h2>
+<p>Often in real datasets is not possible to do a linear separation of the data. In these cases is necessary
+to utilize more complex functions for labels separation. One way to define a non-linear separator is through
+a mapping function from input space <span class="math notranslate nohighlight">\(X\)</span> to a higher dimensional space where the separation is possible <a class="reference internal" href="#mehryar2018" id="id6"><span>[MEHRYAR2018]</span></a>.</p>
+<p>In models based on a mapping from the fixed non-linear features space <span class="math notranslate nohighlight">\(\Phi(x)\)</span>, the kernel function is defined
+as following <a class="reference internal" href="#bishop2007" id="id7"><span>[BISHOP2007]</span></a>:</p>
+<div class="math notranslate nohighlight" id="equation-kernel-func">
+<span class="eqno">(1)<a class="headerlink" href="#equation-kernel-func" title="Permalink to this equation">¶</a></span>\[k(x, x^{'}) = \Phi(x)^{T}\Phi(x^{'})\]</div>
+<p><a class="reference internal" href="#spirals-data"><span class="std std-numref">Fig. 17</span></a> shows an example of a dataset that isn’t linearly separable. It’s composed of two spirals and as we can see, there isn’t a way to
+draw a line that separates the samples belonging to each spiral. In the <a class="reference external" href="#the-perceptron-dual-algorithm">Dual Perceptron</a> section we’ll see how to solve this problem.</p>
+<div class="figure align-center" id="spirals-data">
+<a class="reference internal image-reference" href="../_images/spirals.png"><img alt="Spirals artificial dataset." src="../_images/spirals.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">Spirals artificial dataset.</span><a class="headerlink" href="#spirals-data" title="Permalink to this image">¶</a></p>
+</div>
+<p>The simplest kernel considering the mapping on Eq. <a class="reference internal" href="#equation-kernel-func">(1)</a> is the linear kernel where
+<span class="math notranslate nohighlight">\(\Phi(x) = x\)</span> and <span class="math notranslate nohighlight">\(k(x, x^{'}) = x^{T}x\)</span>. The kernel concept formulated as a inner product in the
+input space allows the generalization of many known algorithms. The main idea is that if an algorithm is formulated
+in such a way that the input vector <span class="math notranslate nohighlight">\(x\)</span> is presented in a scalar product form, the inner product can be replaced
+by another kernel product. This kind of extension is known as <strong>kernel trick</strong> or kernel substitution <a class="reference internal" href="#bishop2007" id="id8"><span>[BISHOP2007]</span></a>.</p>
+<div class="section" id="the-perceptron-dual-algorithm">
+<h3>The Perceptron dual algorithm<a class="headerlink" href="#the-perceptron-dual-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>The derivation and implementation of the dual form of the Perceptron algorithm will be shown in Section ??, since it’s a more complex topic. For now,
+we’ll use <strong>UFJF-MLTK</strong> implementation to solve the spirals dataset problem presented earlier.</p>
+<div class="literal-block-wrapper docutils container" id="dualperc-spirals">
+<div class="code-block-caption"><span class="caption-number">Listing 2 </span><span class="caption-text">Dual perceptron training on spirals artificial dataset.</span><a class="headerlink" href="#dualperc-spirals" title="Permalink to this code">¶</a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>  <span class="cp">#include</span> <span class="cpf">&lt;ufjfmltk/ufjfmltk.hpp&gt;</span><span class="cp"></span>
+
+  <span class="k">namespace</span> <span class="n">vis</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">visualize</span><span class="p">;</span>
+  <span class="k">namespace</span> <span class="n">classifier</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">classifier</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">auto</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">datasets</span><span class="o">::</span><span class="n">make_spirals</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+      <span class="n">vis</span><span class="o">::</span><span class="n">Visualization</span><span class="o">&lt;&gt;</span> <span class="n">vis</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="hll">      <span class="n">classifier</span><span class="o">::</span><span class="n">PerceptronDual</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">perceptron</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mltk</span><span class="o">::</span><span class="n">KernelType</span><span class="o">::</span><span class="n">GAUSSIAN</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span>
+<span class="hll">      <span class="n">perceptron</span><span class="p">.</span><span class="n">setMaxTime</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span><span class="hll">      <span class="n">perceptron</span><span class="p">.</span><span class="n">train</span><span class="p">();</span>
+</span>
+      <span class="n">vis</span><span class="p">.</span><span class="n">plotDecisionSurface2D</span><span class="p">(</span><span class="n">perceptron</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><a class="reference internal" href="#dualperc-spirals"><span class="std std-numref">Listing 2</span></a> example generates a spirals
+dataset with 500 samples using the <code class="docutils literal notranslate"><span class="pre">make_spirals</span></code> function from <code class="docutils literal notranslate"><span class="pre">mltk::datasets::</span></code> namespace, initialize the visualization object and instantiate the <code class="docutils literal notranslate"><span class="pre">PerceptronDual</span></code>
+wrapper with a gaussian kernel with standard deviation of 1.0 as a kernel parameter. To guarantee the algorithm convergence, the maximum training time of the algorithm
+is set as 500ms, after that, the model is trained and its decision boundary is ploted as in <a class="reference internal" href="#spirals-dualperc-dec"><span class="std std-numref">Fig. 18</span></a>.</p>
+<div class="figure align-center" id="spirals-dualperc-dec">
+<a class="reference internal image-reference" href="../_images/contour-spirals-percdual.png"><img alt="Decision contour surface from Perceptron dual for spirals dataset." src="../_images/contour-spirals-percdual.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Decision contour surface from Perceptron dual for spirals dataset.</span><a class="headerlink" href="#spirals-dualperc-dec" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="multi-class-classification">
+<h2>Multi-class classification<a class="headerlink" href="#multi-class-classification" title="Permalink to this headline">¶</a></h2>
+<p>Until now we’ve been discussing algorithms for classification problems were we have only two labels, but often we face problems where we need
+to choose a class between tens, hundreds or even thousands of labels, like when we need to assign a label to an object in an image. In this chapter, we’ll
+be analysing the problem of multi-class classification learning.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> be the input space and <span class="math notranslate nohighlight">\(\mathcal{Y}\)</span> the output space, and let <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> be an unknown distribution over <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> according
+to which input points are drawn. We’ll be distinguishing between the <em>mono-label</em> (binary classification) and <em>multi-label</em> cases, where we define <span class="math notranslate nohighlight">\(\mathcal{Y}\)</span> as a set
+of discrete values as <span class="math notranslate nohighlight">\(\mathcal{Y} = \{1, \dots, k\}\)</span> and <span class="math notranslate nohighlight">\(\mathcal{Y} = \{+1, -1\}^{k}\)</span> for the <em>mono-label</em> and <em>multi-label</em> cases, respectively. In the <em>mono-label</em> case,
+each sample will be assigned to only one class, while in the <em>multi-label</em> there can be several. The latter can be illustrated as the positive value being the component of a vector
+representing the classes where the example is associated <a class="reference internal" href="#mehryar2018" id="id9"><span>[MEHRYAR2018]</span></a>.</p>
+<p>On both cases, the learner receives labeled samples <span class="math notranslate nohighlight">\(\mathcal{S} = ((x_1, y_1), \dots, (x_m, y_m)) \in (\mathcal{X}, \mathcal{Y})^{m}\)</span> with <span class="math notranslate nohighlight">\(x_1, \dots, x_m\)</span> drawn according
+to <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>, and <span class="math notranslate nohighlight">\(y_i = f(x_i)\)</span> for all <span class="math notranslate nohighlight">\(i \in [1, \dots, m]\)</span>, where <span class="math notranslate nohighlight">\(f:\mathcal{X} \rightarrow \mathcal{Y}\)</span> is the target labeling function. The multi-class classification problem consists
+of using labeled data <span class="math notranslate nohighlight">\(\mathcal{S}\)</span> to find a hypothesis <span class="math notranslate nohighlight">\(h \in H\)</span>, where <span class="math notranslate nohighlight">\(H\)</span> is a hypothesis set containing functions mapping <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> to <span class="math notranslate nohighlight">\(\mathcal{Y}\)</span>. The multi-class classification problem consists on finding the hypothesis <span class="math notranslate nohighlight">\(h \in H\)</span> using the labeled data <span class="math notranslate nohighlight">\(\mathcal{S}\)</span>, such that
+it has smallest generalization error <span class="math notranslate nohighlight">\(R(h)\)</span> with respect to the target <span class="math notranslate nohighlight">\(f\)</span>, where Eq. <a class="reference internal" href="#equation-mono">(2)</a> refers to the <em>mono-label</em> case and Eq. <a class="reference internal" href="#equation-multi">(3)</a> to the <em>multi-label</em> case <a class="reference internal" href="#mehryar2018" id="id10"><span>[MEHRYAR2018]</span></a>.</p>
+<div class="math notranslate nohighlight" id="equation-mono">
+<span class="eqno">(2)<a class="headerlink" href="#equation-mono" title="Permalink to this equation">¶</a></span>\[R(h) = \mathop{\mathbb{E}}_{x \sim \mathcal{D}} [1_{h(x) \neq f(x)}]\]</div>
+<div class="math notranslate nohighlight" id="equation-multi">
+<span class="eqno">(3)<a class="headerlink" href="#equation-multi" title="Permalink to this equation">¶</a></span>\[R(h) = \mathop{\mathbb{E}}_{x \sim \mathcal{D}} [\sum_{l=1}^{k} 1_{[h(x)]_l \neq [f(x)]_l}]\]</div>
+<p>In the following sections we’ll be discussing two algorithms for adapting models for binary classification to the multi-class case, namely One-vs-All and One-vs-One. For that,
+the blobs artificial dataset generated with 50 examples for each of 3 labels. The plot for the dataset data can be seen on <a class="reference internal" href="#blobs-3class"><span class="std std-numref">Fig. 19</span></a>.</p>
+<div class="figure align-center" id="blobs-3class">
+<a class="reference internal image-reference" href="../_images/blobs.png"><img alt="Blobs artificial dataset with 3 labels." src="../_images/blobs.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Blobs artificial dataset.</span><a class="headerlink" href="#blobs-3class" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="the-one-vs-all-algorithm">
+<h3>The One-vs-All algorithm<a class="headerlink" href="#the-one-vs-all-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>This method consists in learning <span class="math notranslate nohighlight">\(k\)</span> binary classifiers <span class="math notranslate nohighlight">\(h_l:\mathcal{X} \rightarrow {-1, +1}\)</span>, <span class="math notranslate nohighlight">\(l \in \mathcal{Y}\)</span>, each one of them
+designed to discriminate one class from all the others. Each <span class="math notranslate nohighlight">\(h_l\)</span>, for any <span class="math notranslate nohighlight">\(l \in \mathcal{Y}\)</span>, is constructed by training a binary classifier after
+relabeling points in class <span class="math notranslate nohighlight">\(l\)</span> with 1 and all the others as -1 on the full sample <span class="math notranslate nohighlight">\(\mathcal{S}\)</span>. The multi-class hypothesis <span class="math notranslate nohighlight">\(h:\mathcal{X} \rightarrow \mathcal{Y}\)</span> defined by the
+One-vs-All (OVA) technique is given by <a class="reference internal" href="#mehryar2018" id="id11"><span>[MEHRYAR2018]</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[\forall x \in \mathcal{X},\; h(x) = \mathop{arg\,max}_{l\in\mathcal{Y}}f_l(x)\]</div>
+<p><a class="reference internal" href="#ova-example"><span class="std std-numref">Listing 3</span></a> shows how to use the <strong>UFJF-MLTK</strong> primal perceptron implementation with the OVA technique to tackle the blobs dataset classification problem.
+As can be seen, the only thing needed to do is to instantiate the <code class="docutils literal notranslate"><span class="pre">OneVsAll</span></code> wrapper and pass the training data and the algorithm wrapper to be used. Something to be noted, is that
+the base algorithm parameters must be passed on its initialization or before calling the OVA <code class="docutils literal notranslate"><span class="pre">train</span></code> method.</p>
+<div class="literal-block-wrapper docutils container" id="ova-example">
+<div class="code-block-caption"><span class="caption-number">Listing 3 </span><span class="caption-text">OVA example with the primal perceptron model.</span><a class="headerlink" href="#ova-example" title="Permalink to this code">¶</a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>  <span class="cp">#include</span> <span class="cpf">&lt;ufjfmltk/ufjfmltk.hpp&gt;</span><span class="cp"></span>
+
+  <span class="k">namespace</span> <span class="n">vis</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">visualize</span><span class="p">;</span>
+  <span class="k">namespace</span> <span class="n">classifier</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">classifier</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">auto</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">datasets</span><span class="o">::</span><span class="n">make_blobs</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="mi">10</span><span class="p">).</span><span class="n">dataset</span><span class="p">;</span>
+      <span class="n">vis</span><span class="o">::</span><span class="n">Visualization</span><span class="o">&lt;&gt;</span> <span class="n">vis</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="hll">      <span class="n">classifier</span><span class="o">::</span><span class="n">PerceptronPrimal</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">perceptron</span><span class="p">;</span>
+</span><span class="hll">      <span class="n">classifier</span><span class="o">::</span><span class="n">OneVsAll</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">ova</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">perceptron</span><span class="p">);</span>
+</span>
+<span class="hll">      <span class="n">ova</span><span class="p">.</span><span class="n">train</span><span class="p">();</span>
+</span>
+      <span class="n">vis</span><span class="p">.</span><span class="n">plotDecisionSurface2D</span><span class="p">(</span><span class="n">ova</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><a class="reference internal" href="#blobs-contour-ova-perc"><span class="std std-numref">Fig. 20</span></a> shows the decision boundary generated after training, it’s possible to note that
+each region drawn accomodates points with the same class, indicating that the technique was effective on learning
+a aproximation of the data distribution. For non linearly separated data, the only changes is that we need
+to use an algorithm capable of learning a non-linear function like the dual perceptron from <code class="docutils literal notranslate"><span class="pre">PerceptronDual</span></code> wrapper.</p>
+<div class="figure align-center" id="blobs-contour-ova-perc">
+<a class="reference internal image-reference" href="../_images/contour-blobs-ova.png"><img alt="Decision contour surface from OVA with perceptron for blobs dataset." src="../_images/contour-blobs-ova.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 20 </span><span class="caption-text">Decision contour surface from OVA with perceptron for blobs dataset.</span><a class="headerlink" href="#blobs-contour-ova-perc" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="the-one-vs-one-algorithm">
+<h3>The One-vs-One algorithm<a class="headerlink" href="#the-one-vs-one-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>The One-vs-One (OVO) technique consists in learning a binary classifier <span class="math notranslate nohighlight">\(h_{ll^{'}}:\mathcal{X}\rightarrow {-1, +1}\)</span> for each pair of distinct classes <span class="math notranslate nohighlight">\((l, l^{'}) \in \mathcal{Y}\)</span>, <span class="math notranslate nohighlight">\(l \neq l^{'}\)</span>,
+discriminating <span class="math notranslate nohighlight">\(l\)</span> and <span class="math notranslate nohighlight">\(l^{'}\)</span>. <span class="math notranslate nohighlight">\(h_{ll^{'}}\)</span> is obtained by training a binary classifier on the sub-sample containing exactly the points labeled as <span class="math notranslate nohighlight">\(l\)</span> and <span class="math notranslate nohighlight">\(l^{'}\)</span>,
+with the value +1 returned for <span class="math notranslate nohighlight">\(l^{'}\)</span> and -1 for <span class="math notranslate nohighlight">\(l\)</span>. For that, it’s needed to train <span class="math notranslate nohighlight">\(\binom{k}{2} = \frac{k(k-1)}{2}\)</span> classifiers, which are combined to define a multi-class classification hypothesis <span class="math notranslate nohighlight">\(h\)</span>
+via majority vote <a class="reference internal" href="#mehryar2018" id="id12"><span>[MEHRYAR2018]</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[\forall x \in \mathcal{X},\; h(x) = \mathop{arg\,max}_{l^{'} \in \mathcal{Y}}| \{l:h_{ll^{'}}(x) = 1\} |\]</div>
+<div class="literal-block-wrapper docutils container" id="ovo-example">
+<div class="code-block-caption"><span class="caption-number">Listing 4 </span><span class="caption-text">OVO example with the primal perceptron model.</span><a class="headerlink" href="#ovo-example" title="Permalink to this code">¶</a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>  <span class="cp">#include</span> <span class="cpf">&lt;ufjfmltk/ufjfmltk.hpp&gt;</span><span class="cp"></span>
+
+  <span class="k">namespace</span> <span class="n">vis</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">visualize</span><span class="p">;</span>
+  <span class="k">namespace</span> <span class="n">classifier</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">classifier</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">auto</span> <span class="n">data</span> <span class="o">=</span> <span class="n">mltk</span><span class="o">::</span><span class="n">datasets</span><span class="o">::</span><span class="n">make_blobs</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="mi">10</span><span class="p">).</span><span class="n">dataset</span><span class="p">;</span>
+      <span class="n">vis</span><span class="o">::</span><span class="n">Visualization</span><span class="o">&lt;&gt;</span> <span class="n">vis</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="hll">      <span class="n">classifier</span><span class="o">::</span><span class="n">PerceptronPrimal</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">perceptron</span><span class="p">;</span>
+</span><span class="hll">      <span class="n">classifier</span><span class="o">::</span><span class="n">OneVsOne</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">ovo</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">perceptron</span><span class="p">);</span>
+</span>
+<span class="hll">      <span class="n">ovo</span><span class="p">.</span><span class="n">train</span><span class="p">();</span>
+</span>
+      <span class="n">vis</span><span class="p">.</span><span class="n">plotDecisionSurface2D</span><span class="p">(</span><span class="n">ovo</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><a class="reference internal" href="#ovo-example"><span class="std std-numref">Listing 4</span></a> is analogous to <a class="reference internal" href="#ova-example"><span class="std std-numref">Listing 3</span></a> except that it’s using the <code class="docutils literal notranslate"><span class="pre">OneVsOne</span></code> wrapper instead of the OVA one.
+As expected, it could also learn the data distribution, this can be seen by the decision boundary shown at <a class="reference internal" href="#blobs-contour-ovo-perc"><span class="std std-numref">Fig. 21</span></a>.</p>
+<div class="figure align-center" id="blobs-contour-ovo-perc">
+<a class="reference internal image-reference" href="../_images/contour-blobs-ovo.png"><img alt="Decision contour surface from OVO with perceptron for blobs dataset." src="../_images/contour-blobs-ovo.png" style="width: 450px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 21 </span><span class="caption-text">Decision contour surface from OVO with perceptron for blobs dataset.</span><a class="headerlink" href="#blobs-contour-ovo-perc" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="model-evaluation-and-selection">
+<h2>Model evaluation and selection<a class="headerlink" href="#model-evaluation-and-selection" title="Permalink to this headline">¶</a></h2>
+<p>So far, you may have been able to build a classifier, but only that is not enough. Supose you’ve trained a model to predict the purchasing behavior of future clients using data from
+previous sales. For that, you need to estimate how accurately your model can be on unseen data, i.e, how accurately your model can predict the behavior of future customers. You may have built
+several classifiers and need to compare how well they can be between each other <a class="reference internal" href="#han2011" id="id13"><span>[HAN2011]</span></a>. This section address metrics that can be used to compare those methods and how reliable this comparison can be.</p>
+<div class="section" id="holdout-method-and-random-subsampling">
+<h3>Holdout method and random subsampling<a class="headerlink" href="#holdout-method-and-random-subsampling" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="cross-validation">
+<h3>Cross-validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h3>
+<dl class="citation">
+<dt class="label" id="skiena2017"><span class="brackets"><a class="fn-backref" href="#id1">SKIENA2017</a></span></dt>
+<dd><p>Skiena, Steven S. The data science design manual. Springer, 2017.</p>
+</dd>
+<dt class="label" id="villela2011"><span class="brackets">VILLELA2011</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>,<a href="#id5">3</a>)</span></dt>
+<dd><p>Villela, Saulo Moraes, et al. “Seleção de Características utilizando Busca Ordenada e um Classificador de Larga Margem.” (2011).</p>
+</dd>
+<dt class="label" id="rosenblatt1958"><span class="brackets"><a class="fn-backref" href="#id3">ROSENBLATT1958</a></span></dt>
+<dd><p>Rosenblatt, Frank. “The perceptron: a probabilistic model for information storage and organization in the brain.” Psychological review 65.6 (1958): 386.</p>
+</dd>
+<dt class="label" id="mehryar2018"><span class="brackets">MEHRYAR2018</span><span class="fn-backref">(<a href="#id6">1</a>,<a href="#id9">2</a>,<a href="#id10">3</a>,<a href="#id11">4</a>,<a href="#id12">5</a>)</span></dt>
+<dd><p>Mohri, Mehryar, Afshin Rostamizadeh, and Ameet Talwalkar. Foundations of machine learning. MIT press, 2018.</p>
+</dd>
+<dt class="label" id="bishop2007"><span class="brackets">BISHOP2007</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id8">2</a>)</span></dt>
+<dd><p>Bishop, Christopher M. “Pattern recognition and machine learning (information science and statistics).” (2007).</p>
+</dd>
+<dt class="label" id="han2011"><span class="brackets"><a class="fn-backref" href="#id13">HAN2011</a></span></dt>
+<dd><p>Han, Jiawei, Jian Pei, and Micheline Kamber. Data mining: concepts and techniques. Elsevier, 2011.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../contribute/extending.html" class="btn btn-neutral float-right" title="Extending the framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="datamanagement.html" class="btn btn-neutral float-left" title="Data management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Mateus Coutinho Marim.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
