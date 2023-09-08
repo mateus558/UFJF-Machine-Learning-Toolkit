@@ -800,7 +800,7 @@ namespace mltk::visualize{
 
         ofs.close();
 
-        cmd += "\'" + path.string() + "\' using 1:2:3 with linespoints";
+        cmd += "\'" + path.string() + "\' using 1:2:3 with points";
 
         cmd = execute_command(cmd);
         return prepareScript(cmd);
