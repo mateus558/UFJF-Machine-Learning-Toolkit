@@ -8,6 +8,8 @@
 #include "PrimalClassifier.hpp"
 #include "ufjfmltk/core/DistanceMetric.hpp"
 #include <assert.h>
+#include <execution>
+
 
 namespace mltk{
         namespace classifier {
@@ -87,8 +89,8 @@ namespace mltk{
                     }
                     i++;
                 });
-                this->pred_prob = max_prob;
-                return classes[max_index];
+                this->pred_prob = (1-max_prob > 1E-7) ? 1: max_prob;
+                return classes[max_index]; 
             }
 
             template<typename T, typename Callable>

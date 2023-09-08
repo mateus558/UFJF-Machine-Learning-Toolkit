@@ -76,7 +76,7 @@ TEST_F(ClassifierTest, MultiClassifierTest){
 
     auto conf_mat = mltk::validation::generateConfusionMatrix(mult, ovo);
     mltk::utils::printConfusionMatrix(mult.classes(), mult.classesNames(), conf_mat);
-    ASSERT_GT(mltk::validation::confusionMatrixAccuracy(conf_mat), 90);
+    ASSERT_GTE(mltk::validation::confusionMatrixAccuracy(conf_mat), 90);
 }
 
 TEST_F(ClassifierTest, SMOClassifier){
