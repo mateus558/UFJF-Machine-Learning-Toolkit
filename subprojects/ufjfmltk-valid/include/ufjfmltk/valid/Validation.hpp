@@ -425,7 +425,9 @@ namespace mltk::validation {
             result.test.insertPoint(point);
         }
 
+        result.train.setName(data.name()+"_train");
         result.train.shuffle(seed);
+        result.test.setName(data.name()+"_test");
         result.test.shuffle(seed);
 
         return result;
