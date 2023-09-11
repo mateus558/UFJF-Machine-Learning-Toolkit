@@ -38,7 +38,7 @@ endif(CODE_COVERAGE)
 option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" OFF)
 
 # Build test related commands?
-option(ENABLE_TESTING "Create tests using CMake" ON)
+option(ENABLE_TESTING "Create tests using CMake" OFF)
 
 # Tells wheter a module should be compiled
 option(BUILD_LIBCLASSIFIER "Tells if the classifier module must be built" ON)
@@ -86,13 +86,13 @@ message(STATUS "Created target ${PROJECT_NAME} for export ${PROJECT_NAME}.")
 
 
 # Add integration tests (unit tests for each library should be in each sublibrary directory).
-#if(ENABLE_TESTING)
+if(ENABLE_TESTING)
     message(STATUS "Creating tests for ${PROJECT_NAME}.")
 
     set(DATA_PATH ${CMAKE_CURRENT_SOURCE_DIR}/datasets)
     enable_testing()
     add_subdirectory(tests)
-#endif()
+endif()
 
 include(InstallBasicPackageFiles)
 install_basic_package_files(${PROJECT_NAME}
@@ -113,3 +113,6 @@ add_subdirectory(docs)
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     add_subdirectory(packaging) # include(CPack) will happen in here
 endif()
+
+add_executable(teste main.cpp)
+target_link_libraries(teste ${PROJECT_NAME})

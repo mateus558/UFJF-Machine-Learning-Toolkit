@@ -53,6 +53,13 @@ namespace ensemble{
                 Ensemble::learner = learner;
             }
 
+            void setSamples(DataPointer<T> samples) override {
+                Ensemble::samples = samples;
+                for (auto &m_learner : m_learners) {
+                    m_learner->setSamples(samples);
+                }
+            }
+
             /**
              * \brief setCommitteeSize Set the learner committee size.
              * \return void
