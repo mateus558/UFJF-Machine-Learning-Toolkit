@@ -8,7 +8,6 @@
 #include "PrimalClassifier.hpp"
 #include "ufjfmltk/core/DistanceMetric.hpp"
 #include <assert.h>
-#include <execution>
 
 
 namespace mltk{
