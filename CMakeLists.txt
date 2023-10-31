@@ -48,6 +48,8 @@ option(BUILD_LIBCLUSTERER "Tells if the clusterer module must be built" ON)
 option(BUILD_LIBFEATSELECT "Tells if the feature selection module must be built" ON)
 option(BUILD_LIBVALIDATION "Tells if the validation module must be built" ON)
 
+#set(ENABLE_TESTING ON)
+
 # Enable RPATH support for installed binaries and libraries
 include(AddInstallRPATHSupport)
 add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_FULL_BINDIR}"
@@ -114,5 +116,5 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     add_subdirectory(packaging) # include(CPack) will happen in here
 endif()
 
-add_executable(teste main.cpp)
-target_link_libraries(teste ${PROJECT_NAME})
+# add_executable(teste1 main.cpp)
+# target_link_libraries(teste1 ${PROJECT_NAME})

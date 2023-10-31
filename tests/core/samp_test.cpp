@@ -35,3 +35,13 @@ TEST_F(SamplingTest, SMOTETest) {
     ASSERT_EQ(bsmote_bin.size(), 300);
 
 }
+
+TEST_F(SamplingTest, PartTrainTestTest) {
+    auto parted = mltk::validation::partTrainTest(bin, 3, true, true);
+
+    std::cout << parted.train << std::endl;
+
+    std::cout << "-------------------------------------------"  << std::endl;
+
+    std::cout << parted.test << std::endl;
+}

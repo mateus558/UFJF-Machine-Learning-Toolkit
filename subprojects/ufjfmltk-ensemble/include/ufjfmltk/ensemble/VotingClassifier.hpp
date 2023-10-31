@@ -38,13 +38,11 @@ namespace mltk{
             double evaluate(const Point<T> &p, bool raw_value = false) override {
                 auto _classes = this->samples->classes();
                 mltk::Point<double> votes(_classes.size(), 0.0);
-
                 if (voting_type == "soft") {
                     assert(this->weights.size() > 0);
                 } else {
                     this->weights = Point<double>(this->m_learners.size(), 1);
                 }
-
                 for (size_t i = 0; i < this->m_learners.size(); i++) {
                     auto pred = this->m_learners[i]->evaluate(p);
                     // get prediction position

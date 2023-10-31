@@ -374,7 +374,7 @@ namespace mltk{
          * @brief Split the dataset by its labels. Only valid for classification datasets.
          * @return Vector containing Data split by classes.
          */
-        std::vector< Data< T > > splitByClasses();
+        std::vector< Data< T > > splitByClasses(bool keepIndex = false);
         /**
          * @brief Split the data by a given size.
          * @param split_size Number of samples on each split.
@@ -382,7 +382,7 @@ namespace mltk{
          * @param seed Random generator seed.
          * @return Vector containing the data split.
          */
-        std::vector< Data< T > > splitSample(const std::size_t &split_size, bool stratified = true, size_t seed = 0);
+        std::vector< Data< T > > splitSample(const std::size_t &split_size, bool stratified = true, bool keepIndex = false, size_t seed = 0);
         /**
          * @brief Returns a Data object with selected features.
          * @param feats Features to be selected from the dataset.
@@ -415,19 +415,19 @@ namespace mltk{
          * \param _index Index of the point to be added.
          * \return bool
          */
-        bool insertPoint (const Data< T >& samples, int _index);
+        bool insertPoint (const Data< T >& samples, int _index, bool keepIndex = false);
         /**
          * \brief Insert a point to the end of points vector.
          * \param p  Point to be inserted.
          * \return bool
          */
-        bool insertPoint (std::shared_ptr<Point< T > > p);
+        bool insertPoint (std::shared_ptr<Point< T > > p, bool keepIndex = false);
         /**
          * \brief Insert a point to the end of points vector.
          * \param p  Point to be inserted.
          * \return bool
          */
-        bool insertPoint (Point< T > &p);
+        bool insertPoint (Point< T > &p, bool keepIndex = false);
         /**
          * \brief Remove several points from the sample.
          * \param ids Ids of the points to be removed (must be sorted).
@@ -445,7 +445,7 @@ namespace mltk{
          * @param ins_feat Array with features that will be in the Data object.
          * @return Data If the object is empty something wrong happened.
          */
-        Data< T > insertFeatures(std::vector<int> ins_feat);
+        Data< T > insertFeatures(std::vector<int> ins_feat, bool keepIndex = false);
         /**
          * \brief Remove several features from the sample.
          * \param feats Names of the features to be removed (must be sorted).
@@ -1257,7 +1257,7 @@ namespace mltk{
     }
 
     template<typename T>
-    mltk::Data< T > mltk::Data< T >::insertFeatures(std::vector<int> ins_feat){
+    mltk::Data< T > mltk::Data< T >::insertFeatures(std::vector<int> ins_feat, bool keepIndex){
         size_t i, j, s, offset = 0, fsize = ins_feat.size();
         bool saveflag = false;
         std::vector<int> new_fnames(fsize, 0);
@@ -1301,7 +1301,7 @@ namespace mltk{
                 smout->clear();
                 return *smout;
             }
-            smout->insertPoint(p);
+            smout->insertPoint(p, keepIndex);
         }
         smout->setFeaturesNames(new_fnames);
 
@@ -1310,17 +1310,14 @@ namespace mltk{
 
     template<typename T>
     void mltk::Data< T >::shuffle(const size_t &seed){
-        std::mt19937 gen(seed);
-        std::uniform_int_distribution<size_t> dist(0, m_size - 1);
+        std::mt19937 gen((seed == 0) ? std::random_device{}() : seed);
+        std::shuffle(m_points.begin(), m_points.end(), gen);
 
-        for(auto it = m_points.begin(); it != m_points.end(); it++){
-            auto pos = m_points.begin() + dist(gen);
-            auto temp = (*it)->Id();
-            (*it)->Id() = (*pos)->Id();
-            (*pos)->Id() = temp;
-            std::iter_swap(it, pos);
+        for(size_t i = 0; i < m_size; i++){
+            index[i] = i;
         }
     }
+
     template < typename T >
     Data<T> Data<T>::removeFeatures(std::vector<int> feats, int fsize) const {
         auto data_copy = this->copy();
@@ -1400,19 +1397,19 @@ namespace mltk{
     }
 
     template<typename T>
-    bool mltk::Data< T >::insertPoint(const Data< T >& samples, int _index){
+    bool mltk::Data< T >::insertPoint(const Data< T >& samples, int _index, bool keepIndex){
         if(_index > samples.size() - 1){
             std::cerr << "Index out of bounds. (insertPoint)" << std::endl;
             return false;
         }
 
-        insertPoint(samples.point(_index));
+        insertPoint(samples.point(_index), keepIndex);
 
         return true;
     }
 
     template<typename T>
-    bool mltk::Data< T >::insertPoint(std::shared_ptr<Point< T > > p){
+    bool mltk::Data< T >::insertPoint(std::shared_ptr<Point< T > > p, bool keepIndex){
         //Dimension verification
         if(m_size > 0 && int(p->X().size()) > this->dim()){
             std::cerr << "Point with dimension different from the data. (insertPoint)" << std::endl;
@@ -1425,6 +1422,7 @@ namespace mltk{
             std::iota(this->fnames.begin(), this->fnames.end(), 1);
         }
         //Insert the point p at the end of the points vector
+        
         m_points.insert(m_points.end(), p);
         m_size++;
         if(is_empty) is_empty = false;
@@ -1440,16 +1438,19 @@ namespace mltk{
                 this->class_distribution[int(class_pos - this->m_classes.begin())]++;
             }
         }
-        //Give a new id to the point equal to the previous point id plus 1
-        m_points[m_size - 1]->Id() = m_size;
-        index.push_back(m_size - 1);
 
+        //Give a new id to the point equal to the previous point id plus 1
+        size_t last_pos = m_size - 1;
+        if(!keepIndex){
+            m_points[last_pos]->Id() = m_size;
+        }
+        index.push_back(m_points.size()-1);
         return true;
     }
 
     template<typename T>
-    bool mltk::Data< T >::insertPoint(Point< T > &p){
-        return this->insertPoint(std::make_shared<Point< T > >(p));
+    bool mltk::Data< T >::insertPoint(Point< T > &p, bool keepIndex){
+        return this->insertPoint(std::make_shared<Point< T > >(p), keepIndex);
     }
 
     template<typename T>
@@ -1568,17 +1569,6 @@ namespace mltk{
 
         m_size += size1;
 
-        // if(!index.empty() && !index1.empty()){
-        //     index.resize(m_size, 0);
-        //     for(i = 0; i < antsize; i++) index[i] = antindex[i];
-        //     for(i = 0; i < size1; i++) index[i + antsize] = index1[i];
-        // }
-
-        // if(index.empty()){
-        //     index.resize(m_size);
-        //     iota(index.begin(), index.end(), 0);
-        // }
-
         m_points.resize(m_size);
 
         for(i = antsize, j = 0; i < m_size && j < size1; i++, j++){
@@ -1586,10 +1576,11 @@ namespace mltk{
             m_points[i]->X() = points1[j]->X();
             m_points[i]->Y() = points1[j]->Y();
             m_points[i]->Alpha() = points1[j]->Alpha();
-            m_points[i]->Id() = m_points[j]->Id();
+            m_points[i]->Id() = points1[j]->Id();
         }
-        index.resize(m_size);
-        iota(index.begin(), index.end(), 0);
+
+        this->resetIndex();
+
         std::vector<int> diff, classes1 = data.classes(), classes = m_classes;
         std::sort(classes.begin(), classes.end());
         std::sort(classes1.begin(), classes1.end());
@@ -1728,7 +1719,7 @@ namespace mltk{
 
     template<typename T>
     void mltk::Data< T >::resetIndex(){
-        index.assign(m_size, 0);
+        index.assign(m_points.size(), 0);
         iota(index.begin(), index.end(), 0);
     }
 
@@ -1823,17 +1814,18 @@ namespace mltk{
     }
 
     template<typename T>
-    std::vector<Data<T>> Data<T>::splitSample(const std::size_t &split_size, bool stratified, const size_t seed) {
+    std::vector<Data<T>> Data<T>::splitSample(const std::size_t &split_size, bool stratified, bool keepIndex, const size_t seed) {
         std::vector<Data<T>> split(split_size);
-        size_t _seed = (seed == 0) ? std::chrono::system_clock::now().time_since_epoch().count() : seed;
+        size_t _seed = (seed == 0) ? std::random_device{}() : seed;
         auto new_size = std::floor(double(size()) / split_size);
+        
         if(this->isClassification() && stratified){
             this->computeClassesDistribution();
             Point< double > dist(class_distribution.size());
             for(size_t i = 0; i < class_distribution.size(); i++){
                 dist[i] = std::ceil((class_distribution[i]/double(size()))*new_size);
             }
-            auto classes_split = this->splitByClasses();
+            auto classes_split = this->splitByClasses(keepIndex);
             std::sort(classes_split.begin(), classes_split.end(), [](const Data<T> &a, const Data<T> &b){
                 return a.size() > b.size();
             });
@@ -1862,7 +1854,7 @@ namespace mltk{
                     auto count = split[l].classesDistribution();
                     //if(!count.empty()) std::cout << mltk::Point<size_t>(count) << " " << dist[j] << std::endl;
                     if((split[l].classes().empty() || count.empty() || count[j] < dist[j]) || split[j].size() < new_size || tries == split_size-1){
-                        split[l].insertPoint(classes_split[j][k]);
+                        split[l].insertPoint(classes_split[j][k], keepIndex);
                         try_next = false;
                         tries = 0;
                     }else{
@@ -1887,7 +1879,7 @@ namespace mltk{
             size_t counter = 0;
             for(size_t i = 0; i < split.size(); i++){
                 for(size_t j = 0; j < new_size; j++){
-                    split[i].insertPoint(data[counter]);
+                    split[i].insertPoint(data[counter], keepIndex);
                     counter++;
                     if(counter == this->size()){
                         return split;
@@ -1929,14 +1921,14 @@ namespace mltk{
     }
 
     template<typename T>
-    std::vector<Data<T>> Data<T>::splitByClasses() {
+    std::vector<Data<T>> Data<T>::splitByClasses(bool keepIndex) {
         int last_c = std::numeric_limits<int>::max();
         std::vector<Data<T>> class_split(m_classes.size());
 
         for(auto it = m_points.begin(); it != m_points.end(); it++){
             auto point = *(*it);
             auto class_pos = std::find(m_classes.begin(), m_classes.end(), int(point.Y())) - m_classes.begin();
-            class_split[class_pos].insertPoint(*it);
+            class_split[class_pos].insertPoint(*it, keepIndex);
         }
         for(auto &data: class_split){
             data.computeClassesDistribution();
@@ -1998,9 +1990,7 @@ namespace mltk{
             }
             i++;
         }
-        std::cout << mltk::Point<size_t>(feats) << std::endl;
-        std::cout << mltk::Point<int>(fnames) << std::endl;
-        std::cout << mltk::Point<size_t>(feats_pos) << std::endl;
+
         assert((j == feats.size()) && "There are non-existing features on remove set.");
         for(auto const& point: this->m_points){
             auto new_point = make_point<T>(_size-invalid);

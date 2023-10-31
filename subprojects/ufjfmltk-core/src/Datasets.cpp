@@ -29,6 +29,17 @@ namespace mltk::datasets {
         }
         if (shuffle) dataset.shuffle(seed);
 
+        std::vector<int> newIndex;
+        
+        newIndex.reserve(dataset.points().size());
+
+        for(size_t idx = 0; idx < dataset.points().size(); idx++){
+            dataset[idx]->Id() = idx+1;
+            newIndex.push_back(idx);
+        }
+
+        dataset.setIndex(newIndex);
+
         return dataset;
     }
 
@@ -79,6 +90,18 @@ namespace mltk::datasets {
             }
         }
         if (shuffle) dataset.shuffle(seed);
+
+        std::vector<int> newIndex;
+        
+        newIndex.reserve(dataset.points().size());
+
+        for(size_t idx = 0; idx < dataset.points().size(); idx++){
+            dataset[idx]->Id() = idx+1;
+            newIndex.push_back(idx);
+        }
+
+        dataset.setIndex(newIndex);
+
         pair.dataset = dataset;
         pair.centers = centers;
         return pair;

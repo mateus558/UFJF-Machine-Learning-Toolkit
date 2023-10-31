@@ -194,6 +194,7 @@ namespace mltk{
                 for (i = 0; i < size; ++i) index[i] = i;
             }
             this->samples->setIndex(index);
+            //this->samples->setIndex(index);
 
             //Initializing alpha
             for (i = 0; i < size; ++i) { (*this->samples)[i]->Alpha() = 0.0; }
@@ -351,10 +352,10 @@ namespace mltk{
             int i;
             size_t dim = this->solution.w.size();
 
-            // if(p.X().size() != dim){
-            //     cerr << "The point must have the same dimension of the feature set! (" << p.X().size() << "," << dim << ")" << endl;
-            //     return 0;
-            // }
+            if(p.size() != dim){
+                std::cerr << "The point must have the same dimension of the feature set! (" << p.X().size() << "," << dim << ")" << std::endl;
+                return 0;
+            }
 
             for (func = this->solution.bias, i = 0; i < dim; i++) {
                 func += this->solution.w[i] * p[i];
@@ -403,15 +404,14 @@ namespace mltk{
                 for (e = 0, i = 0; i < size; ++i) {
                     //shuffling data r = i + rand()%(size-i); j = index[i]; idx = index[i] = index[r]; index[r] = j;
                     idx = index[i];
-                    //cout << idx << endl;
                     x = (*this->samples)[idx]->X();
                     y = (*this->samples)[idx]->Y();
-                    //if(i == 100) return 1;
+
                     //calculating function
                     for (func[idx] = bias, j = 0; j < dim; ++j) {
                         func[idx] += this->w[j] * x[j];
                     }
-                    //cout << "funcidx: " << y*func[idx] << " marg: " << this->gamma*norm - points[idx]->Alpha()*this->flexible <<"\n ";
+
                     //Checking if the point is a mistake
                     if (y * func[idx] <= this->gamma * norm - (*this->samples)[idx]->Alpha() * this->flexible) {
                         lambda = (norm) ? (1 - this->rate * this->gamma / norm) : 1;
@@ -602,8 +602,9 @@ namespace mltk{
             stime = this->timer.elapsed();
 
             while (percDual.train()) {
+                points = percDual.getSamples()->points();
                 stime += percDual.getElapsedTime();
-
+                this->samples->setIndex(percDual.getSamples()->getIndex());
                 //Finding minimum and maximum functional values
                 this->ctot = percDual.getCtot();
                 this->steps = percDual.getSteps();

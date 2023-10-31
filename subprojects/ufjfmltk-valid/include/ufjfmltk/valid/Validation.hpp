@@ -162,7 +162,7 @@ namespace mltk::validation {
         * \return A pair containing the training and test data.
         */
         template<typename T>
-        TrainTestPair<T> partTrainTest(Data<T> &data, size_t fold, bool stratified=true, size_t seed=0);
+        TrainTestPair<T> partTrainTest(Data<T> &data, size_t fold, bool stratified=true, bool keepIndex=true, size_t seed=0);
 
         /**
          * \brief Executes k-fold stratified cross-validation
@@ -198,7 +198,8 @@ namespace mltk::validation {
     template <typename T>
     ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t qtde,
                             const size_t fold, bool stratified, const size_t seed, const int verbose){
-        auto valid_pair = partTrainTest(samples, fold, seed);
+        size_t _seed = (seed == 0) ? std::random_device{}() : seed;
+        auto valid_pair = partTrainTest(samples, fold, _seed);
         int i;
         size_t fp = 0, fn = 0, tp = 0, tn = 0, erro=0;
         double error = 0, errocross = 0, func = 0.0, margin = 0, bias;
@@ -214,7 +215,7 @@ namespace mltk::validation {
             for(errocross = 0, i = 0; i < qtde; i++)
             {
                 if(verbose) std::cout << "\nExecucao " << i + 1 << " / " << qtde << ":\n";
-                errocross += kfold(samples, classifier, fold, stratified, seed + i, verbose).error;
+                errocross += kfold(samples, classifier, fold, stratified, _seed + i, verbose).error;
             }
             if(verbose >= 1)std::cout << "\n\nErro " << fold << "-Fold Cross Validation: " << errocross/qtde << "%\n";
             solution.accuracy = 100.0 - errocross/qtde;
@@ -311,7 +312,7 @@ namespace mltk::validation {
         double error = 0.0;
         std::vector<double> error_arr(fold);
         auto classes = sample.classes();
-        size_t _seed = (seed == 0) ? std::chrono::system_clock::now().time_since_epoch().count() : seed;
+        size_t _seed = (seed == 0) ? std::random_device{}() : seed;
         sample.shuffle(_seed);
         std::vector<TrainTestPair<T>> folds = kfoldsplit(sample, fold, stratified, seed);
         ValidationReport solution;
@@ -320,7 +321,7 @@ namespace mltk::validation {
         for(size_t fp = 0, fn = 0, tp = 0, tn = 0, j = 0; j < fold; ++j){
             auto _test_sample = folds[j].test;
             auto _train_sample = folds[j].train;
-
+            
             if(verbose){
                 std::cout << "\nCross-Validation " << j + 1 << ": \n";
                 std::cout << "Train points: " << _train_sample.size() << std::endl;
@@ -408,27 +409,29 @@ namespace mltk::validation {
     }
 
     template<typename T>
-    TrainTestPair<T> partTrainTest(Data<T> &data, const size_t fold, bool stratified, const size_t seed) {
-        std::vector<Data<T> > folds = data.splitSample(fold, stratified, seed);
+    TrainTestPair<T> partTrainTest(Data<T> &data, const size_t fold, bool stratified, bool keepIndex, const size_t seed) {
+        mltk::Data<T> samples = data.copy();
+        size_t _seed = (seed == 0) ? std::random_device{}() : seed;
+        std::vector<Data<T> > folds = samples.splitSample(fold, stratified, keepIndex, _seed);
         TrainTestPair<T> result;
 
         for(auto it = folds.begin(); it != folds.end()-1; it++){
             auto _data = *it;
             for(auto p = _data.begin(); p != _data.end(); p++){
                 auto point = *p;
-                result.train.insertPoint(point);
+                result.train.insertPoint(point, keepIndex);
             }
         }
         size_t last_fold = folds.size()-1;
         for(auto it = folds[last_fold].begin(); it != folds[last_fold].end(); it++){
             auto point = *it;
-            result.test.insertPoint(point);
+            result.test.insertPoint(point, keepIndex);
         }
 
         result.train.setName(data.name()+"_train");
-        result.train.shuffle(seed);
+        result.train.shuffle(_seed);
         result.test.setName(data.name()+"_test");
-        result.test.shuffle(seed);
+        result.test.shuffle(_seed);
 
         return result;
     }
@@ -437,33 +440,26 @@ namespace mltk::validation {
     std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, const size_t qtde,
                                              bool stratified, const size_t seed) {
         std::vector<TrainTestPair<T> > kkfold_split;
+        size_t _seed = (seed == 0) ? std::random_device{}() : seed;
 
         kkfold_split.reserve(qtde*folds);
         for(int i = 0; i < qtde; i++){
-            auto kfold_split = kfoldsplit(samples, folds, stratified, seed+i);
+            auto kfold_split = kfoldsplit(samples, folds, stratified, _seed+i);
             kkfold_split.insert(kkfold_split.end(), kfold_split.begin(), kfold_split.end());
         }
         return kkfold_split;
     }
 
     template< typename T >
-    std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, bool stratified,
+    std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &data, const size_t folds, bool stratified,
                                              const size_t seed){
-        // auto classes_split = samples.splitByClasses();
-        // for(auto data: classes_split){
-        //     std::cout << data.size() << std::endl;
-        // }
-        size_t _seed = (seed == 0) ? std::chrono::system_clock::now().time_since_epoch().count() : seed;
+        mltk::Data<T> samples = data.copy();
+        size_t _seed = (seed == 0) ? std::random_device{}() : seed;
+
         samples.shuffle(_seed);
-        std::vector<Data<T> > data_folds = samples.splitSample(folds, stratified, seed);
-        std::vector<TrainTestPair<T> > kfold_split;
         
-        // for(auto class_split: classes_split){
-        //     std::cout << "samples in class: " << class_split.size() << std::endl;
-        //     for(int i = 0, j = 0; i < class_split.size(); i++, j = (j+1)%folds){
-        //         data_folds[j].insertPoint(class_split[i]);
-        //     }
-        // }
+        std::vector<Data<T> > data_folds = samples.splitSample(folds, stratified, true, seed);
+        std::vector<TrainTestPair<T> > kfold_split;
 
         kfold_split.reserve(folds);
         for(int i = 0; i < folds; i++){
@@ -482,6 +478,8 @@ namespace mltk::validation {
             auto test = data_folds[(next_j)%folds];
             train.shuffle(_seed+i);
             test.shuffle(_seed+i);
+            train.resetIndex();
+            test.resetIndex();
             //std::cout <<" " << next_j<< std::endl;
             kfold_split.emplace_back(train, test);
         }
@@ -585,11 +583,6 @@ namespace mltk::validation {
             }
             confusion_m[idp][idy]++;
         }
-
-//            for(i = 0; i < confusion_m.size(); i++){
-//                acc += *std::max_element(confusion_m[i].begin(), confusion_m[i].end());
-//            }
-//            std::cout << "Purity: " << acc / size << std::endl;
         return confusion_m;
     }
 
