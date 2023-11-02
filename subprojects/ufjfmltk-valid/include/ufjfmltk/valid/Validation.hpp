@@ -412,7 +412,7 @@ namespace mltk::validation {
     TrainTestPair<T> partTrainTest(Data<T> &data, const size_t fold, bool stratified, bool keepIndex, const size_t seed) {
         mltk::Data<T> samples = data.copy();
         size_t _seed = (seed == 0) ? std::random_device{}() : seed;
-        std::vector<Data<T> > folds = samples.splitSample(fold, stratified, keepIndex, _seed);
+        std::vector<Data<T> > folds = samples.splitSample(fold, stratified, keepIndex, seed);
         TrainTestPair<T> result;
 
         for(auto it = folds.begin(); it != folds.end()-1; it++){
@@ -455,32 +455,32 @@ namespace mltk::validation {
                                              const size_t seed){
         mltk::Data<T> samples = data.copy();
         size_t _seed = (seed == 0) ? std::random_device{}() : seed;
-
-        samples.shuffle(_seed);
         
         std::vector<Data<T> > data_folds = samples.splitSample(folds, stratified, true, seed);
         std::vector<TrainTestPair<T> > kfold_split;
 
         kfold_split.reserve(folds);
+
         for(int i = 0; i < folds; i++){
-            //std::cout << "fold " << i << ": " << mltk::Point<size_t>(data_folds[i].classesDistribution()) << std::endl;
             Data<T> train;
             train.join(data_folds[i]);
-            //std::cout << data_folds[i] << std::endl;
-            //std::cout << i;
+
             int gone = 0;
-            int next_j=(i+2)%folds;
-            for(int j = (i+1)%folds; gone < folds-2; gone++, j = (j+1)%folds){
-                //std::cout  << " " << j%folds;
+            int next_j=(i+2) % folds;
+
+            for(int j = (i+1) % folds; gone < folds-2; gone++, j = (j+1) % folds){
                 train.join(data_folds[j]);
-                next_j = (j+1)%folds;
+                next_j = (j+1) % folds;
             }
+
             auto test = data_folds[(next_j)%folds];
+
             train.shuffle(_seed+i);
             test.shuffle(_seed+i);
+
             train.resetIndex();
             test.resetIndex();
-            //std::cout <<" " << next_j<< std::endl;
+
             kfold_split.emplace_back(train, test);
         }
         return kfold_split;
