@@ -46,6 +46,7 @@
 #include <random>
 #include <set>
 #include <chrono>
+#include <map>
 
 #include "Point.hpp"
 #include "Statistics.hpp"
@@ -383,6 +384,8 @@ namespace mltk{
          * @return Vector containing the data split.
          */
         std::vector< Data< T > > splitSample(const std::size_t &split_size, bool stratified = true, bool keepIndex = false, size_t seed = 0);
+        //std::vector< Data< T > > splitSample1(const std::size_t &split_size, bool stratified = true, bool keepIndex = false, size_t seed = 0);
+
         /**
          * @brief Returns a Data object with selected features.
          * @param feats Features to be selected from the dataset.
@@ -427,7 +430,7 @@ namespace mltk{
          * \param p  Point to be inserted.
          * \return bool
          */
-        bool insertPoint (Point< T > &p, bool keepIndex = false);
+        bool insertPoint (Point< T > p, bool keepIndex = false);
         /**
          * \brief Remove several points from the sample.
          * \param ids Ids of the points to be removed (must be sorted).
@@ -1449,7 +1452,7 @@ namespace mltk{
     }
 
     template<typename T>
-    bool mltk::Data< T >::insertPoint(Point< T > &p, bool keepIndex){
+    bool mltk::Data< T >::insertPoint(Point< T > p, bool keepIndex){
         return this->insertPoint(std::make_shared<Point< T > >(p), keepIndex);
     }
 
@@ -1815,80 +1818,129 @@ namespace mltk{
 
     template<typename T>
     std::vector<Data<T>> Data<T>::splitSample(const std::size_t &split_size, bool stratified, bool keepIndex, const size_t seed) {
-        std::vector<Data<T>> split(split_size);
+        std::multimap<std::string, mltk::PointPointer<T>> classified_objects;
+        std::map<std::string, int> label_map; 
+        std::vector<mltk::Data<T>> partitions(split_size);
+        mltk::Data<T> data = copy();
+        size_t new_size = std::floor(double(size()) / split_size);
         size_t _seed = (seed == 0) ? std::random_device{}() : seed;
-        auto new_size = std::floor(double(size()) / split_size);
-        
+
+        data.shuffle(_seed);
+
         if(this->isClassification() && stratified){
-            this->computeClassesDistribution();
-            Point< double > dist(class_distribution.size());
-            for(size_t i = 0; i < class_distribution.size(); i++){
-                dist[i] = std::ceil((class_distribution[i]/double(size()))*new_size);
+            for (const mltk::PointPointer<T> obj : data.points()) {
+                classified_objects.insert({std::to_string(obj->Y()), obj});
             }
-            auto classes_split = this->splitByClasses(keepIndex);
-            std::sort(classes_split.begin(), classes_split.end(), [](const Data<T> &a, const Data<T> &b){
-                return a.size() > b.size();
-            });
-            bool try_next = false;
-            int tries = 0;
-            for(int i = 0, j = 0, k = 0, l = split_size-1; j < classes_split.size(), i < size(); i++, k++, l--){
-                if(l < 0){
-                    l = split_size-1;
-                }
-                //std::cout << i << " " << j << " " << k << " " << l << std::endl;
-                // std::cout<< split[l].size() << " " <<new_size << " " << dist << " " << classes_split[j].size() << std::endl;
-                // for(auto slice: split){
-                //     auto slice_dist = mltk::Point<size_t>(slice.classesDistribution());
-                //     if(!slice_dist.empty()) std::cout << " " << slice.size() << " " << slice_dist;
-                // }
-                //std::cout << std::endl;
-                if(split[l].size() == new_size && !try_next){
-                    i--;
-                    k--;
-                    try_next = true;
-                    tries++;
-                    continue;
-                }
-                if(k < classes_split[j].size()){
-                    int current_class = classes_split[j][k]->Y();
-                    auto count = split[l].classesDistribution();
-                    //if(!count.empty()) std::cout << mltk::Point<size_t>(count) << " " << dist[j] << std::endl;
-                    if((split[l].classes().empty() || count.empty() || count[j] < dist[j]) || split[j].size() < new_size || tries == split_size-1){
-                        split[l].insertPoint(classes_split[j][k], keepIndex);
-                        try_next = false;
-                        tries = 0;
-                    }else{
-                        try_next = true;
-                        tries++;
-                        i--;
-                        k--;
-                    }
-                }else{
-                    i--;
-                    l++;
-                    j++;
-                    k = -1;
-                }
+
+            int i = 0;
+            for(const auto& label: data.classes()) {
+                label_map.insert({std::to_string(label), i});
+                i++;
             }
-            for(size_t i = 0; i < split.size(); i++){
-                split[i].shuffle(_seed+i);
+
+            // To keep track which partition should be filled next 
+            std::vector<int> fillIndex(split_size, 0);
+
+            // Smarter distribution
+            for (const auto pair : classified_objects) {
+                // Calculate the index based on respective label's count
+                int i = fillIndex[label_map[pair.first]] % split_size;
+                fillIndex[label_map[pair.first]]++;
+                partitions[i].insertPoint(pair.second, keepIndex);
             }
-        }else{
-            auto data = this->copy();
-            data.shuffle(_seed);
-            size_t counter = 0;
-            for(size_t i = 0; i < split.size(); i++){
-                for(size_t j = 0; j < new_size; j++){
-                    split[i].insertPoint(data[counter], keepIndex);
-                    counter++;
-                    if(counter == this->size()){
-                        return split;
-                    }
+
+            return partitions;
+        } 
+
+        size_t counter = 0;
+        for(size_t i = 0; i < partitions.size(); i++){
+            for(size_t j = 0; j < new_size; j++){
+                partitions[i].insertPoint(data[counter], keepIndex);
+                counter++;
+                if(counter == this->size()){
+                    return partitions;
                 }
             }
         }
-        return split;
+        return partitions;
     }
+
+    // template<typename T>
+    // std::vector<Data<T>> Data<T>::splitSample(const std::size_t &split_size, bool stratified, bool keepIndex, const size_t seed) {
+    //     std::vector<Data<T>> split(split_size);
+    //     size_t _seed = (seed == 0) ? std::random_device{}() : seed;
+    //     auto new_size = std::floor(double(size()) / split_size);
+        
+    //     if(this->isClassification() && stratified){
+    //         this->computeClassesDistribution();
+    //         Point< double > dist(class_distribution.size());
+    //         for(size_t i = 0; i < class_distribution.size(); i++){
+    //             dist[i] = std::ceil((class_distribution[i]/double(size()))*new_size);
+    //         }
+    //         auto classes_split = this->splitByClasses(keepIndex);
+    //         std::sort(classes_split.begin(), classes_split.end(), [](const Data<T> &a, const Data<T> &b){
+    //             return a.size() > b.size();
+    //         });
+    //         bool try_next = false;
+    //         int tries = 0;
+    //         for(int i = 0, j = 0, k = 0, l = split_size-1; j < classes_split.size(), i < size(); i++, k++, l--){
+    //             if(l < 0){
+    //                 l = split_size-1;
+    //             }
+    //             //std::cout << i << " " << j << " " << k << " " << l << std::endl;
+    //             // std::cout<< split[l].size() << " " <<new_size << " " << dist << " " << classes_split[j].size() << std::endl;
+    //             // for(auto slice: split){
+    //             //     auto slice_dist = mltk::Point<size_t>(slice.classesDistribution());
+    //             //     if(!slice_dist.empty()) std::cout << " " << slice.size() << " " << slice_dist;
+    //             // }
+    //             //std::cout << std::endl;
+    //             if(split[l].size() == new_size && !try_next){
+    //                 i--;
+    //                 k--;
+    //                 try_next = true;
+    //                 tries++;
+    //                 continue;
+    //             }
+    //             if(k < classes_split[j].size()){
+    //                 int current_class = classes_split[j][k]->Y();
+    //                 auto count = split[l].classesDistribution();
+    //                 //if(!count.empty()) std::cout << mltk::Point<size_t>(count) << " " << dist[j] << std::endl;
+    //                 if((split[l].classes().empty() || count.empty() || count[j] < dist[j]) || split[j].size() < new_size || tries == split_size-1){
+    //                     split[l].insertPoint(classes_split[j][k], keepIndex);
+    //                     try_next = false;
+    //                     tries = 0;
+    //                 }else{
+    //                     try_next = true;
+    //                     tries++;
+    //                     i--;
+    //                     k--;
+    //                 }
+    //             }else{
+    //                 i--;
+    //                 l++;
+    //                 j++;
+    //                 k = -1;
+    //             }
+    //         }
+    //         for(size_t i = 0; i < split.size(); i++){
+    //             split[i].shuffle(_seed+i);
+    //         }
+    //     }else{
+    //         auto data = this->copy();
+    //         data.shuffle(_seed);
+    //         size_t counter = 0;
+    //         for(size_t i = 0; i < split.size(); i++){
+    //             for(size_t j = 0; j < new_size; j++){
+    //                 split[i].insertPoint(data[counter], keepIndex);
+    //                 counter++;
+    //                 if(counter == this->size()){
+    //                     return split;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return split;
+    // }
 
     template<typename T>
     bool Data<T>::updatePointValue(const size_t &idx, const double value) {
