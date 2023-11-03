@@ -119,7 +119,7 @@ namespace mltk{
                             if ((dim - partial_dim) % this->cv->jump != 0) {
                                 for (this->cv->actual_error = 0, i = 0; i < this->cv->qtde; i++) {
                                     this->cv->actual_error += 100- validation::kfold(*stmp, *this->classifier,
-                                                                                     this->cv->fold, this->cv->seed[i], 0).accuracy;
+                                                                                     this->cv->fold, true, this->cv->seed[i], 0).accuracy;
                                 }
                                 kfolderror = this->cv->actual_error / this->cv->qtde;
                             }
@@ -162,13 +162,13 @@ namespace mltk{
                 if (this->cv->qtde > 0) {
                     if (level == 0) {
                         for (this->cv->initial_error = 0, i = 0; i < this->cv->qtde; i++) {
-                            auto report = validation::kfold(*stmp, *this->classifier, this->cv->fold, this->cv->seed[i], 0);
+                            auto report = validation::kfold(*stmp, *this->classifier, this->cv->fold, true, this->cv->seed[i], 0);
                             this->cv->initial_error = report.error;
                         }
                         kfolderror = this->cv->initial_error / this->cv->qtde;
                     } else if (level % this->cv->jump == 0) {
                         for (this->cv->actual_error = 0, i = 0; i < this->cv->qtde; i++) {
-                            this->cv->actual_error += 100-validation::kfold(*stmp, *this->classifier, this->cv->fold,
+                            this->cv->actual_error += 100-validation::kfold(*stmp, *this->classifier, this->cv->fold, true,
                                                                             this->cv->seed[i], 0).accuracy;
                         }
                         kfolderror = this->cv->actual_error / this->cv->qtde;
@@ -223,7 +223,7 @@ namespace mltk{
                     if (this->cv->qtde > 0) {
                         if (level % this->cv->jump != 0) {
                             for (this->cv->actual_error = 0, i = 0; i < this->cv->qtde; i++) {
-                                this->cv->actual_error += 100- validation::kfold(*stmp, *this->classifier, this->cv->fold,
+                                this->cv->actual_error += 100- validation::kfold(*stmp, *this->classifier, this->cv->fold, true,
                                                                                  this->cv->seed[i], 0).accuracy;
                             }
                             kfolderror = this->cv->actual_error / this->cv->qtde;

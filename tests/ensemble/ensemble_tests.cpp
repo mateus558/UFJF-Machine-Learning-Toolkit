@@ -28,19 +28,19 @@ TEST_F(EnsembleTest, AdaBoostTest){
     mltk::classifier::BalancedPerceptron<double> bp;
     mltk::ensemble::AdaBoostClassifier<double> ada(bin, bp, 10);
 
-    ASSERT_GT(mltk::validation::kfold(bin, ada, 10, 0).accuracy, 96);
+    ASSERT_GT(mltk::validation::kfold(bin, ada, 10).accuracy, 96);
 }
 
 TEST_F(EnsembleTest, PercComitteeTest){
     mltk::ensemble::PerceptronCommittee<double> perc_com(bin, 100);
 
-    ASSERT_GT(mltk::validation::kfold(bin, perc_com, 10, 0).accuracy, 99);
+    ASSERT_GT(mltk::validation::kfold(bin, perc_com, 10).accuracy, 99);
 }
 
 TEST_F(EnsembleTest, BaggingTest){
     mltk::classifier::BalancedPerceptron<double> bp;
     mltk::ensemble::BaggingClassifier<double> bag(wine, bp, 100);
-    ASSERT_GT(mltk::validation::kfold(wine, bag, 10, 0).accuracy, 55);
+    ASSERT_GT(mltk::validation::kfold(wine, bag, 10).accuracy, 55);
 }
 
 TEST_F(EnsembleTest, VotingTest){

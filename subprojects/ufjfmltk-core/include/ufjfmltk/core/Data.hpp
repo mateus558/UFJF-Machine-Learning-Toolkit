@@ -2002,13 +2002,13 @@ namespace mltk{
 
         auto temp_dist = classesDistribution();
         for(int i = 0; i < temp_dist.size(); i++){
-            class_dist[i] = (double(temp_dist[i])/ size())*samp_size;
+            class_dist[i] = (double(temp_dist[i]) / size()) * samp_size;
         }
         for(int i = 0; i < class_dist.size(); i++){
             dist.emplace_back(0, class_dist[i]-1);
         }
         for(size_t i = 0; i < class_dist.size(); i++){
-            class_dist[i] = (class_dist[i] < 1)?1:std::floor(class_dist[i]);
+            class_dist[i] = (class_dist[i] < 1) ? 1 : std::floor(class_dist[i]);
         }
 
         for(size_t i = 0; i < class_dist.size(); i++){
@@ -2034,6 +2034,7 @@ namespace mltk{
         Data<T> new_data;
         std::vector<size_t> feats_pos(feats.size());
         int i, j, invalid;
+
         for(i = 0, j = 0, invalid=0; (i < fnames.size()) && (invalid < feats.size()) && (j < feats.size()); ){
             if(feats[j] < 1) { invalid++; j++; continue; }
             if(fnames[i] == feats[j]){
@@ -2044,6 +2045,7 @@ namespace mltk{
         }
 
         assert((j == feats.size()) && "There are non-existing features on remove set.");
+        
         for(auto const& point: this->m_points){
             auto new_point = make_point<T>(_size-invalid);
             for(i = 0; i < (_size-invalid); i++){
