@@ -34,6 +34,7 @@ namespace mltk {
     template <class T, typename Rep = std::vector<T> > using PointPointer = std::shared_ptr<mltk::Point<T, Rep> >;
     template <class T, typename Rep = std::vector<T> > using PointIterator = typename Rep::iterator ;
 
+
     /**
      * \brief Wrapper for the point data.
      */
@@ -48,6 +49,8 @@ namespace mltk {
             size_t id = 0;
 
         public:
+            using Matrix = typename mltk::Point<mltk::Point<T>>;
+
             auto begin() const {
                 return x.cbegin();
             }

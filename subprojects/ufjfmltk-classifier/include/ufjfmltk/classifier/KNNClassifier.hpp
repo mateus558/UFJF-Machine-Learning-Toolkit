@@ -18,6 +18,56 @@ namespace mltk{
              */
             template<typename T = double, typename Callable = metrics::dist::Euclidean<T> >
             class KNNClassifier : public PrimalClassifier<T> {
+            public: 
+                class DistanceMatrix {
+                private:
+                    mltk::Point<double>::Matrix distances;
+                    bool isDiagonal{false};
+                    size_t threads{ std::thread::hardware_concurrency() };
+                    Callable dist_function{};
+
+                    void compute(const mltk::Data<double> &data) {
+                        ThreadPool pool(threads);
+                        
+                        auto loop = [data, this](const int a, const int b) {
+                            for(size_t idx = a; idx < b; idx++) {
+                                this->distances[idx] = mltk::Point<double>((isDiagonal) ? idx+1 : data.size());
+
+                                for(size_t j = 0; j < idx; j++){
+                                    this->distances[data(idx).Id()-1][data(j).Id()-1] = this->dist_function(data(idx), data(j));
+                                }
+                                
+                                if(isDiagonal) continue;
+
+                                for(size_t j = idx+1; j < data.size(); j++){
+                                    this->distances[data(idx).Id()-1][data(j).Id()-1] = this->dist_function(data(idx), data(j));
+                                }    
+                            }
+                        };
+
+                        pool.parallelize_loop(0, data.size(), loop, threads); 
+                        pool.wait_for_tasks();
+                    }
+
+                public:
+                    DistanceMatrix() = default;
+                    
+                    explicit DistanceMatrix(mltk::Data<double> &data, const bool isDiagonal = false, const size_t threads = std::thread::hardware_concurrency()) {
+                        this->threads = threads;
+                        this->isDiagonal = isDiagonal;
+                        this->distances = mltk::Point<double>::Matrix(data.size());
+                        
+                        this->compute(data);
+                    }
+
+                    bool isDiagonalMatrix() const {return this->isDiagonal;}
+
+                    size_t size() const {return this->distances.size();}
+
+                    mltk::Point<double> operator[](size_t i) const {return this->distances[i];}
+
+                    mltk::Point<double> & operator[](size_t i) {return this->distances[i];}
+                };
             private:
                 /// Number k of neighbors to be considered
                 size_t k = 3;
@@ -26,9 +76,10 @@ namespace mltk{
                 /// Enables the use of precomputed distances
                 bool precomputed = false;
                 std::string algorithm = "brute";
-                mltk::Point<mltk::Point<double>> distances;
+                DistanceMatrix distances;
 
             public:
+
                 KNNClassifier() = default;
                 explicit KNNClassifier(size_t _k, std::string _algorithm = "brute")
                         : k(_k), algorithm(_algorithm) {}
@@ -44,50 +95,18 @@ namespace mltk{
 
                 Callable& metric(){ return dist_function; }
 
-                void setPrecomputedDistances(mltk::Point<mltk::Point<double>> _distances){
+                void setPrecomputedDistances(DistanceMatrix &_distances){
                     this->distances = _distances;
                     this->precomputed = true;
                 }
 
-                mltk::Point<mltk::Point<double>> precompute(mltk::Data<T> &data, const size_t threads = std::thread::hardware_concurrency());
+                DistanceMatrix precomputeDistances(mltk::Data<T> &data, bool diagonal = false, const size_t threads = std::thread::hardware_concurrency()){
+                    this->precomputed = true;
+
+                    return DistanceMatrix(data, diagonal, threads);
+                }
             };
             
-
-            template<typename T, typename Callable>
-            mltk::Point<mltk::Point<double>> KNNClassifier<T, Callable>::precompute(mltk::Data<T> &data, const size_t threads){
-                ThreadPool pool(threads);
-                mltk::Point<mltk::Point<double>> distances(data.size());
-                auto dist = Callable();
-
-                for(size_t i = 0; i < data.size(); i++){
-                    distances[i] = mltk::Point<double>(data.size());
-                }
-
-                std::cout << data.size() << std::endl;
-
-                std::cout << "distances: " << distances.size() << std::endl;
-
-                auto loop = [&distances, data, this](const int a, const int b) {
-                    for(size_t idx = a; idx < b; idx++) {
-                        for(size_t j = 0; j < idx; j++){
-                            distances[data(idx).Id()-1][data(j).Id()-1] = this->dist_function(data(idx), data(j));
-                        }
-
-                        for(size_t j = idx+1; j < data.size(); j++){
-                            distances[data(idx).Id()-1][data(j).Id()-1] = this->dist_function(data(idx), data(j));
-                        }    
-                    }
-                };
-
-                pool.parallelize_loop(0, data.size(), loop, threads); 
-                pool.wait_for_tasks();
-
-
-                this->precomputed = true;
-                this->distances = distances;
-
-                return distances;
-            }
 
             template<typename T, typename Callable>
             double KNNClassifier<T, Callable>::evaluate(const Point<T> &p, bool raw_value) {
@@ -100,7 +119,7 @@ namespace mltk{
                 auto p0 = std::make_shared<Point<T> >(p);
 
                 if(precomputed && this->distances.size() == 0){
-                    precompute(*this->samples);
+                    precomputeDistances(*this->samples);
                 }
 
                 if(algorithm == "brute"){
@@ -118,37 +137,66 @@ namespace mltk{
                         std::nth_element(idx.begin(), idx.begin() + this->k, idx.end(), [&distances](size_t i1, size_t i2) {
                             return distances[i1] < distances[i2];
                         });
-                    }else{
+                    }else if(!this->distances.isDiagonalMatrix()){
                         std::nth_element(idx.begin(), idx.begin() + this->k, idx.end(), [&p, this, &points](size_t i1, size_t i2) {
-                            return this->distances[p.Id()-1][points[i1]->Id()-1] < this->distances[p.Id()-1][points[i2]->Id()-1];
+                            size_t id1 = points[i1]->Id()-1;
+                            size_t id2 = points[i2]->Id()-1;
+                            size_t idp = p.Id()-1;
+
+                            return this->distances[idp][id1] < this->distances[idp][id2];
                         }); 
+                    } else { 
+                        std::nth_element(idx.begin(), idx.begin() + this->k, idx.end(), [&p, this, &points](size_t i1, size_t i2) {
+                            size_t id1 = points[i1]->Id()-1;
+                            size_t id2 = points[i2]->Id()-1;
+                            size_t idp = p.Id()-1;
+
+                            size_t idp1 = (idp > id1) ? idp : id1;
+                            size_t id1p = (idp > id1) ? id1 : idp;
+                            
+                            size_t idp2 = (idp > id2) ? idp : id2;
+                            size_t id2p = (idp > id2) ? id2 : idp;
+
+                            return this->distances[idp1][id1p] < this->distances[idp2][id2p];
+                        });
                     }
                 }
-                // find the most frequent class in the k nearest neighbors
-                size_t max_index = 0, max_freq = 0, i=0;
-                double s = 0.0001, max_prob = 0.0;
-                std::for_each(classes.begin(), classes.end(), [&idx, &points, &i, &max_freq, &max_index, &max_prob, &s, &classes,&neigh, this](int c){
-                    int freq = 0;
-                    if(algorithm == "brute") {
-                        freq = std::count_if(idx.begin(), idx.begin() + this->k, [&points, &c](size_t id) {
-                            return points[id]->Y() == c;
+               // Define frequency counting logic in a lambda function.
+                auto calculateFrequency = [&idx, &points, &neigh, this](int c) {
+                    if (algorithm == "brute") {
+                        return std::count_if(idx.begin(), idx.begin() + this->k, [&points, &c](size_t id) { 
+                            return points[id]->Y() == c; 
                         });
-                    }else{
-                        freq = std::count_if(neigh.begin(), neigh.end(), [&c](auto point) {
-                            return point->Y() == c;
+                    } else {
+                        return std::count_if(neigh.begin(), neigh.end(), [&c](auto point) { 
+                            return point->Y() == c; 
                         });
                     }
+                };
 
-                    if(freq > max_freq){
+                // Use std::pair to store max frequency and its related index.
+                std::pair<int, size_t> maxDetails{0, 0}; // frequency, index
+
+                double s = 0.0001;
+                double max_prob = 0.0;
+
+                // Iterate over classes using a conventional for loop for better readability.
+                for(size_t i = 0; i < classes.size(); ++i) {
+                    int freq = calculateFrequency(classes[i]);
+
+                    if(freq > maxDetails.first) {
                         double prob = (freq+s)/(k+classes.size()*s);
-                        max_index = i;
-                        max_freq = freq;
+                        
+                        maxDetails.first = freq;
+                        maxDetails.second = i; 
+
                         max_prob = prob;
                     }
-                    i++;
-                });
+                }
+
                 this->pred_prob = (1-max_prob > 1E-7) ? 1: max_prob;
-                return classes[max_index]; 
+
+                return classes[maxDetails.second];
             }
 
             template<typename T, typename Callable>
