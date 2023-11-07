@@ -38,3 +38,4 @@ cmake-build-debug-coverage
 out
 build
 main*
+knn_precompute.cpp

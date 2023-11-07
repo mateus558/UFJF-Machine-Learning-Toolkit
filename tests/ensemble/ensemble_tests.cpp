@@ -39,8 +39,8 @@ TEST_F(EnsembleTest, PercComitteeTest){
 
 TEST_F(EnsembleTest, BaggingTest){
     mltk::classifier::BalancedPerceptron<double> bp;
-    mltk::ensemble::BaggingClassifier<double> bag(wine, bp, 150);
-    ASSERT_GT(mltk::validation::kkfold(wine, bag, 10, 10).accuracy, 55);
+    mltk::ensemble::BaggingClassifier<double> bag(bin, bp, 150);
+    ASSERT_GT(mltk::validation::kkfold(bin, bag, 10, 10).accuracy, 99);
 }
 
 TEST_F(EnsembleTest, VotingTest){

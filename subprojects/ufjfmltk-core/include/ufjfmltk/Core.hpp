@@ -11,3 +11,4 @@
 #include "ufjfmltk/core/DistanceMetric.hpp"
 #include "ufjfmltk/core/Sampling.hpp"
 #include "ufjfmltk/core/Datasets.hpp"
+#include "ufjfmltk/core/ThreadPool.hpp"

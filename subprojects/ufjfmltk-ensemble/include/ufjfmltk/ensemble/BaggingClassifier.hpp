@@ -29,10 +29,13 @@ namespace mltk {
             }
 
             bool train() override {
+                seed = (seed == 0) ? std::random_device()() : seed;
+
                 size_t samp_size = this->samples->size() / n_estimators;
                 for (size_t i = 0; i < n_estimators; i++) {
-                    this->m_learners[i]->setSeed(this->seed+i);
-                    this->m_learners[i]->setSamples(this->samples->sampling(samp_size, true, seed+i));
+                    size_t salt = (seed == 0) ? std::random_device()() : i;
+                    this->m_learners[i]->setSeed(seed+salt);
+                    this->m_learners[i]->setSamples(this->samples->sampling(samp_size, true, seed+salt));
                     this->m_learners[i]->train();
                 }
                 return true;

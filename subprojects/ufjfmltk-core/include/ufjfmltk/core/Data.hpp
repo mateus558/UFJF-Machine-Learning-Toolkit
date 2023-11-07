@@ -77,17 +77,17 @@ namespace mltk{
     private :
         std::string dataset_name{""};
         /// Set of points.
-        std::vector<SamplePointer<T> > m_points;
+        std::vector<SamplePointer<T> > m_points = {};
         /// Features names.
-        std::vector<int> fnames;
+        std::vector<int> fnames = {};
         /// Points indexes.
-        std::vector<int> index;
+        std::vector<int> index = {};
         /// Names of the classes in the dataset.
-        std::vector<std::string> class_names;
+        std::vector<std::string> class_names = {};
         /// Numeric values of the classes.
-        std::vector<int> m_classes;
+        std::vector<int> m_classes = {};
         /// Frequency of each class in the dataset.
-        std::vector<size_t> class_distribution;
+        std::vector<size_t> class_distribution = {};
         /// Number of points in the dataset.
         size_t m_size = 0;
         /// Dataset points dimension.
@@ -205,12 +205,12 @@ namespace mltk{
          * \brief Returns the size of the dataset.
          * \return int
          */
-        [[nodiscard]] size_t size() const{ return m_size;};
+        [[nodiscard]] size_t size() const{ return m_points.size();};
         /**
          * \brief Returns the dimension of the dataset.
          * \return int
          */
-        [[nodiscard]] size_t dim() const{ return (!m_points.empty()) ? m_points[0]->size() : 0; }
+        [[nodiscard]] size_t dim() const{ return (!m_points.empty()) ? m_points.front()->size() : 0; }
         /**
          * \brief Returns a shared pointer to the vector of Points of the sample.
          * \return std::vector<std::shared_ptr<Point< T > > >
@@ -791,6 +791,7 @@ namespace mltk{
             ss.clear();
 
             while(std::getline(ss, item, ' ')){
+                if(item == "") continue;
                 item = mltk::utils::trim_copy(item);
                 const char * pch = std::strchr(item.c_str(), ':');
                 _dim++;
@@ -1414,9 +1415,9 @@ namespace mltk{
     template<typename T>
     bool mltk::Data< T >::insertPoint(std::shared_ptr<Point< T > > p, bool keepIndex){
         //Dimension verification
-        if(m_size > 0 && int(p->X().size()) > this->dim()){
+        if(size() > 0 && p && p->size() != this->dim()){
             std::cerr << "Point with dimension different from the data. (insertPoint)" << std::endl;
-            std::cerr << "Point dim = " << p->X().size() << " dim = " << m_dim << std::endl;
+            std::cerr << "Point dim = " << p->size() << " dim = " << m_dim << std::endl;
             return false;
         }
 
@@ -1429,6 +1430,7 @@ namespace mltk{
         m_points.insert(m_points.end(), p);
         m_size++;
         if(is_empty) is_empty = false;
+        if(m_dim == 0) m_dim = p->size();
 
         if(this->isClassification()){
             auto class_pos = std::find(this->m_classes.begin(), this->m_classes.end(), p->Y());
@@ -1976,15 +1978,21 @@ namespace mltk{
     std::vector<Data<T>> Data<T>::splitByClasses(bool keepIndex) {
         int last_c = std::numeric_limits<int>::max();
         std::vector<Data<T>> class_split(m_classes.size());
+        auto data = copy();
+        auto classes = data.classes();
+        auto points = data.points();
 
-        for(auto it = m_points.begin(); it != m_points.end(); it++){
-            auto point = *(*it);
-            auto class_pos = std::find(m_classes.begin(), m_classes.end(), int(point.Y())) - m_classes.begin();
-            class_split[class_pos].insertPoint(*it, keepIndex);
-        }
-        for(auto &data: class_split){
-            data.computeClassesDistribution();
-        }
+        std::for_each(points.begin(), points.end(), [&](const auto pointPtr){
+            auto class_pos = std::distance(classes.begin(), std::find(classes.begin(), classes.end(), int(pointPtr->Y())));
+            std::cout << class_pos << std::endl;
+            std::cout << *pointPtr << std::endl;
+            std::cout << class_split[class_pos] << std::endl;
+            class_split[class_pos].insertPoint(*pointPtr, keepIndex);
+        });
+
+        std::for_each(class_split.begin(), class_split.end(), [](auto& split){
+            split.computeClassesDistribution();
+        });
 
         return class_split;
     }
@@ -1993,7 +2001,7 @@ namespace mltk{
     Data<T> Data<T>::sampling(const size_t &samp_size, bool with_replacement, const int &seed) {
         assert(samp_size <= size());
         std::random_device rd;
-        std::mt19937 gen((seed == -1)?rd():seed);
+        std::mt19937 gen((seed == 0)? std::random_device()() : seed);
         Data< T > sample;
         std::set<std::size_t> ids;
         auto classes_split = splitByClasses();
