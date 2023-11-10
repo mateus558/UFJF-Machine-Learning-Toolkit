@@ -38,8 +38,10 @@ TEST_F(EnsembleTest, PercComitteeTest){
 }
 
 TEST_F(EnsembleTest, BaggingTest){
+        std::cout << bin << std::endl;
+
     mltk::classifier::BalancedPerceptron<double> bp;
-    mltk::ensemble::BaggingClassifier<double> bag(bin, bp, 150);
+    mltk::ensemble::BaggingClassifier<double> bag(bin, bp, 50);
     ASSERT_GT(mltk::validation::kkfold(bin, bag, 10, 10).accuracy, 99);
 }
 

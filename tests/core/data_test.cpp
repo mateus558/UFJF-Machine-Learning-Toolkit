@@ -290,7 +290,7 @@ TEST_F(DataTest, DataSplit){
         ASSERT_EQ(s.test.classesDistribution(), dist_test);
     }
 
-    split = mltk::validation::kfoldsplit(mult, 10, 10, true, 42);
+    split = mltk::validation::kfoldsplit(mult, 10, 10, true, true, 42);
     ASSERT_EQ(split.size(), 100);
     for(const auto& s: split){
         ASSERT_EQ(s.train.size(), 135);

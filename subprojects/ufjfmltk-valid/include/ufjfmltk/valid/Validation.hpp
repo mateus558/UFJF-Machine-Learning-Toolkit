@@ -137,7 +137,7 @@ namespace mltk::validation {
          * @return Vector containing the folds as TrainTestPair objects.
          */
         template< typename T >
-        std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, size_t folds=5, bool stratified=true,
+        std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, size_t folds=5, bool stratified=true, bool keepIndex=true,
                                                  size_t seed=0);
 
        /**
@@ -152,7 +152,7 @@ namespace mltk::validation {
         */
         template< typename T >
         std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, size_t folds, size_t qtde,
-                                                 bool stratified=true, size_t seed=0);
+                                                 bool stratified=true, bool keepIndex=true, size_t seed=0);
 
         /**
         * \brief Divide the samples in training and test set.
@@ -438,25 +438,26 @@ namespace mltk::validation {
 
     template< typename T >
     std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &samples, const size_t folds, const size_t qtde,
-                                             bool stratified, const size_t seed) {
+                                             bool stratified, bool keepIndex, const size_t seed) {
         std::vector<TrainTestPair<T> > kkfold_split;
         size_t _seed = (seed == 0) ? std::random_device{}() : seed;
 
         kkfold_split.reserve(qtde*folds);
         for(int i = 0; i < qtde; i++){
-            auto kfold_split = kfoldsplit(samples, folds, stratified, _seed+i);
+            size_t other_seed = (seed == 0) ? std::random_device{}() : _seed+i;
+            auto kfold_split = kfoldsplit(samples, folds, stratified, keepIndex, other_seed);
             kkfold_split.insert(kkfold_split.end(), kfold_split.begin(), kfold_split.end());
         }
         return kkfold_split;
     }
 
     template< typename T >
-    std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &data, const size_t folds, bool stratified,
+    std::vector<TrainTestPair<T>> kfoldsplit(Data<T> &data, const size_t folds, bool stratified, bool keepIndex,
                                              const size_t seed){
         mltk::Data<T> samples = data.copy();
         size_t _seed = (seed == 0) ? std::random_device{}() : seed;
         
-        std::vector<Data<T> > data_folds = samples.splitSample(folds, stratified, true, seed);
+        std::vector<Data<T> > data_folds = samples.splitSample(folds, stratified, keepIndex, seed);
         std::vector<TrainTestPair<T> > kfold_split;
 
         kfold_split.reserve(folds);

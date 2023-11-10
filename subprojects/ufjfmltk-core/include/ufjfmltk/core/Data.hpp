@@ -1829,7 +1829,7 @@ namespace mltk{
 
         data.shuffle(_seed);
 
-        if(this->isClassification() && stratified){
+        if(this->isClassification() && stratified) {
             for (const mltk::PointPointer<T> obj : data.points()) {
                 classified_objects.insert({std::to_string(obj->Y()), obj});
             }
@@ -1855,8 +1855,8 @@ namespace mltk{
         } 
 
         size_t counter = 0;
-        for(size_t i = 0; i < partitions.size(); i++){
-            for(size_t j = 0; j < new_size; j++){
+        for(size_t i = 0; i < partitions.size(); i++) {
+            for(size_t j = 0; j < new_size; j++) {
                 partitions[i].insertPoint(data[counter], keepIndex);
                 counter++;
                 if(counter == this->size()){
@@ -1984,9 +1984,6 @@ namespace mltk{
 
         std::for_each(points.begin(), points.end(), [&](const auto pointPtr){
             auto class_pos = std::distance(classes.begin(), std::find(classes.begin(), classes.end(), int(pointPtr->Y())));
-            std::cout << class_pos << std::endl;
-            std::cout << *pointPtr << std::endl;
-            std::cout << class_split[class_pos] << std::endl;
             class_split[class_pos].insertPoint(*pointPtr, keepIndex);
         });
 
