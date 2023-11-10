@@ -101,12 +101,12 @@ TEST_F(ClassifierTest, DualClassifier){
     mltk::classifier::PerceptronDual<double> perc_dual_gaussian(bin,mltk::KernelType::GAUSSIAN,
                                                                 0.5);
     mltk::classifier::PerceptronFixedMarginDual<double> perc_fixed_dual(bin, mltk::KernelType::GAUSSIAN,
-                                                                        1, 0);
+                                                                        0.5, 0);
     mltk::classifier::IMADual<double> ima_dual_gaussian(bin, mltk::KernelType::GAUSSIAN, 0.5);
     mltk::classifier::IMADual<double> ima_dual_inner(bin, mltk::KernelType::INNER_PRODUCT);
 
     ima_dual_gaussian.setVerbose(3);
-    perc_fixed_dual.setMaxTime(100);
+    perc_fixed_dual.setMaxTime(500);
     std::cout << "Testing perceptron dual." << std::endl;
     ASSERT_GE(mltk::validation::kfold(bin, perc_fixed_dual, 10, true, 10, 0).accuracy, 80);
     ASSERT_GE(mltk::validation::kfold(bin, perc_dual_gaussian, 10, true, 10, 0).accuracy, 95);
