@@ -2060,7 +2060,7 @@ namespace mltk{
                 (*new_point).Alpha() = (*point).Alpha();
             }
             new_data.setName(this->name());
-            new_data.insertPoint(new_point);
+            new_data.insertPoint(new_point, true);
         }
         return new_data;
     }
