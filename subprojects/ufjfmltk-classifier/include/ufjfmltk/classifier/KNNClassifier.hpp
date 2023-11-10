@@ -6,6 +6,7 @@
 #define UFJF_MLTK_KNN_HPP
 
 #include "PrimalClassifier.hpp"
+#include "ufjfmltk/core/DistanceMatrix.hpp"
 #include "ufjfmltk/core/DistanceMetric.hpp"
 #include "ufjfmltk/core/ThreadPool.hpp"
 #include <assert.h>
@@ -18,56 +19,6 @@ namespace mltk{
              */
             template<typename T = double, typename Callable = metrics::dist::Euclidean<T> >
             class KNNClassifier : public PrimalClassifier<T> {
-            public: 
-                class DistanceMatrix {
-                private:
-                    mltk::Point<double>::Matrix distances;
-                    bool isDiagonal{false};
-                    size_t threads{ std::thread::hardware_concurrency() };
-                    Callable dist_function{};
-
-                    void compute(const mltk::Data<double> &data) {
-                        ThreadPool pool(threads);
-                        
-                        auto loop = [data, this](const int a, const int b) {
-                            for(size_t idx = a; idx < b; idx++) {
-                                this->distances[idx] = mltk::Point<double>((isDiagonal) ? idx+1 : data.size());
-
-                                for(size_t j = 0; j < idx; j++){
-                                    this->distances[data(idx).Id()-1][data(j).Id()-1] = this->dist_function(data(idx), data(j));
-                                }
-                                
-                                if(isDiagonal) continue;
-
-                                for(size_t j = idx+1; j < data.size(); j++){
-                                    this->distances[data(idx).Id()-1][data(j).Id()-1] = this->dist_function(data(idx), data(j));
-                                }    
-                            }
-                        };
-
-                        pool.parallelize_loop(0, data.size(), loop, threads); 
-                        pool.wait_for_tasks();
-                    }
-
-                public:
-                    DistanceMatrix() = default;
-                    
-                    explicit DistanceMatrix(mltk::Data<double> &data, const bool isDiagonal = false, const size_t threads = std::thread::hardware_concurrency()) {
-                        this->threads = threads;
-                        this->isDiagonal = isDiagonal;
-                        this->distances = mltk::Point<double>::Matrix(data.size());
-                        
-                        this->compute(data);
-                    }
-
-                    bool isDiagonalMatrix() const {return this->isDiagonal;}
-
-                    size_t size() const {return this->distances.size();}
-
-                    mltk::Point<double> operator[](size_t i) const {return this->distances[i];}
-
-                    mltk::Point<double> & operator[](size_t i) {return this->distances[i];}
-                };
             private:
                 /// Number k of neighbors to be considered
                 size_t k = 3;
@@ -76,7 +27,7 @@ namespace mltk{
                 /// Enables the use of precomputed distances
                 bool precomputed = false;
                 std::string algorithm = "brute";
-                DistanceMatrix distances;
+                metrics::dist::DistanceMatrix<Callable> distances;
 
             public:
 
@@ -95,15 +46,15 @@ namespace mltk{
 
                 Callable& metric(){ return dist_function; }
 
-                void setPrecomputedDistances(DistanceMatrix &_distances){
+                void setPrecomputedDistances(metrics::dist::DistanceMatrix<Callable> &_distances){
                     this->distances = _distances;
                     this->precomputed = true;
                 }
 
-                DistanceMatrix precomputeDistances(mltk::Data<T> &data, bool diagonal = false, const size_t threads = std::thread::hardware_concurrency()){
+                metrics::dist::DistanceMatrix<Callable> precomputeDistances(mltk::Data<T> &data, bool diagonal = false, const size_t threads = std::thread::hardware_concurrency()){
                     this->precomputed = true;
 
-                    return DistanceMatrix(data, diagonal, threads);
+                    return metrics::dist::DistanceMatrix<Callable>(data, diagonal, threads);
                 }
             };
             
