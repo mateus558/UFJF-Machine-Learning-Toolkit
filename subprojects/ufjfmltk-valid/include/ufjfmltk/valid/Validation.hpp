@@ -479,6 +479,9 @@ namespace mltk::validation {
             train.shuffle(_seed+i);
             test.shuffle(_seed+i);
 
+            train.setName(data.name() + "_train_fold_"+std::to_string(i));
+            test.setName(data.name() + "_test_fold_"+std::to_string(i));
+           
             train.resetIndex();
             test.resetIndex();
 
