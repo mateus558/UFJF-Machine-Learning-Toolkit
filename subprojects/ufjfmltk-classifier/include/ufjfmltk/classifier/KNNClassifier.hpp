@@ -27,7 +27,7 @@ namespace mltk{
                 /// Enables the use of precomputed distances
                 bool precomputed = false;
                 std::string algorithm = "brute";
-                metrics::dist::DistanceMatrix<Callable> distances;
+                metrics::dist::BaseMatrix distances;
 
             public:
 
@@ -46,7 +46,7 @@ namespace mltk{
 
                 Callable& metric(){ return dist_function; }
 
-                void setPrecomputedDistances(metrics::dist::DistanceMatrix<Callable> &_distances){
+                void setPrecomputedDistances(metrics::dist::BaseMatrix &_distances){
                     this->distances = _distances;
                     this->precomputed = true;
                 }
