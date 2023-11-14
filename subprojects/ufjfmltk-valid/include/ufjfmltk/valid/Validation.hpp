@@ -496,7 +496,7 @@ namespace mltk::validation {
             test.setName(data.name()+"_test_fold_"+std::to_string(i+1));
 
             kfold_split.emplace_back(train, test);
-            kfold_split.fold = i+1;
+            kfold_split.back().fold = i+1;
         }
         return kfold_split;
     }
