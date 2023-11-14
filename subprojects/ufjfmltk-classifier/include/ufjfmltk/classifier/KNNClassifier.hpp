@@ -65,13 +65,9 @@ namespace mltk{
                 auto points = this->samples->points();
                 std::vector<double> distances(this->samples->size());
                 std::vector<int> classes = this->samples->classes();
-                std::vector<size_t> idx(distances.size());
+                mltk::Point<size_t> idx(distances.size());
                 std::vector<PointPointer<T>> neigh;
                 auto p0 = std::make_shared<Point<T> >(p);
-
-                if(precomputed && this->distances.size() == 0){
-                    precomputeDistances(*this->samples);
-                }
 
                 if(algorithm == "brute"){
                     // fill the index vector
@@ -93,6 +89,8 @@ namespace mltk{
                             size_t id1 = points[i1]->Id()-1;
                             size_t id2 = points[i2]->Id()-1;
                             size_t idp = p.Id()-1;
+                            
+                            if(idp == id1 || idp == id2) return false;
 
                             return this->distances[idp][id1] < this->distances[idp][id2];
                         }); 
@@ -101,6 +99,8 @@ namespace mltk{
                             size_t id1 = points[i1]->Id()-1;
                             size_t id2 = points[i2]->Id()-1;
                             size_t idp = p.Id()-1;
+                            
+                            if(idp == id1 || idp == id2) return false;
 
                             size_t idp1 = (idp > id1) ? idp : id1;
                             size_t id1p = (idp > id1) ? id1 : idp;
