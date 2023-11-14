@@ -152,7 +152,7 @@ namespace mltk{
        * \brief setSamples Set the samples used by the Learner.
        * \param data Samples to be used.
        */
-      virtual void setSamples(DataPointer< T > data) { this->samples =  make_data<T>(data->copy()); }
+      virtual void setSamples(DataPointer< T > data) { this->samples = make_data<double>(data->copy()); }
       /**
        * \brief setTimer Set the timer used by the Learner.
        * \param _timer Timer to be used.
