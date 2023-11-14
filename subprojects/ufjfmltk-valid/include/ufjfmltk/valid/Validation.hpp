@@ -198,9 +198,10 @@ namespace mltk::validation {
      *********************************************/
 
     template <typename T>
-    ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t qtde,
+    ValidationReport kkfold(Data<T> &data, classifier::Classifier<T> &classifier, const size_t qtde,
                             const size_t fold, bool stratified, const size_t seed, const int verbose){
         size_t _seed = (seed == 0) ? std::random_device{}() : seed;
+        auto samples = data.copy();
         auto valid_pair = partTrainTest(samples, fold, _seed);
         int i;
         size_t fp = 0, fn = 0, tp = 0, tn = 0, erro=0;
@@ -309,8 +310,9 @@ namespace mltk::validation {
     }
 
     template <typename T>
-    ValidationReport kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t fold,
+    ValidationReport kfold (Data<T> &data, classifier::Classifier<T> &classifier, const size_t fold,
                             bool stratified, const size_t seed, const int verbose){
+        auto sample = data.copy();
         double error = 0.0;
         std::vector<double> error_arr(fold);
         auto classes = sample.classes();
