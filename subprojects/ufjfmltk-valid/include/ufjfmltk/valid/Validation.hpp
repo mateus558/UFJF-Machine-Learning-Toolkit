@@ -79,6 +79,8 @@ namespace mltk::validation {
             Data<T> train;
             /// Test data
             Data<T> test;
+            size_t fold = 0;
+            size_t execution = 0;
 
             TrainTestPair() = default;
             TrainTestPair(Data<T> &train, Data<T> &test){
@@ -446,6 +448,11 @@ namespace mltk::validation {
         for(int i = 0; i < qtde; i++){
             size_t other_seed = (seed == 0) ? std::random_device{}() : _seed+i;
             auto kfold_split = kfoldsplit(samples, folds, stratified, keepIndex, other_seed);
+            
+            for(size_t j = 0; j < kfold_split.size(); j++){
+                kfold_split[j].execution = i+1;
+            }
+            
             kkfold_split.insert(kkfold_split.end(), kfold_split.begin(), kfold_split.end());
         }
         return kkfold_split;
@@ -481,8 +488,12 @@ namespace mltk::validation {
 
             train.resetIndex();
             test.resetIndex();
+            
+            train.setName(data.name()+"_train_fold_"+std::to_string(i+1));
+            test.setName(data.name()+"_test_fold_"+std::to_string(i+1));
 
             kfold_split.emplace_back(train, test);
+            kfold_split.fold = i+1;
         }
         return kfold_split;
     }
