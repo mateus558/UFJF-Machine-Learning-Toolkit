@@ -330,7 +330,13 @@ namespace mltk{
          * \param file Path to dataset file.
          * \return bool
          */
-        bool load (const std::string& file, bool _atEnd=false);
+        bool load (const std::string& file);
+        /**
+         * \brief Load a dataset from a file.
+         * \param file Path to dataset file.
+         * \return bool
+         */
+        bool load (const std::string& file, bool _atEnd);
         /**
          * \brief write Write the data to a file with the given extention.
          * \param fname Name of the file.
@@ -617,6 +623,33 @@ namespace mltk{
         }
 
         return Type::TYPE_INVALID;
+    }
+
+    template<typename T>
+    bool mltk::Data< T >::load(const std::string& file){
+        Type t = identifyFileType(file);
+        this->dataset_name = discover_dataset_name(file);
+        this->cdist_computed = true;
+
+        this->atEnd = false;
+        
+        switch (t) {
+            case TYPE_ARFF:
+                this->atEnd = true;
+                return load_arff(file);
+            case TYPE_CSV:
+                return load_csv(file);
+            case TYPE_DATA:
+                return load_data(file);
+            case TYPE_TXT:
+                return load_txt(file);
+            default:
+                std::cerr << "Invalid file type." << std::endl;
+                return false;
+        }
+        fnames.assign(this->dim(), 0);
+        std::iota(fnames.begin(), fnames.end(), 1);
+        return true;
     }
 
     template<typename T>
