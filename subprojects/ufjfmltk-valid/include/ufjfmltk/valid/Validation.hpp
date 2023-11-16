@@ -316,7 +316,7 @@ namespace mltk::validation {
         auto classes = sample.classes();
         size_t _seed = (seed == 0) ? std::random_device{}() : seed;
         sample.shuffle(_seed);
-        std::vector<TrainTestPair<T>> folds = kfoldsplit(sample, fold, stratified, seed);
+        std::vector<TrainTestPair<T>> folds = kfoldsplit(sample, fold, stratified, true, seed);
         ValidationReport solution;
 
         //Start cross-validation
