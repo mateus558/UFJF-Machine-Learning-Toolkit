@@ -201,7 +201,7 @@ namespace mltk::validation {
     ValidationReport kkfold(Data<T> samples, classifier::Classifier<T> &classifier, const size_t qtde,
                             const size_t fold, bool stratified, const size_t seed, const int verbose){
         size_t _seed = (seed == 0) ? std::random_device{}() : seed;
-        auto valid_pair = partTrainTest(samples, fold, _seed);
+        auto valid_pair = partTrainTest(samples, fold, true, true,  _seed);
         int i;
         size_t fp = 0, fn = 0, tp = 0, tn = 0, erro=0;
         double error = 0, errocross = 0, func = 0.0, margin = 0, bias;
