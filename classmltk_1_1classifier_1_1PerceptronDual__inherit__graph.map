@@ -1,0 +1,6 @@
+<map id="mltk::classifier::PerceptronDual&lt; T &gt;" name="mltk::classifier::PerceptronDual&lt; T &gt;">
+<area shape="rect" id="node1" title="Wrapper for the implementation of the Perceptron dual algorithm." alt="" coords="35,229,231,271"/>
+<area shape="rect" id="node2" href="$classmltk_1_1classifier_1_1DualClassifier.html" title=" " alt="" coords="5,155,260,181"/>
+<area shape="rect" id="node3" href="$classmltk_1_1classifier_1_1Classifier.html" title=" " alt="" coords="21,80,245,107"/>
+<area shape="rect" id="node4" href="$classmltk_1_1Learner.html" title=" " alt="" coords="59,5,206,32"/>
+</map>

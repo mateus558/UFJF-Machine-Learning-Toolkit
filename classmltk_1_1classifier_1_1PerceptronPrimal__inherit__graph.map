@@ -1,0 +1,6 @@
+<map id="mltk::classifier::PerceptronPrimal&lt; T &gt;" name="mltk::classifier::PerceptronPrimal&lt; T &gt;">
+<area shape="rect" id="node1" title="Wrapper for the implementation of the Perceptron primal algorithm." alt="" coords="19,244,215,285"/>
+<area shape="rect" id="node2" href="$classmltk_1_1classifier_1_1PrimalClassifier.html" title=" " alt="" coords="33,155,201,196"/>
+<area shape="rect" id="node3" href="$classmltk_1_1classifier_1_1Classifier.html" title=" " alt="" coords="5,80,229,107"/>
+<area shape="rect" id="node4" href="$classmltk_1_1Learner.html" title=" " alt="" coords="44,5,191,32"/>
+</map>

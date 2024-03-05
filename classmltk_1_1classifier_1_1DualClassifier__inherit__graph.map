@@ -1,0 +1,10 @@
+<map id="mltk::classifier::DualClassifier&lt; T &gt;" name="mltk::classifier::DualClassifier&lt; T &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="472,115,727,141"/>
+<area shape="rect" id="node4" href="$classmltk_1_1classifier_1_1OneVsAll.html" title="Wrapper for the implementation of the one vs all multi class classification algorithm." alt="" coords="779,5,1002,32"/>
+<area shape="rect" id="node5" href="$classmltk_1_1classifier_1_1OneVsOne.html" title="Wrapper for the implementation of the one vs one multi class classification algorithm." alt="" coords="775,56,1007,83"/>
+<area shape="rect" id="node6" href="$classmltk_1_1classifier_1_1PerceptronDual.html" title="Wrapper for the implementation of the Perceptron dual algorithm." alt="" coords="793,107,989,149"/>
+<area shape="rect" id="node7" href="$classmltk_1_1classifier_1_1PerceptronFixedMarginDual.html" title="Wrapper for the implementation of the Perceptron dual with fixed margin algorithm." alt="" coords="793,173,989,214"/>
+<area shape="rect" id="node8" href="$classmltk_1_1classifier_1_1SMO.html" title=" " alt="" coords="793,239,988,265"/>
+<area shape="rect" id="node2" href="$classmltk_1_1classifier_1_1Classifier.html" title=" " alt="" coords="200,115,424,141"/>
+<area shape="rect" id="node3" href="$classmltk_1_1Learner.html" title=" " alt="" coords="5,115,152,141"/>
+</map>

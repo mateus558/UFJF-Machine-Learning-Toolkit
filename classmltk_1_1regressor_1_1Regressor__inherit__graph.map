@@ -1,0 +1,9 @@
+<map id="mltk::regressor::Regressor&lt; T &gt;" name="mltk::regressor::Regressor&lt; T &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="200,101,432,127"/>
+<area shape="rect" id="node3" href="$classmltk_1_1regressor_1_1PrimalRegressor.html" title=" " alt="" coords="499,35,735,76"/>
+<area shape="rect" id="node6" href="$classmltk_1_1regressor_1_1DualRegressor.html" title=" " alt="" coords="486,101,749,127"/>
+<area shape="rect" id="node7" href="$classmltk_1_1regressor_1_1PrimalRegressor.html" title=" " alt="" coords="480,151,755,178"/>
+<area shape="rect" id="node2" href="$classmltk_1_1Learner.html" title=" " alt="" coords="5,101,152,127"/>
+<area shape="rect" id="node4" href="$classmltk_1_1regressor_1_1KNNRegressor.html" title="Wrapper for the implementation of the K&#45;Nearest Neighbors regression algorithm." alt="" coords="809,5,1032,47"/>
+<area shape="rect" id="node5" href="$classmltk_1_1regressor_1_1LMSPrimal.html" title="Wrapper for the implementation of the Least Mean Square primal algorithm." alt="" coords="803,71,1039,98"/>
+</map>

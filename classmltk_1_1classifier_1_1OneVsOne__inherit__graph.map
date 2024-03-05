@@ -1,0 +1,7 @@
+<map id="mltk::classifier::OneVsOne&lt; T &gt;" name="mltk::classifier::OneVsOne&lt; T &gt;">
+<area shape="rect" id="node1" title="Wrapper for the implementation of the one vs one multi class classification algorithm." alt="" coords="91,244,323,271"/>
+<area shape="rect" id="node2" href="$classmltk_1_1classifier_1_1PrimalClassifier.html" title=" " alt="" coords="5,155,173,196"/>
+<area shape="rect" id="node3" href="$classmltk_1_1classifier_1_1Classifier.html" title=" " alt="" coords="95,80,319,107"/>
+<area shape="rect" id="node5" href="$classmltk_1_1classifier_1_1DualClassifier.html" title=" " alt="" coords="198,162,453,189"/>
+<area shape="rect" id="node4" href="$classmltk_1_1Learner.html" title=" " alt="" coords="133,5,280,32"/>
+</map>

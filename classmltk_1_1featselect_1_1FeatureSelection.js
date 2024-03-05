@@ -1,0 +1,27 @@
+var classmltk_1_1featselect_1_1FeatureSelection =
+[
+    [ "selectFeatures", "classmltk_1_1featselect_1_1FeatureSelection.html#abb9b6a2d2f59e7d8cf5b12c97f0e33fd", null ],
+    [ "setClassifier", "classmltk_1_1featselect_1_1FeatureSelection.html#a6b216c749fd5b155b38f7bb661f5dfe0", null ],
+    [ "setCrossValidation", "classmltk_1_1featselect_1_1FeatureSelection.html#a104e21ad7ff28835ea3ca709f1a7daa6", null ],
+    [ "setDepth", "classmltk_1_1featselect_1_1FeatureSelection.html#a1180a14198c403d615f3e107a2c603f8", null ],
+    [ "setFinalDimension", "classmltk_1_1featselect_1_1FeatureSelection.html#af8b4a5b29680d59d879aaea3462a759c", null ],
+    [ "setJump", "classmltk_1_1featselect_1_1FeatureSelection.html#a063a689c98c90b2697fffbe1cba8d039", null ],
+    [ "setSamples", "classmltk_1_1featselect_1_1FeatureSelection.html#af8affa15c38584b687c24575bce11f16", null ],
+    [ "setSamples", "classmltk_1_1featselect_1_1FeatureSelection.html#a0ab855cc07a685ffcbd96f520d88126b", null ],
+    [ "setSkip", "classmltk_1_1featselect_1_1FeatureSelection.html#a1c8c4411cfb4a909b41877ebfad9cd69", null ],
+    [ "setVerbose", "classmltk_1_1featselect_1_1FeatureSelection.html#a1da204dde9e689c13f05f59e590887c2", null ],
+    [ "classifier", "classmltk_1_1featselect_1_1FeatureSelection.html#a5cdcbfdf8af4b6dd4daeb05468feb774", null ],
+    [ "cv", "classmltk_1_1featselect_1_1FeatureSelection.html#ab45c0771042ea0378215b8b2a3df664e", null ],
+    [ "depth", "classmltk_1_1featselect_1_1FeatureSelection.html#a44f1cc52055b9305b6d9292a2bc91cf3", null ],
+    [ "final_dim", "classmltk_1_1featselect_1_1FeatureSelection.html#a90fb2a73e0e1bb7a5435ac578e686f9e", null ],
+    [ "jump", "classmltk_1_1featselect_1_1FeatureSelection.html#ad906f8ce5f62b7668edf11f941e84d16", null ],
+    [ "leave_one_out", "classmltk_1_1featselect_1_1FeatureSelection.html#a28886afa978956570f10f618b04491f3", null ],
+    [ "MAX_BREATH", "classmltk_1_1featselect_1_1FeatureSelection.html#a83942ec5cb518953dd25af0ac5059d6d", null ],
+    [ "MAX_DEPTH", "classmltk_1_1featselect_1_1FeatureSelection.html#a9de3699d408b0d7a4baaf9d10f999480", null ],
+    [ "NUM_ERROR_EPS", "classmltk_1_1featselect_1_1FeatureSelection.html#abe2d03251a4f99cd7639ba7454a40495", null ],
+    [ "samples", "classmltk_1_1featselect_1_1FeatureSelection.html#ac55c5d2e4131c45137fffbaa3dd9fcce", null ],
+    [ "skip", "classmltk_1_1featselect_1_1FeatureSelection.html#a322c352aa0d9669fd507d1af06905aad", null ],
+    [ "solution", "classmltk_1_1featselect_1_1FeatureSelection.html#a1b7e481344a32022175004c507b9754e", null ],
+    [ "timer", "classmltk_1_1featselect_1_1FeatureSelection.html#a507600ab4aeaea05674b57e8586ae94d", null ],
+    [ "verbose", "classmltk_1_1featselect_1_1FeatureSelection.html#a45ff17c3bc3e8c4ca0a46f140004d1f3", null ]
+];

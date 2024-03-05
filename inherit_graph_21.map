@@ -1,0 +1,42 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classmltk_1_1metrics_1_1dist_1_1DistanceMetric.html" title=" " alt="" coords="5,1247,208,1288"/>
+<area shape="rect" id="node2" href="$classmltk_1_1metrics_1_1dist_1_1Euclidean.html" title=" " alt="" coords="282,5,449,47"/>
+<area shape="rect" id="node3" href="$classmltk_1_1metrics_1_1dist_1_1AdditiveSymmetric.html" title=" " alt="" coords="269,71,462,112"/>
+<area shape="rect" id="node4" href="$classmltk_1_1metrics_1_1dist_1_1Average.html" title=" " alt="" coords="295,136,436,177"/>
+<area shape="rect" id="node5" href="$classmltk_1_1metrics_1_1dist_1_1AverageL1Linf.html" title=" " alt="" coords="285,201,445,243"/>
+<area shape="rect" id="node6" href="$classmltk_1_1metrics_1_1dist_1_1AvgManhattan.html" title=" " alt="" coords="284,267,447,308"/>
+<area shape="rect" id="node7" href="$classmltk_1_1metrics_1_1dist_1_1Bhattacharyya.html" title=" " alt="" coords="284,332,447,373"/>
+<area shape="rect" id="node8" href="$classmltk_1_1metrics_1_1dist_1_1Canberra.html" title=" " alt="" coords="295,397,436,439"/>
+<area shape="rect" id="node9" href="$classmltk_1_1metrics_1_1dist_1_1Chebyshev.html" title=" " alt="" coords="295,463,436,504"/>
+<area shape="rect" id="node10" href="$classmltk_1_1metrics_1_1dist_1_1Chord.html" title=" " alt="" coords="295,528,436,569"/>
+<area shape="rect" id="node11" href="$classmltk_1_1metrics_1_1dist_1_1Clark.html" title=" " alt="" coords="295,593,436,635"/>
+<area shape="rect" id="node12" href="$classmltk_1_1metrics_1_1dist_1_1Cosine.html" title=" " alt="" coords="295,659,436,700"/>
+<area shape="rect" id="node13" href="$classmltk_1_1metrics_1_1dist_1_1Dice.html" title=" " alt="" coords="295,724,436,765"/>
+<area shape="rect" id="node14" href="$classmltk_1_1metrics_1_1dist_1_1Divergence.html" title=" " alt="" coords="294,789,437,831"/>
+<area shape="rect" id="node15" href="$classmltk_1_1metrics_1_1dist_1_1Euclidean.html" title="Functor for the computation of the euclidean metrics between two points." alt="" coords="295,855,436,896"/>
+<area shape="rect" id="node16" href="$classmltk_1_1metrics_1_1dist_1_1Hassanat.html" title=" " alt="" coords="295,920,436,961"/>
+<area shape="rect" id="node17" href="$classmltk_1_1metrics_1_1dist_1_1Hellinger.html" title=" " alt="" coords="295,985,436,1027"/>
+<area shape="rect" id="node18" href="$classmltk_1_1metrics_1_1dist_1_1Jaccard.html" title=" " alt="" coords="295,1051,436,1092"/>
+<area shape="rect" id="node19" href="$classmltk_1_1metrics_1_1dist_1_1Jeffreys.html" title=" " alt="" coords="295,1116,436,1157"/>
+<area shape="rect" id="node20" href="$classmltk_1_1metrics_1_1dist_1_1JensenDifference.html" title=" " alt="" coords="276,1181,455,1223"/>
+<area shape="rect" id="node21" href="$classmltk_1_1metrics_1_1dist_1_1JensenShannon.html" title=" " alt="" coords="282,1247,449,1288"/>
+<area shape="rect" id="node22" href="$classmltk_1_1metrics_1_1dist_1_1KDivergence.html" title=" " alt="" coords="290,1312,441,1353"/>
+<area shape="rect" id="node23" href="$classmltk_1_1metrics_1_1dist_1_1KullbackLeibler.html" title=" " alt="" coords="282,1377,449,1419"/>
+<area shape="rect" id="node24" href="$classmltk_1_1metrics_1_1dist_1_1KumarJohnson.html" title=" " alt="" coords="285,1443,446,1484"/>
+<area shape="rect" id="node25" href="$classmltk_1_1metrics_1_1dist_1_1Lorentzian.html" title=" " alt="" coords="295,1508,436,1549"/>
+<area shape="rect" id="node26" href="$classmltk_1_1metrics_1_1dist_1_1Manhattan.html" title=" " alt="" coords="295,1573,436,1615"/>
+<area shape="rect" id="node27" href="$classmltk_1_1metrics_1_1dist_1_1Matusita.html" title=" " alt="" coords="295,1639,436,1680"/>
+<area shape="rect" id="node28" href="$classmltk_1_1metrics_1_1dist_1_1MaxSymmetric.html" title=" " alt="" coords="282,1704,449,1745"/>
+<area shape="rect" id="node29" href="$classmltk_1_1metrics_1_1dist_1_1MinSymmetric.html" title=" " alt="" coords="284,1769,447,1811"/>
+<area shape="rect" id="node30" href="$classmltk_1_1metrics_1_1dist_1_1Neyman.html" title=" " alt="" coords="295,1835,436,1876"/>
+<area shape="rect" id="node31" href="$classmltk_1_1metrics_1_1dist_1_1NonIntersection.html" title=" " alt="" coords="280,1900,451,1941"/>
+<area shape="rect" id="node32" href="$classmltk_1_1metrics_1_1dist_1_1Pearson.html" title=" " alt="" coords="295,1965,436,2007"/>
+<area shape="rect" id="node33" href="$classmltk_1_1metrics_1_1dist_1_1ProbabilisticSymmetric.html" title=" " alt="" coords="256,2031,475,2072"/>
+<area shape="rect" id="node34" href="$classmltk_1_1metrics_1_1dist_1_1Sorensen.html" title=" " alt="" coords="295,2096,436,2137"/>
+<area shape="rect" id="node35" href="$classmltk_1_1metrics_1_1dist_1_1Squared.html" title=" " alt="" coords="295,2161,436,2203"/>
+<area shape="rect" id="node36" href="$classmltk_1_1metrics_1_1dist_1_1SquaredChiSquared.html" title=" " alt="" coords="268,2227,463,2268"/>
+<area shape="rect" id="node37" href="$classmltk_1_1metrics_1_1dist_1_1SquaredChord.html" title=" " alt="" coords="286,2292,445,2333"/>
+<area shape="rect" id="node38" href="$classmltk_1_1metrics_1_1dist_1_1SquaredEuclidean.html" title=" " alt="" coords="273,2357,457,2399"/>
+<area shape="rect" id="node39" href="$classmltk_1_1metrics_1_1dist_1_1Taneja.html" title=" " alt="" coords="295,2423,436,2464"/>
+<area shape="rect" id="node40" href="$classmltk_1_1metrics_1_1dist_1_1Topsoe.html" title=" " alt="" coords="295,2488,436,2529"/>
+</map>

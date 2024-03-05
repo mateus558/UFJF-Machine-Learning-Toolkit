@@ -1,0 +1,12 @@
+<map id="mltk::featselect::FeatureSelection&lt; T &gt;" name="mltk::featselect::FeatureSelection&lt; T &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="624,88,807,129"/>
+<area shape="rect" id="node2" title=" " alt="" coords="317,5,481,47"/>
+<area shape="rect" id="node3" href="$structmltk_1_1validation_1_1CrossValidation.html" title="Structure to manage cross validation." alt="" coords="281,71,516,98"/>
+<area shape="rect" id="node4" title=" " alt="" coords="10,5,175,47"/>
+<area shape="rect" id="node5" href="$classmltk_1_1Solution.html" title=" " alt="" coords="342,122,455,149"/>
+<area shape="rect" id="node6" href="$classmltk_1_1Point.html" title=" " alt="" coords="9,71,176,98"/>
+<area shape="rect" id="node7" title=" " alt="" coords="23,122,162,149"/>
+<area shape="rect" id="node8" href="$classmltk_1_1Kernel.html" title=" " alt="" coords="5,173,180,199"/>
+<area shape="rect" id="node9" title=" " alt="" coords="10,223,175,250"/>
+<area shape="rect" id="node10" href="$classmltk_1_1Timer.html" title="Wrapper for the implementation of a simple timer." alt="" coords="349,173,448,199"/>
+</map>

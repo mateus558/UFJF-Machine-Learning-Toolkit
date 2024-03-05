@@ -1,0 +1,12 @@
+<map id="mltk::clusterer::Clusterer&lt; T, Callable &gt;" name="mltk::clusterer::Clusterer&lt; T, Callable &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="959,85,1143,126"/>
+<area shape="rect" id="node2" href="$classmltk_1_1Learner.html" title=" " alt="" coords="675,5,821,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="676,57,820,98"/>
+<area shape="rect" id="node4" href="$classmltk_1_1Point.html" title=" " alt="" coords="413,64,543,91"/>
+<area shape="rect" id="node5" href="$classmltk_1_1metrics_1_1dist_1_1Euclidean.html" title=" " alt="" coords="677,122,819,163"/>
+<area shape="rect" id="node6" href="$classmltk_1_1metrics_1_1dist_1_1DistanceMetric.html" title="Base functor class for the implementation of new metrics metrics." alt="" coords="395,122,561,163"/>
+<area shape="rect" id="node7" title=" " alt="" coords="193,129,280,156"/>
+<area shape="rect" id="node8" title=" " alt="" coords="5,122,144,163"/>
+<area shape="rect" id="node9" title=" " alt="" coords="676,187,820,229"/>
+<area shape="rect" id="node10" href="$classmltk_1_1Point.html" title=" " alt="" coords="397,195,559,221"/>
+</map>

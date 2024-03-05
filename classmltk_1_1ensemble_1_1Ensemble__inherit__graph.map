@@ -1,0 +1,9 @@
+<map id="mltk::ensemble::Ensemble&lt; T &gt;" name="mltk::ensemble::Ensemble&lt; T &gt;">
+<area shape="rect" id="node1" title="Namespace for ensemble methods." alt="" coords="200,137,435,163"/>
+<area shape="rect" id="node3" href="$classmltk_1_1ensemble_1_1AdaBoostClassifier.html" title=" " alt="" coords="527,5,721,47"/>
+<area shape="rect" id="node4" href="$classmltk_1_1ensemble_1_1AutoWeightedVoting.html" title=" " alt="" coords="513,71,735,112"/>
+<area shape="rect" id="node5" href="$classmltk_1_1ensemble_1_1BaggingClassifier.html" title=" " alt="" coords="483,137,765,163"/>
+<area shape="rect" id="node6" href="$classmltk_1_1ensemble_1_1PerceptronCommittee.html" title=" " alt="" coords="523,188,725,229"/>
+<area shape="rect" id="node7" href="$classmltk_1_1ensemble_1_1VotingClassifier.html" title=" " alt="" coords="489,254,759,281"/>
+<area shape="rect" id="node2" href="$classmltk_1_1Learner.html" title=" " alt="" coords="5,137,152,163"/>
+</map>

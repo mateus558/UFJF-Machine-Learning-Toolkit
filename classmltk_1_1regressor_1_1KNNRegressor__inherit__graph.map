@@ -1,0 +1,6 @@
+<map id="mltk::regressor::KNNRegressor&lt; T, Callable &gt;" name="mltk::regressor::KNNRegressor&lt; T, Callable &gt;">
+<area shape="rect" id="node1" title="Wrapper for the implementation of the K&#45;Nearest Neighbors regression algorithm." alt="" coords="12,244,235,285"/>
+<area shape="rect" id="node2" href="$classmltk_1_1regressor_1_1PrimalRegressor.html" title=" " alt="" coords="5,155,241,196"/>
+<area shape="rect" id="node3" href="$classmltk_1_1regressor_1_1Regressor.html" title=" " alt="" coords="7,80,239,107"/>
+<area shape="rect" id="node4" href="$classmltk_1_1Learner.html" title=" " alt="" coords="50,5,197,32"/>
+</map>
