@@ -37,7 +37,7 @@ void test1() {
     mltk::Data data = mltk::datasets::make_blobs(7, 2, 3, 1, -10, 10, true, 42).dataset;
     std::cout << data << std::endl;
 
-    auto parted = mltk::validation::partTrainTest(data, 3, true, true);
+    auto parted = mltk::validation::partTrainTest(data, 3, true, true, 42);
 
     // std::cout << parted.train << std::endl;
 
@@ -47,7 +47,7 @@ void test1() {
 
     auto testIndexes = mltk::Point(parted.test.getIndex());
     auto trainIndexes = mltk::Point(parted.train.getIndex());
-
+    
     //std::cout << trainIndexes << std::endl;
     //std::cout << testIndexes << std::endl;
     //mltk::classifier::KNNClassifier<double> knn(data, 3);
@@ -65,6 +65,8 @@ void test1() {
 
     std::cout << "-------------------------------------------"  << std::endl;
     std::cout << parted.train << std::endl;
+    std::cout << "-------------------------------------------"  << std::endl;
+    std::cout << data << std::endl;
     //std::cout << mltk::Point(allIndexes) << std::endl;
 }
 
@@ -79,8 +81,59 @@ void test2() {
 
 }
 
+template <typename T>
+std::vector<mltk::Data<T>> stratified_partition(mltk::Data<T> objects, int n) {
+    std::multimap<std::string, mltk::PointPointer<T>> classified_objects;
+    std::map<std::string, int> label_map; 
+
+    objects.shuffle();
+
+    for (const mltk::PointPointer<T> obj : objects) {
+        classified_objects.insert({std::to_string(obj->Y()), obj});
+    }
+
+    int i = 0;
+    for(const auto& label: objects.classes()) {
+        label_map.insert({std::to_string(label), i});
+        i++;
+    }
+
+    std::vector<mltk::Data<T>> partitions(n);
+
+    // To keep track which partition should be filled next 
+    std::vector<int> fillIndex(n, 0);
+
+    // Smarter distribution
+    for (const auto pair : classified_objects) {
+        // Calculate the index based on respective label's count
+        int i = fillIndex[label_map[pair.first]] % n;
+        fillIndex[label_map[pair.first]]++;
+        partitions[i].insertPoint(pair.second, true);
+    }
+
+    return partitions;
+}
+
+void test3(){
+    mltk::Data data = mltk::datasets::make_blobs(7, 2, 3, 1, -10, 10, true, 42).dataset;
+    std::cout << data << std::endl;
+
+    auto partitions = stratified_partition(data, 10);
+
+    for (const auto& partition : partitions) {
+        std::cout << partition << std::endl;
+        std::cout << "-------------------------------------------"  << std::endl;
+    }
+
+    std::cout << data << std::endl;
+}
+
+
 int main(){
-    test2();
+    mltk::Data wine("iris.data");
+    mltk::classifier::BalancedPerceptron<double> bp;
+    mltk::ensemble::BaggingClassifier<double> bag(wine, bp, 50);
+    std::cout << mltk::validation::kkfold(wine, bag, 10, 10).accuracy << std::endl;
     //test1();
     // mltk::Data data = mltk::datasets::make_blobs(7, 2, 3, 1, -10, 10, true, 42).dataset;
     // std::cout << data << std::endl;
