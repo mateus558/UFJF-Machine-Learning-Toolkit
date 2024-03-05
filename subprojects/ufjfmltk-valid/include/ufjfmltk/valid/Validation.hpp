@@ -481,6 +481,9 @@ namespace mltk::validation {
 
             train.resetIndex();
             test.resetIndex();
+            
+            train.setName(data.name()+"_train_fold_"+std::to_string(i));
+            test.setName(data.name()+"_test_fold_"+std::to_string(i));
 
             kfold_split.emplace_back(train, test);
         }
