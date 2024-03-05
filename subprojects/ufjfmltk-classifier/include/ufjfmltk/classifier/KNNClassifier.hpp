@@ -47,6 +47,7 @@ namespace mltk{
                 Callable& metric(){ return dist_function; }
 
                 void setPrecomputedDistances(metrics::dist::BaseMatrix _distances){
+                void setPrecomputedDistances(metrics::dist::BaseMatrix &_distances){
                     this->distances = _distances;
                     this->precomputed = true;
                 }
@@ -63,20 +64,15 @@ namespace mltk{
             double KNNClassifier<T, Callable>::evaluate(const Point<T> &p, bool raw_value) {
                 assert(this->samples->dim() == p.size());
                 auto points = this->samples->points();
-                std::vector<double> distances(this->samples->size());
+                mltk::Point<double> distances(this->samples->size());
                 std::vector<int> classes = this->samples->classes();
                 std::vector<size_t> idx(distances.size());
                 std::vector<PointPointer<T>> neigh;
                 auto p0 = std::make_shared<Point<T> >(p);
-
-                if(precomputed && this->distances.size() == 0){
-                    precomputeDistances(*this->samples);
-                }
-
+               
                 if(algorithm == "brute"){
                     // fill the index vector
                     std::iota(idx.begin(), idx.end(), 0);
-
                     if(!precomputed) {   
                         // compute the metrics from the sample to be evaluated to the samples vector
                         std::transform(points.begin(), points.end(), distances.begin(),
@@ -84,15 +80,16 @@ namespace mltk{
                                         return this->dist_function(*p0, *q);
                                     });
 
+
                         // sort the index vector by the metrics from the sample to be evaluated
                         std::nth_element(idx.begin(), idx.begin() + this->k, idx.end(), [&distances](size_t i1, size_t i2) {
                             return distances[i1] < distances[i2];
                         });
                     }else if(!this->distances.isDiagonalMatrix()){
-                        std::nth_element(idx.begin(), idx.begin() + this->k, idx.end(), [&p, this, &points](size_t i1, size_t i2) {
+                        size_t idp = p.Id()-1;
+                        std::nth_element(idx.begin(), idx.begin() + this->k, idx.end(), [&idp, &distances, &points, this](size_t i1, size_t i2) {
                             size_t id1 = points[i1]->Id()-1;
                             size_t id2 = points[i2]->Id()-1;
-                            size_t idp = p.Id()-1;
 
                             return this->distances[idp][id1] < this->distances[idp][id2];
                         }); 
@@ -101,6 +98,8 @@ namespace mltk{
                             size_t id1 = points[i1]->Id()-1;
                             size_t id2 = points[i2]->Id()-1;
                             size_t idp = p.Id()-1;
+                            
+                            if(idp == id1 || idp == id2) return false;
 
                             size_t idp1 = (idp > id1) ? idp : id1;
                             size_t id1p = (idp > id1) ? id1 : idp;

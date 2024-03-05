@@ -79,6 +79,8 @@ namespace mltk::validation {
             Data<T> train;
             /// Test data
             Data<T> test;
+            size_t fold = 0;
+            size_t execution = 0;
 
             TrainTestPair() = default;
             TrainTestPair(Data<T> &train, Data<T> &test){
@@ -173,7 +175,7 @@ namespace mltk::validation {
          * \return struct containing the validation metrics.
          */
         template <typename T>
-        ValidationReport kfold (Data<T> &sample, classifier::Classifier<T> &classifier, size_t fold,
+        ValidationReport kfold (Data<T> sample, classifier::Classifier<T> &classifier, size_t fold,
                                 bool stratified=true, size_t seed=0, int verbose=0);
 
         /**
@@ -188,7 +190,7 @@ namespace mltk::validation {
          * @return struct containing the validation metrics.
          */
         template <typename T>
-        ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, size_t qtde,
+        ValidationReport kkfold(Data<T> samples, classifier::Classifier<T> &classifier, size_t qtde,
                                 size_t fold, bool stratified = true, size_t seed = 0, int verbose = 0);
 
     /*********************************************
@@ -196,10 +198,10 @@ namespace mltk::validation {
      *********************************************/
 
     template <typename T>
-    ValidationReport kkfold(Data<T> &samples, classifier::Classifier<T> &classifier, const size_t qtde,
+    ValidationReport kkfold(Data<T> samples, classifier::Classifier<T> &classifier, const size_t qtde,
                             const size_t fold, bool stratified, const size_t seed, const int verbose){
         size_t _seed = (seed == 0) ? std::random_device{}() : seed;
-        auto valid_pair = partTrainTest(samples, fold, _seed);
+        auto valid_pair = partTrainTest(samples, fold, true, true,  _seed);
         int i;
         size_t fp = 0, fn = 0, tp = 0, tn = 0, erro=0;
         double error = 0, errocross = 0, func = 0.0, margin = 0, bias;
@@ -307,14 +309,14 @@ namespace mltk::validation {
     }
 
     template <typename T>
-    ValidationReport kfold (Data<T> &sample, classifier::Classifier<T> &classifier, const size_t fold,
+    ValidationReport kfold (Data<T> sample, classifier::Classifier<T> &classifier, const size_t fold,
                             bool stratified, const size_t seed, const int verbose){
         double error = 0.0;
         std::vector<double> error_arr(fold);
         auto classes = sample.classes();
         size_t _seed = (seed == 0) ? std::random_device{}() : seed;
         sample.shuffle(_seed);
-        std::vector<TrainTestPair<T>> folds = kfoldsplit(sample, fold, stratified, seed);
+        std::vector<TrainTestPair<T>> folds = kfoldsplit(sample, fold, stratified, true, seed);
         ValidationReport solution;
 
         //Start cross-validation
@@ -446,6 +448,11 @@ namespace mltk::validation {
         for(int i = 0; i < qtde; i++){
             size_t other_seed = (seed == 0) ? std::random_device{}() : _seed+i;
             auto kfold_split = kfoldsplit(samples, folds, stratified, keepIndex, other_seed);
+            
+            for(size_t j = 0; j < kfold_split.size(); j++){
+                kfold_split[j].execution = i+1;
+            }
+            
             kkfold_split.insert(kkfold_split.end(), kfold_split.begin(), kfold_split.end());
         }
         return kkfold_split;
@@ -479,13 +486,17 @@ namespace mltk::validation {
             train.shuffle(_seed+i);
             test.shuffle(_seed+i);
 
+            train.setName(data.name() + "_train_fold_"+std::to_string(i));
+            test.setName(data.name() + "_test_fold_"+std::to_string(i));
+           
             train.resetIndex();
             test.resetIndex();
             
-            train.setName(data.name()+"_train_fold_"+std::to_string(i));
-            test.setName(data.name()+"_test_fold_"+std::to_string(i));
+            train.setName(data.name()+"_train_fold_"+std::to_string(i+1));
+            test.setName(data.name()+"_test_fold_"+std::to_string(i+1));
 
             kfold_split.emplace_back(train, test);
+            kfold_split.back().fold = i+1;
         }
         return kfold_split;
     }
