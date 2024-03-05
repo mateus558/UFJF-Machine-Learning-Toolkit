@@ -19,44 +19,43 @@ namespace mltk{
              */
             template<typename T = double, typename Callable = metrics::dist::Euclidean<T> >
             class KNNClassifier : public PrimalClassifier<T> {
-            private:
-                /// Number k of neighbors to be considered
-                size_t k = 3;
-                /// Function to compute the metrics between two points
-                Callable dist_function;
-                /// Enables the use of precomputed distances
-                bool precomputed = false;
-                std::string algorithm = "brute";
-                metrics::dist::BaseMatrix distances;
+                private:
+                    /// Number k of neighbors to be considered
+                    size_t k = 3;
+                    /// Function to compute the metrics between two points
+                    Callable dist_function;
+                    /// Enables the use of precomputed distances
+                    bool precomputed = false;
+                    std::string algorithm = "brute";
+                    metrics::dist::BaseMatrix distances;
 
-            public:
+                public:
 
-                KNNClassifier() = default;
-                explicit KNNClassifier(size_t _k, std::string _algorithm = "brute")
-                        : k(_k), algorithm(_algorithm) {}
+                    KNNClassifier() = default;
+                    explicit KNNClassifier(size_t _k, std::string _algorithm = "brute")
+                            : k(_k), algorithm(_algorithm) {}
 
-                KNNClassifier(Data<T> &_samples, size_t _k, std::string _algorithm = "brute")
-                        : k(_k), algorithm(_algorithm) {
-                    this->samples = mltk::make_data<T>(_samples);
-                }
+                    KNNClassifier(Data<T> &_samples, size_t _k, std::string _algorithm = "brute")
+                            : k(_k), algorithm(_algorithm) {
+                        this->samples = mltk::make_data<T>(_samples);
+                    }
 
-                bool train() override;
+                    bool train() override;
 
-                double evaluate(const Point<T> &p, bool raw_value = false) override;
+                    double evaluate(const Point<T> &p, bool raw_value = false) override;
 
-                Callable& metric(){ return dist_function; }
+                    Callable& metric(){ return dist_function; }
 
-                void setPrecomputedDistances(metrics::dist::BaseMatrix _distances){
-                void setPrecomputedDistances(metrics::dist::BaseMatrix &_distances){
-                    this->distances = _distances;
-                    this->precomputed = true;
-                }
+                    void setPrecomputedDistances(metrics::dist::BaseMatrix _distances){
+                        this->distances = _distances;
+                        this->precomputed = true;
+                    }
 
-                metrics::dist::DistanceMatrix<Callable> precomputeDistances(mltk::Data<T> &data, bool diagonal = false, const size_t threads = std::thread::hardware_concurrency()){
-                    this->precomputed = true;
+                    metrics::dist::DistanceMatrix<Callable> precomputeDistances(mltk::Data<T> &data, bool diagonal = false, const size_t threads = std::thread::hardware_concurrency()){
+                        this->precomputed = true;
 
-                    return metrics::dist::DistanceMatrix<Callable>(data, diagonal, threads);
-                }
+                        return metrics::dist::DistanceMatrix<Callable>(data, diagonal, threads);
+                    }
             };
             
 
@@ -154,6 +153,5 @@ namespace mltk{
                 return true;
             }
         }
-}
-
+    }
 #endif //UFJF_MLTK_KNN_HPP
